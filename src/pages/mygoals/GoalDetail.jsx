@@ -1,0 +1,78 @@
+import React, { useState } from "react";
+import Backbutton from "../../components/Global/Backbutton";
+import SubGoals from "../../components/mygoals/SubGoals";
+import { Dottedvertical } from "../../assets/export";
+import SupportPeople from "../../components/mygoals/SupportPeople";
+import GoalCreatedModal from "../../components/mygoals/GoalCreatedModal";
+
+const GoalDetail = () => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [goalDetailModal, setGoalDetailModal] = useState(false);
+  return (
+    <div>
+      <Backbutton />
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl font-semibold text-gray-800">Goal Details</h1>
+        <div className="flex space-x-4 items-center">
+          <div className="text-center">
+            <span className="text-[#000000] text-[18px] block text-left font-[500] ">
+              Deadline
+            </span>
+            <span className="text-[#00000070] font-[500] text-[14px]">
+              July 01, 2024 | Sept 01, 2024
+            </span>
+          </div>
+          <button className="bg-[#FFFCF2] bg-opacity-35 text-[#F0C000] px-4 py-2 rounded-md border border-[#F0C000]">
+            Pending
+          </button>
+
+          <button
+            onClick={() => setDropdownOpen((prev) => !prev)}
+            className="relative flex     flex-col justify-start items-start"
+          >
+            <img src={Dottedvertical} className="w-[20px] h-[20px] " alt="" />
+
+            {dropdownOpen && (
+              <div className=" absolute top-12 bg-white z-[5000] border rounded-lg shadow-lg mt-2 p-2  right-0 w-64 text-left">
+                <ul>
+                  <li className="hover:bg-gray-100 px-4 py-2 cursor-pointer">
+                    Add Support Network
+                  </li>
+                  <li className="hover:bg-gray-100 px-4 py-2 cursor-pointer">
+                    Delete
+                  </li>
+                </ul>
+              </div>
+            )}
+          </button>
+        </div>
+      </div>
+      <div className="flex mt-4 justify-between">
+        <p className=" text-[#000000] font-[400] text-[16px] leading-[21.6px] ">
+          Lorem ipsum dolor sit amet consectetur. malesuada dolor diam Vitae
+          facilisis nulla id dignissim erat arcu pretium. Proin sed curabitur id
+          aenean. Nulla nunc tristique sit tortor euismod quis est ut. Erat nisi
+          scelerisque a porta ullamcorper lectus phasellus tortor. Eu non cursus
+          adipiscing.
+        </p>
+        <div>
+          <input
+            type="checkbox"
+            className="h-4 w-4 text-blue-600 border-gray-300 rounded mr-2"
+            onClick={() => setGoalDetailModal(true)}
+          />
+        </div>
+      </div>
+
+      <GoalCreatedModal
+        showModal={goalDetailModal}
+        handleClick={() => setGoalDetailModal(false)}
+      />
+
+      <SubGoals />
+      <SupportPeople />
+    </div>
+  );
+};
+
+export default GoalDetail;

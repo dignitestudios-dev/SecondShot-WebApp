@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AuthInput from "../onboarding/AuthInput";
+import { Calender } from "../../assets/export";
+import AuthSubmitBtn from "../onboarding/AuthBtn";
+import GrayBtn from "../onboarding/grayBtn";
 // import { calendar } from "../../assets/export";
 
 const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
@@ -38,95 +42,90 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
             <div>
               <div className="flex justify-center mt-3">
                 <div>
-                  <p className="text-[24px] text-center font-semibold">
+                  <h2 className="text-[24px] text-center font-semibold">
                     Create Goals
+                  </h2>
+                  <p className="text-[16px] font-[400] text-[#000000] leading-[21.6px] mt-2 ">
+                    You can create up to three Smart goals at a time
                   </p>
                 </div>
               </div>
               <div className="pt-4">
-                <label className="text-xs">Goal</label>
-                <input
-                  placeholder="Write your main goal Here"
-                  className="w-full border rounded-xl px-3 py-3 text-sm bg-transparent
-                  border-gray-700 focus:ring-gray-700 focus:border-gray-700 outline-gray-700"
+                <AuthInput
+                  text={"Goal"}
+                  placeholder={"Write your main goal Here"}
                 />
               </div>
               <div className="mt-4">
-                <p className="text-xs font-bold ">Time-Bound</p>
+                <p className="text-[14px] font-[500] m-1">Time-Bound</p>
                 <div className="text-xs p-3 rounded-lg bg-[#F5F5F5] text=[#5C5C5C] flex justify-between items-center">
                   <div>
-                    <p className="font-semibold text-[16px] py-1">
+                    <p className="font-[500] text-[16px] py-1">
                       Set a deadline for achieving your main goal!
                     </p>
-                    <p className="text-[16px] font-light text-gray-600 pb-1">
+                    <p className="text-[16px] font-[400] text-[#767676]  pb-1">
                       Jan - Mar (3 months by default)
                     </p>
                   </div>
                   <div>
-                    <span className="p-2">
-                      {/* <img className="w-[24px]" src={calendar} /> */}
+                    <span className="p-2 cursor-pointer">
+                      <img className="w-[24px]" src={Calender} />
                     </span>
                   </div>
                 </div>
               </div>
-              {openSub && (
-                <>
-                  <div className="mt-4">
-                    <div className="text-xs text=[#5C5C5C] flex justify-between items-center">
-                      <div>
-                        <p className="text-sm font-bold ">
-                          Sub Goals{" "}
-                          <span className="font-light text-gray-700">
-                            (Optional)
-                          </span>
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-[#012C57] underline text-xs">
-                          Set Deadline
-                        </p>
-                      </div>
+
+              <>
+                <div className="mt-4">
+                  <div className="text-xs text=[#5C5C5C] flex justify-between items-center">
+                    <div>
+                      <p className="text-[16px] font-[700] leading-[19.36px] ">
+                        Sub Goals{" "}
+                        <span className="font-[500] text-[12px] text-[#ACACAC]">
+                          (Optional)
+                        </span>
+                      </p>
                     </div>
-                    <p className="text-sm font-light text-gray-600 pb-1">
-                      Break down your main goal into manageable steps. Add your
-                      sub-goals to turn your dreams into achievable milestones.
-                    </p>
-                  </div>
-                  <div className="pt-2">
-                    <div className="w-full flex justify-between items-center">
-                      <label className="text-xs">Sub-goal 1</label>
-                      <button className="flex gap-1 justify-start items-center text-xs text-blue-800 font-medium">
-                        + <span>Add More</span>
-                      </button>
+                    <div>
+                      <p className="text-[#012C57] cursor-pointer underline font-[500] text-[11px] leading-[13.31px] ">
+                        Set Deadline
+                      </p>
                     </div>
-                    <input
-                      placeholder="Write your main goal Here"
-                      className="w-full border rounded-xl px-3 py-3 text-sm bg-transparent
-                  border-gray-700 focus:ring-gray-700 focus:border-gray-700 outline-gray-700"
-                    />
                   </div>
-                </>
-              )}
+                  <p className="text-[13px] leading-[15.73px] font-[400] mt-2 text-[#5C5C5C] pb-1">
+                    Break down your main goal into manageable steps. Add your
+                    sub-goals to turn your dreams into achievable milestones.
+                  </p>
+                </div>
+                <div className="pt-2">
+                  <div className="w-full flex justify-between items-center">
+                    <label className="text-[14px] text-[#181818] font-[500] ">
+                      Sub-goal 1
+                    </label>
+                    <button className="flex gap-1 justify-start items-center text-xs text-blue-800 font-medium">
+                      + <span>Add More</span>
+                    </button>
+                  </div>
+                  <AuthInput placeholder={"Write your main goal Here"} />
+                </div>
+              </>
 
               <div className="mt-2">
+                <AuthSubmitBtn text={"Next"}  handleSubmit={()=>navigate('/review-goals')}/>
+
                 <button
                   onClick={handleNavigation}
-                  className="w-full bg-[#E5EAED] text-[#012C57] py-2 my-2 rounded-lg hover:bg-[#d0d5d8]"
+                  className="w-full  bg-[#E5EAED] font-[500] capitalize text-[#012C57] py-2 my-2 rounded-[8px] h-[49px] hover:bg-[#d0d5d8]"
                 >
-                  Make It S.M.A.R.T (Optional)
+                  Make it Smart
                 </button>
-                <button
-                  onClick={() => setOpenSub((prev) => !prev)}
-                  className="w-full bg-[#012C57] text-white py-2 my-2 rounded-lg hover:bg-blue-900"
-                >
-                  Add Sub Goals (Optional)
-                </button>
-                <button
+
+                {/* <button
                   onClick={() => navigate("/reviewgoal")}
                   className="w-full bg-[#012C57] text-white py-2 my-2 rounded-lg hover:bg-blue-900"
                 >
                   Submit Your Goal
-                </button>
+                </button> */}
               </div>
             </div>
           }

@@ -9,7 +9,6 @@ const AddGoals = () => {
   const navigate = useNavigate();
   const handleNavigate = () => {};
 
-  // For Modal
   const [showModal, setShowModal] = useState(false);
   const handleModal = () => {
     setShowModal(!showModal);
@@ -64,7 +63,10 @@ const AddGoals = () => {
           </div>
           <div className="flex  mt-4">
             <div className="w-[258px] text-nowrap">
-              <AuthSubmitBtn text={"Create Goals"} handleSubmit={()=>handleModal()} />
+              <AuthSubmitBtn
+                text={"Create Goals"}
+                handleSubmit={() => handleModal()}
+              />
             </div>
             <div className="">
               <img

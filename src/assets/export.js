@@ -57,6 +57,9 @@ import Leftimg from "../assets/leftimg.png";
 import Cvimg from "../assets/cvimg.png";
 import resumeSuccess from "../assets/resumesuccess.png";
 import Creategoalimg from "../assets/creategoal.png";
+import Calender from "../assets/calender.png";
+import SubmitGoalimg from "../assets/submitGoalimg.png";
+import SuccessfullyGoaimg from "../assets/SuccessfullyGoaimg.png";
 
 export {
   logo,
@@ -117,5 +120,8 @@ export {
   Leftimg,
   Cvimg,
   resumeSuccess,
-  Creategoalimg
+  Creategoalimg,
+  Calender,
+  SubmitGoalimg,
+  SuccessfullyGoaimg
 };

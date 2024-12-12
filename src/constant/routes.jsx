@@ -10,7 +10,6 @@ import Applayout from "../layout/Applayout";
 import CareerRecommendations from "../pages/careerrecommendations/CareerRecommendations";
 import CareerDetails from "../pages/careerrecommendations/CareerDetails";
 import MyGoals from "../pages/mygoals/MyGoals";
-import GoalDetails from "../pages/mygoals/GoalDetails";
 import MyResume from "../pages/myresume/MyResume";
 import ViewResume from "../pages/myresume/ViewResume";
 import SuccessStory from "../pages/successstory/SuccessStory";
@@ -23,6 +22,9 @@ import MyTransferableSkills from "../pages/transferableskills/MyTransferableSkil
 import StartAssesment from "../pages/careerrecommendations/StartAssesment";
 import CreateResume from "../pages/myresume/CreateResume";
 import AddGoals from "../pages/mygoals/AddGoals";
+import ReviewYourGoal from "../pages/mygoals/ReviewGoal";
+import SmartGoalDetails from "../pages/mygoals/SmartGoalDetails";
+import GoalDetail from "../pages/mygoals/GoalDetail";
 
 export const routes = [
   {
@@ -65,7 +67,7 @@ export const routes = [
   {
     title: "GoalsDetails",
     url: "/goaldetails",
-    page: <Applayout page={<GoalDetails />} />,
+    page: <Applayout page={<SmartGoalDetails />} />,
   },
   {
     title: "MyResume",
@@ -121,6 +123,16 @@ export const routes = [
     title: "AddGoals",
     url: "/create-goals",
     page: <Applayout page={<AddGoals  />} />,
+  },
+  {
+    title: "ReviewGoal",
+    url: "/review-goals",
+    page: <Applayout page={<ReviewYourGoal  />} />,
+  },
+  {
+    title: "GoalDetail",
+    url: "/goal-detail",
+    page: <Applayout page={<GoalDetail  />} />,
   },
   
 ];

@@ -5,8 +5,9 @@ import Backbutton from "../../components/Global/Backbutton";
 import SubGoals from "../../components/mygoals/SubGoals";
 import { Dottedvertical } from "../../assets/export";
 import SupportPeople from "../../components/mygoals/SupportPeople";
+import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 
-const GoalDetails = () => {
+const SmartGoalDetails = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   return (
     <div>
@@ -27,9 +28,9 @@ const GoalDetails = () => {
           <button className="bg-[#EAF8FF] bg-opacity-35 text-[#36B8F3] px-4 py-2 rounded-md border border-[#36B8F3]">
             In Progress
           </button>
-          <button className="bg-[#012C57] text-white px-4 py-2 rounded-md">
-            Mark As Completed
-          </button>
+          {/* <div className="w-[198px]">
+            <AuthSubmitBtn text={" Mark As Completed"} />
+          </div> */}
 
           <button
             onClick={() => setDropdownOpen((prev) => !prev)}
@@ -59,4 +60,4 @@ const GoalDetails = () => {
   );
 };
 
-export default GoalDetails;
+export default SmartGoalDetails;
