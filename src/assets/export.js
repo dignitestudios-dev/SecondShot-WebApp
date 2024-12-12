@@ -8,7 +8,7 @@ import Carriericon6 from "../assets/carriericon6.png";
 import GoogleIcon from "../assets/googleicon.png";
 import FacebookIcon from "../assets/facebookicon.png";
 import AppleIcon from "../assets/appleicon.png";
-import ORimg from "../assets/Orimg.png";
+import ORimg from "../assets/orimg.png";
 import BgAuth from "../assets/bgscreen.png";
 import OtpScreen from "../assets/OtpScreen.png";
 import TickIcon from "../assets/tickIcon.png";
@@ -123,5 +123,5 @@ export {
   Creategoalimg,
   Calender,
   SubmitGoalimg,
-  SuccessfullyGoaimg
+  SuccessfullyGoaimg,
 };
