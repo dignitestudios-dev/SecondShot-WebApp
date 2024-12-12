@@ -1,0 +1,71 @@
+import { useLocation, useNavigate } from "react-router-dom";
+import Backbutton from "../../components/Global/Backbutton";
+import SearchInput from "../../components/Global/SearchInput";
+import MygoalsCard from "../../components/mygoals/MygoalsCard";
+import { useEffect, useState } from "react";
+import WelcomeGoalModal from "../../components/mygoals/WelcomeGoalModal";
+
+function MyGoals() {
+  const navigate = useNavigate();
+  const [selectedButton, setSelectedButton] = useState("All");
+  const buttons = ["All", "Pending", "in Progress", "Completed"];
+  const [isOpen, setIsOpen] = useState(true);
+
+  const location = useLocation();
+  useEffect(() => {
+    // Check if the page is navigated from the "Launch" button
+    if (location.state?.fromLaunch) {
+      setIsOpen(true); // Open the modal if coming from "Launch"
+    }
+  }, [location]);
+
+  return (
+    <div className="">
+      <WelcomeGoalModal isOpen={isOpen} handleClick={() => setIsOpen(false)} />
+      <Backbutton />
+      <h1 className="text-[32px] mt-2 font-[500] leading-[43.2px] text-[#000000] mb-6">
+        My Goals
+      </h1>
+      <div className="flex space-x-4 mb-6 bg-white p-1 rounded-md">
+        {buttons.map((button) => (
+          <button
+            key={button}
+            className={`${
+              selectedButton === button
+                ? "bg-gradient-to-r from-[#061523] to-[#012C57] text-white"
+                : "text-[#00000080] text-[16px] font-[400] "
+            }  h-[57px] p-5 text-[14px] rounded-sm leading-[18.9px] `}
+            onClick={() => setSelectedButton(button)}
+          >
+            {button}
+          </button>
+        ))}
+      </div>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-lg font-semibold text-gray-800">
+          Added Goals <span className="text-green-500">(03)</span>
+        </h2>
+        <div className="flex items-center">
+          <SearchInput placeholder={"Search"} />
+          <span className="bg-slate-200 h-8 w-[1.5px] mr-4"></span>
+          <div className="flex flex-col items-end">
+            <button
+              onClick={() => navigate("/create-goal-info")}
+              className="text-[#012C57] text-[18px] font-[600]"
+            >
+              + Add Goals
+            </button>
+            <span className="text-[14px] text-[#999999] font-[400] ">
+              Need some inspiration?
+            </span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <MygoalsCard />
+      </div>
+    </div>
+  );
+}
+
+export default MyGoals;

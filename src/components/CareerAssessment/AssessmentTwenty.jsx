@@ -1,0 +1,72 @@
+import React, { useState } from "react";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import { IoIosArrowDropleftCircle } from "react-icons/io";
+import RecommendatioBtn from "../careerrecommendation/RecommendatioBtn";
+
+const AssessmentTwenty = ({ prevStep, nextStep, formData, setFormData }) => {
+  const validationSchema = Yup.object({
+    stepByStep: Yup.string().required("Please select an option to proceed."),
+  });
+
+  const handleStepByStep = (value, setFieldValue, setFieldTouched) => {
+    setFieldTouched("stepByStep", true);
+    setFieldValue("stepByStep", value);
+    setFormData({ ...formData, stepByStep: value });
+  };
+
+  return (
+    <div>
+      <Formik
+        initialValues={formData}
+        validationSchema={validationSchema}
+        onSubmit={nextStep}
+      >
+        {({ errors, touched, setFieldValue, setFieldTouched }) => (
+          <Form>
+            <div className="mb-4">
+              <label className="block text-sm font-medium mb-2" htmlFor="skill">
+                Do you prefer following step-by-step instructions or making your
+                own steps?
+              </label>
+              <RecommendatioBtn
+                handleBtnSelect={handleStepByStep}
+                touched={touched}
+                errors={errors}
+                setFieldValue={setFieldValue}
+                setFieldTouched={setFieldTouched}
+                formData={formData.stepByStep}
+                optionOne={"Follow step by step"}
+                optionTwo={" Make my own steps"}
+              />
+              <ErrorMessage
+                name="physicalChallenge"
+                component="div"
+                className="text-red-500 text-xs italic "
+              />
+            </div>
+            <div className="flex justify-center pt-4">
+              <button
+                type="submit"
+                className="w-[60%] bg-gradient-to-r from-[#061523] to-[#012C57] text-white text-xs font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline"
+              >
+                Next
+              </button>
+            </div>
+            <div
+              onClick={prevStep}
+              className="mt-2 w-full flex justify-center items-center cursor-pointer"
+            >
+              <IoIosArrowDropleftCircle />
+              <p className="text-[10px] font-semibold text-blue-950 pl-1">
+                Back
+              </p>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
+};
+
+export default AssessmentTwenty;

@@ -1,0 +1,120 @@
+import OtpEmail from "../pages/onboarding/OtpEmail";
+import OtpPhone from "../pages/onboarding/OtpPhone";
+import VerifedScreen from "../pages/onboarding/VerifedScreen";
+import SubscriptionPlannew from "../pages/packages/SubscriptionPlannew";
+import ProfileDetails from "../pages/profileDetail/ProfileDetails";
+import Subscription from "../pages/packages/SubscriptionPlans";
+import SubscriptionNew from "../pages/packages/SubscriptionPlans";
+import Home from "../pages/home/Home";
+import Applayout from "../layout/Applayout";
+import CareerRecommendations from "../pages/careerrecommendations/CareerRecommendations";
+import CareerDetails from "../pages/careerrecommendations/CareerDetails";
+import MyGoals from "../pages/mygoals/MyGoals";
+import GoalDetails from "../pages/mygoals/GoalDetails";
+import MyResume from "../pages/myresume/MyResume";
+import ViewResume from "../pages/myresume/ViewResume";
+import SuccessStory from "../pages/successstory/SuccessStory";
+import SuccessProDetail from "../pages/successstory/SuccessProDetail";
+import MyLibrary from "../pages/Mylibrary/Mylibrary";
+import MyProfile from "../pages/myProfile/MyProfile";
+import ProfileSubscription from "../pages/myProfile/ProfileSubscription";
+import EditProfileDetails from "../pages/myProfile/EditProfileDetail";
+import MyTransferableSkills from "../pages/transferableskills/MyTransferableSkills";
+import StartAssesment from "../pages/careerrecommendations/StartAssesment";
+import CreateResume from "../pages/myresume/CreateResume";
+
+export const routes = [
+  {
+    url: "/profiledetail",
+    page: <ProfileDetails />,
+  },
+  {
+    url: "/subscriptionplans",
+    page: <SubscriptionPlannew />,
+  },
+  {
+    url: "/subscription-new",
+    page: <SubscriptionNew />,
+  },
+  {
+    title: "Home",
+    url: "/home",
+    page: <Applayout page={<Home />} />,
+  },
+  {
+    title: "MyTransferableSkills",
+    url: "/transferablekills",
+    page: <Applayout page={<MyTransferableSkills />} />,
+  },
+  {
+    title: "Careerrecommendation",
+    url: "/careerrecommendation",
+    page: <Applayout page={<CareerRecommendations />} />,
+  },
+  {
+    title: "CareerDetails",
+    url: "/careerdetails",
+    page: <Applayout page={<CareerDetails />} />,
+  },
+  {
+    title: "MyGoals",
+    url: "/mygoals",
+    page: <Applayout page={<MyGoals />} />,
+  },
+  {
+    title: "GoalsDetails",
+    url: "/goaldetails",
+    page: <Applayout page={<GoalDetails />} />,
+  },
+  {
+    title: "MyResume",
+    url: "/myresume",
+    page: <Applayout page={<MyResume />} />,
+  },
+  {
+    title: "ViewResume",
+    url: "/view-resume",
+    page: <Applayout page={<ViewResume />} />,
+  },
+  {
+    title: "SuccessStory",
+    url: "/success-story",
+    page: <Applayout page={<SuccessStory />} />,
+  },
+  {
+    title: "SuccessProDetail",
+    url: "/story-pro-detail",
+    page: <Applayout page={<SuccessProDetail />} />,
+  },
+  {
+    title: "Mylibrary",
+    url: "/my-library",
+    page: <Applayout page={<MyLibrary  />} />,
+  },
+  {
+    title: "MyProfile",
+    url: "/my-profile",
+    page: <Applayout page={<MyProfile  />} />,
+  },
+  {
+    title: "ProfileSubscription",
+    url: "/profile-subscription",
+    page: <Applayout page={<ProfileSubscription  />} />,
+  },
+  {
+    title: "EditProfileDetails",
+    url: "/edit-profile-details",
+    page: <Applayout page={<EditProfileDetails  />} />,
+  },
+  {
+    title: "StartAssesment",
+    url: "/start-assesment",
+    page: <Applayout page={<StartAssesment  />} />,
+  },
+  {
+    title: "CreateResume",
+    url: "/create-resume",
+    page: <Applayout page={<CreateResume  />} />,
+  },
+  
+];

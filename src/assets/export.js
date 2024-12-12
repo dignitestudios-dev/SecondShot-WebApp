@@ -1,0 +1,119 @@
+import logo from "../assets/logo.png";
+import Carriericon1 from "../assets/carriericon1.png";
+import Carriericon2 from "../assets/carriericon2.png";
+import Carriericon3 from "../assets/carriericon3.png";
+import Carriericon4 from "../assets/carriericon4.png";
+import Carriericon5 from "../assets/carriericon5.png";
+import Carriericon6 from "../assets/carriericon6.png";
+import GoogleIcon from "../assets/googleicon.png";
+import FacebookIcon from "../assets/facebookicon.png";
+import AppleIcon from "../assets/appleicon.png";
+import ORimg from "../assets/Orimg.png";
+import BgAuth from "../assets/bgscreen.png";
+import OtpScreen from "../assets/OtpScreen.png";
+import TickIcon from "../assets/tickIcon.png";
+import Tick from "../assets/tick.png";
+import Bgsubscription from "../assets/bgsubscription.png";
+import Cameraicon from "../assets/cameraicon.png";
+import Bgcolors from "../assets/bg-colors.png";
+import Creditcardimg from "../assets/creditcardimg.png";
+import Visa from "../assets/visa.png";
+import Visaicon from "../assets/visaicon.png";
+import ForgotLogo from "../assets/illustration.png";
+import Logonav from "../assets/logonav.png";
+import Alertnoti from "../assets/alertnoti.png";
+import Notisuccess from "../assets/notisuccess.png";
+import Expirynoti from "../assets/expirynoti.png";
+import Profileimage from "../assets/profileimage.png";
+import Card1 from "../assets/card1.png";
+import Card2 from "../assets/card2.png";
+import Card3 from "../assets/card3.png";
+import Card4 from "../assets/card4.png";
+import Card5 from "../assets/card5.png";
+import Card6 from "../assets/card6.png";
+import WelcomeImg from "../assets/welcomeModal.png";
+import TransferableSkills from "../assets/TransferableSkills.png";
+import Badge from "../assets/badge.png";
+import CareerModal from "../assets/CareerRecommendationsModal.png";
+import SearchImg from "../assets/Search.png";
+import Dotedimg from "../assets/dotedimg.png";
+import Dottedvertical from "../assets/more-vertical.png";
+import Resume1 from "../assets/resume1.png";
+import Resume2 from "../assets/resume2.png";
+import Printimg from "../assets/printimg.png";
+import Shareimg from "../assets/shareimg.png";
+import Downloadimg from "../assets/downloadimg.png";
+import Docgray from "../assets/docgray.png";
+import Docblue from "../assets/docblue.png";
+import Cancelicon from "../assets/cancelicon.png";
+import DeleteIcon from "../assets/DeleteIcon.png";
+import ArrowRight from "../assets/ArrowRight.png";
+import Mygoalmodal from "../assets/mygoalmodal.png";
+import Myresumemodal from "../assets/myresumemodal.png";
+import Welcomelibrary from "../assets/welcomelibrary.png";
+import WelcomeStoryimg from "../assets/welcomestory.png";
+import Assesmentmodal from "../assets/assesmentmodal.png";
+import Leftimg from "../assets/leftimg.png";
+import Cvimg from "../assets/cvimg.png";
+import resumeSuccess from "../assets/resumesuccess.png";
+
+export {
+  logo,
+  Carriericon1,
+  Carriericon2,
+  Carriericon3,
+  Carriericon4,
+  Carriericon5,
+  Carriericon6,
+  GoogleIcon,
+  FacebookIcon,
+  AppleIcon,
+  ORimg,
+  BgAuth,
+  OtpScreen,
+  TickIcon,
+  Tick,
+  Bgsubscription,
+  Cameraicon,
+  Bgcolors,
+  Creditcardimg,
+  Visa,
+  Visaicon,
+  ForgotLogo,
+  Logonav,
+  Alertnoti,
+  Notisuccess,
+  Expirynoti,
+  Profileimage,
+  Card1,
+  Card2,
+  Card3,
+  Card4,
+  Card5,
+  Card6,
+  WelcomeImg,
+  TransferableSkills,
+  Badge,
+  CareerModal,
+  SearchImg,
+  Dotedimg,
+  Dottedvertical,
+  Resume2,
+  Resume1,
+  Printimg,
+  Shareimg,
+  Downloadimg,
+  Docblue,
+  Docgray,
+  Cancelicon,
+  DeleteIcon,
+  ArrowRight,
+  Mygoalmodal,
+  Myresumemodal,
+  Welcomelibrary,
+  WelcomeStoryimg,
+  Assesmentmodal,
+  Leftimg,
+  Cvimg,
+  resumeSuccess
+};

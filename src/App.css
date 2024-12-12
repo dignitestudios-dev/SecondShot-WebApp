@@ -1,0 +1,24 @@
+@media screen and (max-width: 768px) {
+  .mobileScreenhide {
+    display: none;
+  }
+}
+
+.auth-bg {
+  background: url("./assets/auth_bg.png");
+  background-repeat: none;
+  background-size: cover;
+  background-position: center;
+}
+.bg-global-img {
+  background: url("./assets/bg-colors.png");
+  background-repeat: none;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+}
+
+.bg-grad-button {
+  background: rgb(1, 44, 87);
+  background: linear-gradient(230.2deg, #012c57 17.65%, #061523 129%);
+}
