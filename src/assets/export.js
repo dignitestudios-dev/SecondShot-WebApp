@@ -60,6 +60,7 @@ import Creategoalimg from "../assets/creategoal.png";
 import Calender from "../assets/calender.png";
 import SubmitGoalimg from "../assets/submitGoalimg.png";
 import SuccessfullyGoaimg from "../assets/SuccessfullyGoaimg.png";
+import Stars from "../assets/stars.png";
 
 export {
   logo,
@@ -124,4 +125,5 @@ export {
   Calender,
   SubmitGoalimg,
   SuccessfullyGoaimg,
+  Stars
 };

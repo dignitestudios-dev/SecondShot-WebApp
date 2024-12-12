@@ -24,7 +24,7 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
 
   const handleNavigation = () => {
     setIsPeople(false);
-    navigate("/reviewgoal");
+    navigate("/make-smart");
   };
 
   const [openSub, setOpenSub] = useState(false);

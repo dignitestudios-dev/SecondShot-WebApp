@@ -5,7 +5,7 @@ const SubGoalDetail = () => {
   return (
     <div>
       <div className="w-[575px]   space-y-6">
-        <div className="bg-white overflow-y-auto h-[732px] rounded-[22px] p-6 relative h-full">
+        <div className="bg-white overflow-y-auto h-[732px] rounded-[22px] p-6 relative ">
           <h2 className="text-[24px] font-[500] leading-[32.4px] mb-2">
             Sub-Goals Details
           </h2>

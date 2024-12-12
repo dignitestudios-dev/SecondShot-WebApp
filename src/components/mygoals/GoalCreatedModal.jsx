@@ -8,12 +8,7 @@ import {
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import AddSupportModal from "../myresume/AddSupportModal";
 
-const GoalCreatedModal = ({
-  showModal,
-  onclick,
-  closeGoalDetailModal,
-  onClose,
-}) => {
+const GoalCreatedModal = ({ showModal, onclick, handleClick }) => {
   const navigate = useNavigate();
   const handleNavigation = () => {
     navigate("/careerdetails");
@@ -49,9 +44,12 @@ const GoalCreatedModal = ({
                 team. Stay committed to your objectives and continue striving
                 for success.
               </p>
-           <div className="mt-5">
-            <AuthSubmitBtn text={'View Goal Details'} handleSubmit={()=>navigate('/goal-detail')} />
-           </div>
+              <div className="mt-5">
+                <AuthSubmitBtn
+                  text={"View Goal Details"}
+                  handleSubmit={() => handleClick()}
+                />
+              </div>
             </div>
           </div>
         </div>

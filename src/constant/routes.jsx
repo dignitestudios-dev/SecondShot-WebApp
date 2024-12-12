@@ -25,6 +25,7 @@ import AddGoals from "../pages/mygoals/AddGoals";
 import ReviewYourGoal from "../pages/mygoals/ReviewGoal";
 import SmartGoalDetails from "../pages/mygoals/SmartGoalDetails";
 import GoalDetail from "../pages/mygoals/GoalDetail";
+import MakeitSmart from "../pages/mygoals/MakeitSmart";
 
 export const routes = [
   {
@@ -133,6 +134,11 @@ export const routes = [
     title: "GoalDetail",
     url: "/goal-detail",
     page: <Applayout page={<GoalDetail  />} />,
+  },
+  {
+    title: "MakeitSmart",
+    url: "/make-smart",
+    page: <Applayout page={<MakeitSmart  />} />,
   },
   
 ];
