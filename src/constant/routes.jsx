@@ -14,7 +14,7 @@ import MyResume from "../pages/myresume/MyResume";
 import ViewResume from "../pages/myresume/ViewResume";
 import SuccessStory from "../pages/successstory/SuccessStory";
 import SuccessProDetail from "../pages/successstory/SuccessProDetail";
-import MyLibrary from "../pages/Mylibrary/Mylibrary";
+import MyLibrary from "../pages/mylibrary/Mylibrary";
 import MyProfile from "../pages/myProfile/MyProfile";
 import ProfileSubscription from "../pages/myProfile/ProfileSubscription";
 import EditProfileDetails from "../pages/myProfile/EditProfileDetail";
