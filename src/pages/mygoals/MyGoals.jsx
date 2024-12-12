@@ -50,7 +50,7 @@ function MyGoals() {
           <span className="bg-slate-200 h-8 w-[1.5px] mr-4"></span>
           <div className="flex flex-col items-end">
             <button
-              onClick={() => navigate("/create-goal-info")}
+              onClick={() => navigate("/create-goals")}
               className="text-[#012C57] text-[18px] font-[600]"
             >
               + Add Goals

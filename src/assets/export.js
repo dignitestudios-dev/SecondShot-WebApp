@@ -56,6 +56,7 @@ import Assesmentmodal from "../assets/assesmentmodal.png";
 import Leftimg from "../assets/leftimg.png";
 import Cvimg from "../assets/cvimg.png";
 import resumeSuccess from "../assets/resumesuccess.png";
+import Creategoalimg from "../assets/creategoal.png";
 
 export {
   logo,
@@ -115,5 +116,6 @@ export {
   Assesmentmodal,
   Leftimg,
   Cvimg,
-  resumeSuccess
+  resumeSuccess,
+  Creategoalimg
 };

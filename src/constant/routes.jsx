@@ -22,6 +22,7 @@ import EditProfileDetails from "../pages/myProfile/EditProfileDetail";
 import MyTransferableSkills from "../pages/transferableskills/MyTransferableSkills";
 import StartAssesment from "../pages/careerrecommendations/StartAssesment";
 import CreateResume from "../pages/myresume/CreateResume";
+import AddGoals from "../pages/mygoals/AddGoals";
 
 export const routes = [
   {
@@ -115,6 +116,11 @@ export const routes = [
     title: "CreateResume",
     url: "/create-resume",
     page: <Applayout page={<CreateResume  />} />,
+  },
+  {
+    title: "AddGoals",
+    url: "/create-goals",
+    page: <Applayout page={<AddGoals  />} />,
   },
   
 ];
