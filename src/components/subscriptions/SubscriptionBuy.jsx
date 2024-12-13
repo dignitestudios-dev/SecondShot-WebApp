@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import SubscriptionCardModal from "../Modal/SubscriptionCardModal";
-import { Visa, Visaicon } from "../../assets/export";
-import GrayBtn from "../onboarding/grayBtn";
-import AuthSubmitBtn from "../onboarding/AuthBtn";
 import SubscriptionModal from "../Modal/SubscriptionModal";
 import { useNavigate } from "react-router-dom";
 import SubriptionCardPath from "./SubriptionCardPath";
