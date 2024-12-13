@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AuthInput from "../onboarding/AuthInput";
 import { Calender } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
-import GrayBtn from "../onboarding/grayBtn";
-// import { calendar } from "../../assets/export";
+
 
 const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
   const navigate = useNavigate();
@@ -21,6 +20,9 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
       [fieldName]: value,
     }));
   };
+  const [calenderOpen, setCalenderOpen] = useState(false);
+  const [inputError, setInputError] = useState({});
+  const [date, setDate] = useState(new Date());
 
   const handleNavigation = () => {
     setIsPeople(false);
@@ -28,6 +30,7 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
   };
 
   const [openSub, setOpenSub] = useState(false);
+
   return (
     showModal && (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -69,8 +72,13 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
                   </div>
                   <div>
                     <span className="p-2 cursor-pointer">
-                      <img className="w-[24px]" src={Calender} />
+                      <img
+                        className="w-[24px]"
+                        src={Calender}
+                      
+                      />
                     </span>
+                  
                   </div>
                 </div>
               </div>
@@ -111,7 +119,10 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
               </>
 
               <div className="mt-2">
-                <AuthSubmitBtn text={"Next"}  handleSubmit={()=>navigate('/review-goals')}/>
+                <AuthSubmitBtn
+                  text={"Next"}
+                  handleSubmit={() => navigate("/review-goals")}
+                />
 
                 <button
                   onClick={handleNavigation}
