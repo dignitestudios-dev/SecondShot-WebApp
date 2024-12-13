@@ -7,6 +7,42 @@ import { useNavigate } from "react-router-dom";
 const SubscriptionPlannew = () => {
   const navigation = useNavigate("");
   const [isModalOpen, setModalOpen] = useState(false);
+
+  const cardsubdata = [
+    {
+      heading: "3 months",
+      amount: "$19.99",
+
+      headingtwo: "For 3 Months, Unlock These Benefits Today!",
+      benefitsList: [
+        "Discover Your Transferable Skills",
+        "Find Your Career Match",
+        "Build Your Resume",
+        "Establish Clear and Actionable Goals",
+        "View Success Stories",
+      ],
+    },
+    {
+      heading: "1 year",
+      amount: "$59.99",
+      headingtwo: "For 1 Year, Unlock These Benefits Today!",
+      benefitsList: [
+        "Discover Your Transferable Skills",
+        "Find Your Career Match",
+        "Build Your Resume",
+        "Establish Clear and Actionable Goals",
+        "View Success Stories",
+        "Unlimited Access to platform for 365 days",
+        "Create a year long strategic plan ",
+      ],
+    },
+  ];
+
+  const handleSubmit = (item) => {
+    navigation("/subscription-new", {
+      state: { cardsubdata: item },
+    });
+  };
   return (
     <div
       className="min-h-screen bg_subscription flex flex-col items-center py-10 px-4"
@@ -38,7 +74,7 @@ const SubscriptionPlannew = () => {
             <hr className="bg-[#FFFFFF] mt-5 mb-5" />
           </div>
           <p className="text-[20px]  leading-[27px] font-[600]">
-          Unlock immediate access to <br /> Your Career Toolbox.
+            Unlock immediate access to <br /> Your Career Toolbox.
           </p>
 
           <p className="text-[16px] mt-2 font-[400] leading-[21.6px]">
@@ -65,88 +101,52 @@ const SubscriptionPlannew = () => {
             Submit
           </button>
         </div>
+        {cardsubdata?.map((item, index) => (
+          <div key={index}>
+            <div className="  bg-white rounded-[22px] lg:h-[559px] md:h-full  shadow-lg   p-2 w-full max-w-sm">
+              <div className="flex justify-between items-center  mt-3 ">
+                <h2 className="text-[24px] font-[500] text-[#000000] leading-[32.4px] ">
+                  {item.heading}
+                </h2>
+                <h2 className="text-[32px] font-[600] leading-[43.2px] text-[#56EC17]">
+                  {item.amount} 
+                </h2>
+              </div>
+              <div>
+                <hr className="bg-[#000000] mb-4 mt-3" />
+              </div>
 
-        <div className="  bg-white rounded-[22px] lg:h-[559px] md:h-full  shadow-lg   p-2 w-full max-w-sm">
-          <div className="flex justify-between items-center  mt-3 ">
-            <h2 className="text-[24px] font-[500] text-[#000000] leading-[32.4px] ">3 months</h2>
-            <h2 className="text-[32px] font-[600] leading-[43.2px] text-[#56EC17]">
-              $19.99
-            </h2>
-          </div>
-          <div>
-            <hr className="bg-[#000000] mb-4 mt-3" />
-          </div>
-
-          <div className="p-3">
-            <div className="text-[22px] font-[600] text-gray-900 ">
-              For 3 Months, Unlock These Benefits Today!
-            </div>
-
-            <ul className="space-y-2  h-[257px] mb-6 text-gray-700">
-              {[
-                "Discover Your Transferable Skills",
-                "Find Your Career Match ",
-                "Build Your Resume",
-                "Establish Clear and Actionable Goals",
-                "View Success Stories ",
-              ]?.map((item) => (
-                <li className="flex items-center space-x-2 mt-3 ">
-                  <img src={Tick} className="h-[10.5px]  w-[13.5px] " alt="" />
-                  <span className="text-[17px] leading-[22.95px]  font-[500] text-[#181818]  ">
-                    {item}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <div className="w-[171px]">
-              <AuthSubmitBtn
-                text={"Buy Now"}
-                handleSubmit={() => navigation("/subscription-new")}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="  bg-white rounded-[22px] lg:h-[559px] md:h-full  shadow-lg   p-2 w-full max-w-sm">
-          <div className="flex justify-between items-center  mt-3 ">
-            <h2 className="text-[24px] font-[500] leading-[32.4px] text-[#000000]">1 year</h2>
-            <h2 className="text-[32px] font-[600] leading-[43.2px] text-[#56EC17]">
-              $59.99
-            </h2>
-          </div>
-          <div>
-            <hr className="bg-[#000000] mb-4 mt-3" />
-          </div>
-
-          <div className="p-3 ">
-            <div className="text-[22px] font-[600] text-gray-900 ">
-              For 1 Year, Unlock These Benefits Today!
-            </div>
-            <ul className="space-y-2 h-[257px] mb-6 text-gray-700">
-              {[
-                "Discover Your Transferable Skills",
-                "Find Your Career Match ",
-                "Build Your Resume",
-                "Establish Clear and Actionable Goals",
-                "View Success Stories    ",
-                "Unlimited Access to platform for 365 days",
-                "Create a year long strategic plan ",
-              ]?.map((item) => (
-                <li className="flex items-center space-x-2 mt-3">
-                  <img src={Tick} className="h-[10.5px] w-[13.5px] " alt="" />
-                  <span className="text-[17px] font-[500] leading-[22.95px] text-[#181818]  ">
-                    {item}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <div className="w-[171px]">
-              <AuthSubmitBtn
-                text={"Buy Now"}
-                handleSubmit={() => navigation("/subscription-new")}
-              />
+              <div className="p-3">
+                <div className="text-[22px] font-[600] text-gray-900 ">
+                  {item.headingtwo}
+                </div>
+                <ul className="space-y-2  h-[257px] mb-6 text-gray-700">
+                  {item?.benefitsList.map((item, index) => (
+                    <li
+                      className="flex items-center space-x-2 mt-3 "
+                      key={index}
+                    >
+                      <img
+                        src={Tick}
+                        className="h-[10.5px] w-[13.5px]"
+                        alt=""
+                      />
+                      <span className="text-[17px] leading-[22.95px] font-[500] text-[#181818]">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="w-[171px]">
+                  <AuthSubmitBtn
+                    text={"Buy Now"}
+                    handleSubmit={() => handleSubmit(item)}
+                  />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
 
       <hr className="bg-[#000000] mt-11  w-full" />

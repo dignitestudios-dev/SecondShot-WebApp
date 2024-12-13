@@ -1,51 +1,43 @@
 import React from "react";
+import { Tick } from "../../assets/export";
 
-const SubriptionCardPath = ({selected}) => {
+const SubriptionCardPath = ({ selected, cardsubdata }) => {
+  console.log(cardsubdata, "cardsubdata");
+
   return (
     <div>
-      <div className="bg-white shadow-lg rounded-2xl p-6 md:mb-0 mb-8 max-h-[430px] ">
-        <div className="mt-4">
-          <div className="flex justify-between items-center">
-            <p className="text-[24px] font-[600] leading-[32.4px] ">
-              Path Finder Plus
-            </p>
-            <p className="text-[24px] leading-[32.4px] font-[600]  text-[#56EC17]">
-              ${selected == "Month" ? "19.99" : "59.99"}{" "}
-              <span className="text-2xl text-[#56EC17] font-medium">/</span>
-              <span className="text-[#000000] text-[14px] leading-[32.4px] font-[400]">
-                {selected == "Month" ? "3 months" : "year"}
+      <div>
+        <div className="  bg-white rounded-[22px] h-[451px]  overflow-y-auto   shadow-lg   p-2 w-[438px] max-w-sm">
+          <div className="flex justify-between items-center  mt-3 ">
+            <h2 className="text-[24px] font-[500] text-[#000000] leading-[32.4px] ">
+              {cardsubdata.heading}
+            </h2>
+            <h2 className="text-[32px] font-[600] leading-[43.2px] text-[#56EC17]">
+              {cardsubdata.amount} /
+              <span className="text-[12px] text-black">
+                {cardsubdata.heading}
               </span>
-            </p>
+            </h2>
           </div>
-          <hr className="w-full border-t border-gray-300 mt-4" />
-          <ul className="mt-6 mb-12 space-y-3 ">
-            {[
-              "Expand Basic Lorem Ipsum",
-              "Expand Silver Lorem Ipsum ",
-              "Expand Silver Lorem Ipsum ",
-              "Unlimited Request Lorem Ipsum ",
-              "Expand Silver Lorem Ipsum ",
-              "Expand Silver Lorem Ipsum ",
-            ]?.map((item) => (
-              <li className="flex items-center text-[20px] leading-[27px] font-[500] ">
-                <svg
-                  className="w-5 h-5 text-[#56EC17] mr-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M5 13l4 4L19 7"
-                  ></path>
-                </svg>
-                {item}
-              </li>
-            ))}
-          </ul>
+          <div>
+            <hr className="bg-[#000000] mb-4 mt-3" />
+          </div>
+
+          <div className="p-3">
+            <div className="text-[22px] font-[600] text-gray-900 ">
+              {cardsubdata.headingtwo}
+            </div>
+            <ul className="space-y-2 mb-6 text-gray-700">
+              {cardsubdata?.benefitsList.map((item, index) => (
+                <li className="flex items-center space-x-2 space-y-3 mt-3 " key={index}>
+                  <img src={Tick} className="h-[10.5px] mt-3  w-[13.5px]" alt="" />
+                  <span className="text-[17px] leading-[22.95px] font-[500] text-[#181818]">
+                    {item}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
