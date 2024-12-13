@@ -46,7 +46,7 @@ const Login = () => {
               </p>
               <AuthSubmitBtn
                 text="Sign In"
-                handleSubmit={() => navigation("/forgot")}
+                handleSubmit={() => navigation("/home")}
                 type="button"
               />
             </form>

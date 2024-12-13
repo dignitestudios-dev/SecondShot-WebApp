@@ -121,7 +121,7 @@ const ProfileDetails = () => {
               <GrayBtn text={"Skip Now"} />
             </div>
             <div className="w-[169px]">
-              <AuthSubmitBtn text={"Next"} handleSubmit={()=>navigation('/home')} />
+              <AuthSubmitBtn text={"Next"} handleSubmit={()=>navigation('/registration-question')} />
             </div>
           </div>
         </div>

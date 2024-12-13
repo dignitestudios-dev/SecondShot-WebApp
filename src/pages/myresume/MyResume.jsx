@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Backbutton from "../../components/Global/Backbutton";
 import SearchInput from "../../components/Global/SearchInput";
 import ResumeFile from "../../components/myresume/ResumeFile";
 import WelcomeResumeModal from "../../components/myresume/WelcomeResumeModal";
 import { useNavigate } from "react-router-dom";
+import { ModalContext } from "../../context/GlobalContext";
 
 function MyResume() {
   const [dropdownOpen, setDropdownOpen] = useState(null);
-  const [isOpen, setIsOpen] = useState(true);
-const navigate =useNavigate()
+
+  const { isFirst, setIsFirst } = useContext(ModalContext);
+  console.log(isFirst, "hhhh");
+
+  const navigate = useNavigate();
   const toggleDropdown = (index) => {
     setDropdownOpen(dropdownOpen === index ? null : index);
   };
@@ -20,8 +24,13 @@ const navigate =useNavigate()
   return (
     <div className="">
       <WelcomeResumeModal
-        isOpen={isOpen}
-        handleClick={() => setIsOpen(false)}
+        isOpen={isFirst.myresume}
+        handleClick={() => {
+          setIsFirst((prev) => ({
+            ...prev,
+            myresume: false,
+          }));
+        }}
       />
       <div className="w-full mx-auto">
         <Backbutton />

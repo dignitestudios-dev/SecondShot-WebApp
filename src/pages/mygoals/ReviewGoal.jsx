@@ -8,6 +8,7 @@ import SupportPeople from "../../components/mygoals/SupportPeople";
 import SupportPerson from "../../components/mygoals/SupportPerson";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import GoalCompletedModal from "../../components/mygoals/GoalCompletedModal";
+import AuthInput from "../../components/onboarding/AuthInput";
 
 function ReviewYourGoal() {
   const navigate = useNavigate();
@@ -41,10 +42,7 @@ const closeGoalDetailModal = ()=>{
           
       
         />
-        {/* <GoalCompletedModal
-          isOpen={isGoalDetailModalOpen}
-          onClose={closeGoalDetailModal}
-        /> */}
+      
         {/* Main Heading and Submit Button */}
         <div className="flex justify-between items-center mt-6 w-full">
           <div className="text-left w-[475px]">
@@ -74,7 +72,7 @@ const closeGoalDetailModal = ()=>{
             <AuthSubmitBtn text={"Submit Goal"} handleSubmit={()=>handleCardModal()} />
           </div>
         </div>
-        {isPeople && (
+        {/* {isPeople && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg shadow-lg w-[450px] h-auto max-h-[98vh] overflow-auto p-6 relative">
               <div>
@@ -93,6 +91,7 @@ const closeGoalDetailModal = ()=>{
                   <p className="text-[18px] font-semibold">
                     1st Support Person
                   </p>
+                  <AuthInput />
                   <label className="text-sm font-medium">Full Name</label>
                   <input
                     name="fullName"
@@ -175,7 +174,7 @@ const closeGoalDetailModal = ()=>{
               </div>
             </div>
           </div>
-        )}
+        )} */}
 
         <div className="flex justify-center mt-8">
           <div className="grid grid-cols-2 gap-8">

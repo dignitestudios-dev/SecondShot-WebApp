@@ -1,14 +1,16 @@
 import { FaSearch } from "react-icons/fa";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
 import SearchInput from "../../components/Global/SearchInput";
 import { Profileimage } from "../../assets/export";
 import WelcomeStoryModal from "../../components/successstory/WelcomeStoryModal";
+import { ModalContext } from "../../context/GlobalContext";
 
 function SuccessStory() {
   const navigate = useNavigate();
-const [isOpen,setIsOpen] =useState(true)
+  const { isFirst, setIsFirst } = useContext(ModalContext);
+
   const data = [
     {
       name: "benjamin James",
@@ -67,7 +69,16 @@ const [isOpen,setIsOpen] =useState(true)
 
   return (
     <div className="">
-      <WelcomeStoryModal isOpen={isOpen} handleClick={()=>setIsOpen(false)} />
+      <WelcomeStoryModal
+        isOpen={isFirst.successstory}
+        handleClick={() => {
+          setIsFirst((prev) => ({
+            ...prev,
+            successstory: false,
+          }));
+        }}
+      />
+
       <Backbutton />
 
       <div className="flex justify-between items-center">

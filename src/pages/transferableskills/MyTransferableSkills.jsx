@@ -1,8 +1,12 @@
-import React, { useState } from "react";
-
+import React, { useContext, useState } from "react";
+import TransferableSkillsModal from "../../components/transferableSkills/TransferableSkillsModal";
+import { ModalContext } from "../../context/GlobalContext";
 
 function MyTransferableSkills() {
   const [tooltip, setTooltip] = useState({ show: false, text: "", x: 0, y: 0 });
+  // const [Modal, setModal] = useState(true);
+  const { isFirst, setIsFirst } = useContext(ModalContext);
+  console.log("first--- ", isFirst);
 
   const greenCircles = [
     { name: "Power Forward" },
@@ -58,7 +62,6 @@ function MyTransferableSkills() {
 
   return (
     <div className=" ">
-   
       {/* Navbar */}
 
       {/* Main Heading */}
@@ -153,7 +156,7 @@ function MyTransferableSkills() {
             <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
               <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
                 <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2 text-[14.64px] font-[600] leading-[14.64px] text-white text-center ">
-                Power Forward
+                  Power Forward
                 </div>
               </div>
             </div>
@@ -445,6 +448,16 @@ function MyTransferableSkills() {
         </div>
         <div className="col-span-1 h-[256px] w-full flex justify-center items-center"></div>
       </div>
+
+      <TransferableSkillsModal
+        isOpen={isFirst.transferable}
+        handleClick={() => {
+          setIsFirst((prev) => ({
+            ...prev,
+            transferable: false,
+          }));
+        }}
+      />
     </div>
   );
 }

@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 
 const CareerToolbox = () => {
   const navigate = useNavigate();
-  const [Modal, setModal] = useState(false);
+
   const CardData = [
     {
       cardicons: Carriericon1,
@@ -115,11 +115,7 @@ const CareerToolbox = () => {
         </div>
       ))}
     </div>
-    <TransferableSkillsModal
-      isOpen={Modal}
-      onClose={() => setModal(false)}
-      handleClick={() => setModal(false)}
-    />
+  
   </div>
   
   );

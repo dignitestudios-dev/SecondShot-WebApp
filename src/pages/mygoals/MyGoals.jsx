@@ -1,27 +1,29 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
 import SearchInput from "../../components/Global/SearchInput";
 import MygoalsCard from "../../components/mygoals/MygoalsCard";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import WelcomeGoalModal from "../../components/mygoals/WelcomeGoalModal";
+import { ModalContext } from "../../context/GlobalContext";
 
 function MyGoals() {
   const navigate = useNavigate();
   const [selectedButton, setSelectedButton] = useState("All");
   const buttons = ["All", "Pending", "in Progress", "Completed"];
-  const [isOpen, setIsOpen] = useState(true);
 
-  const location = useLocation();
-  useEffect(() => {
-    // Check if the page is navigated from the "Launch" button
-    if (location.state?.fromLaunch) {
-      setIsOpen(true); // Open the modal if coming from "Launch"
-    }
-  }, [location]);
-
+  const { isFirst, setIsFirst } = useContext(ModalContext);
+  console.log(isFirst);
   return (
     <div className="">
-      <WelcomeGoalModal isOpen={isOpen} handleClick={() => setIsOpen(false)} />
+      <WelcomeGoalModal
+        isOpen={isFirst.mygoals}
+        handleClick={() => {
+          setIsFirst((prev) => ({
+            ...prev,
+            mygoals: false,
+          }));
+        }}
+      />
       <Backbutton />
       <h1 className="text-[32px] mt-2 font-[500] leading-[43.2px] text-[#000000] mb-6">
         My Goals

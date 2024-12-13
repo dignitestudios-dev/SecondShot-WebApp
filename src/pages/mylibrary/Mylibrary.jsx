@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
 import SearchInput from "../../components/Global/SearchInput";
@@ -6,12 +6,14 @@ import LibraryCareer from "../../components/mylibrary/LibraryCareer";
 
 import Transferable from "../../components/mylibrary/Transferable";
 import WelcomeLibraryModal from "../../components/mylibrary/WelcomeLibraryModal";
+import { ModalContext } from "../../context/GlobalContext";
 
 function MyLibrary() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState(true);
   const [view, setView] = useState("career");
+  const { isFirst, setIsFirst } = useContext(ModalContext);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -26,7 +28,15 @@ function MyLibrary() {
 
   return (
     <div className="">
-      <WelcomeLibraryModal isOpen={isOpen} handleClick={()=>setIsOpen(false)} />
+      <WelcomeLibraryModal
+        isOpen={isFirst.mylibrary}
+        handleClick={() => {
+          setIsFirst((prev) => ({
+            ...prev,
+            mylibrary: false,
+          }));
+        }}
+      />
       <Backbutton />
 
       <div className="flex justify-between items-center">

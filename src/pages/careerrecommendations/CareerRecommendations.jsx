@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CareerRecommendationsModal from "../../components/careerrecommendation/CareerRecommendationsModal";
 import { CiSearch } from "react-icons/ci";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
@@ -9,10 +9,12 @@ import SearchInput from "../../components/Global/SearchInput";
 import BackBtn from "../../components/onboarding/BackBtn";
 import CareerCards from "../../components/careerrecommendation/CareerCards";
 import Backbutton from "../../components/Global/Backbutton";
+import { ModalContext } from "../../context/GlobalContext";
 
 function CareerRecommendations() {
   const navigate = useNavigate();
-
+  const { isFirst, setIsFirst } = useContext(ModalContext);
+  console.log("first----", isFirst);
   const handleNavigation = () => {
     navigate("/start-assesment");
   };
@@ -41,9 +43,13 @@ function CareerRecommendations() {
         <CareerCards />
       </div>
       <CareerRecommendationsModal
-        isOpen={ModalOpen}
-        onClose={() => setModalOpen(false)}
-        handleClick={() => setModalOpen(false)}
+        isOpen={isFirst.recommendation}
+        handleClick={() => {
+          setIsFirst((prev) => ({
+            ...prev,
+            recommendation: false,
+          }));
+        }}
       />
     </div>
   );

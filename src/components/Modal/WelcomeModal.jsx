@@ -2,7 +2,7 @@ import React from "react";
 import { TickIcon, WelcomeImg } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 
-const WelcomeModal = ({ isOpen, onClose, handleClick }) => {
+const WelcomeModal = ({ isOpen, handleClick }) => {
   if (!isOpen) return null;
 
   return (

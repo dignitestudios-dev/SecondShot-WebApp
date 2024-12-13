@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Badge, TransferableSkills } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 
@@ -43,6 +43,7 @@ const TransferableSkillsModal = ({ isOpen, onClose, handleClick }) => {
           </div>
         </div>
       </div>
+     
     </div>
   );
 };

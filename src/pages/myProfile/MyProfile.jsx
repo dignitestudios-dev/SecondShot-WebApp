@@ -17,7 +17,7 @@ function MyProfile() {
   const [isDeactivateModalOpen, setIsDeactivateModalOpen] = useState(false); // State for deactivate modal visibility
 
   const handleEdit = () => {
-    navigate("/reg-questions");
+    navigate("/registration-question");
     localStorage.setItem("isEditSkill", true);
   };
 
@@ -55,7 +55,7 @@ function MyProfile() {
               </li>
             </ul>
             <button
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/sign-in")}
               className="mt-auto bg-gradient-to-l from-[#012C57] to-[#061523] text-white rounded-lg flex items-center justify-center w-[140px] h-[42px]"
             >
               Logout
