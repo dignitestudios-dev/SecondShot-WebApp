@@ -22,3 +22,15 @@
   background: rgb(1, 44, 87);
   background: linear-gradient(230.2deg, #012c57 17.65%, #061523 129%);
 }
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animationtransferaable {
+  animation: fadeIn 0.5s ease-in-out;
+}

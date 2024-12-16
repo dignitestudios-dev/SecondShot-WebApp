@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import TransferableSkillsModal from "../../components/transferableSkills/TransferableSkillsModal";
 import { ModalContext } from "../../context/GlobalContext";
+import { Printimg, Profileimage } from "../../assets/export";
+import Backbutton from "../../components/Global/Backbutton";
 
 function MyTransferableSkills() {
   const [tooltip, setTooltip] = useState({ show: false, text: "", x: 0, y: 0 });
@@ -60,14 +62,54 @@ function MyTransferableSkills() {
     setTooltip({ show: false, text: "", x: 0, y: 0 });
   };
 
+  const [poweredShow, setPoweredShow] = useState(false);
+  const [goal, setgoal] = useState(false);
+  const [math, setMath] = useState(false);
+  const [reading, setReading] = useState(false);
+  const [careers, setCareers] = useState(false);
+  const handlemath = () => {
+    setMath((prev) => !prev);
+    setgoal(false);
+    setReading(false);
+    setPoweredShow(false);
+    setCareers(false);
+  };
+  const handlegoal = () => {
+    setgoal((prev) => !prev);
+    setMath(false);
+    setReading(false);
+    setPoweredShow(false);
+    setCareers(false);
+  };
+  const handleReading= () => {
+    setReading((prev) => !prev);
+    setMath(false);
+    setgoal(false);
+    setPoweredShow(false);
+    setCareers(false);
+  };
+  const handleCareers= () => {
+    setCareers((prev) => !prev);
+    setMath(false);
+    setgoal(false);
+    setReading(false);
+    setPoweredShow(false);
+  
+    
+  };
+  const handlePoweredShow= () => {
+    setPoweredShow((prev) => !prev);
+    setMath(false);
+    setgoal(false);
+    setReading(false);
+    setCareers(false);
+  };
   return (
     <div className=" ">
       {/* Navbar */}
 
       {/* Main Heading */}
-      <div className="text-left text-sm text-gray-700 font-bold cursor-pointer mt-8 mb-2 ">
-        &lt; Back
-      </div>
+      <Backbutton />
 
       {/* Header with "Make It Smart" button */}
       <div className="flex justify-between items-start mb-8">
@@ -75,7 +117,7 @@ function MyTransferableSkills() {
           <h1 className="text-3xl font-semibold text-gray-800">
             My Transferable Skills
           </h1>
-          <p className="text-md  font-medium text-black w-[60%] mt-2">
+          <p className="text-md  font-medium text-black w-[60%] mt-2 mb-4">
             Here is a map of your transferable skills. Take a look at all the
             soft skills you have acquired from your various experiences!! Click
             on each circle to expand to learn about how you can use your skills
@@ -83,10 +125,10 @@ function MyTransferableSkills() {
           </p>
         </div>
         {/* "Make It Smart" button */}
-        <div className=" w-[30%] flex items-center justify-end">
+        <div className=" w-[30%] flex items-center justify-end gap-3">
           <div className="text-md font-semibold">Print Skills</div>
-          <div className="cursor-pointer">
-            {/* <img className="w-14" src={printing} /> */}
+          <div className="cursor-pointer bg-white rounded-[10px] shadow-sm p-3 ">
+            <img className="w-[27.61px] h-[23px] " src={Printimg} />
           </div>
         </div>
       </div>
@@ -107,53 +149,102 @@ function MyTransferableSkills() {
         </span>
         <div className="col-span-1 h-[256px] w-full flex justify-center items-center"></div>
         <div className="col-span-1 h-[256px] w-full flex justify-center items-end">
+          {/* Power Forward section Start here */}
           <div className="w-[125px] h-[125px] relative p-2 rounded-full border border-dashed border-[#56EC17]">
-            <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-90 absolute -top-[36px] left-[22%]">
-              <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
-                  <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
-                </span>
-              </span>
-              <button
-                onClick={() => setAppear((prev) => !prev)}
-                className="w-[100px] h-[100px]  cursor-pointer outline-none rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+            {poweredShow && (
+              <div
+                className={`animationtransferaable transition-opacity ${
+                  poweredShow ? "opacity-100" : "opacity-0"
+                } duration-1000 ease-in-out `}
+                style={{ transition: "opacity 0.5s ease-in-out" }}
               >
-                <span className="w-[80px] h-[80px] -rotate-90 rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                  Grit
+                <span className="w-[100px] h-[2px] bg-[#56EC17] rotate-90 absolute -top-[60px] left-[10%] ">
+                  <span className="w-[15.56px] h-[15.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  {/* Grit circle blue */}
+                  <button
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px] cursor-pointer outline-none rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-90 rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Positioning
+                    </span>
+                  </button>
                 </span>
-              </button>
-            </span>
-            <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[30deg] absolute top-[22px] -left-[50%]">
-              <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
-                  <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                <span className="w-[205px] h-[2px] bg-[#56EC17] rotate-[56deg] absolute -top-[89px] right-[70px]">
+                  <span className="w-[15.56px] h-[15.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  {/* Positioning circle blue */}
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px] cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[120px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[90deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Persistance
+                    </span>
+                  </span>
                 </span>
-              </span>
-              <span
-                onClick={() => setAppear((prev) => !prev)}
-                className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
-              >
-                <span className="w-[80px] h-[80px] -rotate-[30deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                  Positioning
+                <span className="w-[140px] h-[2px] bg-[#56EC17] rotate-[30deg] absolute -top-[20px] right-[140px]">
+                  <span className="w-[15.56px] h-[15.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  {/* Positioning circle blue */}
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px] cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[90deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Grit
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
-            <span className="group w-[70px] h-[2px] bg-[#56EC17] rotate-[145deg] absolute top-[22px] -right-[50%]">
-              <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
-                  <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                <span className="group w-[205px] h-[2px] bg-[#56EC17] rotate-[120deg]  absolute -top-[92px]   left-[69px]">
+                  <span className="w-[14.56px] h-[14.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  {/* Persistance circle blue */}
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px] cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-90 rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Persistance
+                    </span>
+                  </span>
                 </span>
-              </span>
-              <span
-                onClick={() => setAppear((prev) => !prev)}
-                className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
-              >
-                <span className="w-[80px] h-[80px] rotate-[-145deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                  Persistance
+                <span className="group w-[140px] h-[2px] bg-[#56EC17] rotate-[140deg]  absolute -top-[22px]   left-[130px]">
+                  <span className="w-[14.56px] h-[14.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  {/* Persistance circle blue */}
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px] cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-90 rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Persistance
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
-            <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
+              </div>
+            )}
+
+            <div
+              className="w-full cursor-pointer h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2"
+              onClick={() => handlePoweredShow()}
+            >
               <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
                 <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2 text-[14.64px] font-[600] leading-[14.64px] text-white text-center ">
                   Power Forward
@@ -161,64 +252,114 @@ function MyTransferableSkills() {
               </div>
             </div>
           </div>
+
+          {/* Power Forward section end here */}
         </div>
+        {/* Goal  section Start here */}
+
         <div className="col-span-1 h-[256px] w-full flex justify-center items-center"></div>
         <div className="col-span-1 h-[256px] relative w-full flex justify-end items-center">
-          <div className="w-[125px] h-[125px] absolute -top-12 right-4  -rotate-[70deg] p-2 rounded-full border border-dashed border-[#56EC17]">
-            <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-90 absolute -top-[36px] left-[22%]">
-              <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
-                  <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
-                </span>
-              </span>
-              <span
-                onClick={() => setAppear((prev) => !prev)}
-                className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+          <div className="w-[125px] h-[125px] absolute -top-12 right-4  -rotate-[70deg] p-2 ">
+            {goal && (
+              <div
+                className={`animationtransferaable transition-opacity ${
+                  goal ? "opacity-100" : "opacity-0"
+                } duration-1000 ease-in-out `}
+                style={{ transition: "opacity 0.5s ease-in-out" }}
               >
-                <span className="w-[80px] h-[80px] -rotate-[20deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                  Teamwork
+                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-90 absolute -top-[46px] left-[22%]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[20deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Leadership
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
-            <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[30deg] absolute top-[22px] -left-[50%]">
-              <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
-                  <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                <span className="w-[210px] h-[2px] bg-[#56EC17] rotate-[120deg] absolute -top-[86px] left-[52px]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[50deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Leadership
+                    </span>
+                  </span>
                 </span>
-              </span>
-              <span
-                onClick={() => setAppear((prev) => !prev)}
-                className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
-              >
-                <span className="w-[80px] h-[80px] rotate-[40deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                  Leadership
+                <span className="w-[170px] h-[2px] bg-[#56EC17] rotate-[60deg] absolute -top-[70px] right-[50px]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] rotate-[10deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Leadership
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
-            <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[145deg] absolute top-[22px] -right-[50%]">
-              <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
-                  <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[30deg] absolute top-[22px] -left-[50%]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] rotate-[40deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Time Management
+                    </span>
+                  </span>
                 </span>
-              </span>
-              <span
-                onClick={() => setAppear((prev) => !prev)}
-                className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
-              >
-                <span className="w-[80px] h-[80px] -rotate-[75deg] rounded-full  bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                  Time Management
+                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[145deg] absolute top-[22px] -right-[50%]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[75deg] rounded-full  bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Timework
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
-            <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
+              </div>
+            )}
+            <div
+              className="w-full cursor-pointer h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2"
+              onClick={() => handlegoal()}
+            >
               <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
-                <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] rotate-[70deg] flex justify-center items-center rounded-full p-2 text-sm font-medium text-[#0A1723] text-center leading-3">
-                  Basketball
+                <div
+                  className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] rotate-[70deg] flex justify-center
+                 items-center rounded-full p-2 text-[14.64px] font-[600] text-[#FFFFFF] text-center leading-[14.64px]"
+                >
+                  Goals
                 </div>
               </div>
             </div>
           </div>
         </div>
+        {/* Goal  section end here */}
 
         {/* Center Start */}
         <div className="col-span-1 h-[256px] w-full flex justify-center items-start">
@@ -238,10 +379,11 @@ function MyTransferableSkills() {
               </span>
             </span>
 
-            <span className="w-auto h-14 flex justify-center items-end bg-white absolute -bottom-8 left-[4.3rem]">
-              <span className="text-lg font-medium text-[#0a1723] ">
-                Sanethia Thomas
-              </span>
+            <span className="w-auto h-14  text-center bg-white absolute -bottom-8 left-[4.3rem]">
+              <div className="text-lg text-center font-medium text-[#0a1723] ">
+                Michael Jordan
+              </div>
+              <div className="text-[#02284E] font-[500] ">The Athlete</div>
             </span>
             <span className="w-[70px] h-[2px]  bg-gradient-to-r from-[#172E55] to-[#0A1723] rotate-[320deg] absolute bottom-[6px] right-[80%]">
               <span className="w-[13.56px] h-[13.56px] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
@@ -266,181 +408,321 @@ function MyTransferableSkills() {
             </span>
 
             <div className="w-full h-full bg-gradient-to-r from-[#172E55] to-[#0A1723] rounded-full p-6">
-              {/* <img
-                src={Sanethia}
+              <img
+                src={Profileimage}
                 alt=""
                 className="w-full h-full rounded-full"
-              /> */}
+              />
             </div>
           </div>
         </div>
-
         {/* Center End */}
 
+        {/* Reading Section Start here */}
         <div className="col-span-1 h-[256px] relative w-full flex justify-start items-center">
-          <div className="w-[125px] h-[125px] absolute -top-12 left-4  rotate-[70deg] p-2 rounded-full border border-dashed border-[#56EC17]">
-            <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-90 absolute -top-[36px] left-[22%]">
-              <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
-                  <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
-                </span>
-              </span>
-              <span
-                onClick={() => setAppear((prev) => !prev)}
-                className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+          <div className="w-[125px] h-[125px] absolute -top-12 left-4  rotate-[70deg] p-2 ">
+            {reading && (
+              <div
+                className={`animationtransferaable transition-opacity ${
+                  reading ? "opacity-100" : "opacity-0"
+                } duration-1000 ease-in-out `}
+                style={{ transition: "opacity 0.5s ease-in-out" }}
               >
-                <span className="w-[80px] h-[80px] -rotate-[160deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                  Detail Oriented
+                <span className="w-[120px] h-[2px] bg-[#56EC17] rotate-[100deg] absolute -top-[66px] left-[20%]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[170deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Critical thinking
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
-            <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[30deg] absolute top-[22px] -left-[50%]">
-              <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
-                  <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                <span className="w-[100px] h-[2px] bg-[#56EC17] rotate-[50deg] absolute -top-[20px] -left-[50%]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[120deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Focus
+                    </span>
+                  </span>
                 </span>
-              </span>
-              <span
-                onClick={() => setAppear((prev) => !prev)}
-                className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
-              >
-                <span className="w-[80px] h-[80px] -rotate-[100deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                  Strategic Thinker
+                <span className="w-[210px] h-[2px] bg-[#56EC17] rotate-[70deg] absolute -top-[100px] -left-[95px]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[140deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Critical thinking
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
-            <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[145deg] absolute top-[22px] -right-[50%]">
-              <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
-                  <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                <span className="w-[210px] h-[2px] bg-[#56EC17] rotate-[120deg] absolute -top-[80px] left-[55px]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[190deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Critical thinking
+                    </span>
+                  </span>
                 </span>
-              </span>
-              <span
-                onClick={() => setAppear((prev) => !prev)}
-                className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
-              >
-                <span className="w-[80px] h-[80px] rotate-[-215deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                  Patience
+                <span className="w-[110px] h-[2px] bg-[#56EC17] rotate-[145deg] absolute -top-[2px] -right-[90%]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] rotate-[-215deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Vocabulary
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
-            <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
+              </div>
+            )}
+            <div
+              className="w-full cursor-pointer h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2"
+              onClick={() => handleReading()}
+            >
               <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
-                <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2 text-sm font-medium text-[#0A1723] text-center leading-3 -rotate-[70deg]">
-                  Math
+                <div
+                  className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] 
+                flex justify-center items-center rounded-full p-2 text-[14.64px] font-[600] text-[#FFFFFF] text-center leading-[14.64px] -rotate-[70deg]"
+                >
+                  Reading
                 </div>
               </div>
             </div>
           </div>
         </div>
+        {/* Reading Section end here */}
 
-        {/* Third row */}
+        {/* careers Section Start here */}
         <div className="col-span-1 h-[256px] w-full flex justify-center items-center"></div>
         <div className="col-span-1 h-[256px] relative w-full flex justify-center items-start">
           <div className="w-[125px] h-[125px] absolute -top-24 -right-16 rotate-[150deg] p-2 rounded-full border border-dashed border-[#56EC17]">
-            <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-90 absolute -top-[36px] left-[22%]">
-              <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
-                  <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
-                </span>
-              </span>
-              <span
-                onClick={() => setAppear((prev) => !prev)}
-                className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+            {careers && (
+              <div
+                className={`animationtransferaable transition-opacity ${
+                  careers ? "opacity-100" : "opacity-0"
+                } duration-1000 ease-in-out `}
+                style={{ transition: "opacity 0.5s ease-in-out" }}
               >
-                <span className="w-[80px] h-[80px] -rotate-[-120deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                  Education & Training
+                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-90 absolute -top-[36px] left-[22%]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[-120deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Human Resources
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
-            <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[30deg] absolute top-[22px] -left-[50%]">
-              <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
-                  <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                <span className="w-[210px] h-[2px] bg-[#56EC17] rotate-[120deg] absolute -top-[79.9px] left-[50px]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[-90deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Human Resources
+                    </span>
+                  </span>
                 </span>
-              </span>
-              <span
-                onClick={() => setAppear((prev) => !prev)}
-                className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
-              >
-                <span className="w-[80px] h-[80px] -rotate-[-180deg]  rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                  Human Resources
+                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[30deg] absolute top-[22px] -left-[50%]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[-180deg]  rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Human Resources
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
-            <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[145deg] absolute top-[22px] -right-[50%]">
-              <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
-                  <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                <span className="w-[210px] h-[2px] bg-[#56EC17] rotate-[60deg] absolute -top-[79px] -left-[110%]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[-150deg]  rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Human Resources
+                    </span>
+                  </span>
                 </span>
-              </span>
-              <span
-                onClick={() => setAppear((prev) => !prev)}
-                className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723]  flex items-center justify-center absolute -top-[50px] -left-[130px]"
-              >
-                <span className="w-[80px] h-[80px] -rotate-[-65deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                  STEM
+
+                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[145deg] absolute top-[22px] -right-[50%]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723]  flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[-65deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      STEM
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
-            <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
-              <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
-                <div className="w-full h-full rotate-[210deg] bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2 text-sm font-medium text-[#0A1723] text-center leading-3">
-                  Computer Science
+              </div>
+            )}
+            <div
+              className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2"
+              onClick={() => handleCareers()}
+            >
+              <div className="w-full cursor-pointer h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
+                <div
+                  className="w-full h-full rotate-[210deg] bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full 
+                p-2 text-[14.64px] font-[600] text-[#FFFFFF] text-center leading-[14.64px]"
+                >
+                  Careers
                 </div>
               </div>
             </div>
           </div>
-          <div className="w-[125px] h-[125px] absolute -top-24 -left-16 -rotate-[145deg] p-2 rounded-full border border-dashed border-[#56EC17]">
-            <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-90 absolute -top-[36px] left-[22%]">
-              <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
-                  <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
-                </span>
-              </span>
-              <span
-                onClick={() => setAppear((prev) => !prev)}
-                className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+          {/* careers Section End here */}
+
+          <div className="w-[125px] h-[125px] absolute -top-24 -left-16 -rotate-[145deg] p-2 ">
+            {math && (
+              <div
+                className={`animationtransferaable transition-opacity ${
+                  math ? "opacity-100" : "opacity-0"
+                } duration-1000 ease-in-out `}
+                style={{ transition: "opacity 0.5s ease-in-out" }}
               >
-                <span className="w-[80px] h-[80px] -rotate-[-55deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                  Critical Thinking
+                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-90 absolute -top-[36px] left-[22%]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[-55deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Strategic Thinker
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
-            <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[30deg] absolute top-[22px] -left-[50%]">
-              <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
-                  <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                <span className="w-[210px] h-[2px] bg-[#56EC17] rotate-[60deg] absolute -top-[89px] -left-[140px]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[-85deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Strategic Thinker
+                    </span>
+                  </span>
                 </span>
-              </span>
-              <span
-                onClick={() => setAppear((prev) => !prev)}
-                className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
-              >
-                <span className="w-[80px] h-[80px] -rotate-[-115deg]  rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                  Focus
+                <span className="w-[210px] h-[2px] bg-[#56EC17] rotate-[120deg] absolute -top-[80px] left-[50px]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[-25deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Patience
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
-            <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[145deg] absolute top-[22px] -right-[50%]">
-              <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
-                  <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[30deg] absolute top-[22px] -left-[50%]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[-115deg]  rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Focus
+                    </span>
+                  </span>
                 </span>
-              </span>
-              <span
-                onClick={() => setAppear((prev) => !prev)}
-                className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
-              >
-                <span className="w-[80px] h-[80px] -rotate-[-0deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                  Vocabulary
+                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[145deg] absolute top-[22px] -right-[50%]">
+                  <span className="w-[13.56px] h-[13.56px] rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                    <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
+                      <span className="w-[11px] h-[11px] bg-[#56EC17] rounded-full"></span>
+                    </span>
+                  </span>
+                  <span
+                    onClick={() => setAppear((prev) => !prev)}
+                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                  >
+                    <span className="w-[80px] h-[80px] -rotate-[-0deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                      Detailed Oreinted
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
-            <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
-              <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
-                <div className="w-full h-full rotate-[-215deg] bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2 text-sm font-medium text-[#0A1723] text-center leading-3">
-                  Reading
+              </div>
+            )}
+            <div
+              className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2"
+              onClick={() => handlemath()}
+            >
+              <div className="w-full cursor-pointer h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
+                <div
+                  className="w-full h-full rotate-[-215deg] bg-[#56EC17]
+                 shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2 text-[14.64px] 
+                 font-[600] text-[#FFFFFF] text-center leading-[14.64px]"
+                >
+                  Math
                 </div>
               </div>
             </div>
