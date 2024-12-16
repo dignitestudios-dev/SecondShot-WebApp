@@ -115,12 +115,7 @@ function MyTransferableSkills() {
           <h1 className="text-3xl font-semibold text-gray-800">
             My Transferable Skills
           </h1>
-          <p className="text-md  font-medium text-black w-[60%] mt-2 mb-4">
-            Here is a map of your transferable skills. Take a look at all the
-            soft skills you have acquired from your various experiences!! Click
-            on each circle to expand to learn about how you can use your skills
-            in other areas of your life.
-          </p>
+        
         </div>
         {/* "Make It Smart" button */}
         <div className=" w-[30%] flex items-center justify-end gap-3">
