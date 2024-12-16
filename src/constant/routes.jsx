@@ -26,7 +26,7 @@ import ReviewYourGoal from "../pages/mygoals/ReviewGoal";
 import SmartGoalDetails from "../pages/mygoals/SmartGoalDetails";
 import GoalDetail from "../pages/mygoals/GoalDetail";
 import MakeitSmart from "../pages/mygoals/MakeitSmart";
-import RegistrationQuestion from "../pages/RegistrationQuestions/RegistrationQuestion";
+import RegistrationQuestion from "../pages/registrationQuestions/RegistrationQuestion";
 import CongratsMessage from "../pages/registrationquestions/CongratsMessage";
 import Notifications from "../pages/notifications/Notifications";
 
@@ -96,68 +96,67 @@ export const routes = [
   {
     title: "Mylibrary",
     url: "/my-library",
-    page: <Applayout page={<MyLibrary  />} />,
+    page: <Applayout page={<MyLibrary />} />,
   },
   {
     title: "MyProfile",
     url: "/my-profile",
-    page: <Applayout page={<MyProfile  />} />,
+    page: <Applayout page={<MyProfile />} />,
   },
   {
     title: "ProfileSubscription",
     url: "/profile-subscription",
-    page: <Applayout page={<ProfileSubscription  />} />,
+    page: <Applayout page={<ProfileSubscription />} />,
   },
   {
     title: "EditProfileDetails",
     url: "/edit-profile-details",
-    page: <Applayout page={<EditProfileDetails  />} />,
+    page: <Applayout page={<EditProfileDetails />} />,
   },
   {
     title: "StartAssesment",
     url: "/start-assesment",
-    page: <Applayout page={<StartAssesment  />} />,
+    page: <Applayout page={<StartAssesment />} />,
   },
   {
     title: "CreateResume",
     url: "/create-resume",
-    page: <Applayout page={<CreateResume  />} />,
+    page: <Applayout page={<CreateResume />} />,
   },
   {
     title: "AddGoals",
     url: "/create-goals",
-    page: <Applayout page={<AddGoals  />} />,
+    page: <Applayout page={<AddGoals />} />,
   },
   {
     title: "ReviewGoal",
     url: "/review-goals",
-    page: <Applayout page={<ReviewYourGoal  />} />,
+    page: <Applayout page={<ReviewYourGoal />} />,
   },
   {
     title: "GoalDetail",
     url: "/goal-detail",
-    page: <Applayout page={<GoalDetail  />} />,
+    page: <Applayout page={<GoalDetail />} />,
   },
   {
     title: "MakeitSmart",
     url: "/make-smart",
-    page: <Applayout page={<MakeitSmart  />} />,
+    page: <Applayout page={<MakeitSmart />} />,
   },
   {
     title: "RegistrationQuestion",
     url: "/registration-question",
-    page:<RegistrationQuestion  />
+    page: <RegistrationQuestion />,
   },
-  
+
   {
     title: "CongratsMessage",
     url: "/congrats-message",
-    page:<CongratsMessage  />
+    page: <CongratsMessage />,
   },
   {
     title: "notifications",
     url: "/notifications",
-    page: <Applayout page={<Notifications  />} />
+    page: <Applayout page={<Notifications />} />,
   },
-  
 ];
