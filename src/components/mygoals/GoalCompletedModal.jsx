@@ -8,8 +8,8 @@ import GoalCreatedModal from "./GoalCreatedModal";
 const GoalCompletedModal = ({
   showModal,
   onclick,
-  closeGoalDetailModal,
   onClose,
+  handleClick
 }) => {
   const navigate = useNavigate();
 
@@ -47,10 +47,7 @@ const GoalCompletedModal = ({
                 <div className="w-[207px] ">
                   <AuthSubmitBtn
                     text={"Yes"}
-                    handleSubmit={() => {
-                      onClose();
-                      setShowModalSupport(true);
-                    }}
+                    handleSubmit={() => handleClick()}
                   />
                 </div>
               </div>
@@ -58,15 +55,7 @@ const GoalCompletedModal = ({
           </div>
         </div>
       )}
-      {showModalsupport && (
-        <AddSupportModal
-          showModal={showModalsupport}
-          handleClick={() => {
-            setShowModalSupport(false);
-            setGoalDetailModal(true);
-          }}
-        />
-      )}
+    
       {goalDetailModal && (
         <GoalCreatedModal
           showModal={goalDetailModal}
@@ -74,6 +63,8 @@ const GoalCompletedModal = ({
             setGoalDetailModal(false);
             navigate("/goal-detail");
           }}
+          heading={'Goal Successfully Created'}
+          onclick={()=>setGoalDetailModal(false)}
         />
       )}
     </>

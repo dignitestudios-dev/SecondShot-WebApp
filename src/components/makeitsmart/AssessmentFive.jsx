@@ -78,7 +78,7 @@ const AssessmentFive = ({ nextStep, formData, setFormData,setStep }) => {
             </div>
             <div className="flex justify-center pt-4">
               <div className="w-[343px]">
-                <AuthSubmitBtn text={"Next"} type={"submit"} handleSubmit={()=>navigate('/review-goals')} />
+                <AuthSubmitBtn text={"Next"} type={"submit"} handleSubmit={()=>navigate('/review-smart-goals')} />
               </div>
             </div>
             <div className="flex justify-center mt-4">

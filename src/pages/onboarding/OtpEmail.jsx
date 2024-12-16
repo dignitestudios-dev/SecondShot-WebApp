@@ -55,7 +55,7 @@ const OtpEmail = () => {
             )}
             <p className="text-center text-[16px] text-[#181818] font-[500] mt-4">
               Didn’t receive the code yet?{" "}
-              <a href="#" className=" font-medium hover:underline">
+              <a href="#" className=" font-medium text-[#012C57] hover:underline">
                 Resend
               </a>
             </p>

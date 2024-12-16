@@ -8,7 +8,7 @@ import {
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import AddSupportModal from "../myresume/AddSupportModal";
 
-const GoalCreatedModal = ({ showModal, onclick, handleClick,heading,para }) => {
+const SmartGoalModal = ({ showModal, onclick, handleClick }) => {
   const navigate = useNavigate();
   const handleNavigation = () => {
     navigate("/careerdetails");
@@ -35,14 +35,18 @@ const GoalCreatedModal = ({ showModal, onclick, handleClick,heading,para }) => {
             </div>
             <div className="px-4 pt-2 pb-2 mt-4">
               <h2 className="text-[24px] font-semibold text-center">
-              {heading}
+                Smart Goal Successfully Created
               </h2>
               <p className="text-center text-[#9A9A9A] text-[16px] font-[400]">
-              {para}
+                Your goal has been successfully created. You can now monitor
+                your progress and take the necessary steps to achieve it. For
+                any questions or further assistance, please contact our support
+                team. Stay committed to your objectives and continue striving
+                for success.
               </p>
               <div className="mt-5">
                 <AuthSubmitBtn
-                  text={"View Goal Details"}
+                  text={"View Smart Goal Details"}
                   handleSubmit={() => handleClick()}
                 />
               </div>
@@ -54,4 +58,4 @@ const GoalCreatedModal = ({ showModal, onclick, handleClick,heading,para }) => {
   );
 };
 
-export default GoalCreatedModal;
+export default SmartGoalModal;

@@ -149,8 +149,8 @@ const SubscriptionPlannew = () => {
         ))}
       </div>
 
-      <hr className="bg-[#000000] mt-11  w-full" />
-      <footer className="mt-4 text-gray-600 text-sm text-center">
+    
+      <footer className="mt-24 text-gray-600 text-sm text-center">
         Copyright © 2023 second shot
       </footer>
       <SubscriptionModal

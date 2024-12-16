@@ -26,8 +26,8 @@ const AssessmentTwentyOne = ({ prevStep, nextStep, formData, setFormData }) => {
           <Form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="skill">
-                If something takes a long time to figure out, do you keep trying
-                or try something else?
+              If something takes a long time to figure out, do you keep trying or seek an alternative solution?
+
               </label>
               <RecommendatioBtn
                 handleBtnSelect={handleKeepTrying}

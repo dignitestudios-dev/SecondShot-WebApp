@@ -29,7 +29,7 @@ function AssessmentEighteen({ prevStep, nextStep, formData, setFormData }) {
                 className="block  text-xs font-medium mb-2"
                 htmlFor="skill"
               >
-                (1 being not at all, 5 being you enjoy it greatly)
+             On a scale of 1-5, how much do you enjoy teaching others? (1 being not at all, 5 being greatly enjoy it)
               </label>
               <RecommendationCountBtn
                 handleCountBtn={handleTeachOthers}

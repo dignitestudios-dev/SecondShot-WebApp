@@ -4,6 +4,7 @@ import SubGoals from "../../components/mygoals/SubGoals";
 import { Dottedvertical } from "../../assets/export";
 import SupportPeople from "../../components/mygoals/SupportPeople";
 import GoalCreatedModal from "../../components/mygoals/GoalCreatedModal";
+import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 
 const GoalDetail = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -25,6 +26,9 @@ const GoalDetail = () => {
           <button className="bg-[#FFFCF2] bg-opacity-35 text-[#F0C000] px-4 py-2 rounded-md border border-[#F0C000]">
             Pending
           </button>
+          <div>
+            <AuthSubmitBtn text={"Mark As Completed"} handleSubmit={()=>setGoalDetailModal(true)} />
+          </div>
 
           <button
             onClick={() => setDropdownOpen((prev) => !prev)}
@@ -67,6 +71,8 @@ const GoalDetail = () => {
       <GoalCreatedModal
         showModal={goalDetailModal}
         handleClick={() => setGoalDetailModal(false)}
+        heading={'Congratulations'}
+        para={'Goal Successfully Completed'}
       />
 
       <SubGoals />

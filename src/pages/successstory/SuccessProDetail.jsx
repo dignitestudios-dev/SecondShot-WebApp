@@ -99,27 +99,68 @@ function SuccessProDetail() {
                   egestas tellus urna mattis aliquam sit.{" "}
                 </p>
               </div>
+              <hr class="h-px my-8 bg-gray-300 border-0" />
+
+              <div>
+                <h3 className="text-xl font-semibold text-[#011225]">
+                  Can you identify your most valuable transferable skill, and
+                  how have you seen it manifest in different areas of your life?
+                </h3>
+                <p className="text-black mt-3">
+                  Think about the skills you've developed that can be applied
+                  across different areas of life and work. Whether it's
+                  communication, problem-solving, or adaptability, these
+                  transferable skills are often the foundation of success. How
+                  has this skill shaped your interactions, improved your
+                  efficiency, or opened up new opportunities? Reflect on how it
+                  continues to influence both your personal and professional
+                  growth.
+                </p>
+              </div>
+              <hr class="h-px my-8 bg-gray-300 border-0" />
+
+              <div>
+                <h3 className="text-xl font-semibold text-[#011225]">
+                If you could give one piece of advice to your younger self, what would it be, and why?
+                </h3>
+                <p className="text-black mt-3">
+                Reflecting on your journey, think about the wisdom and lessons you’ve gained over time. What insights would you share with your younger self to help navigate challenges, embrace opportunities, or avoid mistakes? Whether it’s about trusting your instincts, being patient, or taking more risks, this is a moment to look back and offer guidance that could have made a difference.
+                </p>
+              </div>
+           
             </div>
           </div>
           <div className="p-6 bg-white rounded-2xl mt-4">
-              <h3 className="text-xl font-semibold text-[#011225] mb-4">Achievements</h3>
-              <div className="grid grid-cols-2 gap-4 text-[#011225]">
-                <ol className="pl-1 space-y-2 border-r-2">
-                  <li>1. Lorem ipsum dolor sit amet consectetur. Nunc aliquet diam quam vitae non tincidunt turpis.</li>
-                  <hr class="h-px my-8 bg-gray-300 border-0 mr-6"/>
+            <h3 className="text-xl font-semibold text-[#011225] mb-4">
+              Achievements
+            </h3>
+            <div className="grid grid-cols-2 gap-4 text-[#011225]">
+              <ol className="pl-1 space-y-2 border-r-2">
+                <li>
+                  1. Lorem ipsum dolor sit amet consectetur. Nunc aliquet diam
+                  quam vitae non tincidunt turpis.
+                </li>
+                <hr class="h-px my-8 bg-gray-300 border-0 mr-6" />
 
-                  <li>2. Lorem ipsum dolor sit amet consectetur. Nunc aliquet diam quam vitae non tincidunt turpis.</li>
-                  
-                </ol>
-                <ol className=" pl-5 space-y-2">
-                  <li>3. Lorem ipsum dolor sit amet consectetur. Nunc aliquet diam quam vitae non tincidunt turpis.</li>
-                  <hr class="h-px my-8 bg-gray-300 border-0"/>
+                <li>
+                  2. Lorem ipsum dolor sit amet consectetur. Nunc aliquet diam
+                  quam vitae non tincidunt turpis.
+                </li>
+              </ol>
+              <ol className=" pl-5 space-y-2">
+                <li>
+                  3. Lorem ipsum dolor sit amet consectetur. Nunc aliquet diam
+                  quam vitae non tincidunt turpis.
+                </li>
+                <hr class="h-px my-8 bg-gray-300 border-0" />
 
-                  <li>4. Lorem ipsum dolor sit amet consectetur. Nunc aliquet diam quam vitae non tincidunt turpis.</li>
-                 
-                </ol>
-              </div>
-            </div>  
+                <li>
+                  4. Lorem ipsum dolor sit amet consectetur. Nunc aliquet diam
+                  quam vitae non tincidunt turpis.
+                </li>
+              </ol>
+            </div>
+          </div>
         </div>
       </div>
     </div>

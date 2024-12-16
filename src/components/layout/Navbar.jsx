@@ -43,11 +43,12 @@ const Navbar = () => {
           {navItems.map((item) => (
             <li
               key={item.path}
-              className={`${
-                location.pathname === item.path ? "underline" : ""
-              } hover:underline`}
+             
             >
               <Link to={item.path}>{item.label}</Link>
+              <div  className={`${
+                location.pathname === item.path ? "w-auto h-[1px]   bg-white" : ""
+              } `} ></div>
             </li>
           ))}
         </ul>

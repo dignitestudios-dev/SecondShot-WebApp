@@ -7,6 +7,7 @@ import LibraryCareer from "../../components/mylibrary/LibraryCareer";
 import Transferable from "../../components/mylibrary/Transferable";
 import WelcomeLibraryModal from "../../components/mylibrary/WelcomeLibraryModal";
 import { ModalContext } from "../../context/GlobalContext";
+import CareerCards from "../../components/careerrecommendation/CareerCards";
 
 function MyLibrary() {
   const navigate = useNavigate();
@@ -72,7 +73,7 @@ function MyLibrary() {
         </div>
       </div>
 
-      {view === "career" ? <LibraryCareer /> : <Transferable />}
+      {view === "career" ?     <CareerCards /> : <Transferable />}
     </div>
   );
 }

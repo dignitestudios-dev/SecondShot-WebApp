@@ -1,18 +1,14 @@
 import React, { useState } from "react";
-import { PiPencilLine } from "react-icons/pi";
-// import GoalCompletedModal from "../components/GoalCompletedModal";
 import { useNavigate } from "react-router-dom";
 import MainGoalDetail from "../../components/mygoals/MainGoalDetail";
 import SubGoalDetail from "../../components/mygoals/SubGoalDetail";
 import SupportPeople from "../../components/mygoals/SupportPeople";
-import SupportPerson from "../../components/mygoals/SupportPerson";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import GoalCompletedModal from "../../components/mygoals/GoalCompletedModal";
-import AuthInput from "../../components/onboarding/AuthInput";
-import GoalCreatedModal from "../../components/mygoals/GoalCreatedModal";
+import SmartGoalModal from "../../components/mygoals/SmartGoalModal";
 import AddSupportModal from "../../components/myresume/AddSupportModal";
 
-function ReviewYourGoal() {
+function ReviewSmartGoal() {
   const navigate = useNavigate();
   const [isGoalDetailModalOpen, setGoalDetailModalOpen] = useState(false);
   const [isPeople, setIsPeople] = useState(false);
@@ -28,8 +24,9 @@ function ReviewYourGoal() {
   };
 
   const [showCardModal, setShowCardModal] = useState(false);
-  const [successModal, setSuccessModal] = useState(false);
+  const [showsuccessModal, setShowsuccessModal] = useState(false);
   const [showModalsupport, setShowModalsupport] = useState(false);
+
   const handleCardModal = () => {
     setShowCardModal(!showCardModal);
   };
@@ -37,7 +34,7 @@ function ReviewYourGoal() {
     setShowCardModal(false);
   };
   return (
-    <div className=" p-8 flex flex-col items-center">
+    <div className=" ">
       <div className="">
         <GoalCompletedModal
           showModal={showCardModal}
@@ -47,27 +44,28 @@ function ReviewYourGoal() {
             setShowModalsupport(true);
           }}
         />
-        <div className="flex justify-between items-center mt-6 ">
+        <div className="flex justify-between items-center mt-6 w-full">
           <div className="text-left w-[475px]">
             <h1 className="text-[32px] font-[500] text-[#000000]">
-              Review Your Goal
+              Review Your Smart Goal
             </h1>
             <p className="text-[400] mt-1 text-[16px] text-[#0F0F0F] ">
               Take a moment to review your goals below. Ensure they are aligned
               with your aspirations and ready to propel you forward!
             </p>
           </div>
-          <div className="flex  items-center  gap-4">
-            <div className="w-[200px]">
+          <div className="flex justify-start items-center gap-1">
+            <div>
               <AuthSubmitBtn
-                text={"Add Support Network"}
+                text={"  Add Support Network"}
                 handleSubmit={() => handleCardModal()}
               />
             </div>
+
             <div>
               <AuthSubmitBtn
-                text={"Finalize Goal"}
-                handleSubmit={() => setSuccessModal(true)}
+                text={" Finalize Goal"}
+                handleSubmit={() => setShowsuccessModal(true)}
               />
             </div>
           </div>
@@ -77,33 +75,29 @@ function ReviewYourGoal() {
           <div className="grid grid-cols-2 gap-8">
             <MainGoalDetail />
             <div className="w-[575px] h-[161px] space-y-8">
-              <SupportPerson />
+              <SubGoalDetail />
             </div>
           </div>
         </div>
-
         <div />
+
+        <SupportPeople />
       </div>
 
       <AddSupportModal
         showModal={showModalsupport}
         handleClick={() => {
           setShowModalsupport(false);
-          setSuccessModal(true);
+          setShowsuccessModal(true);
         }}
       />
-
-      <GoalCreatedModal
-        showModal={successModal}
-        handleClick={() => navigate("/goal-detail")}
-        onclick={() => setSuccessModal(false)}
-        heading={"Goal successfully completed."}
-        para={
-          "  Your goal has been successfully created. You can now monitor your progress and take the necessary steps to achieve it. For any questions or further assistance, please contact our support team. Stay committed to your objectives and continue striving for success."
-        }
+      <SmartGoalModal
+        showModal={showsuccessModal}
+        handleClick={() => navigate("/smartgoaldetails")}
+        onclick={() => setShowCardModal(false)}
       />
     </div>
   );
 }
 
-export default ReviewYourGoal;
+export default ReviewSmartGoal;

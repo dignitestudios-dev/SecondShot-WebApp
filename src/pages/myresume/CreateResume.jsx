@@ -159,7 +159,7 @@ const CreateResume = () => {
                           index < step - 1
                             ? "bg-gradient-to-r from-[#012C57] to-[#061523] z-50"
                             : index == step - 1
-                            ? "bg-[#56EC17] z-50"
+                            ? "bg-[#56EC17] z-50 text-[#061523]"
                             : "bg-[#969696]"
                         }`}
                       >
@@ -272,7 +272,7 @@ const CreateResume = () => {
                 />
               )}
             </div>
-            {step !== 9 && <img src={Cvimg} alt="" className="w-full" />}
+            {step !== 9 && <img src={Cvimg} alt="" className="w-full mt-11" />}
           </div>
         </div>
       </>

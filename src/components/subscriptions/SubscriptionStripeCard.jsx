@@ -35,10 +35,10 @@ const SubscriptionStripeCard = ({selected,handleModal}) => {
         </div>
         <hr className="w-full border-t border-gray-300 mt-4" />
         <div className="flex justify-between items-center mt-4">
-          <p className="text-black font-semibold">Payment Method</p>
+          <p className="text-black font-[500]">Payment Method</p>
           <p
             onClick={() => setShowNew(true)}
-            className="text-[#0E73D0] text-xs font-semibold cursor-pointer"
+            className="text-[#0E73D0] text-xs font-[500] cursor-pointer"
           >
             Add New Card
           </p>
@@ -49,7 +49,7 @@ const SubscriptionStripeCard = ({selected,handleModal}) => {
               <div className="mt-2">
                 <button
                   onClick={handleModal}
-                  className="w-full flex items-center justify-between bg-gray-100 p-4 rounded-lg text-black"
+                  className="w-full flex items-center justify-between bg-[#03223F0F] p-4 rounded-lg text-black"
                 >
                   <div className="flex items-center">
                     <img

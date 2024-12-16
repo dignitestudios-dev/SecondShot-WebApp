@@ -9,49 +9,51 @@ const MygoalsCard = () => {
       heading: "Digital Marketing Course",
       para: "Increase my average test score in Algebra from 80% to 90% by consistently studying and completing assignments.",
       tags: ["Specific", "Measurable", "Achievable", "Relevant"],
-      bgCardColor: "bg-[#1FBA4621]",
-      badgeColor: "text-[#1FBA46]",
+      bgCardColor: "bg-[#D4F6ED]",
+      badgeColor: "text-[#36B8F3]",
+    },
+    {
+      badge: "Not Started yet",
+      heading: "Digital Marketing Course",
+      para: "Increase my average test score in Algebra from 80% to 90% by consistently studying and completing assignments.",
+      tags: ["Specific", "Measurable", "Achievable", "Relevant"],
+      bgCardColor: "bg-[#f0340040]",
+      badgeColor: "text-[#f01800]",
     },
     {
       badge: "In Progress",
       heading: "Digital Marketing Course",
       para: "Increase my average test score in Algebra from 80% to 90% by consistently studying and completing assignments.",
       tags: ["Specific", "Measurable", "Achievable", "Relevant"],
-      bgCardColor: "bg-[#D4F6ED]",
-      badgeColor: "text-[#36B8F3]",
-    },
-    {
-      badge: "Pending",
-      heading: "Digital Marketing Course",
-      para: "Increase my average test score in Algebra from 80% to 90% by consistently studying and completing assignments.",
-      tags: ["Specific", "Measurable", "Achievable", "Relevant"],
       bgCardColor: "bg-[#F0C00042]",
       badgeColor: "text-[#F0C000]",
     },
-    {
-      badge: "In Progress",
-      heading: "Digital Marketing Course",
-      para: "Increase my average test score in Algebra from 80% to 90% by consistently studying and completing assignments.",
-      tags: ["Specific", "Measurable", "Achievable", "Relevant"],
-      bgCardColor: "bg-[#D4F6ED]",
-      badgeColor: "text-[#36B8F3]",
-    },
-    {
-      badge: "Pending",
-      heading: "Digital Marketing Course",
-      para: "Increase my average test score in Algebra from 80% to 90% by consistently studying and completing assignments.",
-      tags: ["Specific", "Measurable", "Achievable", "Relevant"],
-      bgCardColor: "bg-[#F0C00042]",
-      badgeColor: "text-[#F0C000]",
-    },
+   
     {
       badge: "Completed",
       heading: "Digital Marketing Course",
       para: "Increase my average test score in Algebra from 80% to 90% by consistently studying and completing assignments.",
       tags: ["Specific", "Measurable", "Achievable", "Relevant"],
-      bgCardColor: "bg-[#1FBA4621]",
-      badgeColor: "text-[#1FBA46]",
+      bgCardColor: "bg-[#D4F6ED]",
+      badgeColor: "text-[#36B8F3]",
     },
+    {
+      badge: "Not Started yet",
+      heading: "Digital Marketing Course",
+      para: "Increase my average test score in Algebra from 80% to 90% by consistently studying and completing assignments.",
+      tags: ["Specific", "Measurable", "Achievable", "Relevant"],
+      bgCardColor: "bg-[#f0340040]",
+      badgeColor: "text-[#f01800]",
+    },
+    {
+      badge: "In Progress",
+      heading: "Digital Marketing Course",
+      para: "Increase my average test score in Algebra from 80% to 90% by consistently studying and completing assignments.",
+      tags: ["Specific", "Measurable", "Achievable", "Relevant"],
+      bgCardColor: "bg-[#F0C00042]",
+      badgeColor: "text-[#F0C000]",
+    },
+   
   ];
   const navigate = useNavigate();
   return (
@@ -67,7 +69,7 @@ const MygoalsCard = () => {
             >
               <div className="flex justify-between items-center mb-4">
                 <span
-                  className={`leading-[39px] h-[39px] w-[104px] text-center rounded-full text-[14px] font-[500] bg-white ${item?.badgeColor}`}
+                  className={`leading-[39px] h-[39px] w-[110px] text-center rounded-full text-[14px] font-[500] bg-white ${item?.badgeColor}`}
                 >
                   {item.badge}
                 </span>
@@ -75,7 +77,7 @@ const MygoalsCard = () => {
                   <img src={Dotedimg} className="w-[18px]  " alt="" />
                 </div>
               </div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              <h3 className="text-[20px] leading-[32.4px] font-[500] text-gray-800 mb-2">
                 {item.heading}
               </h3>
               <p className="text-sm text-gray-600 mb-4">{item.para}</p>
@@ -90,18 +92,18 @@ const MygoalsCard = () => {
                 ))}
               </div> */}
             </div>
-            <div className="flex justify-between items-start text-sm text-gray-600 mt-6 pb-3 pr-3">
+            <div className="flex justify-between items-start text-sm text-black mt-6 pb-3 pr-3">
               <div className="flex flex-col">
-                <span className="bg-white p-1 rounded-md font-bold text-lg">
+                <span className="bg-white p-1 rounded-md font-[500] px-6 text-lg">
                   Deadline
                 </span>
-                <span className="bg-white p-1 rounded-md mt-[-2px]">
-                  July 01, 2024 - Sept 01, 2024
+                <span className="bg-white p-1 px-6 text-[#00000070] rounded-md mt-[-2px]">
+                  July 01, 2024 | Sept 01, 2024
                 </span>
               </div>
               <button
-                onClick={() => navigate("/goaldetails")}
-                className="px-4 py-2 text-sm font-semibold text-[#012C57] bg-gray-200 border border-gray-300 rounded-lg mt-3"
+                onClick={() => navigate("/smartgoaldetails")}
+                className="px-4 py-2 text-sm font-[500] text-[#012C57] bg-gray-200 border border-gray-300 rounded-lg mt-3"
               >
                 View Details
               </button>

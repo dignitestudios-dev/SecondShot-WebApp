@@ -29,6 +29,7 @@ import MakeitSmart from "../pages/mygoals/MakeitSmart";
 import RegistrationQuestion from "../pages/registrationquestions/RegistrationQuestion";
 import CongratsMessage from "../pages/registrationquestions/CongratsMessage";
 import Notifications from "../pages/notifications/Notifications";
+import ReviewSmartGoal from "../pages/mygoals/ReviewSmartGoals";
 
 export const routes = [
   {
@@ -70,7 +71,7 @@ export const routes = [
   },
   {
     title: "GoalsDetails",
-    url: "/goaldetails",
+    url: "/smartgoaldetails",
     page: <Applayout page={<SmartGoalDetails />} />,
   },
   {
@@ -158,5 +159,10 @@ export const routes = [
     title: "notifications",
     url: "/notifications",
     page: <Applayout page={<Notifications />} />,
+  },
+  {
+    title: "review-smart-goals",
+    url: "/review-smart-goals",
+    page: <Applayout page={<ReviewSmartGoal />} />,
   },
 ];

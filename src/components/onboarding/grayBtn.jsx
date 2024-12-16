@@ -5,7 +5,7 @@ const GrayBtn = ({ text, loading, handleSubmit }) => {
   return (
     <button
       type="submit"
-      className={`w-full py-3 h-[49px] px-4 text-sm font-semibold rounded-xl text-gray-600 bg-[#CACACA] hover:bg-opacity-85 `}
+      className={`w-full py-3 h-[49px] px-4 text-sm font-[500] rounded-xl text-gray-600 bg-[#CACACA] hover:bg-opacity-85 `}
       onClick={handleSubmit}
     >
       {text}

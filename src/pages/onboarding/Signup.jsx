@@ -87,7 +87,7 @@ const SignUpForm = () => {
               </p>
             </div>
 
-            <div className="text-center text-[16px] font-[500] leading-[21.6px] mt-2">
+            <div className="text-center text-[16px] leading-[21.6px] mt-2">
               I Agree To The{" "}
               <a href="#" className="text-[#56EC17] underline">
                 Terms & Conditions

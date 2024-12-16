@@ -33,7 +33,8 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
 
   return (
     showModal && (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-80">
+        
         <div className="bg-white rounded-lg shadow-lg w-[450px] h-auto overflow-auto p-6 relative">
           <button
             className="absolute top-0 right-2 text-xl text-gray-500 hover:text-gray-600"
@@ -110,7 +111,7 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
                     <label className="text-[14px] text-[#181818] font-[500] ">
                       Sub-goal 1
                     </label>
-                    <button className="flex gap-1 justify-start items-center text-xs text-blue-800 font-medium">
+                    <button className="flex gap-1 justify-start items-center text-[#012C57] cursor-pointer  font-[500] text-[11px] leading-[13.31px]">
                       + <span>Add More</span>
                     </button>
                   </div>
@@ -131,12 +132,7 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
                   Make it Smart
                 </button>
 
-                {/* <button
-                  onClick={() => navigate("/reviewgoal")}
-                  className="w-full bg-[#012C57] text-white py-2 my-2 rounded-lg hover:bg-blue-900"
-                >
-                  Submit Your Goal
-                </button> */}
+
               </div>
             </div>
           }

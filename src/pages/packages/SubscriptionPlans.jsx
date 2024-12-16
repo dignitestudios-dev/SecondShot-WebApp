@@ -10,14 +10,14 @@ const SubscriptionNew = () => {
   const handleIsTrue = () => {
     setIsTrue(!isTrue);
   };
-  const location =useLocation()
+  const location = useLocation();
   const { cardsubdata } = location.state || {};
-  console.log(cardsubdata,"benefitsbenefits")
+  console.log(cardsubdata, "benefitsbenefits");
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#F4F7FC] to-[#E9F5E5] relative">
       <div className="flex justify-center text-center">
         <div className="w-[90%] md:w-[50%] mx-4 md:mt-8">
-          <h1 className="text-[40px] font-bold leading-[54px] " >
+          <h1 className="text-[40px] font-[600] leading-[54px] ">
             Explore Our Subscription Plans
           </h1>
           <p className="text-[16px] font-medium leading-[21.6px] mt-2">
@@ -34,6 +34,12 @@ const SubscriptionNew = () => {
           setSelected={setSelected}
           cardsubdata={cardsubdata}
         />
+      </div>
+      <div className="mt-11 p-5">
+        <hr />
+        <footer className="mt-5 text-gray-600 text-sm text-center pb-5">
+          Copyright © 2023 second shot
+        </footer>
       </div>
       <img
         src={BgAuth}
