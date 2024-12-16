@@ -26,7 +26,7 @@ import ReviewYourGoal from "../pages/mygoals/ReviewGoal";
 import SmartGoalDetails from "../pages/mygoals/SmartGoalDetails";
 import GoalDetail from "../pages/mygoals/GoalDetail";
 import MakeitSmart from "../pages/mygoals/MakeitSmart";
-import RegistrationQuestion from "../pages/registrationQuestions/RegistrationQuestion";
+import RegistrationQuestion from "../pages/registrationquestions/RegistrationQuestion";
 import CongratsMessage from "../pages/registrationquestions/CongratsMessage";
 import Notifications from "../pages/notifications/Notifications";
 
