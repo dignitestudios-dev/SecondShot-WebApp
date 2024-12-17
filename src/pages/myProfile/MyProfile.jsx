@@ -123,13 +123,13 @@ function MyProfile() {
                       />
                     ))}
                   </div>
-
-                  <div>
-                    <AuthSubmitBtn
-                      text={"Invite Friends"}
-                      handleSubmit={() => setInviteOpen(true)}
-                    />
-                  </div>
+                  <button
+                    onClick={() => setInviteOpen(true)}
+                    className="flex items-center space-x-2 text-white   bg-gradient-to-l from-[#012C57] to-[#061523] px-4 py-2 rounded-md shadow-sm w-[139.27px] h-[44px] text-center"
+                  >
+                    <span>Invite Friends</span>
+                  </button>
+               
                 </div>
 
                 <hr className="my-4 border-t border-gray-200" />
@@ -140,7 +140,7 @@ function MyProfile() {
                   </h2>
                   <button
                     onClick={handleEdit}
-                    className="flex items-center  text-[#012C57] font-medium bg-gray-200 px-4 py-2 rounded-lg shadow-sm  h-[42px] text-center"
+                    className="flex items-center  text-[#012C57] font-[500] bg-gray-200 px-4 py-2 rounded-lg shadow-sm  h-[42px] text-center"
                   >
                     Edit Skills
                   </button>

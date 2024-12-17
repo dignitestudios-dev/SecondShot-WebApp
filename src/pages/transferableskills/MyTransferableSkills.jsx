@@ -3,6 +3,7 @@ import TransferableSkillsModal from "../../components/transferableSkills/Transfe
 import { ModalContext } from "../../context/GlobalContext";
 import { Printimg, Profileimage } from "../../assets/export";
 import Backbutton from "../../components/Global/Backbutton";
+import { BsFillBookmarkStarFill } from "react-icons/bs";
 
 function MyTransferableSkills() {
   const [tooltip, setTooltip] = useState({ show: false, text: "", x: 0, y: 0 });
@@ -112,14 +113,14 @@ function MyTransferableSkills() {
       {/* Header with "Make It Smart" button */}
       <div className="flex justify-between items-start mb-8">
         <div>
-          <h1 className="text-[32px] font-[500] text-[#000000]">
+          <h1 className="text-[32px] font-[500] text-[#000000] mb-24">
             My Transferable Skills
           </h1>
         
         </div>
         {/* "Make It Smart" button */}
         <div className=" w-[30%] flex items-center justify-end gap-3">
-          <div className="text-md font-semibold">Print Skills</div>
+          <div className="text-md font-[500]">Print Skills</div>
           <div className="cursor-pointer bg-white rounded-[10px] shadow-sm p-3 ">
             <img className="w-[27.61px] h-[23px] " src={Printimg} />
           </div>
@@ -136,8 +137,12 @@ function MyTransferableSkills() {
             Critical thinking in the workplace is essential for making informed
             decisions, solving complex problems, and fostering innovation.
           </span>
+          
           <span className="w-[20%] h-full flex justify-end items-start">
-            {/* <img src={Save} alt="" className="w-[16px]" /> */}
+          <BsFillBookmarkStarFill
+            size={"27px"}
+            className="text-gray-500 group-hover:text-white transition duration-200"
+          />
           </span>
         </span>
         <div className="col-span-1 h-[256px] w-full flex justify-center items-center"></div>

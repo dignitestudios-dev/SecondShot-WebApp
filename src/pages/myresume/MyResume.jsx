@@ -42,7 +42,7 @@ function MyResume() {
             <div className="flex flex-col items-start">
               <button
                 onClick={handleNavigate}
-                className="text-[#012C57] font-bold"
+                className="text-[#012C57] text-[18px] font-[600]"
               >
                 + Create Resume
               </button>
