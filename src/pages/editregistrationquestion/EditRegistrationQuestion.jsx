@@ -1,7 +1,16 @@
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BgAuth, Leftimg, logo, Logonav } from "../../assets/export";
-
+import StepOne from "../../components/editregistrationquetions/StepOne";
+import StepTwo from "../../components/editregistrationquetions/StepTwo";
+import StepThree from "../../components/editregistrationquetions/StepThree";
+import StepFour from "../../components/editregistrationquetions/StepFour";
+import StepFive from "../../components/editregistrationquetions/StepFive";
+import StepSix from "../../components/editregistrationquetions/StepSix";
+import StepSeven from "../../components/editregistrationquetions/StepSeven";
+import StepEight from "../../components/editregistrationquetions/StepEight";
+import StepNine from "../../components/editregistrationquetions/StepNine";
+import StepTen from "../../components/editregistrationquetions/StepTen";
 
 const EditRegistrationQuestion = () => {
   const isSkill = localStorage.getItem("isEditSkill");
@@ -53,11 +62,6 @@ const EditRegistrationQuestion = () => {
   return (
     <Fragment>
       <div className="flex justify-center items-center min-h-screen relative">
-        <img
-          src={Leftimg}
-          alt="logo"
-          className="absolute top-0 left-0 w-[20%]"
-        />
         {congrats ? (
           <></>
         ) : (
@@ -180,11 +184,6 @@ const EditRegistrationQuestion = () => {
                 </div>
               </div>
             </div>
-            <img
-              src={BgAuth}
-              alt="logo"
-              className="absolute bottom-0 right-0 w-[20%]"
-            />
           </div>
         )}
       </div>

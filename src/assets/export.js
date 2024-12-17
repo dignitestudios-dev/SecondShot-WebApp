@@ -61,6 +61,9 @@ import Calender from "../assets/calender.png";
 import SubmitGoalimg from "../assets/submitGoalimg.png";
 import SuccessfullyGoaimg from "../assets/SuccessfullyGoaimg.png";
 import Stars from "../assets/stars.png";
+import Instaicon from "../assets/instaicon.png";
+import facebook from "../assets/facebook.png";
+import Twittericon from "../assets/twittericon.png";
 
 export {
   logo,
@@ -125,5 +128,8 @@ export {
   Calender,
   SubmitGoalimg,
   SuccessfullyGoaimg,
-  Stars
+  Stars,
+  Instaicon,
+  facebook,
+  Twittericon
 };

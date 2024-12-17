@@ -112,7 +112,7 @@ function MyTransferableSkills() {
       {/* Header with "Make It Smart" button */}
       <div className="flex justify-between items-start mb-8">
         <div>
-          <h1 className="text-3xl font-semibold text-gray-800 mb-24">
+          <h1 className="text-[32px] font-[500] text-[#000000]">
             My Transferable Skills
           </h1>
         

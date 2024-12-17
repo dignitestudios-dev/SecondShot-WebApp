@@ -41,7 +41,7 @@ function MyLibrary() {
       <Backbutton />
 
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-semibold text-gray-800 text-left mb-4">
+        <h1 className="text-[32px] font-[500] text-[#000000]">
           My Library
         </h1>
 

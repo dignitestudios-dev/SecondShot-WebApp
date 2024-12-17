@@ -13,7 +13,6 @@ import {
   Carriericon5,
   Carriericon6,
 } from "../../assets/export";
-import TransferableSkillsModal from "../transferableSkills/TransferableSkillsModal";
 import { useNavigate } from "react-router-dom";
 
 const CareerToolbox = () => {
@@ -78,46 +77,43 @@ const CareerToolbox = () => {
 
   return (
     <div className="">
-    <div className="grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      {CardData?.map((item, index) => (
-        <div
-          key={index}
-          className={`${item?.bgcolors} group cursor-pointer w-[380px] h-[438px] rounded-[28px] p-5 mx-auto transition-all duration-500`}
-        >
-          <div className="flex items-center gap-4 mb-5 group-hover:hidden">
-            <div className="bg-white w-[82px] h-[82px] rounded-[20px] p-3">
-              <img src={item?.cardicons} alt={item?.title} />
-            </div>
-            <div className="text-[28px] w-[120px] text-start leading-[33px] font-[600] text-white">
-              {item?.title}
-            </div>
-          </div>
-  
-          <div className="rounded-[20px] flex justify-center p-4 overflow-hidden">
-  <img
-    src={item?.cardimage}
-    alt="Card Background"
-    className="w-[342.63px] h-[218.5px] transform group-hover:scale-[0.98] group-hover:translate-y-[-30px] group-hover:h-[147px] group-hover:w-[230.51px] transition-all duration-700 ease-in-out"
-  />
-</div>
-
-  
-          <div className="text-[20px] text-center font-[500] leading-[27px] tracking-[0.41px] text-[#FFFFFF] hidden group-hover:block transition-opacity duration-1000">
-            {item?.para}
-          </div>
-  
+      <div className="grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {CardData?.map((item, index) => (
           <div
-            className={`${item?.btnBg} flex justify-center items-center text-white h-[49px] rounded-[12px] text-[18px] uppercase tracking-[0.41px] font-[600] text-center mt-`}
-            onClick={() => navigate(item?.path)}
+            key={index}
+            className={`${item?.bgcolors} group cursor-pointer w-[380px] h-[438px] rounded-[28px] p-5 mx-auto transition-all duration-500 relative`}
           >
-            Launch
+            <div className="flex items-center gap-4 mb-5 group-hover:hidden">
+              <div className="bg-white w-[82px] h-[82px] rounded-[20px] p-3">
+                <img src={item?.cardicons} alt={item?.title} />
+              </div>
+              <div className="text-[28px] w-[120px] text-start leading-[33px] font-[600] text-white">
+                {item?.title}
+              </div>
+            </div>
+
+            <div className="rounded-[20px] flex justify-center p-4 overflow-hidden">
+              <img
+                src={item?.cardimage}
+                alt="Card Background"
+                className="w-[342.63px] h-[218.5px] transform group-hover:scale-[0.98] group-hover:translate-y-[-30px] group-hover:h-[147px] group-hover:w-[230.51px] transition-all duration-700 ease-in-out"
+              />
+            </div>
+
+            <div className="text-[20px] text-center font-[500] leading-[27px] tracking-[0.41px] text-[#FFFFFF] hidden group-hover:block transition-opacity duration-1000">
+              {item?.para}
+            </div>
+
+            <div
+              className={`${item?.btnBg} flex w-[330px] justify-center items-center text-white h-[49px] rounded-[12px] text-[18px] uppercase tracking-[0.41px] font-[600] text-center mt-auto absolute bottom-5 left-0 right-0 mx-auto`}
+              onClick={() => navigate(item?.path)}
+            >
+              Launch
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
-  
-  </div>
-  
   );
 };
 

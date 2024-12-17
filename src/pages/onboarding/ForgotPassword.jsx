@@ -37,12 +37,14 @@ const ForgotPassword = () => {
               <h1 className="text-[32px] font-semibold text-center">
                 Forgot Password
               </h1>
-              <p className="text-[#181818]">
+              <p className="text-[#181818] text-center">
                 Enter your registered email address below
               </p>
             </div>
             <div className="space-y-3">
-              <AuthInput type="email" placeholder="Email Address" />
+              <div className="w-[350px]">
+                <AuthInput type="email" placeholder="Email Address" />
+              </div>
               <div className="mb-6">
                 <AuthSubmitBtn
                   text="Send"

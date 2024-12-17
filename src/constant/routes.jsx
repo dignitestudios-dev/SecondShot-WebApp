@@ -30,6 +30,7 @@ import RegistrationQuestion from "../pages/registrationquestions/RegistrationQue
 import CongratsMessage from "../pages/registrationquestions/CongratsMessage";
 import Notifications from "../pages/notifications/Notifications";
 import ReviewSmartGoal from "../pages/mygoals/ReviewSmartGoals";
+import EditRegistrationQuestion from "../pages/editregistrationquestion/EditRegistrationQuestion";
 
 export const routes = [
   {
@@ -164,5 +165,10 @@ export const routes = [
     title: "review-smart-goals",
     url: "/review-smart-goals",
     page: <Applayout page={<ReviewSmartGoal />} />,
+  },
+  {
+    title: "edit-registration-question",
+    url: "/edit-registration-question",
+    page: <Applayout page={<EditRegistrationQuestion />} />,
   },
 ];

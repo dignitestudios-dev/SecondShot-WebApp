@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
-import { Profileimage } from "../../assets/export";
+import {
+  facebook,
+  Instaicon,
+  Profileimage,
+  Twittericon,
+} from "../../assets/export";
 import ChangePasswordModal from "../../components/myProfile/ChangePassword";
 import ChangePaymentMethodModal from "../../components/myProfile/ChangePaymentMethod";
 import DeactivateModal from "../../components/myProfile/DeactivateModal";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
+import InviteFriendModal from "../../components/myProfile/InviteFriendModal";
 
 function MyProfile() {
   const navigate = useNavigate();
@@ -17,9 +23,10 @@ function MyProfile() {
   const [isDeactivateModalOpen, setIsDeactivateModalOpen] = useState(false); // State for deactivate modal visibility
 
   const handleEdit = () => {
-    navigate("/registration-question");
+    navigate("/edit-registration-question");
     localStorage.setItem("isEditSkill", true);
   };
+  const [inviteOpen, setInviteOpen] = useState(false);
 
   return (
     <div className="">
@@ -54,12 +61,12 @@ function MyProfile() {
                 Account Settings
               </li>
             </ul>
-            <button
-              onClick={() => navigate("/sign-in")}
-              className="mt-auto bg-gradient-to-l from-[#012C57] to-[#061523] text-white rounded-lg flex items-center justify-center w-[140px] h-[42px]"
-            >
-              Logout
-            </button>
+            <div className="w-[140px]">
+              <AuthSubmitBtn
+                text={"Logout"}
+                handleSubmit={() => navigate("/sign-in")}
+              />
+            </div>
           </div>
 
           <div className="w-3/4 bg-white rounded-r-lg  p-8">
@@ -84,16 +91,44 @@ function MyProfile() {
                     className="h-24 w-24 rounded-full shadow-lg mr-6"
                   />
                   <div>
-                    <h2 className="text-xl font-semibold text-gray-900 text-left">
+                    <h2 className="text-[20px] font-[600] text-[#050405] text-left">
                       Michael Jordan
                     </h2>
-                    <p mailto:classname="text-gray-600">
+                    <p mailto:classname="text-[#050405] mt-5 text-[16px] ">
                       michaeljordan@mail.com
                     </p>
                   </div>
                   <div className="ml-auto text-right">
-                    <p className="text-gray-600">+000 0000 000</p>
-                    <p className="text-gray-600">Toronto, Canada</p>
+                    <p className="text-[#050405] text-[16px] ">+000 0000 000</p>
+                    <p className="text-[#050405] text-[16px] mb-3">
+                      Toronto, Canada
+                    </p>
+                    <p className="text-[#222222] font-[500] text-[16px] leading-[21.6px] ">
+                      Visit our website
+                    </p>
+                    <p className="text-[#222222] font-[400] text-[16px] leading-[21.6px] underline ">
+                      www.secondshot.com/56et
+                    </p>
+                  </div>
+                </div>
+                <hr />
+                <div className="flex items-center justify-between gap-3 mt-5">
+                  <div className="flex gap-3">
+                    {[Instaicon, facebook, Twittericon]?.map((item, index) => (
+                      <img
+                        src={item}
+                        className="w-[24px] h-[24px] "
+                        key={index}
+                        alt=""
+                      />
+                    ))}
+                  </div>
+
+                  <div>
+                    <AuthSubmitBtn
+                      text={"Invite Friends"}
+                      handleSubmit={() => setInviteOpen(true)}
+                    />
                   </div>
                 </div>
 
@@ -161,7 +196,9 @@ function MyProfile() {
                     <h3 className="text-lg font-semibold text-gray-800 mb-2">
                       Hobbies
                     </h3>
-                    <p className="text-gray-700">Cooking</p>
+                    <div className="bg-[#56EC17] text-[#0F0F0F] flex items-center justify-center  font-[500] cursor-pointer w-[150px] h-[49px] rounded-[12px] ">
+                      Cooking
+                    </div>
                   </div>
                 </div>
               </>
@@ -276,6 +313,10 @@ function MyProfile() {
       {isDeactivateModalOpen && (
         <DeactivateModal onClose={() => setIsDeactivateModalOpen(false)} />
       )}
+      <InviteFriendModal
+        isOpen={inviteOpen}
+        onClose={() => setInviteOpen(false)}
+      />
     </div>
   );
 }
