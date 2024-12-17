@@ -21,7 +21,7 @@ const notifications = [
     type: 'Subscription Expiry',
     message: 'Lorem ipsum dolor sit amet',
     time: '08:00pm',
-    date: '12/Jul/2024',
+    date: 'Jul/12/2024',
     iconBg: 'bg-gray-100',
     iconColor: 'text-blue-500',
     icon: <img src={Expirynoti} alt="Subscription Expiry" className="h-[50px] w-[50px]" />, // Use the imported image
@@ -31,7 +31,7 @@ const notifications = [
     type: 'Goal Successfully Created',
     message: 'Lorem ipsum dolor sit amet',
     time: '12:30pm',
-    date: '12/Jul/2024',
+    date: 'Jul/12/2024',
     iconBg: 'bg-green-100',
     iconColor: 'text-green-500',
     icon: <img src={Notisuccess} alt="Subscription Expiry"  className="h-[50px] w-[50px]"/>,
@@ -42,7 +42,7 @@ const notifications = [
     type: 'Subscription Expiry',
     message: 'Lorem ipsum dolor sit amet.',
     time: '08:00pm',
-    date: '12/Jul/2024',
+    date: 'Jul/12/2024',
     iconBg: 'bg-gray-100',
     iconColor: 'text-blue-500',
     icon: <img src={Expirynoti} alt="Subscription Expiry"  className="h-[50px] w-[50px]" />, // Use the imported image
@@ -52,7 +52,7 @@ const notifications = [
     type: 'Subscription Expiry',
     message: 'Lorem ipsum dolor sit amet.',
     time: '08:00pm',
-    date: '12/Jul/2024',
+    date: 'Jul/12/2024',
     iconBg: 'bg-gray-100',
     iconColor: 'text-blue-500',
     icon: <img src={Expirynoti} alt="Subscription Expiry"  className="h-[50px] w-[50px]" />, // Use the imported image
