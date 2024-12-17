@@ -40,7 +40,14 @@ function CareerRecommendations() {
         </div>
       </div>
       <div className="flex justify-center">
-        <CareerCards />
+        <CareerCards
+          icon={
+            <BsFillBookmarkStarFill
+              size={"27px"}
+              className="transition duration-200   group-hover:text-white text-gray-500"
+            />
+          }
+        />
       </div>
       <CareerRecommendationsModal
         isOpen={isFirst.recommendation}

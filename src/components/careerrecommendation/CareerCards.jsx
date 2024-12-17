@@ -3,7 +3,7 @@ import { BsFillBookmarkStarFill } from "react-icons/bs";
 import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
-const CareerCards = () => {
+const CareerCards = ({icon}) => {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
@@ -20,11 +20,8 @@ const CareerCards = () => {
               key={index}
               className="group relative rounded-[24px]  h-[342px] p-4 bg-[#F6F8FF] text-black shadow-lg cursor-pointer hover:bg-gradient-to-l from-[#012C57] to-[#061523] hover:text-white transition duration-200"
             >
-              <div className="absolute top-4 right-4">
-                <BsFillBookmarkStarFill
-                  size={"27px"}
-                  className="text-gray-500 group-hover:text-white transition duration-200"
-                />
+               <div className="absolute top-4 right-4  ">
+                {icon}
               </div>
 
               <div className="flex flex-col text-left mb-4">

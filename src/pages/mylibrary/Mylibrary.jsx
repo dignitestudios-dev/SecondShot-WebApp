@@ -8,6 +8,7 @@ import Transferable from "../../components/mylibrary/Transferable";
 import WelcomeLibraryModal from "../../components/mylibrary/WelcomeLibraryModal";
 import { ModalContext } from "../../context/GlobalContext";
 import CareerCards from "../../components/careerrecommendation/CareerCards";
+import { BsFillBookmarkStarFill } from "react-icons/bs";
 
 function MyLibrary() {
   const navigate = useNavigate();
@@ -41,9 +42,7 @@ function MyLibrary() {
       <Backbutton />
 
       <div className="flex justify-between items-center">
-        <h1 className="text-[32px] font-[500] text-[#000000]">
-          My Library
-        </h1>
+        <h1 className="text-[32px] font-[500] text-[#000000]">My Library</h1>
 
         <div className="relative flex items-center w-auto gap-3 mb-4">
           <SearchInput placeholder={"Search"} />
@@ -73,7 +72,18 @@ function MyLibrary() {
         </div>
       </div>
 
-      {view === "career" ?     <CareerCards /> : <Transferable />}
+      {view === "career" ? (
+        <CareerCards
+          icon={
+            <BsFillBookmarkStarFill
+              size={"27px"}
+              className="transition duration-200 text-[#56ec17]"
+            />
+          }
+        />
+      ) : (
+        <Transferable />
+      )}
     </div>
   );
 }

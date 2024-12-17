@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AuthInput from "../onboarding/AuthInput";
 import { Calender } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
-
+import CustomCalendar from "../calendar/Calender";
 
 const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
   const navigate = useNavigate();
@@ -29,12 +29,11 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
     navigate("/make-smart");
   };
 
-  const [openSub, setOpenSub] = useState(false);
+  const [showCalender, setShowCalender] = useState(false);
 
   return (
     showModal && (
       <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-80">
-        
         <div className="bg-white rounded-lg shadow-lg w-[450px] h-auto overflow-auto p-6 relative">
           <button
             className="absolute top-0 right-2 text-xl text-gray-500 hover:text-gray-600"
@@ -72,14 +71,17 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
                     </p>
                   </div>
                   <div>
-                    <span className="p-2 cursor-pointer">
-                      <img
-                        className="w-[24px]"
-                        src={Calender}
-                      
-                      />
+                    <span
+                      className="p-2 cursor-pointer"
+                      onClick={() => setShowCalender((prev) => !prev)}
+                    >
+                      <img className="w-[24px]" src={Calender} />
                     </span>
-                  
+                    {showCalender && (
+                      <div className="">
+                        <CustomCalendar setShowCalender={setShowCalender} />
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -96,7 +98,10 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
                       </p>
                     </div>
                     <div>
-                      <p className="text-[#012C57] cursor-pointer underline font-[500] text-[11px] leading-[13.31px] ">
+                      <p
+                        className="text-[#012C57] cursor-pointer underline font-[500] text-[11px] leading-[13.31px] "
+                        onClick={() => setShowCalender((prev) => !prev)}
+                      >
                         Set Deadline
                       </p>
                     </div>
@@ -131,8 +136,6 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
                 >
                   Make it Smart
                 </button>
-
-
               </div>
             </div>
           }
