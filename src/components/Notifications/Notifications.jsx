@@ -62,9 +62,9 @@ const notifications = [
 
 const NotificationDropdown = () => {
   return (
-    <div className="absolute right-0  mt-2 w-[416px] bg-white rounded-3xl shadow-lg z-50">
-      <div className="py-3 px-5 bg-gradient-to-r from-[#012C57] to-[#061523] text-white rounded-t-xl flex justify-between items-center">
-        <div className="text-base font-semibold">Notification</div>
+    <div className="absolute -right-[100px]   mt-9 w-[416px] bg-white rounded-3xl shadow-lg z-50">
+      <div className="py-3 px-5 h-[62px] bg-gradient-to-r from-[#012C57] to-[#061523] text-white rounded-t-xl flex justify-between items-center">
+        <div className="text-[18px] font-[500]">Notification</div>
         <Link to="/notifications" className="text-sm text-green-300 hover:underline">View All</Link>
       </div>
       <div className="divide-y divide-gray-200">
