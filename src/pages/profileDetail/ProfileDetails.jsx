@@ -93,19 +93,6 @@ const ProfileDetails = () => {
           </div>
           <div className="relative w-full mt-1.5 mb-1">
             <SelectInput
-              name="City"
-              id="City"
-              value={selectedCity}
-              onChange={handleSelectChangeCity}
-              options={[
-                { value: "", label: "City" },
-                { value: "Europe ", label: "Europe " },
-              
-              ]}
-            />
-          </div>
-          <div className="relative w-full mt-4 mb-1">
-            <SelectInput
               name="Country"
               id="Country"
               value={selectedCountry}
@@ -113,7 +100,18 @@ const ProfileDetails = () => {
               options={[
                 { value: "", label: "Country" },
                 { value: "London", label: "London" },
-              
+              ]}
+            />
+          </div>
+          <div className="relative w-full mt-4 mb-1">
+            <SelectInput
+              name="City"
+              id="City"
+              value={selectedCity}
+              onChange={handleSelectChangeCity}
+              options={[
+                { value: "", label: "City" },
+                { value: "Europe ", label: "Europe " },
               ]}
             />
           </div>

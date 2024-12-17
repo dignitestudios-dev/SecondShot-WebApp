@@ -26,11 +26,15 @@ const EditProfileDetails = () => {
     navigate("/reg-questions");
   };
   const [selectedValue, setSelectedValue] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
 
-  const handleSelectChange = (e) => {
-    setSelectedValue(e.target.value);
+  const handleSelectChangeCity = (e) => {
+    setSelectedCity(e.target.value);
   };
-
+  const handleSelectChangeCountry = (e) => {
+    setSelectedCountry(e.target.value);
+  };
   return (
     <div className=" bg-transparent lg:h-screen h-full px-6 py-4">
       <div className="grid grid-cols-12 gap-2 md:gap-8 bg-white rounded-xl lg:px-32 lg:h-full h-screen relative">
@@ -84,26 +88,24 @@ const EditProfileDetails = () => {
           <div className="relative w-full mt-1.5 mb-1">
             <SelectInput
               name="Country"
-              id="city"
-              value={selectedValue}
-              onChange={handleSelectChange}
+              id="Country"
+              value={selectedCountry}
+              onChange={handleSelectChangeCountry}
               options={[
-                { value: "", label: "City" },
+                { value: "", label: "Country" },
                 { value: "London", label: "London" },
-                { value: "America", label: "America" },
               ]}
             />
           </div>
           <div className="relative w-full mt-4 mb-1">
             <SelectInput
-              name="Country"
-              id="city"
-              value={selectedValue}
-              onChange={handleSelectChange}
+              name="City"
+              id="City"
+              value={selectedCity}
+              onChange={handleSelectChangeCity}
               options={[
                 { value: "", label: "City" },
-                { value: "London", label: "London" },
-                { value: "America", label: "America" },
+                { value: "Europe ", label: "Europe " },
               ]}
             />
           </div>
