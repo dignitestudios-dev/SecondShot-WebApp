@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import GrayBtn from "../onboarding/grayBtn";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
+import SubcriptionActivateModal from "./SubcriptionActivateModal";
+import { useNavigate } from "react-router-dom";
 
-const SubscriptionStripeCard = ({selected,handleModal}) => {
-    const [showNew, setShowNew] = useState(false);
-    const [showAdded, setShowAdded] = useState(false);
+const SubscriptionStripeCard = ({ selected, handleModal }) => {
+  const [showNew, setShowNew] = useState(false);
+  const [showAdded, setShowAdded] = useState(false);
+  const [activatModal, setActivatModal] = useState(false);
+  const navigation = useNavigate();
   return (
     <div>
       <div className="bg-transparent p-2 mb-4 ">
@@ -48,7 +52,7 @@ const SubscriptionStripeCard = ({selected,handleModal}) => {
             <div className="mt-4">
               <div className="mt-2">
                 <button
-                  onClick={handleModal}
+                  onClick={() => setActivatModal(true)}
                   className="w-full flex items-center justify-between bg-[#03223F0F] p-4 rounded-lg text-black"
                 >
                   <div className="flex items-center">
@@ -158,10 +162,10 @@ const SubscriptionStripeCard = ({selected,handleModal}) => {
               </div>
               <div className="mt-5 grid grid-cols-2 gap-2">
                 <GrayBtn text={"Back"} handleSubmit={() => setShowNew(false)} />
-                <AuthSubmitBtn text={"Save"} handleSubmit={handleCardModal} />
+                <AuthSubmitBtn text={"Save"} />
 
                 <button
-                  onClick={handleCardModal}
+                  // onClick={handleCardModal}
                   className="w-full bg-grad text-[#FCFCFC] text-medium text-[16px] py-2 rounded-lg"
                 >
                   Save
@@ -231,6 +235,13 @@ const SubscriptionStripeCard = ({selected,handleModal}) => {
             <GrayBtn text={"Back"} handleSubmit={() => setShowNew(false)} />
           </div>
         )}
+        <SubcriptionActivateModal
+          isOpen={activatModal}
+          handleClick={() => {
+            setActivatModal(false);
+            navigation("/profiledetail");
+          }}
+        />
       </div>
     </div>
   );

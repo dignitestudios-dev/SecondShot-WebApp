@@ -25,10 +25,14 @@ const ProfileDetails = () => {
   const handleNavigate = () => {
     navigate("/reg-questions");
   };
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
 
-  const handleSelectChange = (e) => {
-    setSelectedValue(e.target.value);
+  const handleSelectChangeCity = (e) => {
+    setSelectedCity(e.target.value);
+  };
+  const handleSelectChangeCountry = (e) => {
+    setSelectedCountry(e.target.value);
   };
   return (
     <div className=" bg-transparent lg:h-screen h-full px-6 py-4">
@@ -60,7 +64,9 @@ const ProfileDetails = () => {
                   className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 />
               </div>
-              <p className="text-[16px] font-[500] text-[#181818] leading-[20.4px] ">Profile Picture</p>
+              <p className="text-[16px] font-[500] text-[#181818] leading-[20.4px] ">
+                Profile Picture
+              </p>
             </div>
             <button className="text-[#0E73D0] hover:text-blue-700 font-medium relative">
               <input
@@ -87,27 +93,27 @@ const ProfileDetails = () => {
           </div>
           <div className="relative w-full mt-1.5 mb-1">
             <SelectInput
-              name="Country"
-              id="city"
-              value={selectedValue}
-              onChange={handleSelectChange}
+              name="City"
+              id="City"
+              value={selectedCity}
+              onChange={handleSelectChangeCity}
               options={[
                 { value: "", label: "City" },
-                { value: "London", label: "London" },
-                { value: "America", label: "America" },
+                { value: "Europe ", label: "Europe " },
+              
               ]}
             />
           </div>
           <div className="relative w-full mt-4 mb-1">
             <SelectInput
               name="Country"
-              id="city"
-              value={selectedValue}
-              onChange={handleSelectChange}
+              id="Country"
+              value={selectedCountry}
+              onChange={handleSelectChangeCountry}
               options={[
-                { value: "", label: "City" },
+                { value: "", label: "Country" },
                 { value: "London", label: "London" },
-                { value: "America", label: "America" },
+              
               ]}
             />
           </div>
@@ -121,7 +127,10 @@ const ProfileDetails = () => {
               <GrayBtn text={"Skip Now"} />
             </div>
             <div className="w-[169px]">
-              <AuthSubmitBtn text={"Next"} handleSubmit={()=>navigation('/registration-question')} />
+              <AuthSubmitBtn
+                text={"Next"}
+                handleSubmit={() => navigation("/registration-question")}
+              />
             </div>
           </div>
         </div>
