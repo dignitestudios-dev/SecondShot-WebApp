@@ -33,7 +33,7 @@ function MyProfile() {
       <div className="">
         <Backbutton />
 
-        <h1 className="text-2xl font-semibold text-gray-800 mb-6">
+        <h1 className="text-[32px] font-[500] text-[#000000] mt-4  mb-4">
           Profile & Account Setting
         </h1>
 
@@ -73,7 +73,7 @@ function MyProfile() {
             {activeTab === "profile" && (
               <>
                 <div className="flex justify-between items-center mb-8">
-                  <h1 className="text-2xl font-semibold text-gray-900">
+                  <h1 className="text-[24px] font-[500] text-[#000000]">
                     My Profile
                   </h1>
                   <button
@@ -135,8 +135,8 @@ function MyProfile() {
                 <hr className="my-4 border-t border-gray-200" />
 
                 <div className="flex justify-between items-center mb-8">
-                  <h2 className="text-2xl font-semibold text-gray-900">
-                    Personal information
+                  <h2 className="text-[24px] font-[500] text-[#000000]">
+                  Transferable Skills
                   </h2>
                   <button
                     onClick={handleEdit}
@@ -148,52 +148,52 @@ function MyProfile() {
 
                 <div className="grid grid-cols-2 gap-8 text-left">
                   <div className="border-r pr-4">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                    <h3 className="text-[18px] font-[500] text-gray-800 mb-2">
                       Education
                     </h3>
                     <p className="text-gray-700">
                       Grade level or Professional Level
                     </p>
-                    <p className="text-gray-700 font-bold mb-2">College</p>
+                    <p className="text-[18px] font-[500]">College</p>
                     <p className="text-gray-700">
                       Favorite Grade School Subject: Math
                     </p>
-                    <p className="text-gray-700 font-bold mb-2">Math</p>
+                    <p className="text-gray-700 text-[18px] font-[500] mb-2">Math</p>
 
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                      <h3 className="text-[20px] font-[500] text-[#000000] mb-2">
                         Military Service
                       </h3>
                       <p className="text-gray-700">Branch of Service</p>
-                      <p className="text-gray-700 font-bold mb-2">Airforce</p>
+                      <p className="text-[#000000] font-[500] text-[16px] mb-2">Airforce</p>
                       <p className="text-gray-700">Position</p>
-                      <p className="text-gray-700 font-bold mb-2">
+                      <p className="text-[#000000] font-[500] text-[16px] mb-2">
                         E-4 Senior Airman
                       </p>
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                      <h3 className="text-[18px] font-[500] text-[#000000] mb-2">
                         Career
                       </h3>
                       <p className="text-gray-700">Desired Career</p>
-                      <p className="text-gray-700 font-bold mb-2">Engineer</p>
+                      <p className="text-[#000000] font-[500] mb-2">Engineer</p>
                     </div>
                   </div>
 
                   <div className="pl-4">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                    <h3 className="text-[18px] font-[500] text-#000000 mb-2">
                       Athlete Background
                     </h3>
                     <p className="text-gray-700">Primary Sport</p>
-                    <p className="text-gray-700 font-bold mb-2">
+                    <p className="text-[16px] font-[500] text-#000000 mb-2">
                       Baseball/Softball
                     </p>
                     <p className="text-gray-700">Position</p>
-                    <p className="text-gray-700 font-bold mb-2">
+                    <p className="text-[16px] font-[500] text-#000000 mb-2">
                       First Baseman
                     </p>
 
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                    <h3 className="text-[18px] font-[500] text-#000000 mb-2">
                       Hobbies
                     </h3>
                     <div className="bg-[#56EC17] text-[#0F0F0F] flex items-center justify-center  font-[500] cursor-pointer w-[150px] h-[49px] rounded-[12px] ">
