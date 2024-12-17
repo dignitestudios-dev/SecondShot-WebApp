@@ -10,12 +10,12 @@ const SubriptionCardPath = ({ selected, cardsubdata }) => {
         <div className="  bg-white rounded-[22px] h-[451px]  overflow-y-auto   shadow-lg   p-2 w-[438px] max-w-sm">
           <div className="flex justify-between items-center  mt-3 ">
             <h2 className="text-[24px] px-3 font-[500] text-[#000000] leading-[32.4px] ">
-              {cardsubdata.heading}
+              {cardsubdata?.heading}
             </h2>
             <h2 className="text-[32px] font-[600] leading-[43.2px] pe-3 text-[#56EC17]">
-              {cardsubdata.amount} /
+              {cardsubdata?.amount} /
               <span className="text-[12px] text-black">
-                {cardsubdata.heading}
+                {cardsubdata?.heading}
               </span>
             </h2>
           </div>
@@ -25,7 +25,7 @@ const SubriptionCardPath = ({ selected, cardsubdata }) => {
 
           <div className="p-3">
             <div className="text-[22px] font-[600] text-gray-900 ">
-              {cardsubdata.headingtwo}
+              {cardsubdata?.headingtwo}
             </div>
             <ul className="space-y-2 mb-6 text-gray-700">
               {cardsubdata?.benefitsList.map((item, index) => (

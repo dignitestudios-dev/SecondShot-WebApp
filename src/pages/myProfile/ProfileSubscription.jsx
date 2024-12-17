@@ -4,6 +4,7 @@ import SubscriptionStripeCard from "../../components/subscriptions/SubscriptionS
 import SubriptionCardPath from "../../components/subscriptions/SubriptionCardPath";
 import SubscriptionCardModal from "../../components/Modal/SubscriptionCardModal";
 import SubscriptionModal from "../../components/Modal/SubscriptionModal";
+import SubscirtionProfile from "../../components/subscriptions/SubscirtionProfile";
 const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
   const navigation = useNavigate();
   const [showNew, setShowNew] = useState(false);
@@ -38,7 +39,7 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
         </p>
       </div>
       <div className="grid grid-cols-2 gap-6  mt-11 px-32">
-        <SubriptionCardPath selected={selected} />
+        <SubscirtionProfile />
         <SubscriptionStripeCard selected={selected} handleModal={handleModal} />
         <SubscriptionCardModal
           showModal={showCardModal}

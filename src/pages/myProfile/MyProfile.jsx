@@ -44,7 +44,7 @@ function MyProfile() {
                 className={` p-3 rounded-lg cursor-pointer text-left ${
                   activeTab === "profile"
                     ? " bg-gradient-to-l from-[#012C57] to-[#061523] text-white"
-                    : "text-gray-800 font-semibold"
+                    : "text-gray-800 font-[500]"
                 }`}
                 onClick={() => setActiveTab("profile")}
               >
@@ -54,7 +54,7 @@ function MyProfile() {
                 className={` p-3 rounded-lg cursor-pointer text-left ${
                   activeTab === "settings"
                     ? " bg-gradient-to-l from-[#012C57] to-[#061523] text-white"
-                    : "font-semibold text-gray-800"
+                    : "font-[500] text-gray-800"
                 }`}
                 onClick={() => setActiveTab("settings")}
               >
