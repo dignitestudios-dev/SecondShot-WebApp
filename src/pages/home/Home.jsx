@@ -18,7 +18,7 @@ const Home = () => {
           }));
         }}
       />
-      <div className="text-[32px] font-[500] text-[#000000] mb-5 mt-11 ">
+      <div className="text-[32px] font-[500] text-[#000000] mb-5  ">
         My Career Toolbox
       </div>
       <div>
