@@ -123,8 +123,7 @@ const StartAssesment = () => {
                   Career Recommendation Assessment
                 </h1>
                 <p className="text-[16px] text-[#181818] text-center">
-                  Please answer a few questions to help us tailor our services
-                  to your needs.
+                Please answer a few questions to help us tailor our services to your needs. You may feel like you align to multiple answers. Choose the answer that feels most like you. It's usually your first thought.
                 </p>
               </div>
               <div className="flex justify-between mt-6">

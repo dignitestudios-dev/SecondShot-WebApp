@@ -69,13 +69,13 @@ const MygoalsCard = () => {
             >
               <div className="flex justify-between items-center mb-4">
                 <span
-                  className={`leading-[39px] h-[39px] w-[110px] text-center rounded-full text-[14px] font-[500] bg-white ${item?.badgeColor}`}
+                  className={`leading-[39px] h-[39px] w-[120px] text-center rounded-full text-[14px] font-[500] bg-white ${item?.badgeColor}`}
                 >
                   {item.badge}
                 </span>
-                <div className="bg-white w-[32px] h-[32px] flex justify-center items-center  rounded-[25px] cursor-pointer">
+                {/* <div className="bg-white w-[32px] h-[32px] flex justify-center items-center  rounded-[25px] cursor-pointer">
                   <img src={Dotedimg} className="w-[18px]  " alt="" />
-                </div>
+                </div> */}
               </div>
               <h3 className="text-[20px] leading-[32.4px] font-[500] text-gray-800 mb-2">
                 {item.heading}
@@ -102,7 +102,7 @@ const MygoalsCard = () => {
                 </span>
               </div>
               <button
-                onClick={() => navigate("/smartgoaldetails")}
+                onClick={() => navigate("/goal-detail")}
                 className="px-4 py-2 text-sm font-[500] text-[#012C57] bg-gray-200 border border-gray-300 rounded-lg mt-3"
               >
                 View Details

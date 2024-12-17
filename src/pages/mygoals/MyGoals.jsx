@@ -9,7 +9,7 @@ import { ModalContext } from "../../context/GlobalContext";
 function MyGoals() {
   const navigate = useNavigate();
   const [selectedButton, setSelectedButton] = useState("All");
-  const buttons = ["All", "Pending", "in Progress", "Completed"];
+  const buttons = ["All", "Not started yet", "in Progress", "Completed"];
 
   const { isFirst, setIsFirst } = useContext(ModalContext);
   console.log(isFirst);
@@ -47,9 +47,10 @@ function MyGoals() {
         <h2 className="text-[20px] font-[500] text-gray-800">
           Added Goals <span className="text-green-500">(03)</span>
         </h2>
-        <div className="flex items-center">
+
+        <div className="flex items-center justify-between gap-5">
           <SearchInput placeholder={"Search"} />
-          <span className="bg-slate-200 h-8 w-[1.5px] mr-4"></span>
+          <span className="bg-slate-200 h-8 w-[2.5px] "></span>
           <div className="flex flex-col items-end">
             <button
               onClick={() => navigate("/create-goals")}
@@ -57,9 +58,9 @@ function MyGoals() {
             >
               + Add Goals
             </button>
-            <span className="text-[14px] text-[#999999] font-[400] ">
+            {/* <span className="text-[14px] text-[#999999] font-[400] ">
               Need some inspiration?
-            </span>
+            </span> */}
           </div>
         </div>
       </div>

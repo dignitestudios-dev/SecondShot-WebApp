@@ -33,11 +33,13 @@ const RegistrationQuestion = () => {
     desireCareer: "",
   });
 
-  const nextStep = () => {
-    setStep(step + 1);
+  const nextStep = (name) => {
+    
+    setStep(name == "School" || name == "HighSchool" ? step + 2 : step + 1);
   };
 
   const prevStep = () => {
+    
     setStep(step - 1);
   };
 

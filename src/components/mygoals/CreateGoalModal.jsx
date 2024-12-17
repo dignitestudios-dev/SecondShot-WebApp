@@ -33,7 +33,7 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
 
   return (
     showModal && (
-      <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-80">
+      <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-80 backdrop-blur-sm">
         <div className="bg-white rounded-lg shadow-lg w-[450px] h-auto overflow-auto p-6 relative">
           <button
             className="absolute top-0 right-2 text-xl text-gray-500 hover:text-gray-600"

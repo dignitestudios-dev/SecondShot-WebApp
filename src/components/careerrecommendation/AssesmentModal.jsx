@@ -29,7 +29,7 @@ const AssessmentModal = ({ showModal, onclick, step, setShowModal }) => {
               You have successfully <br /> completed the assessment
             </h2>
             <p className="text-[16px text-center">
-              Congratulations! You have successfully completed the assessment.
+             
               Your results have been recorded, and you can now review your
               performance. If you have any questions or need further assistance,
               please contact our support team.

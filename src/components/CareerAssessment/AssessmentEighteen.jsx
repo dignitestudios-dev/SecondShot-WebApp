@@ -26,7 +26,7 @@ function AssessmentEighteen({ prevStep, nextStep, formData, setFormData }) {
           <Form>
             <div className="mb-4">
               <label
-                className="block  text-xs font-medium mb-2"
+                className="block text-sm font-medium mb-2"
                 htmlFor="skill"
               >
              On a scale of 1-5, how much do you enjoy teaching others? (1 being not at all, 5 being greatly enjoy it)

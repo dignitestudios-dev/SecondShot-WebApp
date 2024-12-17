@@ -6,7 +6,7 @@ const CareerRecommendationsModal = ({ isOpen, onClose, handleClick }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-50">
+    <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-50 backdrop-blur-sm">
       <div className="bg-[#FEFEFE] rounded-[26px] w-[471px] h-[703px]  p-6 shadow-[22px]">
         <div className="flex justify-center mt-3">
           <img src={CareerModal} className="w-[342.63px] h-[218.5px] " alt="" />

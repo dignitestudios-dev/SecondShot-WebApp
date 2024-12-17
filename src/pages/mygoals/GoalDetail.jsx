@@ -13,7 +13,7 @@ const GoalDetail = () => {
     <div>
       <Backbutton />
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-semibold text-gray-800">Goal Details</h1>
+        <h1 className="text-3xl font-semibold text-gray-800">Finalized Goal Statement</h1>
         <div className="flex space-x-4 items-center">
           <div className="text-center">
             <span className="text-[#000000] text-[18px] block text-left font-[500] ">

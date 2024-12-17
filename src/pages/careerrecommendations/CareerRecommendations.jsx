@@ -35,7 +35,7 @@ function CareerRecommendations() {
             onClick={handleNavigation}
             className="px-0.5 py-2 text-[#012C57] text-[16px] font-[500]"
           >
-            Start Assessment
+            Take the Assessment
           </button>
         </div>
       </div>

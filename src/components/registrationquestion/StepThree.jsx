@@ -5,22 +5,29 @@ import { IoIosArrowDropleftCircle } from "react-icons/io";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import BackBtn from "../onboarding/BackBtn";
 import RecommendatioBtn from "../careerrecommendation/RecommendatioBtn";
-
 const StepThree = ({ nextStep, prevStep, formData, setFormData }) => {
   const validationSchema = Yup.object({
     ageValue: Yup.string().required("Please select an option to proceed."),
   });
 
   const handleAgeValue = (value, setFieldValue, setFieldTouched) => {
+    // Save the selected value to formData state
     setFieldTouched("ageValue", true);
     setFieldValue("ageValue", value);
     setFormData({ ...formData, ageValue: value });
+
+    // Log the selected value (optional)
+    console.log("Selected value:", value);
   };
+
   return (
     <Formik
       initialValues={formData}
       validationSchema={validationSchema}
-      onSubmit={nextStep}
+      onSubmit={(values) => {
+        console.log("Submitted Age Value:", values.ageValue);
+        nextStep(values);
+      }}
     >
       {({ errors, touched, setFieldValue, setFieldTouched }) => (
         <Form>
