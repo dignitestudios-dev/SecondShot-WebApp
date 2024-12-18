@@ -3,8 +3,9 @@ import GrayBtn from "../onboarding/grayBtn";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import SubcriptionActivateModal from "./SubcriptionActivateModal";
 import { useNavigate } from "react-router-dom";
+import { Visa, Visaicon } from "../../assets/export";
 
-const SubscriptionStripeCard = ({ selected, handleModal,cardsubdata }) => {
+const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
   const [showNew, setShowNew] = useState(false);
   const [showAdded, setShowAdded] = useState(false);
   const [activatModal, setActivatModal] = useState(false);
@@ -26,11 +27,9 @@ const SubscriptionStripeCard = ({ selected, handleModal,cardsubdata }) => {
           </div>
           <div className="text-right flex items-center h-12">
             <p className="text-[#56EC17] font-semibold text-lg">
-              ${selected == "Month" ? "19.99" : "59.99"}
+              {cardsubdata.amount}
             </p>
-            <p className="text-sm">
-              / {selected == "Month" ? "3 months" : "year"}
-            </p>
+            / <p className="text-sm">{cardsubdata.heading}</p>
           </div>
         </div>
 
@@ -232,7 +231,7 @@ const SubscriptionStripeCard = ({ selected, handleModal,cardsubdata }) => {
 
         {!showNew && (
           <div className="mt-4 w-[40%]  ">
-            <GrayBtn text={"Back"} handleSubmit={() => setShowNew(false)} />
+            <GrayBtn text={"Back"} handleSubmit={() => navigation(-1)} />
           </div>
         )}
         <SubcriptionActivateModal

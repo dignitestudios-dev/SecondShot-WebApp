@@ -103,6 +103,11 @@ function MyTransferableSkills() {
     setReading(false);
     setCareers(false);
   };
+  const [isActive, setIsActive] = useState(false);
+
+  const handleIconClick = () => {
+    setIsActive(!isActive); 
+  };
   return (
     <div className=" ">
       <Backbutton />
@@ -134,11 +139,14 @@ function MyTransferableSkills() {
           </span>
 
           <span className="w-[20%] h-full flex justify-end items-start">
-            <BsFillBookmarkStarFill
-              size={"27px"}
-              className="text-gray-500 group-hover:text-white transition duration-200"
-            />
-          </span>
+      <BsFillBookmarkStarFill
+        size={"27px"}
+        onClick={handleIconClick}
+        className={`transition duration-200 cursor-pointer ${
+          isActive ? "text-green-500" : "text-gray-500"
+        }`}
+      />
+    </span>
         </span>
         <div className="col-span-1 h-[256px] w-full flex justify-center items-center"></div>
         <div className="col-span-1 h-[256px] w-full flex justify-center items-end">

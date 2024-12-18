@@ -23,7 +23,7 @@ const SubscriptionPlannew = () => {
       ],
     },
     {
-      heading: "1 year",
+      heading: "Yearly Plan",
       amount: "$59.99",
       headingtwo: "For 1 Year, Unlock These Benefits Today!",
       benefitsList: [
@@ -95,7 +95,7 @@ const SubscriptionPlannew = () => {
             />
           </div>
           <button
-            className="bg-white  text-[#1E384F] text-[16px] mt-2 font-[500]  w-[171px] h-[49px] rounded-[12px] "
+            className="bg-white  text-[#1E384F] text-[16px] mt-4   font-[500]  w-[171px] h-[45px] rounded-[12px] "
             onClick={() => setModalOpen(true)}
           >
             Submit
@@ -137,7 +137,7 @@ const SubscriptionPlannew = () => {
                     </li>
                   ))}
                 </ul>
-                <div className="w-[171px]">
+                <div className="w-[171px] mt-[1.7rem]">
                   <AuthSubmitBtn
                     text={"Buy Now"}
                     handleSubmit={() => handleSubmit(item)}

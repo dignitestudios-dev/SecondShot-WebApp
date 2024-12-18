@@ -5,10 +5,12 @@ import { Dottedvertical } from "../../assets/export";
 import SupportPeople from "../../components/mygoals/SupportPeople";
 import GoalCreatedModal from "../../components/mygoals/GoalCreatedModal";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
+import AddSupportModal from "../../components/myresume/AddSupportModal";
 
 const GoalDetail = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [goalDetailModal, setGoalDetailModal] = useState(false);
+  const [supportModal, setSupportModal] = useState(false);
   return (
     <div>
       <Backbutton />
@@ -39,7 +41,7 @@ const GoalDetail = () => {
             {dropdownOpen && (
               <div className=" absolute top-12 bg-white z-[5000] border rounded-lg shadow-lg mt-2 p-2  right-0 w-64 text-left">
                 <ul>
-                  <li className="hover:bg-gray-100 px-4 py-2 cursor-pointer">
+                  <li className="hover:bg-gray-100 px-4 py-2 cursor-pointer" onClick={()=>setSupportModal(true)}>
                     Add Support Network
                   </li>
                   <li className="hover:bg-gray-100 px-4 py-2 cursor-pointer">
@@ -52,6 +54,13 @@ const GoalDetail = () => {
         </div>
       </div>
       <div className="flex mt-4 justify-between">
+      <div>
+          <input
+            type="checkbox"
+            className="h-4 w-4 text-blue-600 border-gray-300 rounded mr-2"
+            onClick={() => setGoalDetailModal(true)}
+          />
+        </div>
         <p className=" text-[#000000] font-[400] text-[16px] leading-[21.6px] ">
           Lorem ipsum dolor sit amet consectetur. malesuada dolor diam Vitae
           facilisis nulla id dignissim erat arcu pretium. Proin sed curabitur id
@@ -59,13 +68,7 @@ const GoalDetail = () => {
           scelerisque a porta ullamcorper lectus phasellus tortor. Eu non cursus
           adipiscing.
         </p>
-        <div>
-          <input
-            type="checkbox"
-            className="h-4 w-4 text-blue-600 border-gray-300 rounded mr-2"
-            onClick={() => setGoalDetailModal(true)}
-          />
-        </div>
+       
       </div>
 
       <GoalCreatedModal
@@ -77,6 +80,12 @@ const GoalDetail = () => {
 
       <SubGoals />
       <SupportPeople />
+      <AddSupportModal
+        showModal={supportModal}
+        handleClick={()=>setSupportModal(false)}
+      
+      
+      />
     </div>
   );
 };

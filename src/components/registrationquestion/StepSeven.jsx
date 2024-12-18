@@ -27,7 +27,7 @@ const StepSeven = ({ nextStep, prevStep, formData, setFormData }) => {
         if (tags.length <= 0) {
           setTagsError("This field is required.");
         } else {
-          nextStep(e);
+          nextStep();
         }
       }}
     >
@@ -37,7 +37,7 @@ const StepSeven = ({ nextStep, prevStep, formData, setFormData }) => {
             <div className="mt-4">
               <label className="block text-sm font-medium mb-2">
                 Select your second most favorite hobby or activity you enjoy now
-                or during your childhood.
+                or during your childhood. 
               </label>
               <TagsInputField
                 availableTags={hobbyTags}

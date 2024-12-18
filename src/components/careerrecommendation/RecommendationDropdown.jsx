@@ -13,7 +13,7 @@ const RecommendationDropdown = ({
 }) => {
   return (
     <div>
-      <div className="relative w-full">
+      <div className="relative w-full  ">
         <div
           className={`border ${
             errors && touched
@@ -46,7 +46,7 @@ const RecommendationDropdown = ({
           </svg>
         </div>
         {isOpen && (
-          <ul className="absolute z-10 w-full bg-gray-50 border border-gray-300 rounded-lg mt-2">
+          <ul className="absolute z-10 w-full h-[150px] overflow-auto bg-gray-50 border border-gray-300 rounded-lg mt-2">
             {options.map((option) => (
               <React.Fragment key={option.value}>
                 <li

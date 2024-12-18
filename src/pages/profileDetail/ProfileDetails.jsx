@@ -88,41 +88,41 @@ const ProfileDetails = () => {
         </div>
         <div className="hidden md:block w-[1px] h-[70%] bg-gray-200 -ml-4 mt-10"></div>
         <div className="col-span-12 md:col-span-5 gap-y-4 px-12 md:px-36 md:-ml-52 lg:px-28 lg:-ml-48">
-          <div className="mb-7 mt-5">
+          <div className=" mt-5">
             <PhoneInputs />
           </div>
-          <div className="relative w-full  mb-1">
+          <div className="relative w-full mt-3 ">
             <SelectInput
               name="Country"
               id="Country"
               value={selectedCountry}
               onChange={handleSelectChangeCountry}
               options={[
-                { value: "", label: "Select Country" },
+                { value: "", label: "Select State" },
                 { value: "London", label: "London" },
               ]}
             />
           </div>
-          <div className="relative w-full mt-4 mb-1">
+          <div className="relative w-full mt-3">
             <SelectInput
               name="City"
               id="City"
               value={selectedCity}
               onChange={handleSelectChangeCity}
               options={[
-                { value: "", label: "Select State" },
+                { value: "", label: "Select City" },
                 { value: "Europe ", label: "Europe " },
               ]}
             />
           </div>
-          <div className="mt-4">
+          <div className="mt-3">
             <AuthInput type={"text"} placeholder={"Address"} />
           </div>
         </div>
         <div className="col-span-12">
           <div className=" flex justify-center space-x-2 mb-6">
             <div className="w-[169px] h-[49px]">
-              <GrayBtn text={"Skip Now"} />
+              <GrayBtn text={"Skip Now"} handleSubmit={()=>navigation('/registration-question')} />
             </div>
             <div className="w-[169px]">
               <AuthSubmitBtn

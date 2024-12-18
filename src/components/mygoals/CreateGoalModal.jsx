@@ -130,7 +130,7 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
                 onClick={handleNavigation}
                 className="w-full  bg-[#E5EAED] font-[500] capitalize text-[#012C57] py-2 my-2 rounded-[8px] h-[49px] hover:bg-[#d0d5d8]"
               >
-                Make it Smart
+                Make it S.M.A.R.T (optional)
               </button>
               <div>
                 <AuthSubmitBtn

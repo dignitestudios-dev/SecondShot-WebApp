@@ -52,7 +52,12 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
           if (tags.length <= 0) {
             setTagsError("This field is required.");
           } else {
-            nextStep(selectedUniversity);
+            nextStep(
+              formData?.university === "School" ||
+                formData?.university === "HighSchool"
+                ? true
+                : false
+            );
           }
         }}
       >

@@ -6,7 +6,7 @@ const SubGoals = () => {
       <div className="mt-8">
         <div className="bg-white rounded-[16px] shadow-md p-6 mt-4">
           <div className="flex justify-between items-center mb-2">
-            <h2 className="font-[500] text-[24px] text-[#222222] ">
+            <h2 className="font-[600] text-[18px] text-[#222222] ">
               Sub Goals
             </h2>
             <button className="bg-[#EAF8FF] bg-opacity-35 text-[#36B8F3] px-4 py-2 rounded-md border border-[#36B8F3]">

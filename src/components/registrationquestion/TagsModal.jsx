@@ -27,7 +27,7 @@ const TagsModal = ({
         >
           <RxCross2 className="w-5 h-5 text-gray-700" />
         </button>
-        <h2 className="text-xl font-semibold mb-4 text-center">{heading}</h2>
+        {/* <h2 className="text-xl font-semibold mb-4 text-center">{heading}</h2> */}
         <input
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
