@@ -32,7 +32,7 @@ const PreviewResume = ({
         <div>
           {isPreview ? (
             <h1 className="text-[32px] font-medium text-gray-800">
-              Your Personalized CV
+              Your Personalized Resume
             </h1>
           ) : (
             <h1 className="text-[32px] font-medium text-gray-800">Preview</h1>

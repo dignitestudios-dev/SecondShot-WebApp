@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import TransferableSkillsModal from "../../components/transferableSkills/TransferableSkillsModal";
 import { ModalContext } from "../../context/GlobalContext";
-import { Printimg, Profileimage } from "../../assets/export";
+import { Centerpro, Printimg, Profileimage } from "../../assets/export";
 import Backbutton from "../../components/Global/Backbutton";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 
@@ -246,7 +246,7 @@ function MyTransferableSkills() {
               onClick={() => handlePoweredShow()}
             >
               <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
-                <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2 text-[14.64px] font-[600] leading-[14.64px] text-white text-center ">
+                <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2 text-[14.64px] font-[600] leading-[14.64px] text-[#172E55] text-center ">
                   Power Forward
                 </div>
               </div>
@@ -357,7 +357,7 @@ function MyTransferableSkills() {
               <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
                 <div
                   className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] rotate-[70deg] flex justify-center
-                 items-center rounded-full p-2 text-[14.64px] font-[600] text-[#FFFFFF] text-center leading-[14.64px]"
+                 items-center rounded-full p-2 text-[14.64px] font-[600] text-[#172E55] text-center leading-[14.64px]"
                 >
                   Goals
                 </div>
@@ -369,7 +369,7 @@ function MyTransferableSkills() {
 
         {/* Center Start */}
         <div className="col-span-1 h-[256px] w-full flex justify-center items-start">
-          <div className="w-[256px] h-[256px] z-10 relative p-6 rounded-full border border-dashed border-[#0a1723]">
+          <div className="w-[256px] h-[256px] z-10 relative p-6 rounded-full border-2 border-dashed border-[#0a1723]">
             <span className="w-[70px] h-[2px]  bg-gradient-to-r from-[#172E55] to-[#0A1723] rotate-90 absolute -top-[36px] left-[35%]">
               <span className="w-[13.56px] h-[13.56px] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
                 <span className="w-[12px] h-[12px] rounded-full bg-white flex justify-center items-center">
@@ -385,11 +385,11 @@ function MyTransferableSkills() {
               </span>
             </span>
 
-            <span className="w-auto h-14  text-center bg-white absolute -bottom-8 left-[4.3rem]">
+            <span className="w-auto h-16  text-center rounded-full bg-white absolute -bottom-[2.8rem] left-[2.8rem] p-4">
               <div className="text-lg text-center font-medium text-[#0a1723] ">
-                Michael Jordan
+              Sanethia Thomas 
               </div>
-              <div className="text-[#02284E] font-[500] ">The Athlete</div>
+              {/* <div className="text-[#02284E] font-[500] ">The Athlete</div> */}
             </span>
             <span className="w-[70px] h-[2px]  bg-gradient-to-r from-[#172E55] to-[#0A1723] rotate-[320deg] absolute bottom-[6px] right-[80%]">
               <span className="w-[13.56px] h-[13.56px] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
@@ -415,7 +415,7 @@ function MyTransferableSkills() {
 
             <div className="w-full h-full bg-gradient-to-r from-[#172E55] to-[#0A1723] rounded-full p-6">
               <img
-                src={Profileimage}
+                src={Centerpro}
                 alt=""
                 className="w-full h-full rounded-full"
               />
@@ -524,7 +524,7 @@ function MyTransferableSkills() {
               <div className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
                 <div
                   className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] 
-                flex justify-center items-center rounded-full p-2 text-[14.64px] font-[600] text-[#FFFFFF] text-center leading-[14.64px] -rotate-[70deg]"
+                flex justify-center items-center rounded-full p-2 text-[14.64px] font-[600] text-[#172E55] text-center leading-[14.64px] -rotate-[70deg]"
                 >
                   Reading
                 </div>
@@ -636,7 +636,7 @@ function MyTransferableSkills() {
               <div className="w-full cursor-pointer h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
                 <div
                   className="w-full h-full rotate-[210deg] bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full 
-                p-2 text-[14.64px] font-[600] text-[#FFFFFF] text-center leading-[14.64px]"
+                p-2 text-[14.64px] font-[600] text-[#172E55] text-center leading-[14.64px]"
                 >
                   Careers
                 </div>
@@ -744,7 +744,7 @@ function MyTransferableSkills() {
                 <div
                   className="w-full h-full rotate-[-215deg] bg-[#56EC17]
                  shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2 text-[14.64px] 
-                 font-[600] text-[#FFFFFF] text-center leading-[14.64px]"
+                 font-[600] text-[#172E55] text-center leading-[14.64px]"
                 >
                   Math
                 </div>

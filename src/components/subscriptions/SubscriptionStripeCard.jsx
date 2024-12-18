@@ -4,7 +4,7 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import SubcriptionActivateModal from "./SubcriptionActivateModal";
 import { useNavigate } from "react-router-dom";
 
-const SubscriptionStripeCard = ({ selected, handleModal }) => {
+const SubscriptionStripeCard = ({ selected, handleModal,cardsubdata }) => {
   const [showNew, setShowNew] = useState(false);
   const [showAdded, setShowAdded] = useState(false);
   const [activatModal, setActivatModal] = useState(false);
@@ -21,7 +21,7 @@ const SubscriptionStripeCard = ({ selected, handleModal }) => {
         <div className="bg-gradient-to-l from-[#012C57] to-[#061523] text-white py-2 px-4 rounded-lg flex justify-between items-center">
           <div>
             <p className="font-[600] text-[18px] leading-[24.3px] ">
-              Path Finder Plus
+              {cardsubdata.heading}
             </p>
           </div>
           <div className="text-right flex items-center h-12">

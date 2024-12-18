@@ -59,56 +59,30 @@ const Licenses = ({ nextStep, setFormData, formData }) => {
       {licenses.map((license, index) => (
         <div key={index} className="">
           <div className="w-full flex flex-col items-start gap-1 my-8">
-            <AuthInput text={"Name"} placeholder={"Enter your Name"} />
+            <AuthInput
+              text={"Certification Name"}
+              placeholder={"Enter Certification Name"}
+            />
           </div>
           <div className="w-full flex flex-col items-start gap-1 my-8">
             <AuthInput
               text={"Issuing Organization"}
-              placeholder={"Enter your Issuing Organization"}
+              placeholder={"Enter  Issuing Organization"}
             />
           </div>
           <div className="w-full flex flex-col items-start gap-1 ">
             <AuthInput
               text={" Credential ID"}
-              placeholder={"Enter your Field"}
+              placeholder={"Enter Credential ID"}
             />
           </div>
-          <div className="flex items-center mt-3 mb-3 ">
-            <input
-              type="checkbox"
-              id="some_id"
-              checked={checked}
-              value={checked}
-              onChange={(e) => setChecked((prev) => !prev)}
-              className="appearance-none w-4 h-4 border-2 border-gray-400 rounded-sm checked:bg-blue-900 
-    checked:border-transparent focus:outline-none transition duration-300 ease-in-out relative"
-            />
-            <label htmlFor="some_id" className="ml-2 text-gray-600">
-              I am currently in this role
-            </label>
 
-            <style jsx>{`
-              input[type="checkbox"]:checked::before {
-                content: "\\2714";
-                color: white;
-                position: absolute;
-                top: 0px;
-                left: 0px;
-                font-size: 10px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                height: 100%;
-              }
-            `}</style>
-          </div>
-          <div className="w-full mb-5 flex items-end  gap-4">
+          <div className="w-full mb-5 flex items-end  mt-8 gap-4">
             <div className="w-1/2">
               <MonthsInput
                 name="Country"
                 id="city"
-                label={"Expiration Date"}
+                label={"Issue Date"}
                 // value={selectedValue}
                 // onChange={handleSelectChange}
                 options={[
@@ -131,7 +105,51 @@ const Licenses = ({ nextStep, setFormData, formData }) => {
               <MonthsInput
                 name="Country"
                 id="city"
-                label={"Year"}
+                // value={selectedValue}
+                // onChange={handleSelectChange}
+                options={[
+                  { value: "2023", label: "2023" },
+                  { value: "2024", label: "2024" },
+                ]}
+              />
+            </div>
+          </div>
+          <div className="w-full mb-5 flex items-end  mt-8 gap-4">
+            <div className="w-1/2">
+              <label htmlFor="">
+                {" "}
+                <span className="text-sm font-medium">
+                  Expiration Date
+                </span>{" "}
+                <span className="text-[#9a9a9a] text-[14px] ">
+                  (if applicable)
+                </span>{" "}
+              </label>
+              <MonthsInput
+                name="Country"
+                id="city"
+                // value={selectedValue}
+                // onChange={handleSelectChange}
+                options={[
+                  { value: "January", label: "January" },
+                  { value: "February", label: "February" },
+                  { value: "March", label: "March" },
+                  { value: "April", label: "April" },
+                  { value: "May", label: "May" },
+                  { value: "June", label: "June" },
+                  { value: "July", label: "July" },
+                  { value: "August", label: "August" },
+                  { value: "September", label: "September" },
+                  { value: "October", label: "October" },
+                  { value: "November", label: "November" },
+                  { value: "December", label: "December" },
+                ]}
+              />
+            </div>
+            <div className="w-1/2">
+              <MonthsInput
+                name="Country"
+                id="city"
                 // value={selectedValue}
                 // onChange={handleSelectChange}
                 options={[

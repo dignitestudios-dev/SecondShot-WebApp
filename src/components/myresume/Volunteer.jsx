@@ -39,7 +39,7 @@ const Volunteer = ({ nextStep, setFormData, formData }) => {
   return (
     <div className="pt-6 px-3">
       <div>
-        <p className="text-[32px] font-medium">Volunteer Service</p>
+        <p className="text-[32px] font-medium">Volunteer Experience</p>
         <p className="text-sm">
           Highlight your volunteer work to show dedication to community service
           and a positive impact, demonstrating your commitment to helping
@@ -51,26 +51,17 @@ const Volunteer = ({ nextStep, setFormData, formData }) => {
         <div key={index} className="space-y-4  mt-4 ">
           <div className="w-full flex flex-col items-start gap-1 ">
             <AuthInput
-              placeholder={"Enter your Name"}
+              placeholder={"Enter Organization Name"}
               text={"Organization Name"}
             />
           </div>
-
-          <div className="">
-            <div className="">
-              <MonthsInput
-                label={"Role"}
-                name="Company"
-                id="Company"
-                // value={selectedValue}
-                // onChange={handleSelectChange}
-                options={[
-                  { value: "Head of Marketing", label: "Head of Marketing" },
-                  { value: "Head of Marketing", label: "Head of Marketing" },
-                ]}
-              />
-            </div>
+          <div className="w-full flex flex-col items-start gap-1 ">
+            <AuthInput
+              placeholder={"Enter Volunteer Role/Title"}
+              text={"Volunteer Role/Title"}
+            />
           </div>
+
           <div className="w-full flex gap-4 mt-5">
             <div className="w-1/2">
               <MonthsInput

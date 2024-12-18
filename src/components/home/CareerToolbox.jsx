@@ -92,15 +92,15 @@ const CareerToolbox = () => {
               </div>
             </div>
 
-            <div className="rounded-[20px] flex justify-center p-4 overflow-hidden">
+            <div className="rounded-[20px] flex justify-center p overflow-hidden">
               <img
                 src={item?.cardimage}
                 alt="Card Background"
                 className={`${
                   index === 5
-                    ? "w-[208.32px] h-[214.04px] group-hover:w-[170.4px] group-hover:h-[175.08px]"
+                    ? "w-[208.32px] h-[214.04px] group-hover:w-[208.32px] group-hover:h-[214.04px]"
                     : "w-[342.63px] h-[218.5px] "
-                } transform group-hover:scale-[0.92] group-hover:mt-2 group-hover:translate-y-[-30px] group-hover:h-[147px] group-hover:w-[230.51px] transition-all duration-700 ease-in-out`}
+                } transform group-hover:scale-[0.92] group-hover:mt-2  group-hover:translate-y-[-10px] group-hover:h-[177px] group-hover:w-[230.51px] transition-all duration-700 ease-in-out`}
               />
             </div>
 

@@ -66,7 +66,7 @@ const ViewResume = () => {
         <ResumeDeleteModal showModal={showDelete} onclick={handleDeleteModal} />
         <div>
           <h1 className="text-[32px] font-[500] text-[#000000]">
-            Your Personalized CV
+          Your Personalized Resume
           </h1>
         </div>
         <div className="flex items-center">

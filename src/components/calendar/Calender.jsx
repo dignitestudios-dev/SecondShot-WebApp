@@ -18,8 +18,8 @@ const CustomCalendar = ({ setShowCalender }) => {
   };
 
   return (
-    <div>
-      <div className="w-[300px] absolute right-10 z-10 bg-white p-6 rounded-lg shadow-md">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
+      <div className="w-[300px] absolute  z-10 bg-white p-6 rounded-lg shadow-md">
         <DatePicker
           selected={startDate}
           onChange={(date) => setStartDate(date)}

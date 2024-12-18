@@ -30,6 +30,7 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
   };
 
   const [showCalender, setShowCalender] = useState(false);
+  const [showSubGoal, setShowSubGoal] = useState(false);
 
   return (
     showModal && (
@@ -48,9 +49,9 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
                   <h2 className="text-[24px] text-center font-semibold">
                     Create Goals
                   </h2>
-                  <p className="text-[16px] font-[400] text-[#000000] leading-[21.6px] mt-2 ">
+                  {/* <p className="text-[16px] font-[400] text-[#000000] leading-[21.6px] mt-2 ">
                     You can create up to three Smart goals at a time
-                  </p>
+                  </p> */}
                 </div>
               </div>
               <div className="pt-4">
@@ -85,57 +86,63 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
                   </div>
                 </div>
               </div>
-
-              <>
-                <div className="mt-4">
-                  <div className="text-xs text=[#5C5C5C] flex justify-between items-center">
-                    <div>
-                      <p className="text-[16px] font-[700] leading-[19.36px] ">
-                        Sub Goals{" "}
-                        <span className="font-[500] text-[12px] text-[#ACACAC]">
-                          (Optional)
-                        </span>
-                      </p>
+              {showSubGoal && (
+                <>
+                  <div className="mt-4">
+                    <div className="text-xs text=[#5C5C5C] flex justify-between items-center">
+                      <div>
+                        <p className="text-[16px] font-[700] leading-[19.36px] ">
+                          Sub Goals{" "}
+                          <span className="font-[500] text-[12px] text-[#ACACAC]">
+                            (Optional)
+                          </span>
+                        </p>
+                      </div>
+                      <div>
+                        <p
+                          className="text-[#012C57] cursor-pointer underline font-[500] text-[11px] leading-[13.31px] "
+                          onClick={() => setShowCalender((prev) => !prev)}
+                        >
+                          Set Deadline
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p
-                        className="text-[#012C57] cursor-pointer underline font-[500] text-[11px] leading-[13.31px] "
-                        onClick={() => setShowCalender((prev) => !prev)}
-                      >
-                        Set Deadline
-                      </p>
+                    <p className="text-[13px] leading-[15.73px] font-[400] mt-2 text-[#5C5C5C] pb-1">
+                      Break down your main goal into manageable steps. Add your
+                      sub-goals to turn your dreams into achievable milestones.
+                    </p>
+                  </div>
+                  <div className="pt-2">
+                    <div className="w-full flex justify-between items-center">
+                      <label className="text-[14px] text-[#181818] font-[500] ">
+                        Sub-goal 1
+                      </label>
+                      <button className="flex gap-1 justify-start items-center text-[#012C57] cursor-pointer  font-[500] text-[11px] leading-[13.31px]">
+                        + <span>Add More</span>
+                      </button>
                     </div>
+                    <AuthInput placeholder={"Write your main goal Here"} />
                   </div>
-                  <p className="text-[13px] leading-[15.73px] font-[400] mt-2 text-[#5C5C5C] pb-1">
-                    Break down your main goal into manageable steps. Add your
-                    sub-goals to turn your dreams into achievable milestones.
-                  </p>
-                </div>
-                <div className="pt-2">
-                  <div className="w-full flex justify-between items-center">
-                    <label className="text-[14px] text-[#181818] font-[500] ">
-                      Sub-goal 1
-                    </label>
-                    <button className="flex gap-1 justify-start items-center text-[#012C57] cursor-pointer  font-[500] text-[11px] leading-[13.31px]">
-                      + <span>Add More</span>
-                    </button>
-                  </div>
-                  <AuthInput placeholder={"Write your main goal Here"} />
-                </div>
-              </>
+                </>
+              )}
 
+              <button
+                onClick={handleNavigation}
+                className="w-full  bg-[#E5EAED] font-[500] capitalize text-[#012C57] py-2 my-2 rounded-[8px] h-[49px] hover:bg-[#d0d5d8]"
+              >
+                Make it Smart
+              </button>
+              <div>
+                <AuthSubmitBtn
+                  text={"Add Sub Goals (Optional)"}
+                  handleSubmit={() => setShowSubGoal((prev)=>!prev)}
+                />
+              </div>
               <div className="mt-2">
                 <AuthSubmitBtn
-                  text={"Next"}
+                  text={"Submit Your Goal"}
                   handleSubmit={() => navigate("/review-goals")}
                 />
-
-                <button
-                  onClick={handleNavigation}
-                  className="w-full  bg-[#E5EAED] font-[500] capitalize text-[#012C57] py-2 my-2 rounded-[8px] h-[49px] hover:bg-[#d0d5d8]"
-                >
-                  Make it Smart
-                </button>
               </div>
             </div>
           }

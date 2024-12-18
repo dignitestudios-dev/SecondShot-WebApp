@@ -7,6 +7,7 @@ import {
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
+import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 
 const Notifications = () => {
   const navigate = useNavigate();
@@ -218,16 +219,17 @@ const Notifications = () => {
     <div className="">
       <div className="">
         <Backbutton />
-        <div className="w-full flex justify-between items-center">
-          <h1 className="text-3xl font-semibold text-gray-800 mb-6 text-left">
+        <div className="w-full flex justify-between items-center mb-6 ">
+          <h1 className="text-3xl font-semibold text-gray-800 text-left">
             Notifications
           </h1>
-          <button
-            onClick={() => setNotifications([])}
-            className="bg-grad rounded-xl w-34 text-white px-4 py-2 text-sm font-medium flex items-center justify-center"
-          >
-            Mark all as read
-          </button>
+          <div >
+            <AuthSubmitBtn
+            text={' Mark all as read'}
+            handleSubmit={()=>setNotifications([])}
+            />
+          </div>
+        
         </div>
         <div className="bg-white rounded-t-3xl  shadow-lg max-h-[80vh] overflow-y-auto rounded-b-3xl ">
           <div className="bg-white  max-h-[80vh] overflow-y-auto  scrollbar-custom">

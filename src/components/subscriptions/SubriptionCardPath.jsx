@@ -7,7 +7,7 @@ const SubriptionCardPath = ({ selected, cardsubdata }) => {
   return (
     <div>
       <div>
-        <div className="  bg-white rounded-[22px] h-[451px]  overflow-y-auto   shadow-lg   p-2 w-[438px] max-w-sm">
+        <div className="  bg-white rounded-[22px]   overflow-y-auto   shadow-lg   p-2 w-[438px] max-w-sm">
           <div className="flex justify-between items-center  mt-3 ">
             <h2 className="text-[24px] px-3 font-[500] text-[#000000] leading-[32.4px] ">
               {cardsubdata?.heading}

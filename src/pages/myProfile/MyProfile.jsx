@@ -136,13 +136,13 @@ function MyProfile() {
 
                 <div className="flex justify-between items-center mb-8">
                   <h2 className="text-[24px] font-[500] text-[#000000]">
-                  Transferable Skills
+                  Personal information
                   </h2>
                   <button
                     onClick={handleEdit}
                     className="flex items-center  text-[#012C57] font-[500] bg-gray-200 px-4 py-2 rounded-lg shadow-sm  h-[42px] text-center"
                   >
-                    Edit Skills
+                    Edit
                   </button>
                 </div>
 
@@ -196,7 +196,7 @@ function MyProfile() {
                     <h3 className="text-[18px] font-[500] text-#000000 mb-2">
                       Hobbies
                     </h3>
-                    <div className="bg-[#56EC17] text-[#0F0F0F] flex items-center justify-center  font-[500] cursor-pointer w-[150px] h-[49px] rounded-[12px] ">
+                    <div className=" text-[#0F0F0F]  justify-center  font-[400] cursor-pointer w-[150px] h-[49px] rounded-[12px] ">
                       Cooking
                     </div>
                   </div>

@@ -64,6 +64,16 @@ import Stars from "../assets/stars.png";
 import Instaicon from "../assets/instaicon.png";
 import facebook from "../assets/facebook.png";
 import Twittericon from "../assets/twittericon.png";
+import Centerpro from "../assets/centerpro.png";
+import CreateResumeimg from "../assets/resume_img_new.png";
+import Pro1 from "../assets/pro1.png";
+import Pro2 from "../assets/pro2.png";
+import Pro3 from "../assets/pro3.png";
+import Pro4 from "../assets/pro4.png";
+import Pro5 from "../assets/pro5.png";
+import Pro6 from "../assets/pro6.png";
+import Pro7 from "../assets/pro7.png";
+import Pro8 from "../assets/pro8.png";
 
 export {
   logo,
@@ -131,5 +141,15 @@ export {
   Stars,
   Instaicon,
   facebook,
-  Twittericon
+  Twittericon,
+  Centerpro,
+  CreateResumeimg,
+  Pro1,
+  Pro2,
+  Pro3,
+  Pro4,
+  Pro5,
+  Pro6,
+  Pro7,
+  Pro8,
 };

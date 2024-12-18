@@ -51,8 +51,8 @@ const Education = ({ nextStep, setFormData, formData }) => {
         <div key={index} className="">
           <div className="w-full flex flex-col items-start gap-1 my-8">
             <AuthInput
-              text={"School Name "}
-              placeholder={"Enter your School Name"}
+              text={"Educational Institution "}
+              placeholder={"Enter  Educational Institution"}
             />
           </div>
           <div className="w-full flex flex-col items-start gap-1 my-8">

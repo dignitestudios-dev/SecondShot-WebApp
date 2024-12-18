@@ -31,6 +31,8 @@ import CongratsMessage from "../pages/registrationquestions/CongratsMessage";
 import Notifications from "../pages/notifications/Notifications";
 import ReviewSmartGoal from "../pages/mygoals/ReviewSmartGoals";
 import EditRegistrationQuestion from "../pages/editregistrationquestion/EditRegistrationQuestion";
+import ReviewYourGoalOld from "../pages/mygoals/ReviewGoalOld";
+import CreateResumeInfo from "../pages/myresume/CreateResumeInfo";
 
 export const routes = [
   {
@@ -133,7 +135,7 @@ export const routes = [
   {
     title: "ReviewGoal",
     url: "/review-goals",
-    page: <Applayout page={<ReviewYourGoal />} />,
+    page: <Applayout page={<ReviewYourGoalOld />} />,
   },
   {
     title: "GoalDetail",
@@ -170,5 +172,10 @@ export const routes = [
     title: "edit-registration-question",
     url: "/edit-registration-question",
     page: <Applayout page={<EditRegistrationQuestion />} />,
+  },
+  {
+    title: "createresumeinfo",
+    url: "/create-resume-info",
+    page: <Applayout page={<CreateResumeInfo />} />,
   },
 ];

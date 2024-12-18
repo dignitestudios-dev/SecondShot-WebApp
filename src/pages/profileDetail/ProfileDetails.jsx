@@ -88,17 +88,17 @@ const ProfileDetails = () => {
         </div>
         <div className="hidden md:block w-[1px] h-[70%] bg-gray-200 -ml-4 mt-10"></div>
         <div className="col-span-12 md:col-span-5 gap-y-4 px-12 md:px-36 md:-ml-52 lg:px-28 lg:-ml-48">
-          <div className="mb-10">
+          <div className="mb-7 mt-5">
             <PhoneInputs />
           </div>
-          <div className="relative w-full mt-1.5 mb-1">
+          <div className="relative w-full  mb-1">
             <SelectInput
               name="Country"
               id="Country"
               value={selectedCountry}
               onChange={handleSelectChangeCountry}
               options={[
-                { value: "", label: "Country" },
+                { value: "", label: "Select Country" },
                 { value: "London", label: "London" },
               ]}
             />
@@ -110,7 +110,7 @@ const ProfileDetails = () => {
               value={selectedCity}
               onChange={handleSelectChangeCity}
               options={[
-                { value: "", label: "City" },
+                { value: "", label: "Select State" },
                 { value: "Europe ", label: "Europe " },
               ]}
             />

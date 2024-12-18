@@ -18,7 +18,7 @@ function MyResume() {
   };
 
   const handleNavigate = () => {
-    navigate("/create-resume");
+    navigate("/create-resume-info");
   };
 
   return (

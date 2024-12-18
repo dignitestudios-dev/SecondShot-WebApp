@@ -1,11 +1,15 @@
 import React from "react";
 
 import { FaYoutube } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
 import { Profileimage } from "../../assets/export";
 
 function SuccessProDetail() {
+  const location = useLocation();
+  const succesname = location.state?.item;
+
+  console.log("Received Item:", succesname);
   const navigate = useNavigate();
 
   return (
@@ -20,16 +24,15 @@ function SuccessProDetail() {
           <div className="bg-white rounded-2xl p-8">
             <div className="flex items-center mb-6">
               <img
-                src={Profileimage}
+                src={succesname?.image}
                 alt="Profile"
                 className="h-24 w-24 rounded-full shadow-md"
               />
               <div className="ml-6">
                 <h2 className="text-2xl font-semibold text-[#011225]">
-                  Benjamin James
+                  {succesname?.name}
                 </h2>
-                <p className="text-[#0081FF]">Marketing Manager</p>
-                <p className="text-[#8F92A1]">Toronto, Canada</p>
+                <p className="text-[#0081FF]">{succesname?.degree}</p>
               </div>
               <button className="ml-auto bg-[#FF0000] text-white font-semibold rounded-md px-4 py-2 flex items-center justify-center">
                 <FaYoutube className="mr-2 text-md" />
@@ -121,46 +124,22 @@ function SuccessProDetail() {
 
               <div>
                 <h3 className="text-xl font-semibold text-[#011225]">
-                If you could give one piece of advice to your younger self, what would it be, and why?
+                  If you could give one piece of advice to your younger self,
+                  what would it be, and why?
                 </h3>
                 <p className="text-black mt-3">
-                Reflecting on your journey, think about the wisdom and lessons you’ve gained over time. What insights would you share with your younger self to help navigate challenges, embrace opportunities, or avoid mistakes? Whether it’s about trusting your instincts, being patient, or taking more risks, this is a moment to look back and offer guidance that could have made a difference.
+                  Reflecting on your journey, think about the wisdom and lessons
+                  you’ve gained over time. What insights would you share with
+                  your younger self to help navigate challenges, embrace
+                  opportunities, or avoid mistakes? Whether it’s about trusting
+                  your instincts, being patient, or taking more risks, this is a
+                  moment to look back and offer guidance that could have made a
+                  difference.
                 </p>
               </div>
-           
             </div>
           </div>
-          <div className="p-6 bg-white rounded-2xl mt-4">
-            <h3 className="text-xl font-semibold text-[#011225] mb-4">
-              Achievements
-            </h3>
-            <div className="grid grid-cols-2 gap-4 text-[#011225]">
-              <ol className="pl-1 space-y-2 border-r-2">
-                <li>
-                  1. Lorem ipsum dolor sit amet consectetur. Nunc aliquet diam
-                  quam vitae non tincidunt turpis.
-                </li>
-                <hr class="h-px my-8 bg-gray-300 border-0 mr-6" />
-
-                <li>
-                  2. Lorem ipsum dolor sit amet consectetur. Nunc aliquet diam
-                  quam vitae non tincidunt turpis.
-                </li>
-              </ol>
-              <ol className=" pl-5 space-y-2">
-                <li>
-                  3. Lorem ipsum dolor sit amet consectetur. Nunc aliquet diam
-                  quam vitae non tincidunt turpis.
-                </li>
-                <hr class="h-px my-8 bg-gray-300 border-0" />
-
-                <li>
-                  4. Lorem ipsum dolor sit amet consectetur. Nunc aliquet diam
-                  quam vitae non tincidunt turpis.
-                </li>
-              </ol>
-            </div>
-          </div>
+       
         </div>
       </div>
     </div>

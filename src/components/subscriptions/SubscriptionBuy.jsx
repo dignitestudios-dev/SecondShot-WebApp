@@ -30,7 +30,7 @@ const SubscriptionBuy = ({ handleIsTrue, selected, setSelected,cardsubdata }) =>
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-1 xl:px-80 lg:px-50 md:px-30 px-16">
        <SubriptionCardPath selected={selected} cardsubdata={cardsubdata} />
-       <SubscriptionStripeCard selected={selected} handleModal={handleModal} />
+       <SubscriptionStripeCard selected={selected} handleModal={handleModal} cardsubdata={cardsubdata} />
         <SubscriptionCardModal
           showModal={showCardModal}
           onclick={handleCardModal}

@@ -14,9 +14,9 @@ const Skills = ({ nextStep, setFormData, formData }) => {
   return (
     <div className="pt-6 px-3">
       <div className="my-6">
-        <p className="text-[24px] font-[500]">Skills</p>
+        <p className="text-[24px] font-[500]">Soft Skills</p>
         <p className="text-[16px] leading-[21.6px] w-[422px] ">
-        Add your skills to highlight your expertise and showcase your unique strengths.
+        Add Personal qualities like communication, teamwork, and problem-solving.
         </p>
       </div>
       <SkillsInputField

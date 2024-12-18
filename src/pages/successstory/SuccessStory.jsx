@@ -3,7 +3,17 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
 import SearchInput from "../../components/Global/SearchInput";
-import { Profileimage } from "../../assets/export";
+import {
+  Pro1,
+  Pro2,
+  Pro3,
+  Pro4,
+  Pro5,
+  Pro6,
+  Pro7,
+  Pro8,
+  Profileimage,
+} from "../../assets/export";
 import WelcomeStoryModal from "../../components/successstory/WelcomeStoryModal";
 import { ModalContext } from "../../context/GlobalContext";
 
@@ -13,51 +23,44 @@ function SuccessStory() {
 
   const data = [
     {
-      name: "benjamin James",
-      degree: "Marketing Manager",
-      image: Profileimage,
-      city: "Toronto",
+      name: "Brittany Taylor",
+      degree: "Ph.D. Professor and Biomedical Engineer Track Star",
+      image: Pro1,
     },
     {
-      name: "William Noah",
-      degree: "Marketing Manager",
-      image: Profileimage,
-      city: "Toronto",
+      name: "Laura Barnes",
+      degree: "PAADS Athlete Development Specialist",
+      image: Pro2,
     },
     {
-      name: "benjamin James",
-      degree: "Marketing Manager",
-      image: Profileimage,
-      city: "Toronto",
+      name: "William Scott",
+      degree: "PhD, Teacher, Former NFL Player",
+      image: Pro3,
     },
     {
-      name: "Charles Oliver",
-      degree: "Marketing Manager",
-      image: Profileimage,
-      city: "Toronto",
+      name: "John Womack III",
+      degree: "Business Development, Football Player",
+      image: Pro4,
     },
     {
-      name: "Christopher Leo",
-      degree: "Marketing Manager",
-      image: Profileimage,
+      name: "Sanethia Thomas",
+      degree: "Ph.D, Computer Science Professor, Basketball Player",
+      image: Pro5,
     },
     {
-      name: "benjamin James",
-      degree: "Marketing Manager",
-      image: Profileimage,
-      city: "Toronto",
+      name: "Chris Doering",
+      degree: "Real Estate Broker, Football Player",
+      image: Pro6,
     },
     {
-      name: "Theodore Henry",
-      degree: "Marketing Manager",
-      image: Profileimage,
-      city: "Toronto",
+      name: "Ben Lok",
+      degree: "Entrepreneur, Runner",
+      image: Pro7,
     },
     {
-      name: "Daniel Ezra",
-      degree: "Marketing Manager",
-      image: Profileimage,
-      city: "Toronto",
+      name: "Nouvelle Gonzalo",
+      degree: "Lawyer, Volleyball Player",
+      image: Pro8,
     },
   ];
 
@@ -116,7 +119,7 @@ function SuccessStory() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-11 mt-16">
         {data?.map((item, index) => (
           <div
-            onClick={() => navigate("/story-pro-detail")}
+            onClick={() => navigate("/story-pro-detail", { state: { item } })}
             key={index}
             className="bg-[#F2F7FF] rounded-[12px] w-[280px]  p-4  h-[203px] flex flex-col items-center cursor-pointer"
           >
@@ -130,11 +133,8 @@ function SuccessStory() {
             <h2 className="text-[20px] capitalize font-[600] text-[#012C57]">
               {item?.name}
             </h2>
-            <h3 className="text-[16px] mt-3 text-[#0081FF] font-[500] text-center">
+            <h3 className="text-[14px] mt-1 text-[#0081FF] font-[400] text-center">
               {item?.degree}
-            </h3>
-            <h3 className="text-[15px] mt-3 text-[#9A9A9A] font-[500] text-center">
-              {item?.city}
             </h3>
           </div>
         ))}

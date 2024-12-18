@@ -66,7 +66,7 @@ function MyLibrary() {
                   : "text-gray-500"
               }`}
             >
-              Transferable
+              Transferable Skills
             </button>
           </div>
         </div>

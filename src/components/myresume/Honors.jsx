@@ -39,7 +39,7 @@ const Honors = ({ nextStep, setFormData, formData }) => {
   return (
     <div className="pt-6 px-3">
       <div>
-        <p className="text-[32px] font-[500]">Honors </p>
+        <p className="text-[32px] font-[500]">Honors & Awards</p>
         <p className="text-[16px] font-[400] ">
           Highlight your recognition and awards to showcase your achievements,
           distinguish your expertise, and demonstrate your professional
@@ -50,19 +50,17 @@ const Honors = ({ nextStep, setFormData, formData }) => {
       {honor.map((education, index) => (
         <div key={index} className="space-y-4 mt-4">
           <div className="w-full flex flex-col items-start gap-1">
-            <AuthInput text={"Name"} placeholder={"Enter your Name"} />
+            <AuthInput
+              text={"Award Name"}
+              placeholder={
+                "Enter Award Name (e.g., Employee of the Year, Academic Excellence Award)"
+              }
+            />
           </div>
-          <div className="">
-            <MonthsInput
-              label={"Issuer"}
-              name="Company"
-              id="Company"
-              // value={selectedValue}
-              // onChange={handleSelectChange}
-              options={[
-                { value: "ABC Company", label: "ABC Company" },
-                { value: "Google", label: "Google" },
-              ]}
+          <div className="w-full flex flex-col items-start gap-1">
+            <AuthInput
+              text={"Awarding Organization or Institution"}
+              placeholder={"ABC Company"}
             />
           </div>
 
@@ -70,7 +68,7 @@ const Honors = ({ nextStep, setFormData, formData }) => {
             <div className="w-1/2">
               <div className="">
                 <MonthsInput
-                  label={"Issue Date"}
+                  label={"Date Received"}
                   name="Company"
                   id="Company"
                   // value={selectedValue}
@@ -115,7 +113,7 @@ const Honors = ({ nextStep, setFormData, formData }) => {
               name="description"
               className="w-full border rounded-xl px-3 py-3 text-sm bg-transparent border-gray-700 focus:ring-gray-700 focus:border-gray-700 outline-gray-700"
               value={education.description}
-              placeholder="Describe your Self"
+              placeholder="A brief description of the award, highlighting its significance, criteria, or relevance to your field (e.g., 'Awarded to the top 5% of students for academic excellence')."
               onChange={(e) =>
                 handleFieldChange(index, "description", e.target.value)
               }

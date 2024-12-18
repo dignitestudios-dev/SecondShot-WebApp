@@ -28,12 +28,10 @@ const Transferable = () => {
                 eiusmod tempor incididunt labore dolore magna aliqua.
               </p>
               <div className="text-sm flex justify-between items-center group-hover:text-white">
-                <span className="text-[16px] font-[500] leading-[21.6px]">
-                  {`10/July/2024`}
+                <span className="text-[16px] px-2 font-[500] leading-[21.6px]">
+                  {`July/10/2024`}
                 </span>
-                <button className="p-2 rounded-[8px] flex items-center justify-center bg-[#012C57] w-[43px] h-[43px] text-center text-white group-hover:bg-white group-hover:text-[#012C57] transition duration-200">
-                  <IoIosArrowForward size={"16px"} />
-                </button>
+               
               </div>
             </div>
           ))}
