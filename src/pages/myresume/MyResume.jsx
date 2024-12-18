@@ -46,9 +46,9 @@ function MyResume() {
               >
                 + Create Resume
               </button>
-              <span className="text-[14px] text-[#999999] font-[400] ">
+              {/* <span className="text-[14px] text-[#999999] font-[400] ">
                 Need some inspiration?
-              </span>
+              </span> */}
             </div>
           </div>
         </div>

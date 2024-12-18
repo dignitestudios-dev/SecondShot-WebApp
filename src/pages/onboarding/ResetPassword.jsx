@@ -22,10 +22,10 @@ const ResetPassword = () => {
 
   const handleSuccess = () => {
     setIsTrue(true);
-    setTimeout(() => {
-      navigation("/sign-in");
-      setIsTrue(false);
-    }, 3000);
+    // setTimeout(() => {
+    //   navigation("/sign-in");
+    //   setIsTrue(false);
+    // }, 3000);
   };
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const ResetPassword = () => {
                 </p>
               </div>
               <div className="mb-6 px-28">
-                <AuthSubmitBtn text="Continue" type="button" />
+                <AuthSubmitBtn text="Continue" type="button" handleSubmit={()=>navigation('/sign-in')} />
               </div>
             </div>
           ) : (

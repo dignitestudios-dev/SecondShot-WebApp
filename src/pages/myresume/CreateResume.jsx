@@ -172,7 +172,7 @@ const CreateResume = () => {
                           index < step - 1
                             ? " text-gradient-to-r from-[#012C57] to-[#061523] z-50"
                             : index == step - 1
-                            ? "text-[#375979] z-50"
+                            ? "text-[#061523] z-50"
                             : "text-[#969696]"
                         }`}
                       >

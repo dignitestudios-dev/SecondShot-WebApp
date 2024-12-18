@@ -95,7 +95,7 @@ const SubscriptionPlannew = () => {
             />
           </div>
           <button
-            className="bg-white  text-[#1E384F] text-[16px] font-[500]  w-[171px] h-[49px] rounded-[8px] "
+            className="bg-white  text-[#1E384F] text-[16px] mt-2 font-[500]  w-[171px] h-[49px] rounded-[12px] "
             onClick={() => setModalOpen(true)}
           >
             Submit
@@ -105,10 +105,10 @@ const SubscriptionPlannew = () => {
           <div key={index}>
             <div className="  bg-white rounded-[22px] lg:h-[559px] md:h-full  shadow-lg   p-2 w-full max-w-sm">
               <div className="flex justify-between items-center  mt-3 ">
-                <h2 className="text-[24px] font-[500] text-[#000000] leading-[32.4px] ">
+                <h2 className="text-[24px] px-3 font-[500] text-[#000000] leading-[32.4px] ">
                   {item.heading}
                 </h2>
-                <h2 className="text-[32px] font-[600] leading-[43.2px] text-[#56EC17]">
+                <h2 className="text-[32px] font-[600] leading-[43.2px] pe-3 text-[#56EC17]">
                   {item.amount} 
                 </h2>
               </div>
