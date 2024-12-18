@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BgAuth, Leftimg, logo, Logonav } from "../../assets/export";
+import { BgAuth, Leftimg, logo, Logonav, logonew } from "../../assets/export";
 import StepOne from "../../components/registrationquestion/StepOne";
 import StepTwo from "../../components/registrationquestion/StepTwo";
 import StepThree from "../../components/registrationquestion/StepThree";
@@ -78,7 +78,7 @@ const RegistrationQuestion = () => {
                 <div className="w-[535px]">
                   <div className="w-full flex justify-center mb-4">
                     <img
-                      src={logo}
+                      src={logonew}
                       alt="logo"
                       className="object-cover w-[228px] h-[172px]"
                     />

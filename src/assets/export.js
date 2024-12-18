@@ -74,6 +74,7 @@ import Pro5 from "../assets/pro5.png";
 import Pro6 from "../assets/pro6.png";
 import Pro7 from "../assets/pro7.png";
 import Pro8 from "../assets/pro8.png";
+import logonew from "../assets/logonew2.png";
 
 export {
   logo,
@@ -152,4 +153,5 @@ export {
   Pro6,
   Pro7,
   Pro8,
+  logonew,
 };

@@ -5,6 +5,7 @@ import {
   FacebookIcon,
   GoogleIcon,
   logo,
+  logonew,
   ORimg,
 } from "../../assets/export";
 import AuthInput from "../../components/onboarding/AuthInput";
@@ -24,7 +25,7 @@ const Login = () => {
         <div className="w-full bg-white md:w-1/2 flex rounded md:rounded-r-[20px]  justify-center relative">
           <div className="w-full max-w-md p-7 ">
             <div className="flex justify-center mb-6">
-              <img src={logo} alt="Logo" className="h-[196px] w-[182px]" />
+              <img src={logonew} alt="Logo" className="h-[196px] w-[182px]" />
             </div>
 
             <h2 className="text-[32px] font-[600] text-center leading-[43.2px] mb-4">
