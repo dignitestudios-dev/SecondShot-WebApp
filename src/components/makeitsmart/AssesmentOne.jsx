@@ -6,14 +6,16 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import Backbutton from "../Global/Backbutton";
 
 const AssessmentOne = ({ nextStep, formData, setFormData }) => {
-  const validationSchema = Yup.object({
-    specific: Yup.string().required("Please select an option to proceed."),
+  const validationSchema = Yup?.object({
+    specific: Yup?.string().required("Please select an option to proceed."),
   });
 
   return (
     <div>
       <Formik
-        initialValues={formData}
+        initialValues={{
+          specific: formData.specific || "", 
+        }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
           setFormData(values);

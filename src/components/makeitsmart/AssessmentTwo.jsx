@@ -14,7 +14,9 @@ const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
   return (
     <div>
       <Formik
-        initialValues={formData}
+        initialValues={{
+          measure: formData.measure || "",
+        }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
           setFormData(values);

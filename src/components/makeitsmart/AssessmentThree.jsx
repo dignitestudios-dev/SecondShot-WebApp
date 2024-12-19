@@ -13,7 +13,9 @@ const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
   return (
     <div>
       <Formik
-        initialValues={formData}
+        initialValues={{
+          achievable: formData.achievable || "",
+        }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
           setFormData(values);

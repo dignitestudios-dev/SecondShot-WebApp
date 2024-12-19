@@ -6,20 +6,23 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
-const AssessmentFive = ({ nextStep, formData, setFormData,setStep }) => {
+const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
   const validationSchema = Yup.object({
     timebound: Yup.string().required("Please select an option to proceed."),
   });
-  const navigate =useNavigate()
+
+  const navigate = useNavigate();
 
   return (
     <div>
       <Formik
-        initialValues={formData}
+        initialValues={{
+          timebound: formData.timebound || "",
+        }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
           setFormData(values);
-          nextStep();
+          navigate("/review-goals");
         }}
       >
         {({ errors, touched }) => (
@@ -31,30 +34,30 @@ const AssessmentFive = ({ nextStep, formData, setFormData,setStep }) => {
               >
                 Time-Bound
               </label>
-              <p className=" text-[14px] text-[#000000] font-[400] w-[503px] ">
+              <p className="text-[14px] text-[#000000] font-[400] w-[503px]">
                 When a goal is time-bound, it means you give yourself a deadline
                 or a specific time to finish it.
               </p>
-              <div className="flex   items-center gap-4 mt-3 mb-3">
+              <div className="flex items-center gap-4 mt-3 mb-3">
                 {[
-                  "What’s my deadline? ",
-                  "How long will I work on this each day? ",
-                ]?.map((item, index) => (
+                  "What’s my deadline?",
+                  "How long will I work on this each day?",
+                ].map((item, index) => (
                   <div key={index} className="flex items-center">
                     <img
                       src={Stars}
-                      className="w-[15.89px] h-[12.93px] "
+                      className="w-[15.89px] h-[12.93px]"
                       alt=""
                     />
-                    <span className="text-[14px] leading-[18.9px] text-[#012C57] font-[500] ">
+                    <span className="text-[14px] leading-[18.9px] text-[#012C57] font-[500]">
                       {item}
                     </span>
                   </div>
                 ))}
               </div>
               <div className="flex items-center mb-3">
-                <img src={Stars} className="w-[15.89px] h-[12.93px] " alt="" />
-                <span className="text-[14px] leading-[18.9px] text-[#012C57] font-[500] ">
+                <img src={Stars} className="w-[15.89px] h-[12.93px]" alt="" />
+                <span className="text-[14px] leading-[18.9px] text-[#012C57] font-[500]">
                   When do I want to finish?
                 </span>
               </div>
@@ -64,11 +67,11 @@ const AssessmentFive = ({ nextStep, formData, setFormData,setStep }) => {
                 name="timebound"
                 placeholder="Describe Here"
                 className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
-                   bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                     errors.timebound && touched.timebound
-                       ? "border-red-500"
-                       : ""
-                   }`}
+                  bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                    errors.timebound && touched.timebound
+                      ? "border-red-500"
+                      : ""
+                  }`}
               />
               <ErrorMessage
                 name="timebound"
@@ -78,16 +81,17 @@ const AssessmentFive = ({ nextStep, formData, setFormData,setStep }) => {
             </div>
             <div className="flex justify-center pt-4">
               <div className="w-[343px]">
-                <AuthSubmitBtn text={"Next"} type={"submit"} handleSubmit={()=>navigate('/review-goals')} />
+                <AuthSubmitBtn text={"Next"} type={"submit"} />
               </div>
             </div>
             <div className="flex justify-center mt-4">
               <div>
-                <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
-                  <div>
-                    <IoIosArrowBack className="font-[600]" />
-                  </div>
-                  <div onClick={() => setStep(4)}>BACK</div>
+                <div
+                  className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer"
+                  onClick={() => setStep(4)}
+                >
+                  <IoIosArrowBack className="font-[600]" />
+                  <span>BACK</span>
                 </div>
               </div>
             </div>

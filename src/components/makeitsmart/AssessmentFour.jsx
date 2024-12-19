@@ -5,7 +5,7 @@ import { Stars } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 
-const AssessmentFour = ({ nextStep, formData, setFormData ,setStep}) => {
+const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
   const validationSchema = Yup.object({
     relevant: Yup.string().required("Please select an option to proceed."),
   });
@@ -13,7 +13,9 @@ const AssessmentFour = ({ nextStep, formData, setFormData ,setStep}) => {
   return (
     <div>
       <Formik
-        initialValues={formData}
+        initialValues={{
+          relevant: formData.relevant || "",
+        }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
           setFormData(values);
