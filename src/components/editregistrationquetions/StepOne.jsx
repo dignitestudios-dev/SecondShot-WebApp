@@ -25,14 +25,18 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
     { label: "Career Change Professional", value: "career" },
   ];
 
+  console.log(options?.map((item) => item?.value));
+
   const [filteredTags, setFilteredTags] = useState([]);
 
+  const [selectedUniversity, setSelectedUniversity] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOptionClick = (value, setFieldValue, setFieldTouched) => {
     setFieldTouched("university", true);
     setFieldValue("university", value);
     setFormData({ ...formData, university: value });
+    setSelectedUniversity(value);
     setIsOpen(false);
 
     const filteredTags = educationTags[value] || [];
@@ -48,7 +52,12 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
           if (tags.length <= 0) {
             setTagsError("This field is required.");
           } else {
-            nextStep(e);
+            nextStep(
+              formData?.university === "School" ||
+                formData?.university === "HighSchool"
+                ? true
+                : false
+            );
           }
         }}
       >
@@ -78,15 +87,22 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
                 className="text-red-500 text-xs italic mt-2"
               />
             </div>
-            {formData.university && (
+            {(formData?.university === "School" ||
+              formData?.university === "HighSchool" ||
+              formData?.university === "College" ||
+              formData?.university === "early" ||
+              formData?.university === "career") && (
               <div>
                 <label
                   className="block text-[14px] font-[500] leading-[17.85px] mb-1"
                   htmlFor="university"
                 >
-                  Choose the major, trade school, or military branch you are
-                  most interested in pursuing after school.
+                  {formData.university === "School" ||
+                  formData.university === "HighSchool"
+                    ? "Select the major/trade school/ or military you are most interested in pursuing after high school."
+                    : "Select the major that is closely related to your major you have/had in college?"}
                 </label>
+
                 <TagsInputField
                   availableTags={filteredTags}
                   heading={`Select Your ${formData.university} Answer`}
@@ -102,6 +118,7 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
                 )}
               </div>
             )}
+
             <div className="flex justify-center pt-4">
               <div className="w-[343px]">
                 <AuthSubmitBtn text={"Next"} type={"submit"} />

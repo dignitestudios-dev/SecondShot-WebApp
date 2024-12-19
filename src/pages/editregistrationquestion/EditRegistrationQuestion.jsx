@@ -1,16 +1,16 @@
 import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BgAuth, Leftimg, logo, Logonav } from "../../assets/export";
-import StepOne from "../../components/editregistrationquetions/StepOne";
-import StepTwo from "../../components/editregistrationquetions/StepTwo";
-import StepThree from "../../components/editregistrationquetions/StepThree";
-import StepFour from "../../components/editregistrationquetions/StepFour";
-import StepFive from "../../components/editregistrationquetions/StepFive";
-import StepSix from "../../components/editregistrationquetions/StepSix";
-import StepSeven from "../../components/editregistrationquetions/StepSeven";
-import StepEight from "../../components/editregistrationquetions/StepEight";
-import StepNine from "../../components/editregistrationquetions/StepNine";
-import StepTen from "../../components/editregistrationquetions/StepTen";
+import { BgAuth, Leftimg, logo, Logonav, logonew } from "../../assets/export";
+import StepOne from "../../components/registrationquestion/StepOne";
+import StepTwo from "../../components/registrationquestion/StepTwo";
+import StepThree from "../../components/registrationquestion/StepThree";
+import StepFour from "../../components/registrationquestion/StepFour";
+import StepFive from "../../components/registrationquestion/StepFive";
+import StepSix from "../../components/registrationquestion/StepSix";
+import StepSeven from "../../components/registrationquestion/StepSeven";
+import StepEight from "../../components/registrationquestion/StepEight";
+import StepNine from "../../components/registrationquestion/StepNine";
+import StepTen from "../../components/registrationquestion/StepTen";
 
 const EditRegistrationQuestion = () => {
   const isSkill = localStorage.getItem("isEditSkill");
@@ -33,12 +33,12 @@ const EditRegistrationQuestion = () => {
     desireCareer: "",
   });
 
-  const nextStep = () => {
-    setStep(step + 1);
+  const nextStep = (skip = false) => {
+    setStep(skip ? step + 2 : step + 1);
   };
 
-  const prevStep = () => {
-    setStep(step - 1);
+  const prevStep = (skip = false) => {
+    setStep(skip ? step - 2 : step - 1);
   };
 
   const handleIsSkill = () => {
@@ -71,7 +71,7 @@ const EditRegistrationQuestion = () => {
                 <div className="w-[535px]">
                   <div className="w-full flex justify-center mb-4">
                     <img
-                      src={logo}
+                      src={logonew}
                       alt="logo"
                       className="object-cover w-[228px] h-[172px]"
                     />

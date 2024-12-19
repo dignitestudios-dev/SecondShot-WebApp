@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import BackBtn from "../onboarding/BackBtn";
@@ -11,10 +11,17 @@ import RecommendationDropdown from "../careerrecommendation/RecommendationDropdo
 const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
   const [tagsError, setTagsError] = useState(false);
   const [tags, setTags] = useState([]);
+
   const validationSchema = Yup.object({
     isAthlete: Yup.string().required("Please select an option to proceed."),
-    athleteOption: Yup.string().required("This field cannot be left empty"),
+ 
+    athleteOption:
+      formData?.isAthlete == "Yes"
+        ? Yup.string().required("This field cannot be left empty")
+        : Yup.string(),
   });
+
+  console.log(formData?.isAthlete);
 
   const handleIsAthlete = (value, setFieldValue, setFieldTouched) => {
     setFieldTouched("isAthlete", true);
@@ -56,15 +63,26 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
     setFilteredTags(filteredTags);
   };
 
+  const handleOptionClickSports = (value, setFieldValue, setFieldTouched) => {
+    setFieldValue("sport", value);
+    setFieldTouched("sport", true);
+    setFormData({ ...formData, sport: value });
+    setIsOpen(false);
+
+    // Next level logic
+    const filteredTags = sportsTags[value] || [];
+    setFilteredTags(filteredTags);
+  };
+
   return (
     <Formik
       initialValues={formData}
       validationSchema={validationSchema}
       onSubmit={(e) => {
-        if (tags.length <= 0) {
+        if (formData?.isAthlete === "Yes" && tags?.length <= 0) {
           setTagsError("This field is required.");
         } else {
-          nextStep(e);
+          nextStep();
         }
       }}
     >
@@ -125,10 +143,10 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
                 <label className="block text-[#181818] text-[14px] font-[500] leading-[17.85px] mb-3">
                   Sport Position
                 </label>
-               
+
                 <TagsInputField
                   availableTags={filteredTags}
-                  heading={`Select your ${formData.athleteOption} answer`}
+                  heading={`Select your ${formData?.athleteOption} answer`}
                   tags={tags}
                   setTags={setTags}
                   tagsError={tagsError}
@@ -148,7 +166,7 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
             </div>
           </div>
           <div className="mt-4">
-            <BackBtn handleClick={() => prevStep()} />
+            <BackBtn handleClick={() => prevStep(true)} />
           </div>
         </Form>
       )}

@@ -1,26 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import BackBtn from "../onboarding/BackBtn";
 import RecommendatioBtn from "../careerrecommendation/RecommendatioBtn";
-
 const StepThree = ({ nextStep, prevStep, formData, setFormData }) => {
   const validationSchema = Yup.object({
     ageValue: Yup.string().required("Please select an option to proceed."),
   });
+  const [tagsError, setTagsError] = useState(false);
+  const [ageValue, SetageValue] = useState("");
 
+  console.log(ageValue, "ageValue");
   const handleAgeValue = (value, setFieldValue, setFieldTouched) => {
     setFieldTouched("ageValue", true);
     setFieldValue("ageValue", value);
     setFormData({ ...formData, ageValue: value });
+    SetageValue(value);
+    console.log("Selected value:", value);
+  };
+  const handleSubmit = (values) => {
+    if (values?.ageValue === "No") {
+      nextStep(true);
+    } else {
+      nextStep();
+    }
   };
   return (
     <Formik
       initialValues={formData}
       validationSchema={validationSchema}
-      onSubmit={nextStep}
+      onSubmit={handleSubmit}
     >
       {({ errors, touched, setFieldValue, setFieldTouched }) => (
         <Form>
@@ -34,7 +45,7 @@ const StepThree = ({ nextStep, prevStep, formData, setFormData }) => {
             <RecommendatioBtn
               handleBtnSelect={handleAgeValue}
               touched={touched}
-              errors={errors}
+              errors={errors.ageValue}
               setFieldValue={setFieldValue}
               setFieldTouched={setFieldTouched}
               formData={formData.ageValue}
@@ -54,7 +65,7 @@ const StepThree = ({ nextStep, prevStep, formData, setFormData }) => {
             </div>
           </div>
           <div className="mt-4">
-            <BackBtn handleClick={() => prevStep()} />
+            <BackBtn handleClick={() => prevStep(true)} />
           </div>
         </Form>
       )}

@@ -15,7 +15,10 @@ const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
     militaryService: Yup.string().required(
       "Please select an option to proceed."
     ),
-    militaryOption: Yup.string().required("This field cannot be left empty"),
+    militaryOption:
+      formData?.militaryService == "Yes"
+        ? Yup.string().required("This field cannot be left empty")
+        : Yup.string(),
   });
 
   const handleMilitaryService = (value, setFieldValue, setFieldTouched) => {
@@ -52,10 +55,10 @@ const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
       initialValues={formData}
       validationSchema={validationSchema}
       onSubmit={(e) => {
-        if (tags.length <= 0) {
+        if (formData?.militaryService == "Yes" && tags.length <= 0) {
           setTagsError("This field cannot be left empty.");
         } else {
-          nextStep(e);
+          nextStep();
         }
       }}
     >
@@ -90,7 +93,7 @@ const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
                 className="block text-[18px] font-[500] leading-[22.95px] mb-2"
                 htmlFor="military"
               >
-               Please select the military branch and rank.
+                Please select the military branch and rank.
               </label>
               <div>
                 <label

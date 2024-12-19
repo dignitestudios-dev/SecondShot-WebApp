@@ -26,7 +26,7 @@ const StepNine = ({ nextStep, prevStep, formData, setFormData }) => {
     <Formik
       initialValues={formData}
       validationSchema={validationSchema}
-      onSubmit={nextStep}
+      onSubmit={()=>nextStep()}
     >
       {({ errors, touched, setFieldValue, setFieldTouched }) => (
         <Form>

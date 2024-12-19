@@ -26,7 +26,7 @@ const StepSix = ({ nextStep, prevStep, formData, setFormData }) => {
         if (tags.length <= 0) {
           setTagsError("This field is required.");
         } else {
-          nextStep(e);
+          nextStep();
         }
       }}
     >
