@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
+import { IoIosArrowBack } from "react-icons/io";
 
 function CareerDetails() {
-
   const [selectedButton, setSelectedButton] = useState("Health Science");
   const buttons = [
     "Health Science",
@@ -12,11 +12,19 @@ function CareerDetails() {
     "Marketing",
     "Manufacturing",
   ];
-
+const navigate =useNavigate()
   return (
     <div className="">
       <div className="mb-3">
-        <Backbutton />
+        <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
+          <div>
+            <IoIosArrowBack
+              className="font-[600]"
+              onClick={() => navigate('/careerrecommendation')}
+            />
+          </div>
+          <div onClick={() => navigate('/careerrecommendation')}>BACK</div>
+        </div>
       </div>
       <div className="bg-white rounded-3xl shadow-[0px_8px_50px_0px_rgba(0,0,0,0.06)] p-8 backdrop-blur-[100px]">
         <div className="w-full mb-5 flex justify-between items-center">
@@ -92,13 +100,16 @@ function CareerDetails() {
                 <h3 className="text-[22px] font-medium text-[#011225] mb-2">
                   Education & Training
                 </h3>
-             
+
                 {[
                   "Bachelor’s degrees in nursing, biology, or environmental science",
                   "Master’s degrees in public health or healthcare administration",
                   "Doctoral degrees in medicine, pharmacy, or biomedical research",
                 ]?.map((item, index) => (
-                  <li key={index} className="font-[500] list-outside text-[18px]">
+                  <li
+                    key={index}
+                    className="font-[500] list-outside text-[18px]"
+                  >
                     {item}
                   </li>
                 ))}

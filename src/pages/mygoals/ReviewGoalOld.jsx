@@ -24,8 +24,8 @@ function ReviewYourGoalOld() {
   const openGoalDetailModal = () => setGoalDetailModalOpen(true);
 
   const closeGoalDetailModal = () => {
-    navigate("/goaldetails");
-    setGoalDetailModalOpen(false);
+    setSuccessModal(true);
+    // navigate("/goal-detail");
   };
 
   const [showCardModal, setShowCardModal] = useState(false);
@@ -37,10 +37,6 @@ function ReviewYourGoalOld() {
   return (
     <div className="">
       <div className="">
-        <GoalCompletedModal
-          isOpen={isGoalDetailModalOpen}
-          onClose={closeGoalDetailModal}
-        />
         {/* Main Heading and Submit Button */}
         <div className="flex justify-between items-center mt-6 w-full">
           <div className="text-left w-[475px]">
@@ -56,27 +52,27 @@ function ReviewYourGoalOld() {
           </div>
           <div className="flex  items-center  gap-4">
             <div className="w-[200px]">
-              <AuthSubmitBtn
+              {/* <AuthSubmitBtn
                 text={"Add Support Network"}
                 handleSubmit={() => setShowModalsupport(true)}
-              />
+              /> */}
             </div>
             <div>
               <AuthSubmitBtn
                 text={"Finalize Goal"}
-                handleSubmit={() => setSuccessModal(true)}
+                handleSubmit={() => setGoalDetailModalOpen(true)}
               />
             </div>
           </div>
         </div>
-    
+
         {/* Main Section */}
         <div className="flex justify-center mt-8">
           <div className="grid grid-cols-2 gap-8">
             {/* Left Section - Main Goal and Sub-Goals */}
             <div className="w-[575px] h-[904px] space-y-6">
               {/* Main Goal Details */}
-              <div className="bg-white rounded-xl p-6 relative h-full">
+              <div className="bg-white rounded-xl p-6 relative h-full z-0">
                 <h2 className="text-xl font-semibold mb-2">
                   Main Goal Details
                 </h2>
@@ -132,6 +128,14 @@ function ReviewYourGoalOld() {
         </div>
         <div />
       </div>
+      <GoalCompletedModal
+        showModal={isGoalDetailModalOpen}
+        onClose={closeGoalDetailModal}
+        handleClick={() => {
+          setGoalDetailModalOpen(false);
+          setShowModalsupport(true);
+        }}
+      />
       <AddSupportModal
         showModal={showModalsupport}
         handleClick={() => {
@@ -139,7 +143,7 @@ function ReviewYourGoalOld() {
           setSuccessModal(true);
         }}
       />
-        <GoalCreatedModal
+      <GoalCreatedModal
         showModal={successModal}
         handleClick={() => navigate("/goal-detail")}
         onclick={() => setSuccessModal(false)}
