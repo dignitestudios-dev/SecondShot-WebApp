@@ -24,8 +24,8 @@ const Login = () => {
 
         <div className="w-full bg-white md:w-1/2 flex rounded md:rounded-r-[20px]  justify-center relative">
           <div className="w-full max-w-md p-7 ">
-            <div className="flex justify-center mb-6">
-              <img src={logonew} alt="Logo" className="h-[196px] w-[182px]" />
+            <div className="flex justify-center ">
+              <img src={logonew} alt="Logo" className="h-[206px] w-[206px]" />
             </div>
 
             <h2 className="text-[32px] font-[600] text-center leading-[43.2px] mb-4">
@@ -43,7 +43,7 @@ const Login = () => {
                 onClick={() => navigation("/forgot")}
                 className="text-[12px] text-[#181818] font-[500] text-right cursor-pointer leading-[16.2px] "
               >
-                Forget Password
+                Forgot Password
               </p>
               <AuthSubmitBtn
                 text="Sign In"

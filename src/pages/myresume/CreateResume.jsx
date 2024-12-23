@@ -15,6 +15,7 @@ import SuccessResumeModal from "../../components/myresume/SuccessResumeModal";
 import ResumeDownloadModal from "../../components/myresume/ResumeDownloadModal";
 import AddSupportModal from "../../components/myresume/AddSupportModal";
 import ResumeDeleteModal from "../../components/myresume/DeleteResumeModal";
+import { IoIosArrowBack } from "react-icons/io";
 
 const CreateResume = () => {
   const navigate = useNavigate();
@@ -47,12 +48,12 @@ const CreateResume = () => {
   const [sections] = useState([
     "Contact",
     "Objective",
-    "Education",
-    "Licenses",
     "Experience",
-    "Volunteer",
+    "Education",
+    "Licenses ",
     "Skills",
     "Honors",
+    "Volunteer ",
   ]);
 
   const [showModal, setShowModal] = useState(false);
@@ -68,7 +69,6 @@ const CreateResume = () => {
     setShowPeopleModal(!showPeopleModal);
   };
 
-  
   const [showDelete, setShowDelete] = useState(false);
   const handleDeleteModal = () => {
     setShowDelete(!showDelete);
@@ -139,7 +139,14 @@ const CreateResume = () => {
       <>
         {step !== 9 && (
           <>
-            <Backbutton />
+            <div>
+              <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
+                <div>
+                  <IoIosArrowBack className="font-[600]" onClick={prevStep} />
+                </div>
+                <div onClick={prevStep}>BACK</div>
+              </div>
+            </div>
             <div className="flex justify-between items-start mb-6">
               <h1 className="text-[32px] font-medium text-gray-800">
                 Create Resume

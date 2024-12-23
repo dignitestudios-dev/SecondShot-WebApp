@@ -246,7 +246,7 @@ const Resume = () => {
           </ul>
         </div>
         <div className="mb-4">
-          <p className="text-[24px] font-medium mb-1">Technical Skills</p>
+          <p className="text-[24px] font-[700] mb-1">Technical Skills</p>
           <ul className="list-disc list-inside">
             {resumeData.technicalSkills.map((skill, index) => (
               <li

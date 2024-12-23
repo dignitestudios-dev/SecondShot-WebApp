@@ -51,8 +51,7 @@ const Licenses = ({ nextStep, setFormData, formData }) => {
       <div>
         <p className="text-[32px] font-[500]">Licenses & Certifications</p>
         <p className="text-sm">
-          List Your Professional Licenses and Certifications, Including Issuing
-          Organizations, Dates of Achievement, and Relevant Credentials
+        List your relevant licenses and certifications to highlight your skills and qualifications. Include details like issuing organizations, dates, and credentials to strengthen your profile.
         </p>
       </div>
 

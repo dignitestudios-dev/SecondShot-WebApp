@@ -5,7 +5,7 @@ import { Calender } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import CustomCalendar from "../calendar/Calender";
 
-const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
+const CreateGoalModal = ({ showModal, handleClick, setShowModal }) => {
   const navigate = useNavigate();
   const [isPeople, setIsPeople] = useState(false);
   const [formData, setFormData] = useState({
@@ -47,17 +47,14 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
               <div className="flex justify-center mt-3">
                 <div>
                   <h2 className="text-[24px] text-center font-semibold">
-                    Create Goals
+                    Create Goal
                   </h2>
-                  {/* <p className="text-[16px] font-[400] text-[#000000] leading-[21.6px] mt-2 ">
-                    You can create up to three Smart goals at a time
-                  </p> */}
                 </div>
               </div>
               <div className="pt-4">
                 <AuthInput
                   text={"Goal"}
-                  placeholder={"Write your main goal Here"}
+                  placeholder={"Write your main goal here"}
                 />
               </div>
               <div className="mt-4">
@@ -135,7 +132,7 @@ const CreateGoalModal = ({ showModal, handleClick, supportPeople }) => {
               <div>
                 <AuthSubmitBtn
                   text={"Add Sub Goals (Optional)"}
-                  handleSubmit={() => setShowSubGoal((prev)=>!prev)}
+                  handleSubmit={() => setShowSubGoal((prev) => !prev)}
                 />
               </div>
               <div className="mt-2">

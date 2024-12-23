@@ -18,7 +18,7 @@ const ResumeDownloadModal = ({ showModal, onclick }) => {
           </button>
           <div className="flex flex-col items-center justify-center p-4">
             <h2 className="text-xl font-semibold mb-8">
-              Choose Your Download Option
+            Choose Your File Format
             </h2>
 
             <div className="flex space-x-4 mb-6">
@@ -96,7 +96,7 @@ const ResumeDownloadModal = ({ showModal, onclick }) => {
                 </div>
               </div>
             </div>
-            <AuthSubmitBtn text={"Download"} handleSubmit={() => onclick()} />
+            <AuthSubmitBtn text={"Confirm"} handleSubmit={() => onclick()} />
           </div>
         </div>
       </div>

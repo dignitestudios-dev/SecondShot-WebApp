@@ -7,7 +7,7 @@ import { IoIosArrowBack } from "react-icons/io";
 
 const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
   const validationSchema = Yup.object({
-    achievable: Yup.string().required("Please select an option to proceed."),
+    achievable: Yup.string().required("Please respond before moving forward to proceed with the next step."),
   });
 
   return (

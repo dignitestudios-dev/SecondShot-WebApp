@@ -12,12 +12,12 @@ const SubcriptionActivateModal = ({ isOpen, onClose, handleClick }) => {
           <img src={TickIcon} className="w-[107px] h-[107px] " alt="" />
         </div>
         <h2 className="text-[36px] w-[460px] font-[600] mt-3 text-[#000000] text-center leading-[48.6px] ">
-        Your Career Toolbox has
-        been unlocked
+          Your Career Toolbox has been unlocked
         </h2>
         <p className="text-[18px] w-[556.27px] font-[500] mt-4 text-[#000000] text-center leading-[24.3px] ">
-          Your subscription is now active! Enjoy full access to all features.
-          Thank you for subscribing!
+          Your subscription has been successfully unlocked. You now have full
+          access to all features and benefits. If you have any questions, please
+          contact our support team. Enjoy your subscription!
         </p>
         <div className="flex items-center justify-center  mt-6 ">
           <div className=" w-[295px]">

@@ -16,9 +16,12 @@ const SubGoals = () => {
           {[...Array(4)]?.map((item) => (
             <div className="flex items-center gap-2 py-2 border-b border-gray-200 last:border-b-0 text-[14px]">
               <input
-                type="checkbox"
-                className="h-4 w-4 text-blue-600 border-gray-300 rounded mr-2"
-              />
+            type="checkbox"
+            id="custom-checkbox"
+            className="h-5 w-5 rounded-md border border-gray-300 bg-white checked:bg-[#012C57] checked:border-[#012C57] appearance-none cursor-pointer 
+  checked:before:block checked:before:content-['✓'] checked:before:text-white checked:before:text-sm text-center 
+ checked:before:justify-center checked:before:items-center"
+          />
               <label className="text[#0F0F0F] text-[16px]">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.

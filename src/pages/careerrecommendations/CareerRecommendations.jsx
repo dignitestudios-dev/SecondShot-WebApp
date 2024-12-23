@@ -21,11 +21,9 @@ function CareerRecommendations() {
   const [ModalOpen, setModalOpen] = useState(true);
   return (
     <div className=" ">
-      <div className="px-2">
-        <Backbutton />
-      </div>
+    
       <div className="flex flex-wrap justify-between items-center mb-6">
-        <h1 className="text-[32px] pb-1 px-2 font-[500] text-[#000000]">
+        <h1 className="text-3xl font-semibold text-gray-800 pb-1 px-2 ">
           My Career Recommendations
         </h1>
         <div className="flex items-center space-x-4 p-3">

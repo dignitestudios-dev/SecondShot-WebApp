@@ -82,10 +82,10 @@ function SuccessStory() {
         }}
       />
 
-      <Backbutton />
+     
 
       <div className="flex justify-between items-center">
-        <h1 className="text-[32px] font-[500] text-[#000000] leading-[43.2px] text-left ">
+        <h1 className="text-3xl font-semibold text-gray-800 leading-[43.2px] text-left ">
           Success Stories
         </h1>
 
@@ -133,7 +133,7 @@ function SuccessStory() {
             <h2 className="text-[20px] capitalize font-[600] text-[#012C57]">
               {item?.name}
             </h2>
-            <h3 className="text-[14px] mt-1 text-[#0081FF] font-[400] text-center">
+            <h3 className="text-[14px] mt-1 text-[#0081FF] font-[500] text-center">
               {item?.degree}
             </h3>
           </div>

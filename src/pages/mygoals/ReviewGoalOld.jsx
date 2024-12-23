@@ -143,7 +143,7 @@ function ReviewYourGoalOld() {
         showModal={successModal}
         handleClick={() => navigate("/goal-detail")}
         onclick={() => setSuccessModal(false)}
-        heading={"Goal successfully completed."}
+        heading={"Goal Successfully Created."}
         para={
           "  Your goal has been successfully created. You can now monitor your progress and take the necessary steps to achieve it. For any questions or further assistance, please contact our support team. Stay committed to your objectives and continue striving for success."
         }

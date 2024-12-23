@@ -8,7 +8,7 @@ import { IoIosArrowBack } from "react-icons/io";
 
 const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
   const validationSchema = Yup.object({
-    measure: Yup.string().required("Please select an option to proceed."),
+    measure: Yup.string().required("Please respond before moving forward to proceed with the next step."),
   });
 
   return (

@@ -107,7 +107,7 @@ const Honors = ({ nextStep, setFormData, formData }) => {
           </div>
 
           <div className="w-full flex flex-col items-start gap-1 my-8">
-            <label className="text-sm font-medium">Description</label>
+            <label className="text-sm font-medium">Description <span className="text-[#b1b1b2]" >(Optional)</span> </label>
             <textarea
               rows="4"
               name="description"

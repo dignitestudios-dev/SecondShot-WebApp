@@ -34,7 +34,7 @@ const CareerToolbox = () => {
       title: "Career Recommendation",
       cardimage: Card2,
       btnBg: "bg-[#FFFFFF1A]",
-      para: "Take a short assessment to receive recommended careers, sample job descriptions, and recommended pathways to success. You will receive 5 Career matches",
+      para: "Take a short assessment to receive recommended careers, sample job descriptions, and recommended pathways to success. You will receive 5 Career matches.",
       path: "/careerrecommendation",
     },
     {
@@ -70,7 +70,7 @@ const CareerToolbox = () => {
       title: "My Library",
       cardimage: Card6,
       btnBg: "bg-[#FFFFFF1A]",
-      para: "Mark and save your favorite skills and careers for quick reference",
+      para: "Mark and save your favorite skills and careers for quick reference.",
       path: "/my-library",
     },
   ];

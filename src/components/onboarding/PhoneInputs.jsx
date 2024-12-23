@@ -18,14 +18,14 @@ const PhoneInputs = ({ value, handleChange, isAuth }) => {
         />
       </span>
 
-      <span className="text-lg">+1</span>
+      <span className="text-[16px] font-[400] ">+1</span>
 
       <div className="border-l h-6 mx-2"></div>
 
       <input
         type="tel"
         className="outline-none w-full text-lg placeholder:text-[#181818] placeholder:font-[400] h-[49px]"
-        placeholder="0000 000"
+        placeholder="123-456-7890"
         value={value}
         onChange={handleChange}
       />

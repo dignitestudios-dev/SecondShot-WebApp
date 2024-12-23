@@ -8,6 +8,8 @@ import {
   Printimg,
   Shareimg,
 } from "../../assets/export";
+import { IoIosArrowBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const PreviewResume = ({
   isPreview,
@@ -19,7 +21,7 @@ const PreviewResume = ({
   handleDeleteModal
 }) => {
   const dropdownRef = useRef(null);
-
+const navigate =useNavigate()
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -27,7 +29,12 @@ const PreviewResume = ({
 
   return (
     <div>
-      <Backbutton />
+     <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
+            <div>
+              <IoIosArrowBack className="font-[600]" onClick={() => navigate('/myresume')} />
+            </div>
+            <div onClick={() => navigate('/myresume')}>BACK</div>
+          </div>
       <div className="flex justify-between items-start mb-8">
         <div>
           {isPreview ? (
@@ -35,7 +42,7 @@ const PreviewResume = ({
               Your Personalized Resume
             </h1>
           ) : (
-            <h1 className="text-[32px] font-medium text-gray-800">Preview</h1>
+            <h1 className="text-[32px] font-medium text-gray-800">Your Personalized Resume </h1>
           )}
         </div>
         {isPreview ? (
@@ -56,7 +63,7 @@ const PreviewResume = ({
               <img className="w-[21px] h-[17px] " src={Shareimg} />
             </div>
             <div className="w-[189px]">
-              <AuthSubmitBtn text={"Email It To Yourself"} />
+              <AuthSubmitBtn text={"Email it to yourself"} />
             </div>
             <div className="relative inline-block text-left" ref={dropdownRef}>
               <img

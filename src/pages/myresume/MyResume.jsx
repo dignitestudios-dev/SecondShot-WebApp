@@ -33,9 +33,9 @@ function MyResume() {
         }}
       />
       <div className="w-full mx-auto">
-        <Backbutton />
+      
         <div className="flex justify-between items-start mb-6">
-          <h1 className="text-[32px] font-[500] text-[#000000]">My Resume</h1>
+          <h1 className="text-3xl font-semibold text-gray-800">My Resume</h1>
           <div className="flex items-center">
             <SearchInput placeholder={"Search"} />
             <div className="border-l-2 border-gray-300 h-6 mx-4"></div>
@@ -46,9 +46,6 @@ function MyResume() {
               >
                 + Create Resume
               </button>
-              {/* <span className="text-[14px] text-[#999999] font-[400] ">
-                Need some inspiration?
-              </span> */}
             </div>
           </div>
         </div>

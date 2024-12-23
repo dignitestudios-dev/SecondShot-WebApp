@@ -110,11 +110,11 @@ function MyTransferableSkills() {
   };
   return (
     <div className=" ">
-      <Backbutton />
+     
 
       <div className="flex justify-between items-start mb-8">
         <div>
-          <h1 className="text-[32px] font-[500] text-[#000000] mb-24">
+          <h1 className="text-3xl font-semibold text-gray-800 mb-24">
             My Transferable Skills
           </h1>
         </div>
@@ -193,7 +193,7 @@ function MyTransferableSkills() {
                     onClick={() => setAppear((prev) => !prev)}
                     className="w-[100px] h-[100px] cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[120px]"
                   >
-                    <span className="w-[80px] h-[80px] -rotate-[60deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                    <span className="w-[80px] h-[80px] -rotate-[57deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
                       Persistance
                     </span>
                   </span>
@@ -273,7 +273,7 @@ function MyTransferableSkills() {
               <div className="border-2 border-dashed rounded-full h-[160px]   w-[160px] border-[#56EC17] absolute z-0  -top-[65px] "></div>
             </>
           )}
-          <div className="w-[125px] h-[125px] absolute -top-12 right-4  z-10 -rotate-[70deg] p-2 ">
+          <div className="w-[125px] h-[125px] absolute -top-16   z-10 -rotate-[70deg] p-2 ">
             {goal && (
               <div
                 className={`animationtransferaable transition-opacity ${
@@ -433,14 +433,14 @@ function MyTransferableSkills() {
         {/* Center End */}
 
         {/* Reading Section Start here */}
-        <div className="col-span-1 h-[256px] relative w-full flex justify-start items-center">
+        <div className="col-span-1 h-[256px] relative w-full -top-5 flex justify-start items-center">
           {reading && (
             <>
               <div className="bg-white h-[180px]   -top-[65px] -left-[10px]  w-[120px] rounded-full absolute z-10   "></div>
               <div className="border-2 border-dashed rounded-full h-[160px] -left-[5px]   w-[160px] border-[#56EC17] absolute z-0  -top-[70px] "></div>
             </>
           )}
-          <div className="w-[125px] h-[125px] absolute -top-12 left-4  rotate-[70deg] p-2  z-10">
+          <div className="w-[125px] h-[125px] absolute -top-12   rotate-[70deg] p-2  z-10">
             {reading && (
               <div
                 className={`animationtransferaable transition-opacity ${
@@ -547,7 +547,7 @@ function MyTransferableSkills() {
         <div className="col-span-1 h-[256px] relative w-full flex justify-center items-start">
           {careers && (
             <>
-              <div className="bg-white h-[140px]   -top-[98px] -right-[85px]  w-[190px] rounded-full absolute z-10   "></div>
+              <div className="bg-white h-[140px]   -top-[95px] -right-[89px]  w-[190px] rounded-full absolute z-10   "></div>
               <div className="border-2 border-dashed rounded-full h-[160px] -right-[85px]  w-[160px] border-[#56EC17] absolute z-0  -top-[95px] "></div>
             </>
           )}

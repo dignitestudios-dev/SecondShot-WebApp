@@ -5,9 +5,9 @@ import { Stars } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import Backbutton from "../Global/Backbutton";
 
-const AssessmentOne = ({ nextStep, formData, setFormData }) => {
+const AssessmentOne = ({ nextStep, formData, setFormData,showModal }) => {
   const validationSchema = Yup?.object({
-    specific: Yup?.string().required("Please select an option to proceed."),
+    specific: Yup?.string().required("Please respond before moving forward to proceed with the next step."),
   });
 
   return (
@@ -76,7 +76,7 @@ const AssessmentOne = ({ nextStep, formData, setFormData }) => {
               </div>
             </div>
             <div className="flex justify-center mt-4">
-              <Backbutton />
+              <Backbutton  />
             </div>
           </Form>
         )}

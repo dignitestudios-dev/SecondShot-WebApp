@@ -78,7 +78,24 @@ color: #3C3C4399 !important;
 .react-datepicker__day-name {
   color: #8b8b8b;
 }
+.imageBox:hover .hoverImg {
+  display: block;
+}
+.imageBox {
+  position: relative;
+  float: left;
+}
 
+.imageBox .hoverImg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: none;
+}
+
+.imageBox:hover .hoverImg {
+  display: block;
+}
 @keyframes fadeIn {
   0% {
     opacity: 0;

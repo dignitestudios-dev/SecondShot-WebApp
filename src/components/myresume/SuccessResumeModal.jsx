@@ -29,13 +29,10 @@ const SuccessResumeModal = ({ showModal, onclick, setIsPreview }) => {
           </div>
           <div className="px-2 flex flex-col justify-center items-center gap-1">
             <h2 className="text-[24px] mt-4 font-[600] leading-[32.4px] mb-2 text-center">
-              CV Successfully Created
+            Resume Successfully Created
             </h2>
             <p className="text-[16px] font-normal leading-5 text-[#9A9A9A] text-center">
-              Your CV has been successfully created. You can now review and edit
-              it as needed. If you require any further assistance or have any
-              questions, please reach out to our support team. We wish you the
-              best of luck in your job search!
+            Your resume has been successfully created. You can now review and edit it as needed. We wish you the best of luck in your job search!
             </p>
             <div className="mt-4 w-full mb-1 flex justify-center">
              <AuthSubmitBtn text={'View Resume'} handleSubmit={()=>handleNavigation()} />

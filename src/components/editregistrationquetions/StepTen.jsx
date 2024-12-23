@@ -30,7 +30,7 @@ const StepTen = ({ handleRegistration, prevStep, formData, setFormData }) => {
               className="block text-sm font-medium mb-2"
               htmlFor="desireCareer"
             >
-              Please list your desired career .
+              Please list your desired career.
             </label>
             <Field
               placeholder="Describe Here"

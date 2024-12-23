@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
   const validationSchema = Yup.object({
-    timebound: Yup.string().required("Please select an option to proceed."),
+    timebound: Yup.string().required("Please respond before moving forward to proceed with the next step."),
   });
 
   const navigate = useNavigate();

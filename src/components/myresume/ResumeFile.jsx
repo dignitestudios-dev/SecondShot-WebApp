@@ -2,16 +2,26 @@ import React, { useState } from "react";
 import { Resume1, Resume2 } from "../../assets/export";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import ResumeDeleteModal from "./DeleteResumeModal";
 
 const ResumeFile = () => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(null);
+  const [showDelete, setShowDelete] = useState(false);
 
+  const toggleDropdown = (index) => {
+    setDropdownOpen((prev) => (prev === index ? null : index));
+  };
   const handlePdfClick = () => {
     navigate("/view-resume");
   };
   return (
     <div>
+      <ResumeDeleteModal
+        showModal={showDelete}
+        onclick={() => setShowDelete(false)}
+      />
+
       <div className="grid  grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {Array(8)
           .fill(null)
@@ -31,7 +41,10 @@ const ResumeFile = () => {
                       <li className="hover:bg-gray-100 px-4 py-2 cursor-pointer">
                         Edit
                       </li>
-                      <li className="hover:bg-gray-100 px-4 py-2 cursor-pointer">
+                      <li
+                        className="hover:bg-gray-100 px-4 py-2 cursor-pointer"
+                        onClick={() => setShowDelete(true)}
+                      >
                         Delete
                       </li>
                     </ul>
@@ -41,22 +54,13 @@ const ResumeFile = () => {
               <h2 className="text-[18px] font-[500] leading-[24.3px] mb-2 text-[#000000] text-left">
                 Resume Title
               </h2>
-
-              <div
-                className="relative w-full h-80 rounded-lg overflow-hidden bg-white cursor-pointer"
-                onClick={handlePdfClick}
-                style={{ padding: 0, margin: 0 }}
-              >
-                <img
-                  src={index === 0 ? Resume1 : Resume2}
-                  className="w-full h-full rounded-lg"
-                  alt=""
-                />
-
-                <div
-                  className="absolute inset-0 bg-transparent cursor-pointer"
-                  onClick={handlePdfClick}
-                />
+              <div class="imageBox cursor-pointer">
+                <div class="imageInn">
+                  <img src={Resume2} alt="Default Image" />
+                </div>
+                <div class="hoverImg">
+                  <img src={Resume1} alt="Profile Image" />
+                </div>
               </div>
             </div>
           ))}

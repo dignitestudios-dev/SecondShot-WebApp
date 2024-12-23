@@ -46,107 +46,8 @@ const Notifications = () => {
       iconBg: "bg-green-100",
       iconColor: "text-green-500",
       icon: <FaBullseye />,
-    },
-    {
-      id: 4,
-      type: "Subscription Expiry",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "06:30pm",
-      date: "July 12, 2024",
-      iconBg: "bg-gray-100",
-      iconColor: "text-blue-500",
-      icon: <FaCreditCard />,
-    },
-    {
-      id: 5,
-      type: "Goal Successfully Created",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "09:00pm",
-      date: "July 12, 2024",
-      iconBg: "bg-green-100",
-      iconColor: "text-green-500",
-      icon: <FaBullseye />,
-    },
-    {
-      id: 6,
-      type: "Goals Deadline Alert",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "09:00pm",
-      date: "July 12, 2024",
-      iconBg: "bg-red-100",
-      iconColor: "text-red-500",
-      icon: <FaExclamationCircle />,
-    },
-    {
-      id: 6,
-      type: "Goals Deadline Alert",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "09:00pm",
-      date: "July 12, 2024",
-      iconBg: "bg-red-100",
-      iconColor: "text-red-500",
-      icon: <FaExclamationCircle />,
-    },
-    {
-      id: 6,
-      type: "Goals Deadline Alert",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "09:00pm",
-      date: "July 12, 2024",
-      iconBg: "bg-red-100",
-      iconColor: "text-red-500",
-      icon: <FaExclamationCircle />,
-    },
-    {
-      id: 6,
-      type: "Goals Deadline Alert",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "09:00pm",
-      date: "July 12, 2024",
-      iconBg: "bg-red-100",
-      iconColor: "text-red-500",
-      icon: <FaExclamationCircle />,
-    },
-    {
-      id: 1,
-      type: "Goals Deadline Alert",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "09:00pm",
-      date: "Today",
-      iconBg: "bg-red-100",
-      iconColor: "text-red-500",
-      icon: <FaExclamationCircle />,
-      dotColor: "text-green-500",
       bgColor: "bg-green-50",
-    },
-    {
-      id: 2,
-      type: "Subscription Expiry",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "08:00pm",
-      date: "July 12, 2024",
-      iconBg: "bg-gray-100",
-      iconColor: "text-blue-500",
-      icon: <FaCreditCard />,
-    },
-    {
-      id: 3,
-      type: "Goal Successfully Created",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "12:30pm",
-      date: "July 12, 2024",
-      iconBg: "bg-green-100",
-      iconColor: "text-green-500",
-      icon: <FaBullseye />,
+
     },
     {
       id: 4,
@@ -168,6 +69,8 @@ const Notifications = () => {
       date: "July 12, 2024",
       iconBg: "bg-green-100",
       iconColor: "text-green-500",
+      bgColor: "bg-green-50",
+
       icon: <FaBullseye />,
     },
     {
@@ -182,62 +85,60 @@ const Notifications = () => {
       icon: <FaExclamationCircle />,
     },
     {
-      id: 6,
-      type: "Goals Deadline Alert",
+      id: 7,
+      type: "Goal Successfully Created",
       message:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
       time: "09:00pm",
       date: "July 12, 2024",
-      iconBg: "bg-red-100",
-      iconColor: "text-red-500",
-      icon: <FaExclamationCircle />,
+      iconBg: "bg-green-100",
+      iconColor: "text-green-500",
+      icon: <FaBullseye />,
     },
     {
-      id: 6,
-      type: "Goals Deadline Alert",
+      id: 8,
+      type: "Subscription Expiry",
       message:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "09:00pm",
+      time: "06:30pm",
       date: "July 12, 2024",
-      iconBg: "bg-red-100",
-      iconColor: "text-red-500",
-      icon: <FaExclamationCircle />,
-    },
-    {
-      id: 6,
-      type: "Goals Deadline Alert",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "09:00pm",
-      date: "July 12, 2024",
-      iconBg: "bg-red-100",
-      iconColor: "text-red-500",
-      icon: <FaExclamationCircle />,
+      iconBg: "bg-gray-100",
+      iconColor: "text-blue-500",
+      icon: <FaCreditCard />,
+      bgColor: "bg-green-50",
+
     },
   ]);
+
+  const markAllAsRead = () => {
+    const updatedNotifications = notifications?.map((notif) => ({
+      ...notif,
+      bgColor: "bg-white",
+    }));
+    setNotifications(updatedNotifications);
+  };
+
   return (
     <div className="">
       <div className="">
-        <Backbutton />
         <div className="w-full flex justify-between items-center mb-6 ">
           <h1 className="text-3xl font-semibold text-gray-800 text-left">
             Notifications
           </h1>
-          <div >
+          <div>
             <AuthSubmitBtn
-            text={' Mark all as read'}
-            handleSubmit={()=>setNotifications([])}
+              text={"Mark all as read"}
+              handleSubmit={markAllAsRead}
             />
           </div>
-        
         </div>
-        <div className="bg-white rounded-t-3xl  shadow-lg max-h-[80vh] overflow-y-auto rounded-b-3xl ">
-          <div className="bg-white  max-h-[80vh] overflow-y-auto  scrollbar-custom">
+        <div className="bg-white rounded-t-3xl shadow-lg max-h-[80vh] overflow-y-auto rounded-b-3xl ">
+          <div className="bg-white max-h-[80vh] overflow-y-auto scrollbar-custom">
             <div className="divide-y divide-gray-200">
               {notifications.map((notif, index) => (
                 <div
                   key={index}
-                  className={`flex cursor-pointer relative items-start  px-6 py-4 ${
+                  className={`flex cursor-pointer relative items-start px-6 py-4 ${
                     notif.bgColor || ""
                   }`}
                 >
@@ -268,7 +169,7 @@ const Notifications = () => {
                           {notif.dotColor && (
                             <div className="">
                               <span
-                                className={`h-2 w-2  pr-2 rounded-full inline-block ${notif.dotColor}`}
+                                className={`h-2 w-2 pr-2 rounded-full inline-block ${notif.dotColor}`}
                               ></span>
                             </div>
                           )}
@@ -309,7 +210,7 @@ const Notifications = () => {
         }
 
         .scrollbar-custom {
-          scrollbar-width: thin
+          scrollbar-width: thin;
           scrollbar-color: #061523 transparent;
         }
       `}</style>

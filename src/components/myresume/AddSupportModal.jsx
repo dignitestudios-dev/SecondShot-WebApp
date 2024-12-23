@@ -25,6 +25,9 @@ const AddSupportModal = ({ showModal, handleClick }) => {
                 </p>
               </div>
             </div>
+            <p className="text-[18px] font-[600] leading-[24.3px] ">
+              1st Support Person
+            </p>
             <div className="w-full flex flex-col items-start space-y-4 gap-1 my-2">
               <AuthInput text={"Full Name"} placeholder={"Enter Your Name"} />
               <AuthInput

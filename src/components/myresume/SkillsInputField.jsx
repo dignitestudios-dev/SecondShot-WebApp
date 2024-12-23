@@ -55,15 +55,15 @@ const SkillsInputField = ({ setFormData, formData }) => {
   };
 
   return (
-    <div className="flex items-center border rounded-lg overflow-hidden p-1">
-      <div className="w-32 text-sm font-normal text-gray-400 flex flex-wrap p-2">
+    <div className="flex items-center border border-[#9A9A9A] rounded-lg overflow-hidden p-1">
+      <div className="w-32 text-sm font-normal   text-gray-400 flex flex-wrap p-2">
         Soft Skills
       </div>
-      <div className="flex justify-end w-full ">
+      <div className="flex justify-end  w-full ">
         <button
           type="button"
           onClick={openModal}
-          className="bg-[#012C57] text-white p-2 rounded-lg"
+          className="bg-[#012C57] text-white  p-2 rounded-lg"
         >
           <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 5a1 1 0 00-1 1v3H6a1 1 0 000 2h3v3a1 1 0 002 0V11h3a1 1 0 100-2h-3V6a1 1 0 00-1-1z" />
@@ -86,6 +86,7 @@ const SkillsInputField = ({ setFormData, formData }) => {
                 <h2 className="text-[24px] text-center font-[600] ">
                   Select Transferable Skills
                 </h2>
+                <p className="text-center ">These are the transferable skills you saved to your library. Select any to add them directly to your resume!</p>
               </div>
               <div className=" flex flex-col justify-start items-start gap-4 max-h-96 pr-2 w-full overflow-y-auto ">
                 {skills.map((skill) => (

@@ -86,7 +86,7 @@ const RegistrationQuestion = () => {
                   </h1>
                   <p className="text-[#181818] leading-[21.6px] font-[400] text-center text-[16px]">
                     Please answer a few quick registration questions to help us
-                    tailor our services to your needs. Thank you for your input!
+                    tailor our services to your needs.
                   </p>
                   <div className="flex justify-between mt-6">
                     <p className="text-xs font-medium">Steps</p>

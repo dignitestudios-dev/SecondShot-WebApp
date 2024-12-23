@@ -31,9 +31,9 @@ function MyProfile() {
   return (
     <div className="">
       <div className="">
-        <Backbutton />
+     
 
-        <h1 className="text-[32px] font-[500] text-[#000000] mt-4  mb-4">
+        <h1 className="text-3xl font-semibold text-gray-800 mt-4  mb-4">
           Profile & Account Setting
         </h1>
 
@@ -63,7 +63,7 @@ function MyProfile() {
             </ul>
             <div className="w-[140px]">
               <AuthSubmitBtn
-                text={"Logout"}
+                text={"Log out"}
                 handleSubmit={() => navigate("/sign-in")}
               />
             </div>

@@ -7,16 +7,16 @@ const TransferableSkillsModal = ({ isOpen, onClose, handleClick }) => {
 
   return (
     <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-50 backdrop-blur-sm">
-      <div className="bg-[#FEFEFE] rounded-[26px] w-[471px] h-[703px]  p-6 shadow-[22px]">
-        <div className="flex justify-center mt-3">
+      <div className="bg-[#FEFEFE] rounded-[26px] w-[471px] h-[665px]  text-center px-9 shadow-[22px]">
+        <div className="flex justify-center">
           <img
             src={TransferableSkills}
             className="w-[342.63px] h-[218.5px] "
             alt=""
           />
         </div>
-        <h2 className="text-[32px] font-[600] capitalize mt-3 text-[#000000] text-center leading-[43.2px] ">
-          My transferable skills.
+        <h2 className="text-[32px] font-[600] capitalize  text-[#000000] text-center leading-[43.2px] ">
+          My transferable skills
         </h2>
         <div className="w-[395px]  h-[286px] ">
           <p className="text-[18px] font-[500] mt-4 text-[#9A9A9A] text-center leading-[24.3px]  ">
@@ -37,7 +37,7 @@ const TransferableSkillsModal = ({ isOpen, onClose, handleClick }) => {
             </span>
           </p>
         </div>
-        <div className="flex items-center justify-center  mt-6 ">
+        <div className="flex items-center justify-center  mt-3 ">
           <div className=" w-[295px]">
             <AuthSubmitBtn text={"Okay"} handleSubmit={handleClick} />
           </div>

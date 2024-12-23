@@ -24,8 +24,8 @@ function MyGoals() {
           }));
         }}
       />
-      <Backbutton />
-      <h1 className="text-[32px] mt-2 font-[500] leading-[43.2px] text-[#000000] mb-6">
+    
+      <h1 className="text-3xl font-semibold text-gray-800 mt-2  leading-[43.2px]  mb-6">
         My Goals
       </h1>
       <div className="flex space-x-4 mb-6 bg-white p-1 rounded-md">

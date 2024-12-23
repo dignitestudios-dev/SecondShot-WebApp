@@ -6,6 +6,7 @@ import AssessmentTwo from "../../components/makeitsmart/AssessmentTwo";
 import AssessmentThree from "../../components/makeitsmart/AssessmentThree";
 import AssessmentFour from "../../components/makeitsmart/AssessmentFour";
 import AssessmentFive from "../../components/makeitsmart/AssessmentFive";
+import { useLocation } from "react-router-dom";
 
 const MakeitSmart = () => {
   const [congrats, setCongrats] = useState(false);
@@ -38,7 +39,7 @@ const MakeitSmart = () => {
   });
 
   // For Modal
-  const [showModal, setShowModal] = useState(false);
+  const [showModalassestment, setShowModal] = useState(false);
   const handleModal = () => {
     setShowModal(!showModal);
     setFormData({
@@ -80,13 +81,17 @@ const MakeitSmart = () => {
     setCongrats(true);
     setShowModal(!showModal);
   };
+  const location = useLocation();
+  const { showModal } = location.state || {}; 
+
+  console.log(showModal,"ss")
 
   return (
     <div className="    ">
       <img src={Leftimg} alt="logo" className="absolute top-0 left-0 w-[20%]" />
       <div className="max-w-screen-xl mx-auto p-8">
         <AssessmentModal
-          showModal={showModal}
+          showModal={showModalassestment}
           step={setStep}
           onclick={handleModal}
           setShowModal={setShowModal}
@@ -129,6 +134,7 @@ const MakeitSmart = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    showModal={showModal}
                   />
                 )}
                 {step === 2 && (

@@ -39,10 +39,10 @@ function MyLibrary() {
           }));
         }}
       />
-      <Backbutton />
+    
 
       <div className="flex justify-between items-center">
-        <h1 className="text-[32px] font-[500] text-[#000000]">My Library</h1>
+        <h1 className="text-3xl font-semibold text-gray-800">My Library</h1>
 
         <div className="relative flex items-center w-auto gap-3 mb-4">
           <SearchInput placeholder={"Search"} />

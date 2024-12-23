@@ -99,8 +99,8 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
                 >
                   {formData.university === "School" ||
                   formData.university === "HighSchool"
-                    ? "Select the major/trade school/ or military you are most interested in pursuing after high school."
-                    : "Select the major that is closely related to your major you have/had in college?"}
+                    ? "Choose the major, trade school, or military branch you are most interested in pursuing after high school."
+                    : "Select the major that is closely related to the one you pursued or are pursuing in college."}
                 </label>
 
                 <TagsInputField

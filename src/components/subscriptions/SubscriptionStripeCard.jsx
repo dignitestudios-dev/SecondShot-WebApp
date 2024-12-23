@@ -26,10 +26,10 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
             </p>
           </div>
           <div className="text-right flex items-center h-12">
-            <p className="text-[#56EC17] font-semibold text-lg">
+            <p className="text-[#56EC17] font-semibold text-lg pe-1">
               {cardsubdata.amount}
             </p>
-            / <p className="text-sm">{cardsubdata.heading}</p>
+            / <p className="text-sm px-1">{cardsubdata.heading}</p>
           </div>
         </div>
 

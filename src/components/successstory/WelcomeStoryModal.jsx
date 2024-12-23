@@ -8,8 +8,8 @@ const WelcomeStoryModal = ({ isOpen, onClose, handleClick }) => {
   return (
     <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-50 backdrop-blur-sm">
       <div className="bg-[#FEFEFE] rounded-[26px] w-[471px] h-[523px]  p-6 shadow-[22px]">
-        <div className="flex justify-center ">
-          <img src={WelcomeStoryimg} className="w-[386px] h-[226px] " alt="" />
+        <div className="flex justify-center  ">
+          <img src={WelcomeStoryimg} className="w-[304px] h-[204px] " alt="" />
         </div>
         <h2 className="text-[32px] font-[600] capitalize mt-3 text-[#000000] text-center leading-[43.2px] ">
           Success Stories
