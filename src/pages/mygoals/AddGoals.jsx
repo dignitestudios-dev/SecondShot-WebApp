@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
 import { Creategoalimg } from "../../assets/export";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import CreateGoalModal from "../../components/mygoals/CreateGoalModal";
+import { ModalContext } from "../../context/GlobalContext";
 
 const AddGoals = () => {
   const navigate = useNavigate();
   const handleNavigate = () => {};
-
-  const [showModal, setShowModal] = useState(false);
+  const { showModal, setShowModal } = useContext(ModalContext);
+  // const [showModal, setShowModal] = useState(false);
   const handleModal = () => {
     setShowModal(!showModal);
   };
@@ -17,7 +18,11 @@ const AddGoals = () => {
   return (
     <div className="max-w-screen-xl min-h-screen mx-auto p-8">
       <Backbutton />
-      <CreateGoalModal showModal={showModal} handleClick={handleModal} setShowModal={setShowModal} />
+      <CreateGoalModal
+        showModal={showModal}
+        handleClick={handleModal}
+        setShowModal={setShowModal}
+      />
       <div className="flex justify-between items-start mb-8">
         <h1 className="text-[32px] text-left leading-[43.2px] font-[500] text-[#000000]">
           Create Goals
@@ -26,7 +31,7 @@ const AddGoals = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-10">
         <div className="bg-gradient-to-r from-[#061523] to-[#012C57] rounded-2xl p-6 text-white ">
-        <p className="text-lg font-semibold">
+          <p className="text-lg font-semibold">
             Identify a goal you would like to achieve.
           </p>
           <p className="text-[22px] text-gray-400 my-7">
@@ -57,7 +62,7 @@ const AddGoals = () => {
         <div className="bg-white rounded-2xl shadow-sm p-6 text-black ">
           <div className="w-422px">
             <p className="text-[32px] font-[500] leading-[43.2px] capitalize ">
-            Click the button below to add your goals
+              Click the button below to add your goals
             </p>
           </div>
           <div className="flex  mt-4">
