@@ -56,7 +56,7 @@ const SkillsInputField = ({ setFormData, formData }) => {
 
   return (
     <div className="flex items-center border border-[#9A9A9A] rounded-lg overflow-hidden p-1">
-      <div className="w-32 text-sm font-normal   text-gray-400 flex flex-wrap p-2">
+      <div className="w-32 text-[16px] font-normal   text-black flex flex-wrap p-2">
         Soft Skills
       </div>
       <div className="flex justify-end  w-full ">
