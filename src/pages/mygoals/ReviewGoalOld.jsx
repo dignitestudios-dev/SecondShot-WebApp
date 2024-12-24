@@ -6,6 +6,7 @@ import SupportPerson from "../../components/mygoals/SupportPerson";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import AddSupportModal from "../../components/myresume/AddSupportModal";
 import GoalCreatedModal from "../../components/mygoals/GoalCreatedModal";
+import CreateGoalModal from "../../components/mygoals/CreateGoalModal";
 
 function ReviewYourGoalOld() {
   const navigate = useNavigate();
@@ -31,12 +32,19 @@ function ReviewYourGoalOld() {
   const [showCardModal, setShowCardModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
   const [showModalsupport, setShowModalsupport] = useState(false);
+  const [showModalCreate, setShowModalCreate] = useState(true);
   const handleCardModal = () => {
     setShowCardModal(!showCardModal);
   };
+
   return (
     <div className="">
       <div className="">
+        <CreateGoalModal
+          showModal={showModalCreate}
+          handleClick={() => setShowModalCreate(false)}
+          handleClose={()=>setShowModalCreate(false)}
+        />
         {/* Main Heading and Submit Button */}
         <div className="flex justify-between items-center mt-6 w-full">
           <div className="text-left w-[475px]">
@@ -135,6 +143,7 @@ function ReviewYourGoalOld() {
           setGoalDetailModalOpen(false);
           setShowModalsupport(true);
         }}
+        onclick={() => setGoalDetailModalOpen(false)}
       />
       <AddSupportModal
         showModal={showModalsupport}

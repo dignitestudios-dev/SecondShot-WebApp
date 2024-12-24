@@ -5,7 +5,7 @@ import { Calender } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import CustomCalendar from "../calendar/Calender";
 
-const CreateGoalModal = ({ showModal, handleClick, setShowModal }) => {
+const CreateGoalModal = ({ showModal, handleClick, setShowModal,handleClose }) => {
   const navigate = useNavigate();
   const [isPeople, setIsPeople] = useState(false);
   const [formData, setFormData] = useState({
@@ -138,7 +138,7 @@ const CreateGoalModal = ({ showModal, handleClick, setShowModal }) => {
               <div className="mt-2">
                 <AuthSubmitBtn
                   text={"Submit Your Goal"}
-                  handleSubmit={() => navigate("/review-goals")}
+                  handleSubmit={handleClose}
                 />
               </div>
             </div>

@@ -22,10 +22,11 @@ const AddGoals = () => {
         showModal={showModal}
         handleClick={handleModal}
         setShowModal={setShowModal}
+        handleClose={()=>navigate('/review-goals')}
       />
       <div className="flex justify-between items-start mb-8">
         <h1 className="text-[32px] text-left leading-[43.2px] font-[500] text-[#000000]">
-          Create Goals
+          Create Your Goal
         </h1>
       </div>
 
@@ -62,13 +63,13 @@ const AddGoals = () => {
         <div className="bg-white rounded-2xl shadow-sm p-6 text-black ">
           <div className="w-422px">
             <p className="text-[32px] font-[500] leading-[43.2px] capitalize ">
-              Click the button below to add your goals
+              Click the button below to add your goal
             </p>
           </div>
           <div className="flex  mt-4">
             <div className="w-[258px] text-nowrap">
               <AuthSubmitBtn
-                text={"Create Goals"}
+                text={"Create Goal"}
                 handleSubmit={() => handleModal()}
               />
             </div>
