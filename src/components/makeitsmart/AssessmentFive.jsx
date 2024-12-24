@@ -22,7 +22,7 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
         validationSchema={validationSchema}
         onSubmit={(values) => {
           setFormData(values);
-          navigate("/review-goals");
+          navigate("/create-goals");
         }}
       >
         {({ errors, touched }) => (

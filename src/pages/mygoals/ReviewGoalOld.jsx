@@ -32,7 +32,7 @@ function ReviewYourGoalOld() {
   const [showCardModal, setShowCardModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
   const [showModalsupport, setShowModalsupport] = useState(false);
-  const [showModalCreate, setShowModalCreate] = useState(true);
+  
   const handleCardModal = () => {
     setShowCardModal(!showCardModal);
   };
@@ -40,11 +40,7 @@ function ReviewYourGoalOld() {
   return (
     <div className="">
       <div className="">
-        <CreateGoalModal
-          showModal={showModalCreate}
-          handleClick={() => setShowModalCreate(false)}
-          handleClose={()=>setShowModalCreate(false)}
-        />
+       
         {/* Main Heading and Submit Button */}
         <div className="flex justify-between items-center mt-6 w-full">
           <div className="text-left w-[475px]">
