@@ -69,13 +69,13 @@ const EditRegistrationQuestion = () => {
             <div className="grid grid-cols-1 mb-6 justify-center items-center ">
               <div className="">
                 <div className="w-[535px]">
-                  <div className="w-full flex justify-center mb-4">
+                  {/* <div className="w-full flex justify-center mb-4">
                     <img
                       src={logonew}
                       alt="logo"
                       className="object-cover w-[228px] h-[172px]"
                     />
-                  </div>
+                  </div> */}
                   <h1 className="text-[40px] font-[600] leading-[54px] text-center mb-2">
                     Registration Questions
                   </h1>
