@@ -92,7 +92,7 @@ const EditProfileDetails = () => {
               value={selectedCountry}
               onChange={handleSelectChangeCountry}
               options={[
-                { value: "", label: "Country" },
+                { value: "", label: "Select State" },
                 { value: "London", label: "London" },
               ]}
             />
@@ -104,7 +104,7 @@ const EditProfileDetails = () => {
               value={selectedCity}
               onChange={handleSelectChangeCity}
               options={[
-                { value: "", label: "City" },
+                { value: "", label: "Select City" },
                 { value: "Europe ", label: "Europe " },
               ]}
             />
