@@ -393,11 +393,11 @@ function MyTransferableSkills() {
               </span>
             </span>
 
-            <span className="w-auto h-16  text-center rounded-full bg-white absolute -bottom-[2.8rem] left-[2.8rem] p-4">
+            <span className="h-8 flex justify-center text-center items-center  rounded-full bg-white absolute -bottom-4  left-14">
               <div className="text-lg text-center font-medium text-[#0a1723] ">
               Sanethia Thomas 
               </div>
-              {/* <div className="text-[#02284E] font-[500] ">The Athlete</div> */}
+          
             </span>
             <span className="w-[70px] h-[2px]  bg-gradient-to-r from-[#172E55] to-[#0A1723] rotate-[320deg] absolute bottom-[6px] right-[80%]">
               <span className="w-[13.56px] h-[13.56px] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">

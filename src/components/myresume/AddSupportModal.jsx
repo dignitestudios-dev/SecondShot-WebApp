@@ -29,10 +29,10 @@ const AddSupportModal = ({ showModal, handleClick }) => {
               1st Support Person
             </p>
             <div className="w-full flex flex-col items-start space-y-4 gap-1 my-2">
-              <AuthInput text={"Full Name"} placeholder={"Enter Your Name"} />
+              <AuthInput text={"Full Name"} placeholder={"Enter Name"} />
               <AuthInput
                 text={"Email Address"}
-                placeholder={"Enter Your Email"}
+                placeholder={"Enter  Email"}
               />
               <AuthInput
                 text={"Phone Number"}
@@ -46,10 +46,10 @@ const AddSupportModal = ({ showModal, handleClick }) => {
               2nd Support Person
             </p>
             <div className="w-full flex flex-col items-start space-y-4 gap-1 my-2">
-              <AuthInput text={"Full Name"} placeholder={"Enter Your Name"} />
+              <AuthInput text={"Full Name"} placeholder={"Enter  Name"} />
               <AuthInput
                 text={"Email Address"}
-                placeholder={"Enter Your Email"}
+                placeholder={"Enter  Email"}
               />
               <AuthInput
                 text={"Phone Number"}

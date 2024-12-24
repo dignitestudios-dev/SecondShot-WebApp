@@ -54,7 +54,7 @@ const ResumeFile = () => {
               <h2 className="text-[18px] font-[500] leading-[24.3px] mb-2 text-[#000000] text-left">
                 Resume Title
               </h2>
-              <div class="imageBox cursor-pointer">
+              <div class="imageBox cursor-pointer" onClick={()=>handlePdfClick()}>
                 <div class="imageInn">
                   <img src={Resume2} alt="Default Image" />
                 </div>

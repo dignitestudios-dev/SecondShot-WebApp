@@ -13,7 +13,7 @@ const ToolboxSection = () => {
     {
       imgcard: Carriericon1,
       title: "Transferable Skills",
-      description: "Identify the skills in which you already good at.",
+      description: "Identify the skills you are already good at.",
       gradient: "bg-gradient-to-r from-[#25314F] to-[#5470B5]",
     },
     {

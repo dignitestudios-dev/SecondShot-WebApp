@@ -35,7 +35,7 @@ const ResumeDeleteModal = ({ showModal, onclick }) => {
               onClick={() => onclick()}
               className="w-full py-3 h-[49px] px-4 text-sm font-semibold   hover:bg-opacity-85  bg-[#FF0000] text-[16px] text-white leading-[21.6px] rounded-[8px]  mx-1"
             >
-              Yes, i Want
+              Yes
             </button>
           </div>
         </div>

@@ -32,7 +32,7 @@ function SuccessProDetail() {
                 <h2 className="text-2xl font-semibold text-[#011225]">
                   {succesname?.name}
                 </h2>
-                <p className="text-[#0081FF]">{succesname?.degree}</p>
+                <p className="text-[#0081FF] font-[600] ">{succesname?.degree}</p>
               </div>
               <button className="ml-auto bg-[#FF0000] text-white font-semibold rounded-md px-4 py-2 flex items-center justify-center">
                 <FaYoutube className="mr-2 text-md" />
