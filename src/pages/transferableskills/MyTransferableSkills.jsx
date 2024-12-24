@@ -269,8 +269,8 @@ function MyTransferableSkills() {
         <div className="col-span-1 h-[256px] relative w-full flex justify-end items-center">
           {goal && (
             <>
-              <div className="bg-white h-[160px] -right-[75px]  -top-[65px]  w-[160px] absolute z-10  "></div>
-              <div className="border-2 border-dashed rounded-full h-[160px]   w-[160px] border-[#56EC17] absolute z-0  -top-[65px] "></div>
+              <div className="bg-white h-[190px] -right-[15px]  -top-[80px]  w-[87px] absolute z-10  "></div>
+              <div className="border-2 border-dashed rounded-full h-[140px]   w-[140px] border-[#56EC17] absolute z-0  -top-[70px] "></div>
             </>
           )}
           <div className="w-[125px] h-[125px] absolute -top-16   z-10 -rotate-[70deg] p-2 ">
@@ -281,7 +281,7 @@ function MyTransferableSkills() {
                 } duration-1000 ease-in-out `}
                 style={{ transition: "opacity 0.5s ease-in-out" }}
               >
-                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-90 absolute -top-[76px] left-[22%]">
+                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-90 absolute -top-[56px] left-[22%]">
                   <span className="w-[14.56px] h-[14.56px]  rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
                     <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
                       <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
@@ -296,7 +296,7 @@ function MyTransferableSkills() {
                     </span>
                   </span>
                 </span>
-                <span className="w-[210px] h-[2px] bg-[#56EC17] rotate-[120deg] absolute -top-[116px] left-[52px]">
+                <span className="w-[210px] h-[2px] bg-[#56EC17] rotate-[120deg] absolute -top-[100px] left-[52px]">
                   <span className="w-[14.56px] h-[14.56px]  rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
                     <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
                       <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
@@ -311,7 +311,7 @@ function MyTransferableSkills() {
                     </span>
                   </span>
                 </span>
-                <span className="w-[170px] h-[2px] bg-[#56EC17] rotate-[60deg] absolute -top-[100px] right-[80px]">
+                <span className="w-[170px] h-[2px] bg-[#56EC17] rotate-[60deg] absolute -top-[80px] right-[80px]">
                   <span className="w-[14.56px] h-[14.56px]  rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
                     <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
                       <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
@@ -326,7 +326,7 @@ function MyTransferableSkills() {
                     </span>
                   </span>
                 </span>
-                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[30deg] absolute top-[20px] right-[150px]">
+                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[30deg] absolute top-[40px] right-[150px]">
                   <span className="w-[14.56px] h-[14.56px]  rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
                     <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
                       <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
@@ -341,7 +341,7 @@ function MyTransferableSkills() {
                     </span>
                   </span>
                 </span>
-                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[145deg] absolute -top-[1px] -right-[60%]">
+                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[145deg] absolute -top-[4px] -right-[60%]">
                   <span className="w-[14.56px] h-[14.56px]  rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
                     <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
                       <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
