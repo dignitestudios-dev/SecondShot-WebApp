@@ -9,7 +9,7 @@ export const sportsTags ={
     Dance: ["Choreographer", "Section Leader"],
     Field_Hockey: ["Forward", "Midfielder", "Defender", "Goalkeeper", "Striker", "Center"],
     Football: ["Quarterback", "Running Back", "Wide Receiver", "Punter", "Offensive Linemen", "Defensive Linemen", "Linebacker", "Cornerback", "Safety", "Kicker", "Tight End"],
-    Golf: [], // No options provided
+    Golf: ["Solo Player","Team Player"], // No options provided
     Gymnastics: ["Vault", "Uneven Bars", "Balance Beam", "Floor Exercise", "Acrobatic", "Apparatus", "All Around"],
     Lacrosse: ["Attack", "Midfielder", "Defense", "Goaltender"],
     Skiing: ["Downhill", "Slalom", "Giant Slalom", "Super-G", "Moguls", "Freestyle Skiing"],
