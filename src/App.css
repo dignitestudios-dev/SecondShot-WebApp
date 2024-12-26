@@ -1,8 +1,4 @@
-@media screen and (max-width: 768px) {
-  .mobileScreenhide {
-    display: none;
-  }
-}
+
 
 .auth-bg {
   background: url("./assets/auth_bg.png");
@@ -107,4 +103,23 @@ color: #3C3C4399 !important;
 
 .animationtransferaable {
   animation: fadeIn 0.5s ease-in-out;
+}
+
+
+@media screen and (max-width: 1440px) {
+  .nodemath {
+    position: relative;
+    top: 28px;
+    left: -214px; 
+  }
+  .nodecarrer{
+    position: absolute;
+    top: 54px;
+    right: 0px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .mobileScreenhide {
+    display: none;
+  }
 }

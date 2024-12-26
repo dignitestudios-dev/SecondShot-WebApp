@@ -106,12 +106,10 @@ function MyTransferableSkills() {
   const [isActive, setIsActive] = useState(false);
 
   const handleIconClick = () => {
-    setIsActive(!isActive); 
+    setIsActive(!isActive);
   };
   return (
     <div className=" ">
-     
-
       <div className="flex justify-between items-start mb-8">
         <div>
           <h1 className="text-3xl font-semibold text-gray-800 mb-24">
@@ -139,14 +137,14 @@ function MyTransferableSkills() {
           </span>
 
           <span className="w-[20%] h-full flex justify-end items-start">
-      <BsFillBookmarkStarFill
-        size={"27px"}
-        onClick={handleIconClick}
-        className={`transition duration-200 cursor-pointer ${
-          isActive ? "text-green-500" : "text-gray-500"
-        }`}
-      />
-    </span>
+            <BsFillBookmarkStarFill
+              size={"27px"}
+              onClick={handleIconClick}
+              className={`transition duration-200 cursor-pointer ${
+                isActive ? "text-green-500" : "text-gray-500"
+              }`}
+            />
+          </span>
         </span>
         <div className="col-span-1 h-[256px] w-full flex justify-center items-center"></div>
         <div className="col-span-1 h-[256px] w-full flex justify-center items-end">
@@ -395,9 +393,8 @@ function MyTransferableSkills() {
 
             <span className="h-8 flex justify-center text-center items-center  rounded-full bg-white absolute -bottom-4  left-14">
               <div className="text-lg text-center font-medium text-[#0a1723] ">
-              Sanethia Thomas 
+                Sanethia Thomas
               </div>
-          
             </span>
             <span className="w-[70px] h-[2px]  bg-gradient-to-r from-[#172E55] to-[#0A1723] rotate-[320deg] absolute bottom-[6px] right-[80%]">
               <span className="w-[13.56px] h-[13.56px] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
@@ -545,6 +542,7 @@ function MyTransferableSkills() {
         {/* careers Section Start here */}
         <div className="col-span-1 h-[256px] w-full flex justify-center items-center"></div>
         <div className="col-span-1 h-[256px] relative w-full flex justify-center items-start">
+          <div className="nodecarrer">
           {careers && (
             <>
               <div className="bg-white h-[140px]   -top-[95px] -right-[89px]  w-[190px] rounded-full absolute z-10   "></div>
@@ -651,116 +649,117 @@ function MyTransferableSkills() {
               </div>
             </div>
           </div>
+          </div>
           {/* careers Section End here */}
-
-          {math && (
-            <>
-              <div className="bg-white h-[130px]   -top-[105px] -left-[65px]  w-[140px] rounded-full absolute z-10   "></div>
-              <div className="border-2 border-dashed rounded-full h-[140px] -left-[75px]   w-[140px] border-[#56EC17] absolute z-0  -top-[100px] "></div>
-            </>
-          )}
-          <div className="w-[125px] h-[125px] absolute -top-24 -left-16 -rotate-[145deg]   z-20 p-2 ">
+          <div className="nodemath">
             {math && (
-              <div
-                className={`animationtransferaable transition-opacity ${
-                  math ? "opacity-100" : "opacity-0"
-                } duration-1000 ease-in-out `}
-                style={{ transition: "opacity 0.5s ease-in-out" }}
-              >
-                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-90 absolute z-20 -top-[56px] left-[22%] ">
-                  <span className="w-[14.56px] h-[14.56px]  rounded-full bg-[#56EC17]   flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                    <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
-                      <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
-                    </span>
-                  </span>
-                  <span
-                    onClick={() => setAppear((prev) => !prev)}
-                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
-                  >
-                    <span className="w-[80px] h-[80px] -rotate-[-55deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                      Strategic Thinker
-                    </span>
-                  </span>
-                </span>
-                <span className="w-[210px] h-[2px] bg-[#56EC17] rotate-[60deg] absolute -top-[99px] -left-[140px]">
-                  <span className="w-[14.56px] h-[14.56px]  rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                    <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
-                      <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
-                    </span>
-                  </span>
-                  <span
-                    onClick={() => setAppear((prev) => !prev)}
-                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
-                  >
-                    <span className="w-[80px] h-[80px] -rotate-[-85deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                      Strategic Thinker
-                    </span>
-                  </span>
-                </span>
-                <span className="w-[210px] h-[2px] bg-[#56EC17] rotate-[120deg] absolute -top-[100px] left-[50px]">
-                  <span className="w-[14.56px] h-[14.56px]  rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                    <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
-                      <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
-                    </span>
-                  </span>
-                  <span
-                    onClick={() => setAppear((prev) => !prev)}
-                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
-                  >
-                    <span className="w-[80px] h-[80px] -rotate-[-25deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                      Patience
-                    </span>
-                  </span>
-                </span>
-                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[30deg] absolute -top-[2px] -left-[65%]">
-                  <span className="w-[14.56px] h-[14.56px]  rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                    <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
-                      <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
-                    </span>
-                  </span>
-                  <span
-                    onClick={() => setAppear((prev) => !prev)}
-                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
-                  >
-                    <span className="w-[80px] h-[80px] -rotate-[-115deg]  rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                      Focus
-                    </span>
-                  </span>
-                </span>
-                <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[145deg] absolute top-[22px] -right-[70%]">
-                  <span className="w-[14.56px] h-[14.56px]  rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
-                    <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
-                      <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
-                    </span>
-                  </span>
-                  <span
-                    onClick={() => setAppear((prev) => !prev)}
-                    className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
-                  >
-                    <span className="w-[80px] h-[80px] -rotate-[-0deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
-                      Detailed Oreinted
-                    </span>
-                  </span>
-                </span>
-              </div>
+              <>
+                <div className="bg-white h-[130px]   -top-[105px] -left-[65px]  w-[140px] rounded-full absolute z-10   "></div>
+                <div className="border-2 border-dashed rounded-full h-[140px] -left-[75px]   w-[140px] border-[#56EC17] absolute z-0  -top-[100px] "></div>
+              </>
             )}
-            <div
-              className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2"
-              onClick={() => handlemath()}
-            >
-              <div className="w-full cursor-pointer h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
+            <div className="w-[125px] h-[125px] absolute -top-24 -left-16 -rotate-[145deg]   z-20 p-2 ">
+              {math && (
                 <div
-                  className="w-full h-full rotate-[-215deg] bg-[#56EC17]
+                  className={`animationtransferaable transition-opacity ${
+                    math ? "opacity-100" : "opacity-0"
+                  } duration-1000 ease-in-out `}
+                  style={{ transition: "opacity 0.5s ease-in-out" }}
+                >
+                  <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-90 absolute z-20 -top-[56px] left-[22%] ">
+                    <span className="w-[14.56px] h-[14.56px]  rounded-full bg-[#56EC17]   flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                      <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
+                        <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
+                      </span>
+                    </span>
+                    <span
+                      onClick={() => setAppear((prev) => !prev)}
+                      className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                    >
+                      <span className="w-[80px] h-[80px] -rotate-[-55deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                        Strategic Thinker
+                      </span>
+                    </span>
+                  </span>
+                  <span className="w-[210px] h-[2px] bg-[#56EC17] rotate-[60deg] absolute -top-[99px] -left-[140px]">
+                    <span className="w-[14.56px] h-[14.56px]  rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                      <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
+                        <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
+                      </span>
+                    </span>
+                    <span
+                      onClick={() => setAppear((prev) => !prev)}
+                      className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                    >
+                      <span className="w-[80px] h-[80px] -rotate-[-85deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                        Strategic Thinker
+                      </span>
+                    </span>
+                  </span>
+                  <span className="w-[210px] h-[2px] bg-[#56EC17] rotate-[120deg] absolute -top-[100px] left-[50px]">
+                    <span className="w-[14.56px] h-[14.56px]  rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                      <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
+                        <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
+                      </span>
+                    </span>
+                    <span
+                      onClick={() => setAppear((prev) => !prev)}
+                      className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                    >
+                      <span className="w-[80px] h-[80px] -rotate-[-25deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                        Patience
+                      </span>
+                    </span>
+                  </span>
+                  <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[30deg] absolute -top-[2px] -left-[65%]">
+                    <span className="w-[14.56px] h-[14.56px]  rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                      <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
+                        <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
+                      </span>
+                    </span>
+                    <span
+                      onClick={() => setAppear((prev) => !prev)}
+                      className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                    >
+                      <span className="w-[80px] h-[80px] -rotate-[-115deg]  rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                        Focus
+                      </span>
+                    </span>
+                  </span>
+                  <span className="w-[70px] h-[2px] bg-[#56EC17] rotate-[145deg] absolute top-[22px] -right-[70%]">
+                    <span className="w-[14.56px] h-[14.56px]  rounded-full bg-[#56EC17]  flex justify-center items-center absolute -top-[6px] -left-[6.75px]">
+                      <span className="w-[14px] h-[14px] rounded-full bg-white flex justify-center items-center">
+                        <span className="w-[9px] h-[9px] bg-[#56EC17] rounded-full"></span>
+                      </span>
+                    </span>
+                    <span
+                      onClick={() => setAppear((prev) => !prev)}
+                      className="w-[100px] h-[100px]  cursor-pointer rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] flex items-center justify-center absolute -top-[50px] -left-[130px]"
+                    >
+                      <span className="w-[80px] h-[80px] -rotate-[-0deg] rounded-full bg-gradient-to-r from-[#172E55] to-[#0A1723] shadow-[0px_4px_10px_2px_#0A1723] flex items-center justify-center text-sm font-medium text-white text-center leading-3">
+                        Detailed Oreinted
+                      </span>
+                    </span>
+                  </span>
+                </div>
+              )}
+              <div
+                className="w-full h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2"
+                onClick={() => handlemath()}
+              >
+                <div className="w-full cursor-pointer h-full bg-[#56EC17] shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2">
+                  <div
+                    className="w-full h-full rotate-[-215deg] bg-[#56EC17]
                  shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px] flex justify-center items-center rounded-full p-2 text-[14.64px] 
                  font-[600] text-[#172E55] text-center leading-[14.64px]"
-                >
-                  Math
+                  >
+                    Math
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="col-span-1 h-[256px] w-full flex justify-center items-center"></div>
       </div>
 
       <TransferableSkillsModal

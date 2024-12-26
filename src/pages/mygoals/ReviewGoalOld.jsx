@@ -80,9 +80,17 @@ function ReviewYourGoalOld() {
                 <h2 className="text-xl font-semibold mb-2">
                   Main Goal Details
                 </h2>
-                <p className="text-gray-700 mt-4 text-sm mb-4 pb-2 border-b border-b-gray-300">
+                
+                <p className="text-gray-700 mt-4 text-sm mb-4 border-b border-b-gray-300">
                   Digital Marketing Course
+                  <div className="flex space-x-2 mt-2">
+                      <p>Deadline for Sub-goals:</p>
+                      <p className="font-semibold text-blue-600 mb-4">
+                        23/Mar/2024
+                      </p>
+                    </div>
                 </p>
+                
                 <button className="absolute top-4 right-4 p-2 w-10 h-10 bg-[#012C57] text-white rounded-md">
                   <PiPencilLine size={24} />
                 </button>
