@@ -98,7 +98,7 @@ const CareerToolbox = () => {
                 alt="Card Background"
                 className={`${
                   index === 5
-                    ? "w-[208.32px] h-[214.04px] group-hover:w-[127px] group-hover:h-[127px]"
+                    ? "w-[208.32px] h-[214.04px] group-hover:w-[167px] group-hover:h-[167px]"
                     : "w-[342.63px] h-[218.5px] "
                 } transform group-hover:scale-[0.92] group-hover:mt-2  group-hover:translate-y-[-10px] group-hover:h-[177px] group-hover:w-[230.51px] transition-all duration-700 ease-in-out`}
               />
