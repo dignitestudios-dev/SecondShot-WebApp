@@ -1,6 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  safelist: [
+    "group-hover:w-[157px]",
+    "group-hover:h-[157px]",
+    "group-hover:w-[230.51px]",
+    "group-hover:h-[177px]",
+  ],
   theme: {
     extend: {
       fontFamily: {

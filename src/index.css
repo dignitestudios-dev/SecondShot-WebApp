@@ -24,6 +24,11 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+  .custom-hover {
+    width: 157px;
+    height: 157px;
+   
+  }
 }
 
 ::-webkit-scrollbar {
