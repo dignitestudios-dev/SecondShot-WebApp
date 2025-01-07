@@ -13,7 +13,7 @@ const ToolboxSection = () => {
     {
       imgcard: Carriericon1,
       title: "Transferable Skills",
-      description: "Identify the skills you are already good at.",
+      description: "Identify the skills where you excel and demonstrate strength.",
       gradient: "bg-gradient-to-r from-[#25314F] to-[#5470B5]",
     },
     {
@@ -54,7 +54,7 @@ const ToolboxSection = () => {
         Your Career <span className="text-[#56EC17]">Toolbox</span>
       </h1>
       <p className="text-[20px] lg:text-[24px] font-[400] leading-[34.44px] capitalize">
-        Discover your strengths and unlock.{" "}
+        Discover your strengths and unlock{" "}
         <span className="text-[#56EC17]">New Opportunities</span> awaiting for
         you within your career toolbox.
       </p>

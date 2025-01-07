@@ -35,7 +35,8 @@ const StepNine = ({ nextStep, prevStep, formData, setFormData }) => {
               className="block text-sm font-medium mb-2"
               htmlFor="jobValue"
             >
-            Have you previously held a job?
+            Do you have prior work experience?
+
             </label>
             <RecommendatioBtn
                 handleBtnSelect={handleJobValue}

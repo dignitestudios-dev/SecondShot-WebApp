@@ -33,6 +33,9 @@ import ReviewSmartGoal from "../pages/mygoals/ReviewSmartGoals";
 import EditRegistrationQuestion from "../pages/editregistrationquestion/EditRegistrationQuestion";
 import ReviewYourGoalOld from "../pages/mygoals/ReviewGoalOld";
 import CreateResumeInfo from "../pages/myresume/CreateResumeInfo";
+import MyRecommedation from "../pages/careerrecommendations/MyRecommedation";
+import StartGoal from "../pages/mygoals/StartGoal";
+import StartResume from "../pages/myresume/StartResume";
 
 export const routes = [
   {
@@ -177,5 +180,20 @@ export const routes = [
     title: "createresumeinfo",
     url: "/create-resume-info",
     page: <Applayout page={<CreateResumeInfo />} />,
+  },
+  {
+    title: "myRecommedation",
+    url: "/myRecommedation",
+    page: <Applayout page={<MyRecommedation />} />,
+  },
+  {
+    title: "StartGoal",
+    url: "/startGoal",
+    page: <Applayout page={<StartGoal />} />,
+  },
+  {
+    title: "StartResume",
+    url: "/startResume",
+    page: <Applayout page={<StartResume />} />,
   },
 ];

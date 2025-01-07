@@ -34,7 +34,7 @@ const CareerToolbox = () => {
       title: "Career Recommendation",
       cardimage: Card2,
       btnBg: "bg-[#FFFFFF1A]",
-      para: "Take a short assessment to receive recommended careers, sample job descriptions, and recommended pathways to success. You will receive 5 Career matches.",
+      para: "Take a short assessment to receive recommended careers, sample job descriptions, and recommended pathways to success. You will receive 5 career matches.",
       path: "/careerrecommendation",
     },
     {
@@ -43,7 +43,7 @@ const CareerToolbox = () => {
       title: "Goal Setting",
       cardimage: Card3,
       btnBg: "bg-[#FFFFFF1A]",
-      para: "Establish a clear action plan to turn your goals into reality. This Goal setting provides focus, drives motivation, keeps you accountable and offers a roadmap for success.",
+      para: "Establish a clear action plan to turn your goals into reality. This goal setting provides focus, drives motivation, keeps you accountable and offers a roadmap for success.",
       path: "/mygoals",
     },
     {

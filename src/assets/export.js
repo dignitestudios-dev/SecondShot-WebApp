@@ -75,6 +75,7 @@ import Pro6 from "../assets/pro6.png";
 import Pro7 from "../assets/pro7.png";
 import Pro8 from "../assets/pro8.png";
 import logonew from "../assets/logonew2.png";
+import empty_img from "../assets/listing_empty_light.svg";
 
 export {
   logo,
@@ -154,4 +155,5 @@ export {
   Pro7,
   Pro8,
   logonew,
+  empty_img
 };

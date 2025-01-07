@@ -4,6 +4,7 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import SubcriptionActivateModal from "./SubcriptionActivateModal";
 import { useNavigate } from "react-router-dom";
 import { Visa, Visaicon } from "../../assets/export";
+import SubscriptionModal from "../Modal/SubscriptionModal";
 
 const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
   const [showNew, setShowNew] = useState(false);
@@ -234,7 +235,7 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
             <GrayBtn text={"Back"} handleSubmit={() => navigation(-1)} />
           </div>
         )}
-        <SubcriptionActivateModal
+        <SubscriptionModal
           isOpen={activatModal}
           handleClick={() => {
             setActivatModal(false);

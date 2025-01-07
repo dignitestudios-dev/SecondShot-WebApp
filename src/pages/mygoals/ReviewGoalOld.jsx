@@ -32,7 +32,7 @@ function ReviewYourGoalOld() {
   const [showCardModal, setShowCardModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
   const [showModalsupport, setShowModalsupport] = useState(false);
-  
+
   const handleCardModal = () => {
     setShowCardModal(!showCardModal);
   };
@@ -40,7 +40,6 @@ function ReviewYourGoalOld() {
   return (
     <div className="">
       <div className="">
-       
         {/* Main Heading and Submit Button */}
         <div className="flex justify-between items-center mt-6 w-full">
           <div className="text-left w-[475px]">
@@ -48,10 +47,11 @@ function ReviewYourGoalOld() {
               Review Your Goal
             </h1>
             <p className="text-black mt-1">
-              Take a moment to review your goals below. Ensure they are aligned
-              with your aspirations and ready to propel you forward! Once you
-              finalize your goal it will be logged and sent to your support
-              network.
+              Take a moment to review your goal below. If you need to make
+              changes you can click on the edit button. If you are fully
+              satisfied with your goal you have the option to add 2 people for
+              support and accountability. Click finalize goal to send to your
+              support network add to your goal to the goal setting hub.
             </p>
           </div>
           <div className="flex  items-center  gap-4">
@@ -80,17 +80,17 @@ function ReviewYourGoalOld() {
                 <h2 className="text-xl font-semibold mb-2">
                   Main Goal Details
                 </h2>
-                
+
                 <p className="text-gray-700 mt-4 text-sm mb-4 border-b border-b-gray-300">
                   Digital Marketing Course
                   <div className="flex space-x-2 mt-2">
-                      <p>Deadline for Sub-goals:</p>
-                      <p className="font-semibold text-blue-600 mb-4">
-                        23/Mar/2024
-                      </p>
-                    </div>
+                    <p>Deadline for Sub-goals:</p>
+                    <p className="font-semibold text-blue-600 mb-4">
+                      23/Mar/2024
+                    </p>
+                  </div>
                 </p>
-                
+
                 <button className="absolute top-4 right-4 p-2 w-10 h-10 bg-[#012C57] text-white rounded-md">
                   <PiPencilLine size={24} />
                 </button>

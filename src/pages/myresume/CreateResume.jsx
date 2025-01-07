@@ -223,18 +223,19 @@ const CreateResume = () => {
                 />
               )}
               {step === 3 && (
-                <Experience
-                  nextStep={nextStep}
-                  setFormData={setFormData}
-                  formData={formData}
-                />
+                
+                <Education
+                nextStep={nextStep}
+                setFormData={setFormData}
+                formData={formData}
+              />
               )}
               {step === 4 && (
-                <Education
-                  nextStep={nextStep}
-                  setFormData={setFormData}
-                  formData={formData}
-                />
+              <Experience
+              nextStep={nextStep}
+              setFormData={setFormData}
+              formData={formData}
+            />
               )}
               {step === 5 && (
                 <Licenses

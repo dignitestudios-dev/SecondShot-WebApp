@@ -14,8 +14,8 @@ const Information = ({ nextStep, setFormData, formData }) => {
       <div>
         <p className="text-[32px] font-medium"> Personal Information</p>
         <p className="text-sm ">
-          We’ve collected your basic from the sign-up. If you’d like to make any
-          changes, feel free to do so.
+          We’ve collected your contact information from your profile. Feel free
+          to make changes.
         </p>
       </div>
       <div className="w-full flex flex-col items-start gap-1 my-8">

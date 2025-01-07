@@ -12,11 +12,11 @@ const WelcomeModal = ({ isOpen, handleClick }) => {
           <img src={WelcomeImg} className="w-[199.02px] h-[191.21px] " alt="" />
         </div>
         <h2 className="text-[32px] font-[600] capitalize mt-3 text-[#000000] text-center leading-[43.2px] ">
-          Welcome to  career toolbox!
+          Welcome to career toolbox!
         </h2>
         <p className="text-[18px] font-[500] mt-4 text-[#9A9A9A] text-center leading-[24.3px] ">
-          You can start with any tool first. Click on each to learn more of how
-          to use it in your life.
+          You can start with any tool first. Click on each tool to learn more of
+          how to use it in your life.
         </p>
         <div className="flex items-center justify-center  mt-6 ">
           <div className=" w-[295px]">

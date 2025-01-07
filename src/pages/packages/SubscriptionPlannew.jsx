@@ -59,9 +59,11 @@ const SubscriptionPlannew = () => {
           Explore Our Subscription Plans
         </h1>
         <p className="text-[#181818] font-[500] mt-2 text-[16px] leading-[21.6px]">
-          Choose from our subscription plans to suit your needs. Whether basic
-          or premium, we have the <br /> right plan for you. For any questions,
-          our support team is here to help.
+          Choose from one of our subscription plans to suit your needs. <br />{" "}
+          For assistance contact{" "}
+          <a href="mailto:help@yoursecondshot.com" className="underline">
+            help@yoursecondshot.com
+          </a>
         </p>
       </div>
 
@@ -91,7 +93,7 @@ const SubscriptionPlannew = () => {
             <input
               type="text"
               placeholder="Access Code"
-              className="w-full  bg-transparent border border-[#395E81] px-4 py-2 rounded-[15px]  text-[16px] text-[#395E81] focus:outline-none focus:ring-2 focus:ring-[#55C9FA]"
+              className="w-full  bg-transparent border border-[#395E81] px-4 py-2 rounded-[15px]  text-[16px] text-[white] focus:outline-none focus:ring-2 focus:ring-[#55C9FA]"
             />
           </div>
           <button
@@ -109,7 +111,7 @@ const SubscriptionPlannew = () => {
                   {item.heading}
                 </h2>
                 <h2 className="text-[32px] font-[600] leading-[43.2px] pe-3 text-[#56EC17]">
-                  {item.amount} 
+                  {item.amount}
                 </h2>
               </div>
               <div>
@@ -149,7 +151,6 @@ const SubscriptionPlannew = () => {
         ))}
       </div>
 
-    
       <footer className="mt-24 text-gray-600 text-sm text-center">
         Copyright © 2023 second shot
       </footer>

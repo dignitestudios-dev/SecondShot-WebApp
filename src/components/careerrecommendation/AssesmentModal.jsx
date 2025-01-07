@@ -9,8 +9,8 @@ const AssessmentModal = ({ showModal, onclick, step, setShowModal }) => {
   };
   return (
     showModal && (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-70">
-        <div className="bg-white rounded-xl shadow-custom-shadow w-[500px] p-4 relative">
+      <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-50 backdrop-blur-sm">
+        <div className="bg-white rounded-xl shadow-custom-shadow w-[500px] z-10 p-4 relative">
           <button
             className="absolute top-0 right-2 text-xl text-gray-500 hover:text-gray-600"
             onClick={onclick}
@@ -28,13 +28,22 @@ const AssessmentModal = ({ showModal, onclick, step, setShowModal }) => {
             <h2 className="text-[24px] font-semibold mb-4 text-center">
               You have successfully <br /> completed the assessment
             </h2>
-            <p className="text-[16px text-center">
-             
-              Your results have been recorded, and you can now review your
-              performance. If you have any questions or need further assistance,
-              please contact our support team.
-              <br /> Thank you for your dedication and effort.
-            </p>
+            <div className="w-[419px] ">
+              <p className="text-[18px] font-[500] mt-2 text-[#9A9A9A] text-center leading-[24.3px]  ">
+                You’ve been matched with five potential careers! Take a moment
+                to click through each one and explore sample job titles, career
+                pathways, and recommended education.
+              </p>
+              <p className="text-[18px] font-[500] mt-2 text-[#9A9A9A] text-center leading-[24.3px] ">
+                Be sure to mark your favorites so you can save them in your
+                library. This way, you’ll have easy access to revisit and review
+                them later.
+              </p>
+              <p className="text-[18px]   font-[500] mt-2 text-[#9A9A9A] text-center leading-[24.3px] ">
+                If you’re interested in exploring even more career options, you
+                can always retake the assessment for additional matches.
+              </p>
+            </div>
             <div className=" mt-4 flex justify-center">
               <button
                 onClick={handleNavigation}

@@ -7,7 +7,7 @@ const WelcomeGoalModal = ({ isOpen, onClose, handleClick }) => {
 
   return (
     <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-50 backdrop-blur-sm">
-      <div className="bg-[#FEFEFE] rounded-[26px] w-[471px] h-[594px]  p-6 shadow-[22px]">
+      <div className="bg-[#FEFEFE] rounded-[26px] w-[471px]   p-6 shadow-[22px]">
         <div className="flex justify-center mt-3">
           <img
             src={Mygoalmodal}
@@ -20,10 +20,12 @@ const WelcomeGoalModal = ({ isOpen, onClose, handleClick }) => {
         </h2>
         <div className="w-[419px]  ">
           <p className="text-[18px] font-[500] mt-4 text-[#9A9A9A] text-center leading-[24.3px]  ">
-            Here, you can create goals, make them S.M.A.R.T, and even break them
-            down into sub-goals. Share your goals with your support network and
-            track your progress easily. Let’s start turning your aspirations
-            into achievements!
+            Here you can create goals, set deadlines, make them S.M.A.R.T. and
+            even break them down into sub-goals. Share your goals with your
+            support network and track your progress easily. Let’s start turning
+            your aspirations into achievements! . Share your goals with your
+            support network and track your progress easily. Let’s start turning
+            your aspirations into achievements!
           </p>
         </div>
         <div className="flex items-center justify-center  mt-6 ">
