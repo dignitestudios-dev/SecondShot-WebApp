@@ -2,7 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Creditcardimg } from "../../assets/export";
 
-const SubscriptionCardModal = ({ showModal, onclick, setShowAdded, setShowNew }) => {
+const SubscriptionCardModal = ({
+  showModal,
+  onclick,
+  setShowAdded,
+  setShowNew,
+}) => {
   const navigate = useNavigate();
   const handleNavigation = () => {
     setShowNew(false);
@@ -28,12 +33,15 @@ const SubscriptionCardModal = ({ showModal, onclick, setShowAdded, setShowNew })
           </div>
           <div className="px-2 flex flex-col justify-center items-center gap-1">
             <h2 className="text-[24px] font-semibold mb-2 text-center">
-            Your Credit Card Has Been successfully added
+              Your Credit Card Has Been successfully added
             </h2>
             <p className="text-[16px] font-normal leading-5 text-[#000000] text-center">
-            Your credit card has been successfully added to your account. You can now use it for seamless
-             transactions and enjoy our services without interruptions. If you have any questions or need 
-             further assistance, please contact our support team.
+              Your credit card has been successfully added to your account. You
+              can now use it for seamless transactions and enjoy our services
+              without interruptions.For assistance contact{" "}
+              <a href="mailto:help@yoursecondshot.com" className="underline">
+                help@yoursecondshot.com
+              </a>
             </p>
             <div className="mt-4 w-full mb-1 flex justify-center">
               <button

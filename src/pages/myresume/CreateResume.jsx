@@ -48,8 +48,8 @@ const CreateResume = () => {
   const [sections] = useState([
     "Contact",
     "Objective",
-    "Experience",
     "Education",
+    "Experience",
     "Licenses ",
     "Skills",
     "Honors",

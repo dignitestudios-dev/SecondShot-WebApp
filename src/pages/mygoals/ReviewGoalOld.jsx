@@ -42,11 +42,11 @@ function ReviewYourGoalOld() {
       <div className="">
         {/* Main Heading and Submit Button */}
         <div className="flex justify-between items-center mt-6 w-full">
-          <div className="text-left w-[475px]">
+          <div className="text-left w-[555px]">
             <h1 className="text-[32px] font-medium text-gray-800">
               Review Your Goal
             </h1>
-            <p className="text-black mt-1">
+            <p className="text-black mt-1 font-[500] ">
               Take a moment to review your goal below. If you need to make
               changes you can click on the edit button. If you are fully
               satisfied with your goal you have the option to add 2 people for
@@ -84,9 +84,9 @@ function ReviewYourGoalOld() {
                 <p className="text-gray-700 mt-4 text-sm mb-4 border-b border-b-gray-300">
                   Digital Marketing Course
                   <div className="flex space-x-2 mt-2">
-                    <p>Deadline for Sub-goals:</p>
+                    <p>Deadline for Main goals:</p>
                     <p className="font-semibold text-blue-600 mb-4">
-                      23/Mar/2024
+                      Jan/23/2024 - Feb/22/2024
                     </p>
                   </div>
                 </p>
@@ -122,10 +122,10 @@ function ReviewYourGoalOld() {
                   </div>
 
                   <div className="flex justify-between items-center mt-4 text-gray-700">
-                    <div className="flex space-x-2">
-                      <p>Deadline for Sub-goals:</p>
-                      <p className="font-semibold text-blue-600 mb-4">
-                        23/Mar/2024
+                    <div className="flex space-x- text-[14px] 2 mt-2">
+                      <p>Deadline for Sub-goals:</p>{" "}
+                      <p className="font-semibold mx-3 text-blue-600 mb-4">
+                        Jan/23/2024 - Feb/22/2024
                       </p>
                     </div>
                   </div>

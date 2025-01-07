@@ -3,7 +3,7 @@ import { BsFillBookmarkStarFill } from "react-icons/bs";
 import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
-const CareerCards = ({icon}) => {
+const CareerCards = ({ icon }) => {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
@@ -20,9 +20,7 @@ const CareerCards = ({icon}) => {
               key={index}
               className="group relative rounded-[24px]  h-[342px] p-4 bg-[#F6F8FF] text-black shadow-lg cursor-pointer hover:bg-gradient-to-l from-[#012C57] to-[#061523] hover:text-white transition duration-200"
             >
-               <div className="absolute top-4 right-4  ">
-                {icon}
-              </div>
+              <div className="absolute top-4 right-4  ">{icon}</div>
 
               <div className="flex flex-col text-left mb-4">
                 <span className="text-[24px] font-[500] leading-[32.4px] group-hover:text-white transition duration-200">
@@ -40,14 +38,25 @@ const CareerCards = ({icon}) => {
                   "Information Technology",
                   "Marketing",
                   "Manufacturing",
-                ].map((field, i) => (
-                  <div
-                    key={i}
-                    className="inline-block text-center px-3 h-[43px] py-1 text-[14px] font-[400] leading-[18.9px] rounded-[10px] bg-transparent border border-gray-400 text-[#000000] group-hover:border-white group-hover:text-white transition duration-200 mr-2 align-middle"
-                    style={{ lineHeight: "35px" }}
-                  >
-                    {field}
-                  </div>
+                ].map((field, index) => (
+                  <>
+                    {index === 0 ? (
+                      <div
+                        key={index}
+                        className="inline-block text-center px-3 h-[43px] py-1 text-[14px] font-[400] leading-[18.9px] rounded-[10px] bg-transparent border border-gray-400 text-[#000000] group-hover:border-white group-hover:text-white transition duration-200 mr-2 align-middle"
+                        style={{ lineHeight: "35px" }}
+                      >
+                        Health Science
+                      </div>
+                    ) : (
+                      <div
+                        className="inline-block text-center px-3 h-[43px] py-1 text-[14px] font-[400] leading-[18.9px] rounded-[10px] bg-transparent border border-gray-400 text-[#000000] group-hover:border-white group-hover:text-white transition duration-200 mr-2 align-middle"
+                        style={{ lineHeight: "35px" }}
+                      >
+                        {field}
+                      </div>
+                    )}
+                  </>
                 ))}
               </div>
 

@@ -50,13 +50,13 @@ function MyLibrary() {
           <div className="flex  h-[48px] items-center rounded-lg border border-gray-500 px-0.5">
             <button
               onClick={() => handleViewChange("career")}
-              className={`text-[14px] h-[42px] rounded-l-lg font-medium focus:outline-none w-28 ${
+              className={`text-[14px] text-nowrap h-[42px] w- rounded-l-lg font-medium focus:outline-none w-[200px] ${
                 selected === "career"
                   ? "bg-[#012C57] text-white"
                   : "text-gray-500"
               }`}
             >
-              Career
+              Career Recommendations  
             </button>
             <button
               onClick={() => handleViewChange("transferable")}

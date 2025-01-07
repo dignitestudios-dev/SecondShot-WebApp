@@ -20,6 +20,7 @@ const SubscriptionPlannew = () => {
         "Build Your Resume",
         "Establish Clear and Actionable Goals",
         "View Success Stories",
+        "Build Your Library",
       ],
     },
     {
@@ -34,6 +35,8 @@ const SubscriptionPlannew = () => {
         "View Success Stories",
         "Unlimited Access to platform for 365 days",
         "Create a year long strategic plan ",
+        "Build Your Library",
+
       ],
     },
   ];
@@ -80,13 +83,10 @@ const SubscriptionPlannew = () => {
           </p>
 
           <p className="text-[16px] mt-2 font-[400] leading-[21.6px]">
-            Access code is a one-time usage only. Once redeemed, it cannot be
-            used again!
+         
           </p>
-          <div className="opacity-[20%] mt-11">
-            <hr className="bg-[#FFFFFF] mt-5 mb-5" />
-          </div>
-          <div className="space-y-4 mt-9  h-[171px]  ">
+          
+          <div className="space-y-4 mt-9  h-[261px]  ">
             <label className=" text-[16px] text-[#56EC17] leading-[21.6px]  font-[500] mb-1">
               Use Access Code
             </label>

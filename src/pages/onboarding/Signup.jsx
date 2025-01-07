@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppleIcon,
   BgAuth,
@@ -16,6 +16,12 @@ import PhoneInputs from "../../components/onboarding/PhoneInputs";
 
 const SignUpForm = () => {
   const navigation = useNavigate();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [Cpassword, setCPassword] = useState("");
+
   const handleSignUp = () => {
     localStorage.setItem("forgot", false);
     navigation("/email-otp");
@@ -42,11 +48,32 @@ const SignUpForm = () => {
             </p>
 
             <form className="space-y-3">
-              <AuthInput type="text" placeholder="Full Name" />
-              <AuthInput type="email" placeholder="Email" />
+              <AuthInput
+                type="text"
+                placeholder="Full Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+
+              <AuthInput
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
               <PhoneInputs />
-              <AuthInput type="password" placeholder="Password" />
-              <AuthInput type="password" placeholder="Confirm Password" />
+              <AuthInput
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <AuthInput
+                type="password"
+                placeholder="Confirm Password"
+                value={Cpassword}
+                onChange={(e) => setCPassword(e.target.value)}
+              />
               <div className="pt-4">
                 <AuthSubmitBtn
                   text="Sign Up"
@@ -88,13 +115,13 @@ const SignUpForm = () => {
               </p>
             </div>
 
-            <div className="text-center text-[16px] leading-[21.6px] mt-2">
-              I Agree To The{" "}
-              <a href="#" className="text-[#28A745] underline">
+            <div className="text-center font-medium text-[16px] leading-[21.6px] mt-2">
+              I agree to the{" "}
+              <a href="#" className="text-blue-900 font-[500] underline">
                 Terms & Conditions
               </a>{" "}
               &{" "}
-              <a href="#" className="text-[#28A745] underline">
+              <a href="#" className="text-blue-900 font-[500] underline">
                 Privacy Policy
               </a>
             </div>

@@ -19,7 +19,7 @@ const Home = () => {
         }}
       />
       <div className="text-3xl font-semibold text-gray-800 mb-5 mt-4 ">
-        My Career Toolbox
+        My <span className="text-[#56EC17]"> Career Toolbox</span>
       </div>
       <div>
         <CareerToolbox />

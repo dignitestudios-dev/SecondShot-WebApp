@@ -13,7 +13,8 @@ const ToolboxSection = () => {
     {
       imgcard: Carriericon1,
       title: "Transferable Skills",
-      description: "Identify the skills where you excel and demonstrate strength.",
+      description:
+        "Identify the skills where you excel and demonstrate strength.",
       gradient: "bg-gradient-to-r from-[#25314F] to-[#5470B5]",
     },
     {
@@ -51,11 +52,11 @@ const ToolboxSection = () => {
   return (
     <div className="text-white p-8 space-y-6 ">
       <h1 className="text-[30px] lg:text-[41px] font-[600] leading-[54.94px]">
-        Your Career <span className="text-[#56EC17]">Toolbox</span>
+        Your <span className="text-[#56EC17]"> Career Toolbox</span>
       </h1>
       <p className="text-[20px] lg:text-[24px] font-[400] leading-[34.44px] capitalize">
         Discover your strengths and unlock{" "}
-        <span className="text-[#56EC17]">New Opportunities</span> awaiting for
+        New Opportunities awaiting for
         you within your career toolbox.
       </p>
 
@@ -63,9 +64,9 @@ const ToolboxSection = () => {
         <hr className="bg-[#FFFFFF] mt-11 mb-11" />
       </div>
       <div className="text-[26px] lg:text-[32px] font-[600] leading-[42.88px] ">
-        What's <span className="text-[#56EC17]">Inside</span>
+        What's Inside
         <br />
-        Your Career Toolbox
+        Your <span className="text-[#56EC17]"> Career Toolbox</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 md:gap-10 lg:grid-cols-3 lg:gap-4">

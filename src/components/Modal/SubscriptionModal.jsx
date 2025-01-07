@@ -16,8 +16,8 @@ const SubscriptionModal = ({ isOpen, onClose, handleClick }) => {
         </h2>
         <p className="text-[18px] font-[500] mt-4 text-[#000000] text-center leading-[24.3px] ">
           Your subscription has been successfully unlocked. You now have full
-          access to all features and benefits. If you have any questions,
-          <br />
+          access <br /> to all features and benefits. If you have any questions,
+     
           contact{" "}
           <a href="mailto:help@yoursecondshot.com" className="underline px-1">
             help@yoursecondshot.com

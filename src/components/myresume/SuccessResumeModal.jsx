@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { resumeSuccess } from "../../assets/export";
+import { Card4, resumeSuccess } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 
 const SuccessResumeModal = ({ showModal, onclick, setIsPreview }) => {
@@ -22,7 +22,7 @@ const SuccessResumeModal = ({ showModal, onclick, setIsPreview }) => {
           </button>
           <div className="flex justify-center mt-3">
             <img
-              src={resumeSuccess}
+              src={Card4}
               alt="logo"
               className="object-cover w-[254.7px] h-[171.42px]"
             />

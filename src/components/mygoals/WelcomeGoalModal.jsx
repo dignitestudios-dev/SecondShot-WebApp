@@ -23,8 +23,6 @@ const WelcomeGoalModal = ({ isOpen, onClose, handleClick }) => {
             Here you can create goals, set deadlines, make them S.M.A.R.T. and
             even break them down into sub-goals. Share your goals with your
             support network and track your progress easily. Let’s start turning
-            your aspirations into achievements! . Share your goals with your
-            support network and track your progress easily. Let’s start turning
             your aspirations into achievements!
           </p>
         </div>

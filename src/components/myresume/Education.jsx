@@ -42,10 +42,7 @@ const Education = ({ nextStep, setFormData, formData }) => {
     <div className="pt-6 px-3">
       <div>
         <p className="text-[32px] font-[500]">Education</p>
-        <p className="text-sm">
-          Detail Your Learning Path and Academic Accomplishments, Including
-          Courses, Certifications, and Degrees Earned
-        </p>
+        <p className="text-sm">List your degrees you have earned.</p>
       </div>
       {educations.map((education, index) => (
         <div key={index} className="">
@@ -74,7 +71,7 @@ const Education = ({ nextStep, setFormData, formData }) => {
                 ]}
               />
             </div>
-            <div className="w-1/2">
+            <div className="w-1/2 mb-5">
               <label className="text-sm font-medium">
                 End Year{" "}
                 <span className="text-[#9a9a9a] font-normal">
@@ -90,7 +87,7 @@ const Education = ({ nextStep, setFormData, formData }) => {
             </div>
           </div>
           {/* Description */}
-          <div className="w-full flex flex-col items-start gap-1 my-8">
+          {/* <div className="w-full flex flex-col items-start gap-1 my-8">
             <label className="text-sm font-medium">Description</label>
             <textarea
               rows="4"
@@ -102,7 +99,7 @@ const Education = ({ nextStep, setFormData, formData }) => {
                 handleFieldChange(index, "description", e.target.value)
               }
             />
-          </div>
+          </div> */}
         </div>
       ))}
 

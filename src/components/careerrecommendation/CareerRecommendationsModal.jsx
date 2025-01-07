@@ -14,7 +14,7 @@ const CareerRecommendationsModal = ({ isOpen, onClose, handleClick }) => {
         <h2 className="text-[32px] font-[600] capitalize mt-2 text-[#000000] text-center leading-[43.2px] ">
           My Career Recommendations
         </h2>
-        <div className="w-[419px]  mb- ">
+        <div className="w-[419px]  mb-5 ">
           <p className="text-[18px] font-[500] mt-2 text-[#9A9A9A] text-center leading-[24.3px]  ">
             You will be given a short 24 question survey. Make sure you choose
             the answer that comes to mind first. Once you are finished you can

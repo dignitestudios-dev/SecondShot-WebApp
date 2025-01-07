@@ -34,8 +34,10 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
       <div className=" text-[16px] leading-[21.6px] text-center w-full flex justify-center items-center ">
         <p className=" w-[639px] mt-5">
           Choose from our subscription plans to suit your needs. Whether basic
-          or premium, we have the right plan for you. For any questions, our
-          support team is here to help.
+          or premium, we have the right plan for you. For assistance contact{" "}
+          <a href="mailto:help@yoursecondshot.com" className="underline">
+            help@yoursecondshot.com
+          </a>
         </p>
       </div>
       <div className="grid grid-cols-2 gap-6  mt-11 px-32">

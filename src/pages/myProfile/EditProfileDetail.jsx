@@ -43,9 +43,7 @@ const EditProfileDetails = () => {
             <h1 className="text-[40px] font-[600] leading-[54px] text-center">
               Edit Profile Details
             </h1>
-            <p className="text-[16px] text-center leading-[25.68px] ">
-              Please complete details to access all features
-            </p>
+          
           </div>
         </div>
         <div className="col-span-12 md:col-span-6 gap-y-4 px-12 md:px-36 md:-mr-32 lg:px-28 lg:-mr-24">

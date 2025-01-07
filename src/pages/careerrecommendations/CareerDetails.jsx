@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
 import { IoIosArrowBack } from "react-icons/io";
+import { BsFillBookmarkStarFill } from "react-icons/bs";
 
 function CareerDetails() {
   const [selectedButton, setSelectedButton] = useState("Health Science");
@@ -12,7 +13,7 @@ function CareerDetails() {
     "Marketing",
     "Manufacturing",
   ];
-const navigate =useNavigate()
+  const navigate = useNavigate();
   return (
     <div className="">
       <div className="mb-3">
@@ -20,10 +21,10 @@ const navigate =useNavigate()
           <div>
             <IoIosArrowBack
               className="font-[600]"
-              onClick={() => navigate('/careerrecommendation')}
+              onClick={() => navigate("/careerrecommendation")}
             />
           </div>
-          <div onClick={() => navigate('/careerrecommendation')}>BACK</div>
+          <div onClick={() => navigate("/careerrecommendation")}>BACK</div>
         </div>
       </div>
       <div className="bg-white rounded-3xl shadow-[0px_8px_50px_0px_rgba(0,0,0,0.06)] p-8 backdrop-blur-[100px]">
@@ -53,9 +54,17 @@ const navigate =useNavigate()
               ))}
             </div>
             <hr />
-            <h3 className="text-[28px] font-[500] text-[#000000] py-2">
-              Health Science
-            </h3>
+            <div className="flex justify-between items-center">
+              <h3 className="text-[28px] font-[500] text-[#000000] py-2">
+                Health Science
+              </h3>
+              <div>
+                <BsFillBookmarkStarFill
+                  size={"27px"}
+                  className="transition duration-200   group-hover:text-white text-gray-500"
+                />
+              </div>
+            </div>
             <p className="text-[#000000cc] font-[400] text-[16px] ">
               Health and science is a diverse field encompassing various
               professions dedications to improving human health and

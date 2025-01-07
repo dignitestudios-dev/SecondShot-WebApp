@@ -12,6 +12,7 @@ const AuthInput = ({
   isDisabled = false,
   isAuth = true,
   maxLength,
+  onChange
 }) => {
   const [isPassVisible, setIsPassVisible] = useState(false);
 
@@ -42,6 +43,7 @@ const AuthInput = ({
                 isAuth ? "bg-transparent" : "e"
               } h-full px-3 text-sm font-medium`}
             {...register}
+            onChange={onChange}
           />
 
           {type === "password" && (

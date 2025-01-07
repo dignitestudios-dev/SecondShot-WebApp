@@ -16,7 +16,7 @@ const Skills = ({ nextStep, setFormData, formData }) => {
       <div className="my-6">
         <p className="text-[24px] font-[500]">Soft Skills</p>
         <p className="text-[16px] leading-[21.6px] w-[422px] ">
-        Add Personal qualities like communication, teamwork, and problem-solving.
+        Add personal qualities like communication, teamwork, and problem-solving.
         </p>
       </div>
       <SkillsInputField
@@ -28,7 +28,7 @@ const Skills = ({ nextStep, setFormData, formData }) => {
       <div className="">
         <p className="text-[24px] font-[500]">Technical Skills</p>
         <p className="text-[16px] leading-[21.6px] w-[422px] ">
-          Add Job-specific abilities such as coding, data analysis, or using
+          Add job-specific abilities such as coding, data analysis, or using
           specialized tools.
         </p>
         <div className="w-full flex flex-col items-start gap-1 my-8">

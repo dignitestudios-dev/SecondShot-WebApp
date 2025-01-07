@@ -20,6 +20,7 @@ const SubscirtionProfile = () => {
         "Build Your Resume",
         "Establish Clear and Actionable Goals",
         "View Success Stories",
+        
       ],
     },
 

@@ -20,10 +20,12 @@ const SubscriptionNew = () => {
           <h1 className="text-[40px] font-[600] leading-[54px] ">
             Explore Our Subscription Plans
           </h1>
-          <p className="text-[16px] font-medium leading-[21.6px] mt-2">
-            Choose from our subscription plans to suit your needs. Whether
-            short-term or long-term, we have the right plan for you. For any
-            questions, our support team is here to help.
+          <p className="text-[#181818] font-[500] mt-2 text-[16px] leading-[21.6px]">
+            Choose from one of our subscription plans to suit your needs. <br />{" "}
+            For assistance contact{" "}
+            <a href="mailto:help@yoursecondshot.com" className="underline">
+              help@yoursecondshot.com
+            </a>
           </p>
         </div>
       </div>

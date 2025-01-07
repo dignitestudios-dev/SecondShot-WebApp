@@ -44,9 +44,9 @@ const Experience = ({ nextStep, setFormData, formData }) => {
       <div>
         <p className="text-[32px] font-[500]">Professional Experience
         </p>
-        <p className="text-sm">
-          Narrate Your Professional Endeavours and Milestones to Showcase Your
-          Skills, Achievements, and Career Progress.
+        <p className="text-sm  ">
+          Narrate your professional endeavours and milestones to showcase your
+          skills, achievements, and career progress.
         </p>
       </div>
 
