@@ -76,6 +76,21 @@ import Pro7 from "../assets/pro7.png";
 import Pro8 from "../assets/pro8.png";
 import logonew from "../assets/logonew2.png";
 import empty_img from "../assets/listing_empty_light.svg";
+import skilltop from "../assets/transferSKills/skilltop.png";
+import skillright from "../assets/transferSKills/skillright.png";
+import skillleft from "../assets/transferSKills/skillleft.png";
+import skillbottomright from "../assets/transferSKills/skillbottomright.png";
+import skillbottomleft from "../assets/transferSKills/skillbottomleft.png";
+import cv2 from "../assets/cv2.png";
+import cv3 from "../assets/cv3.png";
+import cv4 from "../assets/cv4.png";
+import cv5 from "../assets/cv5.png";
+import cv6 from "../assets/cv6.png";
+import cv7 from "../assets/cv7.png";
+import cv8 from "../assets/cv8.png";
+import cv9 from "../assets/cv9.png";
+import cv10 from "../assets/cv10.png"; 
+import cv11 from "../assets/cvobecjt.png"; 
 
 export {
   logo,
@@ -155,5 +170,20 @@ export {
   Pro7,
   Pro8,
   logonew,
-  empty_img
+  empty_img,
+  skillbottomleft,
+  skillbottomright,
+  skillleft,
+  skillright,
+  skilltop,
+  cv2,
+  cv3,
+  cv4,
+  cv5,
+  cv6,
+  cv7,
+  cv8,
+  cv9,
+  cv10,
+  cv11
 };

@@ -18,10 +18,10 @@ const PreviewResume = ({
   setIsOpen,
   handleDownloadModal,
   handleShowPeopleModal,
-  handleDeleteModal
+  handleDeleteModal,
 }) => {
   const dropdownRef = useRef(null);
-const navigate =useNavigate()
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -29,12 +29,15 @@ const navigate =useNavigate()
 
   return (
     <div>
-     <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
-            <div>
-              <IoIosArrowBack className="font-[600]" onClick={() => navigate('/myresume')} />
-            </div>
-            <div onClick={() => navigate('/myresume')}>BACK</div>
-          </div>
+      <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
+        <div>
+          <IoIosArrowBack
+            className="font-[600]"
+            onClick={() => navigate("/myresume")}
+          />
+        </div>
+        <div onClick={() => navigate("/myresume")}>BACK</div>
+      </div>
       <div className="flex justify-between items-start mb-8">
         <div>
           {isPreview ? (
@@ -42,7 +45,9 @@ const navigate =useNavigate()
               Your Personalized Resume
             </h1>
           ) : (
-            <h1 className="text-[32px] font-medium text-gray-800">Your Personalized Resume </h1>
+            <h1 className="text-[32px] font-medium text-gray-800">
+              Your Personalized Resume{" "}
+            </h1>
           )}
         </div>
         {isPreview ? (

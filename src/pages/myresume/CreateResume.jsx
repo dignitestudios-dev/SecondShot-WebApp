@@ -8,7 +8,7 @@ import Licenses from "../../components/myresume/Licenses";
 import Skills from "../../components/myresume/Skills";
 import Volunteer from "../../components/myresume/Volunteer";
 import Backbutton from "../../components/Global/Backbutton";
-import { Cvimg } from "../../assets/export";
+import {  cv10, cv11, cv2, cv3, cv4, cv5, cv6, cv7, cv8, cv9, Cvimg } from "../../assets/export";
 import Honors from "../../components/myresume/Honors";
 import PreviewResume from "../../components/myresume/PreviewResume";
 import SuccessResumeModal from "../../components/myresume/SuccessResumeModal";
@@ -26,7 +26,16 @@ const CreateResume = () => {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-
+  const stepImages = {
+    1: Cvimg,
+    2: cv11,
+    3: cv6,
+    4: cv5,
+    5: cv10,
+    6: cv7,
+    7: cv8,
+    8: cv9,
+  };
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     fullName: "",
@@ -49,7 +58,7 @@ const CreateResume = () => {
     "Contact",
     "Objective",
     "Education",
-    "Experience",
+    "Work Experience",
     "Licenses ",
     "Skills",
     "Honors",
@@ -223,19 +232,18 @@ const CreateResume = () => {
                 />
               )}
               {step === 3 && (
-                
                 <Education
-                nextStep={nextStep}
-                setFormData={setFormData}
-                formData={formData}
-              />
+                  nextStep={nextStep}
+                  setFormData={setFormData}
+                  formData={formData}
+                />
               )}
               {step === 4 && (
-              <Experience
-              nextStep={nextStep}
-              setFormData={setFormData}
-              formData={formData}
-            />
+                <Experience
+                  nextStep={nextStep}
+                  setFormData={setFormData}
+                  formData={formData}
+                />
               )}
               {step === 5 && (
                 <Licenses
@@ -280,7 +288,13 @@ const CreateResume = () => {
                 />
               )}
             </div>
-            {step !== 9 && <img src={Cvimg} alt="" className="w-full mt-11" />}
+            {step !== 9 && (
+              <img
+                src={stepImages[step] || Cvimg} // Dynamically select image based on the current step
+                alt=""
+                className="w-full mt-11"
+              />
+            )}
           </div>
         </div>
       </>

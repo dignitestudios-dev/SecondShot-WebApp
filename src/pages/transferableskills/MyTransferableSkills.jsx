@@ -109,7 +109,7 @@ function MyTransferableSkills() {
     setIsActive(!isActive);
   };
   return (
-    <div className=" ">
+    <div className="h-[1500px] ">
       <div className="flex justify-between items-start mb-8">
         <div>
           <h1 className="text-3xl font-semibold text-gray-800 mb-24">

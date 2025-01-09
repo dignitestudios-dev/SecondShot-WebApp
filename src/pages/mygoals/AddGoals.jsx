@@ -1,20 +1,24 @@
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
 import { Creategoalimg } from "../../assets/export";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import CreateGoalModal from "../../components/mygoals/CreateGoalModal";
 import { ModalContext } from "../../context/GlobalContext";
+import MakeitSmartModal from "../../components/mygoals/MakeitSmartModal";
 
 const AddGoals = () => {
   const navigate = useNavigate();
   const handleNavigate = () => {};
-  const { showModal, setShowModal } = useContext(ModalContext);
-  // const [showModal, setShowModal] = useState(false);
+  // const { showModal, setShowModal } = useContext(ModalContext);
+  const [showModal, setShowModal] = useState(false);
+  const [smartModal, setSmartModal] = useState(false);
   const handleModal = () => {
     setShowModal(!showModal);
   };
-
+  const location =useLocation()
+  const modalopen=location?.state?.modalopen
+console.log(modalopen,"modalopen")
   return (
     <div className="max-w-screen-xl min-h-screen mx-auto p-8">
       <Backbutton />
@@ -24,6 +28,12 @@ const AddGoals = () => {
         setShowModal={setShowModal}
         handleClose={()=>navigate('/review-goals')}
       />
+      {/* <MakeitSmartModal
+        showModal={modalopen}
+        handleClick={()=>setSmartModal(false)}
+        setSmartModal={setSmartModal}
+        handleClose={()=>setSmartModal(false)}
+      /> */}
       <div className="flex justify-between items-start mb-8">
         <h1 className="text-[32px] text-left leading-[43.2px] font-[500] text-[#000000]">
           Create Your Goal

@@ -36,6 +36,7 @@ import CreateResumeInfo from "../pages/myresume/CreateResumeInfo";
 import MyRecommedation from "../pages/careerrecommendations/MyRecommedation";
 import StartGoal from "../pages/mygoals/StartGoal";
 import StartResume from "../pages/myresume/StartResume";
+import NewTrasnferSkill from "../pages/NewtrnaferSkill/NewTrasnferSkill";
 
 export const routes = [
   {
@@ -195,5 +196,10 @@ export const routes = [
     title: "StartResume",
     url: "/startResume",
     page: <Applayout page={<StartResume />} />,
+  },
+  {
+    title: "NewTrasnferSkill",
+    url: "/newtrasnferskill",
+    page: <Applayout page={<NewTrasnferSkill />} />,
   },
 ];

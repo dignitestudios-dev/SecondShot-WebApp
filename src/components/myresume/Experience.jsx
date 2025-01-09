@@ -38,12 +38,33 @@ const Experience = ({ nextStep, setFormData, formData }) => {
       },
     ]);
   };
+  const [inputValue, setInputValue] = useState("");
+
+  const handleInput = (event) => {
+    const bullet = "\u2022";
+    const newValue = event.target.value;
+    const newLength = newValue.length;
+    const characterCode = newValue.substr(-1).charCodeAt(0);
+
+    // If the user pressed Enter (newline)
+    if (newValue.endsWith("\n") && !newValue.endsWith(bullet + " \n")) {
+      setInputValue(newValue + bullet + " ");
+    } 
+    // If it's the first character typed, prepend a bullet
+    else if (newLength === 1 && newValue !== inputValue) {
+      setInputValue(`${bullet} ${newValue}`);
+    }
+
+    // Update state for regular typing
+    else {
+      setInputValue(newValue);
+    }
+  };
 
   return (
     <div className="pt-6 px-3">
       <div>
-        <p className="text-[32px] font-[500]">Professional Experience
-        </p>
+        <p className="text-[32px] font-[500]">Professional Experience</p>
         <p className="text-sm  ">
           Narrate your professional endeavours and milestones to showcase your
           skills, achievements, and career progress.
@@ -171,15 +192,19 @@ const Experience = ({ nextStep, setFormData, formData }) => {
 
           <div className="w-full flex flex-col items-start gap-1 my-8">
             <label className="text-sm font-medium">Description</label>
+
+        
             <textarea
               rows="4"
               name="description"
               className="w-full border rounded-xl px-3 py-3 text-sm bg-transparent border-gray-700 focus:ring-gray-700 focus:border-gray-700 outline-gray-700"
-              value={experience.description}
+              // value={experience.description}
               placeholder="Describe your role"
-              onChange={(e) =>
-                handleFieldChange(index, "description", e.target.value)
-              }
+              value={inputValue}
+              onChange={handleInput}
+              // onChange={(e) =>
+              //   handleFieldChange(index, "description", e.target.value)
+              // }
             />
           </div>
         </div>

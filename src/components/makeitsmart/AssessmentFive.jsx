@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Stars } from "../../assets/export";
@@ -8,9 +8,11 @@ import { useNavigate } from "react-router-dom";
 
 const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
   const validationSchema = Yup.object({
-    timebound: Yup.string().required("Please respond before moving forward to proceed with the next step."),
+    timebound: Yup.string().required(
+      "Please respond before moving forward to proceed with the next step."
+    ),
   });
-
+  const [isSmart, setIsSmart] = useState(true);
   const navigate = useNavigate();
 
   return (
@@ -22,7 +24,7 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
         validationSchema={validationSchema}
         onSubmit={(values) => {
           setFormData(values);
-          navigate("/create-goals");
+          navigate("/create-goals", { state: { modalopen: true } });
         }}
       >
         {({ errors, touched }) => (

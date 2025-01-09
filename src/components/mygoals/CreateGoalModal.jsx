@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import AuthInput from "../onboarding/AuthInput";
 import { Calender } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import CustomCalendar from "../calendar/Calender";
 
-const CreateGoalModal = ({ showModal, handleClick, setShowModal,handleClose }) => {
+const CreateGoalModal = ({
+  showModal,
+  handleClick,
+  setShowModal,
+  handleClose,
+}) => {
   const navigate = useNavigate();
   const [isPeople, setIsPeople] = useState(false);
   const [formData, setFormData] = useState({
@@ -28,7 +33,9 @@ const CreateGoalModal = ({ showModal, handleClick, setShowModal,handleClose }) =
     setIsPeople(false);
     navigate("/make-smart");
   };
-
+  const location =useLocation()
+  const isSmart = location.state?.isSmart;
+  console.log(isSmart, "isSmart");
   const [showCalender, setShowCalender] = useState(false);
   const [showSubGoal, setShowSubGoal] = useState(false);
 
@@ -47,7 +54,7 @@ const CreateGoalModal = ({ showModal, handleClick, setShowModal,handleClose }) =
               <div className="flex justify-center mt-3">
                 <div>
                   <h2 className="text-[24px] text-center font-semibold">
-                    Create Goal
+              Create Goal
                   </h2>
                 </div>
               </div>
