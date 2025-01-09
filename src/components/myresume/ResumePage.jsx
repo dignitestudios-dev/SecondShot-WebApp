@@ -1,4 +1,5 @@
 import React from "react";
+import { resumetemplate } from "../../assets/export";
 
 const resumeData = {
   personalDetails: {
@@ -99,8 +100,9 @@ const resumeData = {
 
 const Resume = () => {
   return (
-    <div className="bg-white text-black py-6 px-8 rounded-2xl shadow-md grid grid-cols-3 gap-4">
-      <div className="col-span-2">
+    <div className="">
+      <img src={resumetemplate} alt="" />
+      {/* <div className="col-span-2">
         <p className="text-[45.88px] font-[600] leading-[61.94px]">
           {resumeData.personalDetails.name}
         </p>
@@ -258,7 +260,7 @@ const Resume = () => {
             ))}
           </ul>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
