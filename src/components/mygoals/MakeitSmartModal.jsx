@@ -49,7 +49,7 @@ const MakeitSmartModal = ({ showModal, handleClick, handleClose }) => {
               <div className="flex justify-center mt-3">
                 <div>
                   <h2 className="text-[24px] text-center font-semibold">
-                    Make it S.M.A.R.T
+                   S.M.A.R.T Goal
                   </h2>
                 </div>
               </div>
