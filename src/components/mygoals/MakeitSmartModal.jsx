@@ -5,12 +5,7 @@ import { Calender } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import CustomCalendar from "../calendar/Calender";
 
-const MakeitSmartModal = ({
-  showModal,
-  handleClick,
-  setSmartModal,
-  handleClose,
-}) => {
+const MakeitSmartModal = ({ showModal, handleClick, handleClose }) => {
   const navigate = useNavigate();
   const [isPeople, setIsPeople] = useState(false);
   const [formData, setFormData] = useState({

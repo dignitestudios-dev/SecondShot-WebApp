@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
 import { Creategoalimg } from "../../assets/export";
@@ -12,13 +12,18 @@ const AddGoals = () => {
   const handleNavigate = () => {};
   // const { showModal, setShowModal } = useContext(ModalContext);
   const [showModal, setShowModal] = useState(false);
+
   const [smartModal, setSmartModal] = useState(false);
   const handleModal = () => {
     setShowModal(!showModal);
   };
-  const location =useLocation()
-  const modalopen=location?.state?.modalopen
-console.log(modalopen,"modalopen")
+  const location = useLocation();
+  const modalopen = location?.state?.modalopen;
+  console.log(modalopen, "modalopen");
+
+  useEffect(() => {
+    setSmartModal(modalopen);
+  }, [modalopen]);
   return (
     <div className="max-w-screen-xl min-h-screen mx-auto p-8">
       <Backbutton />
@@ -26,14 +31,13 @@ console.log(modalopen,"modalopen")
         showModal={showModal}
         handleClick={handleModal}
         setShowModal={setShowModal}
-        handleClose={()=>navigate('/review-goals')}
+        handleClose={() => navigate("/review-goals")}
       />
-      {/* <MakeitSmartModal
-        showModal={modalopen}
-        handleClick={()=>setSmartModal(false)}
-        setSmartModal={setSmartModal}
-        handleClose={()=>setSmartModal(false)}
-      /> */}
+      <MakeitSmartModal
+        showModal={smartModal}
+        handleClick={() => setSmartModal(false)}
+        handleClose={() => setSmartModal(false)}
+      />
       <div className="flex justify-between items-start mb-8">
         <h1 className="text-[32px] text-left leading-[43.2px] font-[500] text-[#000000]">
           Create Your Goal
