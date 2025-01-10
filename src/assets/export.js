@@ -76,11 +76,12 @@ import Pro7 from "../assets/pro7.png";
 import Pro8 from "../assets/pro8.png";
 import logonew from "../assets/logonew2.png";
 import empty_img from "../assets/listing_empty_light.svg";
-import skilltop from "../assets/transferSKills/skilltop.png";
-import skillright from "../assets/transferSKills/skillright.png";
-import skillleft from "../assets/transferSKills/skillleft.png";
-import skillbottomright from "../assets/transferSKills/skillbottomright.png";
-import skillbottomleft from "../assets/transferSKills/skillbottomleft.png";
+import CenterSkill from "../assets/transferSKills/centerImg.png";
+import skilltop from "../assets/transferSKills/topskill.png";
+import skillright from "../assets/transferSKills/rightskill.png";
+import skillleft from "../assets/transferSKills/leftskill.png";
+import skillbottomright from "../assets/transferSKills/bottomright.png";
+import skillbottomleft from "../assets/transferSKills/bottomleft.png";
 import cv2 from "../assets/cv2.png";
 import cv3 from "../assets/cv3.png";
 import cv4 from "../assets/cv4.png";
@@ -177,6 +178,7 @@ export {
   skillleft,
   skillright,
   skilltop,
+  CenterSkill,
   cv2,
   cv3,
   cv4,
