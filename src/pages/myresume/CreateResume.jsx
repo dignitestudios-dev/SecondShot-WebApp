@@ -36,6 +36,17 @@ const CreateResume = () => {
     7: cv8,
     8: cv9,
   };
+
+  const preloadImages = () => {
+    Object.values(stepImages).forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  };
+
+  useEffect(() => {
+    preloadImages(); 
+  }, []);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     fullName: "",
