@@ -20,6 +20,9 @@ const NewTrasnferSkill = () => {
   const [bottomLeft, setBottomLeft] = useState(false);
   const [bottomright, setBottomright] = useState(false);
   const { isFirst, setIsFirst } = useContext(ModalContext);
+  const [isActive, setIsActive] = useState(false);
+  const [appear, setAppear] = useState(false);
+  const [cardnote, setCardnote] = useState(false);
   const handleTopSKill = () => {
     setTopSkill((prev) => !prev);
     setBottomLeft(false);
@@ -67,8 +70,6 @@ const NewTrasnferSkill = () => {
     setLeftSkill(false);
     setAppear(false);
   };
-  const [isActive, setIsActive] = useState(false);
-  const [appear, setAppear] = useState(false);
 
   const handleIconClick = () => {
     setIsActive(!isActive);
@@ -117,31 +118,32 @@ const NewTrasnferSkill = () => {
         >
           <div className="absolute text-sm font-medium text-white text-center ">
             <div
-              className="relative cursor-pointer  top-[170px]"
+              className="absolute cursor-pointer bg-transparent h-[70px] text-center rounded-full flex justify-center items-center    top-[150px]"
               onClick={() => setAppear((prev) => !prev)}
             >
               Positioning
+            
             </div>
             <div
-              className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center  top-[50px] right-[200px] "
+              className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center  top-[60px] right-[200px] "
               onClick={() => setAppear((prev) => !prev)}
             >
               Persistence
             </div>
             <div
-              className="relative cursor-pointer top-[-35px]  bg-transparent h-[90px] rounded-full flex justify-center items-center left-[190px] "
+              className="relative cursor-pointer top-[-20px]  bg-transparent h-[90px] rounded-full flex justify-center items-center left-[190px] "
               onClick={() => setAppear((prev) => !prev)}
             >
               Persistence
             </div>
             <div
-              className="relative cursor-pointer bg-transparent h-[70px] top-[50px] flex justify-center items-center rounded-full left-[260px] "
+              className="relative cursor-pointer bg-transparent h-[70px] top-[70px] flex justify-center items-center rounded-full left-[260px] "
               onClick={() => setAppear((prev) => !prev)}
             >
               Persistence
             </div>
             <div
-              className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center  top-[-10px] right-[260px] "
+              className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center  top-[10px] right-[260px] "
               onClick={() => setAppear((prev) => !prev)}
             >
               Grit
@@ -165,9 +167,9 @@ const NewTrasnferSkill = () => {
             className=" h-[175.75px] relative top-[43px] left-[2px]  w-[176.1px] "
             alt=""
           />
-          <div className="text-lg text-center absolute top-[250px] left-[20px] font-medium text-[#0a1723] ">
+          <div className="text-lg text-center absolute top-[250px] left-[20px] font-[600] text-[#0a1723] ">
             Sanethia Thomas
-            <div className="text-[16px]">The Athlete</div>
+            <div className="text-[16px] font-[500]">The Athlete</div>
           </div>
         </div>
         <img src={CenterSkill} className="h-[655.67px]" alt="" />
