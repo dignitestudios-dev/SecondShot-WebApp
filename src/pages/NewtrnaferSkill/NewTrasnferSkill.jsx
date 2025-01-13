@@ -26,8 +26,7 @@ const NewTrasnferSkill = () => {
     setBottomright(false);
     setRightSkill(false);
     setLeftSkill(false);
-    setAppear(false)
-
+    setAppear(false);
   };
 
   const handleLeftSKill = () => {
@@ -36,8 +35,7 @@ const NewTrasnferSkill = () => {
     setBottomLeft(false);
     setBottomright(false);
     setRightSkill(false);
-    setAppear(false)
-
+    setAppear(false);
   };
   const handleRightSKill = () => {
     setRightSkill((prev) => !prev);
@@ -46,8 +44,7 @@ const NewTrasnferSkill = () => {
     setBottomLeft(false);
     setBottomright(false);
     setLeftSkill(false);
-    setAppear(false)
-
+    setAppear(false);
   };
   const handlebottomleft = () => {
     setBottomLeft((prev) => !prev);
@@ -57,8 +54,7 @@ const NewTrasnferSkill = () => {
     setBottomright(false);
     setRightSkill(false);
     setLeftSkill(false);
-    setAppear(false)
-
+    setAppear(false);
   };
   const handlebottomright = () => {
     setBottomright((prev) => !prev);
@@ -69,7 +65,7 @@ const NewTrasnferSkill = () => {
     setBottomLeft(false);
     setRightSkill(false);
     setLeftSkill(false);
-    setAppear(false)
+    setAppear(false);
   };
   const [isActive, setIsActive] = useState(false);
   const [appear, setAppear] = useState(false);
@@ -120,15 +116,36 @@ const NewTrasnferSkill = () => {
           }`}
         >
           <div className="absolute text-sm font-medium text-white text-center ">
-            <div className="relative top-[170px]"  onClick={() => setAppear((prev) => !prev)}>Positioning</div>
-            <div className="relative top-[60px] right-[200px] "  onClick={() => setAppear((prev) => !prev)}>
+            <div
+              className="relative cursor-pointer  top-[170px]"
+              onClick={() => setAppear((prev) => !prev)}
+            >
+              Positioning
+            </div>
+            <div
+              className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center  top-[50px] right-[200px] "
+              onClick={() => setAppear((prev) => !prev)}
+            >
               Persistence
             </div>
-            <div className="relative top-[40px] left-[190px] "  onClick={() => setAppear((prev) => !prev)}>Persistence</div>
-            <div className="relative top-[190px] left-[260px] " onClick={() => setAppear((prev) => !prev)} >
+            <div
+              className="relative cursor-pointer top-[-35px]  bg-transparent h-[90px] rounded-full flex justify-center items-center left-[190px] "
+              onClick={() => setAppear((prev) => !prev)}
+            >
               Persistence
             </div>
-            <div className="relative top-[190px] right-[260px] "  onClick={() => setAppear((prev) => !prev)}>Grit</div>
+            <div
+              className="relative cursor-pointer bg-transparent h-[70px] top-[50px] flex justify-center items-center rounded-full left-[260px] "
+              onClick={() => setAppear((prev) => !prev)}
+            >
+              Persistence
+            </div>
+            <div
+              className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center  top-[-10px] right-[260px] "
+              onClick={() => setAppear((prev) => !prev)}
+            >
+              Grit
+            </div>
           </div>
           <img src={skilltop} className="h-[474px] " alt="" />
         </div>
@@ -148,41 +165,40 @@ const NewTrasnferSkill = () => {
             className=" h-[175.75px] relative top-[43px] left-[2px]  w-[176.1px] "
             alt=""
           />
-          <span className="h-8 flex justify-center text-center items-center  rounded-full  absolute -bottom-4  left-14">
-              <div className="text-lg text-center font-medium text-[#0a1723] ">
-                Sanethia Thomas
-              </div>
-            </span>
+          <div className="text-lg text-center absolute top-[250px] left-[20px] font-medium text-[#0a1723] ">
+            Sanethia Thomas
+            <div className="text-[16px]">The Athlete</div>
+          </div>
         </div>
         <img src={CenterSkill} className="h-[655.67px]" alt="" />
         <div className="absolute ">
           <div
-            className="relative text-[16px]  w-[80px] h-[80px] bg-transparent rounded-full  items-center leading-[16px] flex justify-center text-[#172E55] font-[600] z-10 cursor-pointer top-[-47px] right-[281px] text-center"
+            className="relative text-[16px]  w-[80px] h-[80px] bg-transparent rounded-full  items-center leading-[16px] flex justify-center text-[#172E55] font-[600] z-10 cursor-pointer top-[-47px] right-[284px] text-center"
             onClick={handleLeftSKill}
           >
-           <span className=" w-[20px]"> Goals</span>
+            <span className=" w-[20px]"> Goals</span>
           </div>
         </div>
         <div className="absolute ">
           <div
-            className="relative text-[16px] leading-[16px] w-[20px] flex justify-center text-[#172E55] font-[600] cursor-pointer z-10 top-[-47px] left-[271px] text-center"
+            className="relative text-[16px] leading-[16px]  w-[80px] h-[80px] bg-transparent items-center flex justify-center text-[#172E55] font-[600] cursor-pointer z-10 top-[-47px] left-[251px] text-center"
             onClick={handleRightSKill}
           >
-            Reading
+            <span className=" w-[20px]">Reading</span>
           </div>
         </div>
         <div className="absolute  ">
           <div
-            className="relative text-[16px] leading-[16px] w-[20px] flex justify-center text-[#172E55] font-[600]  cursor-pointer z-10 top-[275px] right-[200px] text-center"
+            className="relative text-[16px] leading-[16px]  w-[80px] h-[80px] bg-transparent items-center flex justify-center text-[#172E55] font-[600]  cursor-pointer z-10 top-[305px] right-[202px] text-center"
             onClick={handlebottomleft}
           >
-            Math
+            <span className=" w-[20px]">Math</span>
           </div>
           <div
-            className="relative text-[16px] leading-[16px] w-[20px] flex justify-center text-[#172E55] font-[600] cursor-pointer z-10 top-[254px] left-[201px] text-center"
+            className="relative text-[16px] leading-[16px]  w-[100px] h-[80px] bg-transparent rounded-full items-center flex justify-center text-[#172E55] font-[600] cursor-pointer z-10 top-[224px] left-[200px] text-center"
             onClick={handlebottomright}
           >
-            Careers
+            <span className=" w-[20px] relative left-[-20px]">Careers</span>
           </div>
         </div>
       </div>
@@ -196,31 +212,31 @@ const NewTrasnferSkill = () => {
         >
           <div className="absolute text-sm font-medium text-white">
             <div
-              className="relative top-[140px] left-[110px]"
+              className="relative top-[140px] cursor-pointer left-[110px]"
               onClick={() => setAppear((prev) => !prev)}
             >
               Leadership
             </div>
             <div
-              className="relative top-[100px] left-[285px] "
+              className="relative top-[100px] cursor-pointer left-[285px] "
               onClick={() => setAppear((prev) => !prev)}
             >
               Teamwork
             </div>
             <div
-              className="relative top-[305px] left-[145px] "
+              className="relative top-[305px] cursor-pointer left-[145px] "
               onClick={() => setAppear((prev) => !prev)}
             >
               Leadership
             </div>
             <div
-              className="relative top-[425px] left-[69px] "
+              className="relative top-[425px] cursor-pointer left-[69px] "
               onClick={() => setAppear((prev) => !prev)}
             >
               Leadership
             </div>
             <div
-              className="relative top-[485px] w-[40px] flex justify-center text-center left-[200px] "
+              className="relative top-[485px] w-[40px] cursor-pointer flex justify-center text-center left-[200px] "
               onClick={() => setAppear((prev) => !prev)}
             >
               Time Management
@@ -237,7 +253,7 @@ const NewTrasnferSkill = () => {
               : "opacity-0 transform scale-95"
           }`}
         >
-          <div className="absolute text-sm font-medium text-white text-center">
+          <div className="absolute cursor-pointer text-sm font-medium text-white text-center">
             <div
               className="relative top-[120px] left-[105px]"
               onClick={() => setAppear((prev) => !prev)}
@@ -245,25 +261,25 @@ const NewTrasnferSkill = () => {
               Focus
             </div>
             <div
-              className="relative top-[100px] left-[340px] w-[50px] "
+              className="relative cursor-pointer top-[100px] left-[340px] w-[50px] "
               onClick={() => setAppear((prev) => !prev)}
             >
               Critical thinking
             </div>
             <div
-              className="relative top-[265px] left-[265px]  w-[50px]"
+              className="relative cursor-pointer top-[265px] left-[265px]  w-[50px]"
               onClick={() => setAppear((prev) => !prev)}
             >
               Critical thinking
             </div>
             <div
-              className="relative top-[395px] left-[335px] w-[50px] "
+              className="relative cursor-pointer top-[395px] left-[335px] w-[50px] "
               onClick={() => setAppear((prev) => !prev)}
             >
               Critical thinking
             </div>
             <div
-              className="relative top-[455px] left-[205px] "
+              className="relative cursor-pointer top-[455px] left-[205px] "
               onClick={() => setAppear((prev) => !prev)}
             >
               Vocabulary
@@ -282,31 +298,31 @@ const NewTrasnferSkill = () => {
         >
           <div className="absolute text-sm font-medium text-white text-center">
             <div
-              className="relative top-[125px] flex justify-center left-[155px] w-[50px]"
+              className="relative cursor-pointer top-[125px] flex justify-center left-[155px] w-[50px]"
               onClick={() => setAppear((prev) => !prev)}
             >
               Detailed Oriented
             </div>
             <div
-              className="relative top-[285px] flex justify-center left-[130px] w-[50px] "
+              className="relative cursor-pointer top-[285px] flex justify-center left-[130px] w-[50px] "
               onClick={() => setAppear((prev) => !prev)}
             >
               Patience{" "}
             </div>
             <div
-              className="relative top-[280px] flex justify-center left-[325px] w-[50px]"
+              className="relative cursor-pointer top-[280px] flex justify-center left-[325px] w-[50px]"
               onClick={() => setAppear((prev) => !prev)}
             >
               Strategic Thinker
             </div>
             <div
-              className="relative top-[400px] flex justify-center left-[435px] w-[50px]"
+              className="relative cursor-pointer top-[400px] flex justify-center left-[435px] w-[50px]"
               onClick={() => setAppear((prev) => !prev)}
             >
               Patience{" "}
             </div>
             <div
-              className="relative top-[275px] flex justify-center left-[598px] w-[50px]"
+              className="relative cursor-pointer top-[275px] flex justify-center left-[598px] w-[50px]"
               onClick={() => setAppear((prev) => !prev)}
             >
               Patience{" "}
@@ -325,32 +341,32 @@ const NewTrasnferSkill = () => {
         >
           <div className="absolute text-sm font-medium text-white ">
             <div
-              className="relative top-[90px] left-[580px] w-[50px] flex justify-center text-center"
+              className="relative cursor-pointer top-[90px] left-[580px] w-[50px] flex justify-center text-center"
               onClick={() => setAppear((prev) => !prev)}
             >
               Education and Training
             </div>
             <div
-              className="relative top-[303px] left-[140px] w-[50px] flex justify-center text-center "
+              className="relative cursor-pointer top-[303px] left-[140px] w-[50px] flex justify-center text-center "
               onClick={() => setAppear((prev) => !prev)}
             >
               {" "}
               Human Resources
             </div>
             <div
-              className="relative top-[215px] left-[420px] w-[50px] flex justify-center text-center"
+              className="relative cursor-pointer top-[215px] left-[420px] w-[50px] flex justify-center text-center"
               onClick={() => setAppear((prev) => !prev)}
             >
               Human Resources
             </div>
             <div
-              className="relative top-[345px] left-[315px]  w-[50px] flex justify-center text-center"
+              className="relative cursor-pointer top-[345px] left-[315px]  w-[50px] flex justify-center text-center"
               onClick={() => setAppear((prev) => !prev)}
             >
               Human Resources
             </div>
             <div
-              className="relative top-[135px] left-[643px] w-[50px] flex justify-center text-center"
+              className="relative cursor-pointer top-[135px] left-[643px] w-[50px] flex justify-center text-center"
               onClick={() => setAppear((prev) => !prev)}
             >
               {" "}
