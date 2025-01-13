@@ -4,14 +4,14 @@ import Footer from "../components/layout/Footer";
 
 const Applayout = ({ page }) => {
   return (
-    <div className="bg-global-img">
+    <div className="bg-global-img  ">
       <div>
         <Navbar />
       </div>
       <div className="max-w-screen-xl  mx-auto  ">
         <div className="max-w-screen-xl px-11 pe-11">{page}</div>
       </div>
-      <div className="pb-5 max-w-screen-xl  mx-auto px-11 pe-11 ">
+      <div className="pb-5   mx-auto px-11 pe-11 ">
         <Footer />
       </div>
     </div>

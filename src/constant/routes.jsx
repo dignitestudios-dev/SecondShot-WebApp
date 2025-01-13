@@ -59,7 +59,7 @@ export const routes = [
   {
     title: "MyTransferableSkills",
     url: "/transferablekills",
-    page: <Applayout page={<MyTransferableSkills />} />,
+    page: <Applayout page={<NewTrasnferSkill />} />,
   },
   {
     title: "Careerrecommendation",
@@ -197,9 +197,5 @@ export const routes = [
     url: "/startResume",
     page: <Applayout page={<StartResume />} />,
   },
-  {
-    title: "NewTrasnferSkill",
-    url: "/newtrasnferskill",
-    page: <Applayout page={<NewTrasnferSkill />} />,
-  },
+
 ];
