@@ -227,7 +227,7 @@ const CreateResume = () => {
               step !== 9 ? "grid grid-cols-2 gap-4" : "grid grid-cols-1"
             }`}
           >
-            <div className="mt-4 h-[820px] overflow-auto no-scrollbar">
+            <div className="mt-4">
               {step === 1 && (
                 <Information
                   nextStep={nextStep}

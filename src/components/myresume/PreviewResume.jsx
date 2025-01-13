@@ -116,7 +116,7 @@ const PreviewResume = ({
           </div>
         )}
       </div>
-      <div className="flex justify-center h-auto">
+      <div className="flex  justify-center">
         <ResumePage />
       </div>
     </div>
