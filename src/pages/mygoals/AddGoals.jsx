@@ -36,7 +36,7 @@ const AddGoals = () => {
       <MakeitSmartModal
         showModal={smartModal}
         handleClick={() => setSmartModal(false)}
-        handleClose={() => setSmartModal(false)}
+        handleClose={() => navigate("/review-goals")}
       />
       <div className="flex justify-between items-start mb-8">
         <h1 className="text-[32px] text-left leading-[43.2px] font-[500] text-[#000000]">

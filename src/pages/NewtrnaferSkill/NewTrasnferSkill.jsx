@@ -148,14 +148,19 @@ const NewTrasnferSkill = () => {
             className=" h-[175.75px] relative top-[43px] left-[2px]  w-[176.1px] "
             alt=""
           />
+          <span className="h-8 flex justify-center text-center items-center  rounded-full  absolute -bottom-4  left-14">
+              <div className="text-lg text-center font-medium text-[#0a1723] ">
+                Sanethia Thomas
+              </div>
+            </span>
         </div>
         <img src={CenterSkill} className="h-[655.67px]" alt="" />
         <div className="absolute ">
           <div
-            className="relative text-[16px] leading-[16px] w-[20px] flex justify-center text-[#172E55] font-[600] z-10 cursor-pointer top-[-47px] right-[271px] text-center"
+            className="relative text-[16px]  w-[80px] h-[80px] bg-transparent rounded-full  items-center leading-[16px] flex justify-center text-[#172E55] font-[600] z-10 cursor-pointer top-[-47px] right-[281px] text-center"
             onClick={handleLeftSKill}
           >
-            Goals
+           <span className=" w-[20px]"> Goals</span>
           </div>
         </div>
         <div className="absolute ">
