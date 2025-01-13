@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   CenterSkill,
   Printimg,
@@ -10,6 +10,8 @@ import {
   skilltop,
 } from "../../assets/export";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
+import TransferableSkillsModal from "../../components/transferableSkills/TransferableSkillsModal";
+import { ModalContext } from "../../context/GlobalContext";
 
 const NewTrasnferSkill = () => {
   const [topSkill, setTopSkill] = useState(false);
@@ -17,7 +19,7 @@ const NewTrasnferSkill = () => {
   const [rightSkill, setRightSkill] = useState(false);
   const [bottomLeft, setBottomLeft] = useState(false);
   const [bottomright, setBottomright] = useState(false);
-
+  const { isFirst, setIsFirst } = useContext(ModalContext);
   const handleTopSKill = () => {
     setTopSkill((prev) => !prev);
     setBottomLeft(false);
@@ -353,6 +355,15 @@ const NewTrasnferSkill = () => {
           <img src={skillbottomright} className="  h-[625px]" alt="" />
         </div>
       )}
+      <TransferableSkillsModal
+        isOpen={isFirst.transferable}
+        handleClick={() => {
+          setIsFirst((prev) => ({
+            ...prev,
+            transferable: false,
+          }));
+        }}
+      />
     </div>
   );
 };
