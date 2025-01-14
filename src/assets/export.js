@@ -93,6 +93,7 @@ import cv9 from "../assets/cv9.png";
 import cv10 from "../assets/cv10.png"; 
 import cv11 from "../assets/cvobecjt.png"; 
 import resumetemplate from "../assets/resumetemplate.png"; 
+import blueresumetem from "../assets/blueresumetem.png"; 
 
 export {
   logo,
@@ -189,5 +190,6 @@ export {
   cv9,
   cv10,
   cv11,
-  resumetemplate
+  resumetemplate,
+  blueresumetem
 };

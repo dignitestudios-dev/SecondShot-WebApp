@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import AuthInput from "../onboarding/AuthInput";
 import MonthsInput from "../Global/MonthsInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
+import { IoIosArrowBack } from "react-icons/io";
 
-const Education = ({ nextStep, setFormData, formData }) => {
+const Education = ({ nextStep, setFormData, formData,prevStep }) => {
   const [educations, setEducations] = useState([
     {
       schoolName: "",
@@ -40,6 +41,12 @@ const Education = ({ nextStep, setFormData, formData }) => {
 
   return (
     <div className="pt-6 px-3">
+        <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
+              <div>
+                <IoIosArrowBack className="font-[600]" onClick={prevStep} />
+              </div>
+              <div onClick={prevStep}>BACK</div>
+            </div>
       <div>
         <p className="text-[32px] font-[500]">Education</p>
         <p className="text-sm">List your degrees you have earned.</p>

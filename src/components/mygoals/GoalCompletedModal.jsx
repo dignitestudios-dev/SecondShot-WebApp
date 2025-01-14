@@ -18,7 +18,7 @@ const GoalCompletedModal = ({
   return (
     <>
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-70">
+        <div className="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm ">
           <div className="bg-white z rounded-xl shadow-custom-shadow w-[500px] p-4 relative">
             <button
               className="absolute top-0 right-2 text-xl text-gray-500 hover:text-gray-600"

@@ -160,12 +160,7 @@ const CreateResume = () => {
         {step !== 9 && (
           <>
             <div>
-              <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
-                <div>
-                  <IoIosArrowBack className="font-[600]" onClick={prevStep} />
-                </div>
-                <div onClick={prevStep}>BACK</div>
-              </div>
+            
             </div>
             <div className="flex justify-between items-start mb-6">
               <h1 className="text-[32px] font-medium text-gray-800">
@@ -222,17 +217,20 @@ const CreateResume = () => {
           </>
         )}
         <div>
+          
           <div
             className={`${
               step !== 9 ? "grid grid-cols-2 gap-4" : "grid grid-cols-1"
             }`}
           >
+            
             <div className="mt-4">
               {step === 1 && (
                 <Information
                   nextStep={nextStep}
                   setFormData={setFormData}
                   formData={formData}
+                  prevStep={prevStep}
                 />
               )}
               {step === 2 && (
@@ -240,6 +238,8 @@ const CreateResume = () => {
                   nextStep={nextStep}
                   setFormData={setFormData}
                   formData={formData}
+                  prevStep={prevStep}
+
                 />
               )}
               {step === 3 && (
@@ -247,6 +247,8 @@ const CreateResume = () => {
                   nextStep={nextStep}
                   setFormData={setFormData}
                   formData={formData}
+                  prevStep={prevStep}
+
                 />
               )}
               {step === 4 && (
@@ -254,6 +256,8 @@ const CreateResume = () => {
                   nextStep={nextStep}
                   setFormData={setFormData}
                   formData={formData}
+                  prevStep={prevStep}
+
                 />
               )}
               {step === 5 && (
@@ -261,6 +265,8 @@ const CreateResume = () => {
                   nextStep={nextStep}
                   setFormData={setFormData}
                   formData={formData}
+                  prevStep={prevStep}
+
                 />
               )}
               {step === 6 && (
@@ -268,6 +274,8 @@ const CreateResume = () => {
                   nextStep={nextStep}
                   setFormData={setFormData}
                   formData={formData}
+                  prevStep={prevStep}
+
                 />
               )}
               {step === 7 && (
@@ -275,6 +283,8 @@ const CreateResume = () => {
                   nextStep={nextStep}
                   setFormData={setFormData}
                   formData={formData}
+                  prevStep={prevStep}
+
                 />
               )}
               {step === 8 && (
@@ -282,6 +292,8 @@ const CreateResume = () => {
                   nextStep={nextStep}
                   setFormData={setFormData}
                   formData={formData}
+                  prevStep={prevStep}
+
                 />
               )}
               {step === 9 && (
@@ -296,6 +308,8 @@ const CreateResume = () => {
                   handleDownloadModal={handleDownloadModal}
                   handleShowPeopleModal={handleShowPeopleModal}
                   handleDeleteModal={handleDeleteModal}
+                  prevStep={prevStep}
+
                 />
               )}
             </div>

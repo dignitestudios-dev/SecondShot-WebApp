@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import AuthInput from "../onboarding/AuthInput";
 import MonthsInput from "../Global/MonthsInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
+import { IoIosArrowBack } from "react-icons/io";
 
-const Volunteer = ({ nextStep, setFormData, formData }) => {
+const Volunteer = ({ nextStep, setFormData, formData,prevStep }) => {
   const [volunteer, setVolunteer] = useState([
     {
       orgName: "",
@@ -38,6 +39,12 @@ const Volunteer = ({ nextStep, setFormData, formData }) => {
 
   return (
     <div className="pt-6 px-3">
+        <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
+              <div>
+                <IoIosArrowBack className="font-[600]" onClick={prevStep} />
+              </div>
+              <div onClick={prevStep}>BACK</div>
+            </div>
       <div>
         <p className="text-[32px] font-medium">Volunteer Experience</p>
         <p className="text-sm">

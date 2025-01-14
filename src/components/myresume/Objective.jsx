@@ -1,7 +1,8 @@
 import React from "react";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
+import { IoIosArrowBack } from "react-icons/io";
 
-const Objective = ({ nextStep, setFormData, formData }) => {
+const Objective = ({ nextStep, setFormData, formData, prevStep }) => {
   const handleFieldChange = (fieldName, value) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -10,6 +11,12 @@ const Objective = ({ nextStep, setFormData, formData }) => {
   };
   return (
     <div className="pt-6 px-3">
+      <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
+        <div>
+          <IoIosArrowBack className="font-[600]" onClick={prevStep} />
+        </div>
+        <div onClick={prevStep}>BACK</div>
+      </div>
       <div>
         <p className="text-[32px] font-[500]"> Objective</p>
         <p className="text-[14px] leading-[21.6px] text-[#000000] font-[400] mt-3 ">

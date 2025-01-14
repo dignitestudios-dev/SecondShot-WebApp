@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import AuthInput from "../onboarding/AuthInput";
 import MonthsInput from "../Global/MonthsInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
+import { IoIosArrowBack } from "react-icons/io";
 // import { months } from "../../data/DropDownData";
 
-const Licenses = ({ nextStep, setFormData, formData }) => {
+const Licenses = ({ nextStep, setFormData, formData,prevStep }) => {
   const [checked, setChecked] = useState(false);
   const [licenses, setLicenses] = useState([
     {
@@ -48,6 +49,12 @@ const Licenses = ({ nextStep, setFormData, formData }) => {
 
   return (
     <div className="pt-6 px-3">
+        <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
+              <div>
+                <IoIosArrowBack className="font-[600]" onClick={prevStep} />
+              </div>
+              <div onClick={prevStep}>BACK</div>
+            </div>
       <div>
         <p className="text-[32px] font-[500]">Licenses & Certifications</p>
         <p className="text-sm">

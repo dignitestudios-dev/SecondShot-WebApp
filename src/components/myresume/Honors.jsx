@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import AuthInput from "../onboarding/AuthInput";
 import MonthsInput from "../Global/MonthsInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
+import { IoIosArrowBack } from "react-icons/io";
 
-const Honors = ({ nextStep, setFormData, formData }) => {
+const Honors = ({ nextStep, setFormData, formData, prevStep }) => {
   const [honor, setHonor] = useState([
     {
       Name: "",
@@ -38,6 +39,12 @@ const Honors = ({ nextStep, setFormData, formData }) => {
 
   return (
     <div className="pt-6 px-3">
+      <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
+        <div>
+          <IoIosArrowBack className="font-[600]" onClick={prevStep} />
+        </div>
+        <div onClick={prevStep}>BACK</div>
+      </div>
       <div>
         <p className="text-[32px] font-[500]">Honors & Awards</p>
         <p className="text-[16px] font-[400] ">
@@ -107,7 +114,9 @@ const Honors = ({ nextStep, setFormData, formData }) => {
           </div>
 
           <div className="w-full flex flex-col items-start gap-1 my-8">
-            <label className="text-sm font-medium">Description <span className="text-[#b1b1b2]" >(Optional)</span> </label>
+            <label className="text-sm font-medium">
+              Description <span className="text-[#b1b1b2]">(Optional)</span>{" "}
+            </label>
             <textarea
               rows="4"
               name="description"

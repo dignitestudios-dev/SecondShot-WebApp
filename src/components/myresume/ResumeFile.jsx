@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Resume1, Resume2 } from "../../assets/export";
+import { blueresumetem, Resume1, Resume2, resumetemplate } from "../../assets/export";
 import { FaEllipsisVertical } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import ResumeDeleteModal from "./DeleteResumeModal";
@@ -56,10 +56,10 @@ const ResumeFile = () => {
               </h2>
               <div class="imageBox cursor-pointer" onClick={()=>handlePdfClick()}>
                 <div class="imageInn">
-                  <img src={Resume2} alt="Default Image" />
+                  <img src={resumetemplate} alt="Default Image" />
                 </div>
                 <div class="hoverImg">
-                  <img src={Resume1} alt="Profile Image" />
+                  <img src={blueresumetem} alt="Profile Image" />
                 </div>
               </div>
             </div>

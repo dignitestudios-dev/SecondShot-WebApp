@@ -2,8 +2,9 @@ import React from "react";
 import SkillsInputField from "./SkillsInputField";
 import AuthInput from "../onboarding/AuthInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
+import { IoIosArrowBack } from "react-icons/io";
 
-const Skills = ({ nextStep, setFormData, formData }) => {
+const Skills = ({ nextStep, setFormData, formData,prevStep }) => {
   const handleFieldChange = (fieldName, value) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -13,6 +14,12 @@ const Skills = ({ nextStep, setFormData, formData }) => {
 
   return (
     <div className="pt-6 px-3">
+        <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
+              <div>
+                <IoIosArrowBack className="font-[600]" onClick={prevStep} />
+              </div>
+              <div onClick={prevStep}>BACK</div>
+            </div>
       <div className="my-6">
         <p className="text-[24px] font-[500]">Soft Skills</p>
         <p className="text-[16px] leading-[21.6px] w-[422px] ">
