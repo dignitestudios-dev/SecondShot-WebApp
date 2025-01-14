@@ -1,8 +1,23 @@
 import React from "react";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
+import { useFormik } from "formik";
+import { objectiveSchema } from "../../Schema/resumeSchema";
+import { objetiveValues } from "../../data/resumefield";
 
 const Objective = ({ nextStep, setFormData, formData, prevStep }) => {
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+    useFormik({
+      initialValues: objetiveValues,
+      validationSchema: objectiveSchema,
+      validateOnChange: true,
+      validateOnBlur: true,
+      onSubmit: (values) => {
+        console.log("Form Submitted", values);
+        nextStep();
+      },
+    });
+
   const handleFieldChange = (fieldName, value) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -35,23 +50,32 @@ const Objective = ({ nextStep, setFormData, formData, prevStep }) => {
           add value to the company.
         </p>
       </div>
-      <div className="w-full flex flex-col items-start gap-1 my-8 pr-12">
-        <label className="text-[14px] leading-[17.85px] font-[500] text-[#181818] ">
-          Description
-        </label>
-        <textarea
-          rows="8"
-          name="objective"
-          type="text"
-          className={`w-full border rounded-lg px-3 py-3 text-sm bg-transparent border-gray-700  focus:ring-gray-700 focus:border-gray-700 outline-gray-700`}
-          value={formData.objective}
-          placeholder="e.g. Seeking a marketing coordinator position where I can apply my content creation and social media skills to drive brand growth and engagement."
-          onChange={(e) => handleFieldChange("objective", e.target.value)}
-        />
-      </div>
-      <div className="w-36">
-        <AuthSubmitBtn text={"Next"} handleSubmit={() => nextStep()} />
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="w-full flex flex-col items-start gap-1 my-8 pr-12">
+          <label className="text-[14px] leading-[17.85px] font-[500] text-[#181818] ">
+            Description
+          </label>
+          <textarea
+            rows="8"
+            name="description"
+            type="text"
+            className={`w-full border rounded-lg px-3 py-3 text-sm bg-transparent border-gray-700  focus:ring-gray-700 focus:border-gray-700 outline-gray-700`}
+            value={values.description}
+            placeholder="e.g. Seeking a marketing coordinator position where I can apply my content creation and social media skills to drive brand growth and engagement."
+            onChange={handleChange}
+            onBlur={handleBlur}
+            id="description"
+          />
+          {errors.description && touched.description ? (
+            <span className="text-red-700 text-sm font-medium">
+              {errors.description}
+            </span>
+          ) : null}
+        </div>
+        <div className="w-36">
+          <AuthSubmitBtn text={"Next"} type={"submit"} />
+        </div>
+      </form>
     </div>
   );
 };

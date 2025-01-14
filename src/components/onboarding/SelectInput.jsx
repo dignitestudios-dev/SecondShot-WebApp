@@ -7,7 +7,7 @@ const SelectInput = ({
   onChange,
   name,
   id,
-  className,
+  onBlur
 }) => {
   return (
     <div className="flex flex-col">
@@ -21,6 +21,7 @@ const SelectInput = ({
         id={id}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
         className="appearance-none w-full  border border-[#535353] rounded-xl px-3 py-3 pr-10 text-sm text-[#181818]  my-1   focus:border-blue-500 outline-none"
       >
         {options.map((option, index) => (

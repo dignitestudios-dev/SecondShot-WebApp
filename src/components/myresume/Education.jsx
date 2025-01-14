@@ -16,7 +16,6 @@ const Education = ({ nextStep, setFormData, formData,prevStep }) => {
     },
   ]);
 
-  // Handle field changes for education
   const handleFieldChange = (index, field, value) => {
     const updatedEducations = [...educations];
     updatedEducations[index][field] = value;
@@ -93,24 +92,10 @@ const Education = ({ nextStep, setFormData, formData,prevStep }) => {
               />
             </div>
           </div>
-          {/* Description */}
-          {/* <div className="w-full flex flex-col items-start gap-1 my-8">
-            <label className="text-sm font-medium">Description</label>
-            <textarea
-              rows="4"
-              name="description"
-              className="w-full border rounded-xl px-3 py-3 text-sm bg-transparent border-gray-700 focus:ring-gray-700 focus:border-gray-700 outline-gray-700"
-              value={education.description}
-              placeholder="Describe your achievements or relevant coursework"
-              onChange={(e) =>
-                handleFieldChange(index, "description", e.target.value)
-              }
-            />
-          </div> */}
+
         </div>
       ))}
 
-      {/* Buttons: Add More and Next */}
       <div className=" flex items-center gap-10">
         <div className="w-36">
           <AuthSubmitBtn text={"Next"} handleSubmit={() => nextStep()} />

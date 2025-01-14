@@ -1,6 +1,6 @@
 import React from "react";
 
-const PhoneInputs = ({ value, handleChange, isAuth }) => {
+const PhoneInputs = ({ value, onChange, isAuth,onBlur ,id,name}) => {
   return (
     <div
       className={`flex items-center p-0 w-full pl-2 outline-none font-[500] focus-within:border-[#0E73D0] 
@@ -27,7 +27,10 @@ const PhoneInputs = ({ value, handleChange, isAuth }) => {
         className="outline-none w-full text-lg placeholder:text-[#181818] placeholder:font-[400] h-[49px]"
         placeholder="123-456-7890"
         value={value}
-        onChange={handleChange}
+        onChange={onChange}
+        onBlur={onBlur}
+        id={id}
+        name={name}
       />
     </div>
   );

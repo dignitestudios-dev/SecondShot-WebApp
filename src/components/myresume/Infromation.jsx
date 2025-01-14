@@ -3,8 +3,25 @@ import AuthInput from "../onboarding/AuthInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { informationValues } from "../../data/resumefield";
+import { informationSchema } from "../../Schema/resumeSchema";
 
 const Information = ({ nextStep, setFormData, formData, prevStep }) => {
+
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+    useFormik({
+      initialValues: informationValues,
+      validationSchema: informationSchema,
+      validateOnChange: true,
+      validateOnBlur: true,
+      onSubmit: (values) => {
+        console.log("Form Submitted", values);
+        nextStep();
+        
+      },
+    });
+
   const handleFieldChange = (fieldName, value) => {
     setFormData((prevData) => ({
       ...prevData,
@@ -18,7 +35,7 @@ const Information = ({ nextStep, setFormData, formData, prevStep }) => {
         <div>
           <IoIosArrowBack
             className="font-[600]"
-            ononClick={() => navigate("/create-resume-info")}
+            onClick={() => navigate("/create-resume-info")}
           />
         </div>
         <div onClick={() => navigate("/create-resume-info")}>BACK</div>
@@ -30,28 +47,66 @@ const Information = ({ nextStep, setFormData, formData, prevStep }) => {
           to make changes.
         </p>
       </div>
-      <div className="w-full flex flex-col items-start gap-1 my-8">
-        <AuthInput placeholder={"Enter Your Name"} text={"Full Name"} />
-      </div>
-      <div className="w-full flex flex-col items-start gap-1 my-8">
-        <AuthInput placeholder={"Enter Your Email"} text={"Email Address"} />
-      </div>
-      <div className="w-full flex flex-col items-start gap-1 my-8">
-        <AuthInput
-          placeholder={"Enter Your Phone Number"}
-          text={"Phone Number"}
-        />
-      </div>
-      <div className="w-full flex flex-col items-start gap-1 my-8">
-        <label className="text-sm font-medium">
-          Address <span className="text-gray-400">(Optional)</span>{" "}
-        </label>
-        <AuthInput placeholder={"Enter Your Address"} />
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="w-full flex flex-col items-start gap-1 my-8">
+          <AuthInput
+            id="fullname"
+            name="fullname"
+            value={values.fullname}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            placeholder={"Enter Your Name"}
+            text={"Full Name"}
+          />
+          {errors.fullname && touched.fullname ? (
+            <span className="text-red-700 text-sm font-medium">
+              {errors.fullname}
+            </span>
+          ) : null}
+        </div>
+        <div className="w-full flex flex-col items-start gap-1 my-8">
+          <AuthInput
+            id="email"
+            name="email"
+            value={values.email}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            placeholder={"Enter Your Email"}
+            text={"Email Address"}
+          />
+          {errors.email && touched.email ? (
+            <span className="text-red-700 text-sm font-medium">
+              {errors.email}
+            </span>
+          ) : null}
+        </div>
+        <div className="w-full flex flex-col items-start gap-1 my-8">
+          <AuthInput
+            id="phoneNumber"
+            name="phoneNumber"
+            value={values.phoneNumber}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            placeholder={"Enter Your Phone Number"}
+            text={"Phone Number"}
+          />
+          {errors.phoneNumber && touched.phoneNumber ? (
+            <span className="text-red-700 text-sm font-medium">
+              {errors.phoneNumber}
+            </span>
+          ) : null}
+        </div>
+        <div className="w-full flex flex-col items-start gap-1 my-8">
+          <label className="text-sm font-medium">
+            Address <span className="text-gray-400">(Optional)</span>{" "}
+          </label>
+          <AuthInput placeholder={"Enter Your Address"} />
+        </div>
 
-      <div className="w-36">
-        <AuthSubmitBtn text={"Next"} handleSubmit={() => nextStep()} />
-      </div>
+        <div className="w-36">
+          <AuthSubmitBtn text={"Next"} type={"submit"} />
+        </div>
+      </form>
     </div>
   );
 };

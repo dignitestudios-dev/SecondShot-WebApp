@@ -14,8 +14,8 @@ const TagsModal = ({
   if (!isOpen) return null;
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredTags = availableTags.filter((tag) =>
-    tag.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredTags = availableTags?.filter((tag) =>
+    tag.toLowerCase()?.includes(searchQuery?.toLowerCase())
   );
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -42,9 +42,7 @@ const TagsModal = ({
                 key={tag}
                 onClick={() => handleTagClick(tag)}
                 className={`w-auto cursor-pointer px-3 py-2 border rounded-lg m-1 text-center ${
-                  selectedTags.includes(tag)
-                    ? "bg-[#56EC17] text-black"
-                    : "bg-tagsBg text-gray-700"
+                  selectedTags === tag ? "bg-[#56EC17] text-black" : "bg-tagsBg text-gray-700"
                 }`}
               >
                 <span>{tag}</span>

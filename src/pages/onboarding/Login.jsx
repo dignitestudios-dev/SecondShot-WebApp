@@ -12,9 +12,25 @@ import AuthInput from "../../components/onboarding/AuthInput";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import ToolboxSection from "../../components/ToolboxSection/ToolboxSection ";
 import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { signInValues } from "../../data/authentication";
+import { signInSchema } from "../../Schema/SignInSchema";
 
 const Login = () => {
   const navigation = useNavigate();
+
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+    useFormik({
+      initialValues: signInValues,
+      validationSchema: signInSchema,
+      validateOnChange: true,
+      validateOnBlur: true,
+      onSubmit: (values) => {
+        console.log("Form Submitted", values);
+        navigation("/home");
+      },
+    });
+
   return (
     <div className=" bg-gradient-to-br from-[#F4F7FC] to-[#E9F5E5] p-4 ">
       <div className=" flex flex-col md:flex-row min-h-screen ">
@@ -35,21 +51,43 @@ const Login = () => {
               Please enter the details below to continue
             </p>
 
-            <form className="space-y-3">
-              <AuthInput type="email" placeholder="Email" />
+            <form className="space-y-3" onSubmit={handleSubmit}>
+              <AuthInput
+                id="email"
+                name="email"
+                type="email"
+                value={values.email}
+                placeholder="Email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {errors.email && touched.email ? (
+                <span className="text-red-700 text-sm font-medium">
+                  {errors.email}
+                </span>
+              ) : null}
 
-              <AuthInput type="password" placeholder="Password" />
+              <AuthInput
+                id="password"
+                name="password"
+                type="password"
+                value={values.password}
+                placeholder="Password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {errors.password && touched.password ? (
+                <span className="text-red-700 text-sm font-medium">
+                  {errors.password}
+                </span>
+              ) : null}
               <p
                 onClick={() => navigation("/forgot")}
                 className="text-[12px] text-[#181818] font-[500] text-right cursor-pointer leading-[16.2px] "
               >
                 Forgot Password
               </p>
-              <AuthSubmitBtn
-                text="Sign In"
-                handleSubmit={() => navigation("/home")}
-                type="button"
-              />
+              <AuthSubmitBtn text="Sign In" type="submit" />
             </form>
 
             <div className="flex justify-center my-6">

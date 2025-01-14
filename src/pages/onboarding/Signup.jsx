@@ -13,19 +13,24 @@ import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import ToolboxSection from "../../components/ToolboxSection/ToolboxSection ";
 import { Link, useNavigate } from "react-router-dom";
 import PhoneInputs from "../../components/onboarding/PhoneInputs";
+import { useFormik } from "formik";
+import { signUpValues } from "../../data/authentication";
+import { signUpSchema } from "../../Schema/signUpSchema";
 
 const SignUpForm = () => {
   const navigation = useNavigate();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [Cpassword, setCPassword] = useState("");
-
-  const handleSignUp = () => {
-    localStorage.setItem("forgot", false);
-    navigation("/email-otp");
-  };
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+    useFormik({
+      initialValues: signUpValues,
+      validationSchema: signUpSchema,
+      validateOnChange: true,
+      validateOnBlur: true,
+      onSubmit: (values) => {
+        console.log("Form Submitted", values);
+        navigation("/email-otp");
+      },
+    });
 
   return (
     <div className=" bg-gradient-to-br from-[#F4F7FC] to-[#E9F5E5] p-4 ">
@@ -47,39 +52,78 @@ const SignUpForm = () => {
               Please enter the details below to continue
             </p>
 
-            <form className="space-y-3">
+            <form className="space-y-3" onSubmit={handleSubmit}>
               <AuthInput
                 type="text"
+                id="fullname"
+                name="fullname"
                 placeholder="Full Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={values.fullname}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
-
+              {errors.fullname && touched.fullname ? (
+                <span className="text-red-700 text-sm font-medium">
+                  {errors.fullname}
+                </span>
+              ) : null}
               <AuthInput
                 type="email"
+                id="email"
+                name="email"
                 placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
-              <PhoneInputs />
+              {errors.email && touched.email ? (
+                <span className="text-red-700 text-sm font-medium">
+                  {errors.email}
+                </span>
+              ) : null}
+              <PhoneInputs
+                onChange={handleChange}
+                onBlur={handleBlur}
+                id="phoneNumber"
+                name="phoneNumber"
+              />
+              {errors.phoneNumber && touched.phoneNumber ? (
+                <span className="text-red-700 text-sm font-medium">
+                  {errors.phoneNumber}
+                </span>
+              ) : null}
               <AuthInput
                 type="password"
+                id="password"
+                name="password"
                 placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
-              <AuthInput
-                type="password"
-                placeholder="Confirm Password"
-                value={Cpassword}
-                onChange={(e) => setCPassword(e.target.value)}
-              />
-              <div className="pt-4">
-                <AuthSubmitBtn
-                  text="Sign Up"
-                  handleSubmit={handleSignUp}
-                  type="button"
+              {errors.password && touched.password ? (
+                <span className="text-red-700 text-sm font-medium">
+                  {errors.password}
+                </span>
+              ) : null}
+              <div className="relative z-10">
+                <AuthInput
+                  type="password"
+                  id="Cpassword"
+                  name="Cpassword"
+                  placeholder="Confirm Password"
+                  value={values.Cpassword}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
+                {errors.Cpassword && touched.Cpassword ? (
+                  <span className="text-red-700 text-sm font-medium">
+                    {errors.Cpassword}
+                  </span>
+                ) : null}
+              </div>
+              <div className="pt-4">
+                <AuthSubmitBtn text="Sign Up" type="submit" />
               </div>
             </form>
 
@@ -129,7 +173,7 @@ const SignUpForm = () => {
 
           <img
             src={BgAuth}
-            className="absolute w-[300px] h-[383px] bottom-0 right-0 rounded-br-[20px]"
+            className="absolute z-0  w-[300px] h-[383px] bottom-0 right-0 rounded-br-[20px]"
             alt="Auth Background"
           />
         </div>

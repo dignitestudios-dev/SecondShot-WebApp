@@ -19,28 +19,26 @@ const TagsInputField = ({
   const closeModal = () => setModalIsOpen(false);
 
   const handleTagClick = (tag) => {
-    setTagsError(false);
-    if (tag === "N/A") {
-      setSelectedTags((prevTags) => (prevTags.includes("N/A") ? [] : ["N/A"]));
+    if (selectedTags === tag) {
+      setSelectedTags(null); // Deselect if the same tag is clicked again
     } else {
-      setSelectedTags((prevTags) =>
-        prevTags.includes(tag)
-          ? prevTags.filter((t) => t !== tag)
-          : [...prevTags.filter((t) => t !== "N/A"), tag]
-      );
+      setSelectedTags(tag); // Set the selected tag
     }
   };
-
+  
   const saveTags = () => {
-    setTags(selectedTags);
+    if (selectedTags) {
+      setTags([selectedTags]); // Save the single selected tag
+    } else {
+      setTags([]); // If no tag is selected, save an empty array
+    }
     closeModal();
   };
-
-  const removeTag = (tagToRemove) => {
-    setTags(tags.filter((tag) => tag !== tagToRemove));
-    setSelectedTags(selectedTags.filter((tag) => tag !== tagToRemove));
+  
+  const removeTag = () => {
+    setTags([]); // Remove the selected tag
+    setSelectedTags(null);
   };
-
   return (
     <div
       className={`flex items-end border ${

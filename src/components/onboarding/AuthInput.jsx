@@ -12,7 +12,10 @@ const AuthInput = ({
   isDisabled = false,
   isAuth = true,
   maxLength,
-  onChange
+  onChange,
+  onBlur,
+  name,
+  id
 }) => {
   const [isPassVisible, setIsPassVisible] = useState(false);
 
@@ -36,13 +39,15 @@ const AuthInput = ({
             disabled={isDisabled}
             maxLength={maxLength}
             placeholder={placeholder}
+            onBlur={onBlur}
+            id={id}
+            name={name}
             // className="w-full text-sm border border-gray-300 focus:border-blue-500
             //  text-[#181818] placeholder:font-normal font-medium px-4 lg:py-3 md:py-2 py-3 my-2 rounded-xl outline-none"
             className={`w-full p-3 outline-none font-[500] focus:border-[#0E73D0]  border border-[#9A9A9A] rounded-[15px] 
               placeholder:text-[16px] placeholder:font-[400] placeholder:text-[#181818] text-[#181818] ${
                 isAuth ? "bg-transparent" : "e"
               } h-full px-3 text-sm font-medium`}
-            {...register}
             onChange={onChange}
           />
 
