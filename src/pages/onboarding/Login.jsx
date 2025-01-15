@@ -14,7 +14,7 @@ import ToolboxSection from "../../components/ToolboxSection/ToolboxSection ";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { signInValues } from "../../data/authentication";
-import { signInSchema } from "../../Schema/SignInSchema";
+import { signInSchema } from "../../Schema/signInSchema";
 
 const Login = () => {
   const navigation = useNavigate();
