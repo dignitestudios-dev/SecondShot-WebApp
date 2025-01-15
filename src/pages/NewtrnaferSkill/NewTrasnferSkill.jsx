@@ -122,7 +122,6 @@ const NewTrasnferSkill = () => {
               onClick={() => setAppear((prev) => !prev)}
             >
               Positioning
-            
             </div>
             <div
               className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center  top-[60px] right-[200px] "
@@ -164,7 +163,7 @@ const NewTrasnferSkill = () => {
         <div className="flex justify-center absolute ">
           <img
             src={Profileimage}
-            className=" h-[175.75px] relative top-[43px] left-[2px]  w-[176.1px] "
+            className=" h-[175.75px] relative top-[43px] left-[2px]  w-[176.1px] rounded-full object-cover"
             alt=""
           />
           <div className="text-lg text-center absolute top-[250px] left-[20px] font-[600] text-[#0a1723] ">

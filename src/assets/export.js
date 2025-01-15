@@ -24,7 +24,7 @@ import Logonav from "../assets/logonav.png";
 import Alertnoti from "../assets/alertnoti.png";
 import Notisuccess from "../assets/notisuccess.png";
 import Expirynoti from "../assets/expirynoti.png";
-import Profileimage from "../assets/profileimage.png";
+import Profileimage from "../assets/centerpro.png";
 import Card1 from "../assets/card1.png";
 import Card2 from "../assets/card2.png";
 import Card3 from "../assets/card3.png";
@@ -90,10 +90,10 @@ import cv6 from "../assets/cv6.png";
 import cv7 from "../assets/cv7.png";
 import cv8 from "../assets/cv8.png";
 import cv9 from "../assets/cv9.png";
-import cv10 from "../assets/cv10.png"; 
-import cv11 from "../assets/cvobecjt.png"; 
-import resumetemplate from "../assets/resumetemplate.png"; 
-import blueresumetem from "../assets/blueresumetem.png"; 
+import cv10 from "../assets/cv10.png";
+import cv11 from "../assets/cvobecjt.png";
+import resumetemplate from "../assets/resumetemplate.png";
+import blueresumetem from "../assets/blueresumetem.png";
 
 export {
   logo,
@@ -191,5 +191,5 @@ export {
   cv10,
   cv11,
   resumetemplate,
-  blueresumetem
+  blueresumetem,
 };
