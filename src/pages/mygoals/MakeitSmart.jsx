@@ -1,0 +1,190 @@
+import React, { useState } from "react";
+import { BgAuth, Leftimg } from "../../assets/export";
+import AssessmentModal from "../../components/careerrecommendation/AssesmentModal";
+import AssessmentOne from "../../components/makeitsmart/AssesmentOne";
+import AssessmentTwo from "../../components/makeitsmart/AssessmentTwo";
+import AssessmentThree from "../../components/makeitsmart/AssessmentThree";
+import AssessmentFour from "../../components/makeitsmart/AssessmentFour";
+import AssessmentFive from "../../components/makeitsmart/AssessmentFive";
+import { useLocation } from "react-router-dom";
+
+const MakeitSmart = () => {
+  const [congrats, setCongrats] = useState(false);
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+    impSkill: "",
+    excelSkill: "",
+    improveSkill: "",
+    likeSkill: "",
+    topSkill: "",
+    preferReading: "",
+    preferScience: "",
+    workingHands: "",
+    workInside: "",
+    mathGame: "",
+    workAlone: "",
+    buildPlan: "",
+    goWithFlow: "",
+    publicSpeak: "",
+    writing: "",
+    leader: "",
+    teamWork: "",
+    physicalChallenge: "",
+    stepByStep: "",
+    keepTrying: "",
+    teachOthers: "",
+    competitive: "",
+    spotLight: "",
+    creative: "",
+  });
+
+  // For Modal
+  const [showModalassestment, setShowModal] = useState(false);
+  const handleModal = () => {
+    setShowModal(!showModal);
+    setFormData({
+      impSkill: "",
+      excelSkill: "",
+      improveSkill: "",
+      likeSkill: "",
+      topSkill: "",
+      preferReading: "",
+      preferScience: "",
+      workingHands: "",
+      workInside: "",
+      mathGame: "",
+      workAlone: "",
+      buildPlan: "",
+      goWithFlow: "",
+      publicSpeak: "",
+      writing: "",
+      leader: "",
+      teamWork: "",
+      physicalChallenge: "",
+      stepByStep: "",
+      keepTrying: "",
+      teachOthers: "",
+      competitive: "",
+      spotLight: "",
+      creative: "",
+    });
+  };
+
+  const nextStep = () => {
+    setStep(step + 1);
+  };
+
+  const prevStep = () => {
+    setStep(step - 1);
+  };
+  const handleAssessmentForm = (values) => {
+    setCongrats(true);
+    setShowModal(!showModal);
+  };
+  const location = useLocation();
+  const { showModal } = location.state || {}; 
+
+  console.log(showModal,"ss")
+
+  return (
+    <div className="    ">
+      <img src={Leftimg} alt="logo" className="absolute top-0 left-0 w-[20%]" />
+      <div className="max-w-screen-xl mx-auto p-8">
+        <AssessmentModal
+          showModal={showModalassestment}
+          step={setStep}
+          onclick={handleModal}
+          setShowModal={setShowModal}
+        />
+
+        <div className="grid grid-cols-1 my-6">
+          <div className="flex justify-center items-center mt-24 ">
+            <div className="w-[50%]">
+              <div className="px-10">
+                <h1 className="text-[38px] leading-9 text-[#000000] font-semibold text-center mb-2">
+                  Create S.M.A.R.T Goal
+                </h1>
+              </div>
+              <div className="flex justify-between mt-6">
+                <p className="text-xs font-medium">Steps</p>
+                <p className="text-xs font-medium">
+                  {step.toString().padStart(2, "0")}/5
+                </p>
+              </div>
+
+              <div className="flex justify-between mt-2">
+                {Array.from({ length: 5 }, (_, index) => (
+                  <div
+                    key={index}
+                    className={`h-1 flex-1 ${
+                      index === 0
+                        ? "rounded-l-full"
+                        : index === 23
+                        ? "rounded-r-full"
+                        : ""
+                    } ${
+                      index < step ? "bg-[#012C57] mx-[1px]" : "bg-[#EFF2F4]"
+                    }`}
+                  ></div>
+                ))}
+              </div>
+              <div className="mt-4">
+                {step === 1 && (
+                  <AssessmentOne
+                    nextStep={nextStep}
+                    setFormData={setFormData}
+                    formData={formData}
+                    showModal={showModal}
+                  />
+                )}
+                {step === 2 && (
+                  <AssessmentTwo
+                    prevStep={prevStep}
+                    nextStep={nextStep}
+                    setFormData={setFormData}
+                    formData={formData}
+                    setStep={setStep}
+                  />
+                )}
+                {step === 3 && (
+                  <AssessmentThree
+                    prevStep={prevStep}
+                    nextStep={nextStep}
+                    setFormData={setFormData}
+                    formData={formData}
+                    setStep={setStep}
+                  />
+                )}
+                {step === 4 && (
+                  <AssessmentFour
+                    prevStep={prevStep}
+                    nextStep={nextStep}
+                    setFormData={setFormData}
+                    formData={formData}
+                    setStep={setStep}
+                  />
+                )}
+                {step === 5 && (
+                  <AssessmentFive
+                    prevStep={prevStep}
+                    nextStep={nextStep}
+                    setFormData={setFormData}
+                    formData={formData}
+                    setStep={setStep}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <img
+        src={BgAuth}
+        alt="logo"
+        className="absolute -bottom-6 -right-8 w-[20%]"
+      />
+    </div>
+  );
+};
+
+export default MakeitSmart;

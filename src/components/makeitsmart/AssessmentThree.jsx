@@ -1,0 +1,103 @@
+import React from "react";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import { Stars } from "../../assets/export";
+import AuthSubmitBtn from "../onboarding/AuthBtn";
+import { IoIosArrowBack } from "react-icons/io";
+
+const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
+  const validationSchema = Yup.object({
+    achievable: Yup.string().required("Please respond before moving forward to proceed with the next step."),
+  });
+
+  return (
+    <div>
+      <Formik
+        initialValues={{
+          achievable: formData.achievable || "",
+        }}
+        validationSchema={validationSchema}
+        onSubmit={(values) => {
+          setFormData(values);
+          nextStep();
+        }}
+      >
+        {({ errors, touched }) => (
+          <Form>
+            <div className="mb-4">
+              <label
+                className="block text-sm font-medium mb-2"
+                htmlFor="achievable"
+              >
+                Achievable
+              </label>
+              <p className=" text-[14px] text-[#000000] font-[400] w-[503px] ">
+                When something is achievable, it means it’s something you can
+                do. It’s like setting a goal that’s just right—not too easy but
+                not too hard. Here’s how to check if a goal is achievable if it
+                answers the following questions:
+              </p>
+              <div className="flex   items-center gap-4 mt-3 mb-3">
+                {[
+                  "Do I have what I need to do this?  ",
+                  "Do I have what I need to do this? ?",
+                ]?.map((item, index) => (
+                  <div key={index} className="flex items-center">
+                    <img
+                      src={Stars}
+                      className="w-[15.89px] h-[12.93px] "
+                      alt=""
+                    />
+                    <span className="text-[14px] leading-[18.9px] text-[#012C57] font-[500] ">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex items-center mb-3">
+                <img src={Stars} className="w-[15.89px] h-[12.93px] " alt="" />
+                <span className="text-[14px] leading-[18.9px] text-[#012C57] font-[500] ">
+                  Is it too big or too small?
+                </span>
+              </div>
+              <Field
+                as="input"
+                id="achievable"
+                name="achievable"
+                placeholder="Describe Here"
+                className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
+                   bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                     errors.achievable && touched.achievable
+                       ? "border-red-500"
+                       : ""
+                   }`}
+              />
+              <ErrorMessage
+                name="achievable"
+                component="div"
+                className="text-red-500 text-xs italic"
+              />
+            </div>
+            <div className="flex justify-center pt-4">
+              <div className="w-[343px]">
+                <AuthSubmitBtn text={"Next"} type={"submit"} />
+              </div>
+            </div>
+            <div className="flex justify-center mt-4">
+              <div>
+                <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
+                  <div>
+                    <IoIosArrowBack className="font-[600]" />
+                  </div>
+                  <div onClick={() => setStep(2)}>BACK</div>
+                </div>
+              </div>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
+};
+
+export default AssessmentThree;
