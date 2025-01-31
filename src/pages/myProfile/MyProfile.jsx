@@ -14,9 +14,11 @@ import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import InviteFriendModal from "../../components/myProfile/InviteFriendModal";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "../../axios";
+import ProfileSkeleton from "../../components/loader/ProfileSkeleton";
 function MyProfile() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("profile");
+  const [loading, setloading] = useState(false);
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] =
     useState(false);
   const [isChangePaymentMethodModalOpen, setIsChangePaymentMethodModalOpen] =
@@ -27,10 +29,12 @@ function MyProfile() {
     navigate("/edit-registration-question");
     localStorage.setItem("isEditSkill", true);
   };
+
   const [inviteOpen, setInviteOpen] = useState(false);
   const { logout } = useContext(AuthContext);
-  const [profile, setProfile] = useState("");
+  const [profileData, setProfile] = useState("");
   const getProfile = async () => {
+    setloading(true);
     try {
       const response = await axios.get("/api/user/my-profile");
       if (response.status === 200) {
@@ -42,7 +46,6 @@ function MyProfile() {
       setloading(false);
     }
   };
-  console.log(profile, "profileprofile");
 
   useEffect(() => {
     getProfile();
@@ -97,40 +100,51 @@ function MyProfile() {
                     My Profile
                   </h1>
                   <button
-                    onClick={() => navigate("/edit-profile-details")}
+                    onClick={() =>
+                      navigate("/edit-profile-details", {
+                        state: profileData,
+                      })
+                    }
                     className="flex  items-center space-x-2 text-white   bg-gradient-to-l from-[#012C57] to-[#061523] px-4 py-2 rounded-md shadow-sm w-[116px] h-[40px] text-center"
                   >
                     <span>Edit Profile</span>
                   </button>
                 </div>
-
-                <div className="flex flex-wrap items-center mb-8">
-                  <img
-                    src={Profileimage}
-                    alt="User Avatar"
-                    className="h-24 w-24 rounded-full shadow-lg mr-6"
-                  />
-                  <div>
-                    <h2 className="text-[20px] font-[600] text-[#050405] text-left">
-                     {profile?.name}
-                    </h2>
-                    <p mailto:classname="text-[#050405] mt-5 text-[16px] ">
-                    {profile?.email}
-                    </p>
-                  </div>
-                  <div className="ml-auto text-right">
-                    <p className="text-[#050405] text-[16px] ">{profile?.phone}</p>
-                    <p className="text-[#050405] text-[16px] mb-3">
-                      Toronto, Canada
-                    </p>
-                    <p className="text-[#222222] font-[500] text-[16px] leading-[21.6px] ">
-                      Visit our website
-                    </p>
-                    <p className="text-[#222222] font-[400] text-[16px] leading-[21.6px] underline ">
-                      www.secondshot.com/56et
-                    </p>
-                  </div>
-                </div>
+                {loading ? (
+                  <ProfileSkeleton />
+                ) : (
+                  <>
+                    <div className="flex flex-wrap items-center mb-8">
+                      <img
+                        src={profileData?.profile_img}
+                        alt="User Avatar"
+                        className="h-24 w-24 rounded-full shadow-lg mr-6"
+                      />
+                      <div>
+                        <h2 className="text-[20px] font-[600] text-[#050405] text-left">
+                          {profileData?.name}
+                        </h2>
+                        <p mailto:classname="text-[#050405] mt-5 text-[16px] ">
+                          {profileData?.email}
+                        </p>
+                      </div>
+                      <div className="ml-auto text-right">
+                        <p className="text-[#050405] text-[16px] ">
+                          {profileData?.phone}
+                        </p>
+                        <p className="text-[#050405] text-[16px] mb-3">
+                          Toronto, Canada
+                        </p>
+                        <p className="text-[#222222] font-[500] text-[16px] leading-[21.6px] ">
+                          Visit our website
+                        </p>
+                        <p className="text-[#222222] font-[400] text-[16px] leading-[21.6px] underline ">
+                          www.secondshot.com/56et
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                )}
                 <hr />
                 <div className="flex items-center justify-between gap-3 mt-5">
                   <div className="flex gap-3">

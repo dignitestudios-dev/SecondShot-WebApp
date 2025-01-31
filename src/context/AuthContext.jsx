@@ -14,7 +14,8 @@ const AuthProvider = ({ children }) => {
   //     idToken: Cookies.get("idToken") || "",
   //   });
 
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(Cookies.get("token"));
+  const [regQuestion, setRegQuestion] = useState(Cookies.get("regQuestion"));
 
   const login = (userData) => {
     console.log(userData, "ajjaja");
@@ -22,10 +23,12 @@ const AuthProvider = ({ children }) => {
     // Cookies.set("email", userData.email);
     // Cookies.set("phone", userData.phone);
     // Cookies.set("idToken", userData.idToken);
-    Cookies.set("token", userData.token);
+    Cookies.set("token", userData?.token);
+    Cookies.set("regQuestion", userData?.is_registration_question_completed);
 
     // setUser(userData);
-    setToken(userData.token);
+    setToken(userData?.token);
+    setRegQuestion(userData?.is_registration_question_completed);
   };
 
   const logout = () => {
@@ -38,6 +41,7 @@ const AuthProvider = ({ children }) => {
     login,
     logout,
     token,
+    regQuestion,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

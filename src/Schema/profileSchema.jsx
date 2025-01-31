@@ -1,13 +1,31 @@
 import * as Yup from "yup";
 
 export const profileSchema = Yup.object({
-  country: Yup.string().required("Please select your country."),
+  country: Yup.string().required("Please select your city."),
 
-  state: Yup.string().required("Please select your city."),
+  state: Yup.string().required("Please select your state."),
 
   address: Yup.string().required("Please enter your address."),
   profilePicture: Yup.mixed()
     .required("Profile picture is required")
+    .test(
+      "fileType",
+      "Only PNG, JPEG, and JPG formats are allowed",
+      (value) =>
+        !value ||
+        (value && ["image/png", "image/jpeg", "image/jpg"].includes(value.type))
+    ),
+});
+
+export const EditProfileSchema = Yup.object({
+  fullname: Yup.string().required("Please enter your fullname."),
+  country: Yup.string().required("Please select your city."),
+
+  state: Yup.string().required("Please select your state."),
+
+  address: Yup.string().required("Please enter your address."),
+  profilePicture: Yup.mixed()
+    .notRequired("Profile picture is required")
     .test(
       "fileType",
       "Only PNG, JPEG, and JPG formats are allowed",

@@ -1,9 +1,16 @@
 import React from "react";
 
-const PhoneInputs = ({ value, onChange, isAuth, onBlur, id, name , isDisabled = false}) => {
-  // Handle input change to allow only numbers
+const PhoneInputs = ({
+  value,
+  onChange,
+  isAuth,
+  onBlur,
+  id,
+  name,
+  isDisabled = false,
+}) => {
   const handlePhoneChange = (e) => {
-    const formattedValue = e.target.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+    const formattedValue = e.target.value.replace(/[^0-9]/g, "");
     onChange({
       target: {
         name: e.target.name,
@@ -12,10 +19,9 @@ const PhoneInputs = ({ value, onChange, isAuth, onBlur, id, name , isDisabled = 
     });
   };
 
-  // Prevent non-numeric characters from being typed
   const handleKeyPress = (e) => {
     if (!/[0-9]/.test(e.key)) {
-      e.preventDefault(); // Prevent the keypress if it's not a number
+      e.preventDefault();
     }
   };
 
@@ -49,7 +55,7 @@ const PhoneInputs = ({ value, onChange, isAuth, onBlur, id, name , isDisabled = 
         onBlur={onBlur}
         onKeyPress={handleKeyPress}
         id={id}
-        maxLength={12}
+        maxLength={10}
         name={name}
         disabled={isDisabled}
       />

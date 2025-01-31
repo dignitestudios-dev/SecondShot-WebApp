@@ -20,7 +20,9 @@ const ProfileDetails = () => {
   const [loading, setLoading] = useState(false);
   const fullname = sessionStorage.getItem("fullname");
   const email = sessionStorage.getItem("email");
-  const phoneNumber = sessionStorage.getItem("phoneNumber");
+  const phoneNumber = sessionStorage
+    .getItem("phoneNumber")
+    ?.replace(/^\+1/, "");
 
   const {
     values,
@@ -58,6 +60,10 @@ const ProfileDetails = () => {
         if (response.status === 200) {
           SuccessToast("Profile Created successfully");
           navigation("/registration-question");
+          if (values.profilePicture) {
+            const profileImageUrl = URL.createObjectURL(values.profilePicture);
+            sessionStorage.setItem("profilePicture", profileImageUrl);
+          }
         }
       } catch (err) {
         ErrorToast(err?.response?.data?.message || "Failed to submit form");

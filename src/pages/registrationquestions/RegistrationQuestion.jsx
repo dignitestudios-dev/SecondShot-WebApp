@@ -72,11 +72,14 @@ const RegistrationQuestion = () => {
     highest_degree_completion: formData?.highestDegree,
     is_eighteen_or_older: formData?.ageValue === "Yes" ? true : false,
     has_military_service: formData?.militaryService === "Yes" ? true : false,
-    branch_of_service: formData?.militaryService === "Yes" ? formData?.militaryOption : null,
-    rank: formData?.militaryService === "Yes" ? formData?.rankOptions : null,    
+    branch_of_service:
+      formData?.militaryService === "Yes" ? formData?.militaryOption : null,
+    rank: formData?.militaryService === "Yes" ? formData?.rankOptions : null,
     is_athlete: formData?.isAthlete === "Yes" ? true : false,
-    primary_sport:formData?.isAthlete === "Yes" ?  formData?.athleteOption :null,
-    sport_position: formData?.isAthlete === "Yes" ?  formData?.sportsOption : null,
+    primary_sport:
+      formData?.isAthlete === "Yes" ? formData?.athleteOption : null,
+    sport_position:
+      formData?.isAthlete === "Yes" ? formData?.sportsOption : null,
     favorite_hobby1: formData?.hobbieOptions,
     favorite_hobby2: formData?.hobbieOptions2,
     favorite_middle_school_subject: formData?.subjectOptions,
@@ -96,7 +99,7 @@ const RegistrationQuestion = () => {
       if (response.status === 200) {
         SuccessToast("Successfully Create Registration Questions");
         navigate("/home");
-      } 
+      }
     } catch (error) {
       ErrorToast("Axios Error:", error.message);
     } finally {

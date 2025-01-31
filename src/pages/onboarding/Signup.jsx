@@ -35,29 +35,33 @@ const SignUpForm = () => {
   const [newUser, setNewUser] = useState("");
 
   const sendDataToBackend = async (values, token) => {
-   
     if (!token) {
       ErrorToast("Token is missing. Cannot proceed.");
       return;
     }
-  
+
     setLoading(true);
     try {
+      let formattedPhoneNumber = values?.phoneNumber.startsWith("+1")
+        ? values?.phoneNumber
+        : `+1${values?.phoneNumber}`;
+
+
       let obj = {
         name: values?.fullname,
         email: values?.email,
-        phone: values?.phoneNumber,
+        phone: formattedPhoneNumber,
         password: values?.password,
         confirm_password: values?.Cpassword,
         idToken: token,
       };
-  
+
       const response = await axios.post("/api/auth/sign-up", obj);
-  
+
       if (response.status === 201 || response.status === 200) {
         sessionStorage.setItem("email", values?.email);
         sessionStorage.setItem("fullname", values?.fullname);
-        sessionStorage.setItem("phoneNumber", values?.phoneNumber);
+        sessionStorage.setItem("phoneNumber", formattedPhoneNumber);
         SuccessToast("SignUp Successfully");
         navigation("/email-otp");
       } else {
@@ -65,7 +69,7 @@ const SignUpForm = () => {
       }
     } catch (err) {
       ErrorToast(err?.response?.data?.message || "Server error occurred");
- 
+
       if (newUser?.user) {
         try {
           await newUser.user.delete();
@@ -79,7 +83,6 @@ const SignUpForm = () => {
       setLoading(false);
     }
   };
-  
 
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
@@ -90,12 +93,16 @@ const SignUpForm = () => {
       onSubmit: async (values) => {
         setLoading(true);
         try {
-          const newUserResponse = await createUserWithEmailAndPassword(auth, values?.email, "Test@123");
+          const newUserResponse = await createUserWithEmailAndPassword(
+            auth,
+            values?.email,
+            "Test@123"
+          );
           const user = newUserResponse.user;
           setNewUser(newUserResponse);
-      
+
           const token = await getIdToken(user);
-      
+
           if (token) {
             await sendDataToBackend(values, token);
           } else {
@@ -104,10 +111,14 @@ const SignUpForm = () => {
         } catch (error) {
           if (error?.message?.includes("auth/email-already-in-use")) {
             try {
-              const userCredential = await signInWithEmailAndPassword(auth, values?.email, "Test@123");
+              const userCredential = await signInWithEmailAndPassword(
+                auth,
+                values?.email,
+                "Test@123"
+              );
               const user = userCredential?.user;
               const token = await getIdToken(user);
-      
+
               if (token) {
                 await sendDataToBackend(values, token);
               } else {
@@ -123,7 +134,6 @@ const SignUpForm = () => {
           setLoading(false);
         }
       },
-      
     });
 
   return (
@@ -177,6 +187,7 @@ const SignUpForm = () => {
                 onBlur={handleBlur}
                 id="phoneNumber"
                 name="phoneNumber"
+                
               />
               {errors.phoneNumber && touched.phoneNumber ? (
                 <span className="text-red-700 text-sm font-medium">

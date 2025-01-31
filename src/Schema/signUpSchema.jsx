@@ -12,8 +12,8 @@ export const signUpSchema = Yup.object({
 
   phoneNumber: Yup.string()
     .matches(
-      /^[0-12]{12}$/,
-      "Phone number must be exactly 12 digits."
+      /^[0-9]{10}$/,
+      "Phone number must be exactly 10 digits."
     )
     .required("Please enter your phone number"),
 
