@@ -34,28 +34,34 @@ const Login = () => {
       validateOnChange: true,
       validateOnBlur: true,
       onSubmit: async (values) => {
+        setLoading(true);
+      
         try {
           let obj = {
             email: values.email,
             password: values.password,
           };
-
+      
           const response = await axios.post("/api/auth/login", obj);
-
+      
           if (response.status === 200) {
             login(response.data);
             sessionStorage.setItem("email", values?.email);
-
-            if (response.data.is_subscription_paid === true) {
-              if (response.data.is_profile_completed === true) {
-                navigation("/home");
+      
+            if (response?.data.is_subscription_paid) {
+              if (response?.data.is_profile_completed) {
+                if (response?.data.is_registration_question_completed) {
+                  navigation("/home");
+                } else {
+                  navigation("/registration-question");
+                }
               } else {
                 navigation("/profiledetail");
               }
             } else {
               navigation("/subscriptionplans");
             }
-
+      
             SuccessToast("Logged in successfully");
           }
         } catch (err) {
@@ -64,7 +70,7 @@ const Login = () => {
           setLoading(false);
         }
       },
-    });
+    })      
 
   return (
     <div className=" bg-gradient-to-br from-[#F4F7FC] to-[#E9F5E5] p-4 ">
@@ -122,7 +128,7 @@ const Login = () => {
               >
                 Forgot Password
               </p>
-              <AuthSubmitBtn text="Sign In" type="submit" />
+              <AuthSubmitBtn text="Sign In" type="submit" loading={loading} />
             </form>
 
             <div className="flex justify-center my-6">
