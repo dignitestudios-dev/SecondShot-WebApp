@@ -41,20 +41,28 @@ const Login = () => {
           };
 
           const response = await axios.post("/api/auth/login", obj);
+
           if (response.status === 200) {
             login(response.data);
             sessionStorage.setItem("email", values?.email);
 
+            if (response.data.is_subscription_paid === true) {
+              if (response.data.is_profile_completed === true) {
+                navigation("/home");
+              } else {
+                navigation("/profiledetail");
+              }
+            } else {
+              navigation("/subscriptionplans");
+            }
+
             SuccessToast("Logged in successfully");
-            navigation("/home", "Home");
-            setLoading(false);
           }
         } catch (err) {
           ErrorToast(err?.response?.data?.message);
         } finally {
           setLoading(false);
         }
-        // navigation("/home");
       },
     });
 

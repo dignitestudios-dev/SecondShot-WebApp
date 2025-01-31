@@ -61,7 +61,7 @@ const SignUpForm = () => {
         SuccessToast("SignUp Successfully");
         navigation("/email-otp");
       } else {
-        ErrorToast(response?.data?.error || "Unknown error occurred");
+        ErrorToast("Email Already Exist");
       }
     } catch (err) {
       ErrorToast(err?.response?.data?.message || "Server error occurred");
