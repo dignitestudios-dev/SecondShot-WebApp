@@ -5,7 +5,8 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import BackBtn from "../onboarding/BackBtn";
 import { useNavigate } from "react-router-dom";
 
-const StepTen = ({ handleRegistration, prevStep, formData, setFormData }) => {
+const StepTen = ({ handleRegistration, prevStep, formData, setFormData,loading }) => {
+  console.log(formData, "FormData");
   const validationSchema = Yup.object({
     desireCareer: Yup.string().required("This field cannot be left empty."),
   });
@@ -15,7 +16,7 @@ const StepTen = ({ handleRegistration, prevStep, formData, setFormData }) => {
     setFormData({ ...formData, desireCareer: value });
     setFieldTouched("desireCareer", true);
   };
-  const navigate =useNavigate()
+  const navigate = useNavigate();
 
   return (
     <Formik
@@ -60,7 +61,12 @@ const StepTen = ({ handleRegistration, prevStep, formData, setFormData }) => {
           </div>
           <div className="flex justify-center pt-4">
             <div className="w-[343px]">
-              <AuthSubmitBtn text={"Next"} type={"submit"} handleSubmit={()=>navigate('/congrats-message')} />
+              <AuthSubmitBtn
+                text={"Next"}
+                type={"submit"} 
+                loading={loading}
+                // handleSubmit={() => navigate("/congrats-message")}
+              />
             </div>
           </div>
           <div className="mt-4">

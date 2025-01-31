@@ -44,6 +44,10 @@ const CreateResume = () => {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
+  //Skipping State:
+  const [isSkipped, setIsSkipped] = useState(false);
+
   const stepImages = {
     1: step1,
     2: step2,
@@ -229,6 +233,8 @@ const CreateResume = () => {
             </div>
           </>
         )}
+
+        
         <div>
           <div
             className={`${
@@ -258,6 +264,8 @@ const CreateResume = () => {
                   setFormData={setFormData}
                   formData={formData}
                   prevStep={prevStep}
+                  isSkipped={isSkipped}
+                  setIsSkipped={setIsSkipped}
                 />
               )}
               {step === 4 && (
@@ -265,6 +273,7 @@ const CreateResume = () => {
                   nextStep={nextStep}
                   setFormData={setFormData}
                   formData={formData}
+                  setIsSkipped={setIsSkipped}
                   prevStep={prevStep}
                 />
               )}
@@ -274,6 +283,7 @@ const CreateResume = () => {
                   setFormData={setFormData}
                   formData={formData}
                   prevStep={prevStep}
+                  setIsSkipped={setIsSkipped}
                 />
               )}
               {step === 6 && (
@@ -297,6 +307,7 @@ const CreateResume = () => {
                   nextStep={nextStep}
                   setFormData={setFormData}
                   formData={formData}
+                  isSkipped={isSkipped}
                   prevStep={prevStep}
                 />
               )}
@@ -313,15 +324,12 @@ const CreateResume = () => {
                   handleShowPeopleModal={handleShowPeopleModal}
                   handleDeleteModal={handleDeleteModal}
                   prevStep={prevStep}
+                  setStep={setStep}
+                  isSkipped={isSkipped}
                 />
               )}
             </div>
-            {step !== 9 && (
-             <SideResume
-             step={step}
-             
-             />
-            )}
+            {step !== 9 && <SideResume step={step} />}
           </div>
         </div>
       </>

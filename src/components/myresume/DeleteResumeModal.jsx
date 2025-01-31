@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { DeleteIcon } from "../../assets/export";
 import GrayBtn from "../onboarding/grayBtn";
 
-const ResumeDeleteModal = ({ showModal, onclick }) => {
+const ResumeDeleteModal = ({ showModal, onclick ,resumeId ,handleDelete}) => {
+  
   return (
     showModal && (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -32,7 +33,10 @@ const ResumeDeleteModal = ({ showModal, onclick }) => {
           <div className="flex justify-between">
             <GrayBtn text={"Cancel"} handleSubmit={() => onclick()} />
             <button
-              onClick={() => onclick()}
+              onClick={() => {
+                handleDelete(resumeId)
+                onclick()
+              }}
               className="w-full py-3 h-[49px] px-4 text-sm font-semibold   hover:bg-opacity-85  bg-[#FF0000] text-[16px] text-white leading-[21.6px] rounded-[8px]  mx-1"
             >
               Yes

@@ -44,7 +44,10 @@ const ForgotPassword = () => {
         }
       },
     });
-
+const handleback = () =>{
+  navigation(-1)
+  localStorage.setItem("forgot", false);
+}
   return (
     <div className=" bg-slate-200 p-3">
       <div className="grid grid-cols-12  py-4 h-screen">
@@ -87,7 +90,7 @@ const ForgotPassword = () => {
                 <div className="mb-6">
                   <AuthSubmitBtn text="Send" type="submit" />
                 </div>
-                <BackBtn handleClick={() => navigation(-1)} />
+                <BackBtn handleClick={() =>handleback()} />
               </div>
             </form>
           </div>

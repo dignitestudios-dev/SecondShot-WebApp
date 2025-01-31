@@ -56,6 +56,7 @@ const SignUpForm = () => {
   
       if (response.status === 201 || response.status === 200) {
         sessionStorage.setItem("email", values?.email);
+        sessionStorage.setItem("fullname", values?.fullname);
         sessionStorage.setItem("phoneNumber", values?.phoneNumber);
         SuccessToast("SignUp Successfully");
         navigation("/email-otp");

@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { ErrorToast } from "../toaster/ToasterContainer";
 import axios from "../../axios";
+import moment from "moment";
 
+const ResumePage = ({ formData }) => {
+  console.log(formData, "formData");
 
-const Resume = ({ formData }) => {
-
-
-
+  const formatDate = (dateString) => {
+    return dateString ? moment(dateString).format("DD-MM-YYYY") : "";
+  };
+  
+  // Example Usage:
+  const rawDate = "2013-06-01T00:00:00.000Z";
+  console.log(formatDate(rawDate)); // Output: "01-06-2013"
+  
   return (
     <div className="bg-white w-[1200px]  mx-auto p-8 rounded-lg shadow-md ">
       {/* Header Section */}
@@ -46,10 +53,7 @@ const Resume = ({ formData }) => {
                   {edu?.startYear}
                 </p>
               </div>
-              <li
-                  
-                    className="text-[#000000] pl-1 leading-[10.59px] font-[400] text-[20px]  mt-3"
-                  >
+              <li className="text-[#000000] pl-1 leading-[10.59px] font-[400] text-[20px] mt-5">
                 {edu.degree}
               </li>
             </div>
@@ -183,4 +187,4 @@ const Resume = ({ formData }) => {
   );
 };
 
-export default Resume;
+export default ResumePage;

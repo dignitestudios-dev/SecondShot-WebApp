@@ -16,35 +16,36 @@ const OtpEmail = () => {
 
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [isVerified, setIsVerified] = useState(false);
+  const [loading, setloading] = useState(false);
   const email = sessionStorage.getItem("email");
 
   const inputs = useRef([]);
 
-  const handleChange = (e, index) => {
-    const { value } = e.target;
+    const handleChange = (e, index) => {
+      const { value } = e.target;
 
-    if (/^\d$/.test(value)) {
-      const newOtp = [...otp];
-      newOtp[index] = value;
-      setOtp(newOtp);
+      if (/^\d$/.test(value)) {
+        const newOtp = [...otp];
+        newOtp[index] = value;
+        setOtp(newOtp);
 
-      if (index < otp.length - 1) {
-        inputs.current[index + 1].focus();
+        if (index < otp.length - 1) {
+          inputs.current[index + 1].focus();
+        }
       }
-    }
-  };
+    };
 
-  const handleKeyDown = (e, index) => {
-    if (e.key === "Backspace") {
-      const newOtp = [...otp];
-      newOtp[index] = "";
-      setOtp(newOtp);
+    const handleKeyDown = (e, index) => {
+      if (e.key === "Backspace") {
+        const newOtp = [...otp];
+        newOtp[index] = "";
+        setOtp(newOtp);
 
-      if (index > 0) {
-        inputs.current[index - 1].focus();
+        if (index > 0) {
+          inputs.current[index - 1].focus();
+        }
       }
-    }
-  };
+    };
 
   const getOtpValue = () => {
     return parseInt(otp.join(""), 10);
@@ -52,7 +53,7 @@ const OtpEmail = () => {
 
   const handleSubmit = async () => {
     const otpValue = otp.join("");
-
+    setloading(true)
     try {
       const response = await axios.post("/api/auth/verify-otp", {
         email: email,
@@ -74,6 +75,9 @@ const OtpEmail = () => {
     } catch (error) {
       ErrorToast("OTP verification failed:");
       console.error("OTP verification failed:", error);
+    }finally{
+    setloading(false)
+
     }
   };
 
@@ -138,6 +142,7 @@ const OtpEmail = () => {
                 text={"Verify"}
                 type={"button"}
                 handleSubmit={handleSubmit}
+                loading={loading}
               />
 
               <p className="text-center flex justify-center  text-[16px] text-[#181818] font-[500] mt-4">

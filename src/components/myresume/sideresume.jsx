@@ -101,7 +101,7 @@ const resumeData = {
 
 const SideResume = ({ step }) => {
   return (
-    <div className="bg-gradient-to-br w-[612px] from-[#012C57] to-[#061523]  mx-auto p-8 rounded-[28px] mt-5 shadow-md ">
+    <div className="bg-gradient-to-br w-[612px] from-[#012C57] h-[1000px] to-[#061523]  mx-auto p-8 rounded-[28px] mt-5 shadow-md ">
       {/* Header Section */}
 
       <div

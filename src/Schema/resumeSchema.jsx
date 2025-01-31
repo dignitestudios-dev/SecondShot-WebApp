@@ -72,32 +72,32 @@ export const certificationSchema = Yup.object().shape({
     .min(1, "At least one education entry is required"),
 });
 
-export const skillsSchema = Yup.object({
-  technicalSkills: Yup.string().required("Please enter your Technical Skills"),
-  softskills: Yup.string().required("Please enter your Soft Skills"),
+export const skillsSchema = Yup.object().shape({
+  technicalSkills: Yup.string().required("Technical skills are required"),
+ 
 });
 
-export const honorsSchema = Yup.object().shape({
-  honorsList: Yup.array()
-    .of(
-      Yup.object().shape({
-        awardName: Yup.string().required(
-          "Please enter the name of the award or certification."
-        ),
-        awardingOrganization: Yup.string().required(
-          "Please enter the name of the issuing organization."
-        ),
-        receivedmonth: Yup.string().required(
-          "Please select the month the award was received."
-        ),
-        receivedyear: Yup.string().required(
-          "Please select the year the award was received."
-        ),
-      })
-    )
-    .required("The honors and awards list is required.")
-    .min(1, "Please add at least one honor or award."),
-});
+  export const honorsSchema = Yup.object().shape({
+    honorsList: Yup.array()
+      .of(
+        Yup.object().shape({
+          awardName: Yup.string().required(
+            "Please enter the name of the award or certification."
+          ),
+          awardingOrganization: Yup.string().required(
+            "Please enter the name of the issuing organization."
+          ),
+          receivedmonth: Yup.string().required(
+            "Please select the month the award was received."
+          ),
+          receivedyear: Yup.string().required(
+            "Please select the year the award was received."
+          ),
+        })
+      )
+      .required("The honors and awards list is required.")
+      .min(1, "Please add at least one honor or award."),
+  });
 
 export const volunteerSchema = Yup.object().shape({
   volunteerList: Yup.array()

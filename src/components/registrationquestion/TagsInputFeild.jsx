@@ -19,13 +19,13 @@ const TagsInputField = ({
   const closeModal = () => setModalIsOpen(false);
 
   const handleTagClick = (tag) => {
-    if (selectedTags === tag) {
+    if (selectedTags === tag || selectedTags === tag.label) {
       setSelectedTags(null); // Deselect if the same tag is clicked again
     } else {
-      setSelectedTags(tag); // Set the selected tag
+      setSelectedTags({ label: tag?.label, value: tag?.value }); // Set the selected tag
     }
   };
-  
+
   const saveTags = () => {
     if (selectedTags) {
       setTags([selectedTags]); // Save the single selected tag
@@ -34,7 +34,7 @@ const TagsInputField = ({
     }
     closeModal();
   };
-  
+
   const removeTag = () => {
     setTags([]); // Remove the selected tag
     setSelectedTags(null);
@@ -46,13 +46,13 @@ const TagsInputField = ({
       } text-sm rounded-lg overflow-hidden p-[1px]`}
     >
       <div className="flex flex-wrap p-0.5 w-[80%]  ">
-        {tags.length > 0 ? (
-          tags.map((tag) => (
+        {tags?.length > 0 ? (
+          tags?.map((tag) => (
             <span
               key={tag}
               className="flex items-center bg-tagsBg text-gray-700 px-3 py-2 rounded-lg mr-1 mb-0.5"
             >
-              {tag}
+              {tag.label}
               <button
                 onClick={() => removeTag(tag)}
                 className="ml-2 text-red-500 focus:outline-none"

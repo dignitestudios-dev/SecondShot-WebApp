@@ -37,6 +37,8 @@ import MyRecommedation from "../pages/careerrecommendations/MyRecommedation";
 import StartGoal from "../pages/mygoals/StartGoal";
 import StartResume from "../pages/myresume/StartResume";
 import NewTrasnferSkill from "../pages/NewtrnaferSkill/NewTrasnferSkill";
+import SuccessScreen from "../components/subscriptions/SuccessScreen";
+import EditResume from "../pages/myresume/EditResume";
 
 export const routes = [
   {
@@ -197,5 +199,10 @@ export const routes = [
     url: "/startResume",
     page: <Applayout page={<StartResume />} />,
   },
-
+  {
+    title: "edit-resume",
+    url: "/edit-resume/:id",
+    page: <Applayout page={<EditResume />} />,
+  },
+ 
 ];

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AuthInput from "../onboarding/AuthInput";
 import MonthsInput from "../Global/MonthsInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
@@ -7,7 +7,13 @@ import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { certificationsValues } from "../../data/resumefield";
 import { certificationSchema } from "../../Schema/resumeSchema";
 
-const Licenses = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) => {
+const Licenses = ({
+  nextStep,
+  setFormData,
+  formData,
+  prevStep,
+  setIsSkipped,
+}) => {
   const formik = useFormik({
     initialValues: { certificationsList: formData.certificationsList },
     validationSchema: certificationSchema,
@@ -23,18 +29,41 @@ const Licenses = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =>
     },
   });
 
+  const updateData = async (data) => {
+    if (data && Array.isArray(data)) {
+      console.log("Received Data:", data);
+
+      formik.setValues({
+        educationList: data?.map((item) => ({
+          certificationsname: item?.certificationsname || "",
+          issuingOrganization: item?.issuingOrganization || "",
+          credentialId: item?.credentialId || "",
+          Issuemonth: item?.Issuemonth || "",
+          Issueyear: item?.Issueyear || "",
+          expirationmonth: item?.expirationmonth || "",
+        })),
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (formData?.educationValues) {
+      updateData(formData.educationValues);
+    }
+  }, [formData.educationValues]);
+
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     formik;
-    const getYearsArray = () => {
-      const startYear = 1990;
-      const currentYear = new Date().getFullYear();
-      const years = [];
-  
-      for (let year = startYear; year <= currentYear; year++) {
-        years.push({ value: `${year}`, label: `${year}` });
-      }
-      return years;
-    };
+  const getYearsArray = () => {
+    const startYear = 1990;
+    const currentYear = new Date().getFullYear();
+    const years = [];
+
+    for (let year = startYear; year <= currentYear; year++) {
+      years.push({ value: `${year}`, label: `${year}` });
+    }
+    return years;
+  };
   return (
     <div className="pt-6 px-3">
       <div>
@@ -166,7 +195,6 @@ const Licenses = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =>
                           value={values.certificationsList[index].Issueyear}
                           onChange={handleChange}
                           options={getYearsArray()}
-
                         />
                         {errors.certificationsList?.[index]?.Issueyear &&
                           touched.certificationsList?.[index]?.Issueyear && (
@@ -219,7 +247,6 @@ const Licenses = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =>
                           }
                           onChange={handleChange}
                           options={getYearsArray()}
-
                         />
                       </div>
                     </div>
@@ -258,10 +285,10 @@ const Licenses = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =>
           />
           <div>
             <button
-                onClick={() => {
-                  setIsSkipped(true);
-                  nextStep();
-                }}
+              onClick={() => {
+                setIsSkipped(true);
+                nextStep();
+              }}
               className="text-[16px] text-[#000000] font-[600] mt-3 "
             >
               Skip

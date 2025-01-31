@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik, FieldArray, FormikProvider, Form } from "formik";
 import AuthInput from "../onboarding/AuthInput";
 import MonthsInput from "../Global/MonthsInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import { educationSchema } from "../../Schema/resumeSchema";
-import { educationValues } from "../../data/resumefield";
 
 const Education = ({
   nextStep,
@@ -13,13 +12,11 @@ const Education = ({
   setFormData,
   formData,
   setIsSkipped,
-
 }) => {
-  console.log(formData, "-->edu");
-
+  console.log(formData, "-->Education==>");
 
   const formik = useFormik({
-    initialValues: { educationList: formData.educationList },
+    initialValues: { educationList: formData?.educationList || [] },
     validationSchema: educationSchema,
     validateOnBlur: true,
     validateOnChange: true,
@@ -32,8 +29,29 @@ const Education = ({
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     formik;
+  console.log(values, "values====>{}");
+  const updateData = async (data) => {
+    if (data && Array.isArray(data)) {
+      console.log("Received Data:", data);
 
-  console.log("values--> ", values);
+      formik.setValues({
+        educationList: data?.map((item) => ({
+          education: item?.education || "",
+          degree: item?.degree || "",
+          endYear: item?.end_year || "",
+          startYear: item?.start_year || "",
+          fieldofStudy: item?.field_of_study || "",
+        })),
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (formData?.educationValues) {
+      updateData(formData.educationValues);
+    }
+  }, [formData.educationValues]);
+
   const getYearsArray = () => {
     const startYear = 1990;
     const currentYear = new Date().getFullYear();

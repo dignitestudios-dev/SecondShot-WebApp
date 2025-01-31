@@ -52,7 +52,7 @@ export const certificationsValues = {
 
 export const skillsValues = {
   technicalSkills: "",
-  softskills: "",
+  softskills: [],
 };
 
 export const honorsValues = {

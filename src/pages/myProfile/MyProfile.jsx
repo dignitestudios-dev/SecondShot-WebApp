@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
 import {
@@ -13,7 +13,7 @@ import DeactivateModal from "../../components/myProfile/DeactivateModal";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import InviteFriendModal from "../../components/myProfile/InviteFriendModal";
 import { AuthContext } from "../../context/AuthContext";
-
+import axios from "../../axios";
 function MyProfile() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("profile");
@@ -29,6 +29,25 @@ function MyProfile() {
   };
   const [inviteOpen, setInviteOpen] = useState(false);
   const { logout } = useContext(AuthContext);
+  const [profile, setProfile] = useState("");
+  const getProfile = async () => {
+    try {
+      const response = await axios.get("/api/user/my-profile");
+      if (response.status === 200) {
+        setProfile(response?.data?.data);
+      }
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      setloading(false);
+    }
+  };
+  console.log(profile, "profileprofile");
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
   return (
     <div className="">
       <div className="">
@@ -65,7 +84,6 @@ function MyProfile() {
                 text={"Log out"}
                 handleSubmit={() => {
                   logout();
-                 
                 }}
               />
             </div>
@@ -94,14 +112,14 @@ function MyProfile() {
                   />
                   <div>
                     <h2 className="text-[20px] font-[600] text-[#050405] text-left">
-                      Sanethia Thomas
+                     {profile?.name}
                     </h2>
                     <p mailto:classname="text-[#050405] mt-5 text-[16px] ">
-                      sanethiathomas@mail.com
+                    {profile?.email}
                     </p>
                   </div>
                   <div className="ml-auto text-right">
-                    <p className="text-[#050405] text-[16px] ">+000 0000 000</p>
+                    <p className="text-[#050405] text-[16px] ">{profile?.phone}</p>
                     <p className="text-[#050405] text-[16px] mb-3">
                       Toronto, Canada
                     </p>

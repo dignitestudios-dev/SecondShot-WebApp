@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import AuthInput from "../onboarding/AuthInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
@@ -7,22 +7,41 @@ import { useFormik } from "formik";
 import { informationSchema } from "../../Schema/resumeSchema";
 
 const Information = ({ nextStep, setFormData, formData }) => {
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
-    useFormik({
-      initialValues: formData?.informationValues,
-      validationSchema: informationSchema,
-      validateOnChange: true,
-      validateOnBlur: true,
-      onSubmit: (values) => {
-        setFormData({ ...formData, informationValues: values });
-        console.log("Form Submitted", values);
-        nextStep();
-      },
-    });
-
-  console.log(values, "-- values");
-
   const navigate = useNavigate();
+
+  const {
+    values,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+    setFieldValue,
+  } = useFormik({
+    initialValues: formData?.informationValues || {},
+    validationSchema: informationSchema,
+    validateOnChange: true,
+    validateOnBlur: true,
+    onSubmit: (values) => {
+      setFormData({ ...formData, informationValues: values });
+      console.log("Form Submitted", values);
+      nextStep();
+    },
+  });
+
+  const updateData = async (data) => {
+    if (data) {
+      setFieldValue("fullname", data?.fullname || "");
+      setFieldValue("email", data?.email || "");
+      setFieldValue("phoneNumber", data?.phoneNumber || "");
+      setFieldValue("address", data?.address || "");
+    }
+  };
+
+  useEffect(() => {
+    formData?.informationValues && updateData(formData.informationValues);
+  }, [formData]);
+
   return (
     <div className="pt-6 px-3">
       <div>

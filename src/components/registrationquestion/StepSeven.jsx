@@ -1,24 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { hobbyTags } from "../data/SportsQuestionData";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import BackBtn from "../onboarding/BackBtn";
 import TagsInputField from "./TagsInputFeild";
 
-const StepSeven = ({ nextStep, prevStep, formData, setFormData }) => {
+const StepSeven = ({ nextStep, prevStep, formData, setFormData ,stepsixvalue}) => {
   // const validationSchema = Yup.object({
   //     isAthlete: Yup.string().required('This field is required'),
   //   });
+  
 
   // const handleIsAthlete = (value, setFieldValue, setFieldTouched) => {
   //   setFieldValue('isAthlete', value);
   //   setFormData({ ...formData, isAthlete: value });
   //   setFieldTouched("isAthlete", true);
-  // }
+  // }\
+
+
+  
 
   const [tagsError, setTagsError] = useState(false);
   const [tags, setTags] = useState([]);
 
+  useEffect(() => {
+    if (tags.length > 0) {
+      setFormData({ ...formData, hobbieOptions2: tags[0].value });
+    } else {
+      setFormData({ ...formData, hobbieOptions2: "" });
+    }
+  }, [tags]);
   return (
     <Formik
       initialValues={{}}
@@ -40,7 +51,7 @@ const StepSeven = ({ nextStep, prevStep, formData, setFormData }) => {
                 or during your childhood. 
               </label>
               <TagsInputField
-                availableTags={hobbyTags}
+                availableTags={stepsixvalue}
                 heading={"Select Your Club"}
                 tags={tags}
                 setTags={setTags}

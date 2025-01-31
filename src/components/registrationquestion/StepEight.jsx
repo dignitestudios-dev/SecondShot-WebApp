@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import BackBtn from "../onboarding/BackBtn";
 import TagsInputField from "./TagsInputFeild";
-
+import axios from "../../axios";
+import { ErrorToast } from "../toaster/ToasterContainer";
 
 const StepEight = ({ nextStep, prevStep, formData, setFormData }) => {
   // const validationSchema = Yup.object({
@@ -12,6 +13,8 @@ const StepEight = ({ nextStep, prevStep, formData, setFormData }) => {
 
   const [tagsError, setTagsError] = useState(false);
   const [tags, setTags] = useState([]);
+  const [subjects, setSubjects] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const [availableTags] = useState([
     "English",
@@ -27,6 +30,37 @@ const StepEight = ({ nextStep, prevStep, formData, setFormData }) => {
     "Business",
     "Psychology",
   ]);
+
+  const getsubjects = async () => {
+    setLoading(true);
+
+    try {
+      const response = await axios.get(`/api/services/get-subjects`);
+
+      if (response.status === 200) {
+        const subjectsOptions = response?.data?.data?.map((item) => ({
+          value: item?._id,
+          label: item?.subject_name,
+        }));
+        setSubjects(subjectsOptions);
+      }
+    } catch (err) {
+      console.error("Error fetching subscription details:", err);
+      ErrorToast(err?.response?.data?.message || "Failed to fetch Ranks.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getsubjects();
+  }, []);
+
+  useEffect(() => {
+    if (tags.length > 0) {
+      setFormData({ ...formData, subjectOptions: tags[0]?.value });
+    }
+  }, [tags]);
 
   return (
     <Formik
@@ -45,10 +79,11 @@ const StepEight = ({ nextStep, prevStep, formData, setFormData }) => {
           <div className="mb-4">
             <div className="mt-4">
               <label className="block text-[14px] font-[500] mb-2">
-              Please select your favorite subject from when you were in middle school.
+                Please select your favorite subject from when you were in middle
+                school.
               </label>
               <TagsInputField
-                availableTags={availableTags}
+                availableTags={subjects}
                 heading={"Select your subject"}
                 tags={tags}
                 setTags={setTags}

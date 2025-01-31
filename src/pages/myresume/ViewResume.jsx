@@ -1,5 +1,5 @@
-import React, {useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   Dottedvertical,
   Downloadimg,
@@ -14,6 +14,10 @@ import ResumeDeleteModal from "../../components/myresume/DeleteResumeModal";
 import PersonalizedCV from "../../components/myresume/PersonalizedCV";
 
 const ViewResume = () => {
+  const location = useLocation();
+  const resumeData = location?.state;
+
+  console.log(resumeData, "resumeData");
 
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -22,8 +26,6 @@ const ViewResume = () => {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-
- 
 
   const [showModalDownload, setShowModalDownload] = useState(false);
   const handleDownloadModal = () => {
@@ -51,6 +53,20 @@ const ViewResume = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  const handlePrint = () => {
+    // Temporary show/hide print content
+    const content = document.getElementById("download-resume");
+    const originalContent = document.body.innerHTML;
+
+    // Save the original content of the page
+    document.body.innerHTML = content.innerHTML; // Replace page content with the resume
+
+    window.print(); // Trigger print dialog
+
+    // Restore original content after print
+    document.body.innerHTML = originalContent;
+  };
+
   return (
     <div className="">
       <Backbutton />
@@ -66,11 +82,14 @@ const ViewResume = () => {
         <ResumeDeleteModal showModal={showDelete} onclick={handleDeleteModal} />
         <div>
           <h1 className="text-[32px] font-[500] text-[#000000]">
-          Your Personalized Resume
+            Your Personalized Resume
           </h1>
         </div>
         <div className="flex items-center">
-          <div className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer">
+          <div
+            className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer"
+            onClick={() => handlePrint()}
+          >
             <img className="w-[27.61px] h-[23px] " src={Printimg} />
           </div>
           <div
@@ -129,7 +148,9 @@ const ViewResume = () => {
           </div>
         </div>
       </div>
-      <PersonalizedCV />
+      <div id="download-resume">
+        <PersonalizedCV resumeData={resumeData} />
+      </div>
     </div>
   );
 };

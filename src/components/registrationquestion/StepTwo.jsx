@@ -1,7 +1,6 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { IoIosArrowDropleftCircle } from "react-icons/io";
 import BackBtn from "../onboarding/BackBtn";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 
@@ -15,6 +14,7 @@ const StepTwo = ({ nextStep, prevStep, formData, setFormData }) => {
     setFormData({ ...formData, highestDegree: value });
     setFieldTouched("highestDegree", true);
   };
+
 
   return (
     <Formik

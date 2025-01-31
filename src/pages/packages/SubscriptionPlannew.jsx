@@ -5,6 +5,9 @@ import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import { useNavigate } from "react-router-dom";
 import axios from "../../axios";
 import { ErrorToast } from "../../components/toaster/ToasterContainer";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+
 const SubscriptionPlannew = () => {
   const navigation = useNavigate("");
   const [isModalOpen, setModalOpen] = useState(false);
@@ -60,78 +63,152 @@ const SubscriptionPlannew = () => {
       </div>
 
       <div className="flex flex-col lg:flex-row items-center justify-between gap-8 w-full max-w-6xl">
-        <div className="bg-gradient-to-b from-[#012C57] to-[#061523] text-white rounded-[22px] h-[559px] shadow-lg p-6 w-full max-w-sm">
-          <h2 className="text-[24px] font-semibold mb-4">
-            Have an access code?
-          </h2>
-          <div className="opacity-[20%]">
-            <hr className="bg-[#FFFFFF] mt-5 mb-5" />
-          </div>
-          <p className="text-[20px] leading-[27px] font-[600]">
-            Unlock immediate access to <br /> Your Career Toolbox.
-          </p>
-          <div className="space-y-4 mt-9 h-[261px]">
-            <label className="text-[16px] text-[#56EC17] leading-[21.6px] font-[500] mb-1">
-              Use Access Code
-            </label>
-            <input
-              type="text"
-              placeholder="Access Code"
-              className="w-full bg-transparent border border-[#395E81] px-4 py-2 rounded-[15px] text-[16px] text-[white] focus:outline-none focus:ring-2 focus:ring-[#55C9FA]"
-            />
-          </div>
-          <button
-            className="bg-white text-[#1E384F] text-[16px]  font-[500] w-[171px] h-[45px] mt-9 rounded-[12px]"
-            onClick={() => setModalOpen(true)}
+        <div className="w-full max-w-6xl">
+          <Swiper
+            spaceBetween={20}
+            slidesPerView={3}
+            loop={true}
+            navigation={{
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            }}
+            modules={[Navigation]}
+            className="mySwiper"
           >
-            Submit
-          </button>
-        </div>
-
-        {isLoading
-          ? [1, 2].map((_, index) => (
-              <div
-                key={index}
-                className="bg-gray-200 rounded-[22px] h-[559px] shadow-lg p-6 w-full max-w-sm flex flex-col justify-between"
-              >
-                <div className="bg-gray-300 h-[40px] w-[60%] rounded-[10px] mb-4"></div>
-                <div className="bg-gray-300 h-[30px] w-[80%] rounded-[10px] mb-2"></div>
-                <div className="bg-gray-300 h-[20px] w-[90%] rounded-[10px] mb-2"></div>
-                <div className="bg-gray-300 h-[50px] w-[100%] rounded-[10px] mb-2"></div>
+            <SwiperSlide>
+              <div className="bg-gradient-to-b from-[#012C57] to-[#061523] text-white rounded-[22px] h-[659px] shadow-lg p-6 w-full max-w-sm flex flex-col">
+                <h2 className="text-[24px] font-semibold ">
+                  Have an access code?
+                </h2>
+                <div className="opacity-[20%]">
+                  <hr className="bg-[#FFFFFF] mt-5 mb-5" />
+                </div>
+                <p className="text-[20px] leading-[27px] font-[600]">
+                  Unlock immediate access to <br /> Your Career Toolbox.
+                </p>
+                <div className="space-y-4 mt-9 h-[261px]">
+                  <label className="text-[16px] text-[#56EC17] leading-[21.6px] font-[500] mb-1">
+                    Use Access Code
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Access Code"
+                    className="w-full bg-transparent border border-[#395E81] px-4 py-2 rounded-[15px] text-[16px] text-[white] focus:outline-none focus:ring-2 focus:ring-[#55C9FA]"
+                  />
+                </div>
+                <div className="mt-auto">
+                  <button
+                    className="bg-white text-[#1E384F] text-[16px] font-[500] w-[171px] h-[45px] rounded-[12px]"
+                    onClick={() => setModalOpen(true)}
+                  >
+                    Submit
+                  </button>
+                </div>
               </div>
-            ))
-          : subscription?.map((item, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-[22px] h-[559px] shadow-lg p-6 w-full max-w-sm flex flex-col justify-between"
-              >
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="bg-white rounded-[22px] h-[659px]  p-6 w-full max-w-sm flex flex-col">
                 <div>
                   <div className="flex justify-between items-center">
                     <h2 className="text-[24px] font-[500] text-[#000000] leading-[32.4px]">
-                      {item?.subscription_duration || "N/A"}
+                      Basic
                     </h2>
                     <h2 className="text-[32px] font-[600] leading-[43.2px] text-[#56EC17]">
-                      {item?.price || "0.00"}
+                      Free
                     </h2>
                   </div>
                   <hr className="bg-[#000000] mb-4 mt-3" />
                   <div className="text-[22px] font-[600] text-gray-900">
-                    {item?.product_name || "No Product Name"}
+                    Basic Plan
                   </div>
-                  <ul className="space-y-2 text-gray-700"></ul>
+                  <ul className="space-y-2 text-gray-700">
+                    <li className="flex items-center space-x-2 space-y-3 mt-3">
+                      <img
+                        src={Tick}
+                        className="h-[10.5px] mt-3 w-[13.5px]"
+                        alt=""
+                      />
+                      <span className="text-[17px] leading-[22.95px] font-[500] text-[#181818]">
+                        Discover Your Transferable Skills
+                      </span>
+                    </li>
+                  </ul>
                 </div>
-                <div className="w-[171px]">
+                <div className="mt-auto w-[171px]">
                   <AuthSubmitBtn
                     text={"Buy Now"}
-                    handleSubmit={() =>
-                      navigation("/subscription-new", {
-                        state: { cardsubdata: item },
-                      })
-                    }
+                    handleSubmit={() => navigation("/profiledetail")}
                   />
                 </div>
               </div>
-            ))}
+            </SwiperSlide>
+
+            {isLoading
+              ? Array.from({ length: 3 }).map((_, index) => (
+                  <SwiperSlide key={index}>
+                    <div className="bg-gray-200 rounded-[22px] h-[659px]  p-6 w-full max-w-sm flex flex-col justify-between">
+                      <div className="bg-gray-300 h-[40px] w-[60%] rounded-[10px] mb-4"></div>
+                      <div className="bg-gray-300 h-[30px] w-[80%] rounded-[10px] mb-2"></div>
+                      <div className="bg-gray-300 h-[20px] w-[90%] rounded-[10px] mb-2"></div>
+                      <div className="bg-gray-300 h-[50px] w-[100%] rounded-[10px] mb-2"></div>
+                    </div>
+                  </SwiperSlide>
+                ))
+              : subscription.slice(0, 3).map((item, index) => (
+                  <SwiperSlide key={index}>
+                    <div className="bg-white rounded-[22px] h-[659px]  p-6 w-full max-w-sm flex flex-col">
+                      <div>
+                        <div className="flex justify-between items-center">
+                          <h2 className="text-[24px] font-[500] text-[#000000] leading-[32.4px]">
+                            {item?.subscription_duration || "N/A"}
+                          </h2>
+                          <h2 className="text-[32px] font-[600] leading-[43.2px] text-[#56EC17]">
+                            {item?.price || "0.00"}
+                          </h2>
+                        </div>
+                        <hr className="bg-[#000000] mb-4 mt-3" />
+                        <div className="text-[22px] font-[600] text-gray-900">
+                          {item?.product_name || "No Product Name"}
+                        </div>
+                        <ul className="space-y-2 text-gray-700">
+                          {Object.values(item?.description || {}).map(
+                            (feature, index) => (
+                              <li
+                                key={index}
+                                className="flex items-center space-x-2 mt-3"
+                              >
+                                <img
+                                  src={Tick}
+                                  className="h-[10.5px] w-[13.5px]"
+                                  alt=""
+                                />
+                                <span className="text-[17px] leading-[22.95px] font-[500] text-[#181818]">
+                                  {feature}
+                                </span>
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                      <div className="mt-auto w-[171px]">
+                        <AuthSubmitBtn
+                          text={"Buy Now"}
+                          handleSubmit={() =>
+                            navigation("/subscription-new", {
+                              state: { cardsubdata: item },
+                            })
+                          }
+                        />
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))}
+          </Swiper>
+          <div className="relative bottom-[340px] ">
+            <button className="swiper-button-prev text-2xl  bg-gray-100 h-[20px] w-[10px] rounded-full p-6"></button>
+            <button className="swiper-button-next text-2xl  bg-gray-100 h-[20px] w-[10px] rounded-full p-6"></button>
+          </div>
+        </div>
       </div>
 
       <footer className="mt-24 text-gray-600 text-sm text-center">

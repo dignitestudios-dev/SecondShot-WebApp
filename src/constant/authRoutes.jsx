@@ -1,3 +1,4 @@
+import SuccessScreen from "../components/subscriptions/SuccessScreen";
 import Login from "../pages/onboarding/Login";
 import OtpEmail from "../pages/onboarding/OtpEmail";
 import OtpPhone from "../pages/onboarding/OtpPhone";
@@ -32,6 +33,11 @@ export const authRoutes = [
   {
     url: "/reset-password",
     page: <ResetPassword />,
+  },
+  {
+    title: "verify-payment",
+    url: "/verify-payment",
+    page: <SuccessScreen />
   },
  
 ];

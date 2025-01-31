@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AuthInput from "../onboarding/AuthInput";
 import MonthsInput from "../Global/MonthsInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
@@ -14,10 +14,12 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
     values.experienceList.forEach((experience, index) => {
       if (!experience.isCurrent) {
         if (!experience.endmonth) {
-          errors[`experienceList[${index}].endmonth`] = "Please select a end month";
+          errors[`experienceList[${index}].endmonth`] =
+            "Please select a end month";
         }
         if (!experience.endyear) {
-          errors[`experienceList[${index}].endyear`] = "Please select a end month";
+          errors[`experienceList[${index}].endyear`] =
+            "Please select a end month";
         }
       }
     });
@@ -50,6 +52,32 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
   console.log(values, "valuesvalues");
   console.log(errors, "errors errors");
   errors;
+
+  const updateData = async (data) => {
+    if (data && Array.isArray(data)) {
+      console.log("Received Data:", data);
+
+      formik.setValues({
+        experienceList: data?.map((item) => ({
+          isCurrent: item?.jobTitle || "",
+          company: item?.company || "",
+          endmonth: item?.endmonth || "",
+          endyear: item?.endyear || "",
+          startyear: item?.startyear || "",
+          startmonth: item?.startmonth || "",
+          description: item?.description || "",
+          isCurrent: item?.isCurrent || "",
+        })),
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (formData?.experienceValues) {
+      updateData(formData.experienceValues);
+    }
+  }, [formData.experienceValues]);
+
   const [checked, setChecked] = useState(true);
 
   const [inputValue, setInputValue] = useState("");
@@ -194,7 +222,6 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
                           onChange={handleChange}
                           onBlur={handleBlur}
                           options={getYearsArray()}
-
                         />
                         {errors.experienceList?.[index]?.startyear &&
                           touched.experienceList?.[index]?.startyear && (
@@ -256,7 +283,6 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
                       </div>
                     </div>
 
-                 
                     {!values.experienceList[index].isCurrent && (
                       <div className="w-full flex gap-4 mt-4">
                         <div className="w-1/2">
@@ -302,7 +328,6 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             options={getYearsArray()}
-
                           />
                           {customErrors[`experienceList[${index}].endyear`] && (
                             <span className="text-red-700 text-sm font-medium">

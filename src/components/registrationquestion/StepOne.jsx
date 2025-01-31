@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -8,8 +8,10 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import RecommendationDropdown from "../careerrecommendation/RecommendationDropdown";
 
 const StepOne = ({ nextStep, formData, setFormData }) => {
+  console.log(formData, "step1");
   const [tagsError, setTagsError] = useState(false);
   const [tags, setTags] = useState([]);
+
   const handleTagsError = () => {
     setTagsError();
   };
@@ -25,23 +27,27 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
     { label: "Career Change Professional", value: "career" },
   ];
 
-  console.log(options?.map((item) => item?.value));
-
   const [filteredTags, setFilteredTags] = useState([]);
 
-  const [selectedUniversity, setSelectedUniversity] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOptionClick = (value, setFieldValue, setFieldTouched) => {
+    console.log(value, "valueOptions==>");
     setFieldTouched("university", true);
     setFieldValue("university", value);
     setFormData({ ...formData, university: value });
-    setSelectedUniversity(value);
+
     setIsOpen(false);
 
     const filteredTags = educationTags[value] || [];
     setFilteredTags(filteredTags);
   };
+
+  useEffect(() => {
+    if (tags.length > 0) {
+      setFormData({ ...formData, universityOptions: tags[0].label });
+    }
+  }, [tags]);
 
   return (
     <div>

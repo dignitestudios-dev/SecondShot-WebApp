@@ -29,6 +29,10 @@ const EditProfileDetails = () => {
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
 
+  const phone = sessionStorage.getItem("phoneNumber");
+  const fullname = sessionStorage.getItem("fullname");
+  const email = sessionStorage.getItem("email");
+
   const handleSelectChangeCity = (e) => {
     setSelectedCity(e.target.value);
   };
@@ -43,7 +47,6 @@ const EditProfileDetails = () => {
             <h1 className="text-[40px] font-[600] leading-[54px] text-center">
               Edit Profile Details
             </h1>
-          
           </div>
         </div>
         <div className="col-span-12 md:col-span-6 gap-y-4 px-12 md:px-36 md:-mr-32 lg:px-28 lg:-mr-24">
@@ -69,19 +72,21 @@ const EditProfileDetails = () => {
             </button>
           </div>
           <div className="mt-3">
-            <AuthInput type={"text"} placeholder={"First Name"} />
+            <AuthInput
+              type={"text"}
+              value={fullname}
+              placeholder={"Full Name"}
+            />
           </div>
+
           <div className="mt-3">
-            <AuthInput type={"text"} placeholder={"Last Name"} />
-          </div>
-          <div className="mt-3">
-            <AuthInput type={"email"} placeholder={"Email"} />
+            <AuthInput value={email} type={"email"} placeholder={"Email"} />
           </div>
         </div>
         <div className="hidden md:block w-[1px] h-[70%] bg-gray-200 -ml-4 mt-10"></div>
         <div className="col-span-12 md:col-span-5 gap-y-4 px-12 md:px-36 md:-ml-52 lg:px-28 lg:-ml-48">
           <div className="mb-7  mt-5">
-            <PhoneInputs />
+            <PhoneInputs value={phone} />
           </div>
           <div className="relative w-full mt-1.5 mb-1">
             <SelectInput
@@ -113,9 +118,6 @@ const EditProfileDetails = () => {
         </div>
         <div className="col-span-12">
           <div className=" flex justify-center space-x-2 mb-6">
-            <div className="w-[169px] h-[49px]">
-              <GrayBtn text={"Skip Now"} />
-            </div>
             <div className="w-[169px]">
               <AuthSubmitBtn
                 text={"Save"}

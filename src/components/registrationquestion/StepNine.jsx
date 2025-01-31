@@ -44,7 +44,7 @@ const StepNine = ({ nextStep, prevStep, formData, setFormData }) => {
                 errors={errors}
                 setFieldValue={setFieldValue}
                 setFieldTouched={setFieldTouched}
-                formData={formData.jobValue}
+                formData={formData?.jobValue}
                 optionOne={"Yes"}
                 optionTwo={"No"}
               />

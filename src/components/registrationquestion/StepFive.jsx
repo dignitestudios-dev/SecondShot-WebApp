@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage, useFormik } from "formik";
 import * as Yup from "yup";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
@@ -7,21 +7,21 @@ import RecommendatioBtn from "../careerrecommendation/RecommendatioBtn";
 import { sportsTags } from "../data/SportsQuestionData";
 import TagsInputField from "./TagsInputFeild";
 import RecommendationDropdown from "../careerrecommendation/RecommendationDropdown";
-
+import axios from "../../axios";
+import { ErrorToast } from "../toaster/ToasterContainer";
 const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
-  const [tagsError, setTagsError] = useState(false);
-  const [tags, setTags] = useState([]);
-
   const validationSchema = Yup.object({
     isAthlete: Yup.string().required("Please select an option to proceed."),
- 
+
     athleteOption:
       formData?.isAthlete == "Yes"
         ? Yup.string().required("This field cannot be left empty")
         : Yup.string(),
   });
 
-  console.log(formData?.isAthlete);
+  const [tagsError, setTagsError] = useState(false);
+  const [tags, setTags] = useState([]);
+  const [filteredTags, setFilteredTags] = useState([]);
 
   const handleIsAthlete = (value, setFieldValue, setFieldTouched) => {
     setFieldTouched("isAthlete", true);
@@ -29,28 +29,59 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
     setFormData({ ...formData, isAthlete: value });
   };
 
-  const [filteredTags, setFilteredTags] = useState([]);
-
-  const options = [
-    { label: "Badminton", value: "Badminton" },
-    { label: "Baseball/Softball", value: "Baseball" },
-    { label: "Basketball", value: "Basketball" },
-    { label: "Bowling", value: "Bowling" },
-    { label: "Hockey", value: "Hockey" },
-    { label: "CheerLeading", value: "Cheerleading" },
-    { label: "Cross Country", value: "Cross_Country" },
-    { label: "Dance", value: "Dance" },
-    { label: "Field Hockey", value: "Field_Hockey" },
-    { label: "Football", value: "Football" },
-    { label: "Golf", value: "Golf" },
-    { label: "Gymnastics", value: "Gymnastics" },
-    { label: "Lacrosse", value: "Lacrosse" },
-    { label: "Skiing", value: "Skiing" },
-    { label: "Soccer", value: "Soccer" },
-    { label: "Swimming", value: "Swimming" },
-  ];
-
   const [isOpen, setIsOpen] = useState(false);
+
+  const [sports, setSports] = useState([]);
+  const [sportsPosition, setSportsPosition] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const getsports = async () => {
+    setLoading(true);
+
+    try {
+      const response = await axios.get(`/api/services/get-sports`);
+
+      if (response.status === 200) {
+        const sportsOptions = response?.data?.data?.map((item) => ({
+          value: item?._id,
+          label: item?.sport_name,
+        }));
+        setSports(sportsOptions);
+      }
+    } catch (err) {
+      console.error("Error fetching subscription details:", err);
+      ErrorToast(err?.response?.data?.message || "Failed to fetch Ranks.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getSportPosition = async () => {
+    setLoading(true);
+
+    try {
+      const response = await axios.get(`/api/services/get-sport-positions`);
+
+      if (response.status === 200) {
+        const rankOptions = response?.data?.data?.map((item) => ({
+          value: item?._id,
+          label: item?.position_name,
+          sportId: item?.sportId?._id,
+        }));
+        setSportsPosition(rankOptions);
+      }
+    } catch (err) {
+      console.error("Error fetching subscription details:", err);
+      ErrorToast(err?.response?.data?.message || "Failed to fetch Ranks.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getsports();
+    getSportPosition();
+  }, []);
 
   const handleOptionClick = (value, setFieldValue, setFieldTouched) => {
     setFieldValue("athleteOption", value);
@@ -58,22 +89,19 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
     setFormData({ ...formData, athleteOption: value });
     setIsOpen(false);
 
-    // Next level logic
-    const filteredTags = sportsTags[value] || [];
-    setFilteredTags(filteredTags);
+    const filteredSports = sportsPosition?.filter(
+      (item) => item?.sportId === value
+    );
+    setFilteredTags(filteredSports);
   };
 
-  const handleOptionClickSports = (value, setFieldValue, setFieldTouched) => {
-    setFieldValue("sport", value);
-    setFieldTouched("sport", true);
-    setFormData({ ...formData, sport: value });
-    setIsOpen(false);
-
-    // Next level logic
-    const filteredTags = sportsTags[value] || [];
-    setFilteredTags(filteredTags);
-  };
-
+  useEffect(() => {
+    if (tags.length > 0) {
+      setFormData({ ...formData, sportsOption: tags[0].value });
+    } else {
+      setFormData({ ...formData, sportsOption: "" });
+    }
+  }, [tags]);
   return (
     <Formik
       initialValues={formData}
@@ -112,7 +140,7 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
               className="text-red-500 text-xs italic "
             />
           </div>
-          {formData.isAthlete === "Yes" && (
+          {formData?.isAthlete === "Yes" && (
             <div>
               <label className="block font-medium mb-2" htmlFor="university">
                 What is your primary sport and position?
@@ -124,7 +152,7 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
                 Primary Sport
               </label>
               <RecommendationDropdown
-                options={options}
+                options={sports}
                 errors={errors.athleteOption}
                 touched={touched.athleteOption}
                 setFieldValue={setFieldValue}

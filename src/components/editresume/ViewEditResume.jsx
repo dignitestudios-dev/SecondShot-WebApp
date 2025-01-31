@@ -1,6 +1,4 @@
 import React, { useRef, useState } from "react";
-import Backbutton from "../Global/Backbutton";
-import ResumePage from "./ResumePage";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import {
   Dottedvertical,
@@ -10,10 +8,9 @@ import {
 } from "../../assets/export";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import axios from "../../axios";
-import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
+import ResumePage from "./ResumePage";
 
-const PreviewResume = ({
+const ViewEditResume = ({
   formData,
   isPreview,
   handleModal,
@@ -24,7 +21,8 @@ const PreviewResume = ({
   handleDeleteModal,
   setStep,
   isSkipped,
-  
+  handleSubmitData,
+  loading
 }) => {
   console.log(formData, "LastSteo");
 
@@ -35,128 +33,7 @@ const PreviewResume = ({
     setIsOpen(!isOpen);
   };
 
-  const [loading, setLoading] = useState(false);
-  const convertMonthToNumber = (month) => {
-    const months = {
-      January: "01",
-      February: "02",
-      March: "03",
-      April: "04",
-      May: "05",
-      June: "06",
-      July: "07",
-      August: "08",
-      September: "09",
-      October: "10",
-      November: "11",
-      December: "12",
-    };
-    return months[month] || "01";
-  };
-
-  const transformFormData = (formData) => {
-    return {
-      address: formData.informationValues?.address,
-      objective: {
-        description: formData.objetiveValues?.description,
-      },
-      experience: formData.experienceList.map((exp) => ({
-        job_title: exp.jobTitle,
-        company: exp.company,
-        start_date: `${exp.startyear}-${convertMonthToNumber(exp.startmonth)}`,
-        end_date: exp.isCurrent
-          ? null
-          : `${exp.endyear}-${convertMonthToNumber(exp.endmonth)}-01`,
-        description: exp.description,
-      })),
-      education: isSkipped
-        ? []
-        : formData.educationList.map((edu) => ({
-            institution: edu.education,
-            degree: edu.degree,
-            field_of_study: edu.fieldofStudy,
-            start_year: parseInt(edu.startYear),
-            end_year: parseInt(edu.endYear),
-            description: null,
-          })),
-      licenses_and_certifications: isSkipped
-        ? []
-        : formData.certificationsList.map((cert) => ({
-            certification_name: cert.certificationsname,
-            issuing_organization: cert.issuingOrganization,
-            credential_id: cert.credentialId,
-            issue_date: `${cert.Issueyear}-${convertMonthToNumber(
-              cert.Issuemonth
-            )}`,
-            expiration_date:
-              cert.expirationmonth && cert.expirationyear
-                ? `${cert.expirationyear}-${convertMonthToNumber(
-                    cert.expirationmonth
-                  )}`
-                : null,
-          })),
-      soft_skills: isSkipped
-        ? []
-        : formData.skillsValues?.softskills
-           ,
-      technical_skills: isSkipped
-        ? []
-        : formData.skillsValues?.technicalSkills
-            ?.split(",")
-            .map((skill) => skill.trim()),
-      volunteer_experience: formData.volunteerList.map((volunteer) => ({
-        organization_name: volunteer.organizationName,
-        role: volunteer.volunteerRules,
-        start_year: parseInt(volunteer.startYear),
-        end_year: parseInt(volunteer.endYear),
-        description: volunteer.description,
-      })),
-
-      honors_and_awards: formData?.honorsList?.map((honor) => ({
-        award_name: honor?.awardName,
-        awarding_organization: honor?.awardingOrganization,
-        date_Received: `${honor?.receivedyear}-${convertMonthToNumber(
-          honor?.receivedmonth
-        )}`,
-        description: honor?.description,
-      })),
-    };
-  };
-  const transformedData = transformFormData(formData);
-  console.log(transformedData, "transformedDatatransformedData");
-
-  const [resumeId, setresumeid] = useState('');
-
-  const handleSubmitData = async () => {
-    const transformedData = transformFormData(formData);
-    setLoading(true);
-    try {
-      const response = await axios.post(
-        "/api/user/create-resume",
-        transformedData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (response.status === 201) {
-        SuccessToast("Resume Create Successfully");
-        handleModal();
-        setresumeid(response?.data?.data?._id)
-      }
-    } catch (error) {
-      ErrorToast(error?.response?.data );
-      console.error(
-        "Error submitting form:",
-        error?.response?.data || error.message
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  console.log(resumeId,"resumeId")
+  
   return (
     <div>
       <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
@@ -220,7 +97,7 @@ const PreviewResume = ({
                     <p
                       href="#"
                       className="block px-4 py-2 text-[12px] text-[#000000] font-[400] border-b mx-1 cursor-pointer"
-                      onClick={()=>navigate(`/edit-resume/${resumeId}`)}
+                      onClick={() => navigate(`/edit-resume/${resumeId}`)}
                     >
                       Edit{" "}
                     </p>
@@ -255,10 +132,10 @@ const PreviewResume = ({
 
       {/* Give this id */}
       <div id="download-resume" className="flex  justify-center">
-        <ResumePage formData={formData} isSkipped={isSkipped} />
+        <ResumePage  formData={formData} />
       </div>
     </div>
   );
 };
 
-export default PreviewResume;
+export default ViewEditResume;

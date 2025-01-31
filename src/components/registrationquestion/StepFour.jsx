@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { militaryTags } from "../data/MilitaryQuestionData";
@@ -7,10 +7,10 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import BackBtn from "../onboarding/BackBtn";
 import RecommendationDropdown from "../careerrecommendation/RecommendationDropdown";
 import TagsInputField from "./TagsInputFeild";
-
+import axios from "../../axios";
+import { ErrorToast } from "../toaster/ToasterContainer";
 const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
-  const [tagsError, setTagsError] = useState(false);
-  const [tags, setTags] = useState([]);
+  console.log("formData -- ", formData);
   const validationSchema = Yup.object({
     militaryService: Yup.string().required(
       "Please select an option to proceed."
@@ -21,24 +21,68 @@ const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
         : Yup.string(),
   });
 
+  const [tagsError, setTagsError] = useState(false);
+  const [loading, steLoading] = useState(false);
+  const [rankData, setRankData] = useState([]);
+  const [servicesData, setServices] = useState([]);
+  const [tags, setTags] = useState([]);
+  const [filteredTags, setFilteredTags] = useState([]);
+
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleMilitaryService = (value, setFieldValue, setFieldTouched) => {
     setFieldTouched("militaryService", true);
     setFieldValue("militaryService", value);
     setFormData({ ...formData, militaryService: value });
   };
 
-  const [filteredTags, setFilteredTags] = useState([]);
+  const getServices = async () => {
+    steLoading(true);
 
-  const options = [
-    { label: "US. Air Force", value: "AirForce" },
-    { label: "US Coast Guard", value: "CoastGuard" },
-    { label: "US Army", value: "Army" },
-    { label: "US Marine Corps", value: "MarineCorps" },
-    { label: "US Navy", value: "Navy" },
-    { label: "US National Guard", value: "NationalGuard" },
-  ];
+    try {
+      const response = await axios.get(`/api/services/get-services`);
 
-  const [isOpen, setIsOpen] = useState(false);
+      if (response.status === 200) {
+        const servicesOptions = response?.data?.data?.map((item) => ({
+          value: item?._id,
+          label: item?.service_name,
+        }));
+        setServices(servicesOptions);
+      }
+    } catch (err) {
+      console.error("Error fetching subscription details:", err);
+      ErrorToast(err?.response?.data?.message || "Failed to fetch Ranks.");
+    } finally {
+      steLoading(false);
+    }
+  };
+
+  const getRank = async () => {
+    steLoading(true);
+
+    try {
+      const response = await axios.get(`/api/services/get-ranks`);
+
+      if (response.status === 200) {
+        const rankOptions = response?.data?.data?.map((item) => ({
+          value: item?._id,
+          label: item?.rank_name,
+          serviceId: item?.serviceId?._id,
+        }));
+        setRankData(rankOptions);
+      }
+    } catch (err) {
+      console.error("Error fetching subscription details:", err);
+      ErrorToast(err?.response?.data?.message || "Failed to fetch Ranks.");
+    } finally {
+      steLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getServices();
+    getRank();
+  }, []);
 
   const handleOptionClick = (value, setFieldValue, setFieldTouched) => {
     setFieldTouched("militaryOption", true);
@@ -46,9 +90,17 @@ const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
     setFormData({ ...formData, militaryOption: value });
     setIsOpen(false);
 
-    const filteredTags = militaryTags[value] || [];
-    setFilteredTags(filteredTags);
+    const filteredRanks = rankData?.filter((item) => item?.serviceId === value);
+    setFilteredTags(filteredRanks);
   };
+
+  useEffect(() => {
+    if (tags.length > 0) {
+      setFormData({ ...formData, rankOptions: tags[0].value });
+    } else {
+      setFormData({ ...formData, rankOptions: "" });
+    }
+  }, [tags]);
 
   return (
     <Formik
@@ -103,7 +155,7 @@ const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
                   Branch of Service
                 </label>
                 <RecommendationDropdown
-                  options={options}
+                  options={servicesData}
                   errors={errors.militaryOption}
                   touched={touched.militaryOption}
                   setFieldValue={setFieldValue}

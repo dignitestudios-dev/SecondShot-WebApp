@@ -29,6 +29,28 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
     setFieldValue,
   } = formik;
 
+  const updateData = async (data) => {
+    if (data && Array.isArray(data)) {
+      console.log("Received Data:", data);
+
+      formik.setValues({
+        honorsList: data?.map((item) => ({
+          awardName: item?.awardName || "",
+          awardingOrganization: item?.awardingOrganization || "",
+          receivedyear: item?.receivedyear || "",
+
+          description: item?.description || "",
+        })),
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (formData?.honorsValues) {
+      updateData(formData?.honorsValues);
+    }
+  }, [formData?.honorsValues]);
+
   const getYearsArray = () => {
     const startYear = 1990;
     const currentYear = new Date().getFullYear();
@@ -39,6 +61,7 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
     }
     return years;
   };
+  
   return (
     <div className="pt-6 px-3">
       <div>

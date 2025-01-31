@@ -9,9 +9,18 @@ import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import { useFormik } from "formik";
 import { profileValues } from "../../data/authentication";
 import { profileSchema } from "../../Schema/profileSchema";
-
+import axios from "../../axios";
+import {
+  ErrorToast,
+  SuccessToast,
+} from "../../components/toaster/ToasterContainer";
 const ProfileDetails = () => {
   const navigation = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+  const fullname = sessionStorage.getItem("fullname");
+  const email = sessionStorage.getItem("email");
+  const phoneNumber = sessionStorage.getItem("phoneNumber");
 
   const {
     values,
@@ -26,11 +35,38 @@ const ProfileDetails = () => {
     validationSchema: profileSchema,
     validateOnChange: true,
     validateOnBlur: true,
-    onSubmit: (values) => {
-      console.log("Form Submitted", values);
-      navigation("/registration-question");
+
+    onSubmit: async (values) => {
+      setLoading(true);
+      try {
+        const formData = new FormData();
+
+        formData.append("state", values.state);
+        formData.append("city", values.country);
+        formData.append("address", values.address);
+
+        if (values.profilePicture) {
+          formData.append("profile_img", values.profilePicture);
+        }
+
+        const response = await axios.post("/api/user/set-profile", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        if (response.status === 200) {
+          SuccessToast("Profile Created successfully");
+          navigation("/registration-question");
+        }
+      } catch (err) {
+        ErrorToast(err?.response?.data?.message || "Failed to submit form");
+      } finally {
+        setLoading(false);
+      }
     },
   });
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -105,69 +141,33 @@ const ProfileDetails = () => {
 
           <div className="mt-3">
             <AuthInput
-              id="firstname"
-              name="firstname"
               type={"text"}
               placeholder={"First Name"}
-              value={values.firstname}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              value={fullname}
+              isDisabled
             />
-            {errors.firstname && touched.firstname ? (
-              <span className="text-red-700 text-sm font-medium">
-                {errors.firstname}
-              </span>
-            ) : null}
           </div>
-          <div className="mt-3">
+          {/* <div className="mt-3">
             <AuthInput
-              id="lastname"
-              name="lastname"
-              value={values.lastname}
+              value={fullname}
               type={"text"}
               placeholder={"Last Name"}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              isDisabled
             />
-            {errors.lastname && touched.lastname ? (
-              <span className="text-red-700 text-sm font-medium">
-                {errors.lastname}
-              </span>
-            ) : null}
-          </div>
+          </div> */}
           <div className="mt-3">
             <AuthInput
-              id="email"
-              name="email"
               type={"email"}
-              value={values.email}
+              value={email}
               placeholder={"Email"}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              isDisabled
             />
-            {errors.email && touched.email ? (
-              <span className="text-red-700 text-sm font-medium">
-                {errors.email}
-              </span>
-            ) : null}
           </div>
         </div>
         <div className="hidden md:block w-[1px] h-[70%] bg-gray-200 -ml-4 mt-10"></div>
         <div className="col-span-12 md:col-span-5 gap-y-4 px-12 md:px-36 md:-ml-52 lg:px-28 lg:-ml-48">
           <div className=" mt-5">
-            <PhoneInputs
-              value={values.phoneNumber}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              name="phoneNumber"
-              id="phoneNumber"
-            />
-
-            {errors.phoneNumber && touched.phoneNumber ? (
-              <span className="text-red-700 text-sm font-medium">
-                {errors.phoneNumber}
-              </span>
-            ) : null}
+            <PhoneInputs value={phoneNumber} isDisabled />
           </div>
           <div className="relative w-full mt-3 ">
             <SelectInput
@@ -224,14 +224,14 @@ const ProfileDetails = () => {
         </div>
         <div className="col-span-12">
           <div className=" flex justify-center space-x-2 mb-6">
-            <div className="w-[169px] h-[49px]">
+            {/* <div className="w-[169px] h-[49px]">
               <GrayBtn
                 text={"Skip Now"}
                 handleSubmit={() => navigation("/registration-question")}
               />
-            </div>
+            </div> */}
             <div className="w-[169px]">
-              <AuthSubmitBtn text={"Next"} type={"submit"} />
+              <AuthSubmitBtn text={"Next"} type={"submit"} loading={loading} />
             </div>
           </div>
         </div>

@@ -1,22 +1,72 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import BackBtn from "../onboarding/BackBtn";
 import TagsInputField from "./TagsInputFeild";
 import { hobbyTags } from "../data/SportsQuestionData";
+import { ErrorToast } from "../toaster/ToasterContainer";
+import axios from "../../axios";
 
-const StepSix = ({ nextStep, prevStep, formData, setFormData }) => {
+const StepSix = ({
+  nextStep,
+  prevStep,
+  formData,
+  setFormData,
+  setstepsixvalue,
+}) => {
   // const validationSchema = Yup.object({
   //     isAthlete: Yup.string().required('This field is required'),
   //   });
   const [tagsError, setTagsError] = useState(false);
   const [tags, setTags] = useState([]);
+  console.log(tags, "Tagss");
   // const handleIsAthlete = (value, setFieldValue, setFieldTouched) => {
   //   setFieldValue('isAthlete', value);
   //   setFormData({ ...formData, isAthlete: value });
   //   setFieldTouched("isAthlete", true);
   // }
+  const [hobbie, setHobbie] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const gethobbie = async () => {
+    setLoading(true);
+
+    try {
+      const response = await axios.get(`/api/services/get-hobbies`);
+
+      if (response.status === 200) {
+        const hobbieOptions = response?.data?.data?.map((item) => ({
+          value: item?._id,
+          label: item?.hobbie_name,
+        }));
+        setHobbie(hobbieOptions);
+      }
+    } catch (err) {
+      console.error("Error fetching subscription details:", err);
+      ErrorToast(err?.response?.data?.message || "Failed to fetch Ranks.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    gethobbie();
+  }, []);
+
+  useEffect(() => {
+    setstepsixvalue(
+      hobbie.filter((hobby) => {
+        return hobby.label !== (tags[0]?.label || "");
+      })
+    );
+  }, [tags]);
+
+  useEffect(() => {
+    if (tags.length > 0) {
+      setFormData({ ...formData, hobbieOptions: tags[0].value });
+    } 
+  }, [tags]);
 
   return (
     <Formik
@@ -40,7 +90,7 @@ const StepSix = ({ nextStep, prevStep, formData, setFormData }) => {
               </label>
 
               <TagsInputField
-                availableTags={hobbyTags}
+                availableTags={hobbie}
                 heading={"Select Your Favorite Hobby"}
                 tags={tags}
                 setTags={setTags}

@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ToasterContainer } from "./components/toaster/ToasterContainer.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { ModalProvider } from "./context/GlobalContext.jsx";
-
+import "swiper/swiper-bundle.css";
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>

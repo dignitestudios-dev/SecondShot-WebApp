@@ -10,7 +10,7 @@ function MyResume() {
   const [dropdownOpen, setDropdownOpen] = useState(null);
 
   const { isFirst, setIsFirst } = useContext(ModalContext);
-  console.log(isFirst, "hhhh");
+
 
   const navigate = useNavigate();
   const toggleDropdown = (index) => {

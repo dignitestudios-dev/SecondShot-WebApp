@@ -43,6 +43,8 @@ const Login = () => {
           const response = await axios.post("/api/auth/login", obj);
           if (response.status === 200) {
             login(response.data);
+            sessionStorage.setItem("email", values?.email);
+
             SuccessToast("Logged in successfully");
             navigation("/home", "Home");
             setLoading(false);

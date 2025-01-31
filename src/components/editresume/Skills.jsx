@@ -1,11 +1,11 @@
-import React from "react";
-import SkillsInputField from "./SkillsInputField";
+import React, { useEffect } from "react";
 import AuthInput from "../onboarding/AuthInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import { useFormik } from "formik";
 import { skillsValues } from "../../data/resumefield";
 import { skillsSchema } from "../../Schema/resumeSchema";
+import SkillsInputField from "../myresume/SkillsInputField";
 
 const Skills = ({
   nextStep,
@@ -35,6 +35,18 @@ const Skills = ({
     },
   });
 
+  const updateData = async (data) => {
+    if (data) {
+      setFieldValue("softskills", data?.softskills || "");
+      setFieldValue("technicalSkills", data?.technicalSkills || "");
+    
+    }
+  };
+
+  useEffect(() => {
+    formData?.skillsValues && updateData(formData.skillsValues);
+  }, [formData]);
+
   return (
     <div className="pt-6 px-3">
       <div className="my-6">
@@ -51,7 +63,7 @@ const Skills = ({
         errors={errors}
         touched={touched}
       />
-    
+
       <hr className="my-6" />
       <form onSubmit={handleSubmit}>
         <div className="">

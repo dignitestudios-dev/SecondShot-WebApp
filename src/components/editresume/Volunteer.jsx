@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AuthInput from "../onboarding/AuthInput";
 import MonthsInput from "../Global/MonthsInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
@@ -30,6 +30,29 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
     handleSubmit,
     setFieldValue,
   } = formik;
+
+  const updateData = async (data) => {
+    if (data && Array.isArray(data)) {
+      console.log("Received Data:", data);
+
+      formik.setValues({
+        volunteerList: data?.map((item) => ({
+          organizationName: item?.organizationName || "",
+          volunteerRules: item?.volunteerRules || "",
+          startYear: item?.startYear || "",
+          endYear: item?.endYear || "",
+          description: item?.description || "",
+        })),
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (formData?.volunteerValues) {
+      updateData(formData.volunteerValues);
+    }
+  }, [formData.volunteerValues]);
+
   const getYearsArray = () => {
     const startYear = 1990;
     const currentYear = new Date().getFullYear();
@@ -114,7 +137,6 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
                           onChange={handleChange}
                           onBlur={handleBlur}
                           options={getYearsArray()}
-
                         />
                         {errors.volunteerList?.[index]?.startYear &&
                           touched.volunteerList?.[index]?.startYear && (
@@ -137,7 +159,6 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
                           onChange={handleChange}
                           onBlur={handleBlur}
                           options={getYearsArray()}
-
                         />
                         {errors.volunteerList?.[index]?.endYear &&
                           touched.volunteerList?.[index]?.endYear && (

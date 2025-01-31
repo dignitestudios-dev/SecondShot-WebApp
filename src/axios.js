@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 export const baseUrl = "https://backend.mycareertoolbox.com";
+// export const baseUrl = "http://192.168.8.122:5000";
 
 const instance = axios.create({
   baseURL: baseUrl,
@@ -23,7 +24,6 @@ instance.interceptors.response.use(
     }
   },
   function (error) {
-    // *For unAuthorized
     if (error.response.status === 401 || error.response.status === 403) {
       Cookies.remove("token");
       Cookies.remove("name");

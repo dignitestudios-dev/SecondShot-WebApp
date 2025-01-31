@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BgAuth, Leftimg, logo, Logonav, logonew } from "../../assets/export";
 import StepOne from "../../components/registrationquestion/StepOne";
@@ -11,27 +11,47 @@ import StepSeven from "../../components/registrationquestion/StepSeven";
 import StepEight from "../../components/registrationquestion/StepEight";
 import StepNine from "../../components/registrationquestion/StepNine";
 import StepTen from "../../components/registrationquestion/StepTen";
+import axios from "../../axios";
+import Cookies from "js-cookie";
 
+import {
+  ErrorToast,
+  SuccessToast,
+} from "../../components/toaster/ToasterContainer";
 const RegistrationQuestion = () => {
-  const isSkill = localStorage.getItem("isEditSkill");
-  console.log("🚀 ~ RegistrationQuestions ~ isSkill:", isSkill);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+
+    if (!token) {
+      navigate("/");
+    }
+  }, [navigate]);
+
   const [congrats, setCongrats] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
+  const [stepsixvalue, setstepsixvalue] = useState([]);
   const [formData, setFormData] = useState({
     university: "",
-    military: "",
+    universityOptions: "",
+    rankOptions: "",
+    athleteOption: "",
+    sportsOption: "",
+    hobbieOptions: "",
+    hobbieOptions2: "",
+    subjectOptions: "",
     militaryOption: "",
-    skills: [],
     highestDegree: "",
     ageValue: "",
     militaryService: "",
-    militaryRole: "",
     isAthlete: "",
-    athleteOption: "",
     jobValue: "",
     desireCareer: "",
   });
+
+  console.log(formData, "formDataStepSend");
 
   const nextStep = (skip = false) => {
     setStep(skip ? step + 2 : step + 1);
@@ -46,17 +66,42 @@ const RegistrationQuestion = () => {
     navigate("/my-profile");
   };
 
-  // const handleChange = (input) => (e) => {
-  //   setFormData({ ...formData, [input]: e.target.value });
-  // };
+  const payload = {
+    current_grade_level: formData?.university,
+    major_trade_or_military: formData?.universityOptions,
+    highest_degree_completion: formData?.highestDegree,
+    is_eighteen_or_older: formData?.ageValue === "Yes" ? true : false,
+    has_military_service: formData?.militaryService === "Yes" ? true : false,
+    branch_of_service: formData?.militaryService === "Yes" ? formData?.militaryOption : null,
+    rank: formData?.militaryService === "Yes" ? formData?.rankOptions : null,    
+    is_athlete: formData?.isAthlete === "Yes" ? true : false,
+    primary_sport:formData?.isAthlete === "Yes" ?  formData?.athleteOption :null,
+    sport_position: formData?.isAthlete === "Yes" ?  formData?.sportsOption : null,
+    favorite_hobby1: formData?.hobbieOptions,
+    favorite_hobby2: formData?.hobbieOptions2,
+    favorite_middle_school_subject: formData?.subjectOptions,
+    has_job_experience: formData?.jobValue === "Yes" ? true : false,
+    recent_job_title: formData?.jobTitle,
+    desired_career_path: formData?.desireCareer,
+  };
 
-  // const handleMultiSelectChange = (input) => (values) => {
-  //   setFormData({ ...formData, [input]: values });
-  // };
+  const handleRegistration = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        "/api/user/complete-registration-questions",
+        payload
+      );
 
-  const handleRegistration = (values) => {
-    localStorage.removeItem("isEditSkill");
-    setCongrats(true);
+      if (response.status === 200) {
+        SuccessToast("Successfully Create Registration Questions");
+        navigate("/home");
+      } 
+    } catch (error) {
+      ErrorToast("Axios Error:", error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -147,6 +192,7 @@ const RegistrationQuestion = () => {
                     )}
                     {step === 6 && (
                       <StepSix
+                        setstepsixvalue={setstepsixvalue}
                         nextStep={nextStep}
                         setFormData={setFormData}
                         formData={formData}
@@ -155,6 +201,7 @@ const RegistrationQuestion = () => {
                     )}
                     {step === 7 && (
                       <StepSeven
+                        stepsixvalue={stepsixvalue}
                         nextStep={nextStep}
                         setFormData={setFormData}
                         formData={formData}
@@ -183,6 +230,8 @@ const RegistrationQuestion = () => {
                         setFormData={setFormData}
                         formData={formData}
                         prevStep={prevStep}
+                        handleRegistration={handleRegistration}
+                        loading={loading}
                       />
                     )}
                   </div>
