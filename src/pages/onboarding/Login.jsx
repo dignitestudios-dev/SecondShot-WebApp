@@ -35,33 +35,30 @@ const Login = () => {
       validateOnBlur: true,
       onSubmit: async (values) => {
         setLoading(true);
-      
+
         try {
           let obj = {
             email: values.email,
             password: values.password,
           };
-      
+
           const response = await axios.post("/api/auth/login", obj);
-      
+
           if (response.status === 200) {
-            login(response.data);
+            login(response?.data);
+            console.log(response.data, "response.data");
             sessionStorage.setItem("email", values?.email);
-      
-            if (response?.data.is_subscription_paid) {
-              if (response?.data.is_profile_completed) {
-                if (response?.data.is_registration_question_completed) {
-                  navigation("/home");
-                } else {
-                  navigation("/registration-question");
-                }
-              } else {
-                navigation("/profiledetail");
-              }
+
+            const { is_profile_completed, is_registration_question_completed } =
+              response?.data;
+            if (!is_profile_completed) {
+              navigation("/profiledetail");
+            } else if (!is_registration_question_completed) {
+              navigation("/registration-question");
             } else {
-              navigation("/subscriptionplans");
+              navigation("/home");
             }
-      
+
             SuccessToast("Logged in successfully");
           }
         } catch (err) {
@@ -70,7 +67,7 @@ const Login = () => {
           setLoading(false);
         }
       },
-    })      
+    });
 
   return (
     <div className=" bg-gradient-to-br from-[#F4F7FC] to-[#E9F5E5] p-4 ">
