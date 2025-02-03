@@ -20,8 +20,21 @@ const Information = ({ nextStep, setFormData, formData }) => {
       },
     });
 
-  console.log(values, "-- values");
+  const handlePhoneChange = (e) => {
+    const formattedValue = e.target.value.replace(/[^0-9]/g, "");
+    onChange({
+      target: {
+        name: e.target.name,
+        value: formattedValue,
+      },
+    });
+  };
 
+  const handleKeyPress = (e) => {
+    if (!/[0-9]/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
   const navigate = useNavigate();
   return (
     <div className="pt-6 px-3">
@@ -66,15 +79,24 @@ const Information = ({ nextStep, setFormData, formData }) => {
           ) : null}
         </div>
         <div className="w-full flex flex-col items-start gap-1 my-8">
-          <AuthInput
+          <label className="ml-1 text-[14px] font-medium text-[#181818] ">
+            Phone Number
+          </label>
+          <input
             id="phoneNumber"
             name="phoneNumber"
             value={values.phoneNumber}
+            type="tel"
+            maxLength={10}
+            placeholder={"Enter Your Phone Number"}
             onBlur={handleBlur}
             onChange={handleChange}
-            placeholder={"Enter Your Phone Number"}
-            text={"Phone Number"}
+            onKeyPress={handleKeyPress}
+            className={`w-full p-3 outline-none font-[500] focus:border-[#0E73D0]  border border-[#9A9A9A] rounded-[15px] 
+              placeholder:text-[16px] placeholder:font-[400] placeholder:text-[#181818] text-[#181818]
+              } h-full px-3 text-sm font-medium`}
           />
+
           {errors.phoneNumber && touched.phoneNumber ? (
             <span className="text-red-700 text-sm font-medium">
               {errors.phoneNumber}

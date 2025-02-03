@@ -1,5 +1,5 @@
 import { FaSearch } from "react-icons/fa";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
 import SearchInput from "../../components/Global/SearchInput";
@@ -16,7 +16,8 @@ import {
 } from "../../assets/export";
 import WelcomeStoryModal from "../../components/successstory/WelcomeStoryModal";
 import { ModalContext } from "../../context/GlobalContext";
-
+import axios from "../../axios";
+import Pagination from "../../components/pagination/pagination";
 function SuccessStory() {
   const navigate = useNavigate();
   const { isFirst, setIsFirst } = useContext(ModalContext);
@@ -65,11 +66,33 @@ function SuccessStory() {
   ];
 
   const [selected, setSelected] = useState("Matched Profiles");
-
+  const [loading, setLoading] = useState(false);
+  const [stories, setStories] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const handleToggle = (option) => {
     setSelected(option);
   };
+  const getsuccessstory = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get("/api/user/get-success-stories?page=1"); // 🔥 await added
 
+      if (response.status === 200) {
+        setStories(response?.data?.data);
+        setTotalPages(data?.data?.pagination?.totalPages || 1);
+      }
+    } catch (err) {
+      console.error("Error fetching stories:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getsuccessstory();
+  }, []);
+  console.log(stories, "stories");
   return (
     <div className="">
       <WelcomeStoryModal
@@ -81,8 +104,6 @@ function SuccessStory() {
           }));
         }}
       />
-
-     
 
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-semibold text-gray-800 leading-[43.2px] text-left ">
@@ -115,29 +136,52 @@ function SuccessStory() {
           </div>
         </div>
       </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-11 mt-16">
-        {data?.map((item, index) => (
-          <div
-            onClick={() => navigate("/story-pro-detail", { state: { item } })}
-            key={index}
-            className="bg-[#F2F7FF] rounded-[12px] w-[280px]  p-4  h-[203px] flex flex-col items-center cursor-pointer"
-          >
-            <div className="relative -mt-12 mb-4">
-              <img
-                src={item?.image}
-                alt="Profile"
-                className="h-24 w-24 rounded-full "
-              />
+      {loading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-11 mt-16">
+          {[...Array(stories.length || 8)]?.map((_, index) => (
+            <div
+              key={index}
+              className="bg-[#F2F7FF] rounded-[12px] w-[280px]  p-4  h-[203px] flex flex-col items-center cursor-pointer animate-pulse"
+            >
+              <div className="relative -mt-12 mb-4">
+                <div className="h-24 w-24 bg-gray-300 rounded-full"></div>{" "}
+              </div>
+              <h2 className="text-[20px] capitalize font-[600] text-[#012C57] bg-gray-300 w-2/3 h-5 rounded"></h2>
+              <h3 className="text-[14px] mt-1 text-[#0081FF] font-[500] text-center bg-gray-300 w-3/4 h-4 rounded"></h3>
             </div>
-            <h2 className="text-[20px] capitalize font-[600] text-[#012C57]">
-              {item?.name}
-            </h2>
-            <h3 className="text-[14px] mt-1 text-[#0081FF] font-[500] text-center">
-              {item?.degree}
-            </h3>
-          </div>
-        ))}
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-11 mt-16">
+          {stories?.map((item, index) => (
+            <div
+              onClick={() => navigate("/story-pro-detail", { state: { item } })}
+              key={index}
+              className="bg-[#F2F7FF] rounded-[12px] w-[280px]  p-4  h-[203px] flex flex-col items-center cursor-pointer"
+            >
+              <div className="relative -mt-12 mb-4">
+                <img
+                  src={item?.profile_img}
+                  alt="Profile"
+                  className="h-24 w-24 rounded-full "
+                />
+              </div>
+              <h2 className="text-[20px] capitalize font-[600] text-[#012C57]">
+                {item?.name}
+              </h2>
+              <h3 className="text-[14px] mt-1 text-[#0081FF] font-[500] text-center">
+                {item?.profession}
+              </h3>
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="mt-11">
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}
+        />
       </div>
     </div>
   );

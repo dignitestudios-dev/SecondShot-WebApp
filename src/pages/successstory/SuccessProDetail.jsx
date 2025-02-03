@@ -24,7 +24,7 @@ function SuccessProDetail() {
           <div className="bg-white rounded-2xl p-8">
             <div className="flex items-center mb-6">
               <img
-                src={succesname?.image}
+                src={succesname?.profile_img}
                 alt="Profile"
                 className="h-24 w-24 rounded-full shadow-md"
               />

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BgAuth, Leftimg, logo, Logonav, logonew } from "../../assets/export";
 import StepOne from "../../components/registrationquestion/StepOne";
@@ -18,9 +18,10 @@ import {
   ErrorToast,
   SuccessToast,
 } from "../../components/toaster/ToasterContainer";
+import { AuthContext } from "../../context/AuthContext";
 const RegistrationQuestion = () => {
   const navigate = useNavigate();
-
+  const { setRegQuestion } = useContext(AuthContext);
   useEffect(() => {
     const token = Cookies.get("token");
 
@@ -98,10 +99,13 @@ const RegistrationQuestion = () => {
 
       if (response.status === 200) {
         SuccessToast("Successfully Create Registration Questions");
+
+        setRegQuestion("true");
+        Cookies.set("regQuestion", "true");
         navigate("/home");
       }
     } catch (error) {
-      ErrorToast("Axios Error:", error.message);
+      ErrorToast("Erorr", error.message);
     } finally {
       setLoading(false);
     }

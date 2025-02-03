@@ -11,7 +11,7 @@ const Applayout = ({ page }) => {
       <div className="max-w-screen-xl  mx-auto mt-11  ">
         <div className="max-w-screen-xl px-11 pe-11">{page}</div>
       </div>
-      <div className="pb-5   mx-auto px-11 pe-11 ">
+      <div className="pb-5   mx-auto px-11  pe-11 ">
         <Footer />
       </div>
     </div>

@@ -16,19 +16,15 @@ const AuthProvider = ({ children }) => {
 
   const [token, setToken] = useState(Cookies.get("token"));
   const [regQuestion, setRegQuestion] = useState(Cookies.get("regQuestion"));
+  const [subscriptionpaid, setSubscriptionpaid] = useState(Cookies.get("subscriptionpaid"));
 
   const login = (userData) => {
-    console.log(userData, "ajjaja");
-    // Cookies.set("name", userData.name);
-    // Cookies.set("email", userData.email);
-    // Cookies.set("phone", userData.phone);
-    // Cookies.set("idToken", userData.idToken);
     Cookies.set("token", userData?.token);
-    Cookies.set("regQuestion", userData?.is_registration_question_completed);
-
-    // setUser(userData);
+    Cookies.set("subscriptionpaid", userData.is_subscription_paid);
+    Cookies.set("regQuestion", userData.is_registration_question_completed);
     setToken(userData?.token);
     setRegQuestion(userData?.is_registration_question_completed);
+    setSubscriptionpaid(userData?.is_subscription_paid);
   };
 
   const logout = () => {
@@ -42,6 +38,8 @@ const AuthProvider = ({ children }) => {
     logout,
     token,
     regQuestion,
+    subscriptionpaid,
+    setRegQuestion,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

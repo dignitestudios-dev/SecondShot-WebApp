@@ -16,11 +16,15 @@ import {
 } from "../../assets/export";
 import { useNavigate } from "react-router-dom";
 import { ModalContext } from "../../context/GlobalContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const CareerToolbox = () => {
   const navigate = useNavigate();
   const { showModal, closeModal, isFirst, setIsFirst } =
     useContext(ModalContext);
+
+  const { subscriptionpaid } = useContext(AuthContext);
+
   const CardData = [
     {
       cardicons: Carriericon1,
@@ -37,8 +41,7 @@ const CareerToolbox = () => {
       bgcolors: "bg-gradient-to-b from-[#FF6CAC] to-[#ED3283]",
       title: "Career Recommendation",
       cardimage: Card2,
-      btnBg:
-        isFirst.recommendation === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
+      btnBg: isFirst.recommendation === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Take a short assessment to receive recommended careers, sample job descriptions, and recommended pathways to success. You will receive 5 career matches.",
       path: "/careerrecommendation",
       btn: isFirst.recommendation === true ? "Unlock" : "Launch",
@@ -85,6 +88,21 @@ const CareerToolbox = () => {
       btn: isFirst.mylibrary === true ? "Unlock" : "Launch",
     },
   ];
+  const handleNavigation = (item) => {
+   
+    if (!subscriptionpaid && item.title !== "Transferable Skills") {
+      alert("Please purchase a subscription to access this feature!");
+      return;
+    }
+
+   
+    if (item.title === "Transferable Skills") {
+      setIsFirst((prev) => ({ ...prev, transferable: true }));
+    }
+
+    
+    navigate(item.path);
+  };
 
   return (
     <div className="">
@@ -121,14 +139,16 @@ const CareerToolbox = () => {
 
             <div
               className={`${item?.btnBg} flex w-[330px] justify-center items-center text-white h-[49px] rounded-[12px]  uppercase tracking-[0.41px] font-[600] text-center mt-auto absolute bottom-5 left-0 right-0 mx-auto`}
-              onClick={() => navigate(item?.path)}
+              onClick={() => handleNavigation(item)}
             >
               {item.btn === "Unlock" && (
                 <div>
                   <img src={homelock} className="w-[33.5px]" alt="" />
                 </div>
               )}
-              <div className={`text-[18px]  `}>{item.btn}</div>
+              <div className={`text-[18px]`}>
+                {subscriptionpaid ? item.btn : item.btn}
+              </div>
             </div>
           </div>
         ))}
