@@ -1,15 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Backbutton from "../../components/Global/Backbutton";
 import SearchInput from "../../components/Global/SearchInput";
-import LibraryCareer from "../../components/mylibrary/LibraryCareer";
-
 import Transferable from "../../components/mylibrary/Transferable";
 import WelcomeLibraryModal from "../../components/mylibrary/WelcomeLibraryModal";
 import { ModalContext } from "../../context/GlobalContext";
 import CareerCards from "../../components/careerrecommendation/CareerCards";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
-
+import axios from "../../axios";
 function MyLibrary() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,6 +25,24 @@ function MyLibrary() {
     setSelected(newView);
   };
 
+  const [library, setLibrary] = useState([]);
+
+  const getlibrary = () => {
+    try {
+      const response = axios.get("/api/user/get-user-transferable-skills");
+      if (response.status === 200) {
+        setLibrary(response?.data?.data);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+    }
+  };
+  useEffect(() => {
+    getlibrary();
+  }, []);
+  console.log(library,"++==");
+
   return (
     <div className="">
       <WelcomeLibraryModal
@@ -39,7 +54,6 @@ function MyLibrary() {
           }));
         }}
       />
-    
 
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-semibold text-gray-800">My Library</h1>
@@ -56,7 +70,7 @@ function MyLibrary() {
                   : "text-gray-500"
               }`}
             >
-              Career Recommendations  
+              Career Recommendations
             </button>
             <button
               onClick={() => handleViewChange("transferable")}

@@ -2,10 +2,8 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   Centerpro,
   CenterSkill,
-  Dottedvertical,
   Downloadimg,
   Printimg,
-  Profileimage,
   Shareimg,
   skillbottomleft,
   skillbottomright,
@@ -161,15 +159,6 @@ const NewTrasnferSkill = () => {
     }
   };
 
-  const mainRef = useRef(null);
-
-  console.log(getSkill, "getSkill===>");
-
-  const handleClickOutside = (event) => {
-    if (mainRef.current && !mainRef.current.contains(event.target)) {
-      setAppear(false);
-    }
-  };
   return (
     <div className="relative  ">
       <ResumeDownloadModal
@@ -205,31 +194,6 @@ const NewTrasnferSkill = () => {
           </div>
         </div>
       </div>{" "}
-      {/* <span
-        className={`w-[388px]  flex transition-all duration-500 absolute -top-82 -right-32 z-10 ${
-          appear ? "translate-x-0" : "translate-x-[100vw]"
-        } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
-      >
-        <span className="w-[80%] h-full text-md font-medium text-gray-800">
-          {notedescription}
-        </span>
-
-        <span className="w-[20%] h-full flex justify-end items-start">
-          {loading ? (
-            <span className="animate-pulse text-green-500">
-              <BsFillBookmarkStarFill size={"27px"} />
-            </span>
-          ) : (
-            <BsFillBookmarkStarFill
-              size={"27px"}
-              onClick={() => handleLike(noteData)}
-              className={`transition duration-200 cursor-pointer ${
-                isLiked ? "text-green-500" : "text-gray-500"
-              }`}
-            />
-          )}
-        </span>
-      </span> */}
       {topSkill && (
         <div
           className={`flex relative top-[186px] left-[5px] justify-center transition-all duration-1000 ease-in-out ${
@@ -550,7 +514,8 @@ const NewTrasnferSkill = () => {
                     0,
                     7
                   ) + "..."
-                : getSkill?.athlete?.sport_position?.position_name || "Null"}{" "}
+                : getSkill?.athlete?.sport_position?.position_name ||
+                  "Null"}{" "}
             </span>
           </div>
         </div>
@@ -1050,7 +1015,7 @@ const NewTrasnferSkill = () => {
           <img src={skillright} className="h-[725px]" alt="" />
         </div>
       )}
-      {getSkill?.military?.rank?.rank_name && bottomLeft &&  (
+      {getSkill?.military?.rank?.rank_name && bottomLeft && (
         <div
           className={`relative top-[-258px] left-[-124px] ${
             bottomLeft
@@ -1296,7 +1261,7 @@ const NewTrasnferSkill = () => {
           <img src={skillbottomleft} className="h-[625px]" alt="" />
         </div>
       )}
-      {getSkill?.athlete?.sport_position?.position_name && bottomright &&  (
+      {getSkill?.athlete?.sport_position?.position_name && bottomright && (
         <div
           className={`relative top-[-233px] right-[-520px] ${
             bottomright

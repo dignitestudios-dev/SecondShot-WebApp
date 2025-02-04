@@ -92,6 +92,7 @@ import step8 from "../assets/resumetem/step8.png";
 import resumetemplate from "../assets/resumetemplate.png";
 import blueresumetem from "../assets/blueresumetem.png";
 import homelock from "../assets/homelock.png";
+import lockModal from "../assets/lockModal.png";
 export {
   logo,
   Carriericon1,
@@ -187,4 +188,5 @@ export {
   resumetemplate,
   blueresumetem,
   homelock,
+  lockModal
 };

@@ -15,10 +15,14 @@ import InviteFriendModal from "../../components/myProfile/InviteFriendModal";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "../../axios";
 import ProfileSkeleton from "../../components/loader/ProfileSkeleton";
+import { ModalContext } from "../../context/GlobalContext";
 function MyProfile() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("profile");
   const [loading, setloading] = useState(false);
+
+  const { setProfilepic } = useContext(ModalContext);
+
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] =
     useState(false);
   const [isChangePaymentMethodModalOpen, setIsChangePaymentMethodModalOpen] =
@@ -33,12 +37,14 @@ function MyProfile() {
   const [inviteOpen, setInviteOpen] = useState(false);
   const { logout } = useContext(AuthContext);
   const [profileData, setProfile] = useState("");
+  const [registrationData, setregistrationData] = useState("");
   const getProfile = async () => {
     setloading(true);
     try {
       const response = await axios.get("/api/user/my-profile");
       if (response.status === 200) {
         setProfile(response?.data?.data);
+        setProfilepic(response?.data?.data?.profile_img);
       }
     } catch (err) {
       console.log(err.message);
@@ -46,9 +52,23 @@ function MyProfile() {
       setloading(false);
     }
   };
-
+  const getreqQuestion = async () => {
+    setloading(true);
+    try {
+      const response = await axios.get("/api/user/get-registration-questions");
+      if (response.status === 200) {
+        setregistrationData(response?.data?.data);
+      }
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      setloading(false);
+    }
+  };
+  console.log(registrationData, "==+>registrationData");
   useEffect(() => {
     getProfile();
+    getreqQuestion();
   }, []);
 
   return (
@@ -133,13 +153,13 @@ function MyProfile() {
                           {profileData?.phone}
                         </p>
                         <p className="text-[#050405] text-[16px] mb-3">
-                          Toronto, Canada
+                          {profileData?.state}, {profileData?.city}
                         </p>
                         <p className="text-[#222222] font-[500] text-[16px] leading-[21.6px] ">
                           Visit our website
                         </p>
                         <p className="text-[#222222] font-[400] text-[16px] leading-[21.6px] underline ">
-                          www.secondshot.com/56et
+                         {profileData?.address}
                         </p>
                       </div>
                     </div>
@@ -185,7 +205,7 @@ function MyProfile() {
                       Education
                     </h3>
                     <p className="text-gray-700">
-                      Grade level or Professional Level
+                      {registrationData?.current_grade_level}
                     </p>
                     <p className="text-[18px] font-[500]">College</p>
                     <p className="text-gray-700">
@@ -199,7 +219,10 @@ function MyProfile() {
                       <h3 className="text-[20px] font-[500] text-[#000000] mb-2">
                         Military Service
                       </h3>
-                      <p className="text-gray-700">Branch of Service</p>
+                      <p className="text-gray-700">
+                        {" "}
+                        {registrationData?.major_trade_or_military}
+                      </p>
                       <p className="text-[#000000] font-[500] text-[16px] mb-2">
                         Airforce
                       </p>

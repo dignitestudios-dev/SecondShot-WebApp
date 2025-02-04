@@ -3,27 +3,24 @@ import React from "react";
 const ProfileSkeleton = () => {
   return (
     <div>
-      <div className="flex flex-wrap items-center mb-8">
-        <img
-          src="https://placehold.co/600x400"
-          alt="User Avatar"
-          className="h-24 w-24 rounded-full object-cover shadow-lg mr-6"
-        />
+      <div className="flex flex-wrap items-center mb-8 animate-pulse">
+        <div className="h-24 w-24 rounded-full object-cover bg-gray-300 shadow-lg mr-6"></div>
         <div>
-          <h2 className="text-[20px] font-[600] text-[#050405] text-left">
-            {"....."}
-          </h2>
-          <p>{"....."}</p>
+          <div className=" w-[240px]    items-center cursor-pointer animate-pulse">
+            <h2 className="text-[20px] capitalize font-[600] text-[#012C57] bg-gray-300 w-2/3 h-5 rounded"></h2>
+            <h3 className="text-[14px] mt-1 text-[#0081FF] font-[500] text-center bg-gray-300 w-3/4 h-4 rounded"></h3>
+          </div>
         </div>
         <div className="ml-auto text-right">
-          <p className="text-[#050405] text-[16px] ">{'0000000000'}</p>
-          <p className="text-[#050405] text-[16px] mb-3">Toronto, Canada</p>
-          <p className="text-[#222222] font-[500] text-[16px] leading-[21.6px] ">
-            Visit our website
-          </p>
-          <p className="text-[#222222] font-[400] text-[16px] leading-[21.6px] underline ">
-            www.secondshot.com/56et
-          </p>
+          <div className=" w-[240px] flex  justify-end mb-3   items-center cursor-pointer animate-pulse">
+            <h3 className="text-[14px] mt-1 text-[#0081FF] font-[500] text-center bg-gray-300 w-3/4 h-4 rounded"></h3>
+          </div>
+          <div className=" w-[240px] flex  justify-end mb-3   items-center cursor-pointer animate-pulse">
+            <h3 className="text-[14px] mt-1 text-[#0081FF] font-[500] text-center bg-gray-300 w-3/4 h-4 rounded"></h3>
+          </div>
+          <div className=" w-[240px] flex  justify-end mb-3   items-center cursor-pointer animate-pulse">
+            <h3 className="text-[14px] mt-1 text-[#0081FF] font-[500] text-center bg-gray-300 w-3/4 h-4 rounded"></h3>
+          </div>
         </div>
       </div>
     </div>

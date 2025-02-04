@@ -17,11 +17,14 @@ import {
 import { useNavigate } from "react-router-dom";
 import { ModalContext } from "../../context/GlobalContext";
 import { AuthContext } from "../../context/AuthContext";
+import LockModal from "./LockModal";
 
 const CareerToolbox = () => {
   const navigate = useNavigate();
   const { showModal, closeModal, isFirst, setIsFirst } =
     useContext(ModalContext);
+
+    const [lock,setLock]=useState(false)
 
   const { subscriptionpaid } = useContext(AuthContext);
 
@@ -34,7 +37,7 @@ const CareerToolbox = () => {
       btnBg: isFirst.transferable === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Discover the valuable skills you've acquired. Explore how to use them to shape your future and apply them across different areas of your life.",
       path: "/transferablekills",
-      btn: isFirst.transferable === true ? "Unlock" : "Launch",
+      btn: subscriptionpaid === true ? "Unlock" : "Launch",
     },
     {
       cardicons: Carriericon2,
@@ -44,7 +47,7 @@ const CareerToolbox = () => {
       btnBg: isFirst.recommendation === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Take a short assessment to receive recommended careers, sample job descriptions, and recommended pathways to success. You will receive 5 career matches.",
       path: "/careerrecommendation",
-      btn: isFirst.recommendation === true ? "Unlock" : "Launch",
+      btn: subscriptionpaid === false ? "Unlock" : "Launch",
     },
     {
       cardicons: Carriericon3,
@@ -54,7 +57,7 @@ const CareerToolbox = () => {
       btnBg: isFirst.myresume === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Use this template to build your resume and stand out from your competition.",
       path: "/myresume",
-      btn: isFirst.myresume === true ? "Unlock" : "Launch",
+      btn: subscriptionpaid === false ? "Unlock" : "Launch",
     },
     {
       cardicons: Carriericon4,
@@ -64,7 +67,7 @@ const CareerToolbox = () => {
       btnBg: isFirst.mygoals === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Establish a clear action plan to turn your goals into reality. This goal setting provides focus, drives motivation, keeps you accountable and offers a roadmap for success.",
       path: "/mygoals",
-      btn: isFirst.mygoals === true ? "Unlock" : "Launch",
+      btn: subscriptionpaid === false ? "Unlock" : "Launch",
     },
 
     {
@@ -75,7 +78,7 @@ const CareerToolbox = () => {
       btnBg: isFirst.successstory === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Explore success stories from individuals who have similar experiences and share your interests.",
       path: "/success-story",
-      btn: isFirst.successstory === true ? "Unlock" : "Launch",
+      btn: subscriptionpaid === false ? "Unlock" : "Launch",
     },
     {
       cardicons: Carriericon6,
@@ -85,22 +88,19 @@ const CareerToolbox = () => {
       btnBg: isFirst.mylibrary === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Mark and save your favorite skills and careers for quick reference.",
       path: "/my-library",
-      btn: isFirst.mylibrary === true ? "Unlock" : "Launch",
+      btn: subscriptionpaid === false ? "Unlock" : "Launch",
     },
   ];
   const handleNavigation = (item) => {
-   
     if (!subscriptionpaid && item.title !== "Transferable Skills") {
-      alert("Please purchase a subscription to access this feature!");
+      setLock(true)
       return;
     }
 
-   
     if (item.title === "Transferable Skills") {
       setIsFirst((prev) => ({ ...prev, transferable: true }));
     }
 
-    
     navigate(item.path);
   };
 
@@ -152,6 +152,11 @@ const CareerToolbox = () => {
             </div>
           </div>
         ))}
+
+        <LockModal
+        isOpen={lock}
+        handleClick={()=>setLock(false)}
+        />
       </div>
     </div>
   );

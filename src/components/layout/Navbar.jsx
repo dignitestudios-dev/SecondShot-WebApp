@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Logonav, Profileimage } from "../../assets/export";
 import { Link } from "react-router-dom";
 import { RiNotification2Line } from "react-icons/ri";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import NotificationDropdown from "../Notifications/Notifications";
+import { ModalContext } from "../../context/GlobalContext";
 
 const Navbar = () => {
   const navItems = [
@@ -18,7 +19,7 @@ const Navbar = () => {
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
-
+  const { profilepic } = useContext(ModalContext);
   return (
     <div className="flex gap-3 relative z-30">
       <div className="md:hidden text-end flex justify-end w-full mt-4 p-6">
@@ -54,7 +55,9 @@ const Navbar = () => {
               </Link>
               <div
                 className={`${
-                  location.pathname === item.path ? "w-auto h-[1px] bg-white" : ""
+                  location.pathname === item.path
+                    ? "w-auto h-[1px] bg-white"
+                    : ""
                 }`}
               ></div>
             </li>
@@ -72,7 +75,7 @@ const Navbar = () => {
           </div>
           <Link to="/my-profile">
             <img
-              src={Profileimage}
+              src={profilepic}
               alt="User Avatar"
               className="h-[40px] w-[40px] md:h-[60px] md:w-[60px] rounded-full border-2 border-white p-0.5"
             />

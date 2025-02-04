@@ -5,6 +5,7 @@ export const ModalContext = createContext();
 export const ModalProvider = ({ children }) => {
   const [showModal, setShowModal] = useState(false);
 
+  const [profilepic, setProfilepic] = useState("");
 
   const [isFirst, setIsFirst] = useState(() => {
     const savedState = localStorage.getItem("isFirst");
@@ -21,7 +22,6 @@ export const ModalProvider = ({ children }) => {
         };
   });
 
-
   useEffect(() => {
     localStorage.setItem("isFirst", JSON.stringify(isFirst));
   }, [isFirst]);
@@ -32,7 +32,15 @@ export const ModalProvider = ({ children }) => {
 
   return (
     <ModalContext.Provider
-      value={{ showModal, closeModal, setShowModal, isFirst, setIsFirst }}
+      value={{
+        showModal,
+        closeModal,
+        setShowModal,
+        isFirst,
+        setIsFirst,
+        profilepic,
+        setProfilepic,
+      }}
     >
       {children}
     </ModalContext.Provider>

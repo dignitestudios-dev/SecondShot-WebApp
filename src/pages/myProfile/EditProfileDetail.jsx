@@ -50,6 +50,7 @@ const EditProfileDetails = () => {
         if (values.profilePicture) {
           formData.append("profile_img", values.profilePicture);
         }
+        
 
         const response = await axios.put("/api/user/update-profile", formData, {
           headers: { "Content-Type": "multipart/form-data" },
