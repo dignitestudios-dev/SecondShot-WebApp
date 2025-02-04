@@ -12,7 +12,7 @@ const SubscriptionNew = () => {
   };
   const location = useLocation();
   const { cardsubdata } = location.state || {};
-  console.log(cardsubdata, "benefitsbenefits");
+ 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#F4F7FC] to-[#E9F5E5] relative">
       <div className="flex justify-center text-center">

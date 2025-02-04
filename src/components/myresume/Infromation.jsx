@@ -15,7 +15,7 @@ const Information = ({ nextStep, setFormData, formData }) => {
       validateOnBlur: true,
       onSubmit: (values) => {
         setFormData({ ...formData, informationValues: values });
-        console.log("Form Submitted", values);
+    
         nextStep();
       },
     });

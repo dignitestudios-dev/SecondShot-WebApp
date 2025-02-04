@@ -14,7 +14,7 @@ import StepTen from "../../components/registrationquestion/StepTen";
 
 const EditRegistrationQuestion = () => {
   const isSkill = localStorage.getItem("isEditSkill");
-  console.log("🚀 ~ RegistrationQuestions ~ isSkill:", isSkill);
+ 
   const navigate = useNavigate();
   const [congrats, setCongrats] = useState(false);
   const [step, setStep] = useState(1);

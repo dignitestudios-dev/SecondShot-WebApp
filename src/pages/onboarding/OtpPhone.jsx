@@ -39,7 +39,7 @@ const OtpPhone = () => {
     };
     const handleSubmit = () => {
       const otpValue = getOtpValue(); 
-      console.log("OTP Submitted:", otpValue);
+      
 
       
       if (onForgot === "true") {

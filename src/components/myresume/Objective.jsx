@@ -14,7 +14,7 @@ const Objective = ({ nextStep, setFormData, formData, prevStep }) => {
       validateOnBlur: true,
       onSubmit: (values) => {
         setFormData({ ...formData, objetiveValues: values });
-        console.log("Form Submitted", values);
+      
         nextStep();
       },
     });

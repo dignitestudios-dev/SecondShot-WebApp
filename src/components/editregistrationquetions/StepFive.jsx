@@ -21,7 +21,7 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
         : Yup.string(),
   });
 
-  console.log(formData?.isAthlete);
+ 
 
   const handleIsAthlete = (value, setFieldValue, setFieldTouched) => {
     setFieldTouched("isAthlete", true);

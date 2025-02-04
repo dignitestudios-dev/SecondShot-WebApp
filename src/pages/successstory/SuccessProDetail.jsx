@@ -9,7 +9,7 @@ function SuccessProDetail() {
   const location = useLocation();
   const succesname = location.state?.item;
 
-  console.log("Received Item:", succesname);
+
   const navigate = useNavigate();
 
   return (

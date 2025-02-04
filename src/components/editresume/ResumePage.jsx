@@ -4,7 +4,6 @@ import axios from "../../axios";
 import moment from "moment";
 
 const ResumePage = ({ formData }) => {
-  console.log(formData, "formData");
 
   const formatDate = (dateString) => {
     return dateString ? moment(dateString).format("DD-MM-YYYY") : "";
@@ -12,7 +11,7 @@ const ResumePage = ({ formData }) => {
   
   // Example Usage:
   const rawDate = "2013-06-01T00:00:00.000Z";
-  console.log(formatDate(rawDate)); // Output: "01-06-2013"
+
   
   return (
     <div className="bg-white w-[1200px]  mx-auto p-8 rounded-lg shadow-md ">

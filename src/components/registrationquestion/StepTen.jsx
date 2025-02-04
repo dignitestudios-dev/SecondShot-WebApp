@@ -6,7 +6,7 @@ import BackBtn from "../onboarding/BackBtn";
 import { useNavigate } from "react-router-dom";
 
 const StepTen = ({ handleRegistration, prevStep, formData, setFormData,loading }) => {
-  console.log(formData, "FormData");
+
   const validationSchema = Yup.object({
     desireCareer: Yup.string().required("This field cannot be left empty."),
   });

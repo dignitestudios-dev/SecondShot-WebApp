@@ -166,7 +166,7 @@ const NewTrasnferSkill = () => {
   const [isLiked, setIsLiked] = useState(false);
 
   const handleLike = async (noteData) => {
-    console.log(noteData);
+ 
     setLoading(true);
     try {
       const response = await axios.post("/api/user/toggle-transferable-skill", {
@@ -228,7 +228,7 @@ const NewTrasnferSkill = () => {
           <div className="absolute text-sm font-medium text-white text-center ">
             {getSkill?.favorite_hobby1?.topics?.map((item, index) => (
               <div key={index}>
-                {console.log(item, "===>")}
+          
                 {index === 0 && (
                   <button
                     onBlur={() => setAppear(false)}

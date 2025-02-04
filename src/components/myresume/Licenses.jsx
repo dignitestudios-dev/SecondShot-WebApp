@@ -18,7 +18,7 @@ const Licenses = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =>
         ...formData,
         certificationsList: values?.certificationsList,
       });
-      console.log("Form Submitted", values);
+   
       nextStep();
     },
   });

@@ -24,15 +24,14 @@ const Licenses = ({
         ...formData,
         certificationsList: values?.certificationsList,
       });
-      console.log("Form Submitted", values);
+   
       nextStep();
     },
   });
 
   const updateData = async (data) => {
     if (data && Array.isArray(data)) {
-      console.log("Received Data:", data);
-
+   
       formik.setValues({
         educationList: data?.map((item) => ({
           certificationsname: item?.certificationsname || "",

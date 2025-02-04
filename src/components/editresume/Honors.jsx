@@ -31,7 +31,7 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
 
   const updateData = async (data) => {
     if (data && Array.isArray(data)) {
-      console.log("Received Data:", data);
+    
 
       formik.setValues({
         honorsList: data?.map((item) => ({

@@ -13,15 +13,14 @@ const Education = ({
   formData,
   setIsSkipped,
 }) => {
-  console.log(formData, "-->Education==>");
-
+  
   const formik = useFormik({
     initialValues: { educationList: formData?.educationList || [] },
     validationSchema: educationSchema,
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: (values) => {
-      console.log("Form Submitted", values);
+   
       setFormData({ ...formData, educationList: values?.educationList });
       nextStep();
     },
@@ -29,10 +28,10 @@ const Education = ({
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     formik;
-  console.log(values, "values====>{}");
+ 
   const updateData = async (data) => {
     if (data && Array.isArray(data)) {
-      console.log("Received Data:", data);
+   
 
       formik.setValues({
         educationList: data?.map((item) => ({

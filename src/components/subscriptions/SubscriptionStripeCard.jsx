@@ -23,7 +23,7 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
   const [activatModal, setActivatModal] = useState(modal);
   const navigation = useNavigate();
 
-const {setSubscriptionpaid} =useContext(AuthContext)
+  const { setSubscriptionpaid } = useContext(AuthContext);
   const [clientSecret, setClientSecret] = useState(null);
 
   const [loading, setLoading] = useState(false);
@@ -47,7 +47,6 @@ const {setSubscriptionpaid} =useContext(AuthContext)
         localStorage.setItem("product_id", cardsubdata?._id || product_id);
         localStorage.setItem("cardsubdata", JSON.stringify(cardsubdata));
         localStorage.setItem("paymentIntentId", data?.paymentIntentId);
-        setSubscriptionpaid(true)
       }
     } catch (error) {
       ErrorToast(error?.response?.data?.message || "Something went wrong.");

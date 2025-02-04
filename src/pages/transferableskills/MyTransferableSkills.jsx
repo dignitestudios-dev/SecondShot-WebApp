@@ -9,7 +9,7 @@ function MyTransferableSkills() {
   const [tooltip, setTooltip] = useState({ show: false, text: "", x: 0, y: 0 });
   // const [Modal, setModal] = useState(true);
   const { isFirst, setIsFirst } = useContext(ModalContext);
-  console.log("first--- ", isFirst);
+ 
 
   const greenCircles = [
     { name: "Power Forward" },

@@ -414,7 +414,6 @@ const EditResume = () => {
     }
   };
 
-  console.log(resumeId, "resumeId");
   return (
     <div className="">
       <>

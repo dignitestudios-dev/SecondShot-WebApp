@@ -92,7 +92,7 @@ function SuccessStory() {
   useEffect(() => {
     getsuccessstory();
   }, []);
-  console.log(stories, "stories");
+
   return (
     <div className="">
       <WelcomeStoryModal

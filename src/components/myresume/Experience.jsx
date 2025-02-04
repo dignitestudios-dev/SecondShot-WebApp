@@ -33,7 +33,7 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
     onSubmit: (values) => {
       setFormData({ ...formData, experienceList: values?.experienceList });
       setCustomErrors({});
-      console.log("Form Submitted", values);
+ 
       nextStep();
     },
   });
@@ -47,8 +47,7 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
     handleSubmit,
     setFieldValue,
   } = formik;
-  console.log(values, "valuesvalues");
-  console.log(errors, "errors errors");
+
   errors;
   const [checked, setChecked] = useState(true);
 

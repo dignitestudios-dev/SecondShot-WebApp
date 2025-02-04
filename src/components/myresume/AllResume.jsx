@@ -100,7 +100,7 @@ const resumeData = {
 };
 
 const AllResume = ({ resume }) => {
-  console.log(resume, "Data");
+
   return (
     <div>
       <div className="bg-white  p-2 rounded-lg shadow-md ">

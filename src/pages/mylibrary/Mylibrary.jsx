@@ -20,28 +20,12 @@ function MyLibrary() {
 
   const [selected, setSelected] = useState("career");
   const handleViewChange = (newView) => {
-    console.log("Switching to view:", newView);
+
     setView(newView);
     setSelected(newView);
   };
 
-  const [library, setLibrary] = useState([]);
-
-  const getlibrary = () => {
-    try {
-      const response = axios.get("/api/user/get-user-transferable-skills");
-      if (response.status === 200) {
-        setLibrary(response?.data?.data);
-      }
-    } catch (err) {
-      console.log(err);
-    } finally {
-    }
-  };
-  useEffect(() => {
-    getlibrary();
-  }, []);
-  console.log(library,"++==");
+  
 
   return (
     <div className="">
@@ -96,7 +80,7 @@ function MyLibrary() {
           }
         />
       ) : (
-        <Transferable />
+        <Transferable  />
       )}
     </div>
   );

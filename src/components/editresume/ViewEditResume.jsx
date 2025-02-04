@@ -24,7 +24,7 @@ const ViewEditResume = ({
   handleSubmitData,
   loading
 }) => {
-  console.log(formData, "LastSteo");
+
 
   const dropdownRef = useRef(null);
   const navigate = useNavigate();

@@ -12,13 +12,12 @@ const StepThree = ({ nextStep, prevStep, formData, setFormData }) => {
   const [tagsError, setTagsError] = useState(false);
   const [ageValue, SetageValue] = useState("");
 
-  console.log(ageValue, "ageValue");
   const handleAgeValue = (value, setFieldValue, setFieldTouched) => {
     setFieldTouched("ageValue", true);
     setFieldValue("ageValue", value);
     setFormData({ ...formData, ageValue: value });
     SetageValue(value);
-    console.log("Selected value:", value);
+   
   };
   const handleSubmit = (values) => {
     if (values?.ageValue === "No") {

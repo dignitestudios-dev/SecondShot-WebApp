@@ -15,7 +15,7 @@ const Education = ({
   setIsSkipped,
 
 }) => {
-  console.log(formData, "-->edu");
+ 
 
 
   const formik = useFormik({
@@ -24,7 +24,7 @@ const Education = ({
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: (values) => {
-      console.log("Form Submitted", values);
+  
       setFormData({ ...formData, educationList: values?.educationList });
       nextStep();
     },
@@ -33,7 +33,6 @@ const Education = ({
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     formik;
 
-  console.log("values--> ", values);
   const getYearsArray = () => {
     const startYear = 1990;
     const currentYear = new Date().getFullYear();

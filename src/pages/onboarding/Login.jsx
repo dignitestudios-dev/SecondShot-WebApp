@@ -46,7 +46,7 @@ const Login = () => {
 
           if (response.status === 200) {
             login(response?.data);
-            console.log(response.data, "response.data");
+       
             sessionStorage.setItem("email", values?.email);
 
             const { is_profile_completed, is_registration_question_completed } =

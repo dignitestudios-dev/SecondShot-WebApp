@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Tick } from "../../assets/export";
 
 const SubriptionCardPath = ({ selected, cardsubdata }) => {
-  console.log(cardsubdata?._id, "cardsubdata._id====>");
+
   const [cardData, setCardData] = useState(() => {
     try {
       return (

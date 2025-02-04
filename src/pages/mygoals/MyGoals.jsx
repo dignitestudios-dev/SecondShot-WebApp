@@ -12,7 +12,7 @@ function MyGoals() {
   const buttons = ["All", "Not started yet", "In Progress", "Completed"];
 
   const { isFirst, setIsFirst } = useContext(ModalContext);
-  console.log(isFirst);
+
   return (
     <div className="">
       <WelcomeGoalModal

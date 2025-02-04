@@ -30,7 +30,7 @@ const MakeitSmartModal = ({ showModal, handleClick, handleClose }) => {
   };
   const location = useLocation();
   const isSmart = location.state?.isSmart;
-  console.log(isSmart, "isSmart");
+
   const [showCalender, setShowCalender] = useState(false);
   const [showSubGoal, setShowSubGoal] = useState(false);
 

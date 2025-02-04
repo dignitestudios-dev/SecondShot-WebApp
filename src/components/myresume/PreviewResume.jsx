@@ -26,7 +26,7 @@ const PreviewResume = ({
   isSkipped,
   
 }) => {
-  console.log(formData, "LastSteo");
+ 
 
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -123,7 +123,7 @@ const PreviewResume = ({
     };
   };
   const transformedData = transformFormData(formData);
-  console.log(transformedData, "transformedDatatransformedData");
+
 
   const [resumeId, setresumeid] = useState('');
 
@@ -156,7 +156,7 @@ const PreviewResume = ({
     }
   };
 
-  console.log(resumeId,"resumeId")
+
   return (
     <div>
       <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">

@@ -17,7 +17,7 @@ const ViewResume = () => {
   const location = useLocation();
   const resumeData = location?.state;
 
-  console.log(resumeData, "resumeData");
+
 
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);

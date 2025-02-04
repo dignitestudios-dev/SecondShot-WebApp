@@ -84,7 +84,7 @@ const MakeitSmart = () => {
   const location = useLocation();
   const { showModal } = location.state || {}; 
 
-  console.log(showModal,"ss")
+
 
   return (
     <div className="    ">

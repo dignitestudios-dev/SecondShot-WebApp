@@ -7,7 +7,7 @@ import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { volunteerSchema } from "../../Schema/resumeSchema";
 
 const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
-  console.log("Form formData", formData);
+
 
   const formik = useFormik({
     initialValues: { volunteerList: formData.volunteerList },
@@ -15,7 +15,7 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values) => {
-      console.log("Form Submitted", values);
+      
       setFormData({ ...formData, volunteerList: values?.volunteerList });
       nextStep();
     },

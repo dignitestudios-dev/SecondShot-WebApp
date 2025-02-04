@@ -2,15 +2,9 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const CustomCalendar = ({ setShowCalender }) => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [savedDate, setSavedDate] = useState(null);
-
+const CustomCalendar = ({ setShowCalender, startDate, setStartDate }) => {
   const handleSave = () => {
-    setSavedDate(startDate);
-
     setShowCalender(false);
-    console.log("Saved Date:", startDate);
   };
 
   const handleCancel = () => {

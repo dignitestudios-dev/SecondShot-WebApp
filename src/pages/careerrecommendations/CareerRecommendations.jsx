@@ -14,7 +14,7 @@ import { ModalContext } from "../../context/GlobalContext";
 function CareerRecommendations() {
   const navigate = useNavigate();
   const { isFirst, setIsFirst } = useContext(ModalContext);
-  console.log("first----", isFirst);
+
   const handleNavigation = () => {
     navigate("/start-assesment");
   };

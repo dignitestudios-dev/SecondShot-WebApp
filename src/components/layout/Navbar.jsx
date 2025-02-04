@@ -26,8 +26,6 @@ const Navbar = () => {
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
-  const { profilepic } = useContext(ModalContext);
-  console.log(profilepic, "nav ===>profilepic");
 
   const profile = Cookies.get("profileData")
     ? JSON.parse(Cookies.get("profileData"))
@@ -64,7 +62,9 @@ const Navbar = () => {
             <li key={item.path}>
               {subscriptionpaid ||
               item.path === "/transferablekills" ||
-              item.path === "/home" ? (
+              item.path === "/home" ||
+              item.path === "/mygoals" ||
+              item.path === "/my-library" ? (
                 <Link to={item.path} className="text-white uppercase">
                   {item.label}
                 </Link>
@@ -115,7 +115,7 @@ const Navbar = () => {
       <LockModal
         isOpen={lock}
         handleClick={() => navigate("/subscriptionplans")}
-        onClose={()=>setLock(false)}
+        onClose={() => setLock(false)}
       />
     </div>
   );

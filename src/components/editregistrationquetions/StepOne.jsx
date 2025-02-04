@@ -25,7 +25,6 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
     { label: "Career Change Professional", value: "career" },
   ];
 
-  console.log(options?.map((item) => item?.value));
 
   const [filteredTags, setFilteredTags] = useState([]);
 

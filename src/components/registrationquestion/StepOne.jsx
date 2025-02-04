@@ -8,7 +8,7 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import RecommendationDropdown from "../careerrecommendation/RecommendationDropdown";
 
 const StepOne = ({ nextStep, formData, setFormData }) => {
-  console.log(formData, "step1");
+
   const [tagsError, setTagsError] = useState(false);
   const [tags, setTags] = useState([]);
 
@@ -32,7 +32,7 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOptionClick = (value, setFieldValue, setFieldTouched) => {
-    console.log(value, "valueOptions==>");
+  
     setFieldTouched("university", true);
     setFieldValue("university", value);
     setFormData({ ...formData, university: value });

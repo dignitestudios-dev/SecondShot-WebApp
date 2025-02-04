@@ -19,7 +19,7 @@ const AddGoals = () => {
   };
   const location = useLocation();
   const modalopen = location?.state?.modalopen;
-  console.log(modalopen, "modalopen");
+
 
   useEffect(() => {
     setSmartModal(modalopen);

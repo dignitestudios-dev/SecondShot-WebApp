@@ -31,7 +31,6 @@ const AuthProvider = ({ children }) => {
     try {
       const response = await axios.get("/api/user/my-profile");
       if (response.status === 200) {
-        console.log(response?.data?.data);
         const user = response?.data?.data;
         Cookies.set("subscriptionpaid", user?.is_subscription_paid);
         setSubscriptionpaid(user?.is_subscription_paid);

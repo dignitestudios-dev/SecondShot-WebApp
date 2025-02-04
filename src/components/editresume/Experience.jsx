@@ -35,7 +35,7 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
     onSubmit: (values) => {
       setFormData({ ...formData, experienceList: values?.experienceList });
       setCustomErrors({});
-      console.log("Form Submitted", values);
+   
       nextStep();
     },
   });
@@ -49,13 +49,12 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
     handleSubmit,
     setFieldValue,
   } = formik;
-  console.log(values, "valuesvalues");
-  console.log(errors, "errors errors");
+
   errors;
 
   const updateData = async (data) => {
     if (data && Array.isArray(data)) {
-      console.log("Received Data:", data);
+     
 
       formik.setValues({
         experienceList: data?.map((item) => ({

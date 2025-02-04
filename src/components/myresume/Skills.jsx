@@ -14,7 +14,7 @@ const Skills = ({
   prevStep,
   setIsSkipped,
 }) => {
-  console.log(formData, "formDataformData");
+
   const {
     values,
     handleBlur,
@@ -30,7 +30,7 @@ const Skills = ({
     validateOnBlur: true,
     onSubmit: (values) => {
       setFormData({ ...formData, skillsValues: values });
-      console.log("Form Submitted", values);
+      
       nextStep();
     },
   });

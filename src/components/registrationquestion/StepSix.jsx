@@ -20,7 +20,7 @@ const StepSix = ({
   //   });
   const [tagsError, setTagsError] = useState(false);
   const [tags, setTags] = useState([]);
-  console.log(tags, "Tagss");
+
   // const handleIsAthlete = (value, setFieldValue, setFieldTouched) => {
   //   setFieldValue('isAthlete', value);
   //   setFormData({ ...formData, isAthlete: value });

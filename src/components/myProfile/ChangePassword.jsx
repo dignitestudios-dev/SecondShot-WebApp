@@ -40,7 +40,7 @@ const ChangePasswordModal = ({ onClose }) => {
             confirm_password: values?.Cnewpassword,
           });
           if (response.status === 200) {
-            console.log(response?.data);
+           
             SuccessToast("Change Password Successfully");
             onClose();
           }

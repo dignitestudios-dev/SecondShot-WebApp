@@ -52,7 +52,7 @@ const RegistrationQuestion = () => {
     desireCareer: "",
   });
 
-  console.log(formData, "formDataStepSend");
+
 
   const nextStep = (skip = false) => {
     setStep(skip ? step + 2 : step + 1);
