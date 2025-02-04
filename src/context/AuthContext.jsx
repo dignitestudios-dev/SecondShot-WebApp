@@ -43,8 +43,8 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getProfile();
-  }, [token]);
+    Cookies.get("token") && getProfile();
+  }, []);
 
   const logout = () => {
     Cookies.remove("token");
