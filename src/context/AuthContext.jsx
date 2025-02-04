@@ -44,7 +44,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     getProfile();
-  }, []);
+  }, [token]);
 
   const logout = () => {
     Cookies.remove("token");
