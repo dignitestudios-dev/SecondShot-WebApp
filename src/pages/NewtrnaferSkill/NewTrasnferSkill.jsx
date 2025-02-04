@@ -18,8 +18,12 @@ import ResumeDownloadModal from "../../components/myresume/ResumeDownloadModal";
 import AddSupportModal from "../../components/myresume/AddSupportModal";
 import axios from "../../axios";
 import { SuccessToast } from "../../components/toaster/ToasterContainer";
+import { AuthContext } from "../../context/AuthContext";
+import LockModal from "../../components/home/LockModal";
+import { useNavigate } from "react-router-dom";
 
 const NewTrasnferSkill = () => {
+  const navigate =useNavigate()
   const [topSkill, setTopSkill] = useState(false);
   const [leftSkill, setLeftSkill] = useState(false);
   const [rightSkill, setRightSkill] = useState(false);
@@ -29,6 +33,9 @@ const NewTrasnferSkill = () => {
   const [isActive, setIsActive] = useState(false);
   const [appear, setAppear] = useState(false);
   const [cardnote, setCardnote] = useState(false);
+  const [lock, setLock] = useState(false);
+  const { subscriptionpaid } = useContext(AuthContext);
+
   const handleTopSKill = () => {
     setTopSkill((prev) => !prev);
     setBottomLeft(false);
@@ -39,6 +46,11 @@ const NewTrasnferSkill = () => {
   };
 
   const handleLeftSKill = () => {
+    if (!subscriptionpaid) {
+     setLock(true)
+      return;
+    }
+
     setLeftSkill((prev) => !prev);
     setTopSkill(false);
     setBottomLeft(false);
@@ -46,7 +58,12 @@ const NewTrasnferSkill = () => {
     setRightSkill(false);
     setAppear(false);
   };
+
   const handleRightSKill = () => {
+    if (!subscriptionpaid) {
+     setLock(true)
+      return;
+    }
     setRightSkill((prev) => !prev);
     setLeftSkill(false);
     setTopSkill(false);
@@ -56,6 +73,10 @@ const NewTrasnferSkill = () => {
     setAppear(false);
   };
   const handlebottomleft = () => {
+    if (!subscriptionpaid) {
+     setLock(true)
+      return;
+    }
     setBottomLeft((prev) => !prev);
     setRightSkill(false);
     setLeftSkill(false);
@@ -66,6 +87,10 @@ const NewTrasnferSkill = () => {
     setAppear(false);
   };
   const handlebottomright = () => {
+    if (!subscriptionpaid) {
+     setLock(true)
+      return;
+    }
     setBottomright((prev) => !prev);
     setBottomLeft(false);
     setRightSkill(false);
@@ -1513,6 +1538,11 @@ const NewTrasnferSkill = () => {
             transferable: false,
           }));
         }}
+      />
+      <LockModal
+        isOpen={lock}
+        handleClick={() => navigate("/subscriptionplans")}
+        onClose={() => setLock(false)}
       />
     </div>
   );

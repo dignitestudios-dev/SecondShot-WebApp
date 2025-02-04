@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BgAuth, Cameraicon, logo } from "../../assets/export";
 import AuthInput from "../../components/onboarding/AuthInput";
@@ -11,12 +11,13 @@ import { SuccessToast } from "../../components/toaster/ToasterContainer";
 import { useFormik } from "formik";
 import { EditProfileSchema, profileSchema } from "../../Schema/profileSchema";
 import { profileValues } from "../../data/authentication";
+import { ModalContext } from "../../context/GlobalContext";
 const EditProfileDetails = () => {
   const navigation = useNavigate();
   const location = useLocation();
   const profileData = location.state || {};
   const [loading, setLoading] = useState(false);
-
+  const { setProfilepic } = useContext(ModalContext);
   const {
     values,
     handleBlur,
@@ -50,7 +51,6 @@ const EditProfileDetails = () => {
         if (values.profilePicture) {
           formData.append("profile_img", values.profilePicture);
         }
-        
 
         const response = await axios.put("/api/user/update-profile", formData, {
           headers: { "Content-Type": "multipart/form-data" },
@@ -64,6 +64,7 @@ const EditProfileDetails = () => {
               ? URL.createObjectURL(values.profilePicture)
               : ""
           );
+          setProfilepic(URL.createObjectURL(values.profilePicture));
           navigation("/my-profile");
         }
       } catch (err) {

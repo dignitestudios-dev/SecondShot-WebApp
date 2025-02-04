@@ -37,7 +37,7 @@ const CareerToolbox = () => {
       btnBg: isFirst.transferable === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Discover the valuable skills you've acquired. Explore how to use them to shape your future and apply them across different areas of your life.",
       path: "/transferablekills",
-      btn: subscriptionpaid === true ? "Unlock" : "Launch",
+      btn: "Launch",
     },
     {
       cardicons: Carriericon2,
@@ -156,6 +156,7 @@ const CareerToolbox = () => {
         <LockModal
           isOpen={lock}
           handleClick={() => navigate("/subscriptionplans")}
+          onClose={() => setLock(false)}
         />
       </div>
     </div>

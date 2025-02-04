@@ -1,5 +1,5 @@
 import React from "react";
-import { lockModal, Mygoalmodal } from "../../assets/export";
+import { Cancelicon, lockModal, Mygoalmodal } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 
 const LockModal = ({ isOpen, onClose, handleClick }) => {
@@ -8,6 +8,9 @@ const LockModal = ({ isOpen, onClose, handleClick }) => {
   return (
     <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-50 backdrop-blur-sm">
       <div className="bg-[#FEFEFE] rounded-[26px] w-[471px]  p-6 shadow-[22px]">
+        <div className="flex justify-end cursor-pointer" onClick={onClose}>
+          <img src={Cancelicon} className="w-[15px] h-[15px] " alt="" />
+        </div>
         <div className="flex justify-center mt-3">
           <img src={lockModal} className="w-[126px] h-[126px] " alt="" />
         </div>

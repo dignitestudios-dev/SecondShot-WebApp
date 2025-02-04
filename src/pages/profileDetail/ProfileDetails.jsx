@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BgAuth, Cameraicon, logo } from "../../assets/export";
 import AuthInput from "../../components/onboarding/AuthInput";
@@ -14,9 +14,10 @@ import {
   ErrorToast,
   SuccessToast,
 } from "../../components/toaster/ToasterContainer";
+import { ModalContext } from "../../context/GlobalContext";
 const ProfileDetails = () => {
   const navigation = useNavigate();
-
+const {setProfilepic} =useContext(ModalContext)
   const [loading, setLoading] = useState(false);
   const fullname = sessionStorage.getItem("fullname");
   const email = sessionStorage.getItem("email");
@@ -63,6 +64,7 @@ const ProfileDetails = () => {
           if (values.profilePicture) {
             const profileImageUrl = URL.createObjectURL(values.profilePicture);
             sessionStorage.setItem("profilePicture", profileImageUrl);
+            setProfilepic(profileImageUrl);
           }
         }
       } catch (err) {

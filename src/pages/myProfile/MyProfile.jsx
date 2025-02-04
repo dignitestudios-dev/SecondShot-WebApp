@@ -16,6 +16,9 @@ import { AuthContext } from "../../context/AuthContext";
 import axios from "../../axios";
 import ProfileSkeleton from "../../components/loader/ProfileSkeleton";
 import { ModalContext } from "../../context/GlobalContext";
+import { SuccessToast } from "../../components/toaster/ToasterContainer";
+import Cookies from "js-cookie";
+
 function MyProfile() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("profile");
@@ -44,7 +47,7 @@ function MyProfile() {
       const response = await axios.get("/api/user/my-profile");
       if (response.status === 200) {
         setProfile(response?.data?.data);
-        setProfilepic(response?.data?.data?.profile_img);
+       
       }
     } catch (err) {
       console.log(err.message);
@@ -70,6 +73,34 @@ function MyProfile() {
     getProfile();
     getreqQuestion();
   }, []);
+
+  const handlelogout = async () => {
+    setloading(true);
+    try {
+    let token = Cookies.get("token");
+
+      const response = await axios.post(
+        "/api/user/logout",
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        SuccessToast("Logout Successfully");
+        Cookies.remove("token");
+        navigate("/sign-in");
+      }
+    } catch (err) {
+      console.error("Logout Error:", err);
+    } finally {
+      setloading(false);
+    }
+  };
 
   return (
     <div className="">
@@ -103,12 +134,7 @@ function MyProfile() {
               </li>
             </ul>
             <div className="w-[140px]">
-              <AuthSubmitBtn
-                text={"Log out"}
-                handleSubmit={() => {
-                  logout();
-                }}
-              />
+              <AuthSubmitBtn text={"Log out"} handleSubmit={handlelogout} loading={loading} />
             </div>
           </div>
 
@@ -159,7 +185,7 @@ function MyProfile() {
                           Visit our website
                         </p>
                         <p className="text-[#222222] font-[400] text-[16px] leading-[21.6px] underline ">
-                         {profileData?.address}
+                          {profileData?.address}
                         </p>
                       </div>
                     </div>

@@ -1,7 +1,7 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-
+import axios from "../axios";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
 
   const [token, setToken] = useState(Cookies.get("token"));
   const [regQuestion, setRegQuestion] = useState(Cookies.get("regQuestion"));
-  const [subscriptionpaid, setSubscriptionpaid] = useState(Cookies.get("subscriptionpaid"));
+  const [subscriptionpaid, setSubscriptionpaid] = useState(false);
 
   const login = (userData) => {
     Cookies.set("token", userData?.token);
@@ -26,6 +26,25 @@ const AuthProvider = ({ children }) => {
     setRegQuestion(userData?.is_registration_question_completed);
     setSubscriptionpaid(userData?.is_subscription_paid);
   };
+
+  const getProfile = async () => {
+    try {
+      const response = await axios.get("/api/user/my-profile");
+      if (response.status === 200) {
+        console.log(response?.data?.data);
+        const user = response?.data?.data;
+        Cookies.set("subscriptionpaid", user?.is_subscription_paid);
+        setSubscriptionpaid(user?.is_subscription_paid);
+        Cookies.set("profileData", JSON.stringify(user));
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   const logout = () => {
     Cookies.remove("token");

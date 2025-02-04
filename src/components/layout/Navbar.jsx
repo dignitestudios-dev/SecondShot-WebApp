@@ -1,12 +1,19 @@
 import React, { useContext, useState } from "react";
 import { Logonav, Profileimage } from "../../assets/export";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RiNotification2Line } from "react-icons/ri";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import NotificationDropdown from "../Notifications/Notifications";
 import { ModalContext } from "../../context/GlobalContext";
+import Cookies from "js-cookie";
+import { AuthContext } from "../../context/AuthContext";
+import LockModal from "../home/LockModal";
 
 const Navbar = () => {
+  const { subscriptionpaid } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [lock, setLock] = useState(false);
+
   const navItems = [
     { path: "/home", label: "Dashboard" },
     { path: "/transferablekills", label: "My Transferable Skills" },
@@ -20,6 +27,11 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const { profilepic } = useContext(ModalContext);
+  console.log(profilepic, "nav ===>profilepic");
+
+  const profile = Cookies.get("profileData")
+    ? JSON.parse(Cookies.get("profileData"))
+    : null;
   return (
     <div className="flex gap-3 relative z-30">
       <div className="md:hidden text-end flex justify-end w-full mt-4 p-6">
@@ -50,9 +62,20 @@ const Navbar = () => {
         <ul className="flex flex-col md:flex-row items-start md:items-center md:p-0 p-5 gap-5 md:gap-10 lg:text-[14px] md:text-[14px] font-[600] uppercase text-white">
           {navItems.map((item) => (
             <li key={item.path}>
-              <Link to={item.path} onClick={() => setMenuOpen(false)}>
-                {item.label}
-              </Link>
+              {subscriptionpaid ||
+              item.path === "/transferablekills" ||
+              item.path === "/home" ? (
+                <Link to={item.path} className="text-white uppercase">
+                  {item.label}
+                </Link>
+              ) : (
+                <button
+                  onClick={() => setLock(true)}
+                  className="text-white uppercase"
+                >
+                  {item.label}
+                </button>
+              )}
               <div
                 className={`${
                   location.pathname === item.path
@@ -63,6 +86,7 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
+
         <div className="flex items-center space-x-4 md:space-x-6 md:px-5 px-5 md:mt-0">
           <div className="relative cursor-pointer">
             <RiNotification2Line
@@ -75,7 +99,7 @@ const Navbar = () => {
           </div>
           <Link to="/my-profile">
             <img
-              src={profilepic}
+              src={profile?.profile_img || ""}
               alt="User Avatar"
               className="h-[40px] w-[40px] md:h-[60px] md:w-[60px] rounded-full border-2 border-white p-0.5"
             />
@@ -88,6 +112,11 @@ const Navbar = () => {
           onClick={() => setMenuOpen(false)}
         ></div>
       )}
+      <LockModal
+        isOpen={lock}
+        handleClick={() => navigate("/subscriptionplans")}
+        onClose={()=>setLock(false)}
+      />
     </div>
   );
 };
