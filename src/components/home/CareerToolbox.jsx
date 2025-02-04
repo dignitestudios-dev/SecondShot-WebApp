@@ -24,7 +24,7 @@ const CareerToolbox = () => {
   const { showModal, closeModal, isFirst, setIsFirst } =
     useContext(ModalContext);
 
-    const [lock,setLock]=useState(false)
+  const [lock, setLock] = useState(false);
 
   const { subscriptionpaid } = useContext(AuthContext);
 
@@ -93,7 +93,7 @@ const CareerToolbox = () => {
   ];
   const handleNavigation = (item) => {
     if (!subscriptionpaid && item.title !== "Transferable Skills") {
-      setLock(true)
+      setLock(true);
       return;
     }
 
@@ -154,8 +154,8 @@ const CareerToolbox = () => {
         ))}
 
         <LockModal
-        isOpen={lock}
-        handleClick={()=>setLock(false)}
+          isOpen={lock}
+          handleClick={() => navigate("/subscriptionplans")}
         />
       </div>
     </div>
