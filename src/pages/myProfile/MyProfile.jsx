@@ -23,6 +23,7 @@ function MyProfile() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("profile");
   const [loading, setloading] = useState(false);
+  const [loader, setLoading] = useState(false);
 
   const { setProfilepic } = useContext(ModalContext);
 
@@ -47,7 +48,6 @@ function MyProfile() {
       const response = await axios.get("/api/user/my-profile");
       if (response.status === 200) {
         setProfile(response?.data?.data);
-       
       }
     } catch (err) {
       console.log(err.message);
@@ -68,16 +68,16 @@ function MyProfile() {
       setloading(false);
     }
   };
-  console.log(registrationData, "==+>registrationData");
+
   useEffect(() => {
     getProfile();
     getreqQuestion();
   }, []);
 
   const handlelogout = async () => {
-    setloading(true);
+    setLoading(true);
     try {
-    let token = Cookies.get("token");
+      let token = Cookies.get("token");
 
       const response = await axios.post(
         "/api/user/logout",
@@ -98,7 +98,7 @@ function MyProfile() {
     } catch (err) {
       console.error("Logout Error:", err);
     } finally {
-      setloading(false);
+      setLoading(false);
     }
   };
 
@@ -134,7 +134,11 @@ function MyProfile() {
               </li>
             </ul>
             <div className="w-[140px]">
-              <AuthSubmitBtn text={"Log out"} handleSubmit={handlelogout} loading={loading} />
+              <AuthSubmitBtn
+                text={"Log out"}
+                handleSubmit={() => handlelogout()}
+                loading={loader}
+              />
             </div>
           </div>
 

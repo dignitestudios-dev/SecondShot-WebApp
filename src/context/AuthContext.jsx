@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
 
   const login = (userData) => {
     Cookies.set("token", userData?.token);
-    Cookies.set("subscriptionpaid", userData.is_subscription_paid);
+    Cookies.set("subscriptionpaid", userData?.is_subscription_paid);
     Cookies.set("regQuestion", userData.is_registration_question_completed);
     setToken(userData?.token);
     setRegQuestion(userData?.is_registration_question_completed);

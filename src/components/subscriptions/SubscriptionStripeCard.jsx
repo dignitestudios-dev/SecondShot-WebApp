@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import GrayBtn from "../onboarding/grayBtn";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import SubcriptionActivateModal from "./SubcriptionActivateModal";
@@ -10,6 +10,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import axios from "../../axios";
 import { ErrorToast } from "../toaster/ToasterContainer";
 import { Elements } from "@stripe/react-stripe-js";
+import { AuthContext } from "../../context/AuthContext";
 
 // Load your Stripe publishable key
 const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_PUB_DEV_KEY);
@@ -21,9 +22,8 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
   const [showAdded, setShowAdded] = useState(false);
   const [activatModal, setActivatModal] = useState(modal);
   const navigation = useNavigate();
-  console.log(modal, "modal");
-  console.log(product_id, "product_id");
-  //Stripe related working
+
+const {setSubscriptionpaid} =useContext(AuthContext)
   const [clientSecret, setClientSecret] = useState(null);
 
   const [loading, setLoading] = useState(false);
@@ -47,6 +47,7 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
         localStorage.setItem("product_id", cardsubdata?._id || product_id);
         localStorage.setItem("cardsubdata", JSON.stringify(cardsubdata));
         localStorage.setItem("paymentIntentId", data?.paymentIntentId);
+        setSubscriptionpaid(true)
       }
     } catch (error) {
       ErrorToast(error?.response?.data?.message || "Something went wrong.");
