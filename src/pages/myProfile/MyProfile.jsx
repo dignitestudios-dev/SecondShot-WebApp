@@ -25,8 +25,6 @@ function MyProfile() {
   const [loading, setloading] = useState(false);
   const [loader, setLoading] = useState(false);
 
-  const { setProfilepic } = useContext(ModalContext);
-
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] =
     useState(false);
   const [isChangePaymentMethodModalOpen, setIsChangePaymentMethodModalOpen] =
@@ -343,7 +341,11 @@ function MyProfile() {
                     <div>
                       <AuthSubmitBtn
                         text={"Buy Subscription"}
-                        handleSubmit={() => navigate("/profile-subscription")}
+                        handleSubmit={() =>
+                          navigate("/profile-subscription", {
+                            state: { profileData: profileData },
+                          })
+                        }
                       />
                     </div>
                   </div>

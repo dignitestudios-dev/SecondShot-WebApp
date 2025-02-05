@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import SubscriptionStripeCard from "../../components/subscriptions/SubscriptionStripeCard";
 import SubriptionCardPath from "../../components/subscriptions/SubriptionCardPath";
 import SubscriptionCardModal from "../../components/Modal/SubscriptionCardModal";
@@ -9,7 +9,10 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
   const navigation = useNavigate();
   const [showNew, setShowNew] = useState(false);
   const [showAdded, setShowAdded] = useState(false);
+const location=useLocation('')
 
+const data=location.state
+console.log(data,"+++")
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleToggle = (option) => {

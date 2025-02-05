@@ -15,9 +15,10 @@ import {
   SuccessToast,
 } from "../../components/toaster/ToasterContainer";
 import { ModalContext } from "../../context/GlobalContext";
+import { AuthContext } from "../../context/AuthContext";
 const ProfileDetails = () => {
   const navigation = useNavigate();
-const {setProfilepic} =useContext(ModalContext)
+  const { setProfilepic } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const fullname = sessionStorage.getItem("fullname");
   const email = sessionStorage.getItem("email");
@@ -60,6 +61,7 @@ const {setProfilepic} =useContext(ModalContext)
 
         if (response.status === 200) {
           SuccessToast("Profile Created successfully");
+
           navigation("/registration-question");
           if (values.profilePicture) {
             const profileImageUrl = URL.createObjectURL(values.profilePicture);
@@ -152,7 +154,7 @@ const {setProfilepic} =useContext(ModalContext)
               type={"text"}
               placeholder={"First Name"}
               value={fullname}
-              isDisabled
+              // isDisabled
             />
           </div>
           {/* <div className="mt-3">

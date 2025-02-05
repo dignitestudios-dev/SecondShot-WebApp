@@ -63,6 +63,7 @@ const AuthProvider = ({ children }) => {
     setRegQuestion,
     profilepic,
     setProfilepic,
+    setSubscriptionpaid,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
