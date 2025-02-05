@@ -51,9 +51,6 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
     }
   };
 
-  useEffect(() => {
-    getmyPlan();
-  }, []);
   const [loader, setLoading] = useState(false);
   const handleDelete = async () => {
     setLoading(true);
@@ -64,6 +61,7 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
 
       if (response.status === 200) {
         SuccessToast("Subscription Cancel Successfully");
+        navigation("/home");
       }
     } catch (err) {
       ErrorToast("Subscription Already Cancel");
@@ -73,7 +71,9 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
     }
   };
 
-  
+  useEffect(() => {
+    getmyPlan();
+  }, []);
   return (
     <>
       <div className="text-[40px] mt-5 text-center leading-[54px] font-[500] text-[#181818] ">
@@ -118,23 +118,23 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
                   {myplane?.subscriptionProduct?.product_name}
                 </div>
                 <ul className="space-y-3 text-gray-700">
-                  {Object.values(myplane?.subscriptionProduct?.description || {}).map(
-                    (feature, index) => (
-                      <li
-                        key={index}
-                        className="flex items-center space-x-2 mt-3"
-                      >
-                        <img
-                          src={Tick}
-                          className="h-[10.5px] w-[13.5px]"
-                          alt=""
-                        />
-                        <span className="text-[17px] leading-[22.95px] font-[500] text-[#181818]">
-                          {feature}
-                        </span>
-                      </li>
-                    )
-                  )}
+                  {Object.values(
+                    myplane?.subscriptionProduct?.description || {}
+                  ).map((feature, index) => (
+                    <li
+                      key={index}
+                      className="flex items-center space-x-2 mt-3"
+                    >
+                      <img
+                        src={Tick}
+                        className="h-[10.5px] w-[13.5px]"
+                        alt=""
+                      />
+                      <span className="text-[17px] leading-[22.95px] font-[500] text-[#181818]">
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
                 </ul>
                 <div className="flex justify-center mt-5">
                   <button

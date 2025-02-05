@@ -18,6 +18,8 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(Cookies.get("token"));
   const [regQuestion, setRegQuestion] = useState(Cookies.get("regQuestion"));
   const [subscriptionpaid, setSubscriptionpaid] = useState(false);
+  const [registrationQuestion, setregistrationQuestion] = useState(false);
+  const [profileCompleted, setprofileCompleted] = useState(false);
 
   const login = (userData) => {
     Cookies.set("token", userData?.token);
@@ -37,7 +39,9 @@ const AuthProvider = ({ children }) => {
         setSubscriptionpaid(user?.is_subscription_paid);
         Cookies.set("profileData", JSON.stringify(user));
         setProfilepic(user?.profile_img);
-        console.log(user, "user===>");
+        setregistrationQuestion(user?.is_registration_question_completed);
+        setprofileCompleted(user?.is_profile_completed);
+   
       }
     } catch (err) {
       console.log(err.message);
@@ -64,6 +68,8 @@ const AuthProvider = ({ children }) => {
     profilepic,
     setProfilepic,
     setSubscriptionpaid,
+    profileCompleted,
+    registrationQuestion,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

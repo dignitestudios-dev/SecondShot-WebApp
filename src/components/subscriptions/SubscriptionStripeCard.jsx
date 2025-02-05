@@ -23,7 +23,8 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
   const [activatModal, setActivatModal] = useState(modal);
   const navigation = useNavigate();
 
-  const { setSubscriptionpaid } = useContext(AuthContext);
+  const { setSubscriptionpaid, profileCompleted, registrationQuestion } =
+    useContext(AuthContext);
   const [clientSecret, setClientSecret] = useState(null);
 
   const [loading, setLoading] = useState(false);
@@ -54,6 +55,18 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
       setLoading(false);
     }
   };
+
+  
+  const handlestarted = () => {
+    setActivatModal(false);
+    if (profileCompleted === true && registrationQuestion === true) {
+      navigation("/home");
+    } else {
+      navigation("/profiledetail");
+    }
+  };
+
+
 
   useEffect(() => {
     (cardsubdata?._id || product_id) && getPaymentInfo();
@@ -125,13 +138,7 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
           <GrayBtn text={"Back"} handleSubmit={() => navigation(-1)} />
         </div>
 
-        <SubscriptionModal
-          isOpen={activatModal}
-          handleClick={() => {
-            setActivatModal(false);
-            navigation("/profiledetail");
-          }}
-        />
+        <SubscriptionModal isOpen={activatModal} handleClick={handlestarted} />
       </div>
     </div>
   );
