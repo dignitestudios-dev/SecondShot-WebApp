@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { PiPencilLine } from "react-icons/pi";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import GoalCompletedModal from "../../components/mygoals/GoalCompletedModal";
 import SupportPerson from "../../components/mygoals/SupportPerson";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
@@ -11,6 +11,10 @@ import CreateGoalModal from "../../components/mygoals/CreateGoalModal";
 function ReviewYourGoalOld() {
   const navigate = useNavigate();
   const [isGoalDetailModalOpen, setGoalDetailModalOpen] = useState(false);
+
+  const location = useLocation("");
+  const data = location.state;
+  console.log(data, "MyData");
   const [isPeople, setIsPeople] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
@@ -82,11 +86,20 @@ function ReviewYourGoalOld() {
                 </h2>
 
                 <p className="text-gray-700 mt-4 text-sm mb-4 border-b border-b-gray-300">
-                  Digital Marketing Course
+                  {data?.formData?.main_goal_name}
                   <div className="flex space-x-2 mt-2">
                     <p>Deadline for Main goals:</p>
                     <p className="font-semibold text-blue-600 mb-4">
-                      Jan/23/2024 - Feb/22/2024
+                      {data?.formData?.startDate
+                        ? new Date(data.formData.startDate).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                            }
+                          )
+                        : "No date selected"}
                     </p>
                   </div>
                 </p>
@@ -106,7 +119,7 @@ function ReviewYourGoalOld() {
                     </button>
                   </div>
                   <div className="space-y-6">
-                    {[...Array(7)].map((_, index) => (
+                    {data?.formData?.sub_goals.map((item, index) => (
                       <div key={index} className="">
                         <div className="text-gray-400">
                           <span className="block text-md font-semibold">
@@ -114,8 +127,7 @@ function ReviewYourGoalOld() {
                           </span>
                         </div>
                         <div className="text-gray-700 text-sm mb-2 pb-2 border-b border-b-gray-400">
-                          Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt.
+                          {item?.name}
                         </div>
                       </div>
                     ))}

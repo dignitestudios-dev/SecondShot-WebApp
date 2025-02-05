@@ -1,41 +1,33 @@
 import * as Yup from "yup";
 
 export const goalSchema = Yup.object().shape({
-  main_goal_name: Yup.string()
-    .min(3, "Goal name must be at least 3 characters long")
-    .required("Main goal name is required"),
-  isOpen: Yup.boolean().required(),
-  deadline: Yup.date()
-    .min(new Date(), "Deadline must be a future date")
-    .required("Deadline is required"),
-  startDate: Yup.date().required("Please select a start date"),
-
-  // Conditional sub_goals validation based on isOpen
+  main_goal_name: Yup.string().required("Main goal is required"),
+  startDate: Yup.date().nullable().required("Start date is required"),
   sub_goals: Yup.array()
     .of(
       Yup.object().shape({
         name: Yup.string().required("Sub-goal name is required"),
-        deadline: Yup.date().required("Sub-goal deadline is required"),
+        deadline: Yup.date().nullable().required("Deadline is required"),
       })
     )
-    .when("isOpen", {
+    .when("$showSubGoal", {
       is: true,
-      then: (schema) =>
-        schema
-          .min(1, "At least one sub-goal is required")
-          .required("Sub-goals are required when isOpen is true"),
+      then: (schema) => schema.min(1, "At least one sub-goal is required"),
       otherwise: (schema) => schema.notRequired(),
     }),
+});
 
-  support_people: Yup.array().of(
-    Yup.object().shape({
-      full_name: Yup.string().required("Full name is required"),
-      email_address: Yup.string()
-        .email("Invalid email format")
-        .required("Email is required"),
-      phone_number: Yup.string()
-        .matches(/^\+?[1-9]\d{1,14}$/, "Invalid phone number")
-        .required("Phone number is required"),
-    })
-  ),
+export const supportPeopleSchema = Yup.object({
+  fullname: Yup.string()
+    .min(3, "Full name must be at least 3 characters.")
+    .max(50, "Full name can't exceed 50 characters.")
+    .required("Please enter your full name"),
+
+  email: Yup.string()
+    .email("Email must be valid.")
+    .required("Please enter your email"),
+
+  phone: Yup.string()
+    .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits.")
+    .required("Please enter your phone number"),
 });

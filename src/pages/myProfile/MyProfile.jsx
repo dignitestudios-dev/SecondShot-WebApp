@@ -341,11 +341,7 @@ function MyProfile() {
                     <div>
                       <AuthSubmitBtn
                         text={"Buy Subscription"}
-                        handleSubmit={() =>
-                          navigate("/profile-subscription", {
-                            state: { profileData: profileData },
-                          })
-                        }
+                        handleSubmit={() => navigate("/profile-subscription")}
                       />
                     </div>
                   </div>
