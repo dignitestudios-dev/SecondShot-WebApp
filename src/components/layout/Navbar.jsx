@@ -64,9 +64,7 @@ const Navbar = () => {
             <li key={item.path}>
               {subscriptionpaid ||
               item.path === "/transferablekills" ||
-              item.path === "/home" ||
-              item.path === "/mygoals" ||
-              item.path === "/my-library" ? (
+              item.path === "/home" ? (
                 <Link to={item.path} className="text-white uppercase">
                   {item.label}
                 </Link>
