@@ -44,7 +44,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
   };
 
   useEffect(() => {
-    if (showSubGoal && values.sub_goals.length === 0) {
+    if (showSubGoal && values?.sub_goals?.length === 0) {
       setFieldValue("sub_goals", [{ name: "", deadline: "" }]);
     }
   }, [showSubGoal]);

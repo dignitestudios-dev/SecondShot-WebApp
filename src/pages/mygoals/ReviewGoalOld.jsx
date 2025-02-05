@@ -16,12 +16,8 @@ function ReviewYourGoalOld() {
   const data = location.state;
   console.log(data, "MyData");
   const [isPeople, setIsPeople] = useState(false);
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-  });
-
+  const [formData, setFormData] = useState();
+console.log(formData,"formData++----|||")
   const handleNavigation = () => {
     setIsPeople(false);
     navigate("/reviewgoal");
@@ -35,7 +31,7 @@ function ReviewYourGoalOld() {
 
   const [showCardModal, setShowCardModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
-  const [showModalsupport, setShowModalsupport] = useState(false);
+  const [showModalsupport, setShowModalsupport] = useState(true);
 
   const handleCardModal = () => {
     setShowCardModal(!showCardModal);
@@ -146,7 +142,7 @@ function ReviewYourGoalOld() {
             </div>
 
             <div className="w-[575px] h-[161px] space-y-8">
-              <SupportPerson />
+              <SupportPerson formData={formData} />
             </div>
           </div>
         </div>
@@ -163,10 +159,10 @@ function ReviewYourGoalOld() {
       />
       <AddSupportModal
         showModal={showModalsupport}
-        handleClick={() => {
-          setShowModalsupport(false);
-          setSuccessModal(true);
-        }}
+        handleClick={() => setShowModalsupport(false)}
+        setShowModalsupport={setShowModalsupport}
+        formData={formData}
+        setFormData={setFormData}
       />
       <GoalCreatedModal
         showModal={successModal}

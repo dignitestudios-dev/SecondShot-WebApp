@@ -5,8 +5,13 @@ import { useFormik } from "formik";
 import { supportPeopleValues } from "../../data/gola";
 import { supportPeopleSchema } from "../../Schema/goalSchema";
 
-const AddSupportModal = ({ showModal, handleClick }) => {
-  const [formData, setFormData] = useState("");
+const AddSupportModal = ({
+  showModal,
+  handleClick,
+  setFormData,
+  formData,
+  setShowModalsupport,
+}) => {
   const {
     values,
     errors,
@@ -21,8 +26,8 @@ const AddSupportModal = ({ showModal, handleClick }) => {
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values) => {
-      console.log(errors.fullname);
       setFormData(values);
+      setShowModalsupport(false);
     },
   });
 
@@ -92,11 +97,35 @@ const AddSupportModal = ({ showModal, handleClick }) => {
                 2nd Support Person
               </p>
               <div className="w-full flex flex-col items-start space-y-4 gap-1 my-2">
-                <AuthInput text={"Full Name"} placeholder={"Enter Name"} />
-                <AuthInput text={"Email Address"} placeholder={"Enter Email"} />
                 <AuthInput
+                  id={"fullname_2"}
+                  name={"fullname_2"}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.fullname_2}
                   text={"Phone Number"}
                   placeholder={"Enter Phone Number"}
+                  error={errors.fullname_2 || touched.fullname_2}
+                />
+                <AuthInput
+                 id={"email_2"}
+                 name={"email_2"}
+                 onChange={handleChange}
+                 onBlur={handleBlur}
+                 value={values.email_2}
+                 text={"Phone Number"}
+                 placeholder={"Enter Phone Number"}
+                 error={errors.email_2 || touched.email_2}
+                />
+                <AuthInput
+                  id={"phone_2"}
+                  name={"phone_2"}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.phone_2}
+                  text={"Phone Number"}
+                  placeholder={"Enter Phone Number"}
+                  error={errors.phone_2 || touched.phone_2}
                 />
               </div>
               <div className="mt-2">

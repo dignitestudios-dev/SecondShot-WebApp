@@ -41,7 +41,6 @@ const AuthProvider = ({ children }) => {
         setProfilepic(user?.profile_img);
         setregistrationQuestion(user?.is_registration_question_completed);
         setprofileCompleted(user?.is_profile_completed);
-   
       }
     } catch (err) {
       console.log(err.message);
@@ -70,6 +69,7 @@ const AuthProvider = ({ children }) => {
     setSubscriptionpaid,
     profileCompleted,
     registrationQuestion,
+    getProfile,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

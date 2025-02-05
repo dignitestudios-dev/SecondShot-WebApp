@@ -9,7 +9,7 @@ const Home = () => {
   const navigate = useNavigate();
   const { showModal, closeModal, isFirst, setIsFirst } =
     useContext(ModalContext);
-  const { regQuestion, token } = useContext(AuthContext);
+  const { regQuestion, token, getProfile } = useContext(AuthContext);
 
   useEffect(() => {
     if (!token) {
@@ -17,6 +17,10 @@ const Home = () => {
     } else if (regQuestion === "false") {
       navigate("/registration-question");
     }
+  }, []);
+
+  useEffect(() => {
+    getProfile();
   }, []);
 
   return (

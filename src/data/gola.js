@@ -8,4 +8,7 @@ export const supportPeopleValues = {
   fullname: "",
   email: "",
   phone: "",
+  fullname_2: "",
+  email_2: "",
+  phone_2: "",
 };

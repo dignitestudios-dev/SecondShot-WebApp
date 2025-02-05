@@ -23,7 +23,7 @@ import LockModal from "../../components/home/LockModal";
 import { useNavigate } from "react-router-dom";
 
 const NewTrasnferSkill = () => {
-  const navigate =useNavigate()
+  const navigate = useNavigate();
   const [topSkill, setTopSkill] = useState(false);
   const [leftSkill, setLeftSkill] = useState(false);
   const [rightSkill, setRightSkill] = useState(false);
@@ -46,10 +46,10 @@ const NewTrasnferSkill = () => {
   };
 
   const handleLeftSKill = () => {
-    // if (!subscriptionpaid) {
-    //  setLock(true)
-    //   return;
-    // }
+    if (!subscriptionpaid) {
+      setLock(true);
+      return;
+    }
 
     setLeftSkill((prev) => !prev);
     setTopSkill(false);
@@ -60,10 +60,10 @@ const NewTrasnferSkill = () => {
   };
 
   const handleRightSKill = () => {
-    // if (!subscriptionpaid) {
-    //  setLock(true)
-    //   return;
-    // }
+    if (!subscriptionpaid) {
+      setLock(true);
+      return;
+    }
     setRightSkill((prev) => !prev);
     setLeftSkill(false);
     setTopSkill(false);
@@ -73,10 +73,10 @@ const NewTrasnferSkill = () => {
     setAppear(false);
   };
   const handlebottomleft = () => {
-    // if (!subscriptionpaid) {
-    //  setLock(true)
-    //   return;
-    // }
+    if (!subscriptionpaid) {
+      setLock(true);
+      return;
+    }
     setBottomLeft((prev) => !prev);
     setRightSkill(false);
     setLeftSkill(false);
@@ -87,10 +87,10 @@ const NewTrasnferSkill = () => {
     setAppear(false);
   };
   const handlebottomright = () => {
-    // if (!subscriptionpaid) {
-    //  setLock(true)
-    //   return;
-    // }
+    if (!subscriptionpaid) {
+      setLock(true);
+      return;
+    }
     setBottomright((prev) => !prev);
     setBottomLeft(false);
     setRightSkill(false);
@@ -166,7 +166,6 @@ const NewTrasnferSkill = () => {
   const [isLiked, setIsLiked] = useState(false);
 
   const handleLike = async (noteData) => {
- 
     setLoading(true);
     try {
       const response = await axios.post("/api/user/toggle-transferable-skill", {
@@ -228,7 +227,6 @@ const NewTrasnferSkill = () => {
           <div className="absolute text-sm font-medium text-white text-center ">
             {getSkill?.favorite_hobby1?.topics?.map((item, index) => (
               <div key={index}>
-          
                 {index === 0 && (
                   <button
                     onBlur={() => setAppear(false)}
@@ -490,19 +488,38 @@ const NewTrasnferSkill = () => {
           </div>
         </div>
         <img src={CenterSkill} className="h-[655.67px]" alt="" />
-        <div className="absolute ">
+        <div className="absolute">
           <div
-            className="relative text-[14px]  w-[80px] h-[80px] bg-transparent rounded-full  items-center leading-[16px] flex justify-center text-[#172E55] font-[600] z-10 cursor-pointer top-[-47px] right-[309px] text-center"
+            className="relative text-[16px] w-[80px] h-[80px] bg-transparent rounded-full 
+               items-center leading-[16px] flex justify-center text-[#172E55] font-[600] 
+               z-10 cursor-pointer top-[-47px] right-[309px] text-center group"
             onClick={handleLeftSKill}
           >
-            <span className=" w-[0px] ">
-              {" "}
+            <span className="w-[0px]">
               {getSkill?.favorite_hobby2?.hobbie_name.length > 7
                 ? getSkill.favorite_hobby2.hobbie_name.substring(0, 7) + "..."
                 : getSkill?.favorite_hobby2?.hobbie_name}
             </span>
+
+           
+            <div
+              className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center 
+                 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 
+                 transition-all duration-300 ease-in-out"
+            >
+              
+              <div
+                className="bg-green-500 text-white text-md font-medium rounded-lg shadow-lg py-2 px-3 
+                      w-max max-w-[250px] text-center"
+              >
+                {getSkill?.favorite_hobby2?.hobbie_name}
+              </div>
+              <div className="w-3 h-3 bg-green-500 relative -top-2 rotate-45 -mb-10"></div>
+
+            </div>
           </div>
         </div>
+
         <div className="absolute ">
           <div
             className="relative text-[16px] leading-[16px]  w-[80px] h-[80px] bg-transparent items-center flex justify-center text-[#172E55] font-[600] cursor-pointer z-10 top-[-47px] left-[251px] text-center"
@@ -520,7 +537,14 @@ const NewTrasnferSkill = () => {
         </div>
         <div className="absolute  ">
           <div
-            className="relative text-[16px] leading-[16px]  w-[80px] h-[80px] bg-transparent items-center flex justify-center text-[#172E55] font-[600]  cursor-pointer z-10 top-[305px] right-[220px] text-center"
+            className={`relative text-[16px] leading-[16px] w-[80px] h-[80px] bg-transparent 
+              items-center flex justify-center text-[#172E55] font-[600] 
+              cursor-pointer z-10 top-[305px] text-center 
+              ${
+                !getSkill?.military?.rank?.rank_name
+                  ? "right-[195px]"
+                  : "right-[220px]"
+              }`}
             onClick={handlebottomleft}
           >
             <span className=" w-[20px]">
@@ -530,7 +554,7 @@ const NewTrasnferSkill = () => {
             </span>
           </div>
           <div
-            className="relative text-[14px] leading-[16px]  w-[100px] h-[80px] bg-transparent rounded-full items-center flex justify-center text-[#172E55] font-[600] cursor-pointer   z-10 top-[224px] left-[203px] text-center"
+            className="relative text-[16px] leading-[16px]  w-[100px] h-[80px] bg-transparent rounded-full items-center flex justify-center text-[#172E55] font-[600] cursor-pointer   z-10 top-[224px] left-[203px] text-center"
             onClick={handlebottomright}
           >
             <span className=" w-full text-center">
