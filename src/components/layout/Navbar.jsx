@@ -10,7 +10,8 @@ import { AuthContext } from "../../context/AuthContext";
 import LockModal from "../home/LockModal";
 
 const Navbar = () => {
-  const { subscriptionpaid } = useContext(AuthContext);
+  const { subscriptionpaid, profilepic } = useContext(AuthContext);
+  console.log(profilepic, "profilepic==>");
   const navigate = useNavigate();
   const [lock, setLock] = useState(false);
 
@@ -30,6 +31,7 @@ const Navbar = () => {
   const profile = Cookies.get("profileData")
     ? JSON.parse(Cookies.get("profileData"))
     : null;
+  console.log(profile, "profile==-{");
   return (
     <div className="flex gap-3 relative z-30">
       <div className="md:hidden text-end flex justify-end w-full mt-4 p-6">
@@ -99,7 +101,7 @@ const Navbar = () => {
           </div>
           <Link to="/my-profile">
             <img
-              src={profile?.profile_img || ""}
+              src={profilepic || ""}
               alt="User Avatar"
               className="h-[40px] w-[40px] md:h-[60px] md:w-[60px] rounded-full border-2 border-white p-0.5"
             />

@@ -12,12 +12,13 @@ import { useFormik } from "formik";
 import { EditProfileSchema, profileSchema } from "../../Schema/profileSchema";
 import { profileValues } from "../../data/authentication";
 import { ModalContext } from "../../context/GlobalContext";
+import { AuthContext } from "../../context/AuthContext";
 const EditProfileDetails = () => {
   const navigation = useNavigate();
   const location = useLocation();
   const profileData = location.state || {};
   const [loading, setLoading] = useState(false);
-  const { setProfilepic } = useContext(ModalContext);
+  const { setProfilepic } = useContext(AuthContext);
   const {
     values,
     handleBlur,

@@ -46,10 +46,10 @@ const NewTrasnferSkill = () => {
   };
 
   const handleLeftSKill = () => {
-    if (!subscriptionpaid) {
-     setLock(true)
-      return;
-    }
+    // if (!subscriptionpaid) {
+    //  setLock(true)
+    //   return;
+    // }
 
     setLeftSkill((prev) => !prev);
     setTopSkill(false);
@@ -60,10 +60,10 @@ const NewTrasnferSkill = () => {
   };
 
   const handleRightSKill = () => {
-    if (!subscriptionpaid) {
-     setLock(true)
-      return;
-    }
+    // if (!subscriptionpaid) {
+    //  setLock(true)
+    //   return;
+    // }
     setRightSkill((prev) => !prev);
     setLeftSkill(false);
     setTopSkill(false);
@@ -73,10 +73,10 @@ const NewTrasnferSkill = () => {
     setAppear(false);
   };
   const handlebottomleft = () => {
-    if (!subscriptionpaid) {
-     setLock(true)
-      return;
-    }
+    // if (!subscriptionpaid) {
+    //  setLock(true)
+    //   return;
+    // }
     setBottomLeft((prev) => !prev);
     setRightSkill(false);
     setLeftSkill(false);
@@ -87,10 +87,10 @@ const NewTrasnferSkill = () => {
     setAppear(false);
   };
   const handlebottomright = () => {
-    if (!subscriptionpaid) {
-     setLock(true)
-      return;
-    }
+    // if (!subscriptionpaid) {
+    //  setLock(true)
+    //   return;
+    // }
     setBottomright((prev) => !prev);
     setBottomLeft(false);
     setRightSkill(false);

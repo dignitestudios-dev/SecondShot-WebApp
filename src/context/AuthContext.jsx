@@ -6,6 +6,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
+  const [profilepic, setProfilepic] = useState("");
 
   //   const [user, setUser] = useState({
   //     name: Cookies.get("name") || "",
@@ -35,6 +36,8 @@ const AuthProvider = ({ children }) => {
         Cookies.set("subscriptionpaid", user?.is_subscription_paid);
         setSubscriptionpaid(user?.is_subscription_paid);
         Cookies.set("profileData", JSON.stringify(user));
+        setProfilepic(user?.profile_img);
+        console.log(user, "user===>");
       }
     } catch (err) {
       console.log(err.message);
@@ -58,6 +61,8 @@ const AuthProvider = ({ children }) => {
     regQuestion,
     subscriptionpaid,
     setRegQuestion,
+    profilepic,
+    setProfilepic,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

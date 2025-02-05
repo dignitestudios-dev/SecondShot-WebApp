@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
-import axios from "../../axios"; 
+import axios from "../../axios";
 import { SuccessToast } from "../toaster/ToasterContainer";
 
 const Transferable = () => {
   const [library, setLibrary] = useState([]);
   const [likedItems, setLikedItems] = useState({});
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
   const getLibrary = async () => {
     setLoading(true);
@@ -20,7 +20,7 @@ const Transferable = () => {
     } catch (err) {
       console.error(err);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -55,7 +55,14 @@ const Transferable = () => {
   return (
     <div>
       {loading ? (
-        <div className="h-[300px] animate-pulse rounded-md bg-gray-200 w-[300px] "></div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[...Array(library.length || 6)]?.map((_, index) => (
+            <div
+              key={index}
+              className="h-[300px] animate-pulse rounded-md bg-gray-200 w-[300px]"
+            ></div>
+          ))}
+        </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 cursor-pointer">
           {library.map((item, index) => {
@@ -63,35 +70,35 @@ const Transferable = () => {
             let skillData = {};
 
             if (item?.favorite_hobby1) {
-              description = item.favorite_hobby1.description;
+              description = item?.favorite_hobby1?.description;
               skillData = {
-                id: item.favorite_hobby1.favorite_hobbyId,
-                descriptionId: item.favorite_hobby1.descriptionId,
+                id: item?.favorite_hobby1?.favorite_hobbyId?._id,
+                descriptionId: item?.favorite_hobby1?.descriptionId,
               };
             } else if (item?.favorite_hobby2) {
-              description = item.favorite_hobby2.description;
+              description = item?.favorite_hobby2?.description;
               skillData = {
-                id: item.favorite_hobby2.favorite_hobbyId,
-                descriptionId: item.favorite_hobby2.descriptionId,
+                id: item?.favorite_hobby2.favorite_hobbyId?._id,
+                descriptionId: item?.favorite_hobby2?.descriptionId,
               };
             } else if (item?.favorite_middle_school_subject) {
-              description = item.favorite_middle_school_subject.description;
+              description = item?.favorite_middle_school_subject?.description;
               skillData = {
-                id: item.favorite_middle_school_subject.favoriteSubjectId,
+                id: item?.favorite_middle_school_subject?.favoriteSubjectId?._id,
                 descriptionId:
-                  item.favorite_middle_school_subject.descriptionId,
+                  item?.favorite_middle_school_subject?.descriptionId,
               };
             } else if (item?.rank) {
-              description = item.rank.description;
+              description = item?.rank?.description;
               skillData = {
-                id: item.rank.rankId,
-                descriptionId: item.rank.descriptionId,
+                id: item?.rank?.rankId?._id,
+                descriptionId: item?.rank?.descriptionId,
               };
             } else if (item?.athlete) {
-              description = item.athlete.description;
+              description = item?.athlete?.description;
               skillData = {
-                id: item.athlete.athleteId,
-                descriptionId: item.athlete.descriptionId,
+                id: item?.athlete?.athleteId?._id,
+                descriptionId: item?.athlete?.descriptionId,
               };
             }
 
@@ -105,9 +112,7 @@ const Transferable = () => {
                     Transferable Skills
                   </h2>
                   <BsFillBookmarkStarFill
-                    className={`text-2xl cursor-pointer ${
-                      likedItems[index] ? "text-red-500" : "text-[#56EC17]"
-                    }`}
+                    className={`text-2xl cursor-pointer text-[#56EC17] `}
                     onClick={() => handleLike(index, skillData)}
                   />
                 </div>

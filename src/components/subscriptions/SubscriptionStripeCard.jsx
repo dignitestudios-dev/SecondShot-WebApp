@@ -43,7 +43,7 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
           "stripeSubscriptionId",
           data?.stripeSubscriptionId
         );
-
+        setSubscriptionpaid(true)
         localStorage.setItem("product_id", cardsubdata?._id || product_id);
         localStorage.setItem("cardsubdata", JSON.stringify(cardsubdata));
         localStorage.setItem("paymentIntentId", data?.paymentIntentId);

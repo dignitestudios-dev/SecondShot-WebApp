@@ -7,25 +7,21 @@ import { authRoutes } from "./constant/authRoutes";
 import { routes } from "./constant/routes";
 import { AuthContext } from "./context/AuthContext";
 
-
 function App() {
   const { token } = useContext(AuthContext);
 
-
-
   return (
-      <Routes>
-        
-        {authRoutes.map((route) => {
-          return (
-            <Route path={route?.url} element={route?.page} key={route?.title} />
-          );
-        })}
-        
-        {routes?.map((route, key) => (
-          <Route path={route?.url} element={route?.page} key={key} />
-        ))}
-      </Routes>
+    <Routes>
+      {authRoutes.map((route) => {
+        return (
+          <Route path={route?.url} element={route?.page} key={route?.title} />
+        );
+      })}
+
+      {routes?.map((route, key) => (
+        <Route path={route?.url} element={route?.page} key={key} />
+      ))}
+    </Routes>
   );
 }
 
