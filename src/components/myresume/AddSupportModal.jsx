@@ -4,14 +4,16 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { useFormik } from "formik";
 import { supportPeopleValues } from "../../data/gola";
 import { supportPeopleSchema } from "../../Schema/goalSchema";
-
+import axios from "../../axios";
+import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
 const AddSupportModal = ({
   showModal,
   handleClick,
-  setFormData,
-  formData,
   setShowModalsupport,
+  resumeId,
 }) => {
+  const [loading, setloading] = useState(false);
+
   const {
     values,
     errors,
@@ -25,10 +27,57 @@ const AddSupportModal = ({
     validationSchema: supportPeopleSchema,
     validateOnChange: true,
     validateOnBlur: true,
-    onSubmit: (values) => {
-      setFormData(values);
-      setShowModalsupport(false);
+    onSubmit: async (values) => {
+      console.log("Form Values Submitted:", values);
+      console.log("Resume ID:", resumeId);
+    
+      // Support people ka raw data
+      let supportPeopleData = [
+        {
+          full_name: values.fullname.trim(),
+          email_address: values.email.trim(),
+          phone_number: values.phone.trim(),
+        },
+        {
+          full_name: values.fullname_2.trim(),
+          email_address: values.email_2.trim(),
+          phone_number: values.phone_2.trim(),
+        },
+      ];
+    
+      // ✅ **Filter out empty support persons**
+      supportPeopleData = supportPeopleData.filter(
+        (person) => person.full_name !== "" && person.email_address !== "" && person.phone_number !== ""
+      );
+    
+      console.log("Filtered Support People:", supportPeopleData);
+    
+      // ✅ **Agar supportPeopleData empty hai, API call mat karo**
+      if (supportPeopleData.length === 0) {
+        ErrorToast("Please enter at least one support person's details.");
+        return;
+      }
+    
+      try {
+        setloading(true);
+        console.log(supportPeopleData,"supportPeopleData")
+        const response = await axios.post("/api/user/add-support-people", {
+          resumeId: resumeId,
+          supportPeople: supportPeopleData,
+        });
+    
+        if (response.status === 200) {
+          SuccessToast("Support Person(s) Added Successfully");
+          setShowModalsupport(false);
+        }
+      } catch (err) {
+        ErrorToast(err.response?.data?.message || "An error occurred");
+        console.log(err);
+      } finally {
+        setloading(false);
+      }
     },
+    
   });
 
   return (
@@ -108,14 +157,14 @@ const AddSupportModal = ({
                   error={errors.fullname_2 || touched.fullname_2}
                 />
                 <AuthInput
-                 id={"email_2"}
-                 name={"email_2"}
-                 onChange={handleChange}
-                 onBlur={handleBlur}
-                 value={values.email_2}
-                 text={"Phone Number"}
-                 placeholder={"Enter Phone Number"}
-                 error={errors.email_2 || touched.email_2}
+                  id={"email_2"}
+                  name={"email_2"}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email_2}
+                  text={"Phone Number"}
+                  placeholder={"Enter Phone Number"}
+                  error={errors.email_2 || touched.email_2}
                 />
                 <AuthInput
                   id={"phone_2"}
@@ -129,7 +178,11 @@ const AddSupportModal = ({
                 />
               </div>
               <div className="mt-2">
-                <AuthSubmitBtn text={"Send"} type={"submit"} />
+                <AuthSubmitBtn
+                  text={"Send"}
+                  type={"submit"}
+                  loading={loading}
+                />
               </div>
             </div>
           </form>

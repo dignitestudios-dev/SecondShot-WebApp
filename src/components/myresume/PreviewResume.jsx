@@ -24,10 +24,9 @@ const PreviewResume = ({
   handleDeleteModal,
   setStep,
   isSkipped,
-  
+  setresumeId,
+  resumeId,
 }) => {
- 
-
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
@@ -56,6 +55,9 @@ const PreviewResume = ({
 
   const transformFormData = (formData) => {
     return {
+      full_name: formData.informationValues?.fullname,
+      email: formData.informationValues?.email,
+      phone: formData.informationValues?.phoneNumber,
       address: formData.informationValues?.address,
       objective: {
         description: formData.objetiveValues?.description,
@@ -95,10 +97,7 @@ const PreviewResume = ({
                   )}`
                 : null,
           })),
-      soft_skills: isSkipped
-        ? []
-        : formData.skillsValues?.softskills
-           ,
+      soft_skills: isSkipped ? [] : formData.skillsValues?.softskills,
       technical_skills: isSkipped
         ? []
         : formData.skillsValues?.technicalSkills
@@ -124,9 +123,6 @@ const PreviewResume = ({
   };
   const transformedData = transformFormData(formData);
 
-
-  const [resumeId, setresumeid] = useState('');
-
   const handleSubmitData = async () => {
     const transformedData = transformFormData(formData);
     setLoading(true);
@@ -143,10 +139,10 @@ const PreviewResume = ({
       if (response.status === 201) {
         SuccessToast("Resume Create Successfully");
         handleModal();
-        setresumeid(response?.data?.data?._id)
+        setresumeId(response?.data?.data?._id);
       }
     } catch (error) {
-      ErrorToast(error?.response?.data );
+      ErrorToast(error?.response?.data);
       console.error(
         "Error submitting form:",
         error?.response?.data || error.message
@@ -155,7 +151,6 @@ const PreviewResume = ({
       setLoading(false);
     }
   };
-
 
   return (
     <div>
@@ -220,7 +215,7 @@ const PreviewResume = ({
                     <p
                       href="#"
                       className="block px-4 py-2 text-[12px] text-[#000000] font-[400] border-b mx-1 cursor-pointer"
-                      onClick={()=>navigate(`/edit-resume/${resumeId}`)}
+                      onClick={() => navigate(`/edit-resume/${resumeId}`)}
                     >
                       Edit{" "}
                     </p>

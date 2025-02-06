@@ -8,11 +8,11 @@ const PersonalizedCV = ({ resumeData,ref }) => {
         {/* Header Section */}
         <div className="text-center">
         <h1 className="text-[45.88px] font-[600]">
-            {resumeData?.userId?.name}
+            {resumeData?.full_name}
           </h1>
           <p className="mt-2 flex gap-4 justify-center text-[19.12px] text-[#000000] font-[500] ">
-            <span> {resumeData?.userId?.email} </span>
-            <span> {resumeData?.userId?.phone}</span>
+            <span> {resumeData?.email} </span>
+            <span> {resumeData?.phone}</span>
             <span> {resumeData?.address}</span>
           </p>
         </div>

@@ -175,6 +175,7 @@ const NewTrasnferSkill = () => {
       if (response.status === 200) {
         setIsLiked((prev) => !prev);
         SuccessToast(isLiked ? "Unliked" : "Liked");
+        gettransferableskill()
       }
     } catch (err) {
       console.error(err);
@@ -266,7 +267,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -313,7 +314,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -359,7 +360,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -406,7 +407,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -452,7 +453,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -614,7 +615,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -659,7 +660,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -704,7 +705,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -749,7 +750,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -794,7 +795,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -858,7 +859,7 @@ const NewTrasnferSkill = () => {
                               size={"27px"}
                               onClick={() => handleLike(noteData)}
                               className={`transition duration-200 cursor-pointer ${
-                                isLiked ? "text-green-500" : "text-gray-500"
+                                item?.is_favorite ? "text-green-500" : "text-gray-500"
                               }`}
                             />
                           )}
@@ -905,7 +906,7 @@ const NewTrasnferSkill = () => {
                               size={"27px"}
                               onClick={() => handleLike(noteData)}
                               className={`transition duration-200 cursor-pointer ${
-                                isLiked ? "text-green-500" : "text-gray-500"
+                                item?.is_favorite ? "text-green-500" : "text-gray-500"
                               }`}
                             />
                           )}
@@ -952,7 +953,7 @@ const NewTrasnferSkill = () => {
                               size={"27px"}
                               onClick={() => handleLike(noteData)}
                               className={`transition duration-200 cursor-pointer ${
-                                isLiked ? "text-green-500" : "text-gray-500"
+                                item?.is_favorite ? "text-green-500" : "text-gray-500"
                               }`}
                             />
                           )}
@@ -999,7 +1000,7 @@ const NewTrasnferSkill = () => {
                               size={"27px"}
                               onClick={() => handleLike(noteData)}
                               className={`transition duration-200 cursor-pointer ${
-                                isLiked ? "text-green-500" : "text-gray-500"
+                                item?.is_favorite ? "text-green-500" : "text-gray-500"
                               }`}
                             />
                           )}
@@ -1046,7 +1047,7 @@ const NewTrasnferSkill = () => {
                               size={"27px"}
                               onClick={() => handleLike(noteData)}
                               className={`transition duration-200 cursor-pointer ${
-                                isLiked ? "text-green-500" : "text-gray-500"
+                                item?.is_favorite ? "text-green-500" : "text-gray-500"
                               }`}
                             />
                           )}
@@ -1109,7 +1110,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1155,7 +1156,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1201,7 +1202,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1247,7 +1248,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1293,7 +1294,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1358,7 +1359,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1404,7 +1405,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1449,7 +1450,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1494,7 +1495,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1540,7 +1541,7 @@ const NewTrasnferSkill = () => {
                             size={"27px"}
                             onClick={() => handleLike(noteData)}
                             className={`transition duration-200 cursor-pointer ${
-                              isLiked ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite ? "text-green-500" : "text-gray-500"
                             }`}
                           />
                         )}

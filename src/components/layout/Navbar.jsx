@@ -11,7 +11,7 @@ import LockModal from "../home/LockModal";
 
 const Navbar = () => {
   const { subscriptionpaid, profilepic } = useContext(AuthContext);
-  console.log(profilepic, "profilepic==>");
+
   const navigate = useNavigate();
   const [lock, setLock] = useState(false);
 
@@ -31,7 +31,7 @@ const Navbar = () => {
   const profile = Cookies.get("profileData")
     ? JSON.parse(Cookies.get("profileData"))
     : null;
-  console.log(profile, "profile==-{");
+
   return (
     <div className="flex gap-3 relative z-30">
       <div className="md:hidden text-end flex justify-end w-full mt-4 p-6">
@@ -64,8 +64,8 @@ const Navbar = () => {
             <li key={item.path}>
               {subscriptionpaid ||
               item.path === "/transferablekills" ||
-              item.path === "/home" || 
-              item.path === '/success-story' ? (
+              item.path === "/home" ||
+              item.path === "/success-story" ? (
                 <Link to={item.path} className="text-white uppercase">
                   {item.label}
                 </Link>

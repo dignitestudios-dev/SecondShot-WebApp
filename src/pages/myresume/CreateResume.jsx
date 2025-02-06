@@ -94,6 +94,7 @@ const CreateResume = () => {
   ]);
 
   const [showModal, setShowModal] = useState(false);
+  const [resumeId, setresumeId] = useState("");
 
   const handleModal = () => {
     setShowModal(!showModal);
@@ -154,6 +155,7 @@ const CreateResume = () => {
         <AddSupportModal
           showModal={showPeopleModal}
           handleClick={handleShowPeopleModal}
+          resumeId={resumeId}
         />
         <ResumeDeleteModal showModal={showDelete} onclick={handleDeleteModal} />
         {/* <AddSupportModal
@@ -234,7 +236,6 @@ const CreateResume = () => {
           </>
         )}
 
-        
         <div>
           <div
             className={`${
@@ -326,6 +327,8 @@ const CreateResume = () => {
                   prevStep={prevStep}
                   setStep={setStep}
                   isSkipped={isSkipped}
+                  resumeId={resumeId}
+                  setresumeId={setresumeId}
                 />
               )}
             </div>

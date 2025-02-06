@@ -1,103 +1,5 @@
-import React, { useEffect, useState } from "react";
-import axios from "../../axios";
-const resumeData = {
-  personalDetails: {
-    name: "Sanethia Thomas",
-    email: "sanethia@yoursecondshot.com",
-    phone: "555-123-4567",
-    website: "www.sanethia.com",
-    objective:
-      "To obtain a faculty position in higher education to teach computer science and athlete development.",
-  },
-  education: [
-    {
-      school: "University of Florida, Gainesville, FL",
-      date: "2019",
+import React from "react";
 
-      details: [
-        "Doctor of Philosophy in Computer Information & Science & Engineering",
-        "Human Centered Computing, User Experience, Athlete Development",
-      ],
-    },
-    {
-      school: "Clemson University, Clemson, SC",
-      date: "2014",
-      degree: [],
-      details: [
-        "Master of Science in Youth Development Leadership, Phi Kappa Phi -Top 10%",
-      ],
-    },
-    {
-      school: "University of Texas El Paso, El Paso, TX",
-      date: "2002",
-      degree: [],
-
-      details: [
-        "Bachelor of Business Administration - Information Technology, Athletic Scholar",
-      ],
-    },
-  ],
-  certifications: [
-    {
-      title:
-        "Professional Association of Athlete Development Specialist (PAADS)",
-      date: "2019",
-      location: "Gainesville, FL",
-    },
-  ],
-  experience: [
-    {
-      role: "Assistant Instructional Professor",
-      company: "University of Florida, Gainesville, FL",
-      date: "2019 - Current",
-      duties: [
-        "Develop and teach core computing classes for Computer & Information Science & Engineering Department.",
-        "Develop and lead experiential learning experiences for AI in computing nationally and internationally.",
-      ],
-    },
-    {
-      role: "UX Researcher",
-      company: "Intel, Hillsboro, OR",
-      date: "2015",
-      duties: [
-        "Project lead for end user testing and UX research of technology solutions across various system platforms.",
-        "Performed heuristic evaluations and system usability tests.",
-      ],
-    },
-  ],
-  volunteer: [
-    {
-      title: "Cape Town South Africa Study Abroad",
-      date: "JUNE 2024",
-      description:
-        "Developed UF’s first AI study abroad program in Cape Town, South Africa, partnering with three nonprofit organizations to create software solutions. Projects included an AI predictive analysis map for 65,000 displaced residents, text and image generation for 269 acres of wetland conservation area, and an intelligent tutoring system for 400 students.",
-    },
-  ],
-  honors: [
-    {
-      title: "AI Teacher of the  Year, University of Florida",
-      date: "2024",
-    },
-    {
-      title:
-        "Graduate Research Fellowship Program (GRFP), National Science   Foundation ",
-      date: "2015",
-    },
-  ],
-  softSkills: [
-    "Problem-Solver",
-    "Strategic Thinker",
-    "Detailed Oriented",
-    "Process Oriented",
-  ],
-  technicalSkills: [
-    "Python",
-    "Java",
-    "JavaScript",
-    "Software Engineering",
-    "User Experience Design",
-  ],
-};
 
 const AllResume = ({ resume }) => {
 
@@ -106,10 +8,10 @@ const AllResume = ({ resume }) => {
       <div className="bg-white  p-2 rounded-lg shadow-md ">
         {/* Header Section */}
         <div className="text-center">
-          <h1 className="text-[8.88px] font-[600]">{resume?.userId?.name}</h1>
+          <h1 className="text-[8.88px] font-[600]">{resume?.full_name}</h1>
           <p className="mt-1 flex gap-4 justify-center text-[5.12px] text-[#000000] font-[500] ">
-            <span> {resume?.userId?.email} </span>
-            <span> {resume?.userId?.phone}</span>
+            <span> {resume?.email} </span>
+            <span> {resume?.phone}</span>
           </p>
         </div>
 

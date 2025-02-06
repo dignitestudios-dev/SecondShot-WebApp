@@ -8,7 +8,7 @@ import { informationSchema } from "../../Schema/resumeSchema";
 
 const Information = ({ nextStep, setFormData, formData }) => {
   const navigate = useNavigate();
-
+console.log(formData,"formData")
   const {
     values,
     handleBlur,

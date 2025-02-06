@@ -12,12 +12,36 @@ import ResumeDownloadModal from "../../components/myresume/ResumeDownloadModal";
 import AddSupportModal from "../../components/myresume/AddSupportModal";
 import ResumeDeleteModal from "../../components/myresume/DeleteResumeModal";
 import PersonalizedCV from "../../components/myresume/PersonalizedCV";
-
+import {
+  ErrorToast,
+  SuccessToast,
+} from "../../components/toaster/ToasterContainer";
+import axios from "../../axios";
 const ViewResume = () => {
   const location = useLocation();
   const resumeData = location?.state;
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [resume, setResume] = useState(false);
+  console.log(resumeData?._id, "resumeData");
 
+  const handleDeleteFunction = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.delete("/api/user/delete-resume", {
+        data: { resume_id: resumeData?._id }, // ✅ DELETE requests require `data` key
+      });
 
+      if (response.status === 200) {
+        SuccessToast("Resume Deleted Successfully");
+        navigate("/myresume");
+      }
+    } catch (err) {
+      ErrorToast(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -54,17 +78,28 @@ const ViewResume = () => {
     };
   }, []);
   const handlePrint = () => {
-    // Temporary show/hide print content
-    const content = document.getElementById("download-resume");
+    const content = document.getElementById("download-resume").innerHTML;
     const originalContent = document.body.innerHTML;
 
-    // Save the original content of the page
-    document.body.innerHTML = content.innerHTML; // Replace page content with the resume
+    const printWindow = window.open("", "_blank");
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Print Resume</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+          </style>
+        </head>
+        <body>
+          ${content}
+        </body>
+      </html>
+    `);
 
-    window.print(); // Trigger print dialog
-
-    // Restore original content after print
-    document.body.innerHTML = originalContent;
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
   };
 
   return (
@@ -78,8 +113,17 @@ const ViewResume = () => {
         <AddSupportModal
           showModal={showPeopleModal}
           handleClick={handleShowPeopleModal}
+          resumeId={resumeData?._id}
+          setShowPeopleModal={setShowPeopleModal}
         />
-        <ResumeDeleteModal showModal={showDelete} onclick={handleDeleteModal} />
+        <ResumeDeleteModal
+          showModal={showDelete}
+          onclick={handleDeleteModal}
+          resumeId={resumeData?._id}
+          handleDelete={handleDeleteFunction}
+          loading={loading}
+        />
+
         <div>
           <h1 className="text-[32px] font-[500] text-[#000000]">
             Your Personalized Resume
@@ -123,22 +167,27 @@ const ViewResume = () => {
                 className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
               >
                 <div className="py-1" role="none">
-                  <p
-                    href="#"
-                    className="block px-4 py-2 text-[12px] text-[#000000] font-[400] border-b mx-1 cursor-pointer"
-                  >
-                    Edit{" "}
-                  </p>
-                  <p
-                    onClick={handleDeleteModal}
-                    href="#"
-                    className="block px-4 py-2 text-[12px] text-[#000000]  font-[400] border-b mx-1 cursor-pointer"
-                  >
-                    Delete
-                  </p>
+                  <ul className="py-2">
+                    <li
+                      className="px-4 py-2 hover:bg-gray-100 text-[14px] cursor-pointer"
+                      onClick={() =>
+                        navigate(`/edit-resume/${resumeData?._id}`)
+                      }
+                    >
+                      Edit
+                    </li>
+                    <li
+                      className="px-4 py-2 hover:bg-gray-100 text-[14px] cursor-pointer"
+                      onClick={handleDeleteModal}
+                    >
+                      Delete
+                    </li>
+                  </ul>
+
                   <p
                     href="#"
                     className="block px-4 py-2 text-[12px] text-[#000000] font-[400] mx-1 cursor-pointer"
+                    onClick={()=>navigate('/create-resume')}
                   >
                     Create New{" "}
                   </p>

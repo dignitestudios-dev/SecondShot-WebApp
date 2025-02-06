@@ -187,9 +187,9 @@ const EditResume = () => {
       setFormData({
         ...formData,
         informationValues: {
-          fullname: editData?.userId?.name || "",
-          email: editData?.userId?.email || "",
-          phoneNumber: editData?.userId?.phone || "",
+          fullname: editData?.full_name   || "",
+          email: editData?.email || "",
+          phoneNumber: editData?.phone || "",
           address: editData?.address || "",
         },
 
@@ -322,6 +322,9 @@ const EditResume = () => {
 
   const mapFormDataToPayload = (formData) => {
     return {
+      full_name: formData.informationValues?.fullname,
+      email: formData.informationValues?.email,
+      phone: formData.informationValues?.phoneNumber,
       address: formData.informationValues.address,
       objective: {
         description: formData.objetiveValues.description,
@@ -345,10 +348,10 @@ const EditResume = () => {
         issuing_organization: cert.issuingOrganization,
         credential_id: cert.credentialId,
         issue_date: cert.Issueyear ? cert.Issueyear.split("T")[0] : null,
-        expiration_date: cert.expirationmonth && cert.expirationyear
-        ? `${cert.expirationmonth}-${cert.expirationyear.split("T")[0]}`
-        : null, // Convert to YYYY-MM-DD
-    
+        expiration_date:
+          cert.expirationmonth && cert.expirationyear
+            ? `${cert.expirationmonth}-${cert.expirationyear.split("T")[0]}`
+            : null, // Convert to YYYY-MM-DD
       })),
       soft_skills: Array.isArray(formData.skillsValues?.softskills)
         ? formData.skillsValues.softskills
@@ -362,10 +365,9 @@ const EditResume = () => {
             award_name: honor.awardName || "",
             awarding_organization: honor.awardingOrganization || "",
             date_Received:
-            honor.receivedyear && honor.receivedmonth
-              ? `${honor.receivedyear}-${honor.receivedmonth
-                  .split("T")[0]}`
-              : null,
+              honor.receivedyear && honor.receivedmonth
+                ? `${honor.receivedyear}-${honor.receivedmonth.split("T")[0]}`
+                : null,
 
             description: honor.description || "",
           }))

@@ -76,8 +76,7 @@ function SuccessStory() {
   const getsuccessstory = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("/api/user/get-success-stories?page=1"); // 🔥 await added
-
+      const response = await axios.get("/api/user/get-success-stories?page=1"); 
       if (response.status === 200) {
         setStories(response?.data?.data);
         setTotalPages(data?.data?.pagination?.totalPages || 1);
@@ -92,7 +91,6 @@ function SuccessStory() {
   useEffect(() => {
     getsuccessstory();
   }, []);
-  console.log(stories, "stories");
   return (
     <div className="">
       <WelcomeStoryModal
