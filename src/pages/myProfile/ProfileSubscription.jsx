@@ -154,7 +154,35 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
               </div>
             )
           ) : (
-            ""
+            <div className="bg-white rounded-[22px] h-[400px] shadow-sm p-6 w-full max-w-sm flex flex-col">
+            <div>
+              <div className="flex justify-between items-center">
+                <h2 className="text-[24px] font-[500] text-[#000000] leading-[32.4px]">
+                  Basic
+                </h2>
+                <h2 className="text-[32px] font-[600] leading-[43.2px] text-[#56EC17]">
+                  Free
+                </h2>
+              </div>
+              <hr className="bg-[#000000] mb-4 mt-3" />
+              <div className="text-[22px] font-[600] text-gray-900">
+                Basic Plan
+              </div>
+              <ul className="space-y-2 text-gray-700">
+                <li className="flex items-center space-x-2 space-y-3 mt-3">
+                  <img
+                    src={Tick}
+                    className="h-[10.5px] mt-3 w-[13.5px]"
+                    alt=""
+                  />
+                  <span className="text-[17px] leading-[22.95px] font-[500] text-[#181818]">
+                    Discover Your Transferable Skills
+                  </span>
+                </li>
+              </ul>
+            </div>
+         
+          </div>
           )}
         </div>
       </div>

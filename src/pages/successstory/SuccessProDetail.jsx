@@ -7,7 +7,7 @@ import { Profileimage } from "../../assets/export";
 
 function SuccessProDetail() {
   const location = useLocation();
-  const succesname = location.state;
+  const succesname = location.state.item;
 
   console.log(succesname, "succesname");
   const navigate = useNavigate();
@@ -24,21 +24,23 @@ function SuccessProDetail() {
           <div className="bg-white rounded-2xl p-8">
             <div className="flex items-center mb-6">
               <img
-                src={succesname?.data?.profile_img}
+                src={succesname?.profile_img}
                 alt="Profile"
                 className="h-24 w-24 rounded-full shadow-md"
               />
               <div className="ml-6">
                 <h2 className="text-2xl font-semibold text-[#011225]">
-                  {succesname?.data?.name}
+                  {succesname?.name}
                 </h2>
                 <p className="text-[#0081FF] font-[600] ">
-                  {succesname?.data?.profession}
+                  {succesname?.profession}
                 </p>
               </div>
               <button className="ml-auto bg-[#FF0000] text-white font-semibold rounded-md px-4 py-2 flex items-center justify-center">
                 <FaYoutube className="mr-2 text-md" />
-                <a href={`${succesname?.data?.youtube_link}`} target="_blank">YouTube</a>
+                <a href={`${succesname?.youtube_link}`} target="_blank">
+                  YouTube
+                </a>
               </button>
             </div>
 
@@ -47,9 +49,7 @@ function SuccessProDetail() {
                 <h3 className="text-xl font-semibold text-[#011225]">
                   Current Profession
                 </h3>
-                <p className="text-black">
-                  {succesname?.data?.current_profession}
-                </p>
+                <p className="text-black">{succesname?.current_profession}</p>
               </div>
               <hr class="h-px my-8 bg-gray-300 border-0" />
 
@@ -57,7 +57,7 @@ function SuccessProDetail() {
                 <h3 className="text-xl font-semibold text-[#011225]">
                   Education
                 </h3>
-                <p className="text-black">{succesname?.data?.education}</p>
+                <p className="text-black">{succesname?.education}</p>
               </div>
               <hr class="h-px my-8 bg-gray-300 border-0" />
 
@@ -65,7 +65,7 @@ function SuccessProDetail() {
                 <h3 className="text-xl font-semibold text-[#011225]">
                   Experience
                 </h3>
-                <p className="text-black">{succesname?.data?.experience}</p>
+                <p className="text-black">{succesname?.experience}</p>
               </div>
 
               <hr class="h-px my-8 bg-gray-300 border-0" />
@@ -76,7 +76,7 @@ function SuccessProDetail() {
                   how have you seen it manifest in different areas of your life?
                 </h3>
                 <p className="text-black mt-3">
-                  {succesname?.data?.most_valuable_transferable_skill}
+                  {succesname?.most_valuable_transferable_skill}
                 </p>
               </div>
               <hr class="h-px my-8 bg-gray-300 border-0" />
@@ -86,9 +86,7 @@ function SuccessProDetail() {
                   If you could give one piece of advice to your younger self,
                   what would it be, and why?
                 </h3>
-                <p className="text-black mt-3">
-                  {succesname?.data?.piece_of_advice}
-                </p>
+                <p className="text-black mt-3">{succesname?.piece_of_advice}</p>
               </div>
             </div>
           </div>

@@ -39,22 +39,19 @@ const TagsModal = ({
         <div className="flex-grow overflow-auto scrollbar-custom mb-4">
           <div className="flex flex-wrap">
             {filteredTags.length > 0 ? (
-              filteredTags?.map((tag) => {
-                const label = tag?.label;
-                return (
-                  <div
-                    key={label}
-                    onClick={() => handleTagClick(tag)}
-                    className={`cursor-pointer px-3 py-2 border rounded-lg m-1 text-center ${
-                      selectedTags?.label?.includes(label)
-                        ? "bg-[#56EC17] text-black"
-                        : "bg-tagsBg text-gray-700"
-                    }`}
-                  >
-                    <span>{label}</span>
-                  </div>
-                );
-              })
+              filteredTags.map((tag) => (
+                <div
+                  key={tag.value}
+                  onClick={() => handleTagClick(tag)}
+                  className={`cursor-pointer px-3 py-2 border rounded-lg m-1 text-center ${
+                    selectedTags?.value === tag.value
+                      ? "bg-[#56EC17] text-black"
+                      : "bg-tagsBg text-gray-700"
+                  }`}
+                >
+                  <span>{tag.label}</span>
+                </div>
+              ))
             ) : (
               <p className="text-gray-500">No tags found</p>
             )}

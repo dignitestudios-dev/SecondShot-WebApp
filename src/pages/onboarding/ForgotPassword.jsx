@@ -88,7 +88,7 @@ const handleback = () =>{
                   ) : null}
                 </div>
                 <div className="mb-6">
-                  <AuthSubmitBtn text="Send" type="submit" />
+                  <AuthSubmitBtn text="Send" type="submit" loading={loading} />
                 </div>
                 <BackBtn handleClick={() =>handleback()} />
               </div>

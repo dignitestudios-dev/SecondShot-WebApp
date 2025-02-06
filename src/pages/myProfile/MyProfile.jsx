@@ -99,13 +99,13 @@ function MyProfile() {
     }
   };
 
-  const handledelete =async () => {
+  const handledelete = async () => {
     setLoading(true);
     try {
-      const response =await axios.delete("/api/user/delete-account");
+      const response = await axios.delete("/api/user/delete-account");
       if (response.status === 200) {
         SuccessToast("Delete Account Successfully");
-        navigate('/sign-in')
+        navigate("/sign-in");
       }
     } catch (err) {
       console.log(err);
@@ -201,7 +201,7 @@ function MyProfile() {
                           Visit our website
                         </p>
                         <p className="text-[#222222] font-[400] text-[16px] leading-[21.6px] underline ">
-                          {profileData?.address}
+                          <a href={`${profileData?.address}`} target="_blank">{profileData?.address}</a>
                         </p>
                       </div>
                     </div>

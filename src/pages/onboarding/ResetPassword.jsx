@@ -19,6 +19,7 @@ const ResetPassword = () => {
   const navigation = useNavigate();
 
   const [isTrue, setIsTrue] = useState(false);
+  const [loading, setloading] = useState(false);
 
   const email = sessionStorage.getItem("email");
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
@@ -28,6 +29,7 @@ const ResetPassword = () => {
       validateOnChange: true,
       validateOnBlur: true,
       onSubmit: async (values) => {
+        setloading(true)
         try {
           const response = await axios.post("/api/auth/reset-password", {
             email: email,
@@ -124,7 +126,7 @@ const ResetPassword = () => {
                   </span>
                 ) : null}
                 <div className="mb-6 pt-2">
-                  <AuthSubmitBtn type="submit" text="Save" />
+                  <AuthSubmitBtn type="submit" text="Save" loading={loading} />
                 </div>
                 <BackBtn handleClick={() => navigation(-1)} />
               </form>

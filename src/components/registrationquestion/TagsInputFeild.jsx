@@ -18,14 +18,23 @@ const TagsInputField = ({
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
 
+  // const handleTagClick = (tag) => {
+  //   if (selectedTags === tag || selectedTags === tag.label) {
+  //     setSelectedTags(null); // Deselect if the same tag is clicked again
+  //   } else {
+  //     setSelectedTags({ label: tag?.label, value: tag?.value }); // Set the selected tag
+  //   }
+  // };
   const handleTagClick = (tag) => {
-    if (selectedTags === tag || selectedTags === tag.label) {
-      setSelectedTags(null); // Deselect if the same tag is clicked again
+    // If the clicked tag is already selected, deselect it; otherwise, select it.
+    if (selectedTags?.value === tag.value) {
+      setSelectedTags(null); // Deselect the tag
     } else {
-      setSelectedTags({ label: tag?.label, value: tag?.value }); // Set the selected tag
+      setSelectedTags(tag); // Select the new tag
     }
   };
-
+  
+  
   const saveTags = () => {
     if (selectedTags) {
       setTags([selectedTags]); // Save the single selected tag

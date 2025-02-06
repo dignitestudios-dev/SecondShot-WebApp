@@ -270,7 +270,8 @@ export const educationTags = {
     { label: "Statistics", value: "42" },
     { label: "Wildlife Ecology and Conservation", value: "43" },
     { label: "Theatre", value: "44" },
-    { label: "Electrical Engineering", value: "45" }, ]
+    { label: "Electrical Engineering", value: "45" },
+  ],
 };
 
 export const clubs = [

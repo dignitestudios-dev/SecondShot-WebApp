@@ -32,7 +32,7 @@ const RegistrationQuestion = () => {
 
   const [congrats, setCongrats] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(5);
   const [stepsixvalue, setstepsixvalue] = useState([]);
   const [formData, setFormData] = useState({
     university: "",

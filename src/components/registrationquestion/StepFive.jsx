@@ -12,7 +12,6 @@ import { ErrorToast } from "../toaster/ToasterContainer";
 const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
   const validationSchema = Yup.object({
     isAthlete: Yup.string().required("Please select an option to proceed."),
-
     athleteOption:
       formData?.isAthlete == "Yes"
         ? Yup.string().required("This field cannot be left empty")
@@ -84,8 +83,8 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
   }, []);
 
   const handleOptionClick = (value, setFieldValue, setFieldTouched) => {
-    setFieldValue("athleteOption", value);
     setFieldTouched("athleteOption", true);
+    setFieldValue("athleteOption", value);
     setFormData({ ...formData, athleteOption: value });
     setIsOpen(false);
 
