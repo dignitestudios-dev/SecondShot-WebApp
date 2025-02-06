@@ -45,7 +45,7 @@ const ChangePasswordModal = ({ onClose }) => {
             onClose();
           }
         } catch (err) {
-          ErrorToast(err.message);
+          ErrorToast(err?.response?.data?.message);
         } finally {
           setLoading(false);
         }

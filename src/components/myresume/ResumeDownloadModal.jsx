@@ -110,7 +110,7 @@ const ResumeDownloadModal = ({ showModal, onclick }) => {
                       : "text-[#858585]"
                   }`}
                 >
-                  Google (Doc) File
+                  PDF File
                 </p>
                 <div
                   className={`text-[16px] font-[400] absolute top-24 left-[314px] w-5 h-5 rounded-full ${

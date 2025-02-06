@@ -15,7 +15,6 @@ import InviteFriendModal from "../../components/myProfile/InviteFriendModal";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "../../axios";
 import ProfileSkeleton from "../../components/loader/ProfileSkeleton";
-import { ModalContext } from "../../context/GlobalContext";
 import { SuccessToast } from "../../components/toaster/ToasterContainer";
 import Cookies from "js-cookie";
 
@@ -95,6 +94,21 @@ function MyProfile() {
       }
     } catch (err) {
       console.error("Logout Error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handledelete =async () => {
+    setLoading(true);
+    try {
+      const response =await axios.delete("/api/user/delete-account");
+      if (response.status === 200) {
+        SuccessToast("Delete Account Successfully");
+        navigate('/sign-in')
+      }
+    } catch (err) {
+      console.log(err);
     } finally {
       setLoading(false);
     }
@@ -399,7 +413,11 @@ function MyProfile() {
       )}
 
       {isDeactivateModalOpen && (
-        <DeactivateModal onClose={() => setIsDeactivateModalOpen(false)} />
+        <DeactivateModal
+          onClose={() => setIsDeactivateModalOpen(false)}
+          handleClick={() => handledelete()}
+          loader={loader}
+        />
       )}
       <InviteFriendModal
         isOpen={inviteOpen}

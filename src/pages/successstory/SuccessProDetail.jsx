@@ -7,9 +7,9 @@ import { Profileimage } from "../../assets/export";
 
 function SuccessProDetail() {
   const location = useLocation();
-  const succesname = location.state?.item;
+  const succesname = location.state;
 
-
+  console.log(succesname, "succesname");
   const navigate = useNavigate();
 
   return (
@@ -24,19 +24,21 @@ function SuccessProDetail() {
           <div className="bg-white rounded-2xl p-8">
             <div className="flex items-center mb-6">
               <img
-                src={succesname?.profile_img}
+                src={succesname?.data?.profile_img}
                 alt="Profile"
                 className="h-24 w-24 rounded-full shadow-md"
               />
               <div className="ml-6">
                 <h2 className="text-2xl font-semibold text-[#011225]">
-                  {succesname?.name}
+                  {succesname?.data?.name}
                 </h2>
-                <p className="text-[#0081FF] font-[600] ">{succesname?.degree}</p>
+                <p className="text-[#0081FF] font-[600] ">
+                  {succesname?.data?.profession}
+                </p>
               </div>
               <button className="ml-auto bg-[#FF0000] text-white font-semibold rounded-md px-4 py-2 flex items-center justify-center">
                 <FaYoutube className="mr-2 text-md" />
-                YouTube
+                <a href={`${succesname?.data?.youtube_link}`} target="_blank">YouTube</a>
               </button>
             </div>
 
@@ -46,14 +48,7 @@ function SuccessProDetail() {
                   Current Profession
                 </h3>
                 <p className="text-black">
-                  Lorem ipsum dolor sit amet consectetur. Tortor mi imperdiet
-                  dictum mattis. Nisl dictum senectus non morbi. Lorem ipsum
-                  dolor sit amet consectetur. Enim ultricies in sed nisl nisl
-                  proin. Nulla euismod massa diam egestas tellus urna mattis
-                  aliquam sit. Condimentum viverra ut nunc auctor. Sit
-                  consectetur vitae vestibulum lacinia. Nunc nibh vel est
-                  tincidunt bibendum felis quisque nib. Nulla euismod massa diam
-                  egestas tellus urna mattis aliquam sit.{" "}
+                  {succesname?.data?.current_profession}
                 </p>
               </div>
               <hr class="h-px my-8 bg-gray-300 border-0" />
@@ -62,16 +57,7 @@ function SuccessProDetail() {
                 <h3 className="text-xl font-semibold text-[#011225]">
                   Education
                 </h3>
-                <p className="text-black">
-                  Lorem ipsum dolor sit amet consectetur. Tortor mi imperdiet
-                  dictum mattis. Nisl dictum senectus non morbi. Lorem ipsum
-                  dolor sit amet consectetur. Enim ultricies in sed nisl nisl
-                  proin. Nulla euismod massa diam egestas tellus urna mattis
-                  aliquam sit. Condimentum viverra ut nunc auctor. Sit
-                  consectetur vitae vestibulum lacinia. Nunc nibh vel est
-                  tincidunt bibendum felis quisque nib. Nulla euismod massa diam
-                  egestas tellus urna mattis aliquam sit.{" "}
-                </p>
+                <p className="text-black">{succesname?.data?.education}</p>
               </div>
               <hr class="h-px my-8 bg-gray-300 border-0" />
 
@@ -79,29 +65,9 @@ function SuccessProDetail() {
                 <h3 className="text-xl font-semibold text-[#011225]">
                   Experience
                 </h3>
-                <p className="text-black">
-                  Lorem ipsum dolor sit amet consectetur. Tortor mi imperdiet
-                  dictum mattis. Nisl dictum senectus non morbi. Lorem ipsum
-                  dolor sit amet consectetur. Enim ultricies in sed nisl nisl
-                  proin. Nulla euismod massa diam egestas tellus urna mattis
-                  aliquam sit. Condimentum viverra ut nunc auctor. Sit
-                  consectetur vitae vestibulum lacinia. Nunc nibh vel est
-                  tincidunt bibendum felis quisque nib. Nulla euismod massa diam
-                  egestas tellus urna mattis aliquam sit.{" "}
-                </p>
+                <p className="text-black">{succesname?.data?.experience}</p>
               </div>
-              <div>
-                <p className="text-black">
-                  Lorem ipsum dolor sit amet consectetur. Tortor mi imperdiet
-                  dictum mattis. Nisl dictum senectus non morbi. Lorem ipsum
-                  dolor sit amet consectetur. Enim ultricies in sed nisl nisl
-                  proin. Nulla euismod massa diam egestas tellus urna mattis
-                  aliquam sit. Condimentum viverra ut nunc auctor. Sit
-                  consectetur vitae vestibulum lacinia. Nunc nibh vel est
-                  tincidunt bibendum felis quisque nib. Nulla euismod massa diam
-                  egestas tellus urna mattis aliquam sit.{" "}
-                </p>
-              </div>
+
               <hr class="h-px my-8 bg-gray-300 border-0" />
 
               <div>
@@ -110,14 +76,7 @@ function SuccessProDetail() {
                   how have you seen it manifest in different areas of your life?
                 </h3>
                 <p className="text-black mt-3">
-                  Think about the skills you've developed that can be applied
-                  across different areas of life and work. Whether it's
-                  communication, problem-solving, or adaptability, these
-                  transferable skills are often the foundation of success. How
-                  has this skill shaped your interactions, improved your
-                  efficiency, or opened up new opportunities? Reflect on how it
-                  continues to influence both your personal and professional
-                  growth.
+                  {succesname?.data?.most_valuable_transferable_skill}
                 </p>
               </div>
               <hr class="h-px my-8 bg-gray-300 border-0" />
@@ -128,18 +87,11 @@ function SuccessProDetail() {
                   what would it be, and why?
                 </h3>
                 <p className="text-black mt-3">
-                  Reflecting on your journey, think about the wisdom and lessons
-                  you’ve gained over time. What insights would you share with
-                  your younger self to help navigate challenges, embrace
-                  opportunities, or avoid mistakes? Whether it’s about trusting
-                  your instincts, being patient, or taking more risks, this is a
-                  moment to look back and offer guidance that could have made a
-                  difference.
+                  {succesname?.data?.piece_of_advice}
                 </p>
               </div>
             </div>
           </div>
-       
         </div>
       </div>
     </div>

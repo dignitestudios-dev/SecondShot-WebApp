@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import SubscriptionStripeCard from "../../components/subscriptions/SubscriptionStripeCard";
 import SubriptionCardPath from "../../components/subscriptions/SubriptionCardPath";
@@ -12,6 +12,7 @@ import {
   ErrorToast,
   SuccessToast,
 } from "../../components/toaster/ToasterContainer";
+import { AuthContext } from "../../context/AuthContext";
 
 const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
   const navigation = useNavigate();
@@ -20,7 +21,7 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
   const [loading, setloading] = useState(false);
   const [myplane, setMyplane] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
-
+  const { subscriptionpaid } = useContext(AuthContext);
   const handleToggle = (option) => {
     setSelected(option);
   };
@@ -90,66 +91,70 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
       </div>
       <div className="flex flex-col mt-5 lg:flex-row items-center justify-center gap-8 w-full max-w-6xl">
         <div>
-          {loading ? (
-            <div className="bg-gray-200 rounded-[22px] h-[459px]  p-6 w-[400px] max-w-sm flex flex-col justify-between">
-              <div className="bg-gray-300 h-[40px] w-[60%] rounded-[10px] mb-4"></div>
-              <div className="bg-gray-300 h-[30px] w-[80%] rounded-[10px] mb-2"></div>
-              <div className="bg-gray-300 h-[20px] w-[90%] rounded-[10px] mb-2"></div>
-              <div className="bg-gray-300 h-[50px] w-[100%] rounded-[10px] mb-2"></div>
-            </div>
-          ) : myplane?.status === "cancelled" ? (
-            <div>No Plane Found</div>
-          ) : (
-            <div className="  bg-white rounded-[22px]  md:h-full  shadow-lg   p-2 w-full max-w-sm">
-              <div className="flex justify-between items-center  mt-3 ">
-                <h2 className="text-[24px] px-3 font-[500] text-[#000000] leading-[32.4px] ">
-                  {myplane?.subscriptionProduct?.subscription_duration}
-                </h2>
-                <h2 className="text-[32px] font-[600] pe-3 leading-[43.2px] text-[#56EC17]">
-                  {myplane?.subscriptionProduct?.price}
-                </h2>
+          {subscriptionpaid ? (
+            loading ? (
+              <div className="bg-gray-200 rounded-[22px] h-[459px]  p-6 w-[400px] max-w-sm flex flex-col justify-between">
+                <div className="bg-gray-300 h-[40px] w-[60%] rounded-[10px] mb-4"></div>
+                <div className="bg-gray-300 h-[30px] w-[80%] rounded-[10px] mb-2"></div>
+                <div className="bg-gray-300 h-[20px] w-[90%] rounded-[10px] mb-2"></div>
+                <div className="bg-gray-300 h-[50px] w-[100%] rounded-[10px] mb-2"></div>
               </div>
-              <div>
-                <hr className="bg-[#000000] mb-4 mt-3" />
-              </div>
+            ) : myplane?.status === "cancelled" ? (
+              <div>No Plane Found</div>
+            ) : (
+              <div className="  bg-white rounded-[22px]  md:h-full  shadow-lg   p-2 w-full max-w-sm">
+                <div className="flex justify-between items-center  mt-3 ">
+                  <h2 className="text-[24px] px-3 font-[500] text-[#000000] leading-[32.4px] ">
+                    {myplane?.subscriptionProduct?.subscription_duration}
+                  </h2>
+                  <h2 className="text-[32px] font-[600] pe-3 leading-[43.2px] text-[#56EC17]">
+                    {myplane?.subscriptionProduct?.price}
+                  </h2>
+                </div>
+                <div>
+                  <hr className="bg-[#000000] mb-4 mt-3" />
+                </div>
 
-              <div className="p-3">
-                <div className="text-[22px] font-[600] text-gray-900 ">
-                  {myplane?.subscriptionProduct?.product_name}
-                </div>
-                <ul className="space-y-3 text-gray-700">
-                  {Object.values(
-                    myplane?.subscriptionProduct?.description || {}
-                  ).map((feature, index) => (
-                    <li
-                      key={index}
-                      className="flex items-center space-x-2 mt-3"
+                <div className="p-3">
+                  <div className="text-[22px] font-[600] text-gray-900 ">
+                    {myplane?.subscriptionProduct?.product_name}
+                  </div>
+                  <ul className="space-y-3 text-gray-700">
+                    {Object.values(
+                      myplane?.subscriptionProduct?.description || {}
+                    ).map((feature, index) => (
+                      <li
+                        key={index}
+                        className="flex items-center space-x-2 mt-3"
+                      >
+                        <img
+                          src={Tick}
+                          className="h-[10.5px] w-[13.5px]"
+                          alt=""
+                        />
+                        <span className="text-[17px] leading-[22.95px] font-[500] text-[#181818]">
+                          {feature}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="flex justify-center mt-5">
+                    <button
+                      className="bg-red-500 p-2 w-[180px] text-center rounded-md text-white font-[600] flex justify-center items-center"
+                      onClick={handleDelete} // Move onClick to the button
                     >
-                      <img
-                        src={Tick}
-                        className="h-[10.5px] w-[13.5px]"
-                        alt=""
-                      />
-                      <span className="text-[17px] leading-[22.95px] font-[500] text-[#181818]">
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex justify-center mt-5">
-                  <button
-                    className="bg-red-500 p-2 w-[180px] text-center rounded-md text-white font-[600] flex justify-center items-center"
-                    onClick={handleDelete} // Move onClick to the button
-                  >
-                    {loader ? (
-                      <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white"></div>
-                    ) : (
-                      "Cancel Subscription"
-                    )}
-                  </button>
+                      {loader ? (
+                        <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white"></div>
+                      ) : (
+                        "Cancel Subscription"
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            )
+          ) : (
+            ""
           )}
         </div>
       </div>
