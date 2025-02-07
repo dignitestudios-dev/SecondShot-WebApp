@@ -145,7 +145,7 @@ export const routes = [
   },
   {
     title: "GoalDetail",
-    url: "/goal-detail",
+    url: "/goal-detail/:id",
     page: <Applayout page={<GoalDetail />} />,
   },
   {

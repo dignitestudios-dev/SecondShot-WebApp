@@ -3,12 +3,12 @@ export const goalValues = {
   startDate: null,
   sub_goals: [],
 };
-
 export const supportPeopleValues = {
   fullname: "",
   email: "",
   phone: "",
-  fullname_2: "",
-  email_2: "",
-  phone_2: "",
+  fullname_2: undefined, // Optional: Initialize as undefined
+  email_2: undefined, // Optional: Initialize as undefined
+  phone_2: undefined, // Optional: Initialize as undefined
+  isSecond: false,
 };

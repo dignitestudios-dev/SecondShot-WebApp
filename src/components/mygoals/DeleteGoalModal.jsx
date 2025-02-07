@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { DeleteIcon } from "../../assets/export";
 import GrayBtn from "../onboarding/grayBtn";
+import { FiLoader } from "react-icons/fi";
 
-const DeleteGoalModal = ({ showModal, onclick }) => {
+const DeleteGoalModal = ({ showModal, onclick, handleclick, loader }) => {
   return (
     showModal && (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -32,10 +33,13 @@ const DeleteGoalModal = ({ showModal, onclick }) => {
           <div className="flex justify-between">
             <GrayBtn text={"Cancel"} handleSubmit={() => onclick()} />
             <button
-              onClick={() => onclick()}
+              onClick={() => handleclick()}
               className="w-full py-3 h-[49px] px-4 text-sm font-semibold   hover:bg-opacity-85  bg-[#FF0000] text-[16px] text-white leading-[21.6px] rounded-[8px]  mx-1"
             >
-              Yes
+              <div className="flex items-center justify-center">
+                <span className="mr-1">Yes</span>
+                {loader && <FiLoader className="animate-spin text-lg " />}
+              </div>
             </button>
           </div>
         </div>

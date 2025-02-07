@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const CustomCalendar = ({ setShowCalender, startDate, setStartDate }) => {
+const CustomCalendar = ({
+  setShowCalender,
+  startDate,
+  setStartDate,
+  maxDate,
+}) => {
   const handleSave = () => {
     setShowCalender(false);
   };
@@ -19,6 +24,7 @@ const CustomCalendar = ({ setShowCalender, startDate, setStartDate }) => {
           onChange={(date) => setStartDate(date)}
           inline
           calendarClassName="custom-calendar"
+          // minDate={maxDate}
         />
 
         <div className="flex justify-between w-full mt-2">

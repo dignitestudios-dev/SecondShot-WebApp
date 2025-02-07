@@ -48,6 +48,10 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
       setFieldValue("sub_goals", [{ name: "", deadline: "" }]);
     }
   }, [showSubGoal]);
+  const threeMonthsAgo = new Date();
+  threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() + 3);
+
+  console.log(threeMonthsAgo, "threeMonthsAgo");
   return (
     showModal && (
       <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-80 backdrop-blur-sm">
@@ -104,7 +108,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                         {showCalender && (
                           <div className="">
                             <CustomCalendar
-                              startDate={values.startDate}
+                              startDate={threeMonthsAgo}
                               setStartDate={(date) =>
                                 setFieldValue("startDate", date)
                               }
@@ -141,7 +145,6 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                                   )}
                                 </div>
 
-                                {/* Sub Goal Name Input */}
                                 <AuthInput
                                   placeholder="Write your sub goal here"
                                   name={`sub_goals[${index}].name`}
@@ -154,7 +157,6 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                                   }
                                 />
 
-                                {/* Sub Goal Deadline with Calendar */}
                                 <div className="mt-4">
                                   <p className="text-[14px] font-[500] m-1">
                                     Time-Bound
@@ -214,7 +216,6 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                               </div>
                             ))}
 
-                            {/* Add More Sub-goal Button */}
                             <button
                               type="button"
                               className="text-[#012C57] cursor-pointer underline font-[500] text-[12px] leading-[13.31px] mt-2"

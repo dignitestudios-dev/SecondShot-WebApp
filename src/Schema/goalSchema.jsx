@@ -18,16 +18,33 @@ export const goalSchema = Yup.object().shape({
 });
 
 export const supportPeopleSchema = Yup.object({
-  fullname: Yup.string()
-    .min(3, "Full name must be at least 3 characters.")
-    .max(50, "Full name can't exceed 50 characters.")
-    .required("Please enter your full name"),
-
+  fullname: Yup.string().required("Full Name is required"),
   email: Yup.string()
-    .email("Email must be valid.")
-    .required("Please enter your email"),
-
+    .email("Invalid email format")
+    .required("Email Address is required"),
   phone: Yup.string()
-    .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits.")
-    .required("Please enter your phone number"),
+    .matches(/^[0-9]{10}$/, "Phone number must be 10 digits")
+    .required("Phone number is required"),
+  isSecond: Yup.boolean()
+    .required("This field is required.")
+    .default(false), // Defaults to false if not provided
+  fullname_2: Yup.string().when("isSecond", {
+    is: true, // Only validate if isSecond is true
+    then: Yup.string().required("Full Name is required for 2nd person"),
+    otherwise: Yup.string().notRequired(), // Not required if isSecond is false
+  }),
+  email_2: Yup.string().when("isSecond", {
+    is: true, // Only validate if isSecond is true
+    then: Yup.string()
+      .email("Invalid email format")
+      .required("Email Address is required for 2nd person"),
+    otherwise: Yup.string().notRequired(), // Not required if isSecond is false
+  }),
+  phone_2: Yup.string().when("isSecond", {
+    is: true, // Only validate if isSecond is true
+    then: Yup.string()
+      .matches(/^[0-9]{10}$/, "Phone number must be 10 digits")
+      .required("Phone number is required for 2nd person"),
+    otherwise: Yup.string().notRequired(), // Not required if isSecond is false
+  }),
 });

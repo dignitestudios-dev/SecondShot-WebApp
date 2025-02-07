@@ -4,20 +4,39 @@ import { useLocation, useNavigate } from "react-router-dom";
 import GoalCompletedModal from "../../components/mygoals/GoalCompletedModal";
 import SupportPerson from "../../components/mygoals/SupportPerson";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
-import AddSupportModal from "../../components/myresume/AddSupportModal";
 import GoalCreatedModal from "../../components/mygoals/GoalCreatedModal";
-import CreateGoalModal from "../../components/mygoals/CreateGoalModal";
+import AddSupportGoalModal from "../../components/mygoals/AddSupportGoalModal";
+import axios from "../../axios";
+import {
+  ErrorToast,
+  SuccessToast,
+} from "../../components/toaster/ToasterContainer";
 
 function ReviewYourGoalOld() {
   const navigate = useNavigate();
   const [isGoalDetailModalOpen, setGoalDetailModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    fullname: "",
+    email: "",
+    phone: "",
+    fullname_2: "",
+    email_2: "",
+    phone_2: "",
+  });
 
+  // State to track error messages
+  const [errors, setErrors] = useState({
+    fullname: "",
+    email: "",
+    phone: "",
+    fullname_2: "",
+    email_2: "",
+    phone_2: "",
+  });
   const location = useLocation("");
-  const data = location.state;
-  console.log(data, "MyData");
+  const goaldata = location.state.formData;
+
   const [isPeople, setIsPeople] = useState(false);
-  const [formData, setFormData] = useState();
-console.log(formData,"formData++----|||")
   const handleNavigation = () => {
     setIsPeople(false);
     navigate("/reviewgoal");
@@ -31,16 +50,70 @@ console.log(formData,"formData++----|||")
 
   const [showCardModal, setShowCardModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
-  const [showModalsupport, setShowModalsupport] = useState(true);
+  const [showModalsupport, setShowModalsupport] = useState(false);
 
   const handleCardModal = () => {
     setShowCardModal(!showCardModal);
+  };
+  const isAnyFieldFilled = Object.values(formData).some(
+    (value) => value !== ""
+  );
+
+  const [loader, setLoader] = useState(false);
+
+  const handlecreategoal = async () => {
+    setLoader(true);
+
+    const formattedSupportPeople = [
+      {
+        full_name: formData.fullname,
+        email_address: formData.email,
+        phone_number: formData.phone,
+      },
+      formData.fullname_2 &&
+        formData.email_2 &&
+        formData.phone_2 && {
+          full_name: formData.fullname_2,
+          email_address: formData.email_2,
+          phone_number: formData.phone_2,
+        },
+    ].filter(Boolean);
+
+    try {
+      const response = await axios.post("/api/user/create-goal", {
+        main_goal_name: goaldata.main_goal_name,
+        deadline: goaldata.startDate,
+        sub_goals: goaldata.sub_goals,
+        support_people: formattedSupportPeople,
+      });
+
+      if (response.status === 201) {
+        SuccessToast("Goal Created Successfully");
+
+        // Ensure that the goal ID is coming through properly from the response
+        const goalid = response?.data?.data?._id; // Access _id properly from the response
+
+        console.log("Goal ID:", goalid);
+        if (goalid) {
+          // Now navigate to the goal detail page
+          navigate(`/goal-detail/${goalid}`);
+        } else {
+          console.log("Goal ID is missing in the response");
+        }
+      }
+    } catch (err) {
+      console.log(err);
+      ErrorToast(
+        err.response?.message || "An error occurred while creating the goal."
+      );
+    } finally {
+      setLoader(false);
+    }
   };
 
   return (
     <div className="">
       <div className="">
-        {/* Main Heading and Submit Button */}
         <div className="flex justify-between items-center mt-6 w-full">
           <div className="text-left w-[555px]">
             <h1 className="text-[32px] font-medium text-gray-800">
@@ -56,38 +129,37 @@ console.log(formData,"formData++----|||")
           </div>
           <div className="flex  items-center  gap-4">
             <div className="w-[200px]">
-              {/* <AuthSubmitBtn
-                text={"Add Support Network"}
-                handleSubmit={() => setShowModalsupport(true)}
-              /> */}
-            </div>
-            <div>
-              <AuthSubmitBtn
-                text={"Finalize Goal"}
-                handleSubmit={() => setGoalDetailModalOpen(true)}
-              />
+              {isAnyFieldFilled ? (
+                <AuthSubmitBtn
+                  text={"Finalize Goal"}
+                  handleSubmit={() => handlecreategoal()}
+                  loading={loader}
+                />
+              ) : (
+                <AuthSubmitBtn
+                  text={"Finalize Goal"}
+                  handleSubmit={() => setShowModalsupport(true)}
+                />
+              )}
             </div>
           </div>
         </div>
 
-        {/* Main Section */}
         <div className="flex justify-center mt-8">
           <div className="grid grid-cols-2 gap-8">
-            {/* Left Section - Main Goal and Sub-Goals */}
             <div className="w-[575px] h-[904px] space-y-6">
-              {/* Main Goal Details */}
               <div className="bg-white rounded-xl p-6 relative h-full z-0">
                 <h2 className="text-xl font-semibold mb-2">
                   Main Goal Details
                 </h2>
 
                 <p className="text-gray-700 mt-4 text-sm mb-4 border-b border-b-gray-300">
-                  {data?.formData?.main_goal_name}
+                  {goaldata?.main_goal_name}
                   <div className="flex space-x-2 mt-2">
                     <p>Deadline for Main goals:</p>
                     <p className="font-semibold text-blue-600 mb-4">
-                      {data?.formData?.startDate
-                        ? new Date(data.formData.startDate).toLocaleDateString(
+                      {goaldata?.startDate
+                        ? new Date(goaldata.startDate).toLocaleDateString(
                             "en-US",
                             {
                               year: "numeric",
@@ -103,19 +175,17 @@ console.log(formData,"formData++----|||")
                 <button className="absolute top-4 right-4 p-2 w-10 h-10 bg-[#012C57] text-white rounded-md">
                   <PiPencilLine size={24} />
                 </button>
-
-                {/* Sub-Goals Details */}
-                <div className="mt-6">
-                  <div className="flex justify-between items-center">
-                    <h2 className="text-xl font-semibold mb-4">
-                      Sub-Goals Details
-                    </h2>
-                    <button className="p-2 w-10 h-10 text-xl bg-[#012C57] text-white hover:text-gray-700 rounded-md">
-                      <PiPencilLine size={24} />
-                    </button>
-                  </div>
-                  <div className="space-y-6">
-                    {data?.formData?.sub_goals.map((item, index) => (
+                {goaldata?.sub_goals.map((item, index) => (
+                  <div className="mt-6">
+                    <div className="flex justify-between items-center">
+                      <h2 className="text-xl font-semibold mb-4">
+                        Sub-Goals Details
+                      </h2>
+                      <button className="p-2 w-10 h-10 text-xl bg-[#012C57] text-white hover:text-gray-700 rounded-md">
+                        <PiPencilLine size={24} />
+                      </button>
+                    </div>
+                    <div className="space-y-6">
                       <div key={index} className="">
                         <div className="text-gray-400">
                           <span className="block text-md font-semibold">
@@ -126,18 +196,28 @@ console.log(formData,"formData++----|||")
                           {item?.name}
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    </div>
 
-                  <div className="flex justify-between items-center mt-4 text-gray-700">
-                    <div className="flex space-x- text-[14px] 2 mt-2">
-                      <p>Deadline for Sub-goals:</p>{" "}
-                      <p className="font-semibold mx-3 text-blue-600 mb-4">
-                        Jan/23/2024 - Feb/22/2024
-                      </p>
+                    <div className="flex justify-between items-center mt-4 text-gray-700">
+                      <div className="flex space-x- text-[14px] 2 mt-2">
+                        <p>Deadline for Sub-goals:</p>{" "}
+                        <p className="font-semibold mx-3 text-blue-600 mb-4">
+                          Jan/23/2024 -{" "}
+                          {item?.deadline
+                            ? new Date(item.deadline).toLocaleDateString(
+                                "en-US",
+                                {
+                                  year: "numeric",
+                                  month: "short",
+                                  day: "numeric",
+                                }
+                              )
+                            : "No date selected"}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
 
@@ -157,12 +237,14 @@ console.log(formData,"formData++----|||")
         }}
         onclick={() => setGoalDetailModalOpen(false)}
       />
-      <AddSupportModal
+      <AddSupportGoalModal
         showModal={showModalsupport}
         handleClick={() => setShowModalsupport(false)}
         setShowModalsupport={setShowModalsupport}
         formData={formData}
         setFormData={setFormData}
+        errors={errors}
+        setErrors={setErrors}
       />
       <GoalCreatedModal
         showModal={successModal}
