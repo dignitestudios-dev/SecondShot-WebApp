@@ -7,14 +7,16 @@ import { IoIosArrowBack } from "react-icons/io";
 
 const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
   const validationSchema = Yup.object({
-    achievable: Yup.string().required("Please respond before moving forward to proceed with the next step."),
+    achievable: Yup.string().required(
+      "Please respond before moving forward to proceed with the next step."
+    ),
   });
 
   return (
     <div>
       <Formik
         initialValues={{
-          achievable: formData.achievable || "",
+          achievable: formData.measure ? formData.measure + " " : "", // Prefill with formData.specific
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
@@ -22,7 +24,7 @@ const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
           nextStep();
         }}
       >
-        {({ errors, touched }) => (
+        {({ errors, touched ,values,setFieldValue}) => (
           <Form>
             <div className="mb-4">
               <label
@@ -64,7 +66,16 @@ const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
                 as="input"
                 id="achievable"
                 name="achievable"
+                value={values.achievable}
                 placeholder="Describe Here"
+                onChange={(e) => {
+                  const updatedValue = e.target.value;
+                  setFieldValue(
+                    "achievable",
+                    formData.measure +
+                      updatedValue.slice(formData.measure.length)
+                  );
+                }}
                 className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
                    bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                      errors.achievable && touched.achievable

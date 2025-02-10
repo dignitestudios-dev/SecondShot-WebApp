@@ -7,14 +7,16 @@ import { IoIosArrowBack } from "react-icons/io";
 
 const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
   const validationSchema = Yup.object({
-    relevant: Yup.string().required("Please respond before moving forward to proceed with the next step."),
+    relevant: Yup.string().required(
+      "Please respond before moving forward to proceed with the next step."
+    ),
   });
 
   return (
     <div>
       <Formik
         initialValues={{
-          relevant: formData.relevant || "",
+          relevant: formData.achievable ? formData.achievable + " " : "", // Prefill with formData.specific
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
@@ -22,7 +24,7 @@ const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
           nextStep();
         }}
       >
-        {({ errors, touched }) => (
+        {({ errors, touched, values, setFieldValue }) => (
           <Form>
             <div className="mb-4">
               <label
@@ -63,6 +65,15 @@ const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
                 id="relevant"
                 name="relevant"
                 placeholder="Describe Here"
+                value={values.relevant}
+                onChange={(e) => {
+                  const updatedValue = e.target.value;
+                  setFieldValue(
+                    "relevant",
+                    formData.achievable +
+                      updatedValue.slice(formData.achievable.length)
+                  );
+                }}
                 className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
                    bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                      errors.relevant && touched.relevant ? "border-red-500" : ""

@@ -5,25 +5,33 @@ import { Stars } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import Backbutton from "../Global/Backbutton";
 import { IoIosArrowBack } from "react-icons/io";
+import MakeitSmartInput from "./MakeitSmartInput";
 
 const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
+  console.log(formData, "formData");
+
   const validationSchema = Yup.object({
-    measure: Yup.string().required("Please respond before moving forward to proceed with the next step."),
+    measure: Yup.string().required(
+      "Please respond before moving forward to proceed with the next step."
+    ),
   });
 
   return (
     <div>
       <Formik
         initialValues={{
-          measure: formData.measure || "",
+          measure: formData.specific ? formData.specific + " " : "", // Prefill with formData.specific
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          setFormData(values);
-          nextStep();
+          setFormData((prevData) => ({
+            ...prevData,
+            measure: values.measure, // This updates the 'measure' field in formData
+          }));
+          nextStep(); // Proceed to the next step
         }}
       >
-        {({ errors, touched }) => (
+        {({ errors, touched, handleChange, values, setFieldValue }) => (
           <Form>
             <div className="mb-4">
               <label
@@ -32,21 +40,21 @@ const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
               >
                 Measurable
               </label>
-              <p className=" text-[14px] text-[#000000] font-[400] w-[503px] ">
+              <p className="text-[14px] text-[#000000] font-[400] w-[503px]">
                 When something is measurable, it means you can count or track it
                 to see how well you’re doing. You can make your goal measurable
-                by answering the following questions
+                by answering the following questions:
               </p>
               <div className="flex items-center gap-4 mt-3 mb-3">
-                {["How much? ", "How many?", "How will I know I did it?"]?.map(
+                {["How much?", "How many?", "How will I know I did it?"].map(
                   (item, index) => (
                     <div key={index} className="flex items-center">
                       <img
                         src={Stars}
-                        className="w-[15.89px] h-[12.93px] "
+                        className="w-[15.89px] h-[12.93px]"
                         alt=""
                       />
-                      <span className="text-[14px] leading-[18.9px] text-[#012C57] font-[500] ">
+                      <span className="text-[14px] leading-[18.9px] text-[#012C57] font-[500]">
                         {item}
                       </span>
                     </div>
@@ -57,6 +65,15 @@ const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
                 as="input"
                 id="measure"
                 name="measure"
+                value={values.measure}
+                onChange={(e) => {
+                  const updatedValue = e.target.value;
+                  setFieldValue(
+                    "measure",
+                    formData.specific +
+                      updatedValue.slice(formData.specific.length)
+                  );
+                }}
                 placeholder="Describe Here"
                 className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
                    bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
@@ -69,11 +86,13 @@ const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
                 className="text-red-500 text-xs italic"
               />
             </div>
+
             <div className="flex justify-center pt-4">
               <div className="w-[343px]">
                 <AuthSubmitBtn text={"Next"} type={"submit"} />
               </div>
             </div>
+
             <div className="flex justify-center mt-4">
               <div>
                 <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">

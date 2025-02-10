@@ -163,9 +163,8 @@ const NewTrasnferSkill = () => {
   useEffect(() => {
     gettransferableskill();
   }, []);
-  const [isLiked, setIsLiked] = useState(false);
 
-  const handleLike = async (noteData) => {
+  const handleLike = async (noteData, isLiked) => {
     setLoading(true);
     try {
       const response = await axios.post("/api/user/toggle-transferable-skill", {
@@ -173,9 +172,8 @@ const NewTrasnferSkill = () => {
       });
 
       if (response.status === 200) {
-        setIsLiked((prev) => !prev);
         SuccessToast(isLiked ? "Unliked" : "Liked");
-        gettransferableskill()
+        gettransferableskill();
       }
     } catch (err) {
       console.error(err);
@@ -265,9 +263,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -312,9 +314,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -358,9 +364,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -405,9 +415,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -451,9 +465,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -502,13 +520,11 @@ const NewTrasnferSkill = () => {
                 : getSkill?.favorite_hobby2?.hobbie_name}
             </span>
 
-           
             <div
               className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center 
                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 
                  transition-all duration-300 ease-in-out"
             >
-              
               <div
                 className="bg-green-500 text-white text-md font-medium rounded-lg shadow-lg py-2 px-3 
                       w-max max-w-[250px] text-center"
@@ -516,7 +532,6 @@ const NewTrasnferSkill = () => {
                 {getSkill?.favorite_hobby2?.hobbie_name}
               </div>
               <div className="w-3 h-3 bg-green-500 relative -top-2 rotate-45 -mb-10"></div>
-
             </div>
           </div>
         </div>
@@ -613,9 +628,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -658,9 +677,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -703,9 +726,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -748,9 +775,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -793,9 +824,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -857,9 +892,13 @@ const NewTrasnferSkill = () => {
                           ) : (
                             <BsFillBookmarkStarFill
                               size={"27px"}
-                              onClick={() => handleLike(noteData)}
+                              onClick={() =>
+                                handleLike(noteData, item?.is_favorite)
+                              }
                               className={`transition duration-200 cursor-pointer ${
-                                item?.is_favorite ? "text-green-500" : "text-gray-500"
+                                item?.is_favorite
+                                  ? "text-green-500"
+                                  : "text-gray-500"
                               }`}
                             />
                           )}
@@ -904,9 +943,13 @@ const NewTrasnferSkill = () => {
                           ) : (
                             <BsFillBookmarkStarFill
                               size={"27px"}
-                              onClick={() => handleLike(noteData)}
+                              onClick={() =>
+                                handleLike(noteData, item?.is_favorite)
+                              }
                               className={`transition duration-200 cursor-pointer ${
-                                item?.is_favorite ? "text-green-500" : "text-gray-500"
+                                item?.is_favorite
+                                  ? "text-green-500"
+                                  : "text-gray-500"
                               }`}
                             />
                           )}
@@ -951,9 +994,13 @@ const NewTrasnferSkill = () => {
                           ) : (
                             <BsFillBookmarkStarFill
                               size={"27px"}
-                              onClick={() => handleLike(noteData)}
+                              onClick={() =>
+                                handleLike(noteData, item?.is_favorite)
+                              }
                               className={`transition duration-200 cursor-pointer ${
-                                item?.is_favorite ? "text-green-500" : "text-gray-500"
+                                item?.is_favorite
+                                  ? "text-green-500"
+                                  : "text-gray-500"
                               }`}
                             />
                           )}
@@ -998,9 +1045,13 @@ const NewTrasnferSkill = () => {
                           ) : (
                             <BsFillBookmarkStarFill
                               size={"27px"}
-                              onClick={() => handleLike(noteData)}
+                              onClick={() =>
+                                handleLike(noteData, item?.is_favorite)
+                              }
                               className={`transition duration-200 cursor-pointer ${
-                                item?.is_favorite ? "text-green-500" : "text-gray-500"
+                                item?.is_favorite
+                                  ? "text-green-500"
+                                  : "text-gray-500"
                               }`}
                             />
                           )}
@@ -1045,9 +1096,13 @@ const NewTrasnferSkill = () => {
                           ) : (
                             <BsFillBookmarkStarFill
                               size={"27px"}
-                              onClick={() => handleLike(noteData)}
+                              onClick={() =>
+                                handleLike(noteData, item?.is_favorite)
+                              }
                               className={`transition duration-200 cursor-pointer ${
-                                item?.is_favorite ? "text-green-500" : "text-gray-500"
+                                item?.is_favorite
+                                  ? "text-green-500"
+                                  : "text-gray-500"
                               }`}
                             />
                           )}
@@ -1108,9 +1163,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1154,9 +1213,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1200,9 +1263,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1246,9 +1313,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1292,9 +1363,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1357,9 +1432,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1403,9 +1482,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1448,9 +1531,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1493,9 +1580,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}
@@ -1539,9 +1630,13 @@ const NewTrasnferSkill = () => {
                         ) : (
                           <BsFillBookmarkStarFill
                             size={"27px"}
-                            onClick={() => handleLike(noteData)}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
                             className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite ? "text-green-500" : "text-gray-500"
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
                             }`}
                           />
                         )}

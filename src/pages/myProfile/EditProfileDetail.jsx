@@ -13,6 +13,7 @@ import { EditProfileSchema, profileSchema } from "../../Schema/profileSchema";
 import { profileValues } from "../../data/authentication";
 import { ModalContext } from "../../context/GlobalContext";
 import { AuthContext } from "../../context/AuthContext";
+import { data } from "../../components/dataStateCity/data";
 const EditProfileDetails = () => {
   const navigation = useNavigate();
   const location = useLocation();
@@ -59,6 +60,8 @@ const EditProfileDetails = () => {
 
         if (response.status === 200) {
           SuccessToast("Profile Updated Successfully");
+          navigation("/my-profile");
+
           sessionStorage.setItem(
             "profilePicture",
             values.profilePicture
@@ -66,7 +69,6 @@ const EditProfileDetails = () => {
               : ""
           );
           setProfilepic(URL.createObjectURL(values.profilePicture));
-          navigation("/my-profile");
         }
       } catch (err) {
         ErrorToast(err?.response?.data?.message || "Profile update failed");
@@ -189,10 +191,18 @@ const EditProfileDetails = () => {
               name="state"
               id="state"
               value={values.state}
-              onChange={handleChange}
+              onChange={(e) => {
+                handleChange(e);
+                values.city = "";
+              }}
               options={[
-                { value: "", label: "Select State" },
-                { value: "London", label: "London" },
+                { value: "", label: "--Select State--" },
+                ...Object.keys(data)
+                  ?.sort()
+                  ?.map((state) => ({
+                    value: state,
+                    label: state,
+                  })),
               ]}
             />
 
@@ -207,11 +217,18 @@ const EditProfileDetails = () => {
               name="country"
               id="country"
               value={values.country}
-              onChange={handleChange}
+              onChange={(e) => {
+                handleChange(e);
+              }}
               onBlur={handleBlur}
               options={[
-                { value: "", label: "Select City" },
-                { value: "Europe ", label: "Europe " },
+                { value: "", label: "--Select City--" },
+                ...(Array.isArray(data[values.state]) // ✅ Check if it's an array first
+                  ? data[values.state].sort().map((city) => ({
+                      value: city,
+                      label: city,
+                    }))
+                  : []),
               ]}
             />
             {errors.country && touched.country ? (
@@ -220,6 +237,7 @@ const EditProfileDetails = () => {
               </span>
             ) : null}
           </div>
+
           <div className="mt-3">
             <AuthInput
               id="address"

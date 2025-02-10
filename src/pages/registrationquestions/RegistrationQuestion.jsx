@@ -32,7 +32,7 @@ const RegistrationQuestion = () => {
 
   const [congrats, setCongrats] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [step, setStep] = useState(5);
+  const [step, setStep] = useState(1);
   const [stepsixvalue, setstepsixvalue] = useState([]);
   const [formData, setFormData] = useState({
     university: "",
@@ -51,8 +51,6 @@ const RegistrationQuestion = () => {
     jobValue: "",
     desireCareer: "",
   });
-
-
 
   const nextStep = (skip = false) => {
     setStep(skip ? step + 2 : step + 1);

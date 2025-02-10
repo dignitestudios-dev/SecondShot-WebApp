@@ -1,50 +1,74 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AuthInput from "../onboarding/AuthInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import axios from "../../axios";
 import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
 
-const AddSupportModal = ({
+const AddSupportGoalModal = ({
   showModal,
   handleClick,
   formData,
   setFormData,
   setErrors,
   errors,
+  goalDetail,
   setShowModalsupport,
+  setIsUpdate,
+  isUpdate,
+  getGoalDetail,
 }) => {
   const [loading, setLoading] = useState(false);
 
   // State to track input values temporarily
   const [inputData, setInputData] = useState({
-    fullname: formData.fullname,
-    email: formData.email,
-    phone: formData.phone,
-    fullname_2: formData.fullname_2,
-    email_2: formData.email_2,
-    phone_2: formData.phone_2,
+    fullname: formData.fullname || goalDetail?.support_people[0]?.full_name,
+    email: formData.email || goalDetail?.support_people[0]?.email_address,
+    phone: formData.phone || goalDetail?.support_people[0]?.phone_number,
+    fullname_2: formData.fullname_2 || goalDetail?.support_people[1]?.full_name,
+    email_2: formData.email_2 || goalDetail?.support_people[1]?.email_address,
+    phone_2: formData.phone_2 || goalDetail?.support_people[1]?.phone_number,
   });
+  const [disableFullname1, setDisableFullname1] = useState(false);
+  const [disableFullname2, setDisableFullname2] = useState(false);
 
-  // State to track if second support person's data should be validated
+  useEffect(() => {
+    if (goalDetail?.support_people) {
+      setDisableFullname1(!!goalDetail.support_people[0]?.full_name);
+      setDisableFullname2(!!goalDetail.support_people[1]?.full_name);
+
+      setInputData({
+        fullname:
+          formData.fullname || goalDetail.support_people[0]?.full_name || "",
+        email:
+          formData.email || goalDetail.support_people[0]?.email_address || "",
+        phone:
+          formData.phone || goalDetail.support_people[0]?.phone_number || "",
+        fullname_2:
+          formData.fullname_2 || goalDetail.support_people[1]?.full_name || "",
+        email_2:
+          formData.email_2 || goalDetail.support_people[1]?.email_address || "",
+        phone_2:
+          formData.phone_2 || goalDetail.support_people[1]?.phone_number || "",
+      });
+    }
+  }, [goalDetail]);
+
   const [secondSupportActive, setSecondSupportActive] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // If the second support person's full name is being typed, set the validation flag to true
     if (name === "fullname_2" && value) {
       setSecondSupportActive(true);
     } else if (name === "fullname_2" && !value) {
       setSecondSupportActive(false);
     }
 
-    // Update the inputData only, not the formData
     setInputData({
       ...inputData,
       [name]: value,
     });
 
-    // Clear the error for the field being typed into
     setErrors({
       ...errors,
       [name]: "",
@@ -61,33 +85,36 @@ const AddSupportModal = ({
 
     switch (name) {
       case "fullname":
-        if (!value) errorMessage = "Full Name is required.";
+        if (!value) errorMessage = "Full name is required.";
         break;
       case "email":
-        if (!value) errorMessage = "Email Address is required.";
+        if (!value) errorMessage = "Email address is required.";
         else if (!/\S+@\S+\.\S+/.test(value))
           errorMessage = "Enter a valid email.";
         break;
       case "phone":
-        if (!value) errorMessage = "Phone Number is required.";
+        if (!value) errorMessage = "Phone number is required.";
         else if (!/^\d{10}$/.test(value))
           errorMessage = "Enter a valid phone number.";
         break;
 
-      
       case "fullname_2":
         if (secondSupportActive && !value)
-          errorMessage = "Full Name for 2nd Support Person is required.";
+          errorMessage = "Full name for 2nd Support Person is required.";
         break;
       case "email_2":
         if (secondSupportActive && !value)
-          errorMessage = "Email Address for 2nd Support Person is required.";
+          errorMessage = "Email address for 2nd Support Person is required.";
         else if (secondSupportActive && !/\S+@\S+\.\S+/.test(value))
           errorMessage = "Enter a valid email for 2nd Support Person.";
+        // Check if email and email_2 are the same
+        else if (secondSupportActive && value === inputData.email) {
+          errorMessage = "Email addresses cannot be the same.";
+        }
         break;
       case "phone_2":
         if (secondSupportActive && !value)
-          errorMessage = "Phone Number for 2nd Support Person is required.";
+          errorMessage = "Phone number for 2nd Support Person is required.";
         else if (secondSupportActive && !/^\d{10}$/.test(value))
           errorMessage = "Enter a valid phone number for 2nd Support Person.";
         break;
@@ -112,22 +139,55 @@ const AddSupportModal = ({
       return;
     }
 
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      fullname: inputData.fullname,
+      email: inputData.email,
+      phone: inputData.phone,
+      fullname_2: inputData.fullname_2,
+      email_2: inputData.email_2,
+      phone_2: inputData.phone_2,
+    }));
+
+    if (!isUpdate) {
+      setShowModalsupport(false);
+      return;
+    }
+    const formattedData = {
+      goalId: goalDetail?._id,
+      supportPeople: [
+        {
+          full_name: inputData.fullname,
+          email_address: inputData.email,
+          phone_number: inputData.phone,
+        },
+        {
+          full_name: inputData.fullname_2,
+          email_address: inputData.email_2,
+          phone_number: inputData.phone_2,
+        },
+      ],
+    };
+
     setLoading(true);
 
-    setFormData(inputData);
-    // setShowModalsupport(false);
+    try {
+      const response = await axios.post(
+        "/api/user/add-support-people-goal",
+        formattedData
+      );
 
-    // try {
-    //   const response = await axios.post("/api/support", inputData);
+      if (response.data.success) {
+        SuccessToast("Support people added successfully!");
 
-    //   if (response.data.success) {
-    //     SuccessToast("Support people added successfully!");
-    //   }
-    // } catch (error) {
-    //   ErrorToast("There was an issue adding support people. Please try again.");
-    // } finally {
-    //   setLoading(false);
-    // }
+        getGoalDetail();
+        setShowModalsupport(false);
+      }
+    } catch (error) {
+      ErrorToast(error?.response?.data?.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -154,11 +214,10 @@ const AddSupportModal = ({
                 </div>
               </div>
 
-              {/* 1st Support Person */}
               <p className="text-[18px] font-[600] leading-[24.3px] ">
                 1st Support Person
               </p>
-              <div className="w-full flex flex-col items-start space-y-4 gap-1 my-2">
+              <div className="w-full flex flex-col items-start space-y-1 gap-1 my-2">
                 <AuthInput
                   id={"fullname"}
                   name={"fullname"}
@@ -167,9 +226,10 @@ const AddSupportModal = ({
                   onBlur={handleBlur}
                   text={"Full Name"}
                   placeholder={"Enter Name"}
+                  isDisabled={disableFullname1}
                 />
                 {errors.fullname && (
-                  <p className="text-red-500">{errors.fullname}</p>
+                  <p className="text-red-500 text-sm mx-2">{errors.fullname}</p>
                 )}
 
                 <AuthInput
@@ -180,8 +240,11 @@ const AddSupportModal = ({
                   onBlur={handleBlur}
                   text={"Email Address"}
                   placeholder={"Enter Email"}
+                  isDisabled={disableFullname1}
                 />
-                {errors.email && <p className="text-red-500">{errors.email}</p>}
+                {errors.email && (
+                  <p className="text-red-500 text-sm mx-2">{errors.email}</p>
+                )}
 
                 <AuthInput
                   id={"phone"}
@@ -191,8 +254,11 @@ const AddSupportModal = ({
                   onBlur={handleBlur}
                   text={"Phone Number"}
                   placeholder={"Enter Phone Number"}
+                  isDisabled={disableFullname1}
                 />
-                {errors.phone && <p className="text-red-500">{errors.phone}</p>}
+                {errors.phone && (
+                  <p className="text-red-500 text-sm mx-2">{errors.phone}</p>
+                )}
               </div>
 
               <hr className="my-6 bg-slate-300" />
@@ -210,47 +276,54 @@ const AddSupportModal = ({
                   onBlur={handleBlur}
                   text={"Full Name"}
                   placeholder={"Enter Name"}
+                  isDisabled={disableFullname2}
                 />
                 {errors.fullname_2 && (
-                  <p className="text-red-500">{errors.fullname_2}</p>
+                  <p className="text-red-500 text-sm mx-2">
+                    {errors.fullname_2}
+                  </p>
                 )}
 
-                {secondSupportActive && (
-                  <>
-                    <AuthInput
-                      id={"email_2"}
-                      name={"email_2"}
-                      value={inputData.email_2}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      text={"Email Address"}
-                      placeholder={"Enter Email"}
-                    />
-                    {errors.email_2 && (
-                      <p className="text-red-500">{errors.email_2}</p>
-                    )}
+                <>
+                  <AuthInput
+                    id={"email_2"}
+                    name={"email_2"}
+                    value={inputData.email_2}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    text={"Email Address"}
+                    placeholder={"Enter Email"}
+                    isDisabled={disableFullname2}
+                  />
+                  {errors.email_2 && (
+                    <p className="text-red-500 text-sm mx-2">
+                      {errors.email_2}
+                    </p>
+                  )}
 
-                    <AuthInput
-                      id={"phone_2"}
-                      name={"phone_2"}
-                      value={inputData.phone_2}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      text={"Phone Number"}
-                      placeholder={"Enter Phone Number"}
-                    />
-                    {errors.phone_2 && (
-                      <p className="text-red-500">{errors.phone_2}</p>
-                    )}
-                  </>
-                )}
+                  <AuthInput
+                    id={"phone_2"}
+                    name={"phone_2"}
+                    value={inputData.phone_2}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    text={"Phone Number"}
+                    placeholder={"Enter Phone Number"}
+                    isDisabled={disableFullname2}
+                  />
+                  {errors.phone_2 && (
+                    <p className="text-red-500 text-sm mx-2">
+                      {errors.phone_2}
+                    </p>
+                  )}
+                </>
               </div>
 
               <div className="mt-2">
                 <AuthSubmitBtn
                   text={"Send"}
                   type={"submit"}
-                //   loading={loading}
+                  loading={loading}
                 />
               </div>
             </div>
@@ -261,4 +334,4 @@ const AddSupportModal = ({
   );
 };
 
-export default AddSupportModal;
+export default AddSupportGoalModal;

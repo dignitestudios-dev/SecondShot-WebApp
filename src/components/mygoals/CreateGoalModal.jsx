@@ -50,8 +50,9 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
   }, [showSubGoal]);
   const threeMonthsAgo = new Date();
   threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() + 3);
+  const location = useLocation();
+  const { isSmart, lastStep } = location.state || {};
 
-  console.log(threeMonthsAgo, "threeMonthsAgo");
   return (
     showModal && (
       <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-80 backdrop-blur-sm">
@@ -69,15 +70,16 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                   <div className="flex justify-center mt-3">
                     <div>
                       <h2 className="text-[24px] text-center font-semibold">
-                        Create Goal
+                        {isSmart ? "Smart Goal" : "Create Goal"}
                       </h2>
                     </div>
                   </div>
                   <div className="pt-4">
+                  
                     <AuthInput
                       text={"Goal"}
                       placeholder={"Write your main goal here"}
-                      value={values.main_goal_name}
+                      value={lastStep?.timebound || values.main_goal_name}
                       id={"main_goal_name"}
                       name={"main_goal_name"}
                       onChange={handleChange}

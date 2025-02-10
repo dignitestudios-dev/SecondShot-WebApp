@@ -45,8 +45,12 @@
 
 .react-datepicker__day--keyboard-selected {
   background-color: #002c56 !important;
-}
+  color: white !important;
 
+}
+.react-datepicker__day .react-datepicker__day--008 .react-datepicker__day--keyboard-selected {
+  color: white !important;
+}
 .react-datepicker__day--weekend {
   color: red !important;
 }
@@ -56,12 +60,14 @@
   border-bottom: none !important;
 }
 .react-datepicker__navigation--previous {
-  display: none !important;
+  left: -30px !important;
 }
 h2.react-datepicker__current-month {
   text-align: start !important;
   font-size: 20px !important;
   font-weight: 700 !important;
+  position: relative !important;
+  top: -4px !important;
 }
 .react-datepicker__year-read-view--down-arrow,
 .react-datepicker__month-read-view--down-arrow,
@@ -78,8 +84,8 @@ h2.react-datepicker__current-month {
   width: 9px;
 }
 .react-datepicker__navigation--next {
-  left: 150px !important;
-  top: 5px !important;
+  left: 160px !important;
+ 
   color: black !important;
   right: 0px;
 }

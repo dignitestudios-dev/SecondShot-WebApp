@@ -19,15 +19,20 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
     <div>
       <Formik
         initialValues={{
-          timebound: formData.timebound || "",
+          timebound: formData.relevant ? formData.relevant + " " : "", // Prefill with formData.specific
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
           setFormData(values);
-          navigate("/create-goals", { state: { modalopen: true } });
+          navigate("/create-goals", {
+            state: {
+              modalopen: true,
+              lastStep: values, // Sending values along with modalopen
+            },
+          });
         }}
       >
-        {({ errors, touched }) => (
+        {({ errors, touched, values, setFieldValue }) => (
           <Form>
             <div className="mb-4">
               <label
@@ -68,6 +73,15 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
                 id="timebound"
                 name="timebound"
                 placeholder="Describe Here"
+                value={values.timebound}
+                onChange={(e) => {
+                  const updatedValue = e.target.value;
+                  setFieldValue(
+                    "timebound",
+                    formData.relevant +
+                      updatedValue.slice(formData.relevant.length)
+                  );
+                }}
                 className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
                   bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                     errors.timebound && touched.timebound

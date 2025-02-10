@@ -33,7 +33,19 @@ const SignUpForm = () => {
   const [idToken, setIdToken] = useState(null);
   const [loading, setLoading] = useState(false);
   const [newUser, setNewUser] = useState("");
-
+  const checkStatus = async () => {
+    try {
+      const response = await axios.post("/api/auth/check-firebase-user", {
+        email: values?.email,
+        
+      });
+      if (response) {
+        return true;
+      }
+    } catch (error) {
+      return true;
+    }
+  };
   const sendDataToBackend = async (values, token) => {
     if (!token) {
       ErrorToast("Token is missing. Cannot proceed.");
@@ -45,7 +57,6 @@ const SignUpForm = () => {
       let formattedPhoneNumber = values?.phoneNumber.startsWith("+1")
         ? values?.phoneNumber
         : `+1${values?.phoneNumber}`;
-
 
       let obj = {
         name: values?.fullname,
@@ -93,20 +104,23 @@ const SignUpForm = () => {
       onSubmit: async (values) => {
         setLoading(true);
         try {
-          const newUserResponse = await createUserWithEmailAndPassword(
-            auth,
-            values?.email,
-            "Test@123"
-          );
-          const user = newUserResponse.user;
-          setNewUser(newUserResponse);
+          const status = await checkStatus();
+          if (status) {
+            const newUserResponse = await createUserWithEmailAndPassword(
+              auth,
+              values?.email,
+              "Test@123"
+            );
+            const user = newUserResponse.user;
+            setNewUser(newUserResponse);
 
-          const token = await getIdToken(user);
+            const token = await getIdToken(user);
 
-          if (token) {
-            await sendDataToBackend(values, token);
-          } else {
-            ErrorToast("Token not found");
+            if (token) {
+              await sendDataToBackend(values, token);
+            } else {
+              ErrorToast("Token not found");
+            }
           }
         } catch (error) {
           if (error?.message?.includes("auth/email-already-in-use")) {
@@ -187,7 +201,6 @@ const SignUpForm = () => {
                 onBlur={handleBlur}
                 id="phoneNumber"
                 name="phoneNumber"
-                
               />
               {errors.phoneNumber && touched.phoneNumber ? (
                 <span className="text-red-700 text-sm font-medium">

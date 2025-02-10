@@ -3,57 +3,7 @@ import { Dotedimg } from "../../assets/export";
 import { useNavigate } from "react-router-dom";
 
 const MygoalsCard = ({ goaldetail, loading }) => {
-  const MyGoalsData = [
-    {
-      badge: "Completed",
-      heading: "Digital Marketing Course",
-      para: "Increase my average test score in Algebra from 80% to 90% by consistently studying and completing assignments.",
-      tags: ["Specific", "Measurable", "Achievable", "Relevant"],
-      bgCardColor: "bg-[#D4F6ED]",
-      badgeColor: "text-[#36B8F3]",
-    },
-    {
-      badge: "Not Started yet",
-      heading: "Digital Marketing Course",
-      para: "Increase my average test score in Algebra from 80% to 90% by consistently studying and completing assignments.",
-      tags: ["Specific", "Measurable", "Achievable", "Relevant"],
-      bgCardColor: "bg-[#f0340040]",
-      badgeColor: "text-[#f01800]",
-    },
-    {
-      badge: "In Progress",
-      heading: "Digital Marketing Course",
-      para: "Increase my average test score in Algebra from 80% to 90% by consistently studying and completing assignments.",
-      tags: ["Specific", "Measurable", "Achievable", "Relevant"],
-      bgCardColor: "bg-[#F0C00042]",
-      badgeColor: "text-[#F0C000]",
-    },
-
-    {
-      badge: "Completed",
-      heading: "Digital Marketing Course",
-      para: "Increase my average test score in Algebra from 80% to 90% by consistently studying and completing assignments.",
-      tags: ["Specific", "Measurable", "Achievable", "Relevant"],
-      bgCardColor: "bg-[#D4F6ED]",
-      badgeColor: "text-[#36B8F3]",
-    },
-    {
-      badge: "Not Started yet",
-      heading: "Digital Marketing Course",
-      para: "Increase my average test score in Algebra from 80% to 90% by consistently studying and completing assignments.",
-      tags: ["Specific", "Measurable", "Achievable", "Relevant"],
-      bgCardColor: "bg-[#f0340040]",
-      badgeColor: "text-[#f01800]",
-    },
-    {
-      badge: "In Progress",
-      heading: "Digital Marketing Course",
-      para: "Increase my average test score in Algebra from 80% to 90% by consistently studying and completing assignments.",
-      tags: ["Specific", "Measurable", "Achievable", "Relevant"],
-      bgCardColor: "bg-[#F0C00042]",
-      badgeColor: "text-[#F0C000]",
-    },
-  ];
+  
   const navigate = useNavigate();
 
   const getBgCardColor = (status) => {

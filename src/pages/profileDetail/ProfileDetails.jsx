@@ -16,6 +16,7 @@ import {
 } from "../../components/toaster/ToasterContainer";
 import { ModalContext } from "../../context/GlobalContext";
 import { AuthContext } from "../../context/AuthContext";
+import { data } from "../../components/dataStateCity/data";
 const ProfileDetails = () => {
   const navigation = useNavigate();
   const { setProfilepic } = useContext(AuthContext);
@@ -181,37 +182,52 @@ const ProfileDetails = () => {
           </div>
           <div className="relative w-full mt-3 ">
             <SelectInput
-              name="country"
-              id="country"
-              value={values.country}
-              onChange={handleChange}
-              options={[
-                { value: "", label: "Select State" },
-                { value: "London", label: "London" },
-              ]}
-            />
-
-            {errors.country && touched.country ? (
-              <span className="text-red-700 text-sm font-medium">
-                {errors.country}
-              </span>
-            ) : null}
-          </div>
-          <div className="relative w-full mt-3">
-            <SelectInput
               name="state"
               id="state"
               value={values.state}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              onChange={(e) => {
+                handleChange(e);
+                values.city = "";
+              }}
               options={[
-                { value: "", label: "Select City" },
-                { value: "Europe ", label: "Europe " },
+                { value: "", label: "--Select State--" },
+                ...Object.keys(data)
+                  .sort()
+                  .map((state) => ({
+                    value: state,
+                    label: state,
+                  })),
               ]}
             />
-            {errors.state && touched.state ? (
+
+            {errors.state && touched.state && (
               <span className="text-red-700 text-sm font-medium">
                 {errors.state}
+              </span>
+            )}
+          </div>
+          <div className="relative w-full mt-3">
+            <SelectInput
+              name="country"
+              id="country"
+              value={values.country}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              onBlur={handleBlur}
+              options={[
+                { value: "", label: "--Select City--" },
+                ...(Array.isArray(data[values.state]) // ✅ Check if it's an array first
+                  ? data[values.state].sort().map((city) => ({
+                      value: city,
+                      label: city,
+                    }))
+                  : []),
+              ]}
+            />
+            {errors.country && touched.country ? (
+              <span className="text-red-700 text-sm font-medium">
+                {errors.country}
               </span>
             ) : null}
           </div>

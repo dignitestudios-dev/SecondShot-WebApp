@@ -156,6 +156,7 @@ const CreateResume = () => {
           showModal={showPeopleModal}
           handleClick={handleShowPeopleModal}
           resumeId={resumeId}
+          setShowPeopleModal={setShowPeopleModal}
         />
         <ResumeDeleteModal showModal={showDelete} onclick={handleDeleteModal} />
         {/* <AddSupportModal

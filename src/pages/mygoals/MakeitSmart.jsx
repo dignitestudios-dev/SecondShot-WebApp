@@ -12,62 +12,17 @@ const MakeitSmart = () => {
   const [congrats, setCongrats] = useState(false);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    impSkill: "",
-    excelSkill: "",
-    improveSkill: "",
-    likeSkill: "",
-    topSkill: "",
-    preferReading: "",
-    preferScience: "",
-    workingHands: "",
-    workInside: "",
-    mathGame: "",
-    workAlone: "",
-    buildPlan: "",
-    goWithFlow: "",
-    publicSpeak: "",
-    writing: "",
-    leader: "",
-    teamWork: "",
-    physicalChallenge: "",
-    stepByStep: "",
-    keepTrying: "",
-    teachOthers: "",
-    competitive: "",
-    spotLight: "",
-    creative: "",
+    specific: "",
+    measure: "",
+    achievable: "",
+    relevant: "",
+    timebound: "",
   });
 
   // For Modal
   const [showModalassestment, setShowModal] = useState(false);
   const handleModal = () => {
     setShowModal(!showModal);
-    setFormData({
-      impSkill: "",
-      excelSkill: "",
-      improveSkill: "",
-      likeSkill: "",
-      topSkill: "",
-      preferReading: "",
-      preferScience: "",
-      workingHands: "",
-      workInside: "",
-      mathGame: "",
-      workAlone: "",
-      buildPlan: "",
-      goWithFlow: "",
-      publicSpeak: "",
-      writing: "",
-      leader: "",
-      teamWork: "",
-      physicalChallenge: "",
-      stepByStep: "",
-      keepTrying: "",
-      teachOthers: "",
-      competitive: "",
-      spotLight: "",
-      creative: "",
-    });
   };
 
   const nextStep = () => {
@@ -82,9 +37,7 @@ const MakeitSmart = () => {
     setShowModal(!showModal);
   };
   const location = useLocation();
-  const { showModal } = location.state || {}; 
-
-
+  const { showModal } = location.state || {};
 
   return (
     <div className="    ">

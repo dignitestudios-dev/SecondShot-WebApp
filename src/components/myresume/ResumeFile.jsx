@@ -11,7 +11,7 @@ import ResumeDeleteModal from "./DeleteResumeModal";
 import AllResume from "./AllResume";
 import { ErrorToast } from "../toaster/ToasterContainer";
 import axios from "../../axios";
-const ResumeFile = () => {
+const ResumeFile = ({ resume, loading, setLoading, setResume }) => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(null);
   const [showDelete, setShowDelete] = useState(false);
@@ -19,27 +19,6 @@ const ResumeFile = () => {
   const toggleDropdown = (index) => {
     setDropdownOpen((prev) => (prev === index ? null : index));
   };
-
-  const [resume, setResume] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const getResume = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get("/api/user/get-my-resumes");
-      if (response?.status === 200) {
-        setResume(response?.data?.data);
-      }
-    } catch (err) {
-      ErrorToast(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getResume();
-  }, []);
 
   const handleDelete = async (resume_id) => {
     setLoading(true);

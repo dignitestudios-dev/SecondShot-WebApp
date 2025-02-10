@@ -15,6 +15,9 @@ import {
 function ReviewYourGoalOld() {
   const navigate = useNavigate();
   const [isGoalDetailModalOpen, setGoalDetailModalOpen] = useState(false);
+
+  const [isUpdate, setIsUpdate] = useState(false);
+
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
@@ -33,6 +36,7 @@ function ReviewYourGoalOld() {
     email_2: "",
     phone_2: "",
   });
+
   const location = useLocation("");
   const goaldata = location.state.formData;
 
@@ -138,7 +142,10 @@ function ReviewYourGoalOld() {
               ) : (
                 <AuthSubmitBtn
                   text={"Finalize Goal"}
-                  handleSubmit={() => setShowModalsupport(true)}
+                  handleSubmit={() => {
+                    setShowModalsupport(true);
+                    setIsUpdate(false);
+                  }}
                 />
               )}
             </div>
@@ -245,6 +252,7 @@ function ReviewYourGoalOld() {
         setFormData={setFormData}
         errors={errors}
         setErrors={setErrors}
+        isUpdate={false}
       />
       <GoalCreatedModal
         showModal={successModal}

@@ -13,6 +13,7 @@ import {
   ErrorToast,
   SuccessToast,
 } from "../../components/toaster/ToasterContainer";
+import AddSupportGoalModal from "../../components/mygoals/AddSupportGoalModal";
 const GoalDetail = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [goalDetailModal, setGoalDetailModal] = useState(false);
@@ -22,7 +23,26 @@ const GoalDetail = () => {
   const { id } = useParams();
   const [goalDetail, setGoalDetail] = useState(null);
   const [isCompleted, setIsCompleted] = useState(false);
+  const [showModalsupport, setShowModalsupport] = useState(false);
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    fullname: "",
+    email: "",
+    phone: "",
+    fullname_2: "",
+    email_2: "",
+    phone_2: "",
+  });
+
+  // State to track error messages
+  const [errors, setErrors] = useState({
+    fullname: "",
+    email: "",
+    phone: "",
+    fullname_2: "",
+    email_2: "",
+    phone_2: "",
+  });
   const getGoalDetail = async () => {
     setloader(true);
     try {
@@ -67,7 +87,7 @@ const GoalDetail = () => {
     setloader(true);
     try {
       const response = await axios.delete("/api/user/delete-goal", {
-        data: { goalId: id }
+        data: { goalId: id },
       });
 
       if (response.status === 200) {
@@ -212,7 +232,7 @@ const GoalDetail = () => {
                     <ul>
                       <li
                         className="hover:bg-gray-100 px-4 py-2 cursor-pointer"
-                        onClick={() => setSupportModal(true)}
+                        onClick={() => setShowModalsupport(true)}
                       >
                         Add Support Network
                       </li>
@@ -236,9 +256,9 @@ const GoalDetail = () => {
                 className="h-5 w-5 rounded-md border border-gray-300 bg-white checked:bg-[#012C57] checked:border-[#012C57] appearance-none cursor-pointer 
 checked:before:block checked:before:content-['✓'] checked:before:text-white checked:before:text-sm text-center 
 checked:before:justify-center checked:before:items-center"
-                checked={isCompleted || goalDetail?.status === "Completed"} // Ensure it's checked if already completed
-                onChange={handlecompleted} // Call only when clicked
-                disabled={isCompleted || goalDetail?.status === "Completed"} // Disable if completed
+                checked={isCompleted || goalDetail?.status === "Completed"}
+                onChange={handlecompleted}
+                disabled={isCompleted || goalDetail?.status === "Completed"}
               />
             </div>
             <p className=" text-[#000000] font-[400] text-[16px] leading-[21.6px] px-2 ">
@@ -246,17 +266,17 @@ checked:before:justify-center checked:before:items-center"
             </p>
           </div>
           <div>
-            <div className="mt-8">
-              <div className="bg-white rounded-[16px] shadow-md p-6 mt-4">
-                <div className="flex justify-between items-center mb-2">
-                  <h2 className="font-[600] text-[18px] text-[#222222] ">
-                    Sub Goals
-                  </h2>
-                  <button className="bg-[#EAF8FF] bg-opacity-35 text-[#36B8F3] px-4 py-2 rounded-md border border-[#36B8F3]">
-                    In Progress
-                  </button>
-                </div>
-                {goalDetail?.sub_goals?.map((item) => (
+            {goalDetail?.sub_goals?.map((item) => (
+              <div className="mt-8">
+                <div className="bg-white rounded-[16px] shadow-md p-6 mt-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <h2 className="font-[600] text-[18px] text-[#222222] ">
+                      Sub Goals
+                    </h2>
+                    <button className="bg-[#EAF8FF] bg-opacity-35 text-[#36B8F3] px-4 py-2 rounded-md border border-[#36B8F3]">
+                      In Progress
+                    </button>
+                  </div>
                   <div className="flex items-center gap-2 py-2 border-b border-gray-200 last:border-b-0 text-[14px]">
                     <input
                       type="checkbox"
@@ -269,9 +289,9 @@ checked:before:justify-center checked:before:items-center"
                       {item.name}
                     </label>
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
+            ))}
           </div>
           <div>
             <div className="mt-8 grid grid-cols-2 gap-4">
@@ -307,10 +327,17 @@ checked:before:justify-center checked:before:items-center"
         para={"Goal Successfully Completed."}
         onclick={() => setGoalDetailModal(false)}
       />
-
-      <AddSupportModal
-        showModal={supportModal}
-        handleClick={() => setSupportModal(false)}
+      <AddSupportGoalModal
+        showModal={showModalsupport}
+        handleClick={() => setShowModalsupport(false)}
+        setShowModalsupport={setShowModalsupport}
+        formData={formData}
+        setFormData={setFormData}
+        errors={errors}
+        setErrors={setErrors}
+        goalDetail={goalDetail}
+        isUpdate={true}
+        getGoalDetail={getGoalDetail}
       />
       <DeleteGoalModal
         showModal={showDeleteModal}
