@@ -9,21 +9,23 @@ import MakeitSmartModal from "../../components/mygoals/MakeitSmartModal";
 
 const AddGoals = () => {
   const navigate = useNavigate();
-  const handleNavigate = () => {};
-  // const { showModal, setShowModal } = useContext(ModalContext);
-  const [showModal, setShowModal] = useState(false);
+  const location = useLocation();
+
+  const { isSmart, lastStep } = location.state || {};
+  const [showModal, setShowModal] = useState(isSmart);
 
   const [smartModal, setSmartModal] = useState(false);
+
   const handleModal = () => {
     setShowModal(!showModal);
   };
-  const location = useLocation();
-  const modalopen = location?.state?.modalopen;
 
+  // console.log(modalopen, "modalopen");
 
-  useEffect(() => {
-    setSmartModal(modalopen);
-  }, [modalopen]);
+  // useEffect(() => {
+  //   setSmartModal(modalopen);
+  // }, [modalopen]);
+
   return (
     <div className="max-w-screen-xl min-h-screen mx-auto p-8">
       <Backbutton />

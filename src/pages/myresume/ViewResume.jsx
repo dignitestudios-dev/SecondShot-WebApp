@@ -12,24 +12,35 @@ import ResumeDownloadModal from "../../components/myresume/ResumeDownloadModal";
 import AddSupportModal from "../../components/myresume/AddSupportModal";
 import ResumeDeleteModal from "../../components/myresume/DeleteResumeModal";
 import PersonalizedCV from "../../components/myresume/PersonalizedCV";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import {
   ErrorToast,
   SuccessToast,
 } from "../../components/toaster/ToasterContainer";
 import axios from "../../axios";
+
 const ViewResume = () => {
   const location = useLocation();
   const resumeData = location?.state;
+  console.log(resumeData, "ViewRes");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [resume, setResume] = useState(false);
-  console.log(resumeData?._id, "resumeData");
+  const [formData, setFormData] = useState({
+    fullname: "",
+    email: "",
+    phone: "",
+    fullname_2: "",
+    email_2: "",
+    phone_2: "",
+  });
 
   const handleDeleteFunction = async () => {
     setLoading(true);
     try {
       const response = await axios.delete("/api/user/delete-resume", {
-        data: { resume_id: resumeData?._id }, // ✅ DELETE requests require `data` key
+        data: { resume_id: resumeData?._id },
       });
 
       if (response.status === 200) {
@@ -102,6 +113,68 @@ const ViewResume = () => {
     printWindow.close();
   };
 
+  const handleDownload = async (e, elementId, filename, email) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const element = document.getElementById("download-resume");
+    if (!element) {
+      console.error("Element not found");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const excludeElements = document.querySelectorAll(".pdf-exclude");
+      excludeElements.forEach((el) => (el.style.display = "none"));
+
+      const canvas = await html2canvas(element);
+      const imgData = canvas.toDataURL("image/png");
+
+      const pdf = new jsPDF();
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+
+      const imgProps = pdf.getImageProperties(imgData);
+      const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
+      heightLeft -= pdfHeight;
+
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
+        heightLeft -= pdfHeight;
+      }
+
+      const pdfBlob = pdf.output("blob");
+
+      const formData = new FormData();
+
+      formData.append("resume", pdfBlob, filename);
+
+      await axios.post("/api/user/send-to-email", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      SuccessToast("Resume emailed successfully!");
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+      ErrorToast("Failed to send email.");
+    } finally {
+      document
+        .querySelectorAll(".pdf-exclude")
+        .forEach((el) => (el.style.display = ""));
+
+      setLoading(false);
+      // onclick();
+    }
+  };
+
   return (
     <div className="">
       <Backbutton />
@@ -113,8 +186,10 @@ const ViewResume = () => {
         <AddSupportModal
           showModal={showPeopleModal}
           handleClick={handleShowPeopleModal}
-          resumeId={resumeData?._id}
+          resumeData={resumeData}
           setShowPeopleModal={setShowPeopleModal}
+          formData={formData}
+          setFormData={setFormData}
         />
         <ResumeDeleteModal
           showModal={showDelete}
@@ -149,7 +224,10 @@ const ViewResume = () => {
             <img className="w-[21px] h-[17px] " src={Shareimg} />
           </div>
           <div className="w-[189px]">
-            <AuthSubmitBtn text={"Email It To Yourself"} />
+            <AuthSubmitBtn
+              text={"Email It To Yourself"}
+              handleSubmit={handleDownload}
+            />
           </div>
           <div className="relative inline-block text-left" ref={dropdownRef}>
             <img
@@ -187,7 +265,7 @@ const ViewResume = () => {
                   <p
                     href="#"
                     className="block px-4 py-2 text-[12px] text-[#000000] font-[400] mx-1 cursor-pointer"
-                    onClick={()=>navigate('/create-resume')}
+                    onClick={() => navigate("/create-resume")}
                   >
                     Create New{" "}
                   </p>

@@ -42,7 +42,7 @@ const EditResume = () => {
   const resumeId = useParams();
   const [editData, setEditData] = useState(null);
   const [step, setStep] = useState(1);
-
+  const [resumeData, setesumeData] = useState("");
   const stepImages = {
     1: step1,
     2: step2,
@@ -184,10 +184,12 @@ const EditResume = () => {
 
   useEffect(() => {
     if (editData) {
+      console.log("formData is = ", editData?.experience);
+
       setFormData({
         ...formData,
         informationValues: {
-          fullname: editData?.full_name   || "",
+          fullname: editData?.full_name || "",
           email: editData?.email || "",
           phoneNumber: editData?.phone || "",
           address: editData?.address || "",
@@ -351,7 +353,7 @@ const EditResume = () => {
         expiration_date:
           cert.expirationmonth && cert.expirationyear
             ? `${cert.expirationmonth}-${cert.expirationyear.split("T")[0]}`
-            : null, // Convert to YYYY-MM-DD
+            : null,
       })),
       soft_skills: Array.isArray(formData.skillsValues?.softskills)
         ? formData.skillsValues.softskills
@@ -400,10 +402,11 @@ const EditResume = () => {
         }
       );
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         SuccessToast("Resume Edit Successfully");
         handleModal();
         // setresumeid(response?.data?.data?._id);
+        setesumeData(response?.data?.data);
       }
     } catch (error) {
       ErrorToast(error?.response?.data);
@@ -422,16 +425,14 @@ const EditResume = () => {
         <SuccessResumeModal
           showModal={showModal}
           onclick={handleModal}
+          resumeData={resumeData}
           setIsPreview={setIsPreview}
         />
         <ResumeDownloadModal
           showModal={showModalDownload}
           onclick={handleDownloadModal}
         />
-        <AddSupportModal
-          showModal={showPeopleModal}
-          handleClick={handleShowPeopleModal}
-        />
+
         <ResumeDeleteModal showModal={showDelete} onclick={handleDeleteModal} />
       </>
 

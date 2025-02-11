@@ -40,7 +40,7 @@ const CreateResume = () => {
   const [isPreview, setIsPreview] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-
+  const [resumeData, setesumeData] = useState('');
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -147,35 +147,14 @@ const CreateResume = () => {
           showModal={showModal}
           onclick={handleModal}
           setIsPreview={setIsPreview}
+          resumeData={resumeData}
         />
         <ResumeDownloadModal
           showModal={showModalDownload}
           onclick={handleDownloadModal}
         />
-        <AddSupportModal
-          showModal={showPeopleModal}
-          handleClick={handleShowPeopleModal}
-          resumeId={resumeId}
-          setShowPeopleModal={setShowPeopleModal}
-        />
+
         <ResumeDeleteModal showModal={showDelete} onclick={handleDeleteModal} />
-        {/* <AddSupportModal
-          showModal={showPeopleModal}
-          handleClick={handleShowPeopleModal}
-        />
-        <ResumeDeleteModal showModal={showDelete} onclick={handleDeleteModal} /> */}
-        {/* <ResumeDownloadModal
-            showModal={showModalDownload}
-            onclick={handleDownloadModal}
-          />
-          <ResumeDeleteModal
-            showModal={showDelete}
-            onclick={handleDeleteModal}
-          />
-          <PeopleModal
-            showModal={showPeopleModal}
-            handleClick={handleShowPeopleModal}
-          /> */}
       </>
 
       <>
@@ -330,6 +309,8 @@ const CreateResume = () => {
                   isSkipped={isSkipped}
                   resumeId={resumeId}
                   setresumeId={setresumeId}
+                  resumeData={resumeData}
+                  setesumeData={setesumeData}
                 />
               )}
             </div>

@@ -3,24 +3,52 @@ import AuthInput from "../onboarding/AuthInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import axios from "../../axios";
 import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
+import { useNavigate } from "react-router-dom";
 
 const AddSupportModal = ({
   showModal,
   handleClick,
   setShowPeopleModal,
-  resumeId,
+  resumeData,
+  formData,
+  setFormData,
 }) => {
+  const navigate = useNavigate("");
   const [loading, setLoading] = useState(false);
 
-  // State to track input values temporarily
   const [inputData, setInputData] = useState({
-    fullname: "",
-    email: "",
-    phone: "",
-    fullname_2: "",
-    email_2: "",
-    phone_2: "",
+    fullname: formData.fullname || resumeData?.support_people[0]?.full_name,
+    email: formData.email || resumeData?.support_people[0]?.email_address,
+    phone: formData.phone || resumeData?.support_people[0]?.phone_number,
+    fullname_2: formData.fullname_2 || resumeData?.support_people[1]?.full_name,
+    email_2: formData.email_2 || resumeData?.support_people[1]?.email_address,
+    phone_2: formData.phone_2 || resumeData?.support_people[1]?.phone_number,
   });
+  const [disableFullname1, setDisableFullname1] = useState(false);
+  const [disableFullname2, setDisableFullname2] = useState(false);
+
+  useEffect(() => {
+    if (resumeData?.support_people?.length) {
+      setDisableFullname1(!!resumeData.support_people[0]?.full_name);
+      setDisableFullname2(!!resumeData.support_people[1]?.full_name);
+
+      setInputData({
+        fullname:
+          formData.fullname || resumeData.support_people[0]?.full_name || "",
+        email:
+          formData.email || resumeData.support_people[0]?.email_address || "",
+        phone:
+          formData.phone || resumeData.support_people[0]?.phone_number || "",
+        fullname_2:
+          formData.fullname_2 || resumeData.support_people[1]?.full_name || "",
+        email_2:
+          formData.email_2 || resumeData.support_people[1]?.email_address || "",
+        phone_2:
+          formData.phone_2 || resumeData.support_people[1]?.phone_number || "",
+      });
+    }
+  }, [resumeData]);
+
   const [errors, setErrors] = useState({
     fullname: "",
     email: "",
@@ -83,7 +111,6 @@ const AddSupportModal = ({
           errorMessage = "Email address for 2nd Support Person is required.";
         else if (secondSupportActive && !/\S+@\S+\.\S+/.test(value))
           errorMessage = "Enter a valid email for 2nd Support Person.";
-        // Check if email and email_2 are the same
         else if (secondSupportActive && value === inputData.email) {
           errorMessage = "Email addresses cannot be the same.";
         }
@@ -115,20 +142,25 @@ const AddSupportModal = ({
       return;
     }
 
+    const supportPeople = [
+      {
+        full_name: inputData.fullname,
+        email_address: inputData.email,
+        phone_number: inputData.phone,
+      },
+    ];
+
+    if (inputData.fullname_2 && inputData.email_2 && inputData.phone_2) {
+      supportPeople.push({
+        full_name: inputData.fullname_2,
+        email_address: inputData.email_2,
+        phone_number: inputData.phone_2,
+      });
+    }
+
     const formattedData = {
-      resumeId: resumeId,
-      supportPeople: [
-        {
-          full_name: inputData.fullname,
-          email_address: inputData.email,
-          phone_number: inputData.phone,
-        },
-        {
-          full_name: inputData.fullname_2,
-          email_address: inputData.email_2,
-          phone_number: inputData.phone_2,
-        },
-      ],
+      resumeId: resumeData?._id,
+      supportPeople,
     };
 
     setLoading(true);
@@ -142,6 +174,7 @@ const AddSupportModal = ({
       if (response.data.success) {
         SuccessToast("Support people added successfully!");
         setShowPeopleModal(false);
+        navigate("/myresume");
       }
     } catch (error) {
       ErrorToast(error?.response?.data?.message);
@@ -150,6 +183,11 @@ const AddSupportModal = ({
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (!/[0-9]/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
   return (
     showModal && (
       <div className="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm ">
@@ -186,6 +224,7 @@ const AddSupportModal = ({
                   onBlur={handleBlur}
                   text={"Full Name"}
                   placeholder={"Enter Name"}
+                  isDisabled={disableFullname1}
                 />
                 {errors.fullname && (
                   <p className="text-red-500 text-sm mx-2">{errors.fullname}</p>
@@ -199,28 +238,38 @@ const AddSupportModal = ({
                   onBlur={handleBlur}
                   text={"Email Address"}
                   placeholder={"Enter Email"}
+                  isDisabled={disableFullname1}
                 />
                 {errors.email && (
                   <p className="text-red-500 text-sm mx-2">{errors.email}</p>
                 )}
-
-                <AuthInput
-                  id={"phone"}
-                  name={"phone"}
-                  value={inputData.phone}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  text={"Phone Number"}
-                  placeholder={"Enter Phone Number"}
-                />
-                {errors.phone && (
-                  <p className="text-red-500 text-sm mx-2">{errors.phone}</p>
-                )}
+                <div className="w-full ">
+                  <label className="ml-1  text-[14px] font-medium text-[#181818] ">
+                    Phone Number
+                  </label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    value={inputData.phone}
+                    type="tel"
+                    maxLength={10}
+                    placeholder={"Enter Your Phone Number"}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    onKeyPress={handleKeyPress}
+                    className={`w-full p-3 mt-1 outline-none font-[500] focus:border-[#0E73D0]  border border-[#9A9A9A] rounded-[15px] 
+              placeholder:text-[16px] placeholder:font-[400] placeholder:text-[#181818] text-[#181818]
+              } h-full px-3 text-sm font-medium`}
+                    disabled={disableFullname1}
+                  />
+                  {errors.phone && (
+                    <p className="text-red-500 text-sm mx-2">{errors.phone}</p>
+                  )}
+                </div>
               </div>
 
               <hr className="my-6 bg-slate-300" />
 
-              {/* 2nd Support Person */}
               <p className="text-[18px] font-[600] leading-[24.3px] ">
                 2nd Support Person
               </p>
@@ -233,30 +282,52 @@ const AddSupportModal = ({
                   onBlur={handleBlur}
                   text={"Full Name"}
                   placeholder={"Enter Name"}
+                  isDisabled={disableFullname2}
                 />
                 {errors.fullname_2 && (
                   <p className="text-red-500 text-sm mx-2">
                     {errors.fullname_2}
                   </p>
                 )}
-
-                <>
-                  <AuthInput
-                    id={"email_2"}
-                    name={"email_2"}
-                    value={inputData.email_2}
-                    onChange={handleChange}
+                <AuthInput
+                  id={"email_2"}
+                  name={"email_2"}
+                  value={inputData.email_2}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  text={"Email Address"}
+                  placeholder={"Enter Email"}
+                  isDisabled={disableFullname2}
+                />
+                {errors.email_2 && (
+                  <p className="text-red-500 text-sm mx-2">{errors.email_2}</p>
+                )}
+                <div className="w-full ">
+                  <label className="ml-1  text-[14px] font-medium text-[#181818] ">
+                    Phone Number
+                  </label>
+                  <input
+                    id="phone_2"
+                    name="phone_2"
+                    value={inputData.phone_2}
+                    type="tel"
+                    maxLength={10}
+                    placeholder={"Enter Your Phone Number"}
                     onBlur={handleBlur}
-                    text={"Email Address"}
-                    placeholder={"Enter Email"}
+                    onChange={handleChange}
+                    onKeyPress={handleKeyPress}
+                    className={`w-full p-3 mt-1 outline-none font-[500] focus:border-[#0E73D0]  border border-[#9A9A9A] rounded-[15px] 
+              placeholder:text-[16px] placeholder:font-[400] placeholder:text-[#181818] text-[#181818]
+              } h-full px-3 text-sm font-medium`}
+                    disabled={disableFullname2}
                   />
-                  {errors.email_2 && (
+                  {errors.phone_2 && (
                     <p className="text-red-500 text-sm mx-2">
-                      {errors.email_2}
+                      {errors.phone_2}
                     </p>
-                  )}
-
-                  <AuthInput
+                  )}{" "}
+                </div>
+                {/* <AuthInput
                     id={"phone_2"}
                     name={"phone_2"}
                     value={inputData.phone_2}
@@ -264,13 +335,13 @@ const AddSupportModal = ({
                     onBlur={handleBlur}
                     text={"Phone Number"}
                     placeholder={"Enter Phone Number"}
+                    isDisabled={disableFullname2}
                   />
                   {errors.phone_2 && (
                     <p className="text-red-500 text-sm mx-2">
                       {errors.phone_2}
                     </p>
-                  )}
-                </>
+                  )} */}
               </div>
 
               <div className="mt-2">
@@ -278,6 +349,7 @@ const AddSupportModal = ({
                   text={"Send"}
                   type={"submit"}
                   loading={loading}
+                  disabled={disableFullname1 && disableFullname2}
                 />
               </div>
             </div>

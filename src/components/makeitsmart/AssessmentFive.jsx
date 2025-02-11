@@ -12,22 +12,22 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
       "Please respond before moving forward to proceed with the next step."
     ),
   });
-  const [isSmart, setIsSmart] = useState(true);
+  // const [isSmart, setIsSmart] = useState(true);
   const navigate = useNavigate();
 
   return (
     <div>
       <Formik
         initialValues={{
-          timebound: formData.relevant ? formData.relevant + " " : "", // Prefill with formData.specific
+          timebound: formData.relevant ? formData.relevant + " " : "", 
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
           setFormData(values);
           navigate("/create-goals", {
             state: {
-              modalopen: true,
-              lastStep: values, // Sending values along with modalopen
+              isSmart: true,
+              lastStep: values,
             },
           });
         }}

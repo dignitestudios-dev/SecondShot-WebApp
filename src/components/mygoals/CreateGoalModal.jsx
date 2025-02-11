@@ -16,8 +16,15 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
   const [showSubGoal, setShowSubGoal] = useState(false);
   const [formData, setFormData] = useState("");
 
+  const location = useLocation();
+  const { isSmart, lastStep } = location.state || {};
+
   const formik = useFormik({
-    initialValues: goalValues,
+    initialValues: {
+      main_goal_name: lastStep?.timebound || "", 
+      startDate: null,
+      sub_goals: [],
+    },
     validationSchema: goalSchema,
     validateOnChange: true,
     validateOnBlur: true,
@@ -50,8 +57,11 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
   }, [showSubGoal]);
   const threeMonthsAgo = new Date();
   threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() + 3);
-  const location = useLocation();
-  const { isSmart, lastStep } = location.state || {};
+  useEffect(() => {
+    if (lastStep?.timebound) {
+      formik.setFieldValue("main_goal_name", lastStep.timebound, false); 
+    }
+  }, [lastStep]);
 
   return (
     showModal && (
@@ -75,11 +85,10 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                     </div>
                   </div>
                   <div className="pt-4">
-                  
                     <AuthInput
                       text={"Goal"}
                       placeholder={"Write your main goal here"}
-                      value={lastStep?.timebound || values.main_goal_name}
+                      value={values.main_goal_name}
                       id={"main_goal_name"}
                       name={"main_goal_name"}
                       onChange={handleChange}
@@ -231,20 +240,33 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                     </div>
                   )}
 
-                  <button
-                    onClick={handleNavigation}
-                    className="w-full  bg-[#E5EAED] font-[500] capitalize text-[#012C57] py-2 my-2 rounded-[8px] h-[49px] hover:bg-[#d0d5d8]"
-                  >
-                    Make it S.M.A.R.T (optional)
-                  </button>
-                  <div>
+                  {!isSmart && (
+                    <button
+                      onClick={handleNavigation}
+                      className="w-full bg-[#E5EAED] font-[500] capitalize text-[#012C57] py-2 my-2 rounded-[8px] h-[49px] hover:bg-[#d0d5d8]"
+                    >
+                      Make it S.M.A.R.T (optional)
+                    </button>
+                  )}
+
+                  <div className="mt-1">
                     <AuthSubmitBtn
                       text={
                         showSubGoal
                           ? "Hide Sub Goals"
                           : "Add Sub Goals (Optional)"
                       }
-                      handleSubmit={() => setShowSubGoal((prev) => !prev)}
+                      handleSubmit={(e) => {
+                        e.preventDefault();
+                        if (showSubGoal) {
+                          setFieldValue("sub_goals", []);
+                        } else if (values.sub_goals.length === 0) {
+                          setFieldValue("sub_goals", [
+                            { name: "", deadline: "" },
+                          ]);
+                        }
+                        setShowSubGoal((prev) => !prev);
+                      }}
                     />
                   </div>
                   <div className="mt-2">

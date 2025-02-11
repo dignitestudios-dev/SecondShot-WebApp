@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { Card4, resumeSuccess } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 
-const SuccessResumeModal = ({ showModal, onclick, setIsPreview }) => {
+const SuccessResumeModal = ({ showModal, onclick, setIsPreview,resumeData }) => {
   const navigate = useNavigate();
   const handleNavigation = () => {
-    // navigate("/reg-questions")
+    navigate(`/view-resume`, { state: resumeData })
+
     setIsPreview(true);
     onclick();
   };

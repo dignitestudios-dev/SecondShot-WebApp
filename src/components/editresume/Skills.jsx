@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AuthInput from "../onboarding/AuthInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import { useFormik } from "formik";
-import { skillsValues } from "../../data/resumefield";
 import { skillsSchema } from "../../Schema/resumeSchema";
 import SkillsInputField from "../myresume/SkillsInputField";
-
+import axios from '../../axios'
 const Skills = ({
   nextStep,
   setFormData,
@@ -14,7 +13,6 @@ const Skills = ({
   prevStep,
   setIsSkipped,
 }) => {
- 
   const {
     values,
     handleBlur,
@@ -30,23 +28,45 @@ const Skills = ({
     validateOnBlur: true,
     onSubmit: (values) => {
       setFormData({ ...formData, skillsValues: values });
-  
       nextStep();
     },
   });
 
   const updateData = async (data) => {
     if (data) {
-      setFieldValue("softskills", data?.softskills || "");
+      setFieldValue("softskills", data?.softskills || []);
       setFieldValue("technicalSkills", data?.technicalSkills || "");
-    
     }
   };
 
   useEffect(() => {
     formData?.skillsValues && updateData(formData.skillsValues);
   }, [formData]);
+  const [library, setLibrary] = useState([]);
+  const [likedItems, setLikedItems] = useState({});
+  const [loading, setLoading] = useState(true);
 
+
+  const getLibrary = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        "/api/user/get-user-transferable-skills"
+      );
+      if (response.status === 200) {
+        setLibrary(response?.data?.data);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getLibrary();
+  }, []);
+console.log(values.softskills,"values.softskills")
   return (
     <div className="pt-6 px-3">
       <div className="my-6">
@@ -58,11 +78,15 @@ const Skills = ({
       </div>
 
       <SkillsInputField
-        myskills={values.softskills}
-        setFieldValue={setFieldValue}
+        myskills={library}
         errors={errors}
         touched={touched}
+        setFieldValue={setFieldValue}
+        loading={loading}
+        transferableSkills={values.softskills}
+        setTransferableSkills={setFieldValue}
       />
+
 
       <hr className="my-6" />
       <form onSubmit={handleSubmit}>

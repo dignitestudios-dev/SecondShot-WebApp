@@ -6,7 +6,6 @@ import axios from "../../axios";
 const Resume = ({ formData }) => {
 
 
-
   return (
     <div className="bg-white w-[1200px]  mx-auto p-8 rounded-lg shadow-md ">
       {/* Header Section */}

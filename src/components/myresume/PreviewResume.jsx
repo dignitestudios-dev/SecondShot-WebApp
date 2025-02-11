@@ -26,6 +26,8 @@ const PreviewResume = ({
   isSkipped,
   setresumeId,
   resumeId,
+  resumeData,
+  setesumeData,
 }) => {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -35,6 +37,7 @@ const PreviewResume = ({
   };
 
   const [loading, setLoading] = useState(false);
+
   const convertMonthToNumber = (month) => {
     const months = {
       January: "01",
@@ -108,7 +111,8 @@ const PreviewResume = ({
         role: volunteer.volunteerRules,
         start_year: parseInt(volunteer.startYear),
         end_year: parseInt(volunteer.endYear),
-        description: volunteer.description,
+
+        description: volunteer?.description ? volunteer?.description : null,
       })),
 
       honors_and_awards: formData?.honorsList?.map((honor) => ({
@@ -117,7 +121,7 @@ const PreviewResume = ({
         date_Received: `${honor?.receivedyear}-${convertMonthToNumber(
           honor?.receivedmonth
         )}`,
-        description: honor?.description,
+        description: honor?.description ? honor?.description : null,
       })),
     };
   };
@@ -140,6 +144,7 @@ const PreviewResume = ({
         SuccessToast("Resume Create Successfully");
         handleModal();
         setresumeId(response?.data?.data?._id);
+        setesumeData(response?.data?.data);
       }
     } catch (error) {
       ErrorToast(error?.response?.data);
@@ -151,6 +156,7 @@ const PreviewResume = ({
       setLoading(false);
     }
   };
+  console.log(resumeData, "resumeData");
 
   return (
     <div>

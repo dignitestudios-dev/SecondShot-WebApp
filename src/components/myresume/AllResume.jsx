@@ -3,6 +3,7 @@ import React from "react";
 
 const AllResume = ({ resume }) => {
 
+
   return (
     <div>
       <div className="bg-white  p-2 rounded-lg shadow-md ">

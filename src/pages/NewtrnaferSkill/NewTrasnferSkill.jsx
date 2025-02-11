@@ -188,10 +188,10 @@ const NewTrasnferSkill = () => {
         showModal={showModalDownload}
         onclick={handleDownloadModal}
       />
-      <AddSupportModal
+      {/* <AddSupportModal
         showModal={showPeopleModal}
         handleClick={handleShowPeopleModal}
-      />
+      /> */}
       <div className="flex mt-4 justify-between items-start mb-8">
         <div>
           <h1 className="text-3xl font-semibold text-gray-800 mb-24">

@@ -51,58 +51,65 @@ const ResumeFile = ({ resume, loading, setLoading, setResume }) => {
             ))}
           </>
         ) : (
-          resume?.map((resumeData, index) => (
-            <div
-              key={index}
-              className="bg-[#E8F5EA] w-full rounded-2xl p-4 shadow-lg relative"
-            >
-              <div className="absolute top-4 right-4">
-                <FaEllipsisVertical
-                  className="text-gray-500 cursor-pointer"
-                  onClick={() => setDropOpen(dropOpen === index ? null : index)}
-                />
-
-                {dropOpen === index && (
-                  <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-300 rounded-lg shadow-md z-10">
-                    <ul className="py-2">
-                      <li
-                        className="px-4 py-2 hover:bg-gray-100 text-[14px] cursor-pointer"
-                        onClick={() =>
-                          navigate(`/edit-resume/${resumeData?._id}`)
-                        }
-                      >
-                        Edit
-                      </li>
-                      <li
-                        className="px-4 py-1 hover:bg-gray-100 text-[14px] cursor-pointer text-red-500"
-                        onClick={() => setShowDelete(true)}
-                      >
-                        Delete
-                      </li>
-                    </ul>
-                    <ResumeDeleteModal
-                      showModal={showDelete}
-                      onclick={() => setShowDelete(false)}
-                      handleDelete={handleDelete}
-                      resumeId={resumeData?._id}
-                    />
-                  </div>
-                )}
-              </div>
-              <h2 className="text-[13px] font-[500] leading-[24.3px] mb-2 text-[#000000] text-left">
-                {resumeData?.createdAt?.split("T")[0] || "Unknown Date"}
-              </h2>
-
+          resume?.map((resumeData, index) => {
+            console.log(resumeData, "llkjlkkljlkj");
+            return (
               <div
-                className="imageBox w-full cursor-pointer"
-                onClick={() => navigate(`/view-resume`, { state: resumeData })}
+                key={index}
+                className="bg-[#E8F5EA] w-full rounded-2xl p-4 shadow-lg relative"
               >
-                <div className="imageInn w-full">
-                  <AllResume resume={resumeData} />
+                <div className="absolute top-4 right-4">
+                  <FaEllipsisVertical
+                    className="text-gray-500 cursor-pointer"
+                    onClick={() =>
+                      setDropOpen(dropOpen === index ? null : index)
+                    }
+                  />
+
+                  {dropOpen === index && (
+                    <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-300 rounded-lg shadow-md z-10">
+                      <ul className="py-2">
+                        <li
+                          className="px-4 py-2 hover:bg-gray-100 text-[14px] cursor-pointer"
+                          onClick={() =>
+                            navigate(`/edit-resume/${resumeData?._id}`)
+                          }
+                        >
+                          Edit
+                        </li>
+                        <li
+                          className="px-4 py-1 hover:bg-gray-100 text-[14px] cursor-pointer text-red-500"
+                          onClick={() => setShowDelete(true)}
+                        >
+                          Delete
+                        </li>
+                      </ul>
+                      <ResumeDeleteModal
+                        showModal={showDelete}
+                        onclick={() => setShowDelete(false)}
+                        handleDelete={handleDelete}
+                        resumeId={resumeData?._id}
+                      />
+                    </div>
+                  )}
+                </div>
+                <h2 className="text-[13px] font-[500] leading-[24.3px] mb-2 text-[#000000] text-left">
+                  {resumeData?.createdAt?.split("T")[0] || "Unknown Date"}
+                </h2>
+
+                <div
+                  className="imageBox w-full cursor-pointer"
+                  onClick={() =>
+                    navigate(`/view-resume`, { state: resumeData })
+                  }
+                >
+                  <div className="imageInn w-full">
+                    <AllResume resume={resumeData} />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
     </div>

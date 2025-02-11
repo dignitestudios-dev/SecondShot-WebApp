@@ -8,7 +8,7 @@ import { informationSchema } from "../../Schema/resumeSchema";
 
 const Information = ({ nextStep, setFormData, formData }) => {
   const navigate = useNavigate();
-console.log(formData,"formData")
+  console.log(formData, "formData");
   const {
     values,
     handleBlur,
@@ -24,7 +24,7 @@ console.log(formData,"formData")
     validateOnBlur: true,
     onSubmit: (values) => {
       setFormData({ ...formData, informationValues: values });
-  
+
       nextStep();
     },
   });
@@ -42,6 +42,11 @@ console.log(formData,"formData")
     formData?.informationValues && updateData(formData.informationValues);
   }, [formData]);
 
+  const handleKeyPress = (e) => {
+    if (!/[0-9]/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
   return (
     <div className="pt-6 px-3">
       <div>
@@ -85,20 +90,31 @@ console.log(formData,"formData")
           ) : null}
         </div>
         <div className="w-full flex flex-col items-start gap-1 my-8">
-          <AuthInput
-            id="phoneNumber"
-            name="phoneNumber"
-            value={values.phoneNumber}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            placeholder={"Enter Your Phone Number"}
-            text={"Phone Number"}
-          />
-          {errors.phoneNumber && touched.phoneNumber ? (
-            <span className="text-red-700 text-sm font-medium">
-              {errors.phoneNumber}
-            </span>
-          ) : null}
+          <div className="w-full">
+            <label className="ml-1 text-[14px] font-medium text-[#181818] ">
+              Phone Number
+            </label>
+            <input
+              id="phoneNumber"
+              name="phoneNumber"
+              value={values.phoneNumber}
+              type="tel"
+              maxLength={10}
+              placeholder={"Enter Your Phone Number"}
+              onBlur={handleBlur}
+              onChange={handleChange}
+              onKeyPress={handleKeyPress}
+              className={`w-full p-3 outline-none font-[500] focus:border-[#0E73D0]  border border-[#9A9A9A] rounded-[15px] 
+              placeholder:text-[16px] placeholder:font-[400] placeholder:text-[#181818] text-[#181818]
+              } h-full px-3 text-sm font-medium`}
+            />
+
+            {errors.phoneNumber && touched.phoneNumber ? (
+              <span className="text-red-700 text-sm font-medium">
+                {errors.phoneNumber}
+              </span>
+            ) : null}
+          </div>
         </div>
         <div className="w-full flex flex-col items-start gap-1 my-8">
           <label className="text-sm font-medium">

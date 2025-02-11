@@ -22,10 +22,10 @@ const ViewEditResume = ({
   setStep,
   isSkipped,
   handleSubmitData,
-  loading
+  loading,
+  setesumeData,
+  resumeData,
 }) => {
-
-
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
@@ -33,7 +33,6 @@ const ViewEditResume = ({
     setIsOpen(!isOpen);
   };
 
-  
   return (
     <div>
       <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
@@ -132,7 +131,7 @@ const ViewEditResume = ({
 
       {/* Give this id */}
       <div id="download-resume" className="flex  justify-center">
-        <ResumePage  formData={formData} />
+        <ResumePage formData={formData} />
       </div>
     </div>
   );
