@@ -70,6 +70,7 @@ const Objective = ({ nextStep, setFormData, formData, prevStep }) => {
             onChange={handleChange}
             onBlur={handleBlur}
             id="description"
+            maxLength={300}
           />
           {errors.description && touched.description ? (
             <span className="text-red-700 text-sm font-medium">

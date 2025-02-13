@@ -5,7 +5,8 @@ import { IoIosArrowBack } from "react-icons/io";
 import { useFormik } from "formik";
 import { skillsSchema } from "../../Schema/resumeSchema";
 import SkillsInputField from "../myresume/SkillsInputField";
-import axios from '../../axios'
+import axios from "../../axios";
+
 const Skills = ({
   nextStep,
   setFormData,
@@ -27,25 +28,47 @@ const Skills = ({
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values) => {
-      setFormData({ ...formData, skillsValues: values });
+      setFormData({
+        ...formData,
+        skillsValues: {
+          technicalSkills: skills,
+          softskills: values.softskills,
+        },
+      });
       nextStep();
     },
   });
+  console.log(values.softskills, "values.softskills");
+
+
+
+
+
+
+
+
+  
+  const [skills, setSkills] = useState(
+    Array.isArray(values.technicalSkills) ? values.technicalSkills : []
+  );
+
+
 
   const updateData = async (data) => {
     if (data) {
+      console.log(data,"data")
       setFieldValue("softskills", data?.softskills || []);
-      setFieldValue("technicalSkills", data?.technicalSkills || "");
+      setFieldValue("technicalSkills", data?.technicalSkills || []);
     }
   };
 
   useEffect(() => {
     formData?.skillsValues && updateData(formData.skillsValues);
   }, [formData]);
+
   const [library, setLibrary] = useState([]);
   const [likedItems, setLikedItems] = useState({});
   const [loading, setLoading] = useState(true);
-
 
   const getLibrary = async () => {
     setLoading(true);
@@ -66,7 +89,46 @@ const Skills = ({
   useEffect(() => {
     getLibrary();
   }, []);
-console.log(values.softskills,"values.softskills")
+
+  const handletechSkill = (e) => {
+    if (e.key === "," || e.key === "Enter") {
+      e.preventDefault();
+      const value = e.target.value.trim();
+
+      if (value && !skills.includes(value)) {
+        const updatedSkills = [...skills, value];
+        setSkills(updatedSkills);
+        setFieldValue("technicalSkills", "");
+      }
+
+      e.target.value = "";
+    }
+  };
+
+  const removeSkill = (skillToRemove) => {
+    const updatedSkills = skills.filter((skill) => skill !== skillToRemove);
+    setSkills(updatedSkills);
+    setFieldValue("technicalSkills", updatedSkills);
+  };
+
+  useEffect(() => {
+    if (
+      Array.isArray(values.technicalSkills) &&
+      values.technicalSkills.length > 0
+    ) {
+      setSkills(values.technicalSkills);
+    }
+  }, [values.technicalSkills]);
+
+  useEffect(() => {
+    if (
+      Array.isArray(values.softskills) &&
+      values.softskills.length > 0
+    ) {
+      setSkills(values.technicalSkills);
+    }
+  }, [values.softskills]);
+
   return (
     <div className="pt-6 px-3">
       <div className="my-6">
@@ -87,23 +149,42 @@ console.log(values.softskills,"values.softskills")
         setTransferableSkills={setFieldValue}
       />
 
-
       <hr className="my-6" />
       <form onSubmit={handleSubmit}>
-        <div className="">
+        <div>
           <p className="text-[24px] font-[500]">Technical Skills</p>
           <p className="text-[16px] leading-[21.6px] w-[422px] ">
             Add job-specific abilities such as coding, data analysis, or using
             specialized tools.
           </p>
           <div className="w-full flex flex-col items-start gap-1 my-8">
+       
+            <div className="flex flex-wrap gap-2 mb-4">
+              {skills?.map((skill, index) => (
+                <span
+                  key={index}
+                  className="flex items-center bg-blue-200 text-blue-800 rounded-full px-3 py-1 text-sm"
+                >
+                  {skill}
+                  <button
+                    onClick={() => removeSkill(skill)}
+                    className="ml-2 text-red-600 font-bold hover:text-red-800"
+                  >
+                    ×
+                  </button>
+                </span>
+              ))}
+            </div>
+
+            {/* Input field for typing skills */}
             <AuthInput
-              value={values.technicalSkills}
+              value={values.technicalSkills} // This will show the current value in the input field
               onChange={handleChange}
               onBlur={handleBlur}
+              onKeyDown={handletechSkill} // Capture key events (comma, space, Enter)
               id="technicalSkills"
               name="technicalSkills"
-              placeholder={"Technical Skills"}
+              placeholder={"Enter Technical Skills, separated by commas"}
             />
             {errors.technicalSkills && touched?.technicalSkills && (
               <span className="text-red-700 text-sm font-medium">

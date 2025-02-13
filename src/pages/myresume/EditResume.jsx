@@ -1,12 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Volunteer from "../../components/myresume/Volunteer";
-import Backbutton from "../../components/Global/Backbutton";
-import Honors from "../../components/myresume/Honors";
-import PreviewResume from "../../components/myresume/PreviewResume";
 import SuccessResumeModal from "../../components/myresume/SuccessResumeModal";
 import ResumeDownloadModal from "../../components/myresume/ResumeDownloadModal";
-import AddSupportModal from "../../components/myresume/AddSupportModal";
 import ResumeDeleteModal from "../../components/myresume/DeleteResumeModal";
 import {
   step1,
@@ -18,8 +14,6 @@ import {
   step7,
   step8,
 } from "../../assets/export";
-import { honorsValues, volunteerValues } from "../../data/resumefield";
-import { skillsValues } from "../../data/resumefield";
 import SideResume from "../../components/myresume/sideresume";
 import {
   ErrorToast,
@@ -33,6 +27,8 @@ import Licenses from "../../components/editresume/Licenses";
 import Skills from "../../components/editresume/Skills";
 import Experience from "../../components/editresume/Experience";
 import ViewEditResume from "../../components/editresume/ViewEditResume";
+import Honors from "../../components/editresume/Honors";
+import { getMonth, getYear } from "../lib/helper";
 const EditResume = () => {
   const navigate = useNavigate();
   const [isPreview, setIsPreview] = useState(false);
@@ -184,7 +180,7 @@ const EditResume = () => {
 
   useEffect(() => {
     if (editData) {
-      console.log("formData is = ", editData?.experience);
+      console.log("formData sis = ", editData?.experience);
 
       setFormData({
         ...formData,
@@ -207,13 +203,21 @@ const EditResume = () => {
             startYear: item?.start_year || "",
             description: null,
           })) || [],
+
         certificationsList:
           editData?.licenses_and_certifications?.map((item) => ({
             certificationsname: item?.certification_name || "",
             issuingOrganization: item?.issuing_organization || "",
             credentialId: item?.credential_id || "",
-            Issueyear: item?.issue_date || "",
-            expirationmonth: item?.expiration_date || "",
+            Issuemonth: item?.issue_date ? getMonth(item?.issue_date) : null,
+            Issueyear: item?.issue_date ? getYear(item?.issue_date) : null,
+            expirationmonth: item?.expiration_date
+              ? getMonth(item?.expiration_date)
+              : null,
+            expirationyear: item?.expiration_date
+              ? getYear(item?.expiration_date)
+              : null,
+            description: item?.description || "",
           })) || [],
         skillsValues: {
           technicalSkills: editData?.technical_skills || [],
@@ -223,15 +227,23 @@ const EditResume = () => {
           editData?.experience?.map((item) => ({
             jobTitle: item?.job_title || "",
             company: item?.company || "",
-            start_date: item?.start_date || "",
-            end_date: item?.end_date || "",
+            startmonth: item?.start_date ? getMonth(item?.start_date) : null,
+            startyear: item?.start_date ? getYear(item?.start_date) : "",
+            endmonth: item?.end_date ? getMonth(item?.end_date) : null,
+            endyear: item?.end_date ? getYear(item?.end_date) : null,
             description: item?.description || "",
+            isCurrent: item?.end_date ? false : true,
           })) || [],
         honorsList:
           editData?.honors_and_awards?.map((item) => ({
             awardName: item?.award_name || "",
             awardingOrganization: item?.awarding_organization || "",
-            receivedmonth: item?.date_Received || "",
+            receivedmonth: item?.date_Received
+              ? getMonth(item?.date_Received)
+              : null,
+            receivedyear: item?.date_Received
+              ? getYear(item?.date_Received)
+              : null,
             description: item?.description || "",
           })) || [],
         volunteerList:
@@ -322,72 +334,87 @@ const EditResume = () => {
     return months[month] || "01";
   };
 
-  const mapFormDataToPayload = (formData) => {
+
+const mapFormDataToPayload = (formData) => {
+    console.log(formData.certificationsList, "formData.certificationsList");
+    
     return {
-      full_name: formData.informationValues?.fullname,
-      email: formData.informationValues?.email,
-      phone: formData.informationValues?.phoneNumber,
-      address: formData.informationValues.address,
-      objective: {
-        description: formData.objetiveValues.description,
-      },
-      experience: formData.experienceList.map((exp) => ({
-        job_title: exp.jobTitle,
-        company: exp.company,
-        start_date: exp.start_date.split("T")[0],
-        end_date: exp.end_date.split("T")[0],
-        description: exp.description,
-      })),
-      education: formData.educationList.map((edu) => ({
-        institution: edu.education,
-        degree: edu.degree,
-        field_of_study: edu.fieldofStudy,
-        start_year: edu.startYear,
-        end_year: edu.endYear,
-      })),
-      licenses_and_certifications: formData.certificationsList.map((cert) => ({
-        certification_name: cert.certificationsname,
-        issuing_organization: cert.issuingOrganization,
-        credential_id: cert.credentialId,
-        issue_date: cert.Issueyear ? cert.Issueyear.split("T")[0] : null,
-        expiration_date:
-          cert.expirationmonth && cert.expirationyear
-            ? `${cert.expirationmonth}-${cert.expirationyear.split("T")[0]}`
-            : null,
-      })),
-      soft_skills: Array.isArray(formData.skillsValues?.softskills)
-        ? formData.skillsValues.softskills
-        : [],
-      technical_skills: Array.isArray(formData.skillsValues?.technicalSkills)
-        ? formData.skillsValues.technicalSkills
-        : [],
+        full_name: formData.informationValues?.fullname,
+        email: formData.informationValues?.email,
+        phone: formData.informationValues?.phoneNumber,
+        address: formData.informationValues.address,
+        objective: {
+            description: formData.objetiveValues.description,
+        },
+        experience: formData.experienceList.map((exp) => {
+            // Convert months to numeric value using convertMonthToNumber function
+            const start_date = exp.startyear && exp.startmonth
+                ? `${exp.startyear}-${convertMonthToNumber(exp.startmonth)}-01` // Use numeric month
+                : null;
+            const end_date = exp.endyear && exp.endmonth
+                ? `${exp.endyear}-${convertMonthToNumber(exp.endmonth)}-01` // Use numeric month
+                : null;
 
-      honors_and_awards: Array.isArray(formData.honorsList)
-        ? formData.honorsList.map((honor) => ({
-            award_name: honor.awardName || "",
-            awarding_organization: honor.awardingOrganization || "",
-            date_Received:
-              honor.receivedyear && honor.receivedmonth
-                ? `${honor.receivedyear}-${honor.receivedmonth.split("T")[0]}`
+            return {
+                job_title: exp.jobTitle,
+                company: exp.company,
+                start_date: start_date,
+                end_date: end_date,
+                description: exp.description,
+            };
+        }),
+
+        education: formData.educationList.map((edu) => ({
+            institution: edu.education,
+            degree: edu.degree,
+            field_of_study: edu.fieldofStudy,
+            start_year: edu.startYear,
+            end_year: edu.endYear,
+        })),
+        licenses_and_certifications: formData.certificationsList.map((cert) => ({
+            certification_name: cert.certificationsname,
+            issuing_organization: cert.issuingOrganization,
+            credential_id: cert.credentialId,
+            issue_date: cert.Issueyear && cert.Issuemonth
+                ? `${cert.Issueyear}-${convertMonthToNumber(cert.Issuemonth)}-01` // Convert month to number for issue date
                 : null,
+            expiration_date: cert.expirationyear && cert.expirationmonth
+                ? `${cert.expirationyear}-${convertMonthToNumber(cert.expirationmonth)}-01` // Convert month to number for expiration date
+                : null,
+        })),
+        soft_skills: Array.isArray(formData.skillsValues?.softskills)
+            ? formData.skillsValues.softskills
+            : [],
+        technical_skills: Array.isArray(formData.skillsValues?.technicalSkills)
+            ? formData.skillsValues.technicalSkills
+            : [],
 
-            description: honor.description || "",
-          }))
-        : [],
-      volunteer_experience: formData.volunteerList.map((volunteer) => ({
-        organization_name: volunteer.organizationName,
-        role: volunteer.volunteerRules,
-        start_year: volunteer.startYear,
-        end_year: volunteer.endYear,
-        description: volunteer.description,
-      })),
+        honors_and_awards: Array.isArray(formData.honorsList)
+            ? formData.honorsList.map((honor) => ({
+                  award_name: honor.awardName || "",
+                  awarding_organization: honor.awardingOrganization || "",
+                  date_Received:
+                      honor.receivedyear && honor.receivedmonth
+                          ? `${honor.receivedyear}-${convertMonthToNumber(honor.receivedmonth)}-01` // Convert month to number
+                          : null,
+                  description: honor.description || "",
+              }))
+            : [],
+        volunteer_experience: formData.volunteerList.map((volunteer) => ({
+            organization_name: volunteer.organizationName,
+            role: volunteer.volunteerRules,
+            start_year: volunteer.startYear,
+            end_year: volunteer.endYear,
+            description: volunteer.description,
+        })),
     };
-  };
+};
+
 
   const handleSubmitData = async () => {
     const transformedData = mapFormDataToPayload(formData);
+    console.log(transformedData, "transformedData=={}");
     setLoading(true);
-
     try {
       const response = await axios.put(
         "/api/user/update-resume",
@@ -405,11 +432,11 @@ const EditResume = () => {
       if (response.status === 200) {
         SuccessToast("Resume Edit Successfully");
         handleModal();
-        // setresumeid(response?.data?.data?._id);
+
         setesumeData(response?.data?.data);
       }
     } catch (error) {
-      ErrorToast(error?.response?.data);
+      ErrorToast(error?.response?.data?.message);
       console.error(
         "Error submitting form:",
         error?.response?.data || error.message
@@ -442,7 +469,7 @@ const EditResume = () => {
             <div></div>
             <div className="flex justify-between items-start mb-6">
               <h1 className="text-[32px] font-medium text-gray-800">
-                Create Resume
+                Edit Resume
               </h1>
               <div className="flex items-center"></div>
             </div>

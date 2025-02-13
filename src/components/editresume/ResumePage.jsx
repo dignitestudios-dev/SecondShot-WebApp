@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { ErrorToast } from "../toaster/ToasterContainer";
-import axios from "../../axios";
+import React from "react";
 import moment from "moment";
 
 const ResumePage = ({ formData }) => {
-
+ 
+console.log(formData,"formDatasssssssssss")
   const formatDate = (dateString) => {
     return dateString ? moment(dateString).format("DD-MM-YYYY") : "";
   };
-  
-  // Example Usage:
-  const rawDate = "2013-06-01T00:00:00.000Z";
 
   
+  const rawDate = "2013-06-01T00:00:00.000Z";
+
   return (
     <div className="bg-white w-[1200px]  mx-auto p-8 rounded-lg shadow-md ">
       {/* Header Section */}
@@ -24,7 +22,10 @@ const ResumePage = ({ formData }) => {
           {formData?.informationValues?.email}
 
           <span> {formData?.informationValues?.phoneNumber}</span>
-          <span> {formData?.informationValues?.address}</span>
+          <span className="cursor-pointer">
+            <a href={`${formData?.informationValues?.address}`}></a>{" "}
+            {formData?.informationValues?.address}
+          </span>
         </p>
       </div>
 
@@ -80,7 +81,7 @@ const ResumePage = ({ formData }) => {
         </section>
       )}
       <section className="mt-6">
-        {formData?.skillsValues?.softskills.length > 0 ||
+        {formData?.skillsValues?.softskills?.length > 0 ||
         formData?.skillsValues?.technicalSkills !== "" ? (
           <h2 className="text-[22px] font-[700] uppercase ">Skills</h2>
         ) : null}
@@ -91,7 +92,7 @@ const ResumePage = ({ formData }) => {
                 Soft Skills
               </p>
               <ul className="flex list-disc gap-10 ml-6 mt-2">
-                {formData?.skillsValues?.softskills.map((item, index) => (
+                {formData?.skillsValues?.softskills?.map((item, index) => (
                   <li
                     key={index}
                     className="font-[400] text-[20px] text-[#0F0F0F] leading-[16px]"
@@ -103,18 +104,24 @@ const ResumePage = ({ formData }) => {
             </div>
           </>
         )}
-        {formData?.skillsValues?.technicalSkills && (
+        {formData?.skillsValues?.technicalSkills?.length > 0 && (
           <div className="mt-4">
             <p className="text-[22px] font-[500] text-[#0F0F0F]">
               Technical Skills
             </p>
-            <ul className="flex list-disc justify-between ml-6 mt-2">
-              <li className="font-[400] text-[20px] text-[#0F0F0F] leading-[16px]">
-                {formData?.skillsValues?.technicalSkills}
-              </li>
+            <ul className="flex list-disc gap-8 ml-6 mt-2">
+              {formData?.skillsValues?.technicalSkills?.map((skill, index) => (
+                <li
+                  key={index}
+                  className="font-[400] text-[20px] text-[#0F0F0F] leading-[16px]"
+                >
+                  {skill}
+                </li>
+              ))}
             </ul>
           </div>
         )}
+
         <hr className="mt-5" />
       </section>
 
@@ -130,7 +137,7 @@ const ResumePage = ({ formData }) => {
                 {exp?.company}
               </p>
               <p className="font-[600] leading-[22.94px] text-[#101010] text-[22.94px]">
-                {exp?.startyear}- {exp?.endyear}
+                {exp?.startyear}- {exp?.isCurrent  ? "Present" : exp?.endyear} 
               </p>
             </div>
             <p className="font-[500] text-[#0F0F0F]  leading-[29.7px] text-[22px]">
@@ -175,7 +182,7 @@ const ResumePage = ({ formData }) => {
               <p className="font-[500] text-[#101010] text-[22px] leading-[29.7px]">
                 {honors?.awardName}
               </p>
-              <p className="text-[22px] font-[500] text-[#101010] leading-[29.7px] ">
+              <p className="font-[600] leading-[22.94px] text-[#101010] text-[22.94px]">
                 {honors?.receivedyear}
               </p>
             </div>

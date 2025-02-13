@@ -84,6 +84,7 @@ const PreviewResume = ({
             end_year: parseInt(edu.endYear),
             description: null,
           })),
+          
       licenses_and_certifications: isSkipped
         ? []
         : formData.certificationsList.map((cert) => ({
@@ -104,7 +105,7 @@ const PreviewResume = ({
       technical_skills: isSkipped
         ? []
         : formData.skillsValues?.technicalSkills
-            ?.split(",")
+            
             .map((skill) => skill.trim()),
       volunteer_experience: formData.volunteerList.map((volunteer) => ({
         organization_name: volunteer.organizationName,

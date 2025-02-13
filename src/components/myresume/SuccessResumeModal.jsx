@@ -15,12 +15,7 @@ const SuccessResumeModal = ({ showModal, onclick, setIsPreview,resumeData }) => 
     showModal && (
       <div className="fixed inset-0 bg-[#C9C9C952] backdrop-blur-sm flex items-center justify-center z-50">
         <div className="bg-white rounded-lg shadow-lg w-[420px] p-4 relative">
-          <button
-            className="absolute top-0 right-2 text-2xl text-gray-500 hover:text-gray-600"
-            onClick={onclick}
-          >
-            &times;
-          </button>
+        
           <div className="flex justify-center mt-3">
             <img
               src={Card4}

@@ -15,7 +15,8 @@ const AuthInput = ({
   onChange,
   onBlur,
   name,
-  id
+  id,
+  onKeyDown
 }) => {
   const [isPassVisible, setIsPassVisible] = useState(false);
 
@@ -35,6 +36,7 @@ const AuthInput = ({
         <div className="w-full h-full flex items-center justify-center rounded-[12px] relative">
           <input
             value={value}
+          
             type={isPassVisible ? "text" : type}
             disabled={isDisabled}
             maxLength={maxLength}
@@ -42,6 +44,7 @@ const AuthInput = ({
             onBlur={onBlur}
             id={id}
             name={name}
+            onKeyDown={onKeyDown}
             // className="w-full text-sm border border-gray-300 focus:border-blue-500
             //  text-[#181818] placeholder:font-normal font-medium px-4 lg:py-3 md:py-2 py-3 my-2 rounded-xl outline-none"
             className={`w-full p-3 outline-none font-[500] focus:border-[#0E73D0]  border border-[#9A9A9A] rounded-[15px] 

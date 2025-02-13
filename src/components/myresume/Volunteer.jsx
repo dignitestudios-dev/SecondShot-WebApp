@@ -5,17 +5,14 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { volunteerSchema } from "../../Schema/resumeSchema";
-
+import { getStartYearsArray, getYearsArray } from "../../pages/lib/helper";
 const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
-
-
   const formik = useFormik({
     initialValues: { volunteerList: formData.volunteerList },
     validationSchema: volunteerSchema,
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values) => {
-      
       setFormData({ ...formData, volunteerList: values?.volunteerList });
       nextStep();
     },
@@ -30,16 +27,7 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
     handleSubmit,
     setFieldValue,
   } = formik;
-  const getYearsArray = () => {
-    const startYear = 1990;
-    const currentYear = new Date().getFullYear();
-    const years = [];
 
-    for (let year = startYear; year <= currentYear; year++) {
-      years.push({ value: `${year}`, label: `${year}` });
-    }
-    return years;
-  };
   return (
     <div className="pt-6 px-3">
       <div>
@@ -78,6 +66,7 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         text={"Organization Name"}
+                        maxLength={30}
                       />
                       {errors.volunteerList?.[index]?.organizationName &&
                         touched.volunteerList?.[index]?.organizationName && (
@@ -95,6 +84,7 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
                         onBlur={handleBlur}
                         placeholder={"Enter Volunteer Role/Title"}
                         text={"Volunteer Role/Title"}
+                        maxLength={30}
                       />
                       {errors.volunteerList?.[index]?.volunteerRules &&
                         touched.volunteerList?.[index]?.volunteerRules && (
@@ -113,8 +103,7 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
                           name={`volunteerList[${index}].startYear`}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          options={getYearsArray()}
-
+                          options={getStartYearsArray(1990)}
                         />
                         {errors.volunteerList?.[index]?.startYear &&
                           touched.volunteerList?.[index]?.startYear && (
@@ -136,7 +125,10 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
                           name={`volunteerList[${index}].endYear`}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          options={getYearsArray()}
+                          options={getYearsArray(
+                            values.volunteerList[index].startYear || 1990 // Set expiration year options based on Issueyear
+                          )}
+                          disabled={!values.volunteerList[index].startYear} // Disable until Issueyear is selected
 
                         />
                         {errors.volunteerList?.[index]?.endYear &&
@@ -161,6 +153,7 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
                         placeholder="Highlight relevant skills acquired or the impact you made during the experience."
                         onChange={handleChange}
                         value={values.volunteerList[index]?.description}
+                        maxLength={300}
                       />
                     </div>
                   </div>

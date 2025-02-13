@@ -5,7 +5,7 @@ import MonthsInput from "../Global/MonthsInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import { educationSchema } from "../../Schema/resumeSchema";
-
+import { getStartYearsArray, getYearsArray } from "../../pages/lib/helper";
 const Education = ({
   nextStep,
   prevStep,
@@ -51,16 +51,7 @@ const Education = ({
     }
   }, [formData.educationValues]);
 
-  const getYearsArray = () => {
-    const startYear = 1990;
-    const currentYear = new Date().getFullYear();
-    const years = [];
 
-    for (let year = startYear; year <= currentYear; year++) {
-      years.push({ value: `${year}`, label: `${year}` });
-    }
-    return years;
-  };
 
   return (
     <div className="pt-6 px-3">
@@ -149,7 +140,7 @@ const Education = ({
                           value={values.educationList[index].startYear}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          options={getYearsArray()}
+                          options={getStartYearsArray(1990)}
                         />
                         {errors.educationList?.[index]?.startYear &&
                           touched.educationList?.[index]?.startYear && (
@@ -166,7 +157,11 @@ const Education = ({
                           value={values.educationList[index].endYear}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          options={getYearsArray()}
+                          options={getYearsArray(
+                            values.educationList[index].startYear || 1990 // Set expiration year options based on Issueyear
+                          )}
+                          disabled={!values.educationList[index].startYear} // Disable until Issueyear is selected
+
                         />
                         {errors.educationList?.[index]?.endYear &&
                           touched.educationList?.[index]?.endYear && (

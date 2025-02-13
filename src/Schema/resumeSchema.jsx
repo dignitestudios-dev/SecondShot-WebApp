@@ -3,7 +3,7 @@ import * as Yup from "yup";
 export const informationSchema = Yup.object({
   fullname: Yup.string()
     .min(3, "Full name must be at least 3 characters.")
-    .max(50, "Full name can't exceed 50 characters.")
+    .max(30, "Full name can't exceed 30 characters.")
     .required("Please enter your full name"),
   email: Yup.string()
     .email("Email must be valid.")
@@ -14,18 +14,24 @@ export const informationSchema = Yup.object({
 });
 
 export const objectiveSchema = Yup.object({
-  description: Yup.string().required("Please enter your resume objective"),
+  description: Yup.string()
+    .required("Please enter your resume objective")
+    .max(300, "Objective description cannot be longer than 300 characters"),
 });
 
 export const educationSchema = Yup.object().shape({
   educationList: Yup.array()
     .of(
       Yup.object().shape({
-        education: Yup.string().required(
-          "Please enter your educational institution"
-        ),
-        degree: Yup.string().required("Please enter your degree"),
-        fieldofStudy: Yup.string().required("Please enter your field of study"),
+        education: Yup.string()
+          .required("Please enter your educational institution")
+          .max(30, "Educational institution cannot exceed 30 characters"),
+        degree: Yup.string()
+          .required("Please enter your degree")
+          .max(30, "Degree cannot exceed 30 characters"),
+        fieldofStudy: Yup.string()
+          .required("Please enter your field of study")
+          .max(30, "Field of study cannot exceed 30 characters"),
         startYear: Yup.string().required("Please select a start year"),
         endYear: Yup.string().required("Please select an end year"),
       })
@@ -38,15 +44,19 @@ export const experienceSchema = Yup.object().shape({
   experienceList: Yup.array()
     .of(
       Yup.object().shape({
-        jobTitle: Yup.string().required(
-          "Please enter your jobtitle institution"
-        ),
-        company: Yup.string().required("Please enter your degree"),
+        jobTitle: Yup.string()
+          .required("Please enter your jobtitle institution")
+          .max(30, "Jobtitle  cannot exceed 30 characters"),
+        company: Yup.string()
+          .required("Please enter your degree")
+          .max(30, "degree  cannot exceed 30 characters"),
         startmonth: Yup.string().required("Please select a start month"),
         startyear: Yup.string().required("Please select a start year"),
         endmonth: Yup.string(),
-        endyear: Yup.string(),       
-        description: Yup.string().required("Please enter description"),
+        endyear: Yup.string(),
+        description: Yup.string()
+          .required("Please enter description")
+          .max(300, "description  cannot exceed 300 characters"),
       })
     )
     .required("Experience List required")
@@ -72,32 +82,36 @@ export const certificationSchema = Yup.object().shape({
     .min(1, "At least one education entry is required"),
 });
 
+
+
 export const skillsSchema = Yup.object().shape({
-  technicalSkills: Yup.string().required("Technical skills are required"),
- 
+  technicalSkills: Yup.array()
+    .of(Yup.string().required("Each skill must be a string"))
+    .min(1, "Technical skills are required"), // At least 1 skill required
 });
 
-  export const honorsSchema = Yup.object().shape({
-    honorsList: Yup.array()
-      .of(
-        Yup.object().shape({
-          awardName: Yup.string().required(
-            "Please enter the name of the award or certification."
-          ),
-          awardingOrganization: Yup.string().required(
-            "Please enter the name of the issuing organization."
-          ),
-          receivedmonth: Yup.string().required(
-            "Please select the month the award was received."
-          ),
-          receivedyear: Yup.string().required(
-            "Please select the year the award was received."
-          ),
-        })
-      )
-      .required("The honors and awards list is required.")
-      .min(1, "Please add at least one honor or award."),
-  });
+
+export const honorsSchema = Yup.object().shape({
+  honorsList: Yup.array()
+    .of(
+      Yup.object().shape({
+        awardName: Yup.string().required(
+          "Please enter the name of the award or certification."
+        ),
+        awardingOrganization: Yup.string().required(
+          "Please enter the name of the issuing organization."
+        ),
+        receivedmonth: Yup.string().required(
+          "Please select the month the award was received."
+        ),
+        receivedyear: Yup.string().required(
+          "Please select the year the award was received."
+        ),
+      })
+    )
+    .required("The honors and awards list is required.")
+    .min(1, "Please add at least one honor or award."),
+});
 
 export const volunteerSchema = Yup.object().shape({
   volunteerList: Yup.array()

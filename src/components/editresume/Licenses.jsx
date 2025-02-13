@@ -6,7 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { certificationsValues } from "../../data/resumefield";
 import { certificationSchema } from "../../Schema/resumeSchema";
-
+import { getStartYearsArray, getYearsArray } from "../../pages/lib/helper";
 const Licenses = ({
   nextStep,
   setFormData,
@@ -24,45 +24,38 @@ const Licenses = ({
         ...formData,
         certificationsList: values?.certificationsList,
       });
-   
+
       nextStep();
     },
   });
 
   const updateData = async (data) => {
     if (data && Array.isArray(data)) {
-   
       formik.setValues({
-        educationList: data?.map((item) => ({
-          certificationsname: item?.certificationsname || "",
-          issuingOrganization: item?.issuingOrganization || "",
-          credentialId: item?.credentialId || "",
-          Issuemonth: item?.Issuemonth || "",
-          Issueyear: item?.Issueyear || "",
-          expirationmonth: item?.expirationmonth || "",
-        })),
+        certificationsList: data.map((item) => {
+          return ({
+            certificationsname: item?.certificationsname || "",
+            issuingOrganization: item?.issuingOrganization || "",
+            credentialId: item?.credentialId || "",
+            Issuemonth: item?.Issuemonth || "",
+            Issueyear: item?.Issueyear || "",
+            expirationmonth: item?.expirationmonth || "",
+            expirationyear: item?.expirationyear || "",
+          })
+        }),
       });
     }
   };
 
   useEffect(() => {
-    if (formData?.educationValues) {
-      updateData(formData.educationValues);
+    if (formData?.certificationsList) {
+      updateData(formData.certificationsList)
     }
-  }, [formData.educationValues]);
+  }, [formData.certificationsList]);
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     formik;
-  const getYearsArray = () => {
-    const startYear = 1990;
-    const currentYear = new Date().getFullYear();
-    const years = [];
 
-    for (let year = startYear; year <= currentYear; year++) {
-      years.push({ value: `${year}`, label: `${year}` });
-    }
-    return years;
-  };
   return (
     <div className="pt-6 px-3">
       <div>
@@ -162,8 +155,11 @@ const Licenses = ({
                         <MonthsInput
                           id={`certificationsList[${index}].Issuemonth`}
                           name={`certificationsList[${index}].Issuemonth`}
-                          value={values.certificationsList[index].Issuemonth}
-                          label={"Issue Date"}
+                          value={
+                            values.certificationsList[index].Issuemonth
+                              ? values.certificationsList[index].Issuemonth
+                              : ""
+                          }
                           onChange={handleChange}
                           options={[
                             { value: "January", label: "January" },
@@ -180,6 +176,7 @@ const Licenses = ({
                             { value: "December", label: "December" },
                           ]}
                         />
+
                         {errors.certificationsList?.[index]?.Issuemonth &&
                           touched.certificationsList?.[index]?.Issuemonth && (
                             <span className="text-red-700 text-sm font-medium">
@@ -193,7 +190,7 @@ const Licenses = ({
                           name={`certificationsList[${index}].Issueyear`}
                           value={values.certificationsList[index].Issueyear}
                           onChange={handleChange}
-                          options={getYearsArray()}
+                          options={getStartYearsArray(1990)}
                         />
                         {errors.certificationsList?.[index]?.Issueyear &&
                           touched.certificationsList?.[index]?.Issueyear && (
@@ -219,6 +216,8 @@ const Licenses = ({
                           name={`certificationsList[${index}].expirationmonth`}
                           value={
                             values.certificationsList[index].expirationmonth
+                              ? values.certificationsList[index].expirationmonth
+                              : ""
                           }
                           onChange={handleChange}
                           options={[
@@ -245,7 +244,10 @@ const Licenses = ({
                             values.certificationsList[index].expirationyear
                           }
                           onChange={handleChange}
-                          options={getYearsArray()}
+                          options={getYearsArray(
+                            values.certificationsList[index].Issueyear || 1990
+                          )}
+                          disabled={!values.certificationsList[index].Issueyear}
                         />
                       </div>
                     </div>

@@ -5,7 +5,7 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { honorsSchema } from "../../Schema/resumeSchema";
-import axios from "../../axios";
+import { getStartYearsArray } from "../../pages/lib/helper";
 const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
   const formik = useFormik({
     initialValues: { honorsList: formData.honorsList },
@@ -14,7 +14,7 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
     validateOnBlur: true,
     onSubmit: async (values) => {
       setFormData({ ...formData, honorsList: values?.honorsList });
-      // setCompleted(true);
+  
       nextStep();
     },
   });
@@ -29,16 +29,7 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
     setFieldValue,
   } = formik;
 
-  const getYearsArray = () => {
-    const startYear = 1990;
-    const currentYear = new Date().getFullYear();
-    const years = [];
-
-    for (let year = startYear; year <= currentYear; year++) {
-      years.push({ value: `${year}`, label: `${year}` });
-    }
-    return years;
-  };
+ 
   return (
     <div className="pt-6 px-3">
       <div>
@@ -116,6 +107,7 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             options={[
+                              { value: "", label: "Select Month" },
                               { value: "January", label: "January" },
                               { value: "February", label: "February" },
                               { value: "March", label: "March" },
@@ -146,7 +138,7 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
                             value={values.honorsList[index].receivedyear}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            options={getYearsArray()}
+                            options={getStartYearsArray(1990)}
                           />
                           {errors.honorsList?.[index]?.receivedyear &&
                             touched.honorsList?.[index]?.receivedyear && (

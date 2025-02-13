@@ -6,8 +6,15 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { certificationsValues } from "../../data/resumefield";
 import { certificationSchema } from "../../Schema/resumeSchema";
+import { getStartYearsArray, getYearsArray } from "../../pages/lib/helper";
 
-const Licenses = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) => {
+const Licenses = ({
+  nextStep,
+  setFormData,
+  formData,
+  prevStep,
+  setIsSkipped,
+}) => {
   const formik = useFormik({
     initialValues: { certificationsList: formData.certificationsList },
     validationSchema: certificationSchema,
@@ -18,23 +25,15 @@ const Licenses = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =>
         ...formData,
         certificationsList: values?.certificationsList,
       });
-   
+
       nextStep();
     },
   });
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     formik;
-    const getYearsArray = () => {
-      const startYear = 1990;
-      const currentYear = new Date().getFullYear();
-      const years = [];
-  
-      for (let year = startYear; year <= currentYear; year++) {
-        years.push({ value: `${year}`, label: `${year}` });
-      }
-      return years;
-    };
+ 
+
   return (
     <div className="pt-6 px-3">
       <div>
@@ -75,6 +74,7 @@ const Licenses = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =>
                         placeholder={"Enter Certification Name"}
                         onChange={handleChange}
                         onBlur={handleBlur}
+                        maxLength={30}
                       />
                       {errors.certificationsList?.[index]?.certificationsname &&
                         touched.certificationsList?.[index]
@@ -98,6 +98,7 @@ const Licenses = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =>
                         onBlur={handleBlur}
                         text={"Issuing Organization"}
                         placeholder={"Enter  Issuing Organization"}
+                        maxLength={30}
                       />
                       {errors.certificationsList?.[index]
                         ?.issuingOrganization &&
@@ -120,6 +121,7 @@ const Licenses = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =>
                         onBlur={handleBlur}
                         text={" Credential ID"}
                         placeholder={"Enter Credential ID"}
+                        maxLength={30}
                       />
                       {errors.certificationsList?.[index]?.credentialId &&
                         touched.certificationsList?.[index]?.credentialId && (
@@ -138,6 +140,7 @@ const Licenses = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =>
                           label={"Issue Date"}
                           onChange={handleChange}
                           options={[
+                            { value: "", label: "Select Month" },
                             { value: "January", label: "January" },
                             { value: "February", label: "February" },
                             { value: "March", label: "March" },
@@ -165,8 +168,8 @@ const Licenses = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =>
                           name={`certificationsList[${index}].Issueyear`}
                           value={values.certificationsList[index].Issueyear}
                           onChange={handleChange}
-                          options={getYearsArray()}
-
+                          options={getStartYearsArray(1990)}
+                          label="Start Year"
                         />
                         {errors.certificationsList?.[index]?.Issueyear &&
                           touched.certificationsList?.[index]?.Issueyear && (
@@ -195,6 +198,8 @@ const Licenses = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =>
                           }
                           onChange={handleChange}
                           options={[
+                            { value: "", label: "Select Month" },
+
                             { value: "January", label: "January" },
                             { value: "February", label: "February" },
                             { value: "March", label: "March" },
@@ -218,8 +223,11 @@ const Licenses = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =>
                             values.certificationsList[index].expirationyear
                           }
                           onChange={handleChange}
-                          options={getYearsArray()}
-
+                          options={getYearsArray(
+                            values.certificationsList[index].Issueyear || 1990
+                          )}
+                          label="Expiration Year"
+                          disabled={!values.certificationsList[index].Issueyear}
                         />
                       </div>
                     </div>
@@ -258,10 +266,10 @@ const Licenses = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =>
           />
           <div>
             <button
-                onClick={() => {
-                  setIsSkipped(true);
-                  nextStep();
-                }}
+              onClick={() => {
+                setIsSkipped(true);
+                nextStep();
+              }}
               className="text-[16px] text-[#000000] font-[600] mt-3 "
             >
               Skip

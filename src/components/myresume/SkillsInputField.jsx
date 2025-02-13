@@ -10,8 +10,8 @@ const SkillsInputField = ({
 }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedSkills, setSelectedSkills] = useState([]);
-
   useEffect(() => {
+    console.log(transferableSkills, "sss");
     if (transferableSkills?.length > 0) {
       setSelectedSkills(transferableSkills);
     }
@@ -34,11 +34,13 @@ const SkillsInputField = ({
 
   // Map the skills based on titles (to ensure you are showing titles)
   const skillTitles = myskills
-    ?.filter((skill) => selectedSkills.includes(
-      skill?.favorite_hobby2?.title ||
-      skill?.favorite_hobby1?.title ||
-      skill?.favorite_middle_school_subject?.title
-    ))
+    ?.filter((skill) =>
+      selectedSkills.includes(
+        skill?.favorite_hobby2?.title ||
+          skill?.favorite_hobby1?.title ||
+          skill?.favorite_middle_school_subject?.title
+      )
+    )
     .map(
       (skill) =>
         skill?.favorite_hobby2?.title ||
@@ -46,6 +48,7 @@ const SkillsInputField = ({
         skill?.favorite_middle_school_subject?.title ||
         "Unknown Skill"
     );
+
 
   return (
     <div className="flex items-center border border-[#9A9A9A] rounded-lg overflow-hidden p-1">

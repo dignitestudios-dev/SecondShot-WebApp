@@ -28,15 +28,25 @@ const Skills = ({
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values) => {
-      setFormData({ ...formData, skillsValues: values });
+      setFormData({
+        ...formData,
+        skillsValues: {
+          technicalSkills: skills,
+          softskills: values.softskills,
+        },
+      });
 
       nextStep();
     },
   });
+
+  const [skills, setSkills] = useState(
+    Array.isArray(values.technicalSkills) ? values.technicalSkills : []
+  );
+
   const [library, setLibrary] = useState([]);
   const [likedItems, setLikedItems] = useState({});
   const [loading, setLoading] = useState(true);
-
 
   const getLibrary = async () => {
     setLoading(true);
@@ -58,6 +68,46 @@ const Skills = ({
     getLibrary();
   }, []);
 
+  const handletechSkill = (e) => {
+    if (e.key === "," || e.key === "Enter") {
+      e.preventDefault();
+      const value = e.target.value.trim();
+
+      if (value && !skills.includes(value)) {
+        const updatedSkills = [...skills, value];
+        setSkills(updatedSkills);
+        setFieldValue("technicalSkills", "");
+      }
+
+      e.target.value = "";
+    }
+  };
+
+  const removeSkill = (skillToRemove) => {
+    const updatedSkills = skills.filter((skill) => skill !== skillToRemove);
+    setSkills(updatedSkills);
+    setFieldValue("technicalSkills", updatedSkills);
+  };
+
+  useEffect(() => {
+    if (
+      Array.isArray(values.technicalSkills) &&
+      values.technicalSkills.length > 0
+    ) {
+      setSkills(values.technicalSkills);
+    }
+  }, [values.technicalSkills]);
+  useEffect(() => {
+    if (formData?.skillsValues) {
+      setFieldValue(
+        "technicalSkills",
+        formData.skillsValues.technicalSkills || []
+      );
+
+      setFieldValue("softskills", formData.skillsValues.softskills || []);
+    }
+  }, [formData, setFieldValue]);
+
   return (
     <div className="pt-6 px-3">
       <div className="my-6">
@@ -68,14 +118,6 @@ const Skills = ({
         </p>
       </div>
 
-      {/* <SkillsInputField
-        myskills={library}
-        setFieldValue={setFieldValue}
-        errors={errors}
-        touched={touched}
-        setTransferableSkills={setTransferableSkills}
-        transferableSkills={values.softskills} // Formik se values pass karna
-      /> */}
       <SkillsInputField
         myskills={library}
         errors={errors}
@@ -95,13 +137,33 @@ const Skills = ({
             specialized tools.
           </p>
           <div className="w-full flex flex-col items-start gap-1 my-8">
+            {/* Render tags above the input */}
+            <div className="flex flex-wrap gap-2 mb-4">
+              {skills?.map((skill, index) => (
+                <span
+                  key={index}
+                  className="flex items-center bg-blue-200 text-blue-800 rounded-full px-3 py-1 text-sm"
+                >
+                  {skill}
+                  <button
+                    onClick={() => removeSkill(skill)}
+                    className="ml-2 text-red-600 font-bold hover:text-red-800"
+                  >
+                    ×
+                  </button>
+                </span>
+              ))}
+            </div>
+
+            {/* Input field for typing skills */}
             <AuthInput
-              value={values.technicalSkills}
+              value={values.technicalSkills} // This will show the current value in the input field
               onChange={handleChange}
               onBlur={handleBlur}
+              onKeyDown={handletechSkill} // Capture key events (comma, space, Enter)
               id="technicalSkills"
               name="technicalSkills"
-              placeholder={"Technical Skills"}
+              placeholder={"Enter Technical Skills, separated by commas"}
             />
             {errors.technicalSkills && touched?.technicalSkills && (
               <span className="text-red-700 text-sm font-medium">

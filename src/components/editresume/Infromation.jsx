@@ -66,6 +66,7 @@ const Information = ({ nextStep, setFormData, formData }) => {
             onChange={handleChange}
             placeholder={"Enter Your Name"}
             text={"Full Name"}
+            maxLength={30}
           />
           {errors.fullname && touched.fullname ? (
             <span className="text-red-700 text-sm font-medium">
@@ -126,6 +127,7 @@ const Information = ({ nextStep, setFormData, formData }) => {
             value={values.address}
             onChange={handleChange}
             placeholder={"Enter Your Website"}
+            
           />
         </div>
         <div className="flex items-center mb-3 gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">

@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { ErrorToast } from "../toaster/ToasterContainer";
 import axios from "../../axios";
 
-
 const Resume = ({ formData }) => {
-
-
+  console.log(formData, "formData=:");
   return (
     <div className="bg-white w-[1200px]  mx-auto p-8 rounded-lg shadow-md ">
       {/* Header Section */}
@@ -17,7 +15,12 @@ const Resume = ({ formData }) => {
           {formData?.informationValues?.email}
 
           <span> {formData?.informationValues?.phoneNumber}</span>
-          <span> {formData?.informationValues?.address}</span>
+          <span className="cursor-pointer">
+            <a href={`${formData?.informationValues?.address}`}>
+              {" "}
+              {formData?.informationValues?.address}
+            </a>
+          </span>
         </p>
       </div>
 
@@ -45,10 +48,7 @@ const Resume = ({ formData }) => {
                   {edu?.startYear}
                 </p>
               </div>
-              <li
-                  
-                    className="text-[#000000] pl-1 leading-[10.59px] font-[400] text-[20px]  mt-3"
-                  >
+              <li className="text-[#000000] pl-1 leading-[10.59px] font-[400] text-[20px]  mt-3">
                 {edu.degree}
               </li>
             </div>
@@ -104,13 +104,19 @@ const Resume = ({ formData }) => {
             <p className="text-[22px] font-[500] text-[#0F0F0F]">
               Technical Skills
             </p>
-            <ul className="flex list-disc justify-between ml-6 mt-2">
-              <li className="font-[400] text-[20px] text-[#0F0F0F] leading-[16px]">
-                {formData?.skillsValues?.technicalSkills}
-              </li>
+            <ul className="flex list-disc gap-8 ml-6 mt-2">
+              {formData?.skillsValues?.technicalSkills.map((item, index) => (
+                <li
+                  key={index}
+                  className="font-[400] text-[20px] text-[#0F0F0F] leading-[16px]"
+                >
+                  {item}
+                </li>
+              ))}
             </ul>
           </div>
         )}
+
         <hr className="mt-5" />
       </section>
 

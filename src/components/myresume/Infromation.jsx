@@ -15,7 +15,7 @@ const Information = ({ nextStep, setFormData, formData }) => {
       validateOnBlur: true,
       onSubmit: (values) => {
         setFormData({ ...formData, informationValues: values });
-    
+
         nextStep();
       },
     });
@@ -55,6 +55,7 @@ const Information = ({ nextStep, setFormData, formData }) => {
             onChange={handleChange}
             placeholder={"Enter Your Name"}
             text={"Full Name"}
+            maxLength={30}
           />
           {errors.fullname && touched.fullname ? (
             <span className="text-red-700 text-sm font-medium">
@@ -71,6 +72,7 @@ const Information = ({ nextStep, setFormData, formData }) => {
             onChange={handleChange}
             placeholder={"Enter Your Email"}
             text={"Email Address"}
+            maxLength={30}
           />
           {errors.email && touched.email ? (
             <span className="text-red-700 text-sm font-medium">

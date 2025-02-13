@@ -52,7 +52,7 @@ const ResumeFile = ({ resume, loading, setLoading, setResume }) => {
           </>
         ) : (
           resume?.map((resumeData, index) => {
-            console.log(resumeData, "llkjlkkljlkj");
+          
             return (
               <div
                 key={index}

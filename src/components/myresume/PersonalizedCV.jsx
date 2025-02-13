@@ -1,7 +1,6 @@
 import React from "react";
 
 const PersonalizedCV = ({ resumeData, ref }) => {
- 
   return (
     <div>
       <div
@@ -14,7 +13,12 @@ const PersonalizedCV = ({ resumeData, ref }) => {
           <p className="mt-2 flex gap-4 justify-center text-[19.12px] text-[#000000] font-[500] ">
             <span> {resumeData?.email} </span>
             <span> {resumeData?.phone}</span>
-            <span> {resumeData?.address}</span>
+            <span className="cursor-pointer">
+              <a href={`${resumeData?.address}`} target="_blank">
+                {" "}
+                {resumeData?.address}
+              </a>
+            </span>
           </p>
         </div>
 
@@ -69,9 +73,9 @@ const PersonalizedCV = ({ resumeData, ref }) => {
                     {ctr?.certification_name}
                   </p>
                   <p className="text-[22.94px] text-[#101010] font-[600]">
-                    {ctr?.issue_date?.split("T")[0]} -{" "}
+                    {ctr?.issue_date?.split("T")[0].split("-")[0]} -{" "}
                     {ctr?.expiration_date
-                      ? ctr.expiration_date.split("T")[0]
+                      ? ctr.expiration_date?.split("T")[0].split("-")[0]
                       : "Present"}
                   </p>
                 </div>
@@ -144,8 +148,10 @@ const PersonalizedCV = ({ resumeData, ref }) => {
                   {exp?.company}
                 </p>
                 <p className="font-[600] leading-[22.94px] text-[#101010] text-[22.94px]">
-                  {exp?.start_date?.split("T")[0]} -{" "}
-                  {exp.end_date ? exp.end_date?.split("T")[0] : "Present"}
+                  {exp?.start_date?.split("T")[0].split("-")[0]} -{" "}
+                  {exp?.end_date
+                    ? exp.end_date?.split("T")[0].split("-")[0]
+                    : "Present"}
                 </p>
               </div>
               <p className="font-[500] text-[#0F0F0F]  leading-[29.7px] text-[22px]">
@@ -193,8 +199,8 @@ const PersonalizedCV = ({ resumeData, ref }) => {
                 <p className="font-[500] text-[#101010] text-[22px] leading-[29.7px]">
                   {honors.award_name}
                 </p>
-                <p className="text-[22px] font-[500] text-[#101010] leading-[29.7px] ">
-                  {honors?.date_Received?.split("T")[0]}
+                <p className="text-[22.94px] text-[#101010] font-[600]">
+                  {honors?.date_Received?.split("T")[0].split("-")[0]}
                 </p>
               </div>
             </div>

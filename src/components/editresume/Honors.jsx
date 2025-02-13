@@ -31,14 +31,12 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
 
   const updateData = async (data) => {
     if (data && Array.isArray(data)) {
-    
-
       formik.setValues({
         honorsList: data?.map((item) => ({
           awardName: item?.awardName || "",
           awardingOrganization: item?.awardingOrganization || "",
+          receivedmonth: item?.receivedmonth || "",
           receivedyear: item?.receivedyear || "",
-
           description: item?.description || "",
         })),
       });
@@ -61,7 +59,7 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
     }
     return years;
   };
-  
+
   return (
     <div className="pt-6 px-3">
       <div>
@@ -135,7 +133,11 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
                             label={"Date Received"}
                             id={`honorsList[${index}].receivedmonth`}
                             name={`honorsList[${index}].receivedmonth`}
-                            value={values.honorsList[index].receivedmonth}
+                            value={
+                              values.honorsList[index].receivedmonth
+                              ? values.honorsList[index].receivedmonth
+                              : ""
+                            }
                             onChange={handleChange}
                             onBlur={handleBlur}
                             options={[

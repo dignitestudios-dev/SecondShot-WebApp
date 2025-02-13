@@ -77,7 +77,7 @@ const EditRegistrationQuestion = () => {
                     />
                   </div> */}
                   <h1 className="text-[40px] font-[600] leading-[54px] text-center mb-2">
-                    Registration Questions
+                   Edit Registration Questions
                   </h1>
                   <p className="text-[#181818] leading-[21.6px] font-[400] text-center text-[16px]">
                     Please answer a few quick registration questions to help us

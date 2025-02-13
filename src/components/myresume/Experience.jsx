@@ -5,6 +5,7 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { experienceSchema } from "../../Schema/resumeSchema";
+import { getStartYearsArray, getYearsArray } from "../../pages/lib/helper";
 
 const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
   const [customErrors, setCustomErrors] = useState({});
@@ -14,10 +15,12 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
     values.experienceList.forEach((experience, index) => {
       if (!experience.isCurrent) {
         if (!experience.endmonth) {
-          errors[`experienceList[${index}].endmonth`] = "Please select a end month";
+          errors[`experienceList[${index}].endmonth`] =
+            "Please select a end month";
         }
         if (!experience.endyear) {
-          errors[`experienceList[${index}].endyear`] = "Please select a end month";
+          errors[`experienceList[${index}].endyear`] =
+            "Please select a end month";
         }
       }
     });
@@ -33,7 +36,7 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
     onSubmit: (values) => {
       setFormData({ ...formData, experienceList: values?.experienceList });
       setCustomErrors({});
- 
+
       nextStep();
     },
   });
@@ -81,16 +84,8 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
       formik.setFieldValue(`experienceList[${index}].description`, newValue);
     }
   };
-  const getYearsArray = () => {
-    const startYear = 1990;
-    const currentYear = new Date().getFullYear();
-    const years = [];
+  
 
-    for (let year = startYear; year <= currentYear; year++) {
-      years.push({ value: `${year}`, label: `${year}` });
-    }
-    return years;
-  };
   return (
     <div className="pt-6 px-3">
       <div>
@@ -128,6 +123,7 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
                         onBlur={handleBlur}
                         placeholder={"Enter Job Title"}
                         text={"Job Title"}
+                        maxLength={30}
                       />
                       {errors.experienceList?.[index]?.jobTitle &&
                         touched.experienceList?.[index]?.jobTitle && (
@@ -145,6 +141,7 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
                         onBlur={handleBlur}
                         placeholder={"Enter Company Name"}
                         text={"Company"}
+                        maxLength={30}
                       />
                       {errors.experienceList?.[index]?.company &&
                         touched.experienceList?.[index]?.company && (
@@ -164,6 +161,8 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
                           onBlur={handleBlur}
                           label={"Start date"}
                           options={[
+                            { value: "", label: "Select Month" },
+
                             { value: "January", label: "January" },
                             { value: "February", label: "February" },
                             { value: "March", label: "March" },
@@ -192,8 +191,7 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
                           value={values.experienceList[index].startyear}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          options={getYearsArray()}
-
+                          options={getStartYearsArray(1990)}
                         />
                         {errors.experienceList?.[index]?.startyear &&
                           touched.experienceList?.[index]?.startyear && (
@@ -255,7 +253,6 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
                       </div>
                     </div>
 
-                 
                     {!values.experienceList[index].isCurrent && (
                       <div className="w-full flex gap-4 mt-4">
                         <div className="w-1/2">
@@ -267,6 +264,7 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             options={[
+                              { value: "", label: "Select Month" },
                               { value: "January", label: "January" },
                               { value: "February", label: "February" },
                               { value: "March", label: "March" },
@@ -295,13 +293,14 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
                         </div>
                         <div className="w-1/2 mt-6">
                           <MonthsInput
-                            name={`experienceList[${index}].endyear`}
                             id={`experienceList[${index}].endyear`}
+                            name={`experienceList[${index}].endyear`}
                             value={values.experienceList[index].endyear}
                             onChange={handleChange}
-                            onBlur={handleBlur}
-                            options={getYearsArray()}
-
+                            options={getYearsArray(
+                              values.experienceList[index].startyear || 1990
+                            )}
+                            disabled={!values.experienceList[index].startyear}
                           />
                           {customErrors[`experienceList[${index}].endyear`] && (
                             <span className="text-red-700 text-sm font-medium">
@@ -322,6 +321,7 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
                         value={values.experienceList[index].description}
                         onChange={(e) => handleInput(e, index)}
                         onBlur={handleBlur}
+                        maxLength={300}
                       />
                       {errors.experienceList?.[index]?.description &&
                         touched.experienceList?.[index]?.description && (
