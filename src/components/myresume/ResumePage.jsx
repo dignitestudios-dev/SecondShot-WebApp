@@ -3,7 +3,22 @@ import { ErrorToast } from "../toaster/ToasterContainer";
 import axios from "../../axios";
 
 const Resume = ({ formData }) => {
-  console.log(formData, "formData=:");
+const phoneFormater = (input) => {
+    if (!input) return ""; // Return an empty string if input is undefined, null, or an empty string
+  
+    const cleaned = input.replace(/\D/g, ""); // Remove all non-numeric characters
+  
+    if (cleaned.length > 3 && cleaned.length <= 6) {
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
+    } else if (cleaned.length > 6) {
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+    } else if (cleaned.length > 0) {
+      return `(${cleaned}`;
+    }
+  
+    return cleaned; // Return cleaned number if less than 1 digit
+  };
+  
   return (
     <div className="bg-white w-[1200px]  mx-auto p-8 rounded-lg shadow-md ">
       {/* Header Section */}
@@ -14,7 +29,7 @@ const Resume = ({ formData }) => {
         <p className="mt-2 flex gap-4 justify-center text-[19.12px] text-[#000000] font-[500] ">
           {formData?.informationValues?.email}
 
-          <span> {formData?.informationValues?.phoneNumber}</span>
+          <span> {phoneFormater(formData?.informationValues?.phoneNumber)}</span>
           <span className="cursor-pointer">
             <a href={`${formData?.informationValues?.address}`}>
               {" "}

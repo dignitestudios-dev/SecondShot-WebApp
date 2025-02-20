@@ -1,6 +1,22 @@
 import React from "react";
 
 const PersonalizedCV = ({ resumeData, ref }) => {
+   const phoneFormater = (input) => {
+    if (!input) return ""; // Return an empty string if input is undefined, null, or an empty string
+  
+    const cleaned = input.replace(/\D/g, ""); // Remove all non-numeric characters
+  
+    if (cleaned.length > 3 && cleaned.length <= 6) {
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
+    } else if (cleaned.length > 6) {
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+    } else if (cleaned.length > 0) {
+      return `(${cleaned}`;
+    }
+  
+    return cleaned; // Return cleaned number if less than 1 digit
+  };
+  
   return (
     <div>
       <div
@@ -12,7 +28,7 @@ const PersonalizedCV = ({ resumeData, ref }) => {
           <h1 className="text-[45.88px] font-[600]">{resumeData?.full_name}</h1>
           <p className="mt-2 flex gap-4 justify-center text-[19.12px] text-[#000000] font-[500] ">
             <span> {resumeData?.email} </span>
-            <span> {resumeData?.phone}</span>
+            <span> {phoneFormater(resumeData?.phone)}</span>
             <span className="cursor-pointer">
               <a href={`${resumeData?.address}`} target="_blank">
                 {" "}

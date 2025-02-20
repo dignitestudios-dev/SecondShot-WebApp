@@ -14,6 +14,7 @@ import { profileValues } from "../../data/authentication";
 import { ModalContext } from "../../context/GlobalContext";
 import { AuthContext } from "../../context/AuthContext";
 import { data } from "../../components/dataStateCity/data";
+import { phoneFormater } from "../lib/helper";
 const EditProfileDetails = () => {
   const navigation = useNavigate();
   const location = useLocation();
@@ -84,8 +85,7 @@ const EditProfileDetails = () => {
       setFieldValue("profilePicture", file);
     }
   };
-  
-  
+
   return (
     <div className=" bg-transparent lg:h-screen h-full px-6 py-4">
       <form
@@ -182,29 +182,30 @@ const EditProfileDetails = () => {
           <div className=" mt-5">
             <PhoneInputs
               name="phoneNumber"
-              value={values.phoneNumber}
+              value={phoneFormater(values?.phoneNumber)}
               onChange={handleChange}
               isDisabled
             />
           </div>
           <div className="relative w-full mt-3 ">
-          <SelectInput
-  name="state"
-  id="state"
-  value={values?.state} 
-  onChange={(e) => {
-    handleChange(e);
-    values.city = "";  // Reset city when state changes
-  }}
-  options={[ 
-    { value: "", label: "--Select State--" },
-    ...Object.keys(data).sort().map((state) => ({
-      value: state,
-      label: state,
-    }))
-  ]}
-/>
-
+            <SelectInput
+              name="state"
+              id="state"
+              value={values?.state}
+              onChange={(e) => {
+                handleChange(e);
+                values.city = ""; // Reset city when state changes
+              }}
+              options={[
+                { value: "", label: "--Select State--" },
+                ...Object.keys(data)
+                  .sort()
+                  .map((state) => ({
+                    value: state,
+                    label: state,
+                  })),
+              ]}
+            />
 
             {errors.state && touched.state && (
               <span className="text-red-700 text-sm font-medium">
@@ -213,23 +214,23 @@ const EditProfileDetails = () => {
             )}
           </div>
           <div className="relative w-full mt-3">
-          <SelectInput
-  name="country"
-  id="country"
-  value={values.country}
-  onChange={(e) => {
-    handleChange(e);
-  }}
-  options={[ 
-    { value: "", label: "--Select City--" },
-    ...(Array.isArray(data[values.state]) 
-      ? data[values.state].sort().map((city) => ({
-          value: city,
-          label: city,
-        })) 
-      : []),
-  ]}
-/>
+            <SelectInput
+              name="country"
+              id="country"
+              value={values.country}
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              options={[
+                { value: "", label: "--Select City--" },
+                ...(Array.isArray(data[values.state])
+                  ? data[values.state].sort().map((city) => ({
+                      value: city,
+                      label: city,
+                    }))
+                  : []),
+              ]}
+            />
 
             {errors.country && touched.country ? (
               <span className="text-red-700 text-sm font-medium">

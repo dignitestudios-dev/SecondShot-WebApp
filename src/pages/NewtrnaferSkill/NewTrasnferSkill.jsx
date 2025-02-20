@@ -488,14 +488,30 @@ const NewTrasnferSkill = () => {
       <div className="flex justify-center h-[900px] items-center  ">
         <div className="absolute ">
           <div
-            className="relative text-[16px] leading-[16px] w-[20px] flex justify-center text-[#172E55] font-[600] bottom-[242px] cursor-pointer left-[13px] text-center z-10"
+            className="relative text-[16px] leading-[16px] w-[20px] flex justify-center text-[#172E55] font-[600] bottom-[242px] cursor-pointer left-[13px] text-center z-10 group"
             onClick={handleTopSKill}
           >
-            {getSkill?.favorite_hobby1?.hobbie_name.length > 7
-              ? getSkill.favorite_hobby1.hobbie_name.substring(0, 7) + "..."
-              : getSkill?.favorite_hobby1?.hobbie_name}
+            <span>
+              {getSkill?.favorite_hobby1?.hobbie_name?.length > 7
+                ? getSkill.favorite_hobby1.hobbie_name.substring(0, 7) + "..."
+                : getSkill?.favorite_hobby1?.hobbie_name}
+            </span>
+            <div
+              className="absolute -top-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center 
+            opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 
+            transition-all duration-300 ease-in-out "
+            >
+              <div
+                className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3 
+            w-max max-w-[250px] relative z-10 text-center"
+              >
+                {getSkill?.favorite_hobby1?.hobbie_name}
+              </div>
+              <div className="w-3 h-3 bg-[#172E55] relative z-0 -top-2 rotate-45 -mb-10"></div>
+            </div>
           </div>
         </div>
+
         <div className="flex justify-center absolute ">
           <img
             src={Centerpro}
@@ -526,36 +542,52 @@ const NewTrasnferSkill = () => {
                  transition-all duration-300 ease-in-out"
             >
               <div
-                className="bg-green-500 text-white text-md font-medium rounded-lg shadow-lg py-2 px-3 
+                className="bg-[#172E55]   text-white text-md font-medium rounded-lg shadow-lg py-2 px-3 
                       w-max max-w-[250px] text-center"
               >
                 {getSkill?.favorite_hobby2?.hobbie_name}
               </div>
-              <div className="w-3 h-3 bg-green-500 relative -top-2 rotate-45 -mb-10"></div>
+              <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
             </div>
           </div>
         </div>
 
-        <div className="absolute ">
+        <div className="absolute">
           <div
-            className="relative text-[16px] leading-[16px]  w-[80px] h-[80px] bg-transparent items-center flex justify-center text-[#172E55] font-[600] cursor-pointer z-10 top-[-47px] left-[251px] text-center"
+            className="relative text-[16px] leading-[16px] w-[80px] h-[80px] bg-transparent items-center flex justify-center text-[#172E55] font-[600] cursor-pointer z-10 top-[-47px] left-[251px] text-center group"
             onClick={handleRightSKill}
           >
-            <span className=" w-[20px]">
-              {getSkill?.favorite_middle_school_subject?.subject_name.length > 7
+            <span className="w-[20px]">
+              {getSkill?.favorite_middle_school_subject?.subject_name?.length >
+              7
                 ? getSkill?.favorite_middle_school_subject?.subject_name.substring(
                     0,
                     7
                   ) + "..."
                 : getSkill?.favorite_middle_school_subject?.subject_name}
             </span>
+            {/* Tooltip */}
+            <div
+              className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center
+        opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+        transition-all duration-300 ease-in-out"
+            >
+              <div
+                className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+          w-max max-w-[250px] text-center"
+              >
+                {getSkill?.favorite_middle_school_subject?.subject_name}
+              </div>
+              <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
+            </div>
           </div>
         </div>
+
         <div className="absolute  ">
           <div
             className={`relative text-[16px] leading-[16px] w-[80px] h-[80px] bg-transparent 
               items-center flex justify-center text-[#172E55] font-[600] 
-              cursor-pointer z-10 top-[305px] text-center 
+              cursor-pointer z-10 top-[305px] text-center  group
               ${
                 !getSkill?.military?.rank?.rank_name
                   ? "right-[195px]"
@@ -568,9 +600,22 @@ const NewTrasnferSkill = () => {
                 ? getSkill?.military?.rank?.rank_name.substring(0, 7) + "..."
                 : getSkill?.military?.rank?.rank_name || "Null"}
             </span>
+            <div
+              className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center
+        opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+        transition-all duration-300 ease-in-out"
+            >
+              <div
+                className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+          w-max max-w-[250px] text-center"
+              >
+                {getSkill?.military?.rank?.rank_name}
+              </div>
+              <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
+            </div>
           </div>
           <div
-            className="relative text-[16px] leading-[16px]  w-[100px] h-[80px] bg-transparent rounded-full items-center flex justify-center text-[#172E55] font-[600] cursor-pointer   z-10 top-[224px] left-[203px] text-center"
+            className="relative text-[16px] leading-[16px]  w-[100px] h-[80px] bg-transparent rounded-full items-center flex justify-center text-[#172E55] font-[600] cursor-pointer   z-10 top-[224px] left-[203px] text-center group"
             onClick={handlebottomright}
           >
             <span className=" w-full text-center">
@@ -582,6 +627,19 @@ const NewTrasnferSkill = () => {
                 : getSkill?.athlete?.sport_position?.position_name ||
                   "Null"}{" "}
             </span>
+            <div
+              className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center
+        opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+        transition-all duration-300 ease-in-out"
+            >
+              <div
+                className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+          w-max max-w-[250px] text-center"
+              >
+                {getSkill?.athlete?.sport_position?.position_name}
+              </div>
+              <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -597,58 +655,72 @@ const NewTrasnferSkill = () => {
             {getSkill?.favorite_hobby2?.topics.map((item, index) => (
               <div key={index}>
                 {index === 0 && (
-                  <button
-                    onBlur={() => setAppear(false)}
-                    className="relative top-[140px]  cursor-pointer left-[110px]"
-                    onClick={() => {
-                      setAppear(true);
-                      setSelecetedIndex(0);
-                      setNoteData({
-                        favorite_hobby2: {
-                          favorite_hobbyId: getSkill?.favorite_hobby2?._id,
-                          descriptionId: item._id,
-                        },
-                      });
-                      setNoteDescription(item?.description);
-                    }}
+                <button
+                onBlur={() => setAppear(false)}
+                className="relative top-[140px] cursor-pointer left-[110px] group" // Added 'group' class for hover functionality
+                onClick={() => {
+                  setAppear(true);
+                  setSelecetedIndex(0);
+                  setNoteData({
+                    favorite_hobby2: {
+                      favorite_hobbyId: getSkill?.favorite_hobby2?._id,
+                      descriptionId: item._id,
+                    },
+                  });
+                  setNoteDescription(item?.description);
+                }}
+              >
+                {item?.title.length > 8
+                  ? item?.title.substring(0, 8) + "..."
+                  : item?.title}
+                  
+                {/* Tooltip */}
+                <div
+                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
-                    <span
-                      className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
-                        appear && selectedIndex == 0 ? "scale-100" : "scale-0"
-                      } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
-                    >
-                      <span className="w-[20%] h-full flex  items-start">
-                        {loading ? (
-                          <span className="animate-pulse text-green-500">
-                            <BsFillBookmarkStarFill size={"27px"} />
-                          </span>
-                        ) : (
-                          <BsFillBookmarkStarFill
-                            size={"27px"}
-                            onClick={() =>
-                              handleLike(noteData, item?.is_favorite)
-                            }
-                            className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite
-                                ? "text-green-500"
-                                : "text-gray-500"
-                            }`}
-                          />
-                        )}
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
+              
+                {/* Note description */}
+                <span
+                  className={`w-[388px] flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
+                    appear && selectedIndex == 0 ? "scale-100" : "scale-0"
+                  } zIndex rounded-2xl bg-[#D4FFC2] p-4 justify-between items-start`}
+                >
+                  <span className="w-[20%] h-full flex items-start">
+                    {loading ? (
+                      <span className="animate-pulse text-green-500">
+                        <BsFillBookmarkStarFill size={"27px"} />
                       </span>
-                      <span className=" h-full text-md font-medium text-gray-800">
-                        {item?.description}
-                      </span>
-                    </span>
-                  </button>
+                    ) : (
+                      <BsFillBookmarkStarFill
+                        size={"27px"}
+                        onClick={() => handleLike(noteData, item?.is_favorite)}
+                        className={`transition duration-200 cursor-pointer ${
+                          item?.is_favorite ? "text-green-500" : "text-gray-500"
+                        }`}
+                      />
+                    )}
+                  </span>
+                  <span className="h-full text-md font-medium text-gray-800">
+                    {item?.description}
+                  </span>
+                </span>
+              </button>
+              
                 )}
                 {index === 1 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative top-[100px] cursor-pointer left-[285px]   "
+                    className="relative top-[100px] cursor-pointer left-[285px] group  "
                     onClick={() => {
                       setAppear(true);
                       setSelecetedIndex(1);
@@ -664,6 +736,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                       <div
+                  className="absolute -top-14 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 1 ? "scale-100" : "scale-0"
@@ -697,7 +782,7 @@ const NewTrasnferSkill = () => {
                 {index === 2 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative top-[305px] cursor-pointer left-[145px] "
+                    className="relative top-[305px] cursor-pointer left-[145px] group "
                     onClick={() => {
                       setAppear(true);
                       setSelecetedIndex(2);
@@ -713,6 +798,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                       <div
+                  className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 2 ? "scale-100" : "scale-0"
@@ -746,7 +844,7 @@ const NewTrasnferSkill = () => {
                 {index === 3 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative top-[425px]   cursor-pointer left-[69px] "
+                    className="relative top-[425px]   cursor-pointer left-[69px] group "
                     onClick={() => {
                       setAppear(true);
                       setSelecetedIndex(3);
@@ -762,6 +860,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                       <div
+                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 3 ? "scale-100" : "scale-0"
@@ -795,7 +906,7 @@ const NewTrasnferSkill = () => {
                 {index === 4 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative top-[485px] w-[40px] cursor-pointer flex justify-center text-center left-[200px] "
+                    className="relative top-[495px] text-nowrap w-[40px] cursor-pointer flex justify-center text-center left-[200px] group "
                     onClick={() => {
                       setAppear(true);
                       setSelecetedIndex(4);
@@ -811,6 +922,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                       <div
+                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 4 ? "scale-100" : "scale-0"
@@ -862,7 +986,7 @@ const NewTrasnferSkill = () => {
                   {index === 0 && (
                     <button
                       onBlur={() => setAppear(false)}
-                      className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center top-[90px] -right-[100px]"
+                      className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center top-[90px] -right-[100px] group"
                       onClick={() => {
                         setAppear(true);
                         setSelecetedIndex(0);
@@ -879,6 +1003,19 @@ const NewTrasnferSkill = () => {
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
+                         <div
+                  className="absolute -top-5 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                       <span
                         className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0  z-10 ${
                           appear && selectedIndex == 0 ? "scale-100" : "scale-0"
@@ -913,7 +1050,7 @@ const NewTrasnferSkill = () => {
                   {index === 1 && (
                     <button
                       onBlur={() => setAppear(false)}
-                      className="relative cursor-pointer top-[60px] left-[330px] w-[50px]"
+                      className="relative cursor-pointer top-[60px] left-[315px] w-[50px] group"
                       onClick={() => {
                         setAppear(true);
                         setSelecetedIndex(1);
@@ -930,6 +1067,19 @@ const NewTrasnferSkill = () => {
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
+                         <div
+                  className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                       <span
                         className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0  z-10 ${
                           appear && selectedIndex == 1 ? "scale-100" : "scale-0"
@@ -964,7 +1114,7 @@ const NewTrasnferSkill = () => {
                   {index === 2 && (
                     <button
                       onBlur={() => setAppear(false)}
-                      className="relative cursor-pointer top-[245px] left-[255px] w-[50px]"
+                      className="relative cursor-pointer top-[245px] left-[245px] w-[50px] group"
                       onClick={() => {
                         setAppear(true);
                         setSelecetedIndex(2);
@@ -981,6 +1131,19 @@ const NewTrasnferSkill = () => {
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
+                         <div
+                  className="absolute -top-12 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                       <span
                         className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0  z-10 ${
                           appear && selectedIndex == 2 ? "scale-100" : "scale-0"
@@ -1015,7 +1178,7 @@ const NewTrasnferSkill = () => {
                   {index === 3 && (
                     <button
                       onBlur={() => setAppear(false)}
-                      className="relative cursor-pointer top-[395px] left-[325px] w-[50px]"
+                      className="relative cursor-pointer top-[395px] left-[315px] w-[50px] group"
                       onClick={() => {
                         setAppear(true);
                         setSelecetedIndex(3);
@@ -1032,6 +1195,19 @@ const NewTrasnferSkill = () => {
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
+                         <div
+                  className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                       <span
                         className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0  z-10 ${
                           appear && selectedIndex == 3 ? "scale-100" : "scale-0"
@@ -1066,7 +1242,7 @@ const NewTrasnferSkill = () => {
                   {index === 4 && (
                     <button
                       onBlur={() => setAppear(false)}
-                      className="relative cursor-pointer top-[465px] left-[205px]"
+                      className="relative cursor-pointer top-[465px] left-[200px] group"
                       onClick={() => {
                         setAppear(true);
                         setSelecetedIndex(4);
@@ -1083,6 +1259,19 @@ const NewTrasnferSkill = () => {
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
+                         <div
+                  className="absolute -top-12 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                       <span
                         className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0  z-10 ${
                           appear && selectedIndex == 4 ? "scale-100" : "scale-0"
@@ -1134,7 +1323,7 @@ const NewTrasnferSkill = () => {
                 {index === 0 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative cursor-pointer top-[135px] flex justify-center left-[155px] "
+                    className="relative cursor-pointer top-[135px] flex justify-center left-[155px]  group"
                     onClick={() => {
                       setAppear(true);
                       setSelecetedIndex(0);
@@ -1150,6 +1339,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                       <div
+                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 0 ? "scale-100" : "scale-0"
@@ -1184,7 +1386,7 @@ const NewTrasnferSkill = () => {
                 {index === 1 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative cursor-pointer top-[300px] flex justify-center left-[120px] "
+                    className="relative cursor-pointer top-[300px] flex justify-center left-[120px] group"
                     onClick={() => {
                       setAppear(true);
                       setSelecetedIndex(1);
@@ -1200,6 +1402,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                       <div
+                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 1 ? "scale-100" : "scale-0"
@@ -1234,7 +1449,7 @@ const NewTrasnferSkill = () => {
                 {index === 2 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative cursor-pointer top-[300px] flex justify-center left-[315px] "
+                    className="relative cursor-pointer top-[300px] flex justify-center left-[315px] group "
                     onClick={() => {
                       setAppear(true);
                       setSelecetedIndex(2);
@@ -1250,6 +1465,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                       <div
+                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 2 ? "scale-100" : "scale-0"
@@ -1284,7 +1512,7 @@ const NewTrasnferSkill = () => {
                 {index === 3 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative cursor-pointer top-[440px] flex justify-center left-[435px] "
+                    className="relative cursor-pointer top-[440px] flex justify-center left-[435px] group "
                     onClick={() => {
                       setAppear(true);
                       setSelecetedIndex(3);
@@ -1300,6 +1528,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                       <div
+                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 3 ? "scale-100" : "scale-0"
@@ -1334,7 +1575,7 @@ const NewTrasnferSkill = () => {
                 {index === 4 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative cursor-pointer top-[315px] flex justify-center left-[598px] "
+                    className="relative cursor-pointer top-[315px] flex justify-center left-[598px]  group"
                     onClick={() => {
                       setAppear(true);
                       setSelecetedIndex(4);
@@ -1350,6 +1591,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                       <div
+                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 4 ? "scale-100" : "scale-0"
@@ -1400,7 +1654,7 @@ const NewTrasnferSkill = () => {
                 {index === 0 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative cursor-pointer top-[110px] left-[580px]  flex justify-center text-center"
+                    className="relative cursor-pointer top-[110px] left-[570px]  flex justify-center text-center group"
                     onClick={() => {
                       setAppear(true);
                       setSelecetedIndex(0);
@@ -1416,6 +1670,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                       <div
+                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 z-10 ${
                         appear && selectedIndex == 0 ? "scale-100" : "scale-0"
@@ -1449,7 +1716,7 @@ const NewTrasnferSkill = () => {
                 {index === 1 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative cursor-pointer top-[350px] left-[140px] flex justify-center text-center "
+                    className="relative cursor-pointer top-[350px] left-[125px] flex justify-center text-center group "
                     onClick={() => {
                       setAppear(true);
                       setSelecetedIndex(1);
@@ -1466,6 +1733,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                       <div
+                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 z-10 ${
                         appear && selectedIndex == 1 ? "scale-100" : "scale-0"
@@ -1498,7 +1778,7 @@ const NewTrasnferSkill = () => {
                 )}
                 {index === 2 && (
                   <button
-                    className="relative cursor-pointer top-[275px] left-[410px] flex justify-center text-center"
+                    className="relative cursor-pointer top-[275px] left-[410px] flex justify-center text-center group"
                     onBlur={() => setAppear(false)}
                     onClick={() => {
                       setAppear(true);
@@ -1515,6 +1795,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                       <div
+                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 z-10 ${
                         appear && selectedIndex == 2 ? "scale-100" : "scale-0"
@@ -1548,7 +1841,7 @@ const NewTrasnferSkill = () => {
                 {index === 3 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative cursor-pointer top-[430px] left-[305px]  flex justify-center text-center"
+                    className="relative cursor-pointer top-[430px] left-[305px]  flex justify-center text-center group"
                     onClick={() => {
                       setAppear(true);
                       setSelecetedIndex(3);
@@ -1564,6 +1857,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                       <div
+                  className="absolute -top-12 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 z-10 ${
                         appear && selectedIndex == 3 ? "scale-100" : "scale-0"
@@ -1597,7 +1903,7 @@ const NewTrasnferSkill = () => {
                 {index === 4 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative cursor-pointer top-[240px] left-[643px] flex justify-center text-center"
+                    className="relative cursor-pointer top-[240px] left-[633px] flex justify-center text-center group"
                     onClick={() => {
                       setAppear(true);
                       setSelecetedIndex(4);
@@ -1614,6 +1920,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                       <div
+                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                >
+                  <div
+                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                  >
+                    {item?.title}
+                  </div>
+                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 z-10 ${
                         appear && selectedIndex == 4 ? "scale-100" : "scale-0"

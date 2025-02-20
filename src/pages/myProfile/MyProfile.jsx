@@ -113,6 +113,22 @@ function MyProfile() {
       setLoading(false);
     }
   };
+   const phoneFormater = (input) => {
+    if (!input) return ""; // Return an empty string if input is undefined, null, or an empty string
+  
+    const cleaned = input.replace(/\D/g, ""); // Remove all non-numeric characters
+  
+    if (cleaned.length > 3 && cleaned.length <= 6) {
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
+    } else if (cleaned.length > 6) {
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+    } else if (cleaned.length > 0) {
+      return `(${cleaned}`;
+    }
+  
+    return cleaned; // Return cleaned number if less than 1 digit
+  };
+  
 
   return (
     <div className="">
@@ -192,7 +208,7 @@ function MyProfile() {
                       </div>
                       <div className="ml-auto text-right">
                         <p className="text-[#050405] text-[16px] ">
-                          {profileData?.phone}
+                         {phoneFormater(profileData?.phone)}
                         </p>
                         <p className="text-[#050405] text-[16px] mb-3">
                           {profileData?.state}, {profileData?.city}
