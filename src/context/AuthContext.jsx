@@ -8,12 +8,11 @@ const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [profilepic, setProfilepic] = useState("");
 
-  //   const [user, setUser] = useState({
-  //     name: Cookies.get("name") || "",
-  //     email: Cookies.get("email") || "",
-  //     phone: Cookies.get("phone") || "",
-  //     idToken: Cookies.get("idToken") || "",
-  //   });
+  const [user, setUser] = useState({
+    name: Cookies.get("name") || "",
+    email: Cookies.get("email") || "",
+    phone: Cookies.get("phone") || "",
+  });
 
   const [token, setToken] = useState(Cookies.get("token"));
   const [regQuestion, setRegQuestion] = useState(Cookies.get("regQuestion"));
@@ -25,11 +24,20 @@ const AuthProvider = ({ children }) => {
     Cookies.set("token", userData?.token);
     Cookies.set("subscriptionpaid", userData?.is_subscription_paid);
     Cookies.set("regQuestion", userData.is_registration_question_completed);
+    Cookies.set("name", userData?.name);
+    Cookies.set("email", userData?.email);
+    Cookies.set("phone", userData?.phone);
     setToken(userData?.token);
     setRegQuestion(userData?.is_registration_question_completed);
     setSubscriptionpaid(userData?.is_subscription_paid);
+    setUser({
+      name: userData?.name,
+      email: userData?.email,
+      phone: userData?.phone,
+    });
   };
 
+  console.log(user, "userData?.name");
   const getProfile = async () => {
     try {
       const response = await axios.get("/api/user/my-profile");
@@ -70,6 +78,7 @@ const AuthProvider = ({ children }) => {
     profileCompleted,
     registrationQuestion,
     getProfile,
+    user
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -52,9 +52,11 @@ function ReviewYourGoalOld() {
     // navigate("/goal-detail");
   };
 
+  const [shareModal, setShareModal] = useState(false);
   const [showCardModal, setShowCardModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
   const [showModalsupport, setShowModalsupport] = useState(false);
+  const [supportPeopleAdded, setSupportPeopleAdded] = useState(false);
 
   const handleCardModal = () => {
     setShowCardModal(!showCardModal);
@@ -88,18 +90,16 @@ function ReviewYourGoalOld() {
         main_goal_name: goaldata.main_goal_name,
         deadline: goaldata.startDate,
         sub_goals: goaldata.sub_goals,
-        support_people: formattedSupportPeople,
+        support_people: supportPeopleAdded ? formattedSupportPeople : [],
       });
 
       if (response.status === 201) {
         SuccessToast("Goal Created Successfully");
 
-        // Ensure that the goal ID is coming through properly from the response
-        const goalid = response?.data?.data?._id; // Access _id properly from the response
+        const goalid = response?.data?.data?._id;
 
         console.log("Goal ID:", goalid);
         if (goalid) {
-          // Now navigate to the goal detail page
           navigate(`/goal-detail/${goalid}`);
         } else {
           console.log("Goal ID is missing in the response");
@@ -114,7 +114,7 @@ function ReviewYourGoalOld() {
       setLoader(false);
     }
   };
-
+  const [date, setDate] = useState(new Date());
   return (
     <div className="">
       <div className="">
@@ -143,7 +143,7 @@ function ReviewYourGoalOld() {
                 <AuthSubmitBtn
                   text={"Finalize Goal"}
                   handleSubmit={() => {
-                    setShowModalsupport(true);
+                    setShareModal(true);
                     setIsUpdate(false);
                   }}
                 />
@@ -165,13 +165,19 @@ function ReviewYourGoalOld() {
                   <div className="flex space-x-2 mt-2">
                     <p>Deadline for Main goals:</p>
                     <p className="font-semibold text-blue-600 mb-4">
+                    {new Date(date).toLocaleDateString("en-US", {
+                            year: "2-digit",
+                            month: "2-digit",
+                            day: "2-digit",
+                          })}
+                          {'-'}
                       {goaldata?.startDate
                         ? new Date(goaldata.startDate).toLocaleDateString(
                             "en-US",
                             {
-                              year: "numeric",
-                              month: "short",
-                              day: "numeric",
+                              year: "2-digit",
+                              month: "2-digit",
+                              day: "2-digit",
                             }
                           )
                         : "No date selected"}
@@ -179,18 +185,18 @@ function ReviewYourGoalOld() {
                   </div>
                 </p>
 
-                <button className="absolute top-4 right-4 p-2 w-10 h-10 bg-[#012C57] text-white rounded-md">
+                {/* <button className="absolute top-4 right-4 p-2 w-10 h-10 bg-[#012C57] text-white rounded-md">
                   <PiPencilLine size={24} />
-                </button>
+                </button> */}
                 {goaldata?.sub_goals.map((item, index) => (
                   <div className="mt-6">
                     <div className="flex justify-between items-center">
                       <h2 className="text-xl font-semibold mb-4">
                         Sub-Goals Details
                       </h2>
-                      <button className="p-2 w-10 h-10 text-xl bg-[#012C57] text-white hover:text-gray-700 rounded-md">
+                      {/* <button className="p-2 w-10 h-10 text-xl bg-[#012C57] text-white hover:text-gray-700 rounded-md">
                         <PiPencilLine size={24} />
-                      </button>
+                      </button> */}
                     </div>
                     <div className="space-y-6">
                       <div key={index} className="">
@@ -209,14 +215,19 @@ function ReviewYourGoalOld() {
                       <div className="flex space-x- text-[14px] 2 mt-2">
                         <p>Deadline for Sub-goals:</p>{" "}
                         <p className="font-semibold mx-3 text-blue-600 mb-4">
-                          Jan/23/2024 -{" "}
+                          {new Date(date).toLocaleDateString("en-US", {
+                            year: "2-digit",
+                            month: "2-digit",
+                            day: "2-digit",
+                          })}
+                          {'-'}
                           {item?.deadline
                             ? new Date(item.deadline).toLocaleDateString(
                                 "en-US",
                                 {
-                                  year: "numeric",
-                                  month: "short",
-                                  day: "numeric",
+                                  year: "2-digit",
+                                  month: "2-digit",
+                                  day: "2-digit",
                                 }
                               )
                             : "No date selected"}
@@ -253,8 +264,20 @@ function ReviewYourGoalOld() {
         errors={errors}
         setErrors={setErrors}
         isUpdate={false}
+        setSupportPeopleAdded={setSupportPeopleAdded}
       />
-      <GoalCreatedModal
+      <GoalCompletedModal
+        showModal={shareModal}
+        loader={loader}
+        handlecreategoal={handlecreategoal}
+        setShowModalsupport={setShowModalsupport}
+        onclick={() => setShareModal(false)}
+        handleClick={() => {
+          setShareModal(false); // Close the current modal
+          setShowModalsupport(true); // Open the Add Support Modal
+        }}
+      />
+      {/* <GoalCreatedModal
         showModal={successModal}
         handleClick={() => navigate("/goal-detail")}
         onclick={() => setSuccessModal(false)}
@@ -262,7 +285,7 @@ function ReviewYourGoalOld() {
         para={
           "  Your goal has been successfully created. You can now monitor your progress and take the necessary steps to achieve it. Stay committed to your objectives and continue striving for success.If you have any questions, contact help@yoursecondshot.com"
         }
-      />
+      /> */}
     </div>
   );
 }

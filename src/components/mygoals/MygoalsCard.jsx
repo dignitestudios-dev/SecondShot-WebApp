@@ -13,7 +13,7 @@ const MygoalsCard = ({ goaldetail, loading }) => {
       case "Not Started yet":
         return "bg-[#f0340040]";
       case "In Progress":
-        return "text-[#F0C000]";
+        return "bg-[#F0C00042]";
       default:
         return "text-[#F0C000]";
     }
@@ -25,7 +25,7 @@ const MygoalsCard = ({ goaldetail, loading }) => {
       case "Not Started yet":
         return "text-[#f01800]";
       case "In Progress":
-        return "bg-[#F0C00042]";
+        return "text-[#F0C000]";
       default:
         return "bg-[#FFFFFF]";
     }
@@ -48,16 +48,16 @@ const MygoalsCard = ({ goaldetail, loading }) => {
               >
                 <div
                   className={`p-6 rounded-[22px]  relative ${getBgCardColor(
-                    item.status
+                    item?.status
                   )}`}
                 >
                   <div className="flex justify-between items-center mb-4">
                     <span
                       className={`leading-[39px] h-[39px] w-[120px] text-center rounded-full text-[14px] font-[500] bg-white ${gettextCardColor(
-                        item?.badgeColor
+                        item?.status
                       )}`}
                     >
-                      {item.status}
+                      {item?.status}
                     </span>
                     {/* <div className="bg-white w-[32px] h-[32px] flex justify-center items-center  rounded-[25px] cursor-pointer">
                   <img src={Dotedimg} className="w-[18px]  " alt="" />
@@ -67,7 +67,7 @@ const MygoalsCard = ({ goaldetail, loading }) => {
                 {item.heading}
               </h3> */}
                   <p className="text-md text-gray-600 font-[500] mb-4">
-                    {item.main_goal_name}
+                    {item?.main_goal_name}
                   </p>
                   {/* <div className="grid grid-cols-3 gap-2 mb-4">
                 {item?.tags?.map((tag, index) => (

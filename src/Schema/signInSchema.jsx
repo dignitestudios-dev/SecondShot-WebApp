@@ -1,9 +1,23 @@
 import * as Yup from "yup";
 
 export const signInSchema = Yup.object({
-  email: Yup.string()
-    .email("Email must be valid.")
-    .required("Please enter your email"),
+   email: Yup.string()
+     .test(
+       "email-at-symbol",
+       "Email address must contain '@' symbol.",
+       (value) => {
+         return value && value.includes("@");
+       }
+     )
+     .test(
+       "email-single-at",
+       "Email address must contain only one '@' symbol.",
+       (value) => {
+         return value && value.indexOf("@") === value.lastIndexOf("@");
+       }
+     )
+     .email("Email must be valid.")
+     .required("Please enter your email"),
 
   password: Yup.string()
   .required("Please enter your password"),

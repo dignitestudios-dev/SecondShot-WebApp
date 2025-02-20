@@ -8,6 +8,19 @@ import RecommendatioBtn from "../careerrecommendation/RecommendatioBtn";
 const StepNine = ({ nextStep, prevStep, formData, setFormData }) => {
   const validationSchema = Yup.object({
     jobValue: Yup.string().required("Please select an option to proceed."),
+
+    jobTitle: Yup.string().test(
+      "job-title-validation", // Custom test name
+      "Please provide the job title of your most recent position.", // Custom error message
+      function (value) {
+        const { jobValue } = this.parent; // Access other fields (e.g., jobValue)
+        // If jobValue is "Yes", jobTitle is required
+        if (jobValue === "Yes" && (!value || value.trim() === "")) {
+          return false; // Fails validation if jobTitle is empty
+        }
+        return true; // Passes validation otherwise
+      }
+    ),
   });
 
   const handleJobValue = (value, setFieldValue, setFieldTouched) => {
@@ -26,7 +39,7 @@ const StepNine = ({ nextStep, prevStep, formData, setFormData }) => {
     <Formik
       initialValues={formData}
       validationSchema={validationSchema}
-      onSubmit={()=>nextStep()}
+      onSubmit={() => nextStep()}
     >
       {({ errors, touched, setFieldValue, setFieldTouched }) => (
         <Form>
@@ -35,27 +48,25 @@ const StepNine = ({ nextStep, prevStep, formData, setFormData }) => {
               className="block text-sm font-medium mb-2"
               htmlFor="jobValue"
             >
-          Do you have prior work experience?
-  
+              Do you have prior work experience?
             </label>
             <RecommendatioBtn
-                handleBtnSelect={handleJobValue}
-                touched={touched}
-                errors={errors}
-                setFieldValue={setFieldValue}
-                setFieldTouched={setFieldTouched}
-                formData={formData?.jobValue}
-                optionOne={"Yes"}
-                optionTwo={"No"}
-              />
-             <ErrorMessage
-                name="jobValue"
-                component="div"
-                className="text-red-500 text-xs italic "
-              />
-            
+              handleBtnSelect={handleJobValue}
+              touched={touched}
+              errors={errors}
+              setFieldValue={setFieldValue}
+              setFieldTouched={setFieldTouched}
+              formData={formData?.jobValue}
+              optionOne={"Yes"}
+              optionTwo={"No"}
+            />
+            <ErrorMessage
+              name="jobValue"
+              component="div"
+              className="text-red-500 text-xs italic "
+            />
           </div>
-          {formData.jobValue === "Yes" && (
+          {formData?.jobValue === "Yes" && (
             <div>
               <label
                 className="block text-sm font-medium mb-2"
@@ -64,7 +75,6 @@ const StepNine = ({ nextStep, prevStep, formData, setFormData }) => {
                 Please provide the job title of your most recent position.
               </label>
               <Field
-                // as="textarea"
                 placeholder="Enter your job title"
                 id="jobTitle"
                 name="jobTitle"

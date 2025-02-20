@@ -12,13 +12,11 @@ const StepThree = ({ nextStep, prevStep, formData, setFormData }) => {
   const [tagsError, setTagsError] = useState(false);
   const [ageValue, SetageValue] = useState("");
 
- 
   const handleAgeValue = (value, setFieldValue, setFieldTouched) => {
     setFieldTouched("ageValue", true);
     setFieldValue("ageValue", value);
     setFormData({ ...formData, ageValue: value });
     SetageValue(value);
-  
   };
   const handleSubmit = (values) => {
     if (values?.ageValue === "No") {
@@ -65,7 +63,17 @@ const StepThree = ({ nextStep, prevStep, formData, setFormData }) => {
             </div>
           </div>
           <div className="mt-4">
-            <BackBtn handleClick={() => prevStep(true)} />
+            <BackBtn
+              handleClick={() =>
+                prevStep(
+                  formData?.university === "College" ||
+                    formData?.university === "early" ||
+                    formData?.university === "career"
+                    ? false
+                    : true
+                )
+              }
+            />
           </div>
         </Form>
       )}

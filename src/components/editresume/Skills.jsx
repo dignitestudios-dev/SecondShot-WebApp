@@ -3,7 +3,7 @@ import AuthInput from "../onboarding/AuthInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import { useFormik } from "formik";
-import { skillsSchema } from "../../Schema/resumeSchema";
+
 import SkillsInputField from "../myresume/SkillsInputField";
 import axios from "../../axios";
 
@@ -24,7 +24,7 @@ const Skills = ({
     setFieldValue,
   } = useFormik({
     initialValues: formData.skillsValues,
-    validationSchema: skillsSchema,
+    // validationSchema: skillsSchema,
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values) => {
@@ -40,23 +40,13 @@ const Skills = ({
   });
   console.log(values.softskills, "values.softskills");
 
-
-
-
-
-
-
-
-  
   const [skills, setSkills] = useState(
     Array.isArray(values.technicalSkills) ? values.technicalSkills : []
   );
 
-
-
   const updateData = async (data) => {
     if (data) {
-      console.log(data,"data")
+      console.log(data, "data");
       setFieldValue("softskills", data?.softskills || []);
       setFieldValue("technicalSkills", data?.technicalSkills || []);
     }
@@ -121,10 +111,7 @@ const Skills = ({
   }, [values.technicalSkills]);
 
   useEffect(() => {
-    if (
-      Array.isArray(values.softskills) &&
-      values.softskills.length > 0
-    ) {
+    if (Array.isArray(values.softskills) && values.softskills.length > 0) {
       setSkills(values.technicalSkills);
     }
   }, [values.softskills]);
@@ -158,7 +145,6 @@ const Skills = ({
             specialized tools.
           </p>
           <div className="w-full flex flex-col items-start gap-1 my-8">
-       
             <div className="flex flex-wrap gap-2 mb-4">
               {skills?.map((skill, index) => (
                 <span

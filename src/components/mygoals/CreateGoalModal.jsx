@@ -18,11 +18,22 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
 
   const location = useLocation();
   const { isSmart, lastStep } = location.state || {};
+  const [threeMonthsAgo, setThreeMonthsAgo] = useState(new Date());
+  
 
+  useEffect(() => {
+    const date = new Date();
+    date.setMonth(date.getMonth() + 3);
+    setThreeMonthsAgo(date);
+  }, []); // This ensures threeMonthsAgo is initially set to 3 months from now
+
+  const handleDateChange = (date) => {
+    setThreeMonthsAgo(date);
+  };
   const formik = useFormik({
     initialValues: {
       main_goal_name: lastStep?.timebound || "", 
-      startDate: null,
+      startDate: threeMonthsAgo,
       sub_goals: [],
     },
     validationSchema: goalSchema,
@@ -55,8 +66,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
       setFieldValue("sub_goals", [{ name: "", deadline: "" }]);
     }
   }, [showSubGoal]);
-  const threeMonthsAgo = new Date();
-  threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() + 3);
+
   useEffect(() => {
     if (lastStep?.timebound) {
       formik.setFieldValue("main_goal_name", lastStep.timebound, false); 
@@ -104,8 +114,8 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                           Set a deadline for achieving your main goal!
                         </p>
                         <p className="text-[16px] mt-2 font-[400] text-[#767676] pb-1">
-                          {values.startDate
-                            ? values.startDate.toLocaleDateString()
+                          {threeMonthsAgo
+                            ? threeMonthsAgo.toLocaleDateString()
                             : "No date selected"}
                         </p>
                       </div>
@@ -117,21 +127,17 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                           <img className="w-[24px]" src={Calender} />
                         </span>
                         {showCalender && (
-                          <div className="">
-                            <CustomCalendar
-                              startDate={threeMonthsAgo}
-                              setStartDate={(date) =>
-                                setFieldValue("startDate", date)
-                              }
-                              setShowCalender={setShowCalender}
-                            />
-                          </div>
-                        )}
+            <div>
+              <CustomCalendar
+                startDate={threeMonthsAgo}
+                setStartDate={handleDateChange} // Use the function to handle the date change
+                setShowCalender={setShowCalender}
+              />
+            </div>
+          )}
                       </div>
                     </div>
-                    {errors.startDate && touched.startDate && (
-                      <p className="text-red-500 text-xs">{errors.startDate}</p>
-                    )}
+                  
                   </div>
 
                   {showSubGoal && (

@@ -4,12 +4,16 @@ import { Assesmentmodal, SubmitGoalimg } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import AddSupportModal from "../myresume/AddSupportModal";
 import GoalCreatedModal from "./GoalCreatedModal";
+import { FiLoader } from "react-icons/fi";
 
 const GoalCompletedModal = ({
   showModal,
   onclick,
   onClose,
-  handleClick
+  handleClick,
+  handlecreategoal,
+  loader,
+  setShowModalsupport,
 }) => {
   const navigate = useNavigate();
 
@@ -40,14 +44,24 @@ const GoalCompletedModal = ({
               <div className="flex justify-between">
                 <button
                   className=" w-[207px] h-[49px] bg-[#E5EAED] rounded-[8px] text-[#000000] font-[500] "
-                  onClick={() => onClose()}
+                  onClick={() => handlecreategoal()}
                 >
-                  No
+                  {loader ? (
+                    <div className="flex items-center justify-center">
+                      <FiLoader className="animate-spin text-lg" />
+                    </div>
+                  ) : (
+                    "No"
+                  )}
                 </button>
                 <div className="w-[207px] ">
                   <AuthSubmitBtn
                     text={"Yes"}
-                    handleSubmit={() => handleClick()}
+                    handleSubmit={() => {
+                      handleClick();
+                    
+                      setShowModalsupport(true);
+                    }}
                   />
                 </div>
               </div>
@@ -55,18 +69,16 @@ const GoalCompletedModal = ({
           </div>
         </div>
       )}
-    
-      {goalDetailModal && (
-        <GoalCreatedModal
-          showModal={goalDetailModal}
-          handleClick={() => {
-            setGoalDetailModal(false);
-            navigate("/goal-detail");
-          }}
-          heading={'Goal Successfully Created'}
-          onclick={()=>setGoalDetailModal(false)}
-        />
-      )}
+
+      <GoalCreatedModal
+        showModal={goalDetailModal}
+        handleClick={() => {
+          setGoalDetailModal(false);
+          navigate("/goal-detail");
+        }}
+        heading={"Goal Successfully Created"}
+        onclick={() => setGoalDetailModal(false)}
+      />
     </>
   );
 };

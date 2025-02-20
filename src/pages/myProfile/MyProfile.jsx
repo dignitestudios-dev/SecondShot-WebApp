@@ -201,12 +201,12 @@ function MyProfile() {
                           Visit our website
                         </p>
                         <p className="text-[#222222] font-[400] text-[16px] leading-[21.6px] underline ">
-                          <a href={`${profileData?.address}`} target="_blank">{profileData?.address}</a>
+                          <a href={`${profileData?.address}`} target="_blank">
+                            {profileData?.address}
+                          </a>
                         </p>
                       </div>
                     </div>
-                  </>
-                )}
                 <hr />
                 <div className="flex items-center justify-between gap-3 mt-5">
                   <div className="flex gap-3">
@@ -240,69 +240,94 @@ function MyProfile() {
                     Edit
                   </button>
                 </div>
-
-                <div className="grid grid-cols-2 gap-8 text-left">
-                  <div className="border-r pr-4">
-                    <h3 className="text-[18px] font-[500] text-gray-800 mb-2">
-                      Education
-                    </h3>
-                    <p className="text-gray-700">
-                      {registrationData?.current_grade_level}
-                    </p>
-                    <p className="text-[18px] font-[500]">College</p>
-                    <p className="text-gray-700">
-                      Favorite Grade School Subject: Math
-                    </p>
-                    <p className="text-gray-700 text-[18px] font-[500] mb-2">
-                      Math
-                    </p>
-
-                    <div>
-                      <h3 className="text-[20px] font-[500] text-[#000000] mb-2">
-                        Military Service
+               
+                  <div className="grid grid-cols-2 gap-8 text-left">
+                    <div className="border-r pr-4">
+                      <h3 className="text-[18px] font-[500] text-[#000000] leading-[21.09px] ">
+                        Education
                       </h3>
+                      <p className="text-[#5C5C5C] text-[16px] mt-3">
+                        {registrationData?.current_grade_level}
+                      </p>
+
+                      <p className="text-[16px] font-[500] mt-2 text-[#000000] ">
+                        Favorite Grade School Subject
+                      </p>
                       <p className="text-gray-700">
-                        {" "}
-                        {registrationData?.major_trade_or_military}
+                        {
+                          registrationData?.favorite_middle_school_subject
+                            ?.subject_name
+                        }
                       </p>
-                      <p className="text-[#000000] font-[500] text-[16px] mb-2">
-                        Airforce
-                      </p>
-                      <p className="text-gray-700">Position</p>
-                      <p className="text-[#000000] font-[500] text-[16px] mb-2">
-                        E-4 Senior Airman
-                      </p>
+                      {registrationData.has_military_service == true ? (
+                        <div>
+                          <h3 className="text-[18px] mt-5 font-[500] text-[#000000] ">
+                            Military Service
+                          </h3>
+                          <h3 className="text-[16px] mt-1 font-[500] text-[#5C5C5C] ">
+                            Branch of Service
+                          </h3>
+                          <p className="text-[#000000] leading-[18.75px] mt-2 mb-2 ">
+                            {" "}
+                            {registrationData?.branch_of_service?.service_name}
+                          </p>
+
+                          <p className="text-[20px] font-[500] text-[#000000] ">
+                            Position
+                          </p>
+                          <p className="text-gray-700">
+                            {registrationData?.rank?.rank_name}
+                          </p>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      <div>
+                        <h3 className="text-[18px] font-[500] text-[#000000] ">
+                          Career
+                        </h3>
+                        <p className="text-gray-700">
+                          {registrationData?.desired_career_path}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-[18px] font-[500] text-[#000000] mb-2">
-                        Career
+
+                    <div className="pl-4">
+                      {registrationData?.is_athlete == true ? (
+                        <>
+                          <h3 className="text-[18px] font-[500] text-#000000 ">
+                            Athlete Background
+                          </h3>
+                          <p className="text-[18px] mt-3 font-[500] text-[#000000] ">
+                            Primary Sport
+                          </p>
+                          <p className="text-gray-700">
+                            {registrationData?.primary_sport?.sport_name}
+                          </p>
+                          <p className="text-[18px] mt-3 font-[500] text-[#000000] ">
+                            Position
+                          </p>
+                          <p className="text-gray-700">
+                            {registrationData?.sport_position?.position_name}
+                          </p>
+                        </>
+                      ) : (
+                        ""
+                      )}
+
+                      <h3 className="text-[18px] mt-3 font-[500] text-#000000 ">
+                        Hobbies
                       </h3>
-                      <p className="text-gray-700">Desired Career</p>
-                      <p className="text-[#000000] font-[500] mb-2">Engineer</p>
+                      <div className=" text-[#0F0F0F]  justify-center  font-[400] cursor-pointer  rounded-[12px] ">
+                        {registrationData?.favorite_hobby1?.hobbie_name}
+                      </div>
+                      <div className=" text-[#0F0F0F]  justify-center  font-[400] cursor-pointer  rounded-[12px] ">
+                        {registrationData?.favorite_hobby2?.hobbie_name}
+                      </div>
                     </div>
                   </div>
-
-                  <div className="pl-4">
-                    <h3 className="text-[18px] font-[500] text-#000000 mb-2">
-                      Athlete Background
-                    </h3>
-                    <p className="text-gray-700">Primary Sport</p>
-                    <p className="text-[16px] font-[500] text-#000000 mb-2">
-                      Baseball/Softball
-                    </p>
-                    <p className="text-gray-700">Position</p>
-                    <p className="text-[16px] font-[500] text-#000000 mb-2">
-                      First Baseman
-                    </p>
-
-                    <h3 className="text-[18px] font-[500] text-#000000 mb-2">
-                      Hobbies
-                    </h3>
-                    <div className=" text-[#0F0F0F]  justify-center  font-[400] cursor-pointer w-[150px] h-[49px] rounded-[12px] ">
-                      Cooking
-                    </div>
-                  </div>
-                </div>
+                  </>
+                )}
               </>
             )}
 

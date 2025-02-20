@@ -23,6 +23,34 @@ const ProfileSkeleton = () => {
           </div>
         </div>
       </div>
+      <div className="grid grid-cols-2 gap-8 text-left">
+        <div className="border-r pr-4">
+          <div className="w-32 h-6 bg-gray-300 rounded-md animate-pulse mb-4"></div>
+          <div className="w-48 h-4 bg-gray-300 rounded-md animate-pulse mt-3 mb-4"></div>
+
+          <div className="w-64 h-4 bg-gray-300 rounded-md animate-pulse mt-2 mb-4"></div>
+          <div className="w-32 h-4 bg-gray-300 rounded-md animate-pulse mb-2"></div>
+
+          <div className="mt-5">
+            <div className="w-32 h-6 bg-gray-300 rounded-md animate-pulse mb-4"></div>
+            <div className="w-48 h-4 bg-gray-300 rounded-md animate-pulse mt-3 mb-4"></div>
+            <div className="w-32 h-4 bg-gray-300 rounded-md animate-pulse mt-2 mb-4"></div>
+          </div>
+
+          <div className="mt-5">
+            <div className="w-32 h-6 bg-gray-300 rounded-md animate-pulse mb-4"></div>
+            <div className="w-48 h-4 bg-gray-300 rounded-md animate-pulse mt-3 mb-4"></div>
+          </div>
+        </div>
+
+        <div className="pl-4">
+          <div className="w-32 h-6 bg-gray-300 rounded-md animate-pulse mb-4"></div>
+          <div className="w-48 h-4 bg-gray-300 rounded-md animate-pulse mt-3 mb-4"></div>
+
+          <div className="w-48 h-4 bg-gray-300 rounded-md animate-pulse mt-3 mb-4"></div>
+          <div className="w-48 h-4 bg-gray-300 rounded-md animate-pulse mt-2 mb-4"></div>
+        </div>
+      </div>
     </div>
   );
 };

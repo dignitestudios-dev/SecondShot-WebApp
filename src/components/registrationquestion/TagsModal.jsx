@@ -9,15 +9,17 @@ const TagsModal = ({
   availableTags,
   handleTagClick,
   selectedTags,
+  tags,
   heading,
 }) => {
   if (!isOpen) return null;
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredTags = availableTags.filter((tag) => {
+  const filteredTags = availableTags?.filter((tag) => {
     const label = tag?.label;
-    return label.toLowerCase().includes(searchQuery.toLowerCase());
+    return label?.toLowerCase().includes(searchQuery.toLowerCase());
   });
+
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -41,15 +43,15 @@ const TagsModal = ({
             {filteredTags.length > 0 ? (
               filteredTags.map((tag) => (
                 <div
-                  key={tag.value}
+                  key={tag?.value}
                   onClick={() => handleTagClick(tag)}
                   className={`cursor-pointer px-3 py-2 border rounded-lg m-1 text-center ${
-                    selectedTags?.value === tag.value
+                    selectedTags?.value === tag?.value
                       ? "bg-[#56EC17] text-black"
                       : "bg-tagsBg text-gray-700"
                   }`}
                 >
-                  <span>{tag.label}</span>
+                  <span>{tag?.label}</span>
                 </div>
               ))
             ) : (

@@ -16,15 +16,18 @@ const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
     <div>
       <Formik
         initialValues={{
-          achievable: formData.measure ? formData.measure + " " : "", // Prefill with formData.specific
+          achievable: formData.measure || "", // Prefill with formData.measure
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          setFormData(values);
-          nextStep();
+          setFormData((prevData) => ({
+            ...prevData,
+            achievable: values.achievable, // Update the 'achievable' field in formData
+          }));
+          nextStep(); // Proceed to the next step
         }}
       >
-        {({ errors, touched ,values,setFieldValue}) => (
+        {({ errors, touched, values, setFieldValue }) => (
           <Form>
             <div className="mb-4">
               <label
@@ -33,32 +36,32 @@ const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
               >
                 Achievable
               </label>
-              <p className=" text-[14px] text-[#000000] font-[400] w-[503px] ">
+              <p className="text-[14px] text-[#000000] font-[400] w-[503px]">
                 When something is achievable, it means it’s something you can
                 do. It’s like setting a goal that’s just right—not too easy but
                 not too hard. Here’s how to check if a goal is achievable if it
                 answers the following questions:
               </p>
-              <div className="flex   items-center gap-4 mt-3 mb-3">
+              <div className="flex items-center gap-4 mt-3 mb-3">
                 {[
-                  "Do I have what I need to do this?  ",
-                  "Do I have what I need to do this? ?",
+                  "Do I have what I need to do this?",
+                  "Do I have what I need to do this?",
                 ]?.map((item, index) => (
                   <div key={index} className="flex items-center">
                     <img
                       src={Stars}
-                      className="w-[15.89px] h-[12.93px] "
+                      className="w-[15.89px] h-[12.93px]"
                       alt=""
                     />
-                    <span className="text-[14px] leading-[18.9px] text-[#012C57] font-[500] ">
+                    <span className="text-[14px] leading-[18.9px] text-[#012C57] font-[500]">
                       {item}
                     </span>
                   </div>
                 ))}
               </div>
               <div className="flex items-center mb-3">
-                <img src={Stars} className="w-[15.89px] h-[12.93px] " alt="" />
-                <span className="text-[14px] leading-[18.9px] text-[#012C57] font-[500] ">
+                <img src={Stars} className="w-[15.89px] h-[12.93px]" alt="" />
+                <span className="text-[14px] leading-[18.9px] text-[#012C57] font-[500]">
                   Is it too big or too small?
                 </span>
               </div>
@@ -69,12 +72,8 @@ const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
                 value={values.achievable}
                 placeholder="Describe Here"
                 onChange={(e) => {
-                  const updatedValue = e.target.value;
-                  setFieldValue(
-                    "achievable",
-                    formData.measure +
-                      updatedValue.slice(formData.measure.length)
-                  );
+                  // Ensure user can edit the field freely
+                  setFieldValue("achievable", e.target.value); // Update the achievable field value
                 }}
                 className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
                    bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${

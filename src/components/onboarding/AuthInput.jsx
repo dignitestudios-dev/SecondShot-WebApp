@@ -16,7 +16,8 @@ const AuthInput = ({
   onBlur,
   name,
   id,
-  onKeyDown
+  onKeyDown,
+  onkeypress
 }) => {
   const [isPassVisible, setIsPassVisible] = useState(false);
 
@@ -45,6 +46,7 @@ const AuthInput = ({
             id={id}
             name={name}
             onKeyDown={onKeyDown}
+            onKeyPress={onkeypress}
             // className="w-full text-sm border border-gray-300 focus:border-blue-500
             //  text-[#181818] placeholder:font-normal font-medium px-4 lg:py-3 md:py-2 py-3 my-2 rounded-xl outline-none"
             className={`w-full p-3 outline-none font-[500] focus:border-[#0E73D0]  border border-[#9A9A9A] rounded-[15px] 

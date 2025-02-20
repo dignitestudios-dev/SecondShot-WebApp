@@ -60,10 +60,10 @@
   border-bottom: none !important;
 }
 .react-datepicker__navigation--previous {
-  left: -30px !important;
+  left: -10px !important;
 }
 h2.react-datepicker__current-month {
-  text-align: start !important;
+  text-align: center !important;
   font-size: 20px !important;
   font-weight: 700 !important;
   position: relative !important;
@@ -84,7 +84,7 @@ h2.react-datepicker__current-month {
   width: 9px;
 }
 .react-datepicker__navigation--next {
-  left: 160px !important;
+  left: 210px !important;
  
   color: black !important;
   right: 0px;

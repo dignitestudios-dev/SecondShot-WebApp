@@ -84,13 +84,6 @@ export const certificationSchema = Yup.object().shape({
 
 
 
-export const skillsSchema = Yup.object().shape({
-  technicalSkills: Yup.array()
-    .of(Yup.string().required("Each skill must be a string"))
-    .min(1, "Technical skills are required"), // At least 1 skill required
-});
-
-
 export const honorsSchema = Yup.object().shape({
   honorsList: Yup.array()
     .of(

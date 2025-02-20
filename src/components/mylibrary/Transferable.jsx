@@ -59,8 +59,19 @@ const Transferable = () => {
           {[...Array(library.length || 6)]?.map((_, index) => (
             <div
               key={index}
-              className="h-[300px] animate-pulse rounded-md bg-gray-200 w-[300px]"
-            ></div>
+              className="group relative rounded-2xl p-4 bg-[#FFFBF1] text-black shadow-lg cursor-pointer hover:bg-gradient-to-l from-[#012C57] to-[#061523] hover:text-white transition"
+            >
+              <div className="flex justify-between items-start mb-4">
+                <div className="w-32 h-6 bg-gray-300 rounded-md animate-pulse"></div>
+                <div className="w-8 h-8 bg-gray-300 rounded-sm animate-pulse"></div>
+              </div>
+
+              <div className="w-full h-4 bg-gray-300 rounded-md animate-pulse mb-4"></div>
+
+              <div className="text-sm flex justify-between items-center group-hover:text-white">
+                <div className="w-24 h-4 bg-gray-300 rounded-md animate-pulse"></div>
+              </div>
+            </div>
           ))}
         </div>
       ) : (
@@ -84,7 +95,8 @@ const Transferable = () => {
             } else if (item?.favorite_middle_school_subject) {
               description = item?.favorite_middle_school_subject?.description;
               skillData = {
-                id: item?.favorite_middle_school_subject?.favoriteSubjectId?._id,
+                id: item?.favorite_middle_school_subject?.favoriteSubjectId
+                  ?._id,
                 descriptionId:
                   item?.favorite_middle_school_subject?.descriptionId,
               };

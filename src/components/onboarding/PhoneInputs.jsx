@@ -8,6 +8,7 @@ const PhoneInputs = ({
   id,
   name,
   isDisabled = false,
+  autoComplete
 }) => {
   const handlePhoneChange = (e) => {
     const formattedValue = e.target.value.replace(/[^0-9]/g, "");
@@ -47,17 +48,18 @@ const PhoneInputs = ({
       <div className="border-l h-6 mx-2"></div>
 
       <input
-        type="tel"
-        className="outline-none w-full text-lg placeholder:text-[#181818] placeholder:font-[400] h-[49px]"
+        type="text"
+        className="outline-none w-full bg-white placeholder:text-[16px] placeholder:font-[400] placeholder:text-[#181818] text-[#181818] h-[49px]"
         placeholder="123-456-7890"
         value={value}
         onChange={handlePhoneChange}
         onBlur={onBlur}
         onKeyPress={handleKeyPress}
         id={id}
-        maxLength={10}
+        maxLength={14}
         name={name}
         disabled={isDisabled}
+        autoComplete={autoComplete}
       />
     </div>
   );

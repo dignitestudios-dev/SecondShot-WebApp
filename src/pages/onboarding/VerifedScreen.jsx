@@ -19,7 +19,7 @@ const VerifiedScreen = () => {
               />
             </div>
             <h2 className="text-[32px] text-[#000000] font-[600] leading-[43.2px] text-center mb-2">
-              Email & Phone Number Successfully Verified!
+              Email Successfully Verified!
             </h2>
             <div className="flex justify-center items-center">
               <div className="mt-5 w-[164px] ">

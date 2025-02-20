@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Backbutton from "../../components/Global/Backbutton";
-import SubGoals from "../../components/mygoals/SubGoals";
 import { Dottedvertical } from "../../assets/export";
-
 import GoalCreatedModal from "../../components/mygoals/GoalCreatedModal";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
-import AddSupportModal from "../../components/myresume/AddSupportModal";
 import DeleteGoalModal from "../../components/mygoals/DeleteGoalModal";
 import axios from "../../axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -17,9 +14,9 @@ import AddSupportGoalModal from "../../components/mygoals/AddSupportGoalModal";
 const GoalDetail = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [goalDetailModal, setGoalDetailModal] = useState(false);
-  const [supportModal, setSupportModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [loader, setloader] = useState(false);
+  const [subloader, setsubloader] = useState(false);
   const { id } = useParams();
   const [goalDetail, setGoalDetail] = useState(null);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -34,7 +31,6 @@ const GoalDetail = () => {
     phone_2: "",
   });
 
-  // State to track error messages
   const [errors, setErrors] = useState({
     fullname: "",
     email: "",
@@ -52,6 +48,7 @@ const GoalDetail = () => {
 
       if (response.status === 200) {
         setGoalDetail(response.data.data);
+
         setloader(false);
       }
     } catch (err) {
@@ -81,6 +78,25 @@ const GoalDetail = () => {
       console.log(err);
     } finally {
       setloader(false);
+    }
+  };
+  const handlesubgoalstatus = async (subid) => {
+    setsubloader(true);
+    try {
+      const response = await axios.post("/api/user/update-sub-goal-status", {
+        goalId: id,
+        subGoalId: subid,
+      });
+
+      if (response.status === 200) {
+        SuccessToast("Sub Goal Completed Successfully");
+        getGoalDetail();
+      }
+    } catch (err) {
+      ErrorToast(err.response.data.message);
+      console.log(err);
+    } finally {
+      setsubloader(false);
     }
   };
   const handleDelete = async () => {
@@ -138,6 +154,10 @@ const GoalDetail = () => {
         return "border-gray-300 text-gray-600";
     }
   };
+  const subStatus = goalDetail?.sub_goals?.map((item) => {
+    return item?.is_completed;
+  });
+  console.log(subStatus, "subStatus");
   return (
     <div>
       <Backbutton />
@@ -266,32 +286,52 @@ checked:before:justify-center checked:before:items-center"
             </p>
           </div>
           <div>
-            {goalDetail?.sub_goals?.map((item) => (
-              <div className="mt-8">
-                <div className="bg-white rounded-[16px] shadow-md p-6 mt-4">
+            <div className="mt-8">
+              <div className="bg-white rounded-[16px] shadow-md p-6 mt-4">
+                <div className="flex justify-between items-center">
+                  <h2 className="font-[600] text-[18px] text-[#222222]">
+                    Sub Goal
+                  </h2>
                   <div className="flex justify-between items-center mb-2">
-                    <h2 className="font-[600] text-[18px] text-[#222222] ">
-                      Sub Goals
-                    </h2>
-                    <button className="bg-[#EAF8FF] bg-opacity-35 text-[#36B8F3] px-4 py-2 rounded-md border border-[#36B8F3]">
-                      In Progress
+                    <button
+                      className={`bg-[#FFFCF2] bg-opacity-35  ${getBgCardColor(
+                        goalDetail?.sub_goal_status
+                      )} px-4 py-2 rounded-md border  ${gettextCardColor(
+                        goalDetail?.sub_goal_status
+                      )} ${getBorderColor(goalDetail?.sub_goal_status)}   `}
+                    >
+                      {goalDetail?.sub_goal_status}
                     </button>
                   </div>
-                  <div className="flex items-center gap-2 py-2 border-b border-gray-200 last:border-b-0 text-[14px]">
-                    <input
-                      type="checkbox"
-                      id="custom-checkbox"
-                      className="h-5 w-5 rounded-md border border-gray-300 bg-white checked:bg-[#012C57] checked:border-[#012C57] appearance-none cursor-pointer 
-checked:before:block checked:before:content-['✓'] checked:before:text-white checked:before:text-sm text-center 
-checked:before:justify-center checked:before:items-center"
-                    />
-                    <label className="text[#0F0F0F] text-[16px]">
-                      {item.name}
-                    </label>
-                  </div>
                 </div>
+                {goalDetail?.sub_goals?.map((item) => (
+                  <div
+                    className="flex justify-between items-center mt-3 border-b  border-gray-200 last:border-b-0"
+                    key={item?._id}
+                  >
+                    <div className="flex items-center gap-2 py-2 text-[14px]">
+                      {subloader ? (
+                        <div className="animate-pulse w-6 h-6 rounded-sm bg-slate-500 "></div>
+                      ) : (
+                        <input
+                          type="checkbox"
+                          id={`custom-checkbox-${item?._id}`}
+                          checked={item?.is_completed}
+                          disabled={item?.is_completed}
+                          className="h-5 w-5 rounded-md border border-gray-300 bg-white checked:bg-[#012C57] checked:border-[#012C57] appearance-none cursor-pointer 
+          checked:before:block checked:before:content-['✓'] checked:before:text-white checked:before:text-sm text-center 
+          checked:before:justify-center checked:before:items-center"
+                          onChange={() => handlesubgoalstatus(item?._id)}
+                        />
+                      )}
+                      <label className="text-[#0F0F0F] text-[16px]">
+                        {item?.name}
+                      </label>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
           <div>
             <div className="mt-8 grid grid-cols-2 gap-4">

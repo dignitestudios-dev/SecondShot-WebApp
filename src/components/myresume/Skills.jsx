@@ -4,8 +4,7 @@ import AuthInput from "../onboarding/AuthInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import { useFormik } from "formik";
-import { skillsValues } from "../../data/resumefield";
-import { skillsSchema } from "../../Schema/resumeSchema";
+// import { skillsSchema } from "../../Schema/resumeSchema";
 import axios from "../../axios";
 const Skills = ({
   nextStep,
@@ -24,7 +23,7 @@ const Skills = ({
     setFieldValue,
   } = useFormik({
     initialValues: formData.skillsValues,
-    validationSchema: skillsSchema,
+    // validationSchema: skillsSchema,
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values) => {
@@ -40,9 +39,8 @@ const Skills = ({
     },
   });
 
-  const [skills, setSkills] = useState(
-    Array.isArray(values.technicalSkills) ? values.technicalSkills : []
-  );
+  const [skills, setSkills] = useState([]);
+  console.log(skills, "Skills");
 
   const [library, setLibrary] = useState([]);
   const [likedItems, setLikedItems] = useState({});
@@ -69,44 +67,44 @@ const Skills = ({
   }, []);
 
   const handletechSkill = (e) => {
-    if (e.key === "," || e.key === "Enter") {
-      e.preventDefault();
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent form submission or other default behaviors
       const value = e.target.value.trim();
 
+      // Ensure that the value is not empty and is not already in the list of skills
       if (value && !skills.includes(value)) {
-        const updatedSkills = [...skills, value];
-        setSkills(updatedSkills);
-        setFieldValue("technicalSkills", "");
+        const updatedSkills = [...skills, value]; // Add the new skill to the list
+        setSkills(updatedSkills); // Update local state
       }
-
-      e.target.value = "";
+      e.target.value = ""; // Clear the input field after adding the skill
     }
   };
 
   const removeSkill = (skillToRemove) => {
     const updatedSkills = skills.filter((skill) => skill !== skillToRemove);
     setSkills(updatedSkills);
-    setFieldValue("technicalSkills", updatedSkills);
+    // setFieldValue("technicalSkills", updatedSkills); // Fix: Remove ke baad Formik ko update karo
   };
 
   useEffect(() => {
-    if (
-      Array.isArray(values.technicalSkills) &&
-      values.technicalSkills.length > 0
-    ) {
+    if (Array.isArray(values.technicalSkills)) {
+     
       setSkills(values.technicalSkills);
     }
-  }, [values.technicalSkills]);
+  }, [values]);
+
   useEffect(() => {
     if (formData?.skillsValues) {
+      // Update technicalSkills
       setFieldValue(
         "technicalSkills",
         formData.skillsValues.technicalSkills || []
       );
 
+      // Update softskills
       setFieldValue("softskills", formData.skillsValues.softskills || []);
     }
-  }, [formData, setFieldValue]);
+  }, [formData, setFieldValue]); // Watch for changes in formData
 
   return (
     <div className="pt-6 px-3">
@@ -163,13 +161,8 @@ const Skills = ({
               onKeyDown={handletechSkill} // Capture key events (comma, space, Enter)
               id="technicalSkills"
               name="technicalSkills"
-              placeholder={"Enter Technical Skills, separated by commas"}
+              placeholder={"Enter Technical Skills, separated by Enter"}
             />
-            {errors.technicalSkills && touched?.technicalSkills && (
-              <span className="text-red-700 text-sm font-medium">
-                {errors.technicalSkills}
-              </span>
-            )}
           </div>
           <div className="flex items-center gap-1 mb-3 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
             <div>

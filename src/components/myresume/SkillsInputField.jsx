@@ -32,13 +32,14 @@ const SkillsInputField = ({
     });
   };
 
-  // Map the skills based on titles (to ensure you are showing titles)
   const skillTitles = myskills
     ?.filter((skill) =>
       selectedSkills.includes(
         skill?.favorite_hobby2?.title ||
           skill?.favorite_hobby1?.title ||
-          skill?.favorite_middle_school_subject?.title
+          skill?.favorite_middle_school_subject?.title ||
+          skill?.rank?.title ||
+          skill?.athlete?.title
       )
     )
     .map(
@@ -46,9 +47,9 @@ const SkillsInputField = ({
         skill?.favorite_hobby2?.title ||
         skill?.favorite_hobby1?.title ||
         skill?.favorite_middle_school_subject?.title ||
-        "Unknown Skill"
+        skill?.rank?.title ||
+        skill?.athlete?.title
     );
-
 
   return (
     <div className="flex items-center border border-[#9A9A9A] rounded-lg overflow-hidden p-1">
@@ -107,37 +108,47 @@ const SkillsInputField = ({
                   Select multiple skills to add them to your resume!
                 </p>
               </div>
+              {myskills?.length > 0 ? (
+                <div>
+                  <div className="flex flex-col justify-start items-start gap-4 max-h-96 pr-2 w-full overflow-y-auto">
+                    {myskills.map((skill) => {
+                      const skillTitle =
+                        skill?.favorite_hobby2?.title ||
+                        skill?.favorite_hobby1?.title ||
+                        skill?.favorite_middle_school_subject?.title ||
+                        skill?.rank?.title ||
+                        skill?.athlete?.title;
 
-              <div className="flex flex-col justify-start items-start gap-4 max-h-96 pr-2 w-full overflow-y-auto">
-                {myskills.map((skill) => {
-                  const skillTitle =
-                    skill?.favorite_hobby2?.title ||
-                    skill?.favorite_hobby1?.title ||
-                    skill?.favorite_middle_school_subject?.title ||
-                    "Unknown Skill";
-
-                  return (
-                    <div
-                      key={skill._id}
-                      className={`flex w-full justify-between items-center p-6 rounded-xl cursor-pointer ${
-                        selectedSkills.includes(skillTitle)
-                          ? "bg-[#012C57] text-white"
-                          : "bg-[#F6F6F6] text-[#012C57]"
-                      }`}
-                      onClick={() => handleSkillSelect(skillTitle)}
-                    >
-                      <div>
-                        <p className="text-[18px] font-medium">{skillTitle}</p>
-                      </div>
-                      <button className="bg-white w-5 h-5 flex items-center justify-center rounded-full">
-                        {selectedSkills.includes(skillTitle) && (
-                          <span className="w-3 h-3 rounded-full bg-[#012C57]"></span>
-                        )}
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
+                      return (
+                        <div
+                          key={skill?._id}
+                          className={`flex w-full justify-between items-center p-6 rounded-xl cursor-pointer ${
+                            selectedSkills.includes(skillTitle)
+                              ? "bg-[#012C57] text-white"
+                              : "bg-[#F6F6F6] text-[#012C57]"
+                          }`}
+                          onClick={() => handleSkillSelect(skillTitle)}
+                        >
+                          <div>
+                            <p className="text-[18px] font-medium">
+                              {skillTitle}
+                            </p>
+                          </div>
+                          <button className="bg-white w-5 h-5 flex items-center justify-center rounded-full">
+                            {selectedSkills.includes(skillTitle) && (
+                              <span className="w-3 h-3 rounded-full bg-[#012C57]"></span>
+                            )}
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : (
+                <div className="font-[18px] text-center text-gray-500">
+                  <p>No skills have been added in your library yet</p>
+                </div>
+              )}
 
               <div className="mt-4 flex justify-center">
                 <AuthSubmitBtn text={"Add Skills"} handleSubmit={closeModal} />

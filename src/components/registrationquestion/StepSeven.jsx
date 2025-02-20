@@ -5,11 +5,16 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import BackBtn from "../onboarding/BackBtn";
 import TagsInputField from "./TagsInputFeild";
 
-const StepSeven = ({ nextStep, prevStep, formData, setFormData ,stepsixvalue}) => {
+const StepSeven = ({
+  nextStep,
+  prevStep,
+  formData,
+  setFormData,
+  stepsixvalue,
+}) => {
   // const validationSchema = Yup.object({
   //     isAthlete: Yup.string().required('This field is required'),
   //   });
-  
 
   // const handleIsAthlete = (value, setFieldValue, setFieldTouched) => {
   //   setFieldValue('isAthlete', value);
@@ -17,19 +22,25 @@ const StepSeven = ({ nextStep, prevStep, formData, setFormData ,stepsixvalue}) =
   //   setFieldTouched("isAthlete", true);
   // }\
 
-
-  
-
   const [tagsError, setTagsError] = useState(false);
+
   const [tags, setTags] = useState([]);
 
+  const [selectedTags, setSelectedTags] = useState([]);
   useEffect(() => {
     if (tags.length > 0) {
-      setFormData({ ...formData, hobbieOptions2: tags[0].value });
-    } else {
-      setFormData({ ...formData, hobbieOptions2: "" });
+      setFormData({ ...formData, hobbieOptions2: tags[0] });
     }
+    // else {
+    //   setFormData({ ...formData, hobbieOptions2: "" });
+    // }
   }, [tags]);
+  useEffect(() => {
+    if (formData?.hobbieOptions2) {
+      setSelectedTags(formData?.hobbieOptions2);
+      setTags([formData?.hobbieOptions2]);
+    }
+  }, []);
   return (
     <Formik
       initialValues={{}}
@@ -42,39 +53,43 @@ const StepSeven = ({ nextStep, prevStep, formData, setFormData ,stepsixvalue}) =
         }
       }}
     >
-      {({ errors, touched }) => (
-        <Form>
-          <div className="mb-4">
+      {({ errors, touched }) => {
+        return (
+          <Form>
+            <div className="mb-4">
+              <div className="mt-4">
+                <label className="block text-sm font-medium mb-2">
+                  Select your second most favorite hobby or activity you enjoy
+                  now or during your childhood.
+                </label>
+                <TagsInputField
+                  availableTags={stepsixvalue}
+                  heading={"Select Your Club"}
+                  tags={tags}
+                  setTags={setTags}
+                  tagsError={tagsError}
+                  setTagsError={setTagsError}
+                  setSelectedTags={setSelectedTags}
+                  selectedTags={selectedTags}
+                />
+                {tagsError && (
+                  <div className="text-red-500 text-xs italic mt-0">
+                    This field cannot be left empty.
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="flex justify-center pt-4">
+              <div className="w-[343px]">
+                <AuthSubmitBtn text={"Next"} type={"submit"} />
+              </div>
+            </div>
             <div className="mt-4">
-              <label className="block text-sm font-medium mb-2">
-                Select your second most favorite hobby or activity you enjoy now
-                or during your childhood. 
-              </label>
-              <TagsInputField
-                availableTags={stepsixvalue}
-                heading={"Select Your Club"}
-                tags={tags}
-                setTags={setTags}
-                tagsError={tagsError}
-                setTagsError={setTagsError}
-              />
-              {tagsError && (
-                <div className="text-red-500 text-xs italic mt-0">
-                  This field cannot be left empty.
-                </div>
-              )}
+              <BackBtn handleClick={() => prevStep()} />
             </div>
-          </div>
-          <div className="flex justify-center pt-4">
-            <div className="w-[343px]">
-              <AuthSubmitBtn text={"Next"} type={"submit"} />
-            </div>
-          </div>
-          <div className="mt-4">
-            <BackBtn handleClick={() => prevStep()} />
-          </div>
-        </Form>
-      )}
+          </Form>
+        );
+      }}
     </Formik>
   );
 };

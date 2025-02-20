@@ -16,6 +16,7 @@ const StepEight = ({ nextStep, prevStep, formData, setFormData }) => {
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const [selectedTags, setSelectedTags] = useState([]);
   const [availableTags] = useState([
     "English",
     "Math",
@@ -58,10 +59,16 @@ const StepEight = ({ nextStep, prevStep, formData, setFormData }) => {
 
   useEffect(() => {
     if (tags.length > 0) {
-      setFormData({ ...formData, subjectOptions: tags[0]?.value });
+      setFormData({ ...formData, subjectOptions: tags[0] });
     }
   }, [tags]);
 
+  useEffect(() => {
+    if (formData?.subjectOptions) {
+      setSelectedTags(formData?.subjectOptions);
+      setTags([formData?.subjectOptions]);
+    }
+  }, [subjects]);
   return (
     <Formik
       initialValues={{}}
@@ -89,6 +96,8 @@ const StepEight = ({ nextStep, prevStep, formData, setFormData }) => {
                 setTags={setTags}
                 tagsError={tagsError}
                 setTagsError={setTagsError}
+                setSelectedTags={setSelectedTags}
+                selectedTags={selectedTags}
               />
               {tagsError && (
                 <div className="text-red-500 text-xs italic mt-0">

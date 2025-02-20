@@ -5,7 +5,6 @@ import { Stars } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import Backbutton from "../Global/Backbutton";
 import { IoIosArrowBack } from "react-icons/io";
-import MakeitSmartInput from "./MakeitSmartInput";
 
 const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
   console.log(formData, "formData");
@@ -20,7 +19,7 @@ const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
     <div>
       <Formik
         initialValues={{
-          measure: formData.specific ? formData.specific + " " : "", // Prefill with formData.specific
+          measure: formData.specific || "", // Prefill with formData.specific
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
@@ -65,14 +64,10 @@ const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
                 as="input"
                 id="measure"
                 name="measure"
-                value={values.measure}
+                value={values.measure} 
                 onChange={(e) => {
                   const updatedValue = e.target.value;
-                  setFieldValue(
-                    "measure",
-                    formData.specific +
-                      updatedValue.slice(formData.specific.length)
-                  );
+                  setFieldValue("measure", updatedValue); 
                 }}
                 placeholder="Describe Here"
                 className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm

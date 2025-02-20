@@ -5,6 +5,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { informationSchema } from "../../Schema/resumeSchema";
+import { phoneFormater } from "../../pages/lib/helper";
 
 const Information = ({ nextStep, setFormData, formData }) => {
   const navigate = useNavigate();
@@ -45,6 +46,14 @@ const Information = ({ nextStep, setFormData, formData }) => {
   const handleKeyPress = (e) => {
     if (!/[0-9]/.test(e.key)) {
       e.preventDefault();
+    }
+  };
+  const handlePhoneChange = (e) => {
+    const rawValue = e.target.value.replace(/\D/g, ""); // Remove all non-numeric characters
+
+    if (rawValue.length <= 10) {
+      handleChange({ target: { name: e.target.name, value: rawValue } }); // Update raw value
+      // Pass formatted value to the parent component
     }
   };
   return (
@@ -98,12 +107,12 @@ const Information = ({ nextStep, setFormData, formData }) => {
             <input
               id="phoneNumber"
               name="phoneNumber"
-              value={values.phoneNumber}
+              value={phoneFormater(values?.phoneNumber)}
               type="tel"
               maxLength={10}
               placeholder={"Enter Your Phone Number"}
               onBlur={handleBlur}
-              onChange={handleChange}
+              onChange={handlePhoneChange}
               onKeyPress={handleKeyPress}
               className={`w-full p-3 outline-none font-[500] focus:border-[#0E73D0]  border border-[#9A9A9A] rounded-[15px] 
               placeholder:text-[16px] placeholder:font-[400] placeholder:text-[#181818] text-[#181818]

@@ -19,7 +19,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { data } from "../../components/dataStateCity/data";
 const ProfileDetails = () => {
   const navigation = useNavigate();
-  const { setProfilepic } = useContext(AuthContext);
+  const { setProfilepic, user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const fullname = sessionStorage.getItem("fullname");
   const email = sessionStorage.getItem("email");
@@ -84,6 +84,7 @@ const ProfileDetails = () => {
       setFieldValue("profilePicture", file);
     }
   };
+  console.log(user?.phone,"user?.phone")
 
   return (
     <div className=" bg-transparent lg:h-screen h-full px-6 py-4">
@@ -154,8 +155,10 @@ const ProfileDetails = () => {
             <AuthInput
               type={"text"}
               placeholder={"First Name"}
-              value={fullname}
-              // isDisabled
+              value={user?.name}
+              id={"fullname"}
+              name={"fullname"}
+              isDisabled
             />
           </div>
           {/* <div className="mt-3">
@@ -169,7 +172,7 @@ const ProfileDetails = () => {
           <div className="mt-3">
             <AuthInput
               type={"email"}
-              value={email}
+              value={user?.email}
               placeholder={"Email"}
               isDisabled
             />
@@ -178,7 +181,7 @@ const ProfileDetails = () => {
         <div className="hidden md:block w-[1px] h-[70%] bg-gray-200 -ml-4 mt-10"></div>
         <div className="col-span-12 md:col-span-5 gap-y-4 px-12 md:px-36 md:-ml-52 lg:px-28 lg:-ml-48">
           <div className=" mt-5">
-            <PhoneInputs value={phoneNumber} isDisabled />
+            <PhoneInputs value={user?.phone} isDisabled />
           </div>
           <div className="relative w-full mt-3 ">
             <SelectInput

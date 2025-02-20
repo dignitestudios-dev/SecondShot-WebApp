@@ -12,9 +12,9 @@ const SupportPerson = ({ formData }) => {
             <h2 className="font-[500] text-[24px] text-gray-800">
               Support Person 01
             </h2>
-            <button className="top-4 right-4 p-2 w-10 h-10 bg-[#012C57] text-white rounded-md">
+            {/* <button className="top-4 right-4 p-2 w-10 h-10 bg-[#012C57] text-white rounded-md">
               <PiPencilLine size={24} />
-            </button>
+            </button> */}
           </div>
           <div className="mt-4 grid grid-cols-3 gap-x-2">
             <p className="border-r border-gray-300 pr-4 grid grid-cols-1">
@@ -54,9 +54,9 @@ const SupportPerson = ({ formData }) => {
             <h2 className="font-[500] text-[24px] text-gray-800">
               Support Person 02
             </h2>
-            <button className="top-4 right-4 p-2 w-10 h-10 bg-[#012C57] text-white rounded-md">
+            {/* <button className="top-4 right-4 p-2 w-10 h-10 bg-[#012C57] text-white rounded-md">
               <PiPencilLine size={24} />
-            </button>
+            </button> */}
           </div>
           <div className="mt-4 grid grid-cols-3 gap-x-2">
             <p className="border-r border-gray-300 pr-4 grid grid-cols-1">

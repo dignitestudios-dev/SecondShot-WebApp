@@ -26,6 +26,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
+import { phoneFormater } from "../lib/helper";
 
 const SignUpForm = () => {
   const navigation = useNavigate();
@@ -37,7 +38,6 @@ const SignUpForm = () => {
     try {
       const response = await axios.post("/api/auth/check-firebase-user", {
         email: values?.email,
-        
       });
       if (response) {
         return true;
@@ -95,25 +95,49 @@ const SignUpForm = () => {
     }
   };
 
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
-    useFormik({
-      initialValues: signUpValues,
-      validationSchema: signUpSchema,
-      validateOnChange: true,
-      validateOnBlur: true,
-      onSubmit: async (values) => {
-        setLoading(true);
-        try {
-          const status = await checkStatus();
-          if (status) {
-            const newUserResponse = await createUserWithEmailAndPassword(
+  const {
+    values,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+    setFieldValue,
+  } = useFormik({
+    initialValues: signUpValues,
+    validationSchema: signUpSchema,
+    validateOnChange: true,
+    validateOnBlur: true,
+    onSubmit: async (values) => {
+      setLoading(true);
+      try {
+        const status = await checkStatus();
+        if (status) {
+          const newUserResponse = await createUserWithEmailAndPassword(
+            auth,
+            values?.email,
+            "Test@123"
+          );
+          const user = newUserResponse.user;
+          setNewUser(newUserResponse);
+
+          const token = await getIdToken(user);
+
+          if (token) {
+            await sendDataToBackend(values, token);
+          } else {
+            ErrorToast("Token not found");
+          }
+        }
+      } catch (error) {
+        if (error?.message?.includes("auth/email-already-in-use")) {
+          try {
+            const userCredential = await signInWithEmailAndPassword(
               auth,
               values?.email,
               "Test@123"
             );
-            const user = newUserResponse.user;
-            setNewUser(newUserResponse);
-
+            const user = userCredential?.user;
             const token = await getIdToken(user);
 
             if (token) {
@@ -121,34 +145,56 @@ const SignUpForm = () => {
             } else {
               ErrorToast("Token not found");
             }
+          } catch (err) {
+            ErrorToast("Email is already in use");
           }
-        } catch (error) {
-          if (error?.message?.includes("auth/email-already-in-use")) {
-            try {
-              const userCredential = await signInWithEmailAndPassword(
-                auth,
-                values?.email,
-                "Test@123"
-              );
-              const user = userCredential?.user;
-              const token = await getIdToken(user);
-
-              if (token) {
-                await sendDataToBackend(values, token);
-              } else {
-                ErrorToast("Token not found");
-              }
-            } catch (err) {
-              ErrorToast("Email is already in use");
-            }
-          } else {
-            ErrorToast("Firebase authentication failed");
-          }
-        } finally {
-          setLoading(false);
+        } else {
+          ErrorToast("Firebase authentication failed");
         }
-      },
-    });
+      } finally {
+        setLoading(false);
+      }
+    },
+  });
+  const handleFullnameChange = (e) => {
+    let input = e.target.value;
+
+    input = input.replace(/\s{2,}/g, " ");
+
+    const regex = /^[A-Za-z\s-"']*$/;
+
+    if (input.length >= 0 && !input.startsWith(" ") && regex.test(input)) {
+      setFieldValue("fullname", input);
+    } else {
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    let input = e.target.value;
+
+    input = input.toLowerCase();
+
+    input = input.replace(/\s+/g, "");
+
+    const regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+    if (input.length > 0 && regex.test(input)) {
+      setFieldValue("email", input);
+    } else {
+      setFieldValue("email", input);
+    }
+  };
+ 
+
+  const handlePhoneChange = (e) => {
+    const rawValue = e.target.value.replace(/\D/g, ""); // Remove all non-numeric characters
+
+    if (rawValue.length <= 10) {
+      handleChange({ target: { name: e.target.name, value: rawValue } }); // Update raw value
+      // Pass formatted value to the parent component
+    }
+  };
+
 
   return (
     <div className=" bg-gradient-to-br from-[#F4F7FC] to-[#E9F5E5] p-4 ">
@@ -174,8 +220,9 @@ const SignUpForm = () => {
                 name="fullname"
                 placeholder="Full Name"
                 value={values.fullname}
-                onChange={handleChange}
+                onChange={handleFullnameChange}
                 onBlur={handleBlur}
+                maxLength={30}
               />
               {errors.fullname && touched.fullname ? (
                 <span className="text-red-700 text-sm font-medium">
@@ -183,13 +230,14 @@ const SignUpForm = () => {
                 </span>
               ) : null}
               <AuthInput
-                type="email"
+                type="text"
                 id="email"
                 name="email"
                 placeholder="Email"
                 value={values.email}
-                onChange={handleChange}
+                onChange={handleEmailChange}
                 onBlur={handleBlur}
+                maxLength={254}
               />
               {errors.email && touched.email ? (
                 <span className="text-red-700 text-sm font-medium">
@@ -197,10 +245,12 @@ const SignUpForm = () => {
                 </span>
               ) : null}
               <PhoneInputs
-                onChange={handleChange}
+                onChange={handlePhoneChange}
                 onBlur={handleBlur}
                 id="phoneNumber"
                 name="phoneNumber"
+                value={phoneFormater(values?.phoneNumber)}
+                autoComplete="off"
               />
               {errors.phoneNumber && touched.phoneNumber ? (
                 <span className="text-red-700 text-sm font-medium">
@@ -215,6 +265,12 @@ const SignUpForm = () => {
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                onkeypress={(e) => {
+                  if (e.key === " " || e.keyCode === 32) {
+                    e.preventDefault();
+                  }
+                }}
+                maxLength={50}
               />
               {errors.password && touched.password ? (
                 <span className="text-red-700 text-sm font-medium">
@@ -230,6 +286,12 @@ const SignUpForm = () => {
                   value={values.Cpassword}
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  onkeypress={(e) => {
+                    if (e.key === " " || e.keyCode === 32) {
+                      e.preventDefault();
+                    }
+                  }}
+                  maxLength={50}
                 />
                 {errors.Cpassword && touched.Cpassword ? (
                   <span className="text-red-700 text-sm font-medium">

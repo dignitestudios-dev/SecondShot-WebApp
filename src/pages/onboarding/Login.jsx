@@ -27,48 +27,70 @@ const Login = () => {
   const { login } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
 
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
-    useFormik({
-      initialValues: signInValues,
-      validationSchema: signInSchema,
-      validateOnChange: true,
-      validateOnBlur: true,
-      onSubmit: async (values) => {
-        setLoading(true);
+  const {
+    values,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+    setFieldValue,
+  } = useFormik({
+    initialValues: signInValues,
+    validationSchema: signInSchema,
+    validateOnChange: true,
+    validateOnBlur: true,
+    onSubmit: async (values) => {
+      setLoading(true);
 
-        try {
-          let obj = {
-            email: values.email,
-            password: values.password,
-          };
+      try {
+        let obj = {
+          email: values.email,
+          password: values.password,
+        };
 
-          const response = await axios.post("/api/auth/login", obj);
+        const response = await axios.post("/api/auth/login", obj);
 
-          if (response.status === 200) {
-            login(response?.data);
-       
-            sessionStorage.setItem("email", values?.email);
+        if (response.status === 200) {
+          login(response?.data);
 
-            const { is_profile_completed, is_registration_question_completed } =
-              response?.data;
-            if (!is_profile_completed) {
-              navigation("/profiledetail");
-            } else if (!is_registration_question_completed) {
-              navigation("/registration-question");
-            } else {
-              navigation("/home");
-            }
+          sessionStorage.setItem("email", values?.email);
 
-            SuccessToast("Logged in successfully");
+          const { is_profile_completed, is_registration_question_completed } =
+            response?.data;
+          if (!is_profile_completed) {
+            navigation("/profiledetail");
+          } else if (!is_registration_question_completed) {
+            navigation("/registration-question");
+          } else {
+            navigation("/home");
           }
-        } catch (err) {
-          ErrorToast(err?.response?.data?.message);
-        } finally {
-          setLoading(false);
-        }
-      },
-    });
 
+          SuccessToast("Logged in successfully");
+        }
+      } catch (err) {
+        ErrorToast(err?.response?.data?.message);
+      } finally {
+        setLoading(false);
+      }
+    },
+  });
+
+  const handleEmailChange = (e) => {
+    let input = e.target.value;
+
+    input = input.toLowerCase();
+
+    input = input.replace(/\s+/g, "");
+
+    const regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+    if (input.length > 0 && regex.test(input)) {
+      setFieldValue("email", input);
+    } else {
+      setFieldValue("email", input);
+    }
+  };
   return (
     <div className=" bg-gradient-to-br from-[#F4F7FC] to-[#E9F5E5] p-4 ">
       <div className=" flex flex-col md:flex-row min-h-screen ">
@@ -93,11 +115,12 @@ const Login = () => {
               <AuthInput
                 id="email"
                 name="email"
-                type="email"
+                type="text"
                 value={values.email}
                 placeholder="Email"
-                onChange={handleChange}
+                onChange={handleEmailChange}
                 onBlur={handleBlur}
+                maxLength={30}
               />
               {errors.email && touched.email ? (
                 <span className="text-red-700 text-sm font-medium">
@@ -113,6 +136,12 @@ const Login = () => {
                 placeholder="Password"
                 onChange={handleChange}
                 onBlur={handleBlur}
+                maxLength={50}
+                onkeypress={(e) => {
+                  if (e.key === " " || e.keyCode === 32) {
+                    e.preventDefault();
+                  }
+                }}
               />
               {errors.password && touched.password ? (
                 <span className="text-red-700 text-sm font-medium">

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { BgAuth, Cameraicon, logo } from "../../assets/export";
 import AuthInput from "../../components/onboarding/AuthInput";
@@ -77,14 +77,15 @@ const EditProfileDetails = () => {
       }
     },
   });
-
+  console.log(profileData?.state, "profileData?.state");
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setFieldValue("profilePicture", file);
     }
   };
-
+  
+  
   return (
     <div className=" bg-transparent lg:h-screen h-full px-6 py-4">
       <form
@@ -101,7 +102,7 @@ const EditProfileDetails = () => {
           </div>
           <div className="mb-3">
             <h1 className="text-[40px] font-[600] leading-[54px] text-center">
-              Complete Profile Details
+              Edit Profile Details
             </h1>
           </div>
         </div>
@@ -187,24 +188,23 @@ const EditProfileDetails = () => {
             />
           </div>
           <div className="relative w-full mt-3 ">
-            <SelectInput
-              name="state"
-              id="state"
-              value={values.state}
-              onChange={(e) => {
-                handleChange(e);
-                values.city = "";
-              }}
-              options={[
-                { value: "", label: "--Select State--" },
-                ...Object.keys(data)
-                  ?.sort()
-                  ?.map((state) => ({
-                    value: state,
-                    label: state,
-                  })),
-              ]}
-            />
+          <SelectInput
+  name="state"
+  id="state"
+  value={values?.state} 
+  onChange={(e) => {
+    handleChange(e);
+    values.city = "";  // Reset city when state changes
+  }}
+  options={[ 
+    { value: "", label: "--Select State--" },
+    ...Object.keys(data).sort().map((state) => ({
+      value: state,
+      label: state,
+    }))
+  ]}
+/>
+
 
             {errors.state && touched.state && (
               <span className="text-red-700 text-sm font-medium">
@@ -213,24 +213,24 @@ const EditProfileDetails = () => {
             )}
           </div>
           <div className="relative w-full mt-3">
-            <SelectInput
-              name="country"
-              id="country"
-              value={values.country}
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              onBlur={handleBlur}
-              options={[
-                { value: "", label: "--Select City--" },
-                ...(Array.isArray(data[values.state]) // ✅ Check if it's an array first
-                  ? data[values.state].sort().map((city) => ({
-                      value: city,
-                      label: city,
-                    }))
-                  : []),
-              ]}
-            />
+          <SelectInput
+  name="country"
+  id="country"
+  value={values.country}
+  onChange={(e) => {
+    handleChange(e);
+  }}
+  options={[ 
+    { value: "", label: "--Select City--" },
+    ...(Array.isArray(data[values.state]) 
+      ? data[values.state].sort().map((city) => ({
+          value: city,
+          label: city,
+        })) 
+      : []),
+  ]}
+/>
+
             {errors.country && touched.country ? (
               <span className="text-red-700 text-sm font-medium">
                 {errors.country}

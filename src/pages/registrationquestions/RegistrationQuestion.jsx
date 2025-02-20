@@ -67,21 +67,22 @@ const RegistrationQuestion = () => {
 
   const payload = {
     current_grade_level: formData?.university,
-    major_trade_or_military: formData?.universityOptions,
+    major_trade_or_military: formData?.universityOptions.label,
     highest_degree_completion: formData?.highestDegree,
     is_eighteen_or_older: formData?.ageValue === "Yes" ? true : false,
     has_military_service: formData?.militaryService === "Yes" ? true : false,
     branch_of_service:
       formData?.militaryService === "Yes" ? formData?.militaryOption : null,
-    rank: formData?.militaryService === "Yes" ? formData?.rankOptions : null,
+    rank: formData?.militaryService === "Yes" ? formData?.rankOptions?.value
+  : null,
     is_athlete: formData?.isAthlete === "Yes" ? true : false,
     primary_sport:
       formData?.isAthlete === "Yes" ? formData?.athleteOption : null,
     sport_position:
-      formData?.isAthlete === "Yes" ? formData?.sportsOption : null,
-    favorite_hobby1: formData?.hobbieOptions,
-    favorite_hobby2: formData?.hobbieOptions2,
-    favorite_middle_school_subject: formData?.subjectOptions,
+      formData?.isAthlete === "Yes" ? formData?.sportsOption?.value : null,
+    favorite_hobby1: formData?.hobbieOptions?.value,
+    favorite_hobby2: formData?.hobbieOptions2?.value,
+    favorite_middle_school_subject: formData?.subjectOptions?.value,
     has_job_experience: formData?.jobValue === "Yes" ? true : false,
     recent_job_title: formData?.jobTitle,
     desired_career_path: formData?.desireCareer,

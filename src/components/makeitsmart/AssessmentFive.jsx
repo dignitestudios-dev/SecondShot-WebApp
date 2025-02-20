@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Stars } from "../../assets/export";
@@ -12,18 +12,20 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
       "Please respond before moving forward to proceed with the next step."
     ),
   });
-  // const [isSmart, setIsSmart] = useState(true);
   const navigate = useNavigate();
 
   return (
     <div>
       <Formik
         initialValues={{
-          timebound: formData.relevant ? formData.relevant + " " : "", 
+          timebound: formData.relevant ? formData.relevant + " " : "",
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          setFormData(values);
+          setFormData((prevData) => ({
+            ...prevData,
+            timebound: values.timebound,
+          }));
           navigate("/create-goals", {
             state: {
               isSmart: true,
@@ -104,7 +106,7 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
               <div>
                 <div
                   className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer"
-                  onClick={() => setStep(4)}
+                  onClick={() => setStep(4)} 
                 >
                   <IoIosArrowBack className="font-[600]" />
                   <span>BACK</span>

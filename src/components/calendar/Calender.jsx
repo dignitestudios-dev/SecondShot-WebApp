@@ -24,7 +24,7 @@ const CustomCalendar = ({
           onChange={(date) => setStartDate(date)}
           inline
           calendarClassName="custom-calendar"
-          // minDate={maxDate}
+          minDate={new Date()} 
         />
 
         <div className="flex justify-between w-full mt-2">

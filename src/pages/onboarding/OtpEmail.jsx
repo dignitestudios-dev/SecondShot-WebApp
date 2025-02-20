@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { BgAuth, OtpScreen } from "../../assets/export";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import {
 } from "../../components/toaster/ToasterContainer";
 import Cookies from "js-cookie";
 import VerifiedScreen from "./VerifedScreen";
+import { AuthContext } from "../../context/AuthContext";
 
 const OtpEmail = () => {
   const navigation = useNavigate();
@@ -18,34 +19,35 @@ const OtpEmail = () => {
   const [isVerified, setIsVerified] = useState(false);
   const [loading, setloading] = useState(false);
   const email = sessionStorage.getItem("email");
+  const { login } = useContext(AuthContext);
 
   const inputs = useRef([]);
 
-    const handleChange = (e, index) => {
-      const { value } = e.target;
+  const handleChange = (e, index) => {
+    const { value } = e.target;
 
-      if (/^\d$/.test(value)) {
-        const newOtp = [...otp];
-        newOtp[index] = value;
-        setOtp(newOtp);
+    if (/^\d$/.test(value)) {
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
 
-        if (index < otp.length - 1) {
-          inputs.current[index + 1].focus();
-        }
+      if (index < otp.length - 1) {
+        inputs.current[index + 1].focus();
       }
-    };
+    }
+  };
 
-    const handleKeyDown = (e, index) => {
-      if (e.key === "Backspace") {
-        const newOtp = [...otp];
-        newOtp[index] = "";
-        setOtp(newOtp);
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace") {
+      const newOtp = [...otp];
+      newOtp[index] = "";
+      setOtp(newOtp);
 
-        if (index > 0) {
-          inputs.current[index - 1].focus();
-        }
+      if (index > 0) {
+        inputs.current[index - 1].focus();
       }
-    };
+    }
+  };
 
   const getOtpValue = () => {
     return parseInt(otp.join(""), 10);
@@ -53,7 +55,12 @@ const OtpEmail = () => {
 
   const handleSubmit = async () => {
     const otpValue = otp.join("");
-    setloading(true)
+    if (otpValue.length !== 6) {
+      ErrorToast("Please enter a 6-digit OTP.");
+      return;
+    }
+    setloading(true);
+
     try {
       const response = await axios.post("/api/auth/verify-otp", {
         email: email,
@@ -63,24 +70,28 @@ const OtpEmail = () => {
 
       if (response.status === 200) {
         if (onForgot === "true") {
-          SuccessToast("OTP verified successfully");
-          navigation("/reset-password"); 
+          SuccessToast(response?.data?.message);
+          navigation("/reset-password");
         } else {
           const token = response?.data?.token;
           Cookies.set("token", token);
-          SuccessToast("OTP verified successfully!");
+          SuccessToast(response?.data?.message);
           setIsVerified(true);
+          login(response?.data);
         }
       }
     } catch (error) {
-      ErrorToast("OTP verification failed:");
-      console.error("OTP verification failed:", error);
-    }finally{
-    setloading(false)
-
+      if (error.response && error.response.data?.message) {
+        ErrorToast(error.response.data.message);
+      } else {
+        ErrorToast(error.response.data.message);
+      }
+    } finally {
+      setloading(false);
     }
   };
-
+  const [resendTime, setResendTime] = useState(false);
+  const [timer, setTimer] = useState(30);
   const handleResendOtp = async () => {
     try {
       const response = await axios.post("/api/auth/resend-email-otp", {
@@ -88,14 +99,28 @@ const OtpEmail = () => {
       });
 
       if (response.status === 200) {
-        SuccessToast("OTP Resend successfully!");
+        SuccessToast(response?.data?.message);
+        setResendTime(true);
+        startTimer();
       }
     } catch (error) {
-      ErrorToast("OTP verification failed:");
-      console.error("OTP verification failed:", error);
+      ErrorToast(error?.response?.data?.message);
     }
   };
 
+  const startTimer = () => {
+    let count = 30;
+    setTimer(count);
+
+    const intervalId = setInterval(() => {
+      count -= 1;
+      setTimer(count);
+      if (count === 0) {
+        clearInterval(intervalId);
+        setResendTime(false);
+      }
+    }, 1000);
+  };
   return (
     <div className="bg-slate-200 p-3">
       {isVerified === true ? (
@@ -148,10 +173,12 @@ const OtpEmail = () => {
               <p className="text-center flex justify-center  text-[16px] text-[#181818] font-[500] mt-4">
                 Didn’t receive the code yet?{" "}
                 <div
-                  className="font-medium text-[#012C57] hover:underline cursor-pointer"
+                  className={`font-medium text-[#012C57] hover:underline cursor-pointer ${
+                    resendTime ? "pointer-events-none text-gray-400" : ""
+                  }`}
                   onClick={() => handleResendOtp()}
                 >
-                  Resend
+                  {resendTime ? `Resend in ${timer}s` : "Resend"}
                 </div>
               </p>
             </div>

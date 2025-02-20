@@ -10,7 +10,6 @@ import TagsInputField from "./TagsInputFeild";
 import axios from "../../axios";
 import { ErrorToast } from "../toaster/ToasterContainer";
 const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
-
   const validationSchema = Yup.object({
     militaryService: Yup.string().required(
       "Please select an option to proceed."
@@ -24,9 +23,12 @@ const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
   const [tagsError, setTagsError] = useState(false);
   const [loading, steLoading] = useState(false);
   const [rankData, setRankData] = useState([]);
+
   const [servicesData, setServices] = useState([]);
   const [tags, setTags] = useState([]);
   const [filteredTags, setFilteredTags] = useState([]);
+
+  const [selectedTags, setSelectedTags] = useState([]);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -73,7 +75,7 @@ const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
       }
     } catch (err) {
       console.error("Error fetching subscription details:", err);
-      ErrorToast(err?.response?.data?.message || "Failed to fetch Ranks.");
+      ErrorToast(err?.response?.data?.message);
     } finally {
       steLoading(false);
     }
@@ -89,17 +91,20 @@ const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
     setFieldValue("militaryOption", value);
     setFormData({ ...formData, militaryOption: value });
     setIsOpen(false);
-
+    setTags([]);
+    setSelectedTags([]);
     const filteredRanks = rankData?.filter((item) => item?.serviceId === value);
     setFilteredTags(filteredRanks);
   };
 
   useEffect(() => {
     if (tags.length > 0) {
-      setFormData({ ...formData, rankOptions: tags[0].value });
-    } else {
-      setFormData({ ...formData, rankOptions: "" });
+      setFormData({ ...formData, rankOptions: tags[0] });
     }
+    // else {
+    //   setFormData({ ...formData, rankOptions: tags });
+    //   setSelectedTags(tags);
+    // }
   }, [tags]);
 
   return (
@@ -114,86 +119,108 @@ const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
         }
       }}
     >
-      {({ errors, touched, setFieldValue, setFieldTouched }) => (
-        <Form>
-          <div className="mb-4">
-            <label
-              className="block text-sm font-medium mb-0"
-              htmlFor="militaryService"
-            >
-              Have you served in military?
-            </label>
-            <RecommendatioBtn
-              handleBtnSelect={handleMilitaryService}
-              touched={touched}
-              errors={errors}
-              setFieldValue={setFieldValue}
-              setFieldTouched={setFieldTouched}
-              formData={formData.militaryService}
-              optionOne={"Yes"}
-              optionTwo={"No"}
-            />
-            <ErrorMessage
-              name="militaryService"
-              component="div"
-              className="text-red-500 text-xs italic "
-            />
-          </div>
-          {formData.militaryService === "Yes" && (
-            <>
+      {({ errors, touched, setFieldValue, setFieldTouched }) => {
+        useEffect(() => {
+          if (formData?.militaryOption) {
+            setFieldValue("militaryOption", formData?.militaryOption);
+
+            const filteredRanks = rankData?.filter(
+              (item) => item?.serviceId === formData?.militaryOption
+            );
+            setFilteredTags(filteredRanks);
+          }
+
+          if (formData?.rankOptions) {
+            console.log("formData?.rankOptions are--> ", formData?.rankOptions);
+            setSelectedTags(formData?.rankOptions);
+            setTags([formData?.rankOptions]);
+          }
+        }, [rankData]);
+        return (
+          <Form>
+            <div className="mb-4">
               <label
-                className="block text-[18px] font-[500] leading-[22.95px] mb-2"
-                htmlFor="military"
+                className="block text-sm font-medium mb-0"
+                htmlFor="militaryService"
               >
-                Please select the military branch and rank.
+                Have you served in military?
               </label>
-              <div>
-                <label
-                  className="block text-[14px] leading-[17.85px] font-[500] mb-2 mt-5"
-                  htmlFor="militaryOption"
-                >
-                  Branch of Service
-                </label>
-                <RecommendationDropdown
-                  options={servicesData}
-                  errors={errors.militaryOption}
-                  touched={touched.militaryOption}
-                  setFieldValue={setFieldValue}
-                  setFieldTouched={setFieldTouched}
-                  isOpen={isOpen}
-                  handleOptionClick={handleOptionClick}
-                  setIsOpen={setIsOpen}
-                  formData={formData.militaryOption}
-                />
-                <div className="mt-4">
-                  <label className="block text-sm font-medium mb-1">Rank</label>
-                  <TagsInputField
-                    availableTags={filteredTags}
-                    heading={`Select Your ${formData.militaryOption} Answer`}
-                    tags={tags}
-                    setTags={setTags}
-                    tagsError={tagsError}
-                    setTagsError={setTagsError}
-                  />
-                  {tagsError && (
-                    <div className="text-red-500 text-xs italic mt-0">
-                      This field cannot be left empty
-                    </div>
-                  )}
-                </div>
-              </div>
-            </>
-          )}
-          <div className="flex justify-center pt-4">
-            <div className="w-[343px]">
-              <AuthSubmitBtn text={"Next"} type={"submit"} />
+              <RecommendatioBtn
+                handleBtnSelect={handleMilitaryService}
+                touched={touched}
+                errors={errors}
+                setFieldValue={setFieldValue}
+                setFieldTouched={setFieldTouched}
+                formData={formData.militaryService}
+                optionOne={"Yes"}
+                optionTwo={"No"}
+              />
+              <ErrorMessage
+                name="militaryService"
+                component="div"
+                className="text-red-500 text-xs italic "
+              />
             </div>
-          </div>
-          <div className="mt-4">
-            <BackBtn handleClick={() => prevStep()} />
-          </div>
-        </Form>
-      )}
+            {formData.militaryService === "Yes" && (
+              <>
+                <label
+                  className="block text-[18px] font-[500] leading-[22.95px] mb-2"
+                  htmlFor="military"
+                >
+                  Please select the military branch and rank.
+                </label>
+                <div>
+                  <label
+                    className="block text-[14px] leading-[17.85px] font-[500] mb-2 mt-5"
+                    htmlFor="militaryOption"
+                  >
+                    Branch of Service
+                  </label>
+                  <RecommendationDropdown
+                    options={servicesData}
+                    errors={errors.militaryOption}
+                    touched={touched.militaryOption}
+                    setFieldValue={setFieldValue}
+                    setFieldTouched={setFieldTouched}
+                    isOpen={isOpen}
+                    handleOptionClick={handleOptionClick}
+                    setIsOpen={setIsOpen}
+                    formData={formData.militaryOption}
+                  />
+                  <div className="mt-4">
+                    <label className="block text-sm font-medium mb-1">
+                      Rank
+                    </label>
+                    <TagsInputField
+                      availableTags={filteredTags}
+                      heading={`Select Your ${formData.militaryOption} Answer`}
+                      tags={tags}
+                      setTags={setTags}
+                      tagsError={tagsError}
+                      setTagsError={setTagsError}
+                      setSelectedTags={setSelectedTags}
+                      selectedTags={selectedTags}
+                    />
+                    {tagsError && (
+                      <div className="text-red-500 text-xs italic mt-0">
+                        This field cannot be left empty
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
+            <div className="flex justify-center pt-4">
+              <div className="w-[343px]">
+                <AuthSubmitBtn text={"Next"} type={"submit"} />
+              </div>
+            </div>
+            <div className="mt-4">
+              <BackBtn handleClick={() => prevStep()} />
+            </div>
+          </Form>
+        );
+      }}
     </Formik>
   );
 };

@@ -16,6 +16,7 @@ const AddSupportGoalModal = ({
   setIsUpdate,
   isUpdate,
   getGoalDetail,
+  setSupportPeopleAdded,
 }) => {
   const [loading, setLoading] = useState(false);
 
@@ -132,9 +133,12 @@ const AddSupportGoalModal = ({
     e.preventDefault();
 
     const allFields = Object.keys(inputData);
-    allFields.forEach((field) => validateField(field, inputData[field]));
+    allFields.forEach((field) => {
+      validateField(field, inputData[field]);
+    });
 
     const hasErrors = Object.values(errors).some((error) => error !== "");
+
     if (hasErrors) {
       return;
     }
@@ -150,6 +154,7 @@ const AddSupportGoalModal = ({
     }));
 
     if (!isUpdate) {
+      setSupportPeopleAdded(true);
       setShowModalsupport(false);
       return;
     }
@@ -161,12 +166,12 @@ const AddSupportGoalModal = ({
           email_address: inputData.email,
           phone_number: inputData.phone,
         },
-        {
+        secondSupportActive && {
           full_name: inputData.fullname_2,
           email_address: inputData.email_2,
           phone_number: inputData.phone_2,
         },
-      ],
+      ].filter(Boolean),
     };
 
     setLoading(true);
@@ -189,7 +194,11 @@ const AddSupportGoalModal = ({
       setLoading(false);
     }
   };
-
+  const handleKeyPress = (e) => {
+    if (!/[0-9]/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
   return (
     showModal && (
       <div className="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm ">
@@ -227,6 +236,7 @@ const AddSupportGoalModal = ({
                   text={"Full Name"}
                   placeholder={"Enter Name"}
                   isDisabled={disableFullname1}
+                  maxLength={30}
                 />
                 {errors.fullname && (
                   <p className="text-red-500 text-sm mx-2">{errors.fullname}</p>
@@ -255,6 +265,8 @@ const AddSupportGoalModal = ({
                   text={"Phone Number"}
                   placeholder={"Enter Phone Number"}
                   isDisabled={disableFullname1}
+                  maxLength={10}
+                  onkeypress={handleKeyPress}
                 />
                 {errors.phone && (
                   <p className="text-red-500 text-sm mx-2">{errors.phone}</p>
@@ -277,6 +289,7 @@ const AddSupportGoalModal = ({
                   text={"Full Name"}
                   placeholder={"Enter Name"}
                   isDisabled={disableFullname2}
+                  maxLength={30}
                 />
                 {errors.fullname_2 && (
                   <p className="text-red-500 text-sm mx-2">
@@ -310,6 +323,8 @@ const AddSupportGoalModal = ({
                     text={"Phone Number"}
                     placeholder={"Enter Phone Number"}
                     isDisabled={disableFullname2}
+                    maxLength={10}
+                    onkeypress={handleKeyPress}
                   />
                   {errors.phone_2 && (
                     <p className="text-red-500 text-sm mx-2">
@@ -324,6 +339,7 @@ const AddSupportGoalModal = ({
                   text={"Send"}
                   type={"submit"}
                   loading={loading}
+                  disabled={disableFullname1 && disableFullname2}
                 />
               </div>
             </div>
