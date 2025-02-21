@@ -57,7 +57,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
 
   const handleNavigation = () => {
     setIsPeople(false);
-    navigate("/make-smart");
+    navigate("/make-smart", { state: { inputData: values } }); 
   };
 
   useEffect(() => {

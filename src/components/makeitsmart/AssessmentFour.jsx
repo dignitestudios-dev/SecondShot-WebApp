@@ -67,12 +67,11 @@ const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
                 placeholder="Describe Here"
                 value={values.relevant}
                 onChange={(e) => {
-                  const updatedValue = e.target.value;
-                  setFieldValue(
-                    "relevant",
-                    formData.achievable + updatedValue.slice(formData.achievable.length)
-                  );
+                  // Ensure user can edit the field freely
+                  setFieldValue("relevant", e.target.value); // Update the achievable field value
                 }}
+              
+              
                 className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
                    bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                      errors.relevant && touched.relevant

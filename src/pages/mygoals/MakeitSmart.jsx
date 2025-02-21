@@ -37,7 +37,8 @@ const MakeitSmart = () => {
     setShowModal(!showModal);
   };
   const location = useLocation();
-  const { showModal } = location.state || {};
+  const { showModal ,inputData } = location.state || {};
+  
 
   return (
     <div className="    ">
@@ -88,6 +89,7 @@ const MakeitSmart = () => {
                     setFormData={setFormData}
                     formData={formData}
                     showModal={showModal}
+                    inputData={inputData}
                   />
                 )}
                 {step === 2 && (

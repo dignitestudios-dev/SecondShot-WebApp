@@ -5,16 +5,17 @@ import { Stars } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import Backbutton from "../Global/Backbutton";
 
-const AssessmentOne = ({ nextStep, formData, setFormData,showModal }) => {
+const AssessmentOne = ({ nextStep, formData, setFormData,showModal,inputData }) => {
   const validationSchema = Yup?.object({
     specific: Yup?.string().required("Please respond before moving forward to proceed with the next step."),
   });
+  console.log(inputData,"inputData")
 
   return (
     <div>
       <Formik
         initialValues={{
-          specific: formData.specific || "", 
+          specific:inputData.main_goal_name ||  formData.specific || "", 
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
