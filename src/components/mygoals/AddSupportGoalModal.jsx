@@ -80,7 +80,7 @@ const AddSupportGoalModal = ({
 
   const validateField = (name, value) => {
     let errorMessage = "";
-
+  
     switch (name) {
       case "fullname":
         if (!value) errorMessage = "Full name is required.";
@@ -88,7 +88,8 @@ const AddSupportGoalModal = ({
       case "email":
         if (!value) {
           errorMessage = "Email address is required.";
-        } else if (!/\S+@\S+\.\S+/.test(value)) {
+        } else if (!/^[^@]+@[^@]+\.[^@]+$/.test(value)) {
+          // This regex ensures that there is only one "@" symbol and a valid domain format
           errorMessage = "Enter a valid email.";
         }
         break;
@@ -97,36 +98,32 @@ const AddSupportGoalModal = ({
         else if (!/^\d{10}$/.test(value))
           errorMessage = "Enter a valid phone number.";
         break;
-
+  
       case "fullname_2":
         if (secondSupportActive && !value)
-          errorMessage = "Full name for 2nd Support Person is required.";
+          errorMessage = "Full name is required.";
         break;
       case "email_2":
         if (secondSupportActive && !value) {
-          errorMessage = "Email address for 2nd Support Person is required.";
-        } else if (secondSupportActive && !/\S+@\S+\.\S+/.test(value)) {
-          errorMessage = "Enter a valid email for 2nd Support Person.";
+          errorMessage = "Email address is required.";
+        } else if (secondSupportActive && !/^[^@]+@[^@]+\.[^@]+$/.test(value)) {
+          // Apply the same email validation for second email
+          errorMessage = "Enter a valid email .";
         } else if (secondSupportActive && value === inputData.email) {
           errorMessage = "Email addresses cannot be the same.";
         }
         break;
       case "phone_2":
         if (secondSupportActive && !value)
-          errorMessage = "Phone number for 2nd Support Person is required.";
+          errorMessage = "Phone number  is required.";
         else if (secondSupportActive && !/^\d{10}$/.test(value))
-          errorMessage = "Enter a valid phone number for 2nd Support Person.";
+          errorMessage = "Enter a valid phone number .";
         break;
       default:
         break;
     }
-
+  
     return errorMessage;
-
-    // setErrors((prevErrors) => ({
-    //   ...prevErrors,
-    //   [name]: errorMessage,
-    // }));
   };
 
   const handleBlur = (e) => {

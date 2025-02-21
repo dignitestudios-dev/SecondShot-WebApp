@@ -6,7 +6,6 @@ import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
 import { useNavigate } from "react-router-dom";
 import { phoneFormater } from "../../pages/lib/helper";
 
-
 const AddSupportModal = ({
   showModal,
   handleClick,
@@ -81,68 +80,90 @@ const AddSupportModal = ({
     });
   };
 
-  const handleBlur = (e) => {
-    const { name, value } = e.target;
-    validateField(name, value);
-  };
-
   const validateField = (name, value) => {
     let errorMessage = "";
-
+  
     switch (name) {
       case "fullname":
         if (!value) errorMessage = "Full name is required.";
         break;
-        case "email":
-          if (!value) {
-            errorMessage = "Email address is required.";
-          } else if (!/\S+@\S+\.\S+/.test(value)) {
-            errorMessage = "Enter a valid email.";
-          }
-          break;
+      case "email":
+        if (!value) {
+          errorMessage = "Email address is required.";
+        } else if (!/^[^@]+@[^@]+\.[^@]+$/.test(value)) {
+          // This regex ensures that there is only one "@" symbol and a valid domain format
+          errorMessage = "Enter a valid email.";
+        }
+        break;
       case "phone":
         if (!value) errorMessage = "Phone number is required.";
         else if (!/^\d{10}$/.test(value))
           errorMessage = "Enter a valid phone number.";
         break;
-
+  
       case "fullname_2":
         if (secondSupportActive && !value)
-          errorMessage = "Full name for 2nd Support Person is required.";
+          errorMessage = "Full name is required.";
         break;
-        case "email_2":
-          if (secondSupportActive && !value) {
-            errorMessage = "Email address for 2nd Support Person is required.";
-          } else if (secondSupportActive && !/\S+@\S+\.\S+/.test(value)) {
-            errorMessage = "Enter a valid email for 2nd Support Person.";
-          } else if (secondSupportActive && value === inputData.email) {
-            errorMessage = "Email addresses cannot be the same.";
-          }
-          break;
+      case "email_2":
+        if (secondSupportActive && !value) {
+          errorMessage = "Email address is required.";
+        } else if (secondSupportActive && !/^[^@]+@[^@]+\.[^@]+$/.test(value)) {
+          // Apply the same email validation for second email
+          errorMessage = "Enter a valid email .";
+        } else if (secondSupportActive && value === inputData.email) {
+          errorMessage = "Email addresses cannot be the same.";
+        }
+        break;
       case "phone_2":
         if (secondSupportActive && !value)
-          errorMessage = "Phone number for 2nd Support Person is required.";
+          errorMessage = "Phone number  is required.";
         else if (secondSupportActive && !/^\d{10}$/.test(value))
-          errorMessage = "Enter a valid phone number for 2nd Support Person.";
+          errorMessage = "Enter a valid phone number .";
         break;
       default:
         break;
     }
+  
+    return errorMessage;
+  };
+  
 
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: errorMessage,
-    }));
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    validateField(name, value);
   };
 
+  const handlePhoneChange = (e) => {
+    const rawValue = e.target.value.replace(/\D/g, "");
+    if (rawValue.length <= 10) {
+      handleChange({ target: { name: e.target.name, value: rawValue } });
+    }
+  };
+
+  const handlePhoneChangetwo = (e) => {
+    const rawValue = e.target.value.replace(/\D/g, "");
+    if (rawValue.length <= 10) {
+      handleChange({ target: { name: e.target.name, value: rawValue } });
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const newErrors = {};
     const allFields = Object.keys(inputData);
-    allFields.forEach((field) => validateField(field, inputData[field]));
 
-    const hasErrors = Object.values(errors).some((error) => error !== "");
-    if (hasErrors) {
+    allFields.forEach((field) => {
+      const errorMessage = validateField(field, inputData[field]);
+      console.log("errorMessage--> ", errorMessage);
+      if (errorMessage) {
+        newErrors[field] = errorMessage;
+      }
+    });
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
       return;
     }
 
@@ -192,12 +213,10 @@ const AddSupportModal = ({
       e.preventDefault();
     }
   };
-  const handlePhoneChange = (e) => {
-    const rawValue = e.target.value?.replace(/\D/g, ""); // Remove all non-numeric characters
 
-    if (rawValue.length <= 10) {
-      handleChange({ target: { name: e.target.name, value: rawValue } }); // Update raw value
-      // Pass formatted value to the parent component
+  const handlenamePress = (e) => {
+    if (!/[a-zA-Z\s]/.test(e.key)) {
+      e.preventDefault();
     }
   };
   return (
@@ -235,10 +254,10 @@ const AddSupportModal = ({
                   onChange={handleChange}
                   onBlur={handleBlur}
                   text={"Full Name"}
-                  maxLength={30}
-
                   placeholder={"Enter Name"}
                   isDisabled={disableFullname1}
+                  maxLength={30}
+                  onkeypress={handlenamePress}
                 />
                 {errors.fullname && (
                   <p className="text-red-500 text-sm mx-2">{errors.fullname}</p>
@@ -258,23 +277,17 @@ const AddSupportModal = ({
                   <p className="text-red-500 text-sm mx-2">{errors.email}</p>
                 )}
                 <div className="w-full ">
-                  <label className="ml-1  text-[14px] font-medium text-[#181818] ">
-                    Phone Number
-                  </label>
-                  <input
-                    id="phone"
-                    name="phone"
+                  <AuthInput
+                    id={"phone"}
+                    name={"phone"}
                     value={phoneFormater(inputData.phone || "")}
-                    type="tel"
-                    maxLength={14}
-                    placeholder={"Enter Your Phone Number"}
+                    onChange={handlePhoneChange}
                     onBlur={handleBlur}
-                    onChange={handleChange}
-                    onKeyPress={handleKeyPress}
-                    className={`w-full p-3 mt-1 outline-none font-[500] focus:border-[#0E73D0]  border border-[#9A9A9A] rounded-[15px] 
-              placeholder:text-[16px] placeholder:font-[400] placeholder:text-[#181818] text-[#181818]
-              } h-full px-3 text-sm font-medium`}
-                    disabled={disableFullname1}
+                    text={"Phone Number"}
+                    placeholder={"Enter Phone Number"}
+                    isDisabled={disableFullname1}
+                    maxLength={14}
+                    onkeypress={handleKeyPress}
                   />
                   {errors.phone && (
                     <p className="text-red-500 text-sm mx-2">{errors.phone}</p>
@@ -295,9 +308,10 @@ const AddSupportModal = ({
                   onChange={handleChange}
                   onBlur={handleBlur}
                   text={"Full Name"}
-                  maxLength={30}
                   placeholder={"Enter Name"}
                   isDisabled={disableFullname2}
+                  maxLength={30}
+                  onkeypress={handlenamePress}
                 />
                 {errors.fullname_2 && (
                   <p className="text-red-500 text-sm mx-2">
@@ -318,24 +332,17 @@ const AddSupportModal = ({
                   <p className="text-red-500 text-sm mx-2">{errors.email_2}</p>
                 )}
                 <div className="w-full ">
-                  <label className="ml-1  text-[14px] font-medium text-[#181818] ">
-                    Phone Number
-                  </label>
-                  <input
-                    id="phone_2"
-                    name="phone_2"
+                  <AuthInput
+                    id={"phone_2"}
+                    name={"phone_2"}
                     value={phoneFormater(inputData.phone_2 || "")}
-
-                    type="tel"
-                    maxLength={14}
-                    placeholder={"Enter Your Phone Number"}
+                    onChange={handlePhoneChangetwo}
                     onBlur={handleBlur}
-                    onChange={handleChange}
-                    onKeyPress={handleKeyPress}
-                    className={`w-full p-3 mt-1 outline-none font-[500] focus:border-[#0E73D0]  border border-[#9A9A9A] rounded-[15px] 
-              placeholder:text-[16px] placeholder:font-[400] placeholder:text-[#181818] text-[#181818]
-              } h-full px-3 text-sm font-medium`}
-                    disabled={disableFullname2}
+                    text={"Phone Number"}
+                    placeholder={"Enter Phone Number"}
+                    isDisabled={disableFullname2}
+                    maxLength={14}
+                    onkeypress={handleKeyPress}
                   />
                   {errors.phone_2 && (
                     <p className="text-red-500 text-sm mx-2">
