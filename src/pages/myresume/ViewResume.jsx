@@ -227,6 +227,7 @@ const ViewResume = () => {
             <AuthSubmitBtn
               text={"Email It To Yourself"}
               handleSubmit={handleDownload}
+              loading={loading}
             />
           </div>
           <div className="relative inline-block text-left" ref={dropdownRef}>
