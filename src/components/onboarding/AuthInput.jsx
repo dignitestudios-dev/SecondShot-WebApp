@@ -52,7 +52,7 @@ const AuthInput = ({
             className={`w-full p-3 outline-none font-[500] focus:border-[#0E73D0]  border border-[#9A9A9A] rounded-[15px] 
               placeholder:text-[16px] placeholder:font-[400] placeholder:text-[#181818] text-[#181818] ${
                 isAuth ? "bg-transparent" : "e",
-                isDisabled ? "bg-gray" : "bg-white"
+                isDisabled ? "bg-gray-100 " : "bg-white"
               } h-full px-3 text-sm font-medium`}
             onChange={onChange}
           />

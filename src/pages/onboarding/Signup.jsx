@@ -76,10 +76,18 @@ const SignUpForm = () => {
         SuccessToast("SignUp Successfully");
         navigation("/email-otp");
       } else {
-        ErrorToast("Email Already Exist");
+        const errorMessage = response?.data?.error || "Email Already Exist";
+        ErrorToast(errorMessage);
       }
     } catch (err) {
-      ErrorToast(err?.response?.data?.message || "Server error occurred");
+      if (err?.response) {
+        const errorMessage =
+          err?.response?.data?.message || err?.response?.data?.error;
+        ErrorToast(errorMessage || "An error occurred during sign up.");
+      } else {
+        // Handle other errors (e.g., network or unknown issues)
+        ErrorToast("An unexpected error occurred. Please try again.");
+      }
 
       if (newUser?.user) {
         try {
@@ -156,8 +164,6 @@ const SignUpForm = () => {
       }
     },
   });
-
-  const handleSocialLogin = () => {};
 
   const handleFullnameChange = (e) => {
     let input = e.target.value;
