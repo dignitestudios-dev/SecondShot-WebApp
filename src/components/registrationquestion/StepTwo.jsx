@@ -15,12 +15,11 @@ const StepTwo = ({ nextStep, prevStep, formData, setFormData }) => {
     setFieldTouched("highestDegree", true);
   };
 
-
   return (
     <Formik
       initialValues={formData}
       validationSchema={validationSchema}
-      onSubmit={()=>nextStep()}
+      onSubmit={() => nextStep()}
     >
       {({ errors, touched, setFieldValue, setFieldTouched }) => (
         <Form>
@@ -37,6 +36,7 @@ const StepTwo = ({ nextStep, prevStep, formData, setFormData }) => {
               name="highestDegree"
               placeholder="Describe Here"
               rows="4"
+              maxLength="250"
               onBlur={(e) =>
                 handleHighestDegreeValue(
                   e.target.value,

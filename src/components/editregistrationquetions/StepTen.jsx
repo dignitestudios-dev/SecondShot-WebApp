@@ -5,8 +5,13 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import BackBtn from "../onboarding/BackBtn";
 import { useNavigate } from "react-router-dom";
 
-const StepTen = ({ handleRegistration, prevStep, formData, setFormData,loading }) => {
-
+const StepTen = ({
+  handleRegistration,
+  prevStep,
+  formData,
+  setFormData,
+  loading,
+}) => {
   const validationSchema = Yup.object({
     desireCareer: Yup.string().required("This field cannot be left empty."),
   });
@@ -46,6 +51,7 @@ const StepTen = ({ handleRegistration, prevStep, formData, setFormData,loading }
                   setFieldTouched
                 )
               }
+              maxLength="250"
               className={`border border-gray-400 rounded-xl w-full py-2 px-3 bg-transparent text-gray-700
                     text-sm leading-tight placeholder-gray-900 focus:outline-none focus:shadow-outline ${
                       errors.desireCareer && touched.desireCareer
@@ -63,7 +69,7 @@ const StepTen = ({ handleRegistration, prevStep, formData, setFormData,loading }
             <div className="w-[343px]">
               <AuthSubmitBtn
                 text={"Next"}
-                type={"submit"} 
+                type={"submit"}
                 loading={loading}
                 // handleSubmit={() => navigate("/congrats-message")}
               />

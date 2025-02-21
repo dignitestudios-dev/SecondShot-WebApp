@@ -81,6 +81,7 @@ const StepNine = ({ nextStep, prevStep, formData, setFormData }) => {
                 onBlur={(e) =>
                   handleJobTitle(e.target.value, setFieldValue, setFieldTouched)
                 }
+                maxLength="30"
                 className={`border border-gray-400 rounded-lg w-full h-[49px] py-2 px-3 bg-transparent placeholder-gray-900
                        text-gray-700 text-sm leading-tight focus:outline-none focus:shadow-outline ${
                          errors.jobTitle && touched.jobTitle

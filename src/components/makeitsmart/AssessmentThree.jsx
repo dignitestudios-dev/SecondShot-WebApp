@@ -81,6 +81,7 @@ const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
                        ? "border-red-500"
                        : ""
                    }`}
+                   maxLength="250" 
               />
               <ErrorMessage
                 name="achievable"

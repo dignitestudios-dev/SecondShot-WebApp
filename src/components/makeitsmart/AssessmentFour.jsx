@@ -79,6 +79,7 @@ const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
                        ? "border-red-500"
                        : ""
                    }`}
+                   maxLength="250" 
               />
               <ErrorMessage
                 name="relevant"

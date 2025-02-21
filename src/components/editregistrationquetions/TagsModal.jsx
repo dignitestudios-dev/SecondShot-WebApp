@@ -51,7 +51,9 @@ const TagsModal = ({
                 </div>
               ))
             ) : (
-              <p className="text-gray-500">No tags found</p>
+              <div className="flex items-center justify-center w-full h-[100px]">
+            <p className="text-gray-500 text-center">No tags found</p>
+          </div>
             )}
           </div>
           <div className="mt-4 flex justify-center">

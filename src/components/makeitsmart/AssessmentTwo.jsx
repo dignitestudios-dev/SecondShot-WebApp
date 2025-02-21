@@ -64,16 +64,17 @@ const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
                 as="input"
                 id="measure"
                 name="measure"
-                value={values.measure} 
+                value={values.measure}
                 onChange={(e) => {
                   const updatedValue = e.target.value;
-                  setFieldValue("measure", updatedValue); 
+                  setFieldValue("measure", updatedValue);
                 }}
                 placeholder="Describe Here"
                 className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
                    bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                      errors.measure && touched.measure ? "border-red-500" : ""
                    }`}
+                maxLength="250"
               />
               <ErrorMessage
                 name="measure"

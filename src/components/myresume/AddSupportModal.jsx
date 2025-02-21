@@ -4,6 +4,8 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import axios from "../../axios";
 import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
 import { useNavigate } from "react-router-dom";
+import { phoneFormater } from "../../pages/lib/helper";
+
 
 const AddSupportModal = ({
   showModal,
@@ -91,11 +93,13 @@ const AddSupportModal = ({
       case "fullname":
         if (!value) errorMessage = "Full name is required.";
         break;
-      case "email":
-        if (!value) errorMessage = "Email address is required.";
-        else if (!/\S+@\S+\.\S+/.test(value))
-          errorMessage = "Enter a valid email.";
-        break;
+        case "email":
+          if (!value) {
+            errorMessage = "Email address is required.";
+          } else if (!/\S+@\S+\.\S+/.test(value)) {
+            errorMessage = "Enter a valid email.";
+          }
+          break;
       case "phone":
         if (!value) errorMessage = "Phone number is required.";
         else if (!/^\d{10}$/.test(value))
@@ -106,15 +110,15 @@ const AddSupportModal = ({
         if (secondSupportActive && !value)
           errorMessage = "Full name for 2nd Support Person is required.";
         break;
-      case "email_2":
-        if (secondSupportActive && !value)
-          errorMessage = "Email address for 2nd Support Person is required.";
-        else if (secondSupportActive && !/\S+@\S+\.\S+/.test(value))
-          errorMessage = "Enter a valid email for 2nd Support Person.";
-        else if (secondSupportActive && value === inputData.email) {
-          errorMessage = "Email addresses cannot be the same.";
-        }
-        break;
+        case "email_2":
+          if (secondSupportActive && !value) {
+            errorMessage = "Email address for 2nd Support Person is required.";
+          } else if (secondSupportActive && !/\S+@\S+\.\S+/.test(value)) {
+            errorMessage = "Enter a valid email for 2nd Support Person.";
+          } else if (secondSupportActive && value === inputData.email) {
+            errorMessage = "Email addresses cannot be the same.";
+          }
+          break;
       case "phone_2":
         if (secondSupportActive && !value)
           errorMessage = "Phone number for 2nd Support Person is required.";
@@ -188,6 +192,14 @@ const AddSupportModal = ({
       e.preventDefault();
     }
   };
+  const handlePhoneChange = (e) => {
+    const rawValue = e.target.value?.replace(/\D/g, ""); // Remove all non-numeric characters
+
+    if (rawValue.length <= 10) {
+      handleChange({ target: { name: e.target.name, value: rawValue } }); // Update raw value
+      // Pass formatted value to the parent component
+    }
+  };
   return (
     showModal && (
       <div className="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm ">
@@ -223,6 +235,8 @@ const AddSupportModal = ({
                   onChange={handleChange}
                   onBlur={handleBlur}
                   text={"Full Name"}
+                  maxLength={30}
+
                   placeholder={"Enter Name"}
                   isDisabled={disableFullname1}
                 />
@@ -250,9 +264,9 @@ const AddSupportModal = ({
                   <input
                     id="phone"
                     name="phone"
-                    value={inputData.phone}
+                    value={phoneFormater(inputData.phone || "")}
                     type="tel"
-                    maxLength={10}
+                    maxLength={14}
                     placeholder={"Enter Your Phone Number"}
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -281,6 +295,7 @@ const AddSupportModal = ({
                   onChange={handleChange}
                   onBlur={handleBlur}
                   text={"Full Name"}
+                  maxLength={30}
                   placeholder={"Enter Name"}
                   isDisabled={disableFullname2}
                 />
@@ -309,9 +324,10 @@ const AddSupportModal = ({
                   <input
                     id="phone_2"
                     name="phone_2"
-                    value={inputData.phone_2}
+                    value={phoneFormater(inputData.phone_2 || "")}
+
                     type="tel"
-                    maxLength={10}
+                    maxLength={14}
                     placeholder={"Enter Your Phone Number"}
                     onBlur={handleBlur}
                     onChange={handleChange}

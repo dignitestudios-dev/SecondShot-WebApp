@@ -37,7 +37,6 @@ const AuthProvider = ({ children }) => {
     });
   };
 
-  console.log(user, "userData?.name");
   const getProfile = async () => {
     try {
       const response = await axios.get("/api/user/my-profile");
@@ -78,7 +77,7 @@ const AuthProvider = ({ children }) => {
     profileCompleted,
     registrationQuestion,
     getProfile,
-    user
+    user,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

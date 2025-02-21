@@ -63,6 +63,7 @@ const AssessmentOne = ({ nextStep, formData, setFormData,showModal }) => {
                    bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                      errors.specific && touched.specific ? "border-red-500" : ""
                    }`}
+                   maxLength="250" 
               />
               <ErrorMessage
                 name="specific"

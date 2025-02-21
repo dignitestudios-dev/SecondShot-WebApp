@@ -3,6 +3,7 @@ import AuthInput from "../onboarding/AuthInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import axios from "../../axios";
 import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
+import { phoneFormater } from "../../pages/lib/helper";
 
 const AddSupportGoalModal = ({
   showModal,
@@ -18,16 +19,17 @@ const AddSupportGoalModal = ({
   getGoalDetail,
   setSupportPeopleAdded,
 }) => {
+  console.log("error--> ", errors);
   const [loading, setLoading] = useState(false);
 
-  // State to track input values temporarily
   const [inputData, setInputData] = useState({
-    fullname: formData.fullname || goalDetail?.support_people[0]?.full_name,
-    email: formData.email || goalDetail?.support_people[0]?.email_address,
-    phone: formData.phone || goalDetail?.support_people[0]?.phone_number,
-    fullname_2: formData.fullname_2 || goalDetail?.support_people[1]?.full_name,
-    email_2: formData.email_2 || goalDetail?.support_people[1]?.email_address,
-    phone_2: formData.phone_2 || goalDetail?.support_people[1]?.phone_number,
+    fullname: formData?.fullname || goalDetail?.support_people[0]?.full_name,
+    email: formData?.email || goalDetail?.support_people[0]?.email_address,
+    phone: formData?.phone || goalDetail?.support_people[0]?.phone_number,
+    fullname_2:
+      formData?.fullname_2 || goalDetail?.support_people[1]?.full_name,
+    email_2: formData?.email_2 || goalDetail?.support_people[1]?.email_address,
+    phone_2: formData?.phone_2 || goalDetail?.support_people[1]?.phone_number,
   });
   const [disableFullname1, setDisableFullname1] = useState(false);
   const [disableFullname2, setDisableFullname2] = useState(false);
@@ -76,11 +78,6 @@ const AddSupportGoalModal = ({
     });
   };
 
-  const handleBlur = (e) => {
-    const { name, value } = e.target;
-    validateField(name, value);
-  };
-
   const validateField = (name, value) => {
     let errorMessage = "";
 
@@ -89,9 +86,11 @@ const AddSupportGoalModal = ({
         if (!value) errorMessage = "Full name is required.";
         break;
       case "email":
-        if (!value) errorMessage = "Email address is required.";
-        else if (!/\S+@\S+\.\S+/.test(value))
+        if (!value) {
+          errorMessage = "Email address is required.";
+        } else if (!/\S+@\S+\.\S+/.test(value)) {
           errorMessage = "Enter a valid email.";
+        }
         break;
       case "phone":
         if (!value) errorMessage = "Phone number is required.";
@@ -104,12 +103,11 @@ const AddSupportGoalModal = ({
           errorMessage = "Full name for 2nd Support Person is required.";
         break;
       case "email_2":
-        if (secondSupportActive && !value)
+        if (secondSupportActive && !value) {
           errorMessage = "Email address for 2nd Support Person is required.";
-        else if (secondSupportActive && !/\S+@\S+\.\S+/.test(value))
+        } else if (secondSupportActive && !/\S+@\S+\.\S+/.test(value)) {
           errorMessage = "Enter a valid email for 2nd Support Person.";
-        // Check if email and email_2 are the same
-        else if (secondSupportActive && value === inputData.email) {
+        } else if (secondSupportActive && value === inputData.email) {
           errorMessage = "Email addresses cannot be the same.";
         }
         break;
@@ -123,23 +121,50 @@ const AddSupportGoalModal = ({
         break;
     }
 
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: errorMessage,
-    }));
+    return errorMessage;
+
+    // setErrors((prevErrors) => ({
+    //   ...prevErrors,
+    //   [name]: errorMessage,
+    // }));
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    validateField(name, value);
+  };
+
+  const handlePhoneChange = (e) => {
+    const rawValue = e.target.value.replace(/\D/g, "");
+    if (rawValue.length <= 10) {
+      handleChange({ target: { name: e.target.name, value: rawValue } });
+    }
+  };
+
+  const handlePhoneChangetwo = (e) => {
+    const rawValue = e.target.value.replace(/\D/g, "");
+    if (rawValue.length <= 10) {
+      handleChange({ target: { name: e.target.name, value: rawValue } });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const newErrors = {};
     const allFields = Object.keys(inputData);
+
     allFields.forEach((field) => {
-      validateField(field, inputData[field]);
+      const errorMessage = validateField(field, inputData[field]);
+      console.log("errorMessage--> ", errorMessage);
+      if (errorMessage) {
+        newErrors[field] = errorMessage;
+      }
     });
 
-    const hasErrors = Object.values(errors).some((error) => error !== "");
+    setErrors(newErrors);
 
-    if (hasErrors) {
+    if (Object.keys(newErrors).length > 0) {
       return;
     }
 
@@ -199,6 +224,12 @@ const AddSupportGoalModal = ({
       e.preventDefault();
     }
   };
+  const handlenamePress = (e) => {
+    if (!/[a-zA-Z\s]/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
+
   return (
     showModal && (
       <div className="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm ">
@@ -237,6 +268,7 @@ const AddSupportGoalModal = ({
                   placeholder={"Enter Name"}
                   isDisabled={disableFullname1}
                   maxLength={30}
+                  onkeypress={handlenamePress}
                 />
                 {errors.fullname && (
                   <p className="text-red-500 text-sm mx-2">{errors.fullname}</p>
@@ -259,13 +291,13 @@ const AddSupportGoalModal = ({
                 <AuthInput
                   id={"phone"}
                   name={"phone"}
-                  value={inputData.phone}
-                  onChange={handleChange}
+                  value={phoneFormater(inputData.phone || "")}
+                  onChange={handlePhoneChange}
                   onBlur={handleBlur}
                   text={"Phone Number"}
                   placeholder={"Enter Phone Number"}
                   isDisabled={disableFullname1}
-                  maxLength={10}
+                  maxLength={14}
                   onkeypress={handleKeyPress}
                 />
                 {errors.phone && (
@@ -290,6 +322,7 @@ const AddSupportGoalModal = ({
                   placeholder={"Enter Name"}
                   isDisabled={disableFullname2}
                   maxLength={30}
+                  onkeypress={handlenamePress}
                 />
                 {errors.fullname_2 && (
                   <p className="text-red-500 text-sm mx-2">
@@ -301,6 +334,7 @@ const AddSupportGoalModal = ({
                   <AuthInput
                     id={"email_2"}
                     name={"email_2"}
+                    type={"email"}
                     value={inputData.email_2}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -317,13 +351,13 @@ const AddSupportGoalModal = ({
                   <AuthInput
                     id={"phone_2"}
                     name={"phone_2"}
-                    value={inputData.phone_2}
-                    onChange={handleChange}
+                    value={phoneFormater(inputData.phone_2 || "")}
+                    onChange={handlePhoneChangetwo}
                     onBlur={handleBlur}
                     text={"Phone Number"}
                     placeholder={"Enter Phone Number"}
                     isDisabled={disableFullname2}
-                    maxLength={10}
+                    maxLength={14}
                     onkeypress={handleKeyPress}
                   />
                   {errors.phone_2 && (

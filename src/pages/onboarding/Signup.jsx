@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   AppleIcon,
   BgAuth,
@@ -25,8 +25,8 @@ import {
   getIdToken,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "../../firebase/firebase";
 import { phoneFormater } from "../lib/helper";
+import SocialLogin from "./SocialLogin";
 
 const SignUpForm = () => {
   const navigation = useNavigate();
@@ -156,6 +156,9 @@ const SignUpForm = () => {
       }
     },
   });
+
+  const handleSocialLogin = () => {};
+
   const handleFullnameChange = (e) => {
     let input = e.target.value;
 
@@ -184,17 +187,14 @@ const SignUpForm = () => {
       setFieldValue("email", input);
     }
   };
- 
 
   const handlePhoneChange = (e) => {
-    const rawValue = e.target.value.replace(/\D/g, ""); // Remove all non-numeric characters
+    const rawValue = e.target.value.replace(/\D/g, "");
 
     if (rawValue.length <= 10) {
-      handleChange({ target: { name: e.target.name, value: rawValue } }); // Update raw value
-      // Pass formatted value to the parent component
+      handleChange({ target: { name: e.target.name, value: rawValue } });
     }
   };
-
 
   return (
     <div className=" bg-gradient-to-br from-[#F4F7FC] to-[#E9F5E5] p-4 ">
@@ -306,21 +306,8 @@ const SignUpForm = () => {
             <div className="flex justify-center my-6">
               <img src={ORimg} className="h-[22px] w-[350px]" alt="Divider" />
             </div>
-            <div className="flex justify-center space-x-4 mb-6">
-              <button className="border border-[#D9D9D9] p-3 rounded-[8px]">
-                <img
-                  src={GoogleIcon}
-                  alt="Google"
-                  className="h-[20px] w-[20px]"
-                />
-              </button>
-              <button className="border border-[#D9D9D9] p-3 rounded-[8px]">
-                <img
-                  src={AppleIcon}
-                  alt="Apple"
-                  className="h-[20px] w-[20px]"
-                />
-              </button>
+            <div className="flex justify-center items-center mb-6">
+              <SocialLogin />
             </div>
             <div className="flex items-center justify-center gap-2  mt-4 mb-3 relative z-10">
               <p className="text-center text-[16px] leading-[21.6px] font-medium">

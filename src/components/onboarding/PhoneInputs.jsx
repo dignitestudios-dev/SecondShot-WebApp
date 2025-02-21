@@ -8,7 +8,7 @@ const PhoneInputs = ({
   id,
   name,
   isDisabled = false,
-  autoComplete
+  autoComplete,
 }) => {
   const handlePhoneChange = (e) => {
     const formattedValue = e.target.value.replace(/[^0-9]/g, "");
@@ -31,7 +31,8 @@ const PhoneInputs = ({
       className={`flex items-center p-0 w-full pl-2 outline-none font-[500] focus-within:border-[#0E73D0] 
       border border-[#9A9A9A] rounded-[15px] placeholder:text-[16px] placeholder:font-[400]
       placeholder:text-[#181818] text-[#181818] ${
-        isAuth ? "bg-transparent" : "bg-white"
+        (isAuth ? "bg-transparent" : "bg-white",
+        isDisabled ? "bg-gray-100" : "bg-white")
       } 
       h-full px-3 text-sm font-medium`}
     >
@@ -49,7 +50,7 @@ const PhoneInputs = ({
 
       <input
         type="text"
-        className="outline-none w-full bg-white placeholder:text-[16px] placeholder:font-[400] placeholder:text-[#181818] text-[#181818] h-[49px]"
+        className="outline-none w-full bg-gray placeholder:text-[16px] placeholder:font-[400] placeholder:text-[#181818] text-[#181818] h-[49px]"
         placeholder="123-456-7890"
         value={value}
         onChange={handlePhoneChange}

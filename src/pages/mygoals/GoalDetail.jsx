@@ -286,52 +286,64 @@ checked:before:justify-center checked:before:items-center"
             </p>
           </div>
           <div>
-            <div className="mt-8">
-              <div className="bg-white rounded-[16px] shadow-md p-6 mt-4">
-                <div className="flex justify-between items-center">
-                  <h2 className="font-[600] text-[18px] text-[#222222]">
-                    Sub Goal
-                  </h2>
-                  <div className="flex justify-between items-center mb-2">
-                    <button
-                      className={`bg-[#FFFCF2] bg-opacity-35  ${getBgCardColor(
-                        goalDetail?.sub_goal_status
-                      )} px-4 py-2 rounded-md border  ${gettextCardColor(
-                        goalDetail?.sub_goal_status
-                      )} ${getBorderColor(goalDetail?.sub_goal_status)}   `}
-                    >
-                      {goalDetail?.sub_goal_status}
-                    </button>
-                  </div>
-                </div>
-                {goalDetail?.sub_goals?.map((item) => (
-                  <div
-                    className="flex justify-between items-center mt-3 border-b  border-gray-200 last:border-b-0"
-                    key={item?._id}
-                  >
-                    <div className="flex items-center gap-2 py-2 text-[14px]">
-                      {subloader ? (
-                        <div className="animate-pulse w-6 h-6 rounded-sm bg-slate-500 "></div>
-                      ) : (
-                        <input
-                          type="checkbox"
-                          id={`custom-checkbox-${item?._id}`}
-                          checked={item?.is_completed}
-                          disabled={item?.is_completed}
-                          className="h-5 w-5 rounded-md border border-gray-300 bg-white checked:bg-[#012C57] checked:border-[#012C57] appearance-none cursor-pointer 
-          checked:before:block checked:before:content-['✓'] checked:before:text-white checked:before:text-sm text-center 
-          checked:before:justify-center checked:before:items-center"
-                          onChange={() => handlesubgoalstatus(item?._id)}
-                        />
-                      )}
-                      <label className="text-[#0F0F0F] text-[16px]">
-                        {item?.name}
-                      </label>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {goalDetail?.sub_goals?.length > 0 && (  // Check if there are sub-goals
+  <div className="mt-8">
+    <div className="bg-white rounded-[16px] shadow-md p-6 mt-4">
+      {/* Sub Goal Heading */}
+      <div className="flex justify-between items-center">
+        <h2 className="font-[600] text-[18px] text-[#222222]">
+          Sub Goal
+        </h2>
+        <div className="flex justify-between items-center mb-2">
+          <button
+            className={`bg-[#FFFCF2] bg-opacity-35  ${getBgCardColor(
+              goalDetail?.sub_goal_status
+            )} px-4 py-2 rounded-md border  ${gettextCardColor(
+              goalDetail?.sub_goal_status
+            )} ${getBorderColor(goalDetail?.sub_goal_status)}   `}
+          >
+            {goalDetail?.sub_goal_status}
+          </button>
+        </div>
+      </div>
+
+      {/* Mapping through sub-goals */}
+      {goalDetail?.sub_goals?.map((item) => (
+        <div
+          className="flex justify-between items-center mt-3 border-b  border-gray-200 last:border-b-0"
+          key={item?._id}
+        >
+          <div className="flex items-center gap-2 py-2 text-[14px]">
+            {subloader ? (
+              <div className="animate-pulse w-6 h-6 rounded-sm bg-slate-500 "></div>
+            ) : (
+              <input
+                type="checkbox"
+                id={`custom-checkbox-${item?._id}`}
+                checked={item?.is_completed}
+                disabled={item?.is_completed}
+                className="h-5 w-5 rounded-md border border-gray-300 bg-white checked:bg-[#012C57] checked:border-[#012C57] appearance-none cursor-pointer 
+                checked:before:block checked:before:content-['✓'] checked:before:text-white checked:before:text-sm text-center 
+                checked:before:justify-center checked:before:items-center"
+                onChange={() => handlesubgoalstatus(item?._id)}
+              />
+            )}
+            <label className="text-[#0F0F0F] text-[16px]">
+              {item?.name}
+            </label>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
+{goalDetail?.sub_goals?.length === 0 && (
+  <div className="mt-8 text-center text-gray-500">
+    <p>No Sub Goals Available</p>
+  </div>
+)}
+
           </div>
           <div>
             <div className="mt-8 grid grid-cols-2 gap-4">

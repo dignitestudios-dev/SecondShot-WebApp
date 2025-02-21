@@ -46,6 +46,8 @@ const StepTen = ({ handleRegistration, prevStep, formData, setFormData,loading }
                   setFieldTouched
                 )
               }
+
+              maxLength="250" 
               className={`border border-gray-400 rounded-xl w-full py-2 px-3 bg-transparent text-gray-700
                     text-sm leading-tight placeholder-gray-900 focus:outline-none focus:shadow-outline ${
                       errors.desireCareer && touched.desireCareer

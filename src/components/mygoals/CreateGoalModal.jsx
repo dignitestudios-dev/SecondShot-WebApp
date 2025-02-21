@@ -19,7 +19,6 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
   const location = useLocation();
   const { isSmart, lastStep } = location.state || {};
   const [threeMonthsAgo, setThreeMonthsAgo] = useState(new Date());
-  
 
   useEffect(() => {
     const date = new Date();
@@ -32,7 +31,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
   };
   const formik = useFormik({
     initialValues: {
-      main_goal_name: lastStep?.timebound || "", 
+      main_goal_name: lastStep?.timebound || "",
       startDate: threeMonthsAgo,
       sub_goals: [],
     },
@@ -69,7 +68,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
 
   useEffect(() => {
     if (lastStep?.timebound) {
-      formik.setFieldValue("main_goal_name", lastStep.timebound, false); 
+      formik.setFieldValue("main_goal_name", lastStep.timebound, false);
     }
   }, [lastStep]);
 
@@ -90,7 +89,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                   <div className="flex justify-center mt-3">
                     <div>
                       <h2 className="text-[24px] text-center font-semibold">
-                        {isSmart ? "Smart Goal" : "Create Goal"}
+                        {isSmart ? "S.M.A.R.T Goal" : "Create Goal"}
                       </h2>
                     </div>
                   </div>
@@ -104,6 +103,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       error={errors.main_goal_name}
+                      maxLength={250}
                     />
                   </div>
                   <div className="mt-4">
@@ -127,17 +127,16 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                           <img className="w-[24px]" src={Calender} />
                         </span>
                         {showCalender && (
-            <div>
-              <CustomCalendar
-                startDate={threeMonthsAgo}
-                setStartDate={handleDateChange} // Use the function to handle the date change
-                setShowCalender={setShowCalender}
-              />
-            </div>
-          )}
+                          <div>
+                            <CustomCalendar
+                              startDate={threeMonthsAgo}
+                              setStartDate={handleDateChange} // Use the function to handle the date change
+                              setShowCalender={setShowCalender}
+                            />
+                          </div>
+                        )}
                       </div>
                     </div>
-                  
                   </div>
 
                   {showSubGoal && (
@@ -172,6 +171,8 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                                     touched.sub_goals?.[index]?.name &&
                                     errors.sub_goals?.[index]?.name
                                   }
+                      maxLength={250}
+
                                 />
 
                                 <div className="mt-4">
@@ -248,6 +249,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
 
                   {!isSmart && (
                     <button
+                      type="button"
                       onClick={handleNavigation}
                       className="w-full bg-[#E5EAED] font-[500] capitalize text-[#012C57] py-2 my-2 rounded-[8px] h-[49px] hover:bg-[#d0d5d8]"
                     >

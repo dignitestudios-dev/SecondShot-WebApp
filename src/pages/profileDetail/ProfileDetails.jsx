@@ -84,7 +84,22 @@ const ProfileDetails = () => {
       setFieldValue("profilePicture", file);
     }
   };
-  console.log(user?.phone,"user?.phone")
+  const phoneFormater = (input) => {
+    if (!input) return ""; // Return an empty string if input is undefined, null, or an empty string
+  
+    const cleaned = input.replace(/\D/g, ""); // Remove all non-numeric characters
+  
+    if (cleaned.length > 3 && cleaned.length <= 6) {
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
+    } else if (cleaned.length > 6) {
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+    } else if (cleaned.length > 0) {
+      return `(${cleaned}`;
+    }
+  
+    return cleaned; // Return cleaned number if less than 1 digit
+  };
+  
 
   return (
     <div className=" bg-transparent lg:h-screen h-full px-6 py-4">
@@ -181,7 +196,7 @@ const ProfileDetails = () => {
         <div className="hidden md:block w-[1px] h-[70%] bg-gray-200 -ml-4 mt-10"></div>
         <div className="col-span-12 md:col-span-5 gap-y-4 px-12 md:px-36 md:-ml-52 lg:px-28 lg:-ml-48">
           <div className=" mt-5">
-            <PhoneInputs value={user?.phone} isDisabled />
+            <PhoneInputs value={phoneFormater(user?.phone)} isDisabled />
           </div>
           <div className="relative w-full mt-3 ">
             <SelectInput

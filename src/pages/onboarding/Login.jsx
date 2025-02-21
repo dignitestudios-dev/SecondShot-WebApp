@@ -21,6 +21,7 @@ import {
   ErrorToast,
   SuccessToast,
 } from "../../components/toaster/ToasterContainer";
+import SocialLogin from "./SocialLogin";
 
 const Login = () => {
   const navigation = useNavigate();
@@ -160,23 +161,8 @@ const Login = () => {
             <div className="flex justify-center my-6">
               <img src={ORimg} className="h-[22px] w-[350px]" alt="Divider" />
             </div>
-
-            <div className="flex justify-center space-x-4 mb-6">
-              <button className="border border-[#D9D9D9] p-3 rounded-[8px]">
-                <img
-                  src={GoogleIcon}
-                  alt="Google"
-                  className="h-[20px] w-[20px]"
-                />
-              </button>
-
-              <button className="border border-[#D9D9D9] p-3 rounded-[8px]">
-                <img
-                  src={AppleIcon}
-                  alt="Apple"
-                  className="h-[20px] w-[20px]"
-                />
-              </button>
+            <div className="flex justify-center items-center mb-6">
+              <SocialLogin />
             </div>
 
             <p className="text-center text-[16px] leading-[21.6px] font-medium relative z-10">

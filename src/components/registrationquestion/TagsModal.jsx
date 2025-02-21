@@ -20,7 +20,6 @@ const TagsModal = ({
     return label?.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
-
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl shadow-lg h-[720px] w-1/3 p-4 relative flex flex-col">
@@ -38,7 +37,7 @@ const TagsModal = ({
           placeholder="Search"
           className="w-full text-sm border border-gray-400 px-4 py-2 mb-4 rounded-xl outline-none placeholder-gray-900"
         />
-        <div className="flex-grow overflow-auto scrollbar-custom mb-4">
+        <div className="flex-grow   overflow-auto scrollbar-custom mb-4">
           <div className="flex flex-wrap">
             {filteredTags.length > 0 ? (
               filteredTags.map((tag) => (
@@ -54,8 +53,11 @@ const TagsModal = ({
                   <span>{tag?.label}</span>
                 </div>
               ))
+              
             ) : (
-              <p className="text-gray-500">No tags found</p>
+              <div className="flex items-center justify-center w-full h-[500px]">
+              <p className="text-gray-500 text-center">No tags found</p>
+            </div>
             )}
           </div>
         </div>

@@ -61,9 +61,14 @@ function ReviewYourGoalOld() {
   const handleCardModal = () => {
     setShowCardModal(!showCardModal);
   };
-  const isAnyFieldFilled = Object.values(formData).some(
-    (value) => value !== ""
-  );
+  
+  const isAnyFieldFilled =
+    formData?.fullname &&
+    formData?.email &&
+    formData?.phone &&
+    formData?.fullname_2 &&
+    formData?.email_2 &&
+    formData?.phone_2;
 
   const [loader, setLoader] = useState(false);
 
@@ -165,12 +170,12 @@ function ReviewYourGoalOld() {
                   <div className="flex space-x-2 mt-2">
                     <p>Deadline for Main goals:</p>
                     <p className="font-semibold text-blue-600 mb-4">
-                    {new Date(date).toLocaleDateString("en-US", {
-                            year: "2-digit",
-                            month: "2-digit",
-                            day: "2-digit",
-                          })}
-                          {'-'}
+                      {new Date(date).toLocaleDateString("en-US", {
+                        year: "2-digit",
+                        month: "2-digit",
+                        day: "2-digit",
+                      })}
+                      {"-"}
                       {goaldata?.startDate
                         ? new Date(goaldata.startDate).toLocaleDateString(
                             "en-US",
@@ -220,7 +225,7 @@ function ReviewYourGoalOld() {
                             month: "2-digit",
                             day: "2-digit",
                           })}
-                          {'-'}
+                          {"-"}
                           {item?.deadline
                             ? new Date(item.deadline).toLocaleDateString(
                                 "en-US",

@@ -51,7 +51,8 @@ const AuthInput = ({
             //  text-[#181818] placeholder:font-normal font-medium px-4 lg:py-3 md:py-2 py-3 my-2 rounded-xl outline-none"
             className={`w-full p-3 outline-none font-[500] focus:border-[#0E73D0]  border border-[#9A9A9A] rounded-[15px] 
               placeholder:text-[16px] placeholder:font-[400] placeholder:text-[#181818] text-[#181818] ${
-                isAuth ? "bg-transparent" : "e"
+                isAuth ? "bg-transparent" : "e",
+                isDisabled ? "bg-gray" : "bg-white"
               } h-full px-3 text-sm font-medium`}
             onChange={onChange}
           />
