@@ -21,6 +21,7 @@ import {
 import { AuthContext } from "../../context/AuthContext";
 const RegistrationQuestion = () => {
   const navigate = useNavigate();
+  const [stepforward,setStepforward]=useState(false)
   const { setRegQuestion } = useContext(AuthContext);
   useEffect(() => {
     const token = Cookies.get("token");
@@ -32,7 +33,7 @@ const RegistrationQuestion = () => {
 
   const [congrats, setCongrats] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(6);
   const [stepsixvalue, setstepsixvalue] = useState([]);
   const [formData, setFormData] = useState({
     university: "",
@@ -203,6 +204,8 @@ const RegistrationQuestion = () => {
                         setFormData={setFormData}
                         formData={formData}
                         prevStep={prevStep}
+                        stepforward={stepforward}
+                        setStepforward={setStepforward}
                       />
                     )}
                     {step === 7 && (
@@ -212,6 +215,8 @@ const RegistrationQuestion = () => {
                         setFormData={setFormData}
                         formData={formData}
                         prevStep={prevStep}
+                        stepforward={stepforward}
+                        setStepforward={setStepforward}
                       />
                     )}
                     {step === 8 && (

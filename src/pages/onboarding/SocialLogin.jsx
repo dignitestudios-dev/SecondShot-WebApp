@@ -77,7 +77,6 @@ const SocialLogin = () => {
         const email = result?.user?.email;
         const name = result?.user?.displayName;
 
-        console.log("Firebase ID Token:", token);
 
         if (token) {
           try {
