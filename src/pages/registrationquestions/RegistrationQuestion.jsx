@@ -33,7 +33,7 @@ const RegistrationQuestion = () => {
 
   const [congrats, setCongrats] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [step, setStep] = useState(6);
+  const [step, setStep] = useState(1);
   const [stepsixvalue, setstepsixvalue] = useState([]);
   const [formData, setFormData] = useState({
     university: "",
@@ -217,6 +217,7 @@ const RegistrationQuestion = () => {
                         prevStep={prevStep}
                         stepforward={stepforward}
                         setStepforward={setStepforward}
+                        setstepsixvalue={setstepsixvalue}
                       />
                     )}
                     {step === 8 && (

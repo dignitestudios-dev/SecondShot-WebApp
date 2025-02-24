@@ -100,6 +100,7 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
                         placeholder={
                           "Enter Award Name (e.g., Employee of the Year, Academic Excellence Award)"
                         }
+                        maxLength={30}
                       />
                       {errors.honorsList?.[index]?.awardName &&
                         touched.honorsList?.[index]?.awardName && (
@@ -117,6 +118,7 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         placeholder={"ABC Company"}
+                        maxLength={30}
                       />
                       {errors.honorsList?.[index]?.awardingOrganization &&
                         touched.honorsList?.[index]?.awardingOrganization && (
@@ -196,6 +198,7 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
                         onChange={handleChange}
                         className="w-full border rounded-xl px-3 py-3 text-sm bg-transparent border-gray-700 focus:ring-gray-700 focus:border-gray-700 outline-gray-700"
                         placeholder="A brief description of the award, highlighting its significance, criteria, or relevance to your field (e.g., 'Awarded to the top 5% of students for academic excellence')."
+                        maxLength={250}
                       />
                     </div>
                   </div>

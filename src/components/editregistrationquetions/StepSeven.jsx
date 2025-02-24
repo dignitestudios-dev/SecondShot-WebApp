@@ -12,49 +12,39 @@ const StepSeven = ({
   setFormData,
   stepsixvalue,
 }) => {
-  console.log(formData?.hobbieOptions2, "stepsixvalue");
-  // const validationSchema = Yup.object({
-  //     isAthlete: Yup.string().required('This field is required'),
-  //   });
-
-  // const handleIsAthlete = (value, setFieldValue, setFieldTouched) => {
-  //   setFieldValue('isAthlete', value);
-  //   setFormData({ ...formData, isAthlete: value });
-  //   setFieldTouched("isAthlete", true);
-  // }\
+  console.log(formData, "stepsixvalue");
 
   const [tagsError, setTagsError] = useState(false);
 
   const [tags, setTags] = useState([]);
 
   const [selectedTags, setSelectedTags] = useState([]);
+
   useEffect(() => {
     if (tags.length > 0) {
       setFormData({ ...formData, hobbieOptions2: tags[0] });
     }
-    // else {
-    //   setFormData({ ...formData, hobbieOptions2: "" });
-    // }
   }, [tags]);
   useEffect(() => {
     if (formData?.hobbieOptions2) {
       const hobbieTags = stepsixvalue.filter(
-        (item) => item.value === formData?.hobbieOptions2?.value
+        (item) => item?.value === formData?.hobbieOptions2?.value
       );
       setTags(hobbieTags);
 
-      // setTags([
-      //   {
-      //     label: formData?.hobbieOptions2?.label,
-      //     value: formData?.hobbieOptions2?.value,
-      //   },
-      // ]);
+      setTags([
+        {
+          label: formData?.hobbieOptions2?.label,
+          value: formData?.hobbieOptions2?.value,
+        },
+      ]);
       setSelectedTags({
         label: formData?.hobbieOptions2?.label,
         value: formData?.hobbieOptions2?.value,
       });
     }
   }, [stepsixvalue]);
+
   return (
     <Formik
       initialValues={{}}

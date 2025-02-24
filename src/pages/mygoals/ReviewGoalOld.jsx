@@ -61,7 +61,7 @@ function ReviewYourGoalOld() {
   const handleCardModal = () => {
     setShowCardModal(!showCardModal);
   };
-  
+
   const isAnyFieldFilled =
     formData?.fullname &&
     formData?.email &&
@@ -197,7 +197,7 @@ function ReviewYourGoalOld() {
                   <div className="mt-6">
                     <div className="flex justify-between items-center">
                       <h2 className="text-xl font-semibold mb-4">
-                        Sub-Goals Details
+                        Sub-Goals {String(index + 1).padStart(2, "0")} Details
                       </h2>
                       {/* <button className="p-2 w-10 h-10 text-xl bg-[#012C57] text-white hover:text-gray-700 rounded-md">
                         <PiPencilLine size={24} />
@@ -206,37 +206,34 @@ function ReviewYourGoalOld() {
                     <div className="space-y-6">
                       <div key={index} className="">
                         <div className="text-gray-400">
-                          <span className="block text-md font-semibold">
-                            {String(index + 1).padStart(2, "0")}
-                          </span>
+                          <span className="block text-md font-semibold"></span>
                         </div>
                         <div className="text-gray-700 text-sm mb-2 pb-2 border-b border-b-gray-400">
                           {item?.name}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex justify-between items-center mt-4 text-gray-700">
-                      <div className="flex space-x- text-[14px] 2 mt-2">
-                        <p>Deadline for Sub-goals:</p>{" "}
-                        <p className="font-semibold mx-3 text-blue-600 mb-4">
-                          {new Date(date).toLocaleDateString("en-US", {
-                            year: "2-digit",
-                            month: "2-digit",
-                            day: "2-digit",
-                          })}
-                          {"-"}
-                          {item?.deadline
-                            ? new Date(item.deadline).toLocaleDateString(
-                                "en-US",
-                                {
+                          <div className="flex justify-between items-center  text-gray-700">
+                            <div className="flex space-x- text-[14px] 2 mt-2">
+                              <p>Deadline for Sub-goals:</p>{" "}
+                              <p className="font-semibold mx-3 text-blue-600 mb-4">
+                                {new Date(date).toLocaleDateString("en-US", {
                                   year: "2-digit",
                                   month: "2-digit",
                                   day: "2-digit",
-                                }
-                              )
-                            : "No date selected"}
-                        </p>
+                                })}
+                                {"-"}
+                                {item?.deadline
+                                  ? new Date(item.deadline).toLocaleDateString(
+                                      "en-US",
+                                      {
+                                        year: "2-digit",
+                                        month: "2-digit",
+                                        day: "2-digit",
+                                      }
+                                    )
+                                  : "No date selected"}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

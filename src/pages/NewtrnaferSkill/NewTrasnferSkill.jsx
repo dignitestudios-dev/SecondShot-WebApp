@@ -897,7 +897,7 @@ const NewTrasnferSkill = () => {
                           />
                         )}
                       </span>
-                      <span className=" h-full text-md font-medium text-gray-800">
+                      <span className=" h-full text-wrap text-md font-medium text-gray-800">
                         {item?.description}
                       </span>
                     </span>
@@ -940,7 +940,7 @@ const NewTrasnferSkill = () => {
                         appear && selectedIndex == 4 ? "scale-100" : "scale-0"
                       } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
                     >
-                      <span className="w-[20%] h-full flex  items-start">
+                      <span className=" h-full flex w-[20%]">
                         {loading ? (
                           <span className="animate-pulse text-green-500">
                             <BsFillBookmarkStarFill size={"27px"} />
@@ -959,7 +959,7 @@ const NewTrasnferSkill = () => {
                           />
                         )}
                       </span>
-                      <span className=" h-full text-md font-medium text-gray-800">
+                      <span className=" h-full text-wrap text-md font-medium text-gray-800">
                         {item?.description}
                       </span>
                     </span>

@@ -248,6 +248,7 @@ const EditProfileDetails = () => {
               type={"text"}
               placeholder={"Address"}
               onChange={handleChange}
+              maxLength={250}
             />
             {errors.address && touched.address ? (
               <span className="text-red-700 text-sm font-medium">

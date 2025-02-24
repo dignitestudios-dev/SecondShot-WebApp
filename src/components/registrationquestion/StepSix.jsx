@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import { Formik, Form } from "formik";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import BackBtn from "../onboarding/BackBtn";
 import TagsInputField from "./TagsInputFeild";
-import { hobbyTags } from "../data/SportsQuestionData";
 import { ErrorToast } from "../toaster/ToasterContainer";
 import axios from "../../axios";
 
@@ -63,8 +61,16 @@ const StepSix = ({
     );
   }, [tags]);
 
+  // useEffect(() => {
+  //   if (tags.length > 0) {
+  //     setFormData({ ...formData, hobbieOptions: tags[0] });
+  //   }
+  // }, [tags]);
+
   useEffect(() => {
-    if (tags.length > 0) {
+    if (tags[0]?.label === formData.hobbieOptions2?.label) {
+      setFormData({ ...formData, hobbieOptions2: "" });
+    } else {
       setFormData({ ...formData, hobbieOptions: tags[0] });
     }
   }, [tags]);

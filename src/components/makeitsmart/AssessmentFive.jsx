@@ -18,7 +18,7 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
     <div>
       <Formik
         initialValues={{
-          timebound: formData.relevant ? formData.relevant + " " : "",
+          timebound: formData.relevant || "", 
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
@@ -77,12 +77,8 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
                 placeholder="Describe Here"
                 value={values.timebound}
                 onChange={(e) => {
-                  const updatedValue = e.target.value;
-                  setFieldValue(
-                    "timebound",
-                    formData.relevant +
-                      updatedValue.slice(formData.relevant.length)
-                  );
+                  // Ensure user can edit the field freely
+                  setFieldValue("timebound", e.target.value); // Update the achievable field value
                 }}
                 className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
                   bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
@@ -90,7 +86,7 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
                       ? "border-red-500"
                       : ""
                   }`}
-                  maxLength="250" 
+                maxLength="250"
               />
               <ErrorMessage
                 name="timebound"
@@ -107,7 +103,7 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
               <div>
                 <div
                   className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer"
-                  onClick={() => setStep(4)} 
+                  onClick={() => setStep(4)}
                 >
                   <IoIosArrowBack className="font-[600]" />
                   <span>BACK</span>

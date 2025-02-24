@@ -96,6 +96,7 @@ const Licenses = ({
                         placeholder={"Enter Certification Name"}
                         onChange={handleChange}
                         onBlur={handleBlur}
+                        maxLength={30}
                       />
                       {errors.certificationsList?.[index]?.certificationsname &&
                         touched.certificationsList?.[index]
@@ -119,6 +120,8 @@ const Licenses = ({
                         onBlur={handleBlur}
                         text={"Issuing Organization"}
                         placeholder={"Enter  Issuing Organization"}
+                        maxLength={30}
+
                       />
                       {errors.certificationsList?.[index]
                         ?.issuingOrganization &&
@@ -141,6 +144,8 @@ const Licenses = ({
                         onBlur={handleBlur}
                         text={" Credential ID"}
                         placeholder={"Enter Credential ID"}
+                        maxLength={30}
+
                       />
                       {errors.certificationsList?.[index]?.credentialId &&
                         touched.certificationsList?.[index]?.credentialId && (

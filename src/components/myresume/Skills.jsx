@@ -162,6 +162,7 @@ const Skills = ({
               id="technicalSkills"
               name="technicalSkills"
               placeholder={"Enter Technical Skills, separated by Enter"}
+              maxLength={30}
             />
           </div>
           <div className="flex items-center gap-1 mb-3 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">

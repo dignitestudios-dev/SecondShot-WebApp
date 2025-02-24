@@ -87,6 +87,7 @@ const Education = ({
                         onChange={handleChange}
                         onBlur={handleBlur}
                         placeholder="Enter Educational Institution"
+                        maxLength={30}
                       />
                       {errors.educationList?.[index]?.education &&
                         touched.educationList?.[index]?.education && (
@@ -104,6 +105,8 @@ const Education = ({
                         onChange={handleChange}
                         onBlur={handleBlur}
                         placeholder="Enter your degree"
+                        maxLength={30}
+
                       />
 
                       {errors.educationList?.[index]?.degree &&
@@ -122,6 +125,7 @@ const Education = ({
                         onChange={handleChange}
                         onBlur={handleBlur}
                         placeholder="Enter your Field of Study"
+                        maxLength={30}
                       />
                       {errors.educationList?.[index]?.fieldofStudy &&
                         touched.educationList?.[index]?.fieldofStudy && (

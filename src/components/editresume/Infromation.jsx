@@ -56,6 +56,18 @@ const Information = ({ nextStep, setFormData, formData }) => {
       // Pass formatted value to the parent component
     }
   };
+  const handleFullnameChange = (e) => {
+    let input = e.target.value;
+
+    input = input.replace(/\s{2,}/g, " ");
+
+    const regex = /^[A-Za-z\s-"']*$/;
+
+    if (input.length >= 0 && !input.startsWith(" ") && regex.test(input)) {
+      setFieldValue("fullname", input);
+    } else {
+    }
+  };
   return (
     <div className="pt-6 px-3">
       <div>
@@ -72,7 +84,7 @@ const Information = ({ nextStep, setFormData, formData }) => {
             name="fullname"
             value={values.fullname}
             onBlur={handleBlur}
-            onChange={handleChange}
+            onChange={handleFullnameChange}
             placeholder={"Enter Your Name"}
             text={"Full Name"}
             maxLength={30}
@@ -136,6 +148,7 @@ const Information = ({ nextStep, setFormData, formData }) => {
             value={values.address}
             onChange={handleChange}
             placeholder={"Enter Your Website"}
+            maxLength={30}
             
           />
         </div>

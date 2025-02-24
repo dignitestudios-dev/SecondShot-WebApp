@@ -79,21 +79,20 @@ const Skills = ({
   useEffect(() => {
     getLibrary();
   }, []);
-
   const handletechSkill = (e) => {
-    if (e.key === "," || e.key === "Enter") {
-      e.preventDefault();
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent form submission or other default behaviors
       const value = e.target.value.trim();
 
+      // Ensure that the value is not empty and is not already in the list of skills
       if (value && !skills.includes(value)) {
-        const updatedSkills = [...skills, value];
-        setSkills(updatedSkills);
-        setFieldValue("technicalSkills", "");
+        const updatedSkills = [...skills, value]; // Add the new skill to the list
+        setSkills(updatedSkills); // Update local state
       }
-
-      e.target.value = "";
+      e.target.value = ""; // Clear the input field after adding the skill
     }
   };
+
 
   const removeSkill = (skillToRemove) => {
     const updatedSkills = skills.filter((skill) => skill !== skillToRemove);

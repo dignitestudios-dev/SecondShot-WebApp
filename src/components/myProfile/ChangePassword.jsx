@@ -40,7 +40,6 @@ const ChangePasswordModal = ({ onClose }) => {
             confirm_password: values?.Cnewpassword,
           });
           if (response.status === 200) {
-           
             SuccessToast("Change Password Successfully");
             onClose();
           }
@@ -76,7 +75,9 @@ const ChangePasswordModal = ({ onClose }) => {
               name={"oldpassword"}
               placeholder={"Old Password"}
               type={"password"}
+              maxLength={50}
             />
+
             <AuthInput
               value={values.newpassword}
               onChange={handleChange}
@@ -86,6 +87,7 @@ const ChangePasswordModal = ({ onClose }) => {
               name={"newpassword"}
               placeholder={"New Password"}
               type={"password"}
+              maxLength={50}
             />
             <AuthInput
               value={values.Cnewpassword}
@@ -96,6 +98,7 @@ const ChangePasswordModal = ({ onClose }) => {
               name={"Cnewpassword"}
               placeholder={"Confirm Password"}
               type={"password"}
+              maxLength={50}
             />
           </div>
           <div className="mt-3">

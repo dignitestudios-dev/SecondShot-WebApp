@@ -5,7 +5,21 @@ export const informationSchema = Yup.object({
     .min(3, "Full name must be at least 3 characters.")
     .max(30, "Full name can't exceed 30 characters.")
     .required("Please enter your full name"),
-  email: Yup.string()
+ email: Yup.string()
+    .test(
+      "email-at-symbol",
+      "Email address must contain '@' symbol.",
+      (value) => {
+        return value && value.includes("@");
+      }
+    )
+    .test(
+      "email-single-at",
+      "Email address must contain only one '@' symbol.",
+      (value) => {
+        return value && value.indexOf("@") === value.lastIndexOf("@");
+      }
+    )
     .email("Email must be valid.")
     .required("Please enter your email"),
   phoneNumber: Yup.string()

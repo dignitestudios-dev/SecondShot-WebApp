@@ -100,6 +100,7 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         text={"Organization Name"}
+                        maxLength={30}
                       />
                       {errors.volunteerList?.[index]?.organizationName &&
                         touched.volunteerList?.[index]?.organizationName && (
@@ -117,6 +118,8 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
                         onBlur={handleBlur}
                         placeholder={"Enter Volunteer Role/Title"}
                         text={"Volunteer Role/Title"}
+                        maxLength={30}
+
                       />
                       {errors.volunteerList?.[index]?.volunteerRules &&
                         touched.volunteerList?.[index]?.volunteerRules && (
@@ -181,6 +184,7 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
                         placeholder="Highlight relevant skills acquired or the impact you made during the experience."
                         onChange={handleChange}
                         value={values.volunteerList[index]?.description}
+                        maxLength={250}
                       />
                     </div>
                   </div>

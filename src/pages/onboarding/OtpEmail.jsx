@@ -83,6 +83,7 @@ const OtpEmail = () => {
     } catch (error) {
       if (error.response && error.response.data?.message) {
         ErrorToast(error.response.data.message);
+        setOtp(Array(6).fill(""));
       } else {
         ErrorToast(error.response.data.message);
       }

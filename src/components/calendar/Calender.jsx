@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -8,6 +8,22 @@ const CustomCalendar = ({
   setStartDate,
   maxDate,
 }) => {
+  const modalRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setShowCalender(false); // Close the calendar
+      }
+    };
+
+    // Add event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup the event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setShowCalender]);
   const handleSave = () => {
     setShowCalender(false);
   };
@@ -18,13 +34,13 @@ const CustomCalendar = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
-      <div className="w-[300px] absolute  z-10 bg-white p-6 rounded-lg shadow-md">
+      <div    ref={modalRef} className="w-[300px] absolute  z-10 bg-white p-6 rounded-lg shadow-md">
         <DatePicker
           selected={startDate}
           onChange={(date) => setStartDate(date)}
           inline
           calendarClassName="custom-calendar"
-          minDate={new Date()} 
+          minDate={new Date()}
         />
 
         <div className="flex justify-between w-full mt-2">

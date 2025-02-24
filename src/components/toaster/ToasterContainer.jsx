@@ -1,4 +1,6 @@
 import { toast, Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
+
 export const ToasterContainer = () => {
   return (
     <Toaster
@@ -14,9 +16,13 @@ export const ToasterContainer = () => {
   );
 };
 
+// Global toast ID (ensures only one toast is shown at a time)
+let toastId = null;
+
 export const SuccessToast = (message) => {
-  toast.success(message, {
-    duration: 3000, 
+  if (toastId) toast.dismiss(toastId); // Dismiss previous toast
+  toastId = toast.success(message, {
+    duration: 3000,
     style: {
       background: "green",
       color: "#fff",
@@ -29,7 +35,8 @@ export const SuccessToast = (message) => {
 };
 
 export const ErrorToast = (message) => {
-  toast.error(message, {
+  if (toastId) toast.dismiss(toastId); // Dismiss previous toast
+  toastId = toast.error(message, {
     duration: 3000,
     style: {
       background: "#ff4d4d",
@@ -40,4 +47,41 @@ export const ErrorToast = (message) => {
       secondary: "#ff4d4d",
     },
   });
+};
+
+export const WarningToast = (message) => {
+  if (toastId) toast.dismiss(toastId); // Dismiss previous toast
+  toastId = toast(message, {
+    icon: "⚠️",
+    duration: 3000,
+    style: {
+      background: "#fff",
+      color: "#1c1c1c",
+    },
+  });
+};
+
+export const NotificationToast = ({ title, message, route }) => {
+  if (toastId) toast.dismiss(toastId); // Dismiss previous toast
+  toastId = toast.custom(
+    (t) => (
+      <Link
+        to={route}
+        className={`${
+          t.visible ? "animate-enter" : "animate-leave"
+        } max-w-md w-full bg-white shadow-lg rounded-lg flex ring-1 ring-black ring-opacity-5 p-4`}
+      >
+        <div className="flex-shrink-0 pt-0.5">
+          <img className="h-10 w-10 rounded-md" src="/logo.png" alt="User Avatar" />
+        </div>
+        <div className="ml-3 flex-1">
+          <p className="text-sm font-medium text-gray-900">{title}</p>
+          <p className="mt-1 text-sm text-gray-500">{message}</p>
+        </div>
+      </Link>
+    ),
+    {
+      position: "bottom-right",
+    }
+  );
 };

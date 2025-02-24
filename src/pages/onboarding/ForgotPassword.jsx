@@ -32,22 +32,26 @@ const ForgotPassword = () => {
           });
 
           if (response.status === 200) {
-            SuccessToast("OTP Send successfully!");
+            sessionStorage.setItem("email", values.email);
+            SuccessToast(response?.data?.message);
             localStorage.setItem("forgot", true);
             navigation("/email-otp");
           }
         } catch (error) {
-          ErrorToast("OTP verification failed:");
+          const backendErrorMessage =
+            error.response?.data?.error || error.response?.data?.message;
+          ErrorToast(backendErrorMessage);
           console.error("OTP verification failed:", error);
         } finally {
           setloading(false);
         }
       },
     });
-const handleback = () =>{
-  navigation(-1)
-  localStorage.setItem("forgot", false);
-}
+  console.log(values.email, "values.email");
+  const handleback = () => {
+    navigation(-1);
+    localStorage.setItem("forgot", false);
+  };
   return (
     <div className=" bg-slate-200 p-3">
       <div className="grid grid-cols-12  py-4 h-screen">
@@ -90,7 +94,7 @@ const handleback = () =>{
                 <div className="mb-6">
                   <AuthSubmitBtn text="Send" type="submit" loading={loading} />
                 </div>
-                <BackBtn handleClick={() =>handleback()} />
+                <BackBtn handleClick={() => handleback()} />
               </div>
             </form>
           </div>

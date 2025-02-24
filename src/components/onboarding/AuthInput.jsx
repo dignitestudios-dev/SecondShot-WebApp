@@ -58,10 +58,11 @@ const AuthInput = ({
           />
 
           {type === "password" && (
+            <div className="absolute bg-white right-0 rounded-r-[15px] flex justify-center  h-12 w-10 mr-[0.5px]">
             <button
               type="button"
               onClick={() => setIsPassVisible((prev) => !prev)}
-              className="absolute top-4 right-3 text-lg"
+              className="  top-4 right-3 text-lg"
               style={{
                 color: "#6B7373",
               }}
@@ -72,6 +73,7 @@ const AuthInput = ({
                 <FaEye className="text-lg text-gray-800" />
               )}
             </button>
+            </div>
           )}
         </div>
       </div>

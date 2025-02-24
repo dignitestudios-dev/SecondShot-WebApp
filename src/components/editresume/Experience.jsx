@@ -145,6 +145,7 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
                           onBlur={handleBlur}
                           placeholder={"Enter Job Title"}
                           text={"Job Title"}
+                          maxLength={30}
                         />
                         {errors.experienceList?.[index]?.jobTitle &&
                           touched.experienceList?.[index]?.jobTitle && (
@@ -162,6 +163,7 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
                           onBlur={handleBlur}
                           placeholder={"Enter Company Name"}
                           text={"Company"}
+                          maxLength={30}
                         />
                         {errors.experienceList?.[index]?.company &&
                           touched.experienceList?.[index]?.company && (
@@ -360,6 +362,7 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
                           value={values.experienceList[index].description}
                           onChange={(e) => handleInput(e, index)}
                           onBlur={handleBlur}
+                          maxLength={250}
                         />
                         {errors.experienceList?.[index]?.description &&
                           touched.experienceList?.[index]?.description && (

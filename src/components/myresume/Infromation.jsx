@@ -8,7 +8,7 @@ import { informationSchema } from "../../Schema/resumeSchema";
 import { phoneFormater } from "../../pages/lib/helper";
 
 const Information = ({ nextStep, setFormData, formData }) => {
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched,setFieldValue } =
     useFormik({
       initialValues: formData?.informationValues,
       validationSchema: informationSchema,
@@ -35,7 +35,18 @@ const Information = ({ nextStep, setFormData, formData }) => {
     }
   };
   const navigate = useNavigate();
+  const handleFullnameChange = (e) => {
+    let input = e.target.value;
 
+    input = input.replace(/\s{2,}/g, " ");
+
+    const regex = /^[A-Za-z\s-"']*$/;
+
+    if (input.length >= 0 && !input.startsWith(" ") && regex.test(input)) {
+      setFieldValue("fullname", input);
+    } else {
+    }
+  };
   return (
     <div className="pt-6 px-3">
       <div>
@@ -52,7 +63,7 @@ const Information = ({ nextStep, setFormData, formData }) => {
             name="fullname"
             value={values.fullname}
             onBlur={handleBlur}
-            onChange={handleChange}
+            onChange={handleFullnameChange}
             placeholder={"Enter Your Name"}
             text={"Full Name"}
             maxLength={30}
@@ -115,6 +126,7 @@ const Information = ({ nextStep, setFormData, formData }) => {
             value={values.address}
             onChange={handleChange}
             placeholder={"Enter Your Website"}
+            maxLength={30}
           />
         </div>
         <div className="flex items-center mb-3 gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">

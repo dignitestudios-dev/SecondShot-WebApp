@@ -54,7 +54,6 @@ const TagsInputField = ({
       <div className="flex flex-wrap p-0.5 w-[80%]  ">
         {tags?.length > 0 ? (
           tags?.map((tag) => {
-            console.log(tag, "sdfs");
             return (
               <span
                 key={tag}

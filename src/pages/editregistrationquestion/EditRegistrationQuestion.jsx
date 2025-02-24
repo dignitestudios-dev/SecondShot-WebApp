@@ -128,7 +128,7 @@ const EditRegistrationQuestion = () => {
     favorite_hobby2: formData?.hobbieOptions2?.value || null,
     favorite_middle_school_subject: formData?.subjectOptions?.value || "",
     has_job_experience: formData?.jobValue === "Yes",
-    recent_job_title: formData?.jobTitle || "",
+    recent_job_title: formData?.jobTitle || null,
     desired_career_path: formData?.desireCareer || "",
   };
 

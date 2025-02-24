@@ -113,22 +113,24 @@ function MyProfile() {
       setLoading(false);
     }
   };
-   const phoneFormater = (input) => {
+  const phoneFormater = (input) => {
     if (!input) return ""; // Return an empty string if input is undefined, null, or an empty string
-  
+
     const cleaned = input.replace(/\D/g, ""); // Remove all non-numeric characters
-  
+
     if (cleaned.length > 3 && cleaned.length <= 6) {
       return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
     } else if (cleaned.length > 6) {
-      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(
+        6,
+        10
+      )}`;
     } else if (cleaned.length > 0) {
       return `(${cleaned}`;
     }
-  
+
     return cleaned; // Return cleaned number if less than 1 digit
   };
-  
 
   return (
     <div className="">
@@ -207,141 +209,149 @@ function MyProfile() {
                         </p>
                       </div>
                       <div className="ml-auto text-right">
-                        <p className="text-[#050405] text-[16px] ">
-                         {phoneFormater(profileData?.phone)}
+                        <p className="text-[#222222] font-medium text-base ">
+                          Phone Number
                         </p>
-                        <p className="text-[#050405] text-[16px] mb-3">
+                        <p className="text-[#050405] text-base">
+                          {phoneFormater(profileData?.phone)}
+                        </p>
+
+                        <p className="text-[#222222] font-medium text-base  ">
+                          Address
+                        </p>
+                        <p className="text-[#222222] font-normal text-base  ">
+                          {profileData?.address}
+                        </p>
+
+                        <p className="text-[#050405] text-base font-normal ">
                           {profileData?.state}, {profileData?.city}
                         </p>
-                        <p className="text-[#222222] font-[500] text-[16px] leading-[21.6px] ">
-                          Visit our website
-                        </p>
-                        <p className="text-[#222222] font-[400] text-[16px] leading-[21.6px] underline ">
-                          <a href={`${profileData?.address}`} target="_blank">
-                            {profileData?.address}
-                          </a>
-                        </p>
                       </div>
                     </div>
-                <hr />
-                <div className="flex items-center justify-between gap-3 mt-5">
-                  <div className="flex gap-3">
-                    {[Instaicon, facebook, Twittericon]?.map((item, index) => (
-                      <img
-                        src={item}
-                        className="w-[24px] h-[24px] "
-                        key={index}
-                        alt=""
-                      />
-                    ))}
-                  </div>
-                  <button
-                    onClick={() => setInviteOpen(true)}
-                    className="flex items-center space-x-2 text-white   bg-gradient-to-l from-[#012C57] to-[#061523] px-4 py-2 rounded-md shadow-sm w-[139.27px] h-[44px] text-center"
-                  >
-                    <span>Invite Friends</span>
-                  </button>
-                </div>
+                    <hr />
+                    <div className="flex items-center justify-between gap-3 mt-5">
+                      <div className="flex gap-3">
+                        {[Instaicon, facebook, Twittericon]?.map(
+                          (item, index) => (
+                            <img
+                              src={item}
+                              className="w-[24px] h-[24px] "
+                              key={index}
+                              alt=""
+                            />
+                          )
+                        )}
+                      </div>
+                      <button
+                        onClick={() => setInviteOpen(true)}
+                        className="flex items-center space-x-2 text-white   bg-gradient-to-l from-[#012C57] to-[#061523] px-4 py-2 rounded-md shadow-sm w-[139.27px] h-[44px] text-center"
+                      >
+                        <span>Invite Friends</span>
+                      </button>
+                    </div>
 
-                <hr className="my-4 border-t border-gray-200" />
+                    <hr className="my-4 border-t border-gray-200" />
 
-                <div className="flex justify-between items-center mb-8">
-                  <h2 className="text-[24px] font-[500] text-[#000000]">
-                    Personal information
-                  </h2>
-                  <button
-                    onClick={handleEdit}
-                    className="flex items-center  text-[#012C57] font-[500] bg-gray-200 px-4 py-2 rounded-lg shadow-sm  h-[42px] text-center"
-                  >
-                    Edit
-                  </button>
-                </div>
-               
-                  <div className="grid grid-cols-2 gap-8 text-left">
-                    <div className="border-r pr-4">
-                      <h3 className="text-[18px] font-[500] text-[#000000] leading-[21.09px] ">
-                        Education
-                      </h3>
-                      <p className="text-[#5C5C5C] text-[16px] mt-3">
-                        {registrationData?.current_grade_level}
-                      </p>
+                    <div className="flex justify-between items-center mb-8">
+                      <h2 className="text-[24px] font-[500] text-[#000000]">
+                        Personal information
+                      </h2>
+                      <button
+                        onClick={handleEdit}
+                        className="flex items-center  text-[#012C57] font-[500] bg-gray-200 px-4 py-2 rounded-lg shadow-sm  h-[42px] text-center"
+                      >
+                        Edit
+                      </button>
+                    </div>
 
-                      <p className="text-[16px] font-[500] mt-2 text-[#000000] ">
-                        Favorite Grade School Subject
-                      </p>
-                      <p className="text-gray-700">
-                        {
-                          registrationData?.favorite_middle_school_subject
-                            ?.subject_name
-                        }
-                      </p>
-                      {registrationData.has_military_service == true ? (
+                    <div className="grid grid-cols-2 gap-8 text-left">
+                      <div className="border-r pr-4">
+                        <h3 className="text-[18px] font-[500] text-[#000000] leading-[21.09px] ">
+                          Education
+                        </h3>
+                        <p className="text-[#5C5C5C] text-[16px] mt-3">
+                          {registrationData?.current_grade_level}
+                        </p>
+
+                        <p className="text-[16px] font-[500] mt-2 text-[#000000] ">
+                          Favorite Grade School Subject
+                        </p>
+                        <p className="text-gray-700">
+                          {
+                            registrationData?.favorite_middle_school_subject
+                              ?.subject_name
+                          }
+                        </p>
+                        {registrationData.has_military_service == true ? (
+                          <div>
+                            <h3 className="text-[18px] mt-5 font-[500] text-[#000000] ">
+                              Military Service
+                            </h3>
+                            <h3 className="text-[16px] mt-1 font-[500] text-[#5C5C5C] ">
+                              Branch of Service
+                            </h3>
+                            <p className="text-[#000000] leading-[18.75px] mt-2 mb-2 ">
+                              {" "}
+                              {
+                                registrationData?.branch_of_service
+                                  ?.service_name
+                              }
+                            </p>
+
+                            <p className="text-[20px] font-[500] text-[#000000] ">
+                              Position
+                            </p>
+                            <p className="text-gray-700">
+                              {registrationData?.rank?.rank_name}
+                            </p>
+                          </div>
+                        ) : (
+                          ""
+                        )}
                         <div>
-                          <h3 className="text-[18px] mt-5 font-[500] text-[#000000] ">
-                            Military Service
+                          <h3 className="text-[18px] font-[500] text-[#000000] ">
+                            Career
                           </h3>
-                          <h3 className="text-[16px] mt-1 font-[500] text-[#5C5C5C] ">
-                            Branch of Service
-                          </h3>
-                          <p className="text-[#000000] leading-[18.75px] mt-2 mb-2 ">
-                            {" "}
-                            {registrationData?.branch_of_service?.service_name}
-                          </p>
-
-                          <p className="text-[20px] font-[500] text-[#000000] ">
-                            Position
-                          </p>
-                          <p className="text-gray-700">
-                            {registrationData?.rank?.rank_name}
+                          <p className="text-gray-700 w-full text-wrap break-words">
+                            {registrationData?.desired_career_path}
                           </p>
                         </div>
-                      ) : (
-                        ""
-                      )}
-                      <div>
-                        <h3 className="text-[18px] font-[500] text-[#000000] ">
-                          Career
+                      </div>
+
+                      <div className="pl-4">
+                        {registrationData?.is_athlete == true ? (
+                          <>
+                            <h3 className="text-[18px] font-[500] text-#000000 ">
+                              Athlete Background
+                            </h3>
+                            <p className="text-[18px] mt-3 font-[500] text-[#000000] ">
+                              Primary Sport
+                            </p>
+                            <p className="text-gray-700">
+                              {registrationData?.primary_sport?.sport_name}
+                            </p>
+                            <p className="text-[18px] mt-3 font-[500] text-[#000000] ">
+                              Position
+                            </p>
+                            <p className="text-gray-700">
+                              {registrationData?.sport_position?.position_name}
+                            </p>
+                          </>
+                        ) : (
+                          ""
+                        )}
+
+                        <h3 className="text-[18px] mt-3 font-[500] text-#000000 ">
+                          Hobbies
                         </h3>
-                        <p className="text-gray-700">
-                          {registrationData?.desired_career_path}
-                        </p>
+                        <div className=" text-[#0F0F0F]  justify-center  font-[400] cursor-pointer  rounded-[12px] ">
+                          {registrationData?.favorite_hobby1?.hobbie_name}
+                        </div>
+                        <div className=" text-[#0F0F0F]  justify-center  font-[400] cursor-pointer  rounded-[12px] ">
+                          {registrationData?.favorite_hobby2?.hobbie_name}
+                        </div>
                       </div>
                     </div>
-
-                    <div className="pl-4">
-                      {registrationData?.is_athlete == true ? (
-                        <>
-                          <h3 className="text-[18px] font-[500] text-#000000 ">
-                            Athlete Background
-                          </h3>
-                          <p className="text-[18px] mt-3 font-[500] text-[#000000] ">
-                            Primary Sport
-                          </p>
-                          <p className="text-gray-700">
-                            {registrationData?.primary_sport?.sport_name}
-                          </p>
-                          <p className="text-[18px] mt-3 font-[500] text-[#000000] ">
-                            Position
-                          </p>
-                          <p className="text-gray-700">
-                            {registrationData?.sport_position?.position_name}
-                          </p>
-                        </>
-                      ) : (
-                        ""
-                      )}
-
-                      <h3 className="text-[18px] mt-3 font-[500] text-#000000 ">
-                        Hobbies
-                      </h3>
-                      <div className=" text-[#0F0F0F]  justify-center  font-[400] cursor-pointer  rounded-[12px] ">
-                        {registrationData?.favorite_hobby1?.hobbie_name}
-                      </div>
-                      <div className=" text-[#0F0F0F]  justify-center  font-[400] cursor-pointer  rounded-[12px] ">
-                        {registrationData?.favorite_hobby2?.hobbie_name}
-                      </div>
-                    </div>
-                  </div>
                   </>
                 )}
               </>
@@ -361,12 +371,14 @@ function MyProfile() {
                       </h2>
                       <p className="text-gray-600 text-left">*******</p>
                     </div>
-                    <button
-                      className="text-gray-400 bg-gray-200 px-4 py-2 rounded-md shadow-sm text-left"
-                      onClick={() => setIsChangePasswordModalOpen(true)} // Open the password modal when clicked
-                    >
-                      Change
-                    </button>
+                    <div>
+                         <AuthSubmitBtn
+                        text={"Change"}
+                        handleSubmit={() => setIsChangePasswordModalOpen(true)}
+                      /> 
+                  
+                  </div>
+                   
                   </div>
                   <hr className=" border-t border-gray-200" />
                   <div className="flex justify-between items-center text-left">
@@ -378,12 +390,13 @@ function MyProfile() {
                         Change payment Method
                       </p>
                     </div>
-                    <button
-                      className="text-gray-400 bg-gray-200 px-4 py-2 rounded-md shadow-sm cursor-pointer text-left"
-                      onClick={() => setIsChangePaymentMethodModalOpen(true)} // Open the payment method modal when clicked
-                    >
-                      Change
-                    </button>
+                    <div>
+                         <AuthSubmitBtn
+                        text={"Change"}
+                        handleSubmit={() => setIsChangePaymentMethodModalOpen(true)}
+                      /> 
+                  
+                  </div>
                   </div>
                   <hr className=" border-t border-gray-200" />
                   <div className="flex justify-between items-center">
