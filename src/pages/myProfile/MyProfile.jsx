@@ -417,15 +417,15 @@ function MyProfile() {
                   <div className="flex justify-between items-center">
                     <div>
                       <h2 className="text-lg font-semibold text-gray-900 text-left">
-                        Deactivate Account
+                        Delete Account
                       </h2>
                       <p className="text-gray-600 text-left">
-                        Are you sure you want to deactivate your account?
+                        Are you sure you want to delete your account?
                       </p>
                     </div>
                     <div>
                       <AuthSubmitBtn
-                        text={"Deactivate Account"}
+                        text={"Delete Account"}
                         handleSubmit={() => setIsDeactivateModalOpen(true)}
                       />
                     </div>

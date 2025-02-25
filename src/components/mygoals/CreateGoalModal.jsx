@@ -57,7 +57,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
 
   const handleNavigation = () => {
     setIsPeople(false);
-    navigate("/make-smart", { state: { inputData: values } }); 
+    navigate("/make-smart", { state: { inputData: values } });
   };
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
   return (
     showModal && (
       <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-80 backdrop-blur-sm">
-        <div className="bg-white rounded-lg shadow-lg w-[450px]  h-auto overflow-auto p-6 relative">
+        <div className="bg-white rounded-lg shadow-lg w-[450px] h-[700px] overflow-auto p-6 relative">
           <FormikProvider value={formik}>
             <Form onSubmit={handleSubmit}>
               <button
@@ -153,7 +153,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                                   {values.sub_goals.length > 1 && (
                                     <button
                                       type="button"
-                                      className="text-red-500 text-[12px] underline"
+                                      className="text-red-500 text-[12px] me-5 underline"
                                       onClick={() => remove(index)}
                                     >
                                       Remove
@@ -171,8 +171,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                                     touched.sub_goals?.[index]?.name &&
                                     errors.sub_goals?.[index]?.name
                                   }
-                      maxLength={250}
-
+                                  maxLength={250}
                                 />
 
                                 <div className="mt-4">

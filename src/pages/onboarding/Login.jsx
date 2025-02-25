@@ -70,7 +70,9 @@ const Login = () => {
           SuccessToast("Logged in successfully");
         }
       } catch (err) {
-        ErrorToast(err?.response?.data?.message);
+        if (err?.response?.data?.message) {
+          ErrorToast(err?.response?.data?.message);
+        }
       } finally {
         setLoading(false);
       }

@@ -2,9 +2,10 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, OAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { getMessaging } from "firebase/messaging";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCYyCNJ-ytZL1NezfFzTSxQFPx6tEnzbMg",
+  apiKey: import.meta.env.VITE_APP_FIREBASE_KEY,
   authDomain: "second-shot-1d28a.firebaseapp.com",
   projectId: "second-shot-1d28a",
   storageBucket: "second-shot-1d28a.firebasestorage.app",
@@ -21,4 +22,8 @@ export const db = getFirestore(app);
 export const firestore = getFirestore(app);
 export const storage = getStorage(app);
 
-export default app; // Export the app if needed
+const messaging = getMessaging(app);
+
+export { messaging };
+
+export default app;

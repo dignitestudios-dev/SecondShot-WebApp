@@ -261,15 +261,13 @@ const ViewResume = () => {
                     >
                       Delete
                     </li>
+                    <li
+                      className="px-4 py-2 hover:bg-gray-100 text-[14px] cursor-pointer"
+                      onClick={() => navigate("/create-resume")}
+                    >
+                      Create New
+                    </li>
                   </ul>
-
-                  <p
-                    href="#"
-                    className="block px-4 py-2 text-[12px] text-[#000000] font-[400] mx-1 cursor-pointer"
-                    onClick={() => navigate("/create-resume")}
-                  >
-                    Create New{" "}
-                  </p>
                 </div>
               </div>
             )}

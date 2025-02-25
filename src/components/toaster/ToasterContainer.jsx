@@ -1,5 +1,6 @@
 import { toast, Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { Logonav } from "../../assets/export";
 
 export const ToasterContainer = () => {
   return (
@@ -61,18 +62,22 @@ export const WarningToast = (message) => {
   });
 };
 
-export const NotificationToast = ({ title, message, route }) => {
+export const NotificationToast = ({ title, message }) => {
   if (toastId) toast.dismiss(toastId); // Dismiss previous toast
   toastId = toast.custom(
     (t) => (
       <Link
-        to={route}
+        // to={route}
         className={`${
           t.visible ? "animate-enter" : "animate-leave"
         } max-w-md w-full bg-white shadow-lg rounded-lg flex ring-1 ring-black ring-opacity-5 p-4`}
       >
         <div className="flex-shrink-0 pt-0.5">
-          <img className="h-10 w-10 rounded-md" src="/logo.png" alt="User Avatar" />
+          <img
+            className="h-10 w-10 rounded-md"
+            src={Logonav}
+            alt="User Avatar"
+          />
         </div>
         <div className="ml-3 flex-1">
           <p className="text-sm font-medium text-gray-900">{title}</p>

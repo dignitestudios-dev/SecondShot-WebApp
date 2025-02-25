@@ -40,7 +40,9 @@ const ForgotPassword = () => {
         } catch (error) {
           const backendErrorMessage =
             error.response?.data?.error || error.response?.data?.message;
-          ErrorToast(backendErrorMessage);
+          if (backendErrorMessage) {
+            ErrorToast(backendErrorMessage);
+          }
           console.error("OTP verification failed:", error);
         } finally {
           setloading(false);

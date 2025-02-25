@@ -84,9 +84,6 @@ const SignUpForm = () => {
         const errorMessage =
           err?.response?.data?.message || err?.response?.data?.error;
         ErrorToast(errorMessage || "An error occurred during sign up.");
-      } else {
-        // Handle other errors (e.g., network or unknown issues)
-        ErrorToast("An unexpected error occurred. Please try again.");
       }
 
       if (newUser?.user) {
@@ -156,8 +153,10 @@ const SignUpForm = () => {
           } catch (err) {
             ErrorToast("Email is already in use");
           }
-        } else {
-          ErrorToast("Firebase authentication failed");
+        } else if (err) {
+          if (err.message) {
+            ErrorToast(err.message);
+          }
         }
       } finally {
         setLoading(false);

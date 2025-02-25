@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaCircleExclamation } from "react-icons/fa6";
 import { Alertnoti, Expirynoti, Notisuccess } from "../../assets/export";
@@ -89,16 +89,36 @@ const notifications = [
   },
 ];
 
-const NotificationDropdown = ({setNotifOpen}) => {
-  const navigation =useNavigate()
+const NotificationDropdown = ({ setNotifOpen }) => {
+  const dropdownRef = useRef(null); // Reference to the dropdown
+  const navigation = useNavigate();
+
+  // Close the dropdown when clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setNotifOpen(false); // Close the dropdown
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setNotifOpen]);
   return (
-    <div className="absolute -right-[100px]   mt-9 w-[416px] bg-white rounded-3xl shadow-lg z-50">
+    <div
+      className="absolute -right-[100px]   mt-9 w-[416px] bg-white rounded-3xl shadow-lg z-50"
+      ref={dropdownRef}
+    >
       <div className="py-3 px-5 h-[62px] bg-gradient-to-r from-[#012C57] to-[#061523] text-white rounded-t-xl flex justify-between items-center">
         <div className="text-[18px] font-[500]">Notifications</div>
         <div
           className="text-sm text-green-300 hover:underline"
           onClick={() => {
-            navigation('/notifications')
+            navigation("/notifications");
             setNotifOpen(false);
           }}
         >

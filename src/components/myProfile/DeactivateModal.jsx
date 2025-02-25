@@ -13,13 +13,15 @@ const DeactivateModal = ({ onClose, handleClick, loader }) => {
           &times;
         </button>
         <h2 className="text-[24px] mt-3 mb-1 font-semibold text-center text-[#202224]">
-          Deactivate Account
+          Delete Account
         </h2>
-        <p className="text-center mb-4 text[16px] text-[#9A9A9A]">
-          Are you sure you want to deactivate your account? This will
-          temporarily suspend your access. You can reactivate anytime by logging
-          back in. Contact support for assistance.
+        <p className="text-center mb-4 text-[16px] text-[#9A9A9A]">
+          Are you sure you want to permanently delete your account? This action
+          cannot be undone, and you will lose all data associated with your
+          account. If you change your mind, you will not be able to reactivate
+          your account.
         </p>
+
         <div className="flex  justify-between items-center">
           <div className="mt-3 w-[190px]">
             <AuthSubmitBtn

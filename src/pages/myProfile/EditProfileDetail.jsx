@@ -7,7 +7,10 @@ import SelectInput from "../../components/onboarding/SelectInput";
 import GrayBtn from "../../components/onboarding/grayBtn";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import axios from "../../axios";
-import { SuccessToast } from "../../components/toaster/ToasterContainer";
+import {
+  ErrorToast,
+  SuccessToast,
+} from "../../components/toaster/ToasterContainer";
 import { useFormik } from "formik";
 import { EditProfileSchema, profileSchema } from "../../Schema/profileSchema";
 import { profileValues } from "../../data/authentication";
@@ -46,7 +49,6 @@ const EditProfileDetails = () => {
       try {
         const formData = new FormData();
         formData.append("name", values.fullname);
-
         formData.append("state", values.country);
         formData.append("city", values.state);
         formData.append("address", values.address);
@@ -72,7 +74,9 @@ const EditProfileDetails = () => {
           setProfilepic(URL.createObjectURL(values.profilePicture));
         }
       } catch (err) {
-        ErrorToast(err?.response?.data?.message || "Profile update failed");
+        if (err?.response?.data?.message) {
+          ErrorToast(err?.response?.data?.message);
+        }
       } finally {
         setLoading(false);
       }
@@ -83,6 +87,18 @@ const EditProfileDetails = () => {
     const file = e.target.files[0];
     if (file) {
       setFieldValue("profilePicture", file);
+    }
+  };
+  const handleFullnameChange = (e) => {
+    let input = e.target.value;
+
+    input = input.replace(/\s{2,}/g, " ");
+
+    const regex = /^[A-Za-z\s-"']*$/;
+
+    if (input.length >= 0 && !input.startsWith(" ") && regex.test(input)) {
+      setFieldValue("fullname", input);
+    } else {
     }
   };
 
@@ -156,7 +172,7 @@ const EditProfileDetails = () => {
               type={"text"}
               placeholder={"First Name"}
               value={values.fullname}
-              onChange={handleChange}
+              onChange={handleFullnameChange}
               onBlur={handleBlur}
               id={"fullname"}
               name={"fullname"}
