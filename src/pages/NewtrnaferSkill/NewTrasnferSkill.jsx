@@ -229,7 +229,7 @@ const NewTrasnferSkill = () => {
                 {index === 0 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="absolute cursor-pointer bg-transparent h-[70px] text-center rounded-full flex justify-center items-center top-[150px]"
+                    className="absolute cursor-pointer bg-transparent h-[70px] text-center rounded-full flex justify-center items-center top-[150px] group"
                     onClick={() => {
                       setAppear(true);
 
@@ -245,7 +245,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-
+                    <div
+                      className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0 z-10 ${
                         appear && selectedIndex == 0 ? "scale-100" : "scale-0"
@@ -280,7 +292,7 @@ const NewTrasnferSkill = () => {
                 {index === 1 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center top-[60px] right-[200px]"
+                    className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center top-[60px] right-[200px] group"
                     onClick={() => {
                       setAppear(true);
 
@@ -296,7 +308,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-
+                    <div
+                      className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0 z-10 ${
                         appear && selectedIndex == 1 ? "scale-100" : "scale-0"
@@ -331,7 +355,7 @@ const NewTrasnferSkill = () => {
                 {index === 2 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative cursor-pointer top-[-20px] bg-transparent h-[90px] rounded-full flex justify-center items-center left-[190px]"
+                    className="relative cursor-pointer top-[-20px] bg-transparent h-[90px] rounded-full flex justify-center items-center left-[190px] group"
                     onClick={() => {
                       setAppear(true);
                       setSelecetedIndex(2);
@@ -347,6 +371,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                         <div
+                      className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0 z-10 ${
                         appear && selectedIndex == 2 ? "scale-100" : "scale-0"
@@ -381,7 +418,7 @@ const NewTrasnferSkill = () => {
                 {index === 3 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative cursor-pointer bg-transparent h-[70px] top-[70px] flex justify-center items-center rounded-full left-[260px]"
+                    className="relative cursor-pointer bg-transparent h-[70px] top-[70px] flex justify-center items-center rounded-full left-[260px] group"
                     onClick={() => {
                       setAppear(true);
 
@@ -398,6 +435,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                         <div
+                      className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0 z-10 ${
                         appear && selectedIndex == 3 ? "scale-100" : "scale-0"
@@ -432,7 +482,7 @@ const NewTrasnferSkill = () => {
                 {index === 4 && (
                   <button
                     onBlur={() => setAppear(false)}
-                    className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center top-[10px] right-[260px]"
+                    className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center top-[10px] right-[260px] group"
                     onClick={() => {
                       setAppear(true);
                       setSelecetedIndex(4);
@@ -448,6 +498,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
+                         <div
+                      className="absolute -top-6 -left-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                    transition-all duration-300 ease-in-out"
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0 z-10 ${
                         appear && selectedIndex == 4 ? "scale-100" : "scale-0"
@@ -655,67 +718,70 @@ const NewTrasnferSkill = () => {
             {getSkill?.favorite_hobby2?.topics.map((item, index) => (
               <div key={index}>
                 {index === 0 && (
-                <button
-                onBlur={() => setAppear(false)}
-                className="relative top-[140px] cursor-pointer left-[110px] group" // Added 'group' class for hover functionality
-                onClick={() => {
-                  setAppear(true);
-                  setSelecetedIndex(0);
-                  setNoteData({
-                    favorite_hobby2: {
-                      favorite_hobbyId: getSkill?.favorite_hobby2?._id,
-                      descriptionId: item._id,
-                    },
-                  });
-                  setNoteDescription(item?.description);
-                }}
-              >
-                {item?.title.length > 8
-                  ? item?.title.substring(0, 8) + "..."
-                  : item?.title}
-                  
-                {/* Tooltip */}
-                <div
-                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                  <button
+                    onBlur={() => setAppear(false)}
+                    className="relative top-[140px] cursor-pointer left-[110px] group" // Added 'group' class for hover functionality
+                    onClick={() => {
+                      setAppear(true);
+                      setSelecetedIndex(0);
+                      setNoteData({
+                        favorite_hobby2: {
+                          favorite_hobbyId: getSkill?.favorite_hobby2?._id,
+                          descriptionId: item._id,
+                        },
+                      });
+                      setNoteDescription(item?.description);
+                    }}
+                  >
+                    {item?.title.length > 8
+                      ? item?.title.substring(0, 8) + "..."
+                      : item?.title}
+
+                    {/* Tooltip */}
+                    <div
+                      className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
-              
-                {/* Note description */}
-                <span
-                  className={`w-[388px] flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
-                    appear && selectedIndex == 0 ? "scale-100" : "scale-0"
-                  } zIndex rounded-2xl bg-[#D4FFC2] p-4 justify-between items-start`}
-                >
-                  <span className="w-[20%] h-full flex items-start">
-                    {loading ? (
-                      <span className="animate-pulse text-green-500">
-                        <BsFillBookmarkStarFill size={"27px"} />
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
+
+                    {/* Note description */}
+                    <span
+                      className={`w-[388px] flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
+                        appear && selectedIndex == 0 ? "scale-100" : "scale-0"
+                      } zIndex rounded-2xl bg-[#D4FFC2] p-4 justify-between items-start`}
+                    >
+                      <span className="w-[20%] h-full flex items-start">
+                        {loading ? (
+                          <span className="animate-pulse text-green-500">
+                            <BsFillBookmarkStarFill size={"27px"} />
+                          </span>
+                        ) : (
+                          <BsFillBookmarkStarFill
+                            size={"27px"}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
+                            className={`transition duration-200 cursor-pointer ${
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
+                            }`}
+                          />
+                        )}
                       </span>
-                    ) : (
-                      <BsFillBookmarkStarFill
-                        size={"27px"}
-                        onClick={() => handleLike(noteData, item?.is_favorite)}
-                        className={`transition duration-200 cursor-pointer ${
-                          item?.is_favorite ? "text-green-500" : "text-gray-500"
-                        }`}
-                      />
-                    )}
-                  </span>
-                  <span className="h-full text-md font-medium text-gray-800">
-                    {item?.description}
-                  </span>
-                </span>
-              </button>
-              
+                      <span className="h-full text-md font-medium text-gray-800">
+                        {item?.description}
+                      </span>
+                    </span>
+                  </button>
                 )}
                 {index === 1 && (
                   <button
@@ -736,19 +802,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                       <div
-                  className="absolute -top-14 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    <div
+                      className="absolute -top-14 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 1 ? "scale-100" : "scale-0"
@@ -798,19 +864,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                       <div
-                  className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    <div
+                      className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 2 ? "scale-100" : "scale-0"
@@ -860,19 +926,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                       <div
-                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    <div
+                      className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 3 ? "scale-100" : "scale-0"
@@ -922,19 +988,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                       <div
-                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    <div
+                      className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 4 ? "scale-100" : "scale-0"
@@ -1003,19 +1069,19 @@ const NewTrasnferSkill = () => {
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                         <div
-                  className="absolute -top-5 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                      <div
+                        className="absolute -top-5 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      >
+                        <div
+                          className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                        >
+                          {item?.title}
+                        </div>
+                        <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                      </div>
                       <span
                         className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0  z-10 ${
                           appear && selectedIndex == 0 ? "scale-100" : "scale-0"
@@ -1067,19 +1133,19 @@ const NewTrasnferSkill = () => {
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                         <div
-                  className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                      <div
+                        className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      >
+                        <div
+                          className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                        >
+                          {item?.title}
+                        </div>
+                        <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                      </div>
                       <span
                         className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0  z-10 ${
                           appear && selectedIndex == 1 ? "scale-100" : "scale-0"
@@ -1131,19 +1197,19 @@ const NewTrasnferSkill = () => {
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                         <div
-                  className="absolute -top-12 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                      <div
+                        className="absolute -top-12 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      >
+                        <div
+                          className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                        >
+                          {item?.title}
+                        </div>
+                        <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                      </div>
                       <span
                         className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0  z-10 ${
                           appear && selectedIndex == 2 ? "scale-100" : "scale-0"
@@ -1195,19 +1261,19 @@ const NewTrasnferSkill = () => {
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                         <div
-                  className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                      <div
+                        className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      >
+                        <div
+                          className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                        >
+                          {item?.title}
+                        </div>
+                        <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                      </div>
                       <span
                         className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0  z-10 ${
                           appear && selectedIndex == 3 ? "scale-100" : "scale-0"
@@ -1259,19 +1325,19 @@ const NewTrasnferSkill = () => {
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                         <div
-                  className="absolute -top-12 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                      <div
+                        className="absolute -top-12 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      >
+                        <div
+                          className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                        >
+                          {item?.title}
+                        </div>
+                        <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                      </div>
                       <span
                         className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0  z-10 ${
                           appear && selectedIndex == 4 ? "scale-100" : "scale-0"
@@ -1339,19 +1405,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                       <div
-                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    <div
+                      className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 0 ? "scale-100" : "scale-0"
@@ -1402,19 +1468,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                       <div
-                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    <div
+                      className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 1 ? "scale-100" : "scale-0"
@@ -1465,19 +1531,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                       <div
-                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    <div
+                      className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 2 ? "scale-100" : "scale-0"
@@ -1528,19 +1594,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                       <div
-                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    <div
+                      className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 3 ? "scale-100" : "scale-0"
@@ -1591,19 +1657,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                       <div
-                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    <div
+                      className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 left-0 z-10 ${
                         appear && selectedIndex == 4 ? "scale-100" : "scale-0"
@@ -1670,19 +1736,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                       <div
-                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    <div
+                      className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 z-10 ${
                         appear && selectedIndex == 0 ? "scale-100" : "scale-0"
@@ -1733,19 +1799,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                       <div
-                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    <div
+                      className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 z-10 ${
                         appear && selectedIndex == 1 ? "scale-100" : "scale-0"
@@ -1795,19 +1861,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                       <div
-                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    <div
+                      className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 z-10 ${
                         appear && selectedIndex == 2 ? "scale-100" : "scale-0"
@@ -1857,19 +1923,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                       <div
-                  className="absolute -top-12 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    <div
+                      className="absolute -top-12 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 z-10 ${
                         appear && selectedIndex == 3 ? "scale-100" : "scale-0"
@@ -1920,19 +1986,19 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                       <div
-                  className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    <div
+                      className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                >
-                  <div
-                    className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    >
+                      <div
+                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                  >
-                    {item?.title}
-                  </div>
-                  <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                </div>
+                      >
+                        {item?.title}
+                      </div>
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                    </div>
                     <span
                       className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 z-10 ${
                         appear && selectedIndex == 4 ? "scale-100" : "scale-0"
