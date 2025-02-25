@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Volunteer from "../../components/myresume/Volunteer";
 import SuccessResumeModal from "../../components/myresume/SuccessResumeModal";
 import ResumeDownloadModal from "../../components/myresume/ResumeDownloadModal";
 import ResumeDeleteModal from "../../components/myresume/DeleteResumeModal";
@@ -29,6 +28,7 @@ import Experience from "../../components/editresume/Experience";
 import ViewEditResume from "../../components/editresume/ViewEditResume";
 import Honors from "../../components/editresume/Honors";
 import { getMonth, getYear } from "../lib/helper";
+import Volunteer from "../../components/editresume/Volunteer";
 const EditResume = () => {
   const navigate = useNavigate();
   const [isPreview, setIsPreview] = useState(false);
@@ -180,8 +180,6 @@ const EditResume = () => {
 
   useEffect(() => {
     if (editData) {
-      console.log("formData sis = ", editData?.experience);
-
       setFormData({
         ...formData,
         informationValues: {
@@ -334,82 +332,88 @@ const EditResume = () => {
     return months[month] || "01";
   };
 
-
-const mapFormDataToPayload = (formData) => {
+  const mapFormDataToPayload = (formData) => {
     console.log(formData.certificationsList, "formData.certificationsList");
-    
+
     return {
-        full_name: formData.informationValues?.fullname,
-        email: formData.informationValues?.email,
-        phone: formData.informationValues?.phoneNumber,
-        address: formData.informationValues.address,
-        objective: {
-            description: formData.objetiveValues.description,
-        },
-        experience: formData.experienceList.map((exp) => {
-            // Convert months to numeric value using convertMonthToNumber function
-            const start_date = exp.startyear && exp.startmonth
-                ? `${exp.startyear}-${convertMonthToNumber(exp.startmonth)}-01` // Use numeric month
-                : null;
-            const end_date = exp.endyear && exp.endmonth
-                ? `${exp.endyear}-${convertMonthToNumber(exp.endmonth)}-01` // Use numeric month
-                : null;
+      full_name: formData.informationValues?.fullname,
+      email: formData.informationValues?.email,
+      phone: formData.informationValues?.phoneNumber,
+      address: formData.informationValues.address,
+      objective: {
+        description: formData.objetiveValues.description,
+      },
+      experience: formData.experienceList.map((exp) => {
+        // Convert months to numeric value using convertMonthToNumber function
+        const start_date =
+          exp.startyear && exp.startmonth
+            ? `${exp.startyear}-${convertMonthToNumber(exp.startmonth)}-01` // Use numeric month
+            : null;
+        const end_date =
+          exp.endyear && exp.endmonth
+            ? `${exp.endyear}-${convertMonthToNumber(exp.endmonth)}-01` // Use numeric month
+            : null;
 
-            return {
-                job_title: exp.jobTitle,
-                company: exp.company,
-                start_date: start_date,
-                end_date: end_date,
-                description: exp.description,
-            };
-        }),
+        return {
+          job_title: exp.jobTitle,
+          company: exp.company,
+          start_date: start_date,
+          end_date: end_date,
+          description: exp.description,
+        };
+      }),
 
-        education: formData.educationList.map((edu) => ({
-            institution: edu.education,
-            degree: edu.degree,
-            field_of_study: edu.fieldofStudy,
-            start_year: edu.startYear,
-            end_year: edu.endYear,
-        })),
-        licenses_and_certifications: formData.certificationsList.map((cert) => ({
-            certification_name: cert.certificationsname,
-            issuing_organization: cert.issuingOrganization,
-            credential_id: cert.credentialId,
-            issue_date: cert.Issueyear && cert.Issuemonth
-                ? `${cert.Issueyear}-${convertMonthToNumber(cert.Issuemonth)}-01` // Convert month to number for issue date
+      education: formData.educationList.map((edu) => ({
+        institution: edu.education,
+        degree: edu.degree,
+        field_of_study: edu.fieldofStudy,
+        start_year: edu.startYear,
+        end_year: edu.endYear,
+      })),
+      licenses_and_certifications: formData.certificationsList.map((cert) => ({
+        certification_name: cert.certificationsname,
+        issuing_organization: cert.issuingOrganization,
+        credential_id: cert.credentialId,
+        issue_date:
+          cert.Issueyear && cert.Issuemonth
+            ? `${cert.Issueyear}-${convertMonthToNumber(cert.Issuemonth)}-01` // Convert month to number for issue date
+            : null,
+        expiration_date:
+          cert.expirationyear && cert.expirationmonth
+            ? `${cert.expirationyear}-${convertMonthToNumber(
+                cert.expirationmonth
+              )}-01` // Convert month to number for expiration date
+            : null,
+      })),
+      soft_skills: Array.isArray(formData.skillsValues?.softskills)
+        ? formData.skillsValues.softskills
+        : [],
+      technical_skills: Array.isArray(formData.skillsValues?.technicalSkills)
+        ? formData.skillsValues.technicalSkills
+        : [],
+
+      honors_and_awards: Array.isArray(formData.honorsList)
+        ? formData.honorsList.map((honor) => ({
+            award_name: honor.awardName || "",
+            awarding_organization: honor.awardingOrganization || "",
+            date_Received:
+              honor.receivedyear && honor.receivedmonth
+                ? `${honor.receivedyear}-${convertMonthToNumber(
+                    honor.receivedmonth
+                  )}-01` // Convert month to number
                 : null,
-            expiration_date: cert.expirationyear && cert.expirationmonth
-                ? `${cert.expirationyear}-${convertMonthToNumber(cert.expirationmonth)}-01` // Convert month to number for expiration date
-                : null,
-        })),
-        soft_skills: Array.isArray(formData.skillsValues?.softskills)
-            ? formData.skillsValues.softskills
-            : [],
-        technical_skills: Array.isArray(formData.skillsValues?.technicalSkills)
-            ? formData.skillsValues.technicalSkills
-            : [],
-
-        honors_and_awards: Array.isArray(formData.honorsList)
-            ? formData.honorsList.map((honor) => ({
-                  award_name: honor.awardName || "",
-                  awarding_organization: honor.awardingOrganization || "",
-                  date_Received:
-                      honor.receivedyear && honor.receivedmonth
-                          ? `${honor.receivedyear}-${convertMonthToNumber(honor.receivedmonth)}-01` // Convert month to number
-                          : null,
-                  description: honor.description || "",
-              }))
-            : [],
-        volunteer_experience: formData.volunteerList.map((volunteer) => ({
-            organization_name: volunteer.organizationName,
-            role: volunteer.volunteerRules,
-            start_year: volunteer.startYear,
-            end_year: volunteer.endYear,
-            description: volunteer.description,
-        })),
+            description: honor.description || "",
+          }))
+        : [],
+      volunteer_experience: formData.volunteerList.map((volunteer) => ({
+        organization_name: volunteer.organizationName,
+        role: volunteer.volunteerRules,
+        start_year: volunteer.startYear,
+        end_year: volunteer.endYear,
+        description: volunteer.description,
+      })),
     };
-};
-
+  };
 
   const handleSubmitData = async () => {
     const transformedData = mapFormDataToPayload(formData);
@@ -563,6 +567,7 @@ const mapFormDataToPayload = (formData) => {
                   formData={formData}
                   setIsSkipped={setIsSkipped}
                   prevStep={prevStep}
+                  
                 />
               )}
               {step === 5 && (
@@ -580,6 +585,7 @@ const mapFormDataToPayload = (formData) => {
                   setFormData={setFormData}
                   formData={formData}
                   prevStep={prevStep}
+                  setIsSkipped={setIsSkipped}
                 />
               )}
               {step === 7 && (
@@ -588,6 +594,8 @@ const mapFormDataToPayload = (formData) => {
                   setFormData={setFormData}
                   formData={formData}
                   prevStep={prevStep}
+                  setIsSkipped={setIsSkipped}
+
                 />
               )}
               {step === 8 && (
@@ -597,6 +605,8 @@ const mapFormDataToPayload = (formData) => {
                   formData={formData}
                   isSkipped={isSkipped}
                   prevStep={prevStep}
+                  setIsSkipped={setIsSkipped}
+
                 />
               )}
               {step === 9 && (
@@ -616,6 +626,9 @@ const mapFormDataToPayload = (formData) => {
                   isSkipped={isSkipped}
                   handleSubmitData={handleSubmitData}
                   loading={loading}
+
+                  setIsSkipped={setIsSkipped}
+
                 />
               )}
             </div>

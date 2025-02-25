@@ -7,7 +7,13 @@ import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { experienceSchema } from "../../Schema/resumeSchema";
 import { getStartYearsArray, getYearsArray } from "../../pages/lib/helper";
 
-const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
+const Experience = ({
+  nextStep,
+  setFormData,
+  formData,
+  prevStep,
+  setIsSkipped,
+}) => {
   const [customErrors, setCustomErrors] = useState({});
 
   const validate = (values) => {
@@ -84,7 +90,6 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
       formik.setFieldValue(`experienceList[${index}].description`, newValue);
     }
   };
-  
 
   return (
     <div className="pt-6 px-3">
@@ -364,6 +369,17 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
           />
         </Form>
       </FormikProvider>
+      <div>
+        <button
+          onClick={() => {
+            setIsSkipped(true);
+            nextStep();
+          }}
+          className="text-[16px] text-[#000000] font-[600] mt-3 "
+        >
+          Skip
+        </button>
+      </div>
     </div>
   );
 };

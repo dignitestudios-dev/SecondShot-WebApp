@@ -3,9 +3,9 @@ import { onMessageListener } from "../firebase/messages";
 import { NotificationToast } from "../components/toaster/ToasterContainer";
 import getFCMToken from "../firebase/getFcmToken";
 import axios from "../axios";
-import { UAParser } from "ua-parser-js";
-import { v4 as uuidv4 } from "uuid";
 import Cookies from "js-cookie";
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
+
 export const ModalContext = createContext();
 
 export const ModalProvider = ({ children }) => {
@@ -33,26 +33,19 @@ export const ModalProvider = ({ children }) => {
   const closeModal = () => {
     setShowModal(false);
   };
-
-  const getDeviceId = () => {
-    const parser = new UAParser();
-    const result = parser.getResult();
-    const uuid = uuidv4();
-
-    const deviceName = `${result.device.model}` || "Unknown";
-    const deviceID = result.ua || "Unknown"; // User-Agent can serve as a unique identifier
-
-    const preId = deviceID;
-
-    return preId;
-  };
+  async function getDeviceFingerprint() {
+    const fp = await FingerprintJS.load();
+    const result = await fp.get();
+    console.log(result.visitorId); // Unique device ID
+    return result.visitorId;
+  }
 
   const updateDeviceId = async () => {
     try {
       const token = await getFCMToken();
       const response = await axios.post("/api/user/store-device-token", {
         deviceToken: token,
-        deviceId: getDeviceId(),
+        deviceId: await getDeviceFingerprint(),
       });
       console.log(response, "response->");
     } catch (error) {

@@ -6,7 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { honorsSchema } from "../../Schema/resumeSchema";
 import { getStartYearsArray } from "../../pages/lib/helper";
-const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
+const Honors = ({ nextStep, setFormData, formData, prevStep, setIsSkipped }) => {
   const formik = useFormik({
     initialValues: { honorsList: formData.honorsList },
     validationSchema: honorsSchema,
@@ -202,6 +202,17 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
           />
         </Form>
       </FormikProvider>
+      <div>
+        <button
+          onClick={() => {
+            setIsSkipped(true);
+            nextStep();
+          }}
+          className="text-[16px] text-[#000000] font-[600] mt-3 "
+        >
+          Skip
+        </button>
+      </div>
     </div>
   );
 };

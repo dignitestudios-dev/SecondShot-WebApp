@@ -33,7 +33,7 @@ const Licenses = ({
     if (data && Array.isArray(data)) {
       formik.setValues({
         certificationsList: data.map((item) => {
-          return ({
+          return {
             certificationsname: item?.certificationsname || "",
             issuingOrganization: item?.issuingOrganization || "",
             credentialId: item?.credentialId || "",
@@ -41,15 +41,29 @@ const Licenses = ({
             Issueyear: item?.Issueyear || "",
             expirationmonth: item?.expirationmonth || "",
             expirationyear: item?.expirationyear || "",
-          })
+          };
         }),
       });
     }
   };
 
   useEffect(() => {
-    if (formData?.certificationsList) {
-      updateData(formData.certificationsList)
+    if (formData?.certificationsList.length > 0) {
+      updateData(formData?.certificationsList);
+    } else {
+      formik.setValues({
+        certificationsList: [
+          {
+            certificationsname: "",
+            issuingOrganization: "",
+            credentialId: "",
+            Issuemonth: "",
+            Issueyear: "",
+            expirationmonth: "",
+            expirationyear: "",
+          },
+        ],
+      });
     }
   }, [formData.certificationsList]);
 
@@ -121,7 +135,6 @@ const Licenses = ({
                         text={"Issuing Organization"}
                         placeholder={"Enter  Issuing Organization"}
                         maxLength={30}
-
                       />
                       {errors.certificationsList?.[index]
                         ?.issuingOrganization &&
@@ -145,7 +158,6 @@ const Licenses = ({
                         text={" Credential ID"}
                         placeholder={"Enter Credential ID"}
                         maxLength={30}
-
                       />
                       {errors.certificationsList?.[index]?.credentialId &&
                         touched.certificationsList?.[index]?.credentialId && (
@@ -291,11 +303,27 @@ const Licenses = ({
           />
           <div>
             <button
+              type="button"
               onClick={() => {
+                formik.setValues({
+                  certificationsList: [
+                    {
+                      certificationsname: "",
+                      issuingOrganization: "",
+                      credentialId: "",
+                      Issuemonth: "",
+                      Issueyear: "",
+                    },
+                  ],
+                });
+
+                setFormData({ ...formData, certificationsList: [] });
+
                 setIsSkipped(true);
+
                 nextStep();
               }}
-              className="text-[16px] text-[#000000] font-[600] mt-3 "
+              className="text-[16px] text-[#000000] font-[600] mt-3"
             >
               Skip
             </button>

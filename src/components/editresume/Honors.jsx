@@ -6,7 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { honorsSchema } from "../../Schema/resumeSchema";
 import axios from "../../axios";
-const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
+const Honors = ({ nextStep, setFormData, formData, prevStep, setIsSkipped }) => {
   const formik = useFormik({
     initialValues: { honorsList: formData.honorsList },
     validationSchema: honorsSchema,
@@ -14,7 +14,6 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
     validateOnBlur: true,
     onSubmit: async (values) => {
       setFormData({ ...formData, honorsList: values?.honorsList });
-      // setCompleted(true);
       nextStep();
     },
   });
@@ -42,12 +41,24 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
       });
     }
   };
-
-  useEffect(() => {
-    if (formData?.honorsValues) {
-      updateData(formData?.honorsValues);
-    }
-  }, [formData?.honorsValues]);
+console.log(formData?.honorsList,"formData?.honorsList")
+useEffect(() => {
+  if (formData?.honorsList.length > 0) {
+    updateData(formData?.honorsList);
+  } else {
+    formik.setValues({
+      honorsList: [
+        {
+          awardName: "",
+          awardingOrganization: "",
+          receivedmonth: "",
+          receivedyear: "",
+          description: "",
+        },
+      ],
+    });
+  }
+}, [formData?.honorsList]);
 
   const getYearsArray = () => {
     const startYear = 1990;
@@ -137,8 +148,8 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
                             name={`honorsList[${index}].receivedmonth`}
                             value={
                               values.honorsList[index].receivedmonth
-                              ? values.honorsList[index].receivedmonth
-                              : ""
+                                ? values.honorsList[index].receivedmonth
+                                : ""
                             }
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -232,6 +243,32 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, isSkipped }) => {
               </>
             )}
           />
+          
+          <button
+            type="button"
+            onClick={() => {
+              formik.setValues({
+                honorsList: [
+                  {
+                    awardName: "",
+                    awardingOrganization: "",
+                    receivedmonth: "",
+                    receivedyear: "",
+                    description: "",
+                  },
+                ],
+              });
+
+              setFormData({ ...formData, honorsList: [] });
+
+              setIsSkipped(true);
+
+              nextStep();
+            }}
+            className="text-[16px] text-[#000000] font-[600] mt-3"
+          >
+            Skip
+          </button>
         </Form>
       </FormikProvider>
     </div>

@@ -273,6 +273,7 @@ const CreateResume = () => {
                   setFormData={setFormData}
                   formData={formData}
                   prevStep={prevStep}
+                  setIsSkipped={setIsSkipped}
                 />
               )}
               {step === 7 && (
@@ -281,6 +282,7 @@ const CreateResume = () => {
                   setFormData={setFormData}
                   formData={formData}
                   prevStep={prevStep}
+                  setIsSkipped={setIsSkipped}
                 />
               )}
               {step === 8 && (
@@ -290,6 +292,7 @@ const CreateResume = () => {
                   formData={formData}
                   isSkipped={isSkipped}
                   prevStep={prevStep}
+                  setIsSkipped={setIsSkipped}
                 />
               )}
               {step === 9 && (

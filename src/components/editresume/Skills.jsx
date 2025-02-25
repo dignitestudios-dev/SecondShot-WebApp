@@ -22,6 +22,7 @@ const Skills = ({
     errors,
     touched,
     setFieldValue,
+    setValues
   } = useFormik({
     initialValues: formData.skillsValues,
     // validationSchema: skillsSchema,
@@ -92,7 +93,6 @@ const Skills = ({
       e.target.value = ""; // Clear the input field after adding the skill
     }
   };
-
 
   const removeSkill = (skillToRemove) => {
     const updatedSkills = skills.filter((skill) => skill !== skillToRemove);
@@ -190,11 +190,26 @@ const Skills = ({
           </div>
           <div>
             <button
+              type="button"
               onClick={() => {
+               setValues({
+                  technicalSkills: [],
+                  softskills: [],
+                });
+
+                setFormData({
+                  ...formData,
+                  skillsValues: {
+                    technicalSkills: [],
+                    softskills: [],
+                  },
+                });
+
                 setIsSkipped(true);
+
                 nextStep();
               }}
-              className="text-[16px] text-[#000000] font-[600] mt-3 "
+              className="text-[16px] text-[#000000] font-[600] mt-3"
             >
               Skip
             </button>

@@ -121,7 +121,7 @@ const Information = ({ nextStep, setFormData, formData }) => {
               name="phoneNumber"
               value={phoneFormater(values?.phoneNumber)}
               type="tel"
-              maxLength={10}
+              maxLength={14}
               placeholder={"Enter Your Phone Number"}
               onBlur={handleBlur}
               onChange={handlePhoneChange}

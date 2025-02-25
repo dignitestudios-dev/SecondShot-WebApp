@@ -1,22 +1,25 @@
 import React from "react";
 
 const PersonalizedCV = ({ resumeData, ref }) => {
-   const phoneFormater = (input) => {
+  const phoneFormater = (input) => {
     if (!input) return ""; // Return an empty string if input is undefined, null, or an empty string
-  
+
     const cleaned = input.replace(/\D/g, ""); // Remove all non-numeric characters
-  
+
     if (cleaned.length > 3 && cleaned.length <= 6) {
       return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
     } else if (cleaned.length > 6) {
-      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(
+        6,
+        10
+      )}`;
     } else if (cleaned.length > 0) {
       return `(${cleaned}`;
     }
-  
+
     return cleaned; // Return cleaned number if less than 1 digit
   };
-  
+
   return (
     <div>
       <div
@@ -101,7 +104,6 @@ const PersonalizedCV = ({ resumeData, ref }) => {
                 </li>
               </div>
             ))}
-            <hr className="mt-5" />
           </section>
         )}
         {/* Certifications */}
@@ -109,8 +111,8 @@ const PersonalizedCV = ({ resumeData, ref }) => {
         {(resumeData?.soft_skills?.length > 0 ||
           resumeData?.technical_skills?.length > 0) && (
           <section className="mt-6">
+            {/* <hr className="mt-5" /> */}
             <h2 className="text-[22px] font-[700] uppercase ">Skills</h2>
-
             {/* Soft Skills */}
             {resumeData?.soft_skills?.length > 0 && (
               <div className="mt-4">
@@ -152,76 +154,83 @@ const PersonalizedCV = ({ resumeData, ref }) => {
         )}
 
         {/* Experience */}
-        <hr className="mt-5" />
-        <section className="mt-6">
-          <h2 className="text-[22px] font-[700] text-[#101010] uppercase">
-            Work Experience
-          </h2>
-          {resumeData?.experience?.map((exp, index) => (
-            <div key={index} className="mt-4">
-              <div className="flex justify-between items-center">
-                <p className="font-[600] leading-[22.94px] text-[#101010] text-[22.94px]">
-                  {exp?.company}
+        {resumeData?.experience?.length > 0 && (
+          <section className="mt-6">
+            <hr className="mt-5" />
+            <h2 className="text-[22px] font-[700] text-[#101010] uppercase">
+              Work Experience
+            </h2>
+            {resumeData?.experience?.map((exp, index) => (
+              <div key={index} className="mt-4">
+                <div className="flex justify-between items-center">
+                  <p className="font-[600] leading-[22.94px] text-[#101010] text-[22.94px]">
+                    {exp?.company}
+                  </p>
+                  <p className="font-[600] leading-[22.94px] text-[#101010] text-[22.94px]">
+                    {exp?.start_date?.split("T")[0].split("-")[0]} -{" "}
+                    {exp?.end_date
+                      ? exp.end_date?.split("T")[0].split("-")[0]
+                      : "Present"}
+                  </p>
+                </div>
+                <p className="font-[500] text-[#0F0F0F]  leading-[29.7px] text-[22px]">
+                  {exp.job_title}
                 </p>
-                <p className="font-[600] leading-[22.94px] text-[#101010] text-[22.94px]">
-                  {exp?.start_date?.split("T")[0].split("-")[0]} -{" "}
-                  {exp?.end_date
-                    ? exp.end_date?.split("T")[0].split("-")[0]
-                    : "Present"}
-                </p>
-              </div>
-              <p className="font-[500] text-[#0F0F0F]  leading-[29.7px] text-[22px]">
-                {exp.job_title}
-              </p>
 
-              <ul className="list-disc ml-3 mt-4">
-                <li className="font-[400] text-[#0F0F0F]  text-[20px]">
-                  {exp?.description}
-                </li>
-              </ul>
-              <hr className="mt-5" />
-            </div>
-          ))}
-        </section>
+                <ul className="list-disc ml-3 mt-4">
+                  <li className="font-[400] text-[#0F0F0F]  text-[20px]">
+                    {exp?.description}
+                  </li>
+                </ul>
+                <hr className="mt-5" />
+              </div>
+            ))}
+          </section>
+        )}
 
         {/* Volunteer */}
-
-        <section className="mt-6">
-          <h2 className="text-[22px] font-[700] leading-[29.7px] text-[#101010] uppercase">
-            Volunteer Service
-          </h2>
-          {resumeData?.volunteer_experience?.map((vol, index) => (
-            <div key={index} className="mt-4">
-              <p className="font-[500] text-[#101010] text-[22px] leading-[29.7px]">
-                {vol?.organization_name}
-              </p>
-              <p className="text-[15.29px] text-[#101010] mt-2">
-                {vol.start_year} {vol?.end_year}
-              </p>
-              <ul className="list-outside list-disc">
-                <li className="text-gray-700 mt-2 mx-4">{vol?.description}</li>
-              </ul>
-            </div>
-          ))}
-        </section>
-        <hr className="mt-5" />
-        <section className="mt-6">
-          <h2 className="text-[22px] font-[700] leading-[29.7px] text-[#101010] uppercase">
-            Honors
-          </h2>
-          {resumeData?.honors_and_awards?.map((honors, index) => (
-            <div key={index} className="mt-1">
-              <div className="flex items-center justify-between">
+        {resumeData?.volunteer_experience?.length > 0 && (
+          <section className="mt-6">
+            <h2 className="text-[22px] font-[700] leading-[29.7px] text-[#101010] uppercase">
+              Volunteer Service
+            </h2>
+            {resumeData?.volunteer_experience?.map((vol, index) => (
+              <div key={index} className="mt-4">
                 <p className="font-[500] text-[#101010] text-[22px] leading-[29.7px]">
-                  {honors.award_name}
+                  {vol?.organization_name}
                 </p>
-                <p className="text-[22.94px] text-[#101010] font-[600]">
-                  {honors?.date_Received?.split("T")[0].split("-")[0]}
+                <p className="text-[15.29px] text-[#101010] mt-2">
+                  {vol.start_year} {vol?.end_year}
                 </p>
+                <ul className="list-outside list-disc">
+                  <li className="text-gray-700 mt-2 mx-4">
+                    {vol?.description}
+                  </li>
+                </ul>
               </div>
-            </div>
-          ))}
-        </section>
+            ))}
+            <hr className="mt-5" />
+          </section>
+        )}
+        {resumeData?.honors_and_awards?.length > 0 && (
+          <section className="mt-6">
+            <h2 className="text-[22px] font-[700] leading-[29.7px] text-[#101010] uppercase">
+              Honors
+            </h2>
+            {resumeData?.honors_and_awards?.map((honors, index) => (
+              <div key={index} className="mt-1">
+                <div className="flex items-center justify-between">
+                  <p className="font-[500] text-[#101010] text-[22px] leading-[29.7px]">
+                    {honors.award_name}
+                  </p>
+                  <p className="text-[22.94px] text-[#101010] font-[600]">
+                    {honors?.date_Received?.split("T")[0].split("-")[0]}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </section>
+        )}
       </div>
     </div>
   );

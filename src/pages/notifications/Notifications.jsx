@@ -1,114 +1,14 @@
-import React, { useState } from "react";
-import {
-  FaExclamationCircle,
-  FaCreditCard,
-  FaBullseye,
-  FaTrash,
-} from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import Backbutton from "../../components/Global/Backbutton";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
+import axios from "../../axios";
+
+
 
 const Notifications = () => {
   const navigate = useNavigate();
-  const [notifications, setNotifications] = useState([
-    {
-      id: 1,
-      type: "Goals Deadline Alert",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "09:00pm",
-      date: "Today",
-      iconBg: "bg-red-100",
-      iconColor: "text-red-500",
-      icon: <FaExclamationCircle />,
-      dotColor: "bg-green-500",
-      bgColor: "bg-green-50",
-    },
-    {
-      id: 2,
-      type: "Subscription Expiry",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "08:00pm",
-      date: "July 12, 2024",
-      iconBg: "bg-gray-100",
-      iconColor: "text-blue-500",
-      icon: <FaCreditCard />,
-    },
-    {
-      id: 3,
-      type: "Goal Successfully Created",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "12:30pm",
-      date: "July 12, 2024",
-      iconBg: "bg-green-100",
-      iconColor: "text-green-500",
-      icon: <FaBullseye />,
-      bgColor: "bg-green-50",
-
-    },
-    {
-      id: 4,
-      type: "Subscription Expiry",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "06:30pm",
-      date: "July 12, 2024",
-      iconBg: "bg-gray-100",
-      iconColor: "text-blue-500",
-      icon: <FaCreditCard />,
-    },
-    {
-      id: 5,
-      type: "Goal Successfully Created",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "09:00pm",
-      date: "July 12, 2024",
-      iconBg: "bg-green-100",
-      iconColor: "text-green-500",
-      bgColor: "bg-green-50",
-
-      icon: <FaBullseye />,
-    },
-    {
-      id: 6,
-      type: "Goals Deadline Alert",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "09:00pm",
-      date: "July 12, 2024",
-      iconBg: "bg-red-100",
-      iconColor: "text-red-500",
-      icon: <FaExclamationCircle />,
-    },
-    {
-      id: 7,
-      type: "Goal Successfully Created",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "09:00pm",
-      date: "July 12, 2024",
-      iconBg: "bg-green-100",
-      iconColor: "text-green-500",
-      icon: <FaBullseye />,
-    },
-    {
-      id: 8,
-      type: "Subscription Expiry",
-      message:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed labore et dolore magna aliqua.",
-      time: "06:30pm",
-      date: "July 12, 2024",
-      iconBg: "bg-gray-100",
-      iconColor: "text-blue-500",
-      icon: <FaCreditCard />,
-      bgColor: "bg-green-50",
-
-    },
-  ]);
+  const [notifications, setNotifications] = useState([]);
 
   const markAllAsRead = () => {
     const updatedNotifications = notifications?.map((notif) => ({
@@ -117,6 +17,19 @@ const Notifications = () => {
     }));
     setNotifications(updatedNotifications);
   };
+
+  const getnotifications = async () => {
+    try {
+      const response = await axios.get("/api/user/my-notifications");
+      if (response.status === 200) {
+        console.log(response, "response");
+        // setNotifications(response);
+      }
+    } catch (err) {}
+  };
+  useEffect(() => {
+    getnotifications();
+  }, []);
 
   return (
     <div className="">
@@ -135,7 +48,7 @@ const Notifications = () => {
         <div className="bg-white rounded-t-3xl shadow-lg max-h-[80vh] overflow-y-auto rounded-b-3xl ">
           <div className="bg-white max-h-[80vh] overflow-y-auto scrollbar-custom">
             <div className="divide-y divide-gray-200">
-              {notifications.map((notif, index) => (
+              {/* {notifications.map((notif, index) => (
                 <div
                   key={index}
                   className={`flex cursor-pointer relative items-start px-6 py-4 ${
@@ -188,7 +101,7 @@ const Notifications = () => {
                     </div>
                   </div>
                 </div>
-              ))}
+              ))} */}
             </div>
           </div>
         </div>

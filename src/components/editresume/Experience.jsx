@@ -6,7 +6,13 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { experienceSchema } from "../../Schema/resumeSchema";
 import { getStartYearsArray, getYearsArray } from "../../pages/lib/helper";
-const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
+const Experience = ({
+  nextStep,
+  setFormData,
+  formData,
+  prevStep,
+  setIsSkipped,
+}) => {
   const [customErrors, setCustomErrors] = useState({});
 
   console.log(formData, "formDataExpreince");
@@ -102,9 +108,23 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
   };
 
   useEffect(() => {
-
-    if (formData?.experienceList) {
+    if (formData?.experienceList.length > 0) {
       updateData(formData.experienceList);
+    } else {
+      formik.setValues({
+        experienceList: [
+          {
+            jobTitle: "",
+            company: "",
+            startmonth: "",
+            startyear: "",
+            endmonth: "",
+            endyear: "",
+            description: "",
+            isCurrent: "",
+          },
+        ],
+      });
     }
   }, [formData.experienceList]);
   return (
@@ -291,8 +311,8 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
                               id={`experienceList[${index}].endmonth`}
                               value={
                                 values.experienceList[index].endmonth
-                                ? values.experienceList[index].endmonth
-                                : ""
+                                  ? values.experienceList[index].endmonth
+                                  : ""
                               }
                               onChange={handleChange}
                               onBlur={handleBlur}
@@ -404,6 +424,33 @@ const Experience = ({ nextStep, setFormData, formData, prevStep }) => {
               </>
             )}
           />
+
+          <button
+            type="button"
+            onClick={() => {
+              formik.setValues({
+                experienceList: [
+                  {
+                    jobTitle: "",
+                    company: "",
+                    startmonth: "",
+                    startyear: "",
+                    endmonth: "",
+                    endyear: "",
+                  },
+                ],
+              });
+
+              setFormData({ ...formData, experienceList: [] });
+
+              setIsSkipped(true);
+
+              nextStep();
+            }}
+            className="text-[16px] text-[#000000] font-[600] mt-3"
+          >
+            Skip
+          </button>
         </Form>
       </FormikProvider>
     </div>

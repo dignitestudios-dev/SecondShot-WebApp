@@ -6,15 +6,19 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { volunteerSchema } from "../../Schema/resumeSchema";
 
-const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
-
+const Volunteer = ({
+  nextStep,
+  setFormData,
+  formData,
+  prevStep,
+  setIsSkipped,
+}) => {
   const formik = useFormik({
     initialValues: { volunteerList: formData.volunteerList },
     validationSchema: volunteerSchema,
     validateOnChange: true,
     validateOnBlur: true,
     onSubmit: (values) => {
-   
       setFormData({ ...formData, volunteerList: values?.volunteerList });
       nextStep();
     },
@@ -32,8 +36,6 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
 
   const updateData = async (data) => {
     if (data && Array.isArray(data)) {
-   
-
       formik.setValues({
         volunteerList: data?.map((item) => ({
           organizationName: item?.organizationName || "",
@@ -45,12 +47,30 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
       });
     }
   };
+  console.log(
+    "formData.volunteerValues==> ",
+    formData.volunteerValues,
+    "formData.volunteerValues-->",
+    formData?.volunteerList
+  );
 
   useEffect(() => {
-    if (formData?.volunteerValues) {
-      updateData(formData.volunteerValues);
+    if (formData?.volunteerList.length > 0) {
+      updateData(formData.volunteerList);
+    } else {
+      formik.setValues({
+        volunteerList: [
+          {
+            organizationName: "",
+            volunteerRules: "",
+            startYear: "",
+            endYear: "",
+            description: "",
+          },
+        ],
+      });
     }
-  }, [formData.volunteerValues]);
+  }, [formData.volunteerList]);
 
   const getYearsArray = () => {
     const startYear = 1990;
@@ -119,7 +139,6 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
                         placeholder={"Enter Volunteer Role/Title"}
                         text={"Volunteer Role/Title"}
                         maxLength={30}
-
                       />
                       {errors.volunteerList?.[index]?.volunteerRules &&
                         touched.volunteerList?.[index]?.volunteerRules && (
@@ -218,6 +237,32 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
               </>
             )}
           />
+
+          <button
+            type="button"
+            onClick={() => {
+              formik.setValues({
+                volunteerList: [
+                  {
+                    organizationName: "",
+                    volunteerRules: "",
+                    startYear: "",
+                    endYear: "",
+                    description: "",
+                  },
+                ],
+              });
+
+              setFormData({ ...formData, volunteerList: [] });
+
+              setIsSkipped(true);
+
+              nextStep();
+            }}
+            className="text-[16px] text-[#000000] font-[600] mt-3"
+          >
+            Skip
+          </button>
         </Form>
       </FormikProvider>
     </div>

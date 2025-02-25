@@ -21,11 +21,6 @@ const StepSeven = ({
   const [selectedTags, setSelectedTags] = useState([]);
 
   useEffect(() => {
-    if (tags.length > 0) {
-      setFormData({ ...formData, hobbieOptions2: tags[0] });
-    }
-  }, [tags]);
-  useEffect(() => {
     if (formData?.hobbieOptions2) {
       const hobbieTags = stepsixvalue.filter(
         (item) => item?.value === formData?.hobbieOptions2?.value
@@ -45,6 +40,12 @@ const StepSeven = ({
     }
   }, [stepsixvalue]);
 
+  
+  useEffect(() => {
+    if (tags.length > 0) {
+      setFormData({ ...formData, hobbieOptions2: tags[0] });
+    }
+  }, [tags]);
   return (
     <Formik
       initialValues={{}}

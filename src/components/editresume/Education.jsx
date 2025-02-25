@@ -13,14 +13,12 @@ const Education = ({
   formData,
   setIsSkipped,
 }) => {
-  
   const formik = useFormik({
     initialValues: { educationList: formData?.educationList || [] },
     validationSchema: educationSchema,
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: (values) => {
-   
       setFormData({ ...formData, educationList: values?.educationList });
       nextStep();
     },
@@ -28,30 +26,47 @@ const Education = ({
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     formik;
- 
+
   const updateData = async (data) => {
     if (data && Array.isArray(data)) {
-   
+      console.log("update-> ", data);
 
       formik.setValues({
         educationList: data?.map((item) => ({
           education: item?.education || "",
           degree: item?.degree || "",
-          endYear: item?.end_year || "",
-          startYear: item?.start_year || "",
-          fieldofStudy: item?.field_of_study || "",
+          endYear: item?.endYear || "",
+          startYear: item?.startYear || "",
+          fieldofStudy: item?.fieldofStudy || "",
         })),
       });
     }
   };
 
+  console.log(
+    "formData.educationValues==> ",
+    formData.educationValues,
+    "formData?.educationList-->",
+    formData?.educationList
+  );
+
   useEffect(() => {
-    if (formData?.educationValues) {
-      updateData(formData.educationValues);
+    if (formData?.educationList?.length > 0) {
+      updateData(formData?.educationList);
+    } else {
+      formik.setValues({
+        educationList: [
+          {
+            education: "",
+            degree: "",
+            fieldofStudy: "",
+            startYear: "",
+            endYear: "",
+          },
+        ],
+      });
     }
-  }, [formData.educationValues]);
-
-
+  }, [formData?.educationList]);
 
   return (
     <div className="pt-6 px-3">
@@ -106,7 +121,6 @@ const Education = ({
                         onBlur={handleBlur}
                         placeholder="Enter your degree"
                         maxLength={30}
-
                       />
 
                       {errors.educationList?.[index]?.degree &&
@@ -165,7 +179,6 @@ const Education = ({
                             values.educationList[index].startYear || 1990 // Set expiration year options based on Issueyear
                           )}
                           disabled={!values.educationList[index].startYear} // Disable until Issueyear is selected
-
                         />
                         {errors.educationList?.[index]?.endYear &&
                           touched.educationList?.[index]?.endYear && (
@@ -210,7 +223,22 @@ const Education = ({
           <button
             type="button"
             onClick={() => {
+              formik.setValues({
+                educationList: [
+                  {
+                    education: "",
+                    degree: "",
+                    fieldOfStudy: "",
+                    startYear: "",
+                    endYear: "",
+                  },
+                ],
+              });
+
+              setFormData({ ...formData, educationList: [] });
+
               setIsSkipped(true);
+
               nextStep();
             }}
             className="text-[16px] text-[#000000] font-[600] mt-3"

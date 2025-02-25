@@ -6,7 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { volunteerSchema } from "../../Schema/resumeSchema";
 import { getStartYearsArray, getYearsArray } from "../../pages/lib/helper";
-const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
+const Volunteer = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) => {
   const formik = useFormik({
     initialValues: { volunteerList: formData.volunteerList },
     validationSchema: volunteerSchema,
@@ -189,6 +189,17 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep }) => {
           />
         </Form>
       </FormikProvider>
+      <div>
+        <button
+          onClick={() => {
+            setIsSkipped(true);
+            nextStep();
+          }}
+          className="text-[16px] text-[#000000] font-[600] mt-3 "
+        >
+          Skip
+        </button>
+      </div>
     </div>
   );
 };

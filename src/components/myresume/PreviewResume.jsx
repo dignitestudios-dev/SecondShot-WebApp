@@ -65,15 +65,19 @@ const PreviewResume = ({
       objective: {
         description: formData.objetiveValues?.description,
       },
-      experience: formData.experienceList.map((exp) => ({
-        job_title: exp.jobTitle,
-        company: exp.company,
-        start_date: `${exp.startyear}-${convertMonthToNumber(exp.startmonth)}`,
-        end_date: exp.isCurrent
-          ? null
-          : `${exp.endyear}-${convertMonthToNumber(exp.endmonth)}-01`,
-        description: exp.description,
-      })),
+      experience: isSkipped
+        ? []
+        : formData.experienceList.map((exp) => ({
+            job_title: exp.jobTitle,
+            company: exp.company,
+            start_date: `${exp.startyear}-${convertMonthToNumber(
+              exp.startmonth
+            )}`,
+            end_date: exp.isCurrent
+              ? null
+              : `${exp.endyear}-${convertMonthToNumber(exp.endmonth)}-01`,
+            description: exp.description,
+          })),
       education: isSkipped
         ? []
         : formData.educationList.map((edu) => ({
@@ -84,7 +88,7 @@ const PreviewResume = ({
             end_year: parseInt(edu.endYear),
             description: null,
           })),
-          
+
       licenses_and_certifications: isSkipped
         ? []
         : formData.certificationsList.map((cert) => ({
@@ -104,26 +108,28 @@ const PreviewResume = ({
       soft_skills: isSkipped ? [] : formData.skillsValues?.softskills,
       technical_skills: isSkipped
         ? []
-        : formData.skillsValues?.technicalSkills
-            
-            .map((skill) => skill.trim()),
-      volunteer_experience: formData.volunteerList.map((volunteer) => ({
-        organization_name: volunteer.organizationName,
-        role: volunteer.volunteerRules,
-        start_year: parseInt(volunteer.startYear),
-        end_year: parseInt(volunteer.endYear),
+        : formData.skillsValues?.technicalSkills.map((skill) => skill.trim()),
+      volunteer_experience: isSkipped
+        ? []
+        : formData.volunteerList.map((volunteer) => ({
+            organization_name: volunteer.organizationName,
+            role: volunteer.volunteerRules,
+            start_year: parseInt(volunteer.startYear),
+            end_year: parseInt(volunteer.endYear),
 
-        description: volunteer?.description ? volunteer?.description : null,
-      })),
+            description: volunteer?.description ? volunteer?.description : null,
+          })),
 
-      honors_and_awards: formData?.honorsList?.map((honor) => ({
-        award_name: honor?.awardName,
-        awarding_organization: honor?.awardingOrganization,
-        date_Received: `${honor?.receivedyear}-${convertMonthToNumber(
-          honor?.receivedmonth
-        )}`,
-        description: honor?.description ? honor?.description : null,
-      })),
+      honors_and_awards: isSkipped
+        ? []
+        : formData?.honorsList?.map((honor) => ({
+            award_name: honor?.awardName,
+            awarding_organization: honor?.awardingOrganization,
+            date_Received: `${honor?.receivedyear}-${convertMonthToNumber(
+              honor?.receivedmonth
+            )}`,
+            description: honor?.description ? honor?.description : null,
+          })),
     };
   };
   const transformedData = transformFormData(formData);
@@ -157,7 +163,6 @@ const PreviewResume = ({
       setLoading(false);
     }
   };
-  console.log(resumeData, "resumeData");
 
   return (
     <div>
@@ -220,7 +225,6 @@ const PreviewResume = ({
                 >
                   <div className="py-1" role="none">
                     <p
-                      href="#"
                       className="block px-4 py-2 text-[12px] text-[#000000] font-[400] border-b mx-1 cursor-pointer"
                       onClick={() => navigate(`/edit-resume/${resumeId}`)}
                     >
@@ -228,15 +232,11 @@ const PreviewResume = ({
                     </p>
                     <p
                       onClick={handleDeleteModal}
-                      href="#"
                       className="block px-4 py-2 text-[12px] text-[#000000]  font-[400] border-b mx-1 cursor-pointer"
                     >
                       Delete
                     </p>
-                    <p
-                      href="#"
-                      className="block px-4 py-2 text-[12px] text-[#000000] font-[400] mx-1 cursor-pointer"
-                    >
+                    <p className="block px-4 py-2 text-[12px] text-[#000000] font-[400] mx-1 cursor-pointer">
                       Create New{" "}
                     </p>
                   </div>

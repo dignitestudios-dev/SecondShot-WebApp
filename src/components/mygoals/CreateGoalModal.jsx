@@ -75,7 +75,11 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
   return (
     showModal && (
       <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-80 backdrop-blur-sm">
-        <div className="bg-white rounded-lg shadow-lg w-[450px] h-[700px] overflow-auto p-6 relative">
+        <div
+          className={`bg-white rounded-lg shadow-lg w-[450px] overflow-auto p-6 relative ${
+            showSubGoal ? "h-[700px]" : "h-auto"
+          }`}
+        >
           <FormikProvider value={formik}>
             <Form onSubmit={handleSubmit}>
               <button

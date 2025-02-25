@@ -5,7 +5,7 @@ export const baseUrl = "https://backend.mycareertoolbox.com";
 
 const instance = axios.create({
   baseURL: baseUrl,
-  timeout: 10000, // 10 seconds timeout
+ 
 });
 
 instance.interceptors.request.use((request) => {
