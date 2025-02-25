@@ -5,6 +5,7 @@ import getFCMToken from "../firebase/getFcmToken";
 import axios from "../axios";
 import { UAParser } from "ua-parser-js";
 import { v4 as uuidv4 } from "uuid";
+import Cookies from "js-cookie";
 export const ModalContext = createContext();
 
 export const ModalProvider = ({ children }) => {
@@ -60,7 +61,7 @@ export const ModalProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    updateDeviceId();
+    Cookies.get("token") && updateDeviceId();
   }, []);
 
   onMessageListener()
