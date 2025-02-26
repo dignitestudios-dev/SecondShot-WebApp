@@ -10,7 +10,7 @@ export const ModalContext = createContext();
 
 export const ModalProvider = ({ children }) => {
   const [showModal, setShowModal] = useState(false);
-
+  const [notifications, setNotifications] = useState([]);
   const [isFirst, setIsFirst] = useState(() => {
     const savedState = localStorage.getItem("isFirst");
     return savedState
@@ -57,6 +57,35 @@ export const ModalProvider = ({ children }) => {
     Cookies.get("token") && updateDeviceId();
   }, []);
 
+  const [allLoading, setAllLoading] = useState(false);
+  const [countNoti, setCountNoti] = useState(0);
+
+  const getnotifications = async () => {
+    setAllLoading(true);
+    try {
+      const response = await axios.get("/api/user/my-notifications");
+      if (response.status === 200) {
+        const sortedNotifications = response?.data?.data?.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        setNotifications(sortedNotifications);
+      }
+    } catch (err) {
+      console.log(err, "Error");
+    } finally {
+      setAllLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getnotifications();
+  }, []);
+
+  useEffect(() => {
+    const count = notifications?.filter((e) => e.is_read === false);
+    setCountNoti(count?.length);
+  }, [notifications]);
+
   onMessageListener()
     .then((payload) => {
       console.log(payload, "payload");
@@ -64,6 +93,7 @@ export const ModalProvider = ({ children }) => {
         title: payload.notification.title,
         message: payload.notification.body,
       });
+      getnotifications();
     })
     .catch((err) => console.log("failed: ", err));
 
@@ -75,6 +105,12 @@ export const ModalProvider = ({ children }) => {
         setShowModal,
         isFirst,
         setIsFirst,
+        notifications,
+        setNotifications,
+        getnotifications,
+        setAllLoading,
+        allLoading,
+        countNoti,
       }}
     >
       {children}

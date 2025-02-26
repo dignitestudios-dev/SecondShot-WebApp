@@ -157,7 +157,7 @@ const GoalDetail = () => {
   const subStatus = goalDetail?.sub_goals?.map((item) => {
     return item?.is_completed;
   });
-  console.log(subStatus, "subStatus");
+  console.log(goalDetail?.deadline, "subStatus");
   return (
     <div>
       <Backbutton />
@@ -335,7 +335,6 @@ checked:before:justify-center checked:before:items-center"
 
                       {item?.deadline && (
                         <div className="absolute top-0 right-0 text-[12px] text-[#6B6B6B] mt-2 mr-3">
-                        
                           <span className="text-[#00000070] font-[500] text-[14px]">
                             {goalDetail?.createdAt
                               ? new Date(

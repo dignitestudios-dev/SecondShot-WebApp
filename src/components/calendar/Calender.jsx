@@ -7,6 +7,7 @@ const CustomCalendar = ({
   startDate,
   setStartDate,
   maxDate,
+  
 }) => {
   const modalRef = useRef(null);
   useEffect(() => {
@@ -24,6 +25,8 @@ const CustomCalendar = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [setShowCalender]);
+
+
   const handleSave = () => {
     setShowCalender(false);
   };

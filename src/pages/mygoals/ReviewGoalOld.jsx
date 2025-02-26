@@ -39,7 +39,7 @@ function ReviewYourGoalOld() {
 
   const location = useLocation("");
   const goaldata = location.state.formData;
-
+  console.log(goaldata, "goaldata");
   const [isPeople, setIsPeople] = useState(false);
   const handleNavigation = () => {
     setIsPeople(false);
@@ -177,14 +177,11 @@ function ReviewYourGoalOld() {
                       })}
                       {"-"}
                       {goaldata?.startDate
-                        ? new Date(goaldata.startDate).toLocaleDateString(
-                            "en-US",
-                            {
-                              year: "2-digit",
-                              month: "2-digit",
-                              day: "2-digit",
-                            }
-                          )
+                        ? goaldata.startDate.toLocaleDateString("en-US", {
+                            year: "2-digit",
+                            month: "2-digit",
+                            day: "2-digit",
+                          })
                         : "No date selected"}
                     </p>
                   </div>
@@ -221,14 +218,11 @@ function ReviewYourGoalOld() {
                                 })}
                                 {"-"}
                                 {item?.deadline
-                                  ? new Date(item.deadline).toLocaleDateString(
-                                      "en-US",
-                                      {
-                                        year: "2-digit",
-                                        month: "2-digit",
-                                        day: "2-digit",
-                                      }
-                                    )
+                                  ? item.deadline.toLocaleDateString("en-US", {
+                                      year: "2-digit",
+                                      month: "2-digit",
+                                      day: "2-digit",
+                                    })
                                   : "No date selected"}
                               </p>
                             </div>

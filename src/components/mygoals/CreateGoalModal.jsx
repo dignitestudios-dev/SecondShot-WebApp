@@ -24,10 +24,11 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
     const date = new Date();
     date.setMonth(date.getMonth() + 3);
     setThreeMonthsAgo(date);
-  }, []); // This ensures threeMonthsAgo is initially set to 3 months from now
+  }, []);
 
   const handleDateChange = (date) => {
     setThreeMonthsAgo(date);
+    formik.setValues({ ...formik.values, startDate: date });
   };
   const formik = useFormik({
     initialValues: {
@@ -44,7 +45,6 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
       navigate("/review-goals", { state: { formData: values } });
     },
   });
-
   const {
     values,
     errors,
@@ -54,6 +54,8 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
     handleSubmit,
     setFieldValue,
   } = formik;
+
+  console.log("value is --> ", values);
 
   const handleNavigation = () => {
     setIsPeople(false);

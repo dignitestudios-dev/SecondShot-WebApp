@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Logonav, Profileimage } from "../../assets/export";
 import { Link, useNavigate } from "react-router-dom";
 import { RiNotification2Line } from "react-icons/ri";
@@ -11,6 +11,7 @@ import LockModal from "../home/LockModal";
 
 const Navbar = () => {
   const { subscriptionpaid, profilepic } = useContext(AuthContext);
+  const { notifications,countNoti } = useContext(ModalContext);
 
   const navigate = useNavigate();
   const [lock, setLock] = useState(false);
@@ -95,8 +96,18 @@ const Navbar = () => {
               className="text-white"
               onClick={() => setNotifOpen(!notifOpen)}
             />
-            <div className="absolute top-0 right-0 w-2 h-2 bg-red-600 rounded-full"></div>
-            {notifOpen && <NotificationDropdown setNotifOpen={setNotifOpen} />}
+            <div className="absolute -top-2 left-2 text-center flex justify-center items-center w-[15px] h-[15px]  bg-red-600 rounded-full">
+              <div className="text-white text-[12px]">
+                {" "}
+                {countNoti > 9 ? "9+" : countNoti}
+              </div>
+            </div>
+            {notifOpen && (
+              <NotificationDropdown
+                setNotifOpen={setNotifOpen}
+                notifications={notifications}
+              />
+            )}
           </div>
           <Link to="/my-profile">
             <img
