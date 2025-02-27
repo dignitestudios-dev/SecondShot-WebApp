@@ -22,7 +22,7 @@ const TagsModal = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-xl shadow-lg h-[720px] w-1/3 p-4 relative flex flex-col">
+      <div className="bg-white rounded-xl shadow-lg h-[620px] w-1/3 p-4 relative flex flex-col">
         <button
           type="button"
           className="text-end flex justify-end mb-4 top-2 right-2"
@@ -61,7 +61,7 @@ const TagsModal = ({
             )}
           </div>
         </div>
-        <div className="absolute flex justify-center bottom-0 left-0 w-full bg-white py-4 shadow-md">
+        <div className="absolute flex justify-center rounded-lg bottom-0 left-0 w-full bg-white py-4 shadow-md">
           <div className="flex justify-center w-[450px]">
             <AuthSubmitBtn text={"Save"} handleSubmit={() => saveTags()} />
           </div>

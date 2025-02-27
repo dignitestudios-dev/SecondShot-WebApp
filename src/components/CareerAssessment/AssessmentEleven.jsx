@@ -4,7 +4,8 @@ import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendationCountBtn from "../careerrecommendation/RecommendationCountBtn";
 
-const AssessmentEleven = ({ prevStep, nextStep, formData, setFormData }) => {
+const AssessmentEleven = ({ prevStep, nextStep, formData, setFormData,carrerQuestion,
+  loading, }) => {
   const validationSchema = Yup.object({
     workAlone: Yup.string().required("A rating is required to proceed."),
   });
@@ -26,8 +27,11 @@ const AssessmentEleven = ({ prevStep, nextStep, formData, setFormData }) => {
           <Form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="skill">
-                On a scale of 1-5, do you prefer working alone or with others?
-                (1 being working alone and 5 being working with people)
+              {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[10]?.question
+                )}
               </label>
               <RecommendationCountBtn
                 handleCountBtn={handleWorkAlone}

@@ -5,26 +5,25 @@ import { Alertnoti, Expirynoti, Notisuccess } from "../../assets/export";
 import { FaBullseye } from "react-icons/fa";
 
 const NotificationDropdown = ({ setNotifOpen, notifications }) => {
-  const dropdownRef = useRef(null); // Reference to the dropdown
+  const dropdownRef = useRef(null);
   const navigation = useNavigate();
 
-  // Close the dropdown when clicking outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setNotifOpen(false); // Close the dropdown
+      if (!event.target.closest(".relative")) {
+        setNotifOpen(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
 
-    // Cleanup the event listener when the component unmounts
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
-  }, [setNotifOpen]);
+  }, []);
+
   return (
-     <div
+    <div
       className="absolute -right-[100px]     mt-9 w-[416px] bg-white rounded-3xl shadow-lg z-50"
       ref={dropdownRef}
     >
@@ -41,39 +40,41 @@ const NotificationDropdown = ({ setNotifOpen, notifications }) => {
         </div>
       </div>
       <div className="divide-y divide-gray-200 h-[400px] overflow-y-auto">
-        {notifications?.map((notif, index) => (
-          <div
-            key={index}
-            className={`flex cursor-pointer relative items-start px-6 py-4 ${
-              notif.is_read === false ? "bg-green-50" : "bg-white"
-            }`}
-          >
+        {notifications
+          ?.filter((notif) => notif.is_read === false)
+          .map((notif, index) => (
             <div
-              className={`flex items-center h-12 w-12 justify-center  rounded-full ${
-                notif?.notification_type === "created" ? "bg-green-100" : ""
-              } ${notif.iconColor}`}
+              key={index}
+              className={`flex cursor-pointer relative items-start px-6 py-4 ${
+                notif.is_read === false ? "bg-green-50" : "bg-white"
+              }`}
             >
-              {notif.notification_type === "created" && <FaBullseye />}
-            </div>
-            <div className="ml-4 flex-1">
-              <div className="flex justify-between items-start">
-                <div className="ml-4 flex-1">
-                  <div className="flex justify-between mb-1">
-                    <div className="font-[500] leading-[21.6px] text-[#303030] text-left text-[14px]">
-                      {notif.title}
+              <div
+                className={`flex items-center h-12 w-12 justify-center rounded-full ${
+                  notif?.notification_type === "created" ? "bg-green-100" : ""
+                } ${notif.iconColor}`}
+              >
+                {notif.notification_type === "created" && <FaBullseye />}
+              </div>
+              <div className="ml-4 flex-1">
+                <div className="flex justify-between items-start">
+                  <div className="ml-4 flex-1">
+                    <div className="flex justify-between mb-1">
+                      <div className="font-[500] leading-[21.6px] text-[#303030] text-left text-[14px]">
+                        {notif?.title}
+                      </div>
+                      <div className="text-[12px] text-[#181818] font-[500] leading-[16.2px] text-left">
+                        {new Date(notif?.createdAt).toDateString()}
+                      </div>
                     </div>
-                    <div className="text-[12px] text-[#181818] font-[500] leading-[16.2px] text-left">
-                      {new Date(notif?.createdAt).toDateString()}
+                    <div className="text-[14px] text-[#303030] font-[400] leading-[18.9px] text-left">
+                      {notif?.message}
                     </div>
-                  </div>
-                  <div className="text-[14px] text-[#303030] font-[400] leading-[18.9px] text-left">
-                    {notif.message}
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

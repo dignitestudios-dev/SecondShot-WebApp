@@ -11,7 +11,7 @@ import LockModal from "../home/LockModal";
 
 const Navbar = () => {
   const { subscriptionpaid, profilepic } = useContext(AuthContext);
-  const { notifications,countNoti } = useContext(ModalContext);
+  const { notifications, countNoti } = useContext(ModalContext);
 
   const navigate = useNavigate();
   const [lock, setLock] = useState(false);
@@ -94,7 +94,7 @@ const Navbar = () => {
             <RiNotification2Line
               size={"20px"}
               className="text-white"
-              onClick={() => setNotifOpen(!notifOpen)}
+              onClick={() => setNotifOpen((prev) => !prev)}
             />
             <div className="absolute -top-2 left-2 text-center flex justify-center items-center w-[15px] h-[15px]  bg-red-600 rounded-full">
               <div className="text-white text-[12px]">

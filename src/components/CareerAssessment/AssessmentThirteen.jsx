@@ -4,7 +4,8 @@ import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendationCountBtn from "../careerrecommendation/RecommendationCountBtn";
 
-const AssessmentThirteen = ({ prevStep, nextStep, formData, setFormData }) => {
+const AssessmentThirteen = ({ prevStep, nextStep, formData, setFormData,carrerQuestion,
+  loading, }) => {
   const validationSchema = Yup.object({
     publicSpeak: Yup.string().required("A rating is required to proceed."),
   });

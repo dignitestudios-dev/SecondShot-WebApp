@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AssessmentOne from "../../components/CareerAssessment/AssessmentOne";
 import AssessmentTwo from "../../components/CareerAssessment/AssessmentTwo";
 import AssessmentThree from "../../components/CareerAssessment/AssessmentThree";
@@ -25,9 +25,12 @@ import AssessmentTwentyThree from "../../components/CareerAssessment/AssessmentT
 import AssessmentTwentyFour from "../../components/CareerAssessment/AssessmentTwentyFour";
 import { BgAuth, Leftimg } from "../../assets/export";
 import AssessmentModal from "../../components/careerrecommendation/AssesmentModal";
+import axios from "../../axios";
 
 const StartAssesment = () => {
   const [congrats, setCongrats] = useState(false);
+  const [carrerQuestion, setCarrerQuestion] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     impSkill: "",
@@ -100,13 +103,24 @@ const StartAssesment = () => {
     setShowModal(!showModal);
   };
 
+  const getcarrerquestion = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get("/api/user/get-questions");
+      setCarrerQuestion(response?.data?.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getcarrerquestion();
+  }, []);
   return (
     <div className="    ">
-      <img
-        src={Leftimg}
-        alt="logo"
-        className="absolute top-0 left-0 w-[20%]"
-      />
+      <img src={Leftimg} alt="logo" className="absolute top-0 left-0 w-[20%]" />
       <div className="max-w-screen-xl mx-auto p-8">
         <AssessmentModal
           showModal={showModal}
@@ -123,7 +137,10 @@ const StartAssesment = () => {
                   Career Recommendation Assessment
                 </h1>
                 <p className="text-[16px] text-[#181818] text-center">
-                Please answer a few questions to help us tailor our services to your needs. You may feel like you align to multiple answers. Choose the answer that feels most like you. It's usually your first thought.
+                  Please answer a few questions to help us tailor our services
+                  to your needs. You may feel like you align to multiple
+                  answers. Choose the answer that feels most like you. It's
+                  usually your first thought.
                 </p>
               </div>
               <div className="flex justify-between mt-6">
@@ -155,6 +172,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 2 && (
@@ -163,6 +182,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 3 && (
@@ -171,6 +192,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 4 && (
@@ -179,6 +202,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 5 && (
@@ -186,6 +211,8 @@ const StartAssesment = () => {
                     prevStep={prevStep}
                     nextStep={nextStep}
                     setFormData={setFormData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                     formData={formData}
                   />
                 )}
@@ -195,6 +222,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 7 && (
@@ -203,6 +232,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 8 && (
@@ -211,6 +242,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 9 && (
@@ -219,6 +252,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 10 && (
@@ -227,6 +262,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 11 && (
@@ -235,6 +272,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 12 && (
@@ -243,6 +282,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 13 && (
@@ -251,6 +292,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 14 && (
@@ -259,6 +302,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 15 && (
@@ -267,6 +312,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 16 && (
@@ -275,6 +322,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 17 && (
@@ -283,6 +332,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 18 && (
@@ -291,6 +342,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 19 && (
@@ -299,6 +352,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 20 && (
@@ -307,6 +362,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 21 && (
@@ -315,6 +372,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 22 && (
@@ -323,6 +382,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 23 && (
@@ -331,6 +392,8 @@ const StartAssesment = () => {
                     nextStep={nextStep}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
                 {step === 24 && (
@@ -339,6 +402,8 @@ const StartAssesment = () => {
                     handleAssessmentForm={handleModal}
                     setFormData={setFormData}
                     formData={formData}
+                    carrerQuestion={carrerQuestion}
+                    loading={loading}
                   />
                 )}
               </div>

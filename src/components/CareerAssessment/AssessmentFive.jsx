@@ -4,7 +4,8 @@ import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendationDropdown from "../careerrecommendation/RecommendationDropdown";
 
-const AssessmentFive = ({ prevStep, nextStep, formData, setFormData }) => {
+const AssessmentFive = ({ prevStep, nextStep, formData, setFormData ,carrerQuestion,
+  loading,}) => {
   const validationSchema = Yup.object({
     topSkill: Yup.string().required("Please select an option to proceed."),
   });
@@ -40,8 +41,11 @@ const AssessmentFive = ({ prevStep, nextStep, formData, setFormData }) => {
                 className="block text-sm font-medium mb-2"
                 htmlFor="topSkill"
               >
-                Which skill do you find yourself using most frequently in other
-                areas of your life?
+               {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[4]?.question
+                )}
               </label>
               <RecommendationDropdown
                 options={options}

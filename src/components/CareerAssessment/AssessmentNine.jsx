@@ -4,7 +4,8 @@ import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendatioBtn from "../careerrecommendation/RecommendatioBtn";
 
-const AssessmentNine = ({ prevStep, nextStep, formData, setFormData }) => {
+const AssessmentNine = ({ prevStep, nextStep, formData, setFormData,carrerQuestion,
+  loading, }) => {
   const validationSchema = Yup.object({
     workInside: Yup.string().required("Please select an option to proceed."),
   });
@@ -26,7 +27,11 @@ const AssessmentNine = ({ prevStep, nextStep, formData, setFormData }) => {
           <Form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="skill">
-                Would you rather work indoors or outdoors?
+              {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[8]?.question
+                )}
               </label>
               <RecommendatioBtn
                 handleBtnSelect={handleWorkInside}

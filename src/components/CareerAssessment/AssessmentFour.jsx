@@ -4,7 +4,8 @@ import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendationDropdown from "../careerrecommendation/RecommendationDropdown";
 
-const AssessmentFour = ({ prevStep, nextStep, formData, setFormData }) => {
+const AssessmentFour = ({ prevStep, nextStep, formData, setFormData,carrerQuestion,
+  loading, }) => {
   const validationSchema = Yup.object({
     likeSkill: Yup.string().required("Please select an option to proceed."),
   });
@@ -40,7 +41,11 @@ const AssessmentFour = ({ prevStep, nextStep, formData, setFormData }) => {
                 className="block text-sm font-medium mb-2"
                 htmlFor="likeSkill"
               >
-                Which skill do you enjoy the most?
+                {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[3]?.question
+                )}
               </label>
               <RecommendationDropdown
                 options={options}

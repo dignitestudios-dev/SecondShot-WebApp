@@ -78,7 +78,7 @@ export const ModalProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getnotifications();
+    Cookies.get("token") && getnotifications();
   }, []);
 
   useEffect(() => {

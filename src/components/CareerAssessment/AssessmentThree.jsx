@@ -4,7 +4,8 @@ import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendationDropdown from "../careerrecommendation/RecommendationDropdown";
 
-const AssessmentThree = ({ prevStep, nextStep, formData, setFormData }) => {
+const AssessmentThree = ({ prevStep, nextStep, formData, setFormData,carrerQuestion,
+  loading,  }) => {
   const validationSchema = Yup.object({
     improveSkill: Yup.string().required("Please select an option to proceed."),
   });
@@ -40,7 +41,11 @@ const AssessmentThree = ({ prevStep, nextStep, formData, setFormData }) => {
                 className="block text-sm font-medium mb-2"
                 htmlFor="improveSkill"
               >
-                In which skill do you feel you need the most improvement?
+              {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[2]?.question
+                )}
               </label>
               <RecommendationDropdown
                 options={options}

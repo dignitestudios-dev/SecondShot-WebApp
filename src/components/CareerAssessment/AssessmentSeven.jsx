@@ -4,7 +4,8 @@ import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendatioBtn from "../careerrecommendation/RecommendatioBtn";
 
-const AssessmentSeven = ({ prevStep, nextStep, formData, setFormData }) => {
+const AssessmentSeven = ({ prevStep, nextStep, formData, setFormData,carrerQuestion,
+  loading, }) => {
   const validationSchema = Yup.object({
     preferScience: Yup.string().required("Please select an option to proceed."),
   });
@@ -26,7 +27,11 @@ const AssessmentSeven = ({ prevStep, nextStep, formData, setFormData }) => {
           <Form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="skill">
-                Do you have a greater interest in science or history?
+              {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[6]?.question
+                )}
               </label>
             
               <RecommendatioBtn

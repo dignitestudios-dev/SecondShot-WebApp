@@ -3,7 +3,8 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 
-const AssessmentTen = ({ prevStep, nextStep, formData, setFormData }) => {
+const AssessmentTen = ({ prevStep, nextStep, formData, setFormData ,carrerQuestion,
+  loading,}) => {
   const validationSchema = Yup.object({
     mathGame: Yup.string().required("Please select an option to proceed."),
   });
@@ -25,8 +26,11 @@ const AssessmentTen = ({ prevStep, nextStep, formData, setFormData }) => {
           <Form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="skill">
-                Would you prefer to play a math game, a word game, or a strategy
-                game?
+              {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[9]?.question
+                )}
               </label>
               <div className="flex md:justify-evenly">
                 <button

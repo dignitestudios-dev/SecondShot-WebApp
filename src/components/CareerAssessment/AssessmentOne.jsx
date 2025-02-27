@@ -3,7 +3,13 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import RecommendationDropdown from "../careerrecommendation/RecommendationDropdown";
 
-const AssessmentOne = ({ nextStep, formData, setFormData }) => {
+const AssessmentOne = ({
+  nextStep,
+  formData,
+  setFormData,
+  carrerQuestion,
+  loading,
+}) => {
   const validationSchema = Yup.object({
     impSkill: Yup.string().required("Please select an option to proceed."),
   });
@@ -39,7 +45,11 @@ const AssessmentOne = ({ nextStep, formData, setFormData }) => {
                 className="block text-sm font-medium mb-2"
                 htmlFor="impSkill"
               >
-                Which skill do you believe is the most important?
+                {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[0]?.question
+                )}
               </label>
               <RecommendationDropdown
                 options={options}

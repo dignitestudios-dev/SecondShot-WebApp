@@ -4,7 +4,14 @@ import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendationDropdown from "../careerrecommendation/RecommendationDropdown";
 
-const AssessmentTwo = ({ prevStep, nextStep, formData, setFormData }) => {
+const AssessmentTwo = ({
+  prevStep,
+  nextStep,
+  formData,
+  setFormData,
+  carrerQuestion,
+  loading,
+}) => {
   const validationSchema = Yup.object({
     excelSkill: Yup.string().required("Please select an option to proceed."),
   });
@@ -40,7 +47,11 @@ const AssessmentTwo = ({ prevStep, nextStep, formData, setFormData }) => {
                 className="block text-sm font-medium mb-2"
                 htmlFor="excelSkill"
               >
-                Which skill do you excel at the most?
+                {loading ? (
+                  <span className="text-gray-500">Loading....</span>
+                ) : (
+                  carrerQuestion[1]?.question
+                )}
               </label>
               <RecommendationDropdown
                 options={options}

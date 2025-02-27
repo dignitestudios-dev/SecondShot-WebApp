@@ -4,7 +4,8 @@ import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendationCountBtn from "../careerrecommendation/RecommendationCountBtn";
 
-const AssessmentEight = ({ prevStep, nextStep, formData, setFormData }) => {
+const AssessmentEight = ({ prevStep, nextStep, formData, setFormData ,carrerQuestion,
+  loading,}) => {
   const validationSchema = Yup.object({
     workingHands: Yup.string().required("A rating is required to proceed."),
   });
@@ -26,8 +27,11 @@ const AssessmentEight = ({ prevStep, nextStep, formData, setFormData }) => {
           <Form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="skill">
-                On a scale of 1-5, how much do you enjoy working with your
-                hands? (1 being the least and 5 being the most)
+              {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[7]?.question
+                )}
               </label>
               <RecommendationCountBtn
                 handleCountBtn={handleWorkingHands}

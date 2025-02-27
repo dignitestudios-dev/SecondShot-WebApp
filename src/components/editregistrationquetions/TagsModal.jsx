@@ -19,7 +19,7 @@ const TagsModal = ({
   );
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-xl shadow-lg max-h-[680px] w-1/3 p-4 relative">
+      <div className="bg-white rounded-xl shadow-lg max-h-[630px] w-1/3 p-4 relative">
         <button
           type="button"
           className="absolute top-2 right-2"
