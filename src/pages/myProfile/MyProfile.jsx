@@ -119,14 +119,14 @@ function MyProfile() {
     const cleaned = input.replace(/\D/g, ""); // Remove all non-numeric characters
 
     if (cleaned.length > 3 && cleaned.length <= 6) {
-      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
+      return `+(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`; // Add '+' in front of the area code
     } else if (cleaned.length > 6) {
-      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(
+      return `+(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(
         6,
         10
-      )}`;
+      )}`; // Add '+' in front of the area code, and format the number
     } else if (cleaned.length > 0) {
-      return `(${cleaned}`;
+      return `+(${cleaned}`; // Add '+' in front when length is between 1 and 3 digits
     }
 
     return cleaned; // Return cleaned number if less than 1 digit
@@ -175,25 +175,25 @@ function MyProfile() {
           <div className="w-3/4 bg-white rounded-r-lg  p-8">
             {activeTab === "profile" && (
               <>
-                <div className="flex  justify-between items-center mb-8">
-                  <h1 className="text-[24px] font-[500] text-[#000000]">
-                    My Profile
-                  </h1>
-                  <button
-                    onClick={() =>
-                      navigate("/edit-profile-details", {
-                        state: profileData,
-                      })
-                    }
-                    className="flex  items-center space-x-2 text-white   bg-gradient-to-l from-[#012C57] to-[#061523] px-4 py-2 rounded-md shadow-sm w-[116px] h-[40px] text-center"
-                  >
-                    <span>Edit Profile</span>
-                  </button>
-                </div>
                 {loading ? (
                   <ProfileSkeleton />
                 ) : (
                   <>
+                    <div className="flex  justify-between items-center mb-8">
+                      <h1 className="text-[24px] font-[500] text-[#000000]">
+                        My Profile
+                      </h1>
+                      <button
+                        onClick={() =>
+                          navigate("/edit-profile-details", {
+                            state: profileData,
+                          })
+                        }
+                        className="flex  items-center space-x-2 text-white   bg-gradient-to-l from-[#012C57] to-[#061523] px-4 py-2 rounded-md shadow-sm w-[116px] h-[40px] text-center"
+                      >
+                        <span>Edit Profile</span>
+                      </button>
+                    </div>
                     <div className="flex flex-wrap items-center mb-8">
                       <img
                         src={profileData?.profile_img}
@@ -372,13 +372,11 @@ function MyProfile() {
                       <p className="text-gray-600 text-left">*******</p>
                     </div>
                     <div>
-                         <AuthSubmitBtn
+                      <AuthSubmitBtn
                         text={"Change"}
                         handleSubmit={() => setIsChangePasswordModalOpen(true)}
-                      /> 
-                  
-                  </div>
-                   
+                      />
+                    </div>
                   </div>
                   <hr className=" border-t border-gray-200" />
                   <div className="flex justify-between items-center text-left">
@@ -391,12 +389,13 @@ function MyProfile() {
                       </p>
                     </div>
                     <div>
-                         <AuthSubmitBtn
+                      <AuthSubmitBtn
                         text={"Change"}
-                        handleSubmit={() => setIsChangePaymentMethodModalOpen(true)}
-                      /> 
-                  
-                  </div>
+                        handleSubmit={() =>
+                          setIsChangePaymentMethodModalOpen(true)
+                        }
+                      />
+                    </div>
                   </div>
                   <hr className=" border-t border-gray-200" />
                   <div className="flex justify-between items-center">

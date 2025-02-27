@@ -9,6 +9,9 @@ const AssessmentTwentyThree = ({
   nextStep,
   formData,
   setFormData,
+
+  carrerQuestion,
+  loading,
 }) => {
   const validationSchema = Yup.object({
     spotLight: Yup.string().required("A rating is required to proceed."),
@@ -31,8 +34,11 @@ const AssessmentTwentyThree = ({
           <Form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="skill">
-                On a scale of 1-5, how comfortable are you being in the
-                spotlight? (1 being not comfortable, 5 being very comfortable)
+              {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[22]?.question
+                )}
               </label>
               <RecommendationCountBtn
                 handleCountBtn={handleSpotLight}

@@ -9,11 +9,13 @@ const AssessmentTwentyFour = ({
   handleAssessmentForm,
   formData,
   setFormData,
+  carrerQuestion,
+  loading,
 }) => {
   const validationSchema = Yup.object({
     creative: Yup.string().required("A rating is required to proceed."),
   });
-
+console.log(formData,"formDataCarrer")
   const handleCreative = (value, setFieldValue, setFieldTouched) => {
     setFieldTouched("creative", true);
     setFieldValue("creative", value);
@@ -31,8 +33,11 @@ const AssessmentTwentyFour = ({
           <Form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="skill">
-                On a scale of 1-5, do you consider yourself a creative person?
-                (1 being not creative, 5 being very creative)
+              {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[23]?.question
+                )}
               </label>
               <RecommendationCountBtn
                 handleCountBtn={handleCreative}

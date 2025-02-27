@@ -4,7 +4,8 @@ import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendatioBtn from "../careerrecommendation/RecommendatioBtn";
 
-const AssessmentTwentyOne = ({ prevStep, nextStep, formData, setFormData }) => {
+const AssessmentTwentyOne = ({ prevStep, nextStep, formData, setFormData,carrerQuestion,
+  loading, }) => {
   const validationSchema = Yup.object({
     keepTrying: Yup.string().required("Please select an option to proceed."),
   });
@@ -26,7 +27,11 @@ const AssessmentTwentyOne = ({ prevStep, nextStep, formData, setFormData }) => {
           <Form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="skill">
-              If something takes a long time to figure out, do you keep trying or seek an alternative solution?
+              {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[20]?.question
+                )}
 
               </label>
               <RecommendatioBtn

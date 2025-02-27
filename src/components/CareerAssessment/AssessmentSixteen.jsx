@@ -4,7 +4,8 @@ import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendationCountBtn from "../careerrecommendation/RecommendationCountBtn";
 
-const AssessmentSixteen = ({ prevStep, nextStep, formData, setFormData }) => {
+const AssessmentSixteen = ({ prevStep, nextStep, formData, setFormData,carrerQuestion,
+  loading, }) => {
   const validationSchema = Yup.object({
     leader: Yup.string().required("A rating is required to proceed."),
   });
@@ -26,8 +27,11 @@ const AssessmentSixteen = ({ prevStep, nextStep, formData, setFormData }) => {
           <Form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="skill">
-                On a scale of 1-5, do you consider yourself a leader? (1 being
-                no and 5 being yes)
+              {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[15]?.question
+                )}
               </label>
               <RecommendationCountBtn
                 handleCountBtn={handleLeader}

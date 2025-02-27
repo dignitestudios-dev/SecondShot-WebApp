@@ -98,10 +98,6 @@ const StartAssesment = () => {
   const prevStep = () => {
     setStep(step - 1);
   };
-  const handleAssessmentForm = (values) => {
-    setCongrats(true);
-    setShowModal(!showModal);
-  };
 
   const getcarrerquestion = async () => {
     setLoading(true);
@@ -118,6 +114,42 @@ const StartAssesment = () => {
   useEffect(() => {
     getcarrerquestion();
   }, []);
+  // console.log(formData,"Career Data Payload")
+  // const carrerpayload = {
+  //   answers:[
+  //     { questionId:  carrerQuestion[0]?._id, answer: formData?.impSkill },
+  //     { questionId:  carrerQuestion[1]?._id, answer: formData?.excelSkill },
+  //     { questionId:  carrerQuestion[2]?._id, answer: formData?.improveSkill },
+  //     { questionId:  carrerQuestion[3]?._id, answer: formData?.likeSkill },
+  //     { questionId:  carrerQuestion[4]?._id, answer: formData?.topSkill },
+  //     { questionId:  carrerQuestion[5]?._id, answer: formData?.preferReading },
+  //     { questionId:  carrerQuestion[6]?._id, answer: formData?.preferScience },
+  //     { questionId:  carrerQuestion[7]?._id, answer: formData?.workingHands },
+  //     { questionId:  carrerQuestion[8]?._id, answer: formData?.workInside },
+  //     { questionId:  carrerQuestion[9]?._id, answer: formData?.mathGame },
+  //     { questionId:  carrerQuestion[10]?._id, answer: formData?.workAlone },
+  //     { questionId:  carrerQuestion[11]?._id, answer: formData?.buildPlan },
+  //     { questionId:  carrerQuestion[12]?._id, answer: formData?.publicSpeak },
+  //     { questionId:  carrerQuestion[13]?._id, answer: formData?.writing },
+  //     { questionId:  carrerQuestion[14]?._id, answer: formData?.goWithFlow },
+  //     { questionId:  carrerQuestion[15]?._id, answer: formData?.leader },
+  //     { questionId:  carrerQuestion[16]?._id, answer: formData?.teamWork },
+  //     { questionId:  carrerQuestion[17]?._id, answer: formData?.teachOthers },
+  //     { questionId:  carrerQuestion[18]?._id, answer: formData?.physicalChallenge },
+  //     { questionId:  carrerQuestion[19]?._id, answer: formData?.stepByStep },
+  //     { questionId:  carrerQuestion[20]?._id, answer: formData?.keepTrying },
+  //     { questionId:  carrerQuestion[21]?._id, answer: formData?.competitive },
+  //     { questionId:  carrerQuestion[22]?._id, answer: formData?.spotLight },
+  //     { questionId:  carrerQuestion[23]?._id, answer: formData?.creative },
+  //   ]
+  // };
+  // const handleAssessmentForm = async () => {
+  //   // setCongrats(true);
+  //   // setShowModal(!showModal);
+  //   try {
+  //   } catch {}
+  // };
+
   return (
     <div className="    ">
       <img src={Leftimg} alt="logo" className="absolute top-0 left-0 w-[20%]" />

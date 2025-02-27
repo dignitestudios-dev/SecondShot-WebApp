@@ -4,7 +4,8 @@ import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendatioBtn from "../careerrecommendation/RecommendatioBtn";
 
-const AssessmentNineTeen = ({ prevStep, nextStep, formData, setFormData }) => {
+const AssessmentNineTeen = ({ prevStep, nextStep, formData, setFormData,carrerQuestion,
+  loading, }) => {
   const validationSchema = Yup.object({
     physicalChallenge: Yup.string().required(
       "Please select an option to proceed."
@@ -28,7 +29,11 @@ const AssessmentNineTeen = ({ prevStep, nextStep, formData, setFormData }) => {
           <Form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="skill">
-                Do you prefer physical challenges or mental challenges?
+              {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[18]?.question
+                )}
               </label>
               <RecommendatioBtn
                 handleBtnSelect={handlePhysicalChallenge}

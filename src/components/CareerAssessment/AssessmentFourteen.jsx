@@ -4,7 +4,14 @@ import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendationCountBtn from "../careerrecommendation/RecommendationCountBtn";
 
-const AssessmentFourteen = ({ prevStep, nextStep, formData, setFormData }) => {
+const AssessmentFourteen = ({
+  prevStep,
+  nextStep,
+  formData,
+  setFormData,
+  carrerQuestion,
+  loading,
+}) => {
   const validationSchema = Yup.object({
     writing: Yup.string().required("A rating is required to proceed."),
   });
@@ -27,7 +34,11 @@ const AssessmentFourteen = ({ prevStep, nextStep, formData, setFormData }) => {
           <Form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="skill">
-              On a scale of 1-5, how comfortable are you with writing? (1 being not comfortable, 5 being very comfortable)
+                {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[13]?.question
+                )}
               </label>
               <RecommendationCountBtn
                 handleCountBtn={handleWriting}

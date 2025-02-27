@@ -4,7 +4,8 @@ import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendationCountBtn from "../careerrecommendation/RecommendationCountBtn";
 
-function AssessmentEighteen({ prevStep, nextStep, formData, setFormData }) {
+function AssessmentEighteen({ prevStep, nextStep, formData, setFormData,carrerQuestion,
+  loading, }) {
   const validationSchema = Yup.object({
     teachOthers: Yup.string().required("A rating is required to proceed."),
   });
@@ -29,7 +30,11 @@ function AssessmentEighteen({ prevStep, nextStep, formData, setFormData }) {
                 className="block text-sm font-medium mb-2"
                 htmlFor="skill"
               >
-             On a scale of 1-5, how much do you enjoy teaching others? (1 being not at all, 5 being greatly enjoy it)
+             {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[17]?.question
+                )}
               </label>
               <RecommendationCountBtn
                 handleCountBtn={handleTeachOthers}

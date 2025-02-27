@@ -4,7 +4,8 @@ import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendatioBtn from "../careerrecommendation/RecommendatioBtn";
 
-const AssessmentTwenty = ({ prevStep, nextStep, formData, setFormData }) => {
+const AssessmentTwenty = ({ prevStep, nextStep, formData, setFormData ,carrerQuestion,
+  loading,}) => {
   const validationSchema = Yup.object({
     stepByStep: Yup.string().required("Please select an option to proceed."),
   });
@@ -26,8 +27,11 @@ const AssessmentTwenty = ({ prevStep, nextStep, formData, setFormData }) => {
           <Form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="skill">
-                Do you prefer following step-by-step instructions or making your
-                own steps?
+              {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[19]?.question
+                )}
               </label>
               <RecommendatioBtn
                 handleBtnSelect={handleStepByStep}

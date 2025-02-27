@@ -27,7 +27,11 @@ const AssessmentThirteen = ({ prevStep, nextStep, formData, setFormData,carrerQu
           <Form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="skill">
-              On a scale of 1-5, how comfortable are you with public speaking? (1 being not comfortable, 5 being very comfortable)
+              {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[12]?.question
+                )}
 
               </label>
               <RecommendationCountBtn

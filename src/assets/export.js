@@ -93,6 +93,9 @@ import resumetemplate from "../assets/resumetemplate.png";
 import blueresumetem from "../assets/blueresumetem.png";
 import homelock from "../assets/homelock.png";
 import lockModal from "../assets/lockModal.png";
+import commingsoon1 from "../assets/commingsoon1.png";
+import commingsoon2 from "../assets/commingsoon2.png";
+import commingsoon3 from "../assets/commingsoon3.png";
 export {
   logo,
   Carriericon1,
@@ -188,5 +191,8 @@ export {
   resumetemplate,
   blueresumetem,
   homelock,
-  lockModal
+  lockModal,
+  commingsoon1,
+  commingsoon2,
+  commingsoon3,
 };

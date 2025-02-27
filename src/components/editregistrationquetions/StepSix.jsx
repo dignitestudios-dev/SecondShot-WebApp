@@ -90,7 +90,9 @@ const StepSix = ({
             ...formData,
             hobbieOptions: selectedTags,
           });
-          nextStep();
+          if (hobbie.length > 0) {
+            nextStep();
+          }
         }
       }}
     >
@@ -123,7 +125,11 @@ const StepSix = ({
             </div>
             <div className="flex justify-center pt-4">
               <div className="w-[343px]">
-                <AuthSubmitBtn text={"Next"} type={"submit"} />
+                {hobbie.length === 0 ? (
+                  <AuthSubmitBtn text={"Loading"} />
+                ) : (
+                  <AuthSubmitBtn text={"Next"} type={"submit"} />
+                )}
               </div>
             </div>
             <div className="mt-4">

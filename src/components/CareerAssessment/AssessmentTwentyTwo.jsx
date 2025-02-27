@@ -3,7 +3,8 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendationCountBtn from "../careerrecommendation/RecommendationCountBtn";
-const AssessmentTwentyTwo = ({ prevStep, nextStep, formData, setFormData }) => {
+const AssessmentTwentyTwo = ({ prevStep, nextStep, formData, setFormData,carrerQuestion,
+  loading, }) => {
   const validationSchema = Yup.object({
     competitive: Yup.string().required("A rating is required to proceed."),
   });
@@ -25,8 +26,11 @@ const AssessmentTwentyTwo = ({ prevStep, nextStep, formData, setFormData }) => {
           <Form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="skill">
-                On a scale of 1-5, how competitive are you? (1 being not
-                competitive, 5 being highly competitive)
+              {loading ? (
+                  <span className="text-gray-500">Loading.....</span>
+                ) : (
+                  carrerQuestion[21]?.question
+                )}
               </label>
               <RecommendationCountBtn
                 handleCountBtn={handleCompetitive}
