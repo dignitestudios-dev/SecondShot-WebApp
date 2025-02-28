@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CareerRecommendationsModal from "../../components/careerrecommendation/CareerRecommendationsModal";
 import { CiSearch } from "react-icons/ci";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
@@ -10,7 +10,7 @@ import BackBtn from "../../components/onboarding/BackBtn";
 import CareerCards from "../../components/careerrecommendation/CareerCards";
 import Backbutton from "../../components/Global/Backbutton";
 import { ModalContext } from "../../context/GlobalContext";
-
+import axios from "../../axios";
 function CareerRecommendations() {
   const navigate = useNavigate();
   const { isFirst, setIsFirst } = useContext(ModalContext);
@@ -18,10 +18,25 @@ function CareerRecommendations() {
   const handleNavigation = () => {
     navigate("/start-assesment");
   };
-  const [ModalOpen, setModalOpen] = useState(true);
+  const [loading, setloading] = useState(false);
+  const [carrerData, setcarrerData] = useState([]);
+  const getallcarrerrecommendation = async () => {
+    setloading(true);
+    try {
+      const response = await axios.get("/api/user/my-career-recommendations");
+      console.log(response?.data?.data, "response->");
+      setcarrerData(response?.data?.data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setloading(false);
+    }
+  };
+  useEffect(() => {
+    getallcarrerrecommendation();
+  }, []);
   return (
     <div className=" ">
-    
       <div className="flex flex-wrap justify-between items-center mb-6">
         <h1 className="text-3xl font-semibold text-gray-800 pb-1 px-2 ">
           My Career Recommendations
@@ -39,6 +54,8 @@ function CareerRecommendations() {
       </div>
       <div className="flex justify-center">
         <CareerCards
+        loading={loading}
+        carrerData={carrerData}
           icon={
             <BsFillBookmarkStarFill
               size={"27px"}

@@ -11,12 +11,12 @@ const AssessmentModal = ({ showModal, onclick, step, setShowModal }) => {
     showModal && (
       <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-50 backdrop-blur-sm">
         <div className="bg-white rounded-xl shadow-custom-shadow w-[500px] z-10 p-4 relative">
-          <button
+          {/* <button
             className="absolute top-0 right-2 text-xl text-gray-500 hover:text-gray-600"
             onClick={onclick}
           >
             &times;
-          </button>
+          </button> */}
           <div className="flex justify-center mt-6">
             <img
               src={Assesmentmodal}

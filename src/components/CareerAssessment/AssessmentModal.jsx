@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { assessmentLogo } from "../../assets/export";
+import AuthSubmitBtn from "../onboarding/AuthBtn";
 
 const AssessmentModal = ({ showModal, onclick }) => {
   const navigate = useNavigate();
@@ -11,12 +12,7 @@ const AssessmentModal = ({ showModal, onclick }) => {
     showModal && (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-70">
         <div className="bg-white rounded-xl shadow-custom-shadow w-[500px] p-4 relative">
-          <button
-            className="absolute top-0 right-2 text-xl text-gray-500 hover:text-gray-600"
-            onClick={onclick}
-          >
-            &times;
-          </button>
+         
           <div className="flex justify-center mt-6">
             <img
               src={assessmentLogo}
@@ -38,12 +34,10 @@ const AssessmentModal = ({ showModal, onclick }) => {
               <br /> Thank you for your dedication and effort.
             </p>
             <div className=" mt-4 flex justify-center">
-              <button
-                onClick={handleNavigation}
-                className=" bg-gradient-to-r from-[#061523] to-[#012C57] text-white px-4 py-2 rounded-lg w-full hover:bg-[#012C57]"
-              >
-                Explore Career Recommendations
-              </button>
+              <AuthSubmitBtn
+                text={"Explore Career Recommendations"}
+                handleSubmit={handleNavigation}
+              />
             </div>
             <div className="mt-4 flex justify-center">
               <button

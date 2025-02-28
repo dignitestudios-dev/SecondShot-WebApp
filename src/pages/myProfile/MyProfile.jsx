@@ -17,7 +17,7 @@ import axios from "../../axios";
 import ProfileSkeleton from "../../components/loader/ProfileSkeleton";
 import { SuccessToast } from "../../components/toaster/ToasterContainer";
 import Cookies from "js-cookie";
-
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
 function MyProfile() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("profile");
@@ -70,22 +70,20 @@ function MyProfile() {
     getProfile();
     getreqQuestion();
   }, []);
+  async function getDeviceFingerprint() {
+    const fp = await FingerprintJS.load();
+    const result = await fp.get();
 
+    return result.visitorId;
+  }
   const handlelogout = async () => {
     setLoading(true);
     try {
       let token = Cookies.get("token");
 
-      const response = await axios.post(
-        "/api/user/logout",
-
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post("/api/user/logout", {
+        deviceId: await getDeviceFingerprint(),
+      });
 
       if (response.status === 200) {
         SuccessToast("Logout Successfully");

@@ -3,6 +3,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import RecommendationCountBtn from "../careerrecommendation/RecommendationCountBtn";
+import AuthSubmitBtn from "../onboarding/AuthBtn";
 
 const AssessmentTwentyFour = ({
   prevStep,
@@ -10,12 +11,13 @@ const AssessmentTwentyFour = ({
   formData,
   setFormData,
   carrerQuestion,
-  loading,
+  loader,
+  loading
 }) => {
   const validationSchema = Yup.object({
     creative: Yup.string().required("A rating is required to proceed."),
   });
-console.log(formData,"formDataCarrer")
+  console.log(formData, "formDataCarrer");
   const handleCreative = (value, setFieldValue, setFieldTouched) => {
     setFieldTouched("creative", true);
     setFieldValue("creative", value);
@@ -33,7 +35,7 @@ console.log(formData,"formDataCarrer")
           <Form>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2" htmlFor="skill">
-              {loading ? (
+                {loading ? (
                   <span className="text-gray-500">Loading.....</span>
                 ) : (
                   carrerQuestion[23]?.question
@@ -54,12 +56,9 @@ console.log(formData,"formDataCarrer")
               />
             </div>
             <div className="flex justify-center pt-4">
-              <button
-                type="submit"
-                className="w-[60%] bg-gradient-to-r from-[#061523] to-[#012C57] text-white text-xs font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline"
-              >
-                Next
-              </button>
+              <div className="w-[60%]">
+                <AuthSubmitBtn text={"Next"} type={"submit" }  loading={loader} />
+              </div>
             </div>
             <div
               onClick={prevStep}

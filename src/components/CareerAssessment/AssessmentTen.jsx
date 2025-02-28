@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
+import AuthSubmitBtn from "../onboarding/AuthBtn";
 
 const AssessmentTen = ({ prevStep, nextStep, formData, setFormData ,carrerQuestion,
   loading,}) => {
@@ -80,12 +81,9 @@ const AssessmentTen = ({ prevStep, nextStep, formData, setFormData ,carrerQuesti
               )}
             </div>
             <div className="flex justify-center pt-4">
-              <button
-                type="submit"
-                className="w-[60%] bg-gradient-to-r from-[#061523] to-[#012C57] text-white text-xs font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline"
-              >
-                Next
-              </button>
+              <div className="w-[60%]">
+                <AuthSubmitBtn text={"Next"} type={"submit"} />
+              </div>
             </div>
             <div
               onClick={prevStep}

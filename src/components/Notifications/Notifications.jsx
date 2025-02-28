@@ -39,43 +39,51 @@ const NotificationDropdown = ({ setNotifOpen, notifications }) => {
           View All
         </div>
       </div>
-      <div className="divide-y divide-gray-200 h-[400px] overflow-y-auto">
-        {notifications
-          ?.filter((notif) => notif.is_read === false)
-          .map((notif, index) => (
-            <div
-              key={index}
-              className={`flex cursor-pointer relative items-start px-6 py-4 ${
-                notif.is_read === false ? "bg-green-50" : "bg-white"
-              }`}
-            >
+      {notifications.length === 0 ? (
+        <div className="flex justify-center items-center h-[400px]">
+          <div className="text-[14px] text-[#303030] font-[400] leading-[18.9px] text-center">
+            No Notifications
+          </div>
+        </div>
+      ) : (
+        <div className="divide-y divide-gray-200 h-[300px] overflow-y-auto">
+          {notifications
+            ?.filter((notif) => notif.is_read === false)
+            .map((notif, index) => (
               <div
-                className={`flex items-center h-12 w-12 justify-center rounded-full ${
-                  notif?.notification_type === "created" ? "bg-green-100" : ""
-                } ${notif.iconColor}`}
+                key={index}
+                className={`flex cursor-pointer relative items-start px-6 py-4 ${
+                  notif.is_read === false ? "bg-green-50" : "bg-white"
+                }`}
               >
-                {notif.notification_type === "created" && <FaBullseye />}
-              </div>
-              <div className="ml-4 flex-1">
-                <div className="flex justify-between items-start">
-                  <div className="ml-4 flex-1">
-                    <div className="flex justify-between mb-1">
-                      <div className="font-[500] leading-[21.6px] text-[#303030] text-left text-[14px]">
-                        {notif?.title}
+                <div
+                  className={`flex items-center h-12 w-12 justify-center rounded-full ${
+                    notif?.notification_type === "created" ? "bg-green-100" : ""
+                  } ${notif.iconColor}`}
+                >
+                  {notif.notification_type === "created" && <FaBullseye />}
+                </div>
+                <div className="ml-4 flex-1">
+                  <div className="flex justify-between items-start">
+                    <div className="ml-4 flex-1">
+                      <div className="flex justify-between mb-1">
+                        <div className="font-[500] leading-[21.6px] text-[#303030] text-left text-[14px]">
+                          {notif?.title}
+                        </div>
+                        <div className="text-[12px] text-[#181818] font-[500] leading-[16.2px] text-left">
+                          {new Date(notif?.createdAt).toDateString()}
+                        </div>
                       </div>
-                      <div className="text-[12px] text-[#181818] font-[500] leading-[16.2px] text-left">
-                        {new Date(notif?.createdAt).toDateString()}
+                      <div className="text-[14px] text-[#303030] font-[400] leading-[18.9px] text-left">
+                        {notif?.message}
                       </div>
-                    </div>
-                    <div className="text-[14px] text-[#303030] font-[400] leading-[18.9px] text-left">
-                      {notif?.message}
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-      </div>
+            ))}
+        </div>
+      )}
     </div>
   );
 };
