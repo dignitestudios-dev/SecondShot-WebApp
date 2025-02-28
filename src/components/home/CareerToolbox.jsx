@@ -162,25 +162,19 @@ const CareerToolbox = () => {
           onClose={() => setLock(false)}
         />
       </div>
-      <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid sm:grid-cols-1 md:grid-cols-[1fr_2fr] lg:grid-cols-[1fr_1fr_1fr] gap-10">
         {[commingsoon1, commingsoon2, commingsoon3]?.map((item, index) => (
-          <div
-            className={`group cursor-pointer w-[420px] h-[438px] rounded-[28px] p-5 mx-auto transition-all duration-500 relative`}
-          >
-            <img
-              src={item}
-              alt="Coming Soon"
-              className=" lg:w-[580px] h-[438px] "
-            />
+          <div key={index} className="flex justify-center">
+            <div className="w-full h-[458px]  rounded-[20px] overflow-hidden">
+              <img
+                src={item}
+                alt="Coming Soon"
+                className="object-cover w-[380px] h-[458px] rounded-[20px]"
+              />
+            </div>
           </div>
         ))}
-
       </div>
-        <LockModal
-          isOpen={lock}
-          handleClick={() => navigate("/subscriptionplans")}
-          onClose={() => setLock(false)}
-        />
     </div>
   );
 };
