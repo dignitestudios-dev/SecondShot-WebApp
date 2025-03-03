@@ -1,19 +1,37 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
 import { IoIosArrowBack } from "react-icons/io";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
-
+import axios from "../../axios";
 function CareerDetails() {
   const [selectedButton, setSelectedButton] = useState("Health Science");
-  const buttons = [
-    "Health Science",
-    "Information Technology",
-    "Business Management and Administration",
-    "Marketing",
-    "Manufacturing",
-  ];
+  const [carrerDetail, setCarrerDetail] = useState([]);
+  const [loader, setloader] = useState(false);
   const navigate = useNavigate();
+  const { id } = useParams();
+  const getcarrerDetail = async () => {
+    setloader(true);
+    try {
+      const response = await axios.post(
+        `/api/user/career-recommendation-details`,
+        {
+          recommendationId: id,
+        }
+      );
+      if (response.status === 200) {
+        setCarrerDetail(response?.data?.data?.careers);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setloader(false);
+    }
+  };
+  useEffect(() => {
+    getcarrerDetail();
+  }, [id]);
+
   return (
     <div className="">
       <div className="mb-3">
@@ -39,19 +57,28 @@ function CareerDetails() {
         <div className="space-y-8">
           <div>
             <div className="mb-2">
-              {buttons.map((button) => (
-                <button
-                  key={button}
-                  className={`${
-                    selectedButton === button
-                      ? "bg-gradient-to-r from-[#061523] to-[#012C57] text-white"
-                      : "bg-[#F6F6F6] text-[#474747]"
-                  } h-[49px]  font-[500] w-[auto] pt-3 pb-3 rounded-lg mr-2 mb-2 text-[14px] leading-[18.9px] pl-3 pr-3`}
-                  onClick={() => setSelectedButton(button)}
-                >
-                  {button}
-                </button>
-              ))}
+              {loader
+                ? Array(6)
+                    .fill(null)
+                    .map((_, index) => (
+                      <button
+                        key={index}
+                        className="bg-[#F6F6F6] w-[200px] text-[#474747] h-[49px] font-[500] pt-3 pb-3 rounded-lg mr-2 mb-2 text-[14px] leading-[18.9px] pl-3 pr-3"
+                      ></button>
+                    ))
+                : carrerDetail?.map((button) => (
+                    <button
+                      key={button}
+                      className={`${
+                        selectedButton === button
+                          ? "bg-gradient-to-r from-[#061523] to-[#012C57] text-white"
+                          : "bg-[#F6F6F6] text-[#474747]"
+                      } h-[49px]  font-[500] w-[auto] pt-3 pb-3 rounded-lg mr-2 mb-2 text-[14px] leading-[18.9px] pl-3 pr-3`}
+                      onClick={() => setSelectedButton(button)}
+                    >
+                      {button?.career?.name}
+                    </button>
+                  ))}
             </div>
             <hr />
             <div className="flex justify-between items-center">

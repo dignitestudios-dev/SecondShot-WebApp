@@ -97,7 +97,7 @@ const Navbar = () => {
               onClick={() => setNotifOpen((prev) => !prev)}
             />
             <div className="absolute -top-2 left-2 text-center flex justify-center items-center w-[15px] h-[15px]  bg-red-600 rounded-full">
-              <div className="text-white text-[12px]">
+              <div className="text-white font-semibold text-[10px]">
                 {" "}
                 {countNoti > 9 ? "9+" : countNoti}
               </div>

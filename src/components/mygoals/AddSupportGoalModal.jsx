@@ -33,11 +33,13 @@ const AddSupportGoalModal = ({
   });
   const [disableFullname1, setDisableFullname1] = useState(false);
   const [disableFullname2, setDisableFullname2] = useState(false);
+  const [secondSupportActive, setSecondSupportActive] = useState(false);
 
   useEffect(() => {
     if (goalDetail?.support_people) {
       setDisableFullname1(!!goalDetail.support_people[0]?.full_name);
       setDisableFullname2(!!goalDetail.support_people[1]?.full_name);
+      setSecondSupportActive(true);
 
       setInputData({
         fullname:
@@ -55,8 +57,6 @@ const AddSupportGoalModal = ({
       });
     }
   }, [goalDetail]);
-
-  const [secondSupportActive, setSecondSupportActive] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -80,7 +80,7 @@ const AddSupportGoalModal = ({
 
   const validateField = (name, value) => {
     let errorMessage = "";
-  
+
     switch (name) {
       case "fullname":
         if (!value) errorMessage = "Full name is required.";
@@ -98,7 +98,7 @@ const AddSupportGoalModal = ({
         else if (!/^\d{10}$/.test(value))
           errorMessage = "Enter a valid phone number.";
         break;
-  
+
       case "fullname_2":
         if (secondSupportActive && !value)
           errorMessage = "Full name is required.";
@@ -122,7 +122,7 @@ const AddSupportGoalModal = ({
       default:
         break;
     }
-  
+
     return errorMessage;
   };
 

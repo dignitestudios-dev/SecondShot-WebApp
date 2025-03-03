@@ -70,7 +70,7 @@ export const routes = [
   },
   {
     title: "CareerDetails",
-    url: "/careerdetails",
+    url: "/careerdetails/:id",
     page: <Applayout page={<CareerDetails />} />,
   },
   {

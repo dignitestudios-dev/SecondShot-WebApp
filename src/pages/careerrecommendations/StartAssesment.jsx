@@ -149,6 +149,7 @@ const StartAssesment = () => {
     { questionId: carrerQuestion[22]?._id, answer: formData?.spotLight },
     { questionId: carrerQuestion[23]?._id, answer: formData?.creative },
   ];
+  const [carrerId, setcarrerId] = useState(null);
 
   const handleAssessmentForm = async () => {
     setloader(true);
@@ -158,9 +159,9 @@ const StartAssesment = () => {
       });
       if (response.status === 201) {
         SuccessToast(response?.data?.message);
-        handleModal();
+        setcarrerId(response?.data?.data?._id);
+
         setCongrats(true);
-        setShowModal(!showModal);
       }
     } catch (err) {
       ErrorToast(err?.response?.data?.message);
@@ -168,6 +169,12 @@ const StartAssesment = () => {
       setloader(false);
     }
   };
+  useEffect(() => {
+    if (carrerId) {
+      handleModal();
+      setShowModal(true);
+    }
+  }, [carrerId]);
 
   return (
     <div className="    ">
@@ -177,6 +184,7 @@ const StartAssesment = () => {
           step={setStep}
           onclick={handleModal}
           setShowModal={setShowModal}
+          carrerId={carrerId}
         />
 
         <div className="grid grid-cols-1 my-6">

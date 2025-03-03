@@ -32,6 +32,7 @@ const AddSupportModal = ({
     if (resumeData?.support_people?.length) {
       setDisableFullname1(!!resumeData.support_people[0]?.full_name);
       setDisableFullname2(!!resumeData.support_people[1]?.full_name);
+      setSecondSupportActive(true);
 
       setInputData({
         fullname:
@@ -219,6 +220,7 @@ const AddSupportModal = ({
       e.preventDefault();
     }
   };
+  console.log(inputData.fullname,"inputData.fullname")
   return (
     showModal && (
       <div className="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm ">
