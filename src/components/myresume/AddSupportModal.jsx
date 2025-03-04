@@ -29,7 +29,7 @@ const AddSupportModal = ({
   const [disableFullname2, setDisableFullname2] = useState(false);
 
   useEffect(() => {
-    if (resumeData?.support_people?.length) {
+    if (resumeData?.support_people?.length > 0) {
       setDisableFullname1(!!resumeData.support_people[0]?.full_name);
       setDisableFullname2(!!resumeData.support_people[1]?.full_name);
       setSecondSupportActive(true);
@@ -83,7 +83,7 @@ const AddSupportModal = ({
 
   const validateField = (name, value) => {
     let errorMessage = "";
-  
+
     switch (name) {
       case "fullname":
         if (!value) errorMessage = "Full name is required.";
@@ -101,7 +101,7 @@ const AddSupportModal = ({
         else if (!/^\d{10}$/.test(value))
           errorMessage = "Enter a valid phone number.";
         break;
-  
+
       case "fullname_2":
         if (secondSupportActive && !value)
           errorMessage = "Full name is required.";
@@ -125,10 +125,9 @@ const AddSupportModal = ({
       default:
         break;
     }
-  
+
     return errorMessage;
   };
-  
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
@@ -220,7 +219,7 @@ const AddSupportModal = ({
       e.preventDefault();
     }
   };
-  console.log(inputData.fullname,"inputData.fullname")
+  console.log(inputData.fullname, "inputData.fullname");
   return (
     showModal && (
       <div className="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm ">
