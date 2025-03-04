@@ -100,7 +100,7 @@ function MyResume() {
                 <SearchInput
                   value={searchQuery}
                   onChange={handleSearchChange}
-                  placeholder="Search by creation date (YYYY-MM-DD)"
+                  placeholder="Search by date"
                 />
                 <div className="border-l-2 border-gray-300 h-6 mx-4"></div>
                 <div className="flex flex-col items-start">

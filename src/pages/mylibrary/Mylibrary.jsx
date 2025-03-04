@@ -4,29 +4,61 @@ import SearchInput from "../../components/Global/SearchInput";
 import Transferable from "../../components/mylibrary/Transferable";
 import WelcomeLibraryModal from "../../components/mylibrary/WelcomeLibraryModal";
 import { ModalContext } from "../../context/GlobalContext";
-import CareerCards from "../../components/careerrecommendation/CareerCards";
+
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 import axios from "../../axios";
+import CareerCards from "./CareerCards";
 function MyLibrary() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  const [isOpen, setIsOpen] = useState(true);
+  const [loading, setloading] = useState(false);
   const [view, setView] = useState("career");
   const { isFirst, setIsFirst } = useContext(ModalContext);
-
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
+  const [filteredGoals, setFilteredGoals] = useState([]);
   const [selected, setSelected] = useState("career");
   const handleViewChange = (newView) => {
-
     setView(newView);
     setSelected(newView);
   };
 
-  
+  const [carrerData, setcarrerData] = useState([]);
+  const getallcarrerrecommendation = async () => {
+    setloading(true);
+    try {
+      const response = await axios.get("/api/user/my-career-recommendations");
 
+      setcarrerData(response?.data?.data);
+      setFilteredGoals(response?.data?.data || []);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setloading(false);
+    }
+  };
+
+  useEffect(() => {
+    getallcarrerrecommendation();
+  }, []);
+  useEffect(() => {
+    let filtered = carrerData;
+
+    if (searchQuery) {
+      filtered = filtered.filter((recommendation) => {
+        return recommendation.careers.some((carrer) => {
+          const careerName = carrer.career.name.toLowerCase().trim();
+          const query = searchQuery.toLowerCase().trim();
+
+          return careerName.includes(query);
+        });
+      });
+    }
+
+    setFilteredGoals(filtered);
+  }, [searchQuery, carrerData]);
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
   return (
     <div className="">
       <WelcomeLibraryModal
@@ -71,16 +103,9 @@ function MyLibrary() {
       </div>
 
       {view === "career" ? (
-        <CareerCards
-          icon={
-            <BsFillBookmarkStarFill
-              size={"27px"}
-              className="transition duration-200 text-[#56ec17]"
-            />
-          }
-        />
+        <CareerCards loading={loading} carrerData={filteredGoals} getallcarrerrecommendation={getallcarrerrecommendation} />
       ) : (
-        <Transferable  />
+        <Transferable />
       )}
     </div>
   );

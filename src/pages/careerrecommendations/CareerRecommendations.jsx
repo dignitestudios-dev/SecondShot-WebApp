@@ -86,12 +86,7 @@ function CareerRecommendations() {
         <CareerCards
           loading={loading}
           carrerData={filteredGoals}
-          icon={
-            <BsFillBookmarkStarFill
-              size={"27px"}
-              className="transition duration-200   group-hover:text-white text-gray-500"
-            />
-          }
+          getallcarrerrecommendation={getallcarrerrecommendation}
         />
       </div>
       <CareerRecommendationsModal

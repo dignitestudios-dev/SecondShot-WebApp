@@ -146,7 +146,7 @@ const NewTrasnferSkill = () => {
   const [notedescription, setNoteDescription] = useState("");
 
   const gettransferableskill = async () => {
-    setLoading;
+    setLoading(true);
     try {
       const response = await axios.get("/api/user/my-transferable-skills");
       if (response.status === 200) {
@@ -371,7 +371,7 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                         <div
+                    <div
                       className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
@@ -435,7 +435,7 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                         <div
+                    <div
                       className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
@@ -498,7 +498,7 @@ const NewTrasnferSkill = () => {
                     {item.title.length > 8
                       ? item.title.substring(0, 8) + "..."
                       : item.title}
-                         <div
+                    <div
                       className="absolute -top-6 -left-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
