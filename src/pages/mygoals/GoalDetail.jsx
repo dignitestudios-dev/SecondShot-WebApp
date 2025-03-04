@@ -47,7 +47,7 @@ const GoalDetail = () => {
       });
 
       if (response.status === 200) {
-        setGoalDetail(response.data.data);
+        setGoalDetail(response?.data?.data);
 
         setloader(false);
       }
