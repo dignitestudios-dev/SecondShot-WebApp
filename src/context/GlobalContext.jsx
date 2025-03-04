@@ -47,7 +47,7 @@ export const ModalProvider = ({ children }) => {
         deviceToken: token,
         deviceId: await getDeviceFingerprint(),
       });
-      console.log(response, "response->");
+  
     } catch (error) {
       console.error(error);
     }

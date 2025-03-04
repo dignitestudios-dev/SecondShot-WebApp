@@ -12,7 +12,7 @@ function MyGoals() {
   const navigate = useNavigate();
   const [selectedButton, setSelectedButton] = useState("All");
   const buttons = ["All", "Not Started yet", "In Progress", "Completed"];
-  const [searchQuery, setSearchQuery] = useState(""); // For storing search text
+  const [searchQuery, setSearchQuery] = useState(""); 
 
   const { isFirst, setIsFirst } = useContext(ModalContext);
   const [goaldetail, setgoaldetail] = useState([]);
@@ -54,6 +54,7 @@ function MyGoals() {
 
     setFilteredGoals(filtered);
   }, [selectedButton, goaldetail, searchQuery]);
+
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };

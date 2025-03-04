@@ -40,7 +40,11 @@ const CareerCards = ({ icon, carrerData, loading }) => {
                   </div>
                 </div>
               ))
-          : carrerData?.map((recommendation, recommendationIndex) => (
+          : carrerData?.length === 0 ? (
+            <div className="col-span-full text-center text-lg text-gray-500">
+              No career recommendations found.
+            </div>
+          )  : (carrerData?.map((recommendation, recommendationIndex) => (
               <div
                 key={recommendationIndex}
                 onClick={() =>
@@ -87,7 +91,7 @@ const CareerCards = ({ icon, carrerData, loading }) => {
                   </button>
                 </div>
               </div>
-            ))}
+            )))}
       </div>
     </div>
   );

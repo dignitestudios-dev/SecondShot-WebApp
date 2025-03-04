@@ -14,6 +14,8 @@ import axios from "../../axios";
 function CareerRecommendations() {
   const navigate = useNavigate();
   const { isFirst, setIsFirst } = useContext(ModalContext);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredGoals, setFilteredGoals] = useState([]);
 
   const handleNavigation = () => {
     navigate("/start-assesment");
@@ -24,17 +26,41 @@ function CareerRecommendations() {
     setloading(true);
     try {
       const response = await axios.get("/api/user/my-career-recommendations");
-      console.log(response?.data?.data, "response->");
+  
       setcarrerData(response?.data?.data);
+      setFilteredGoals(response?.data?.data || []);
     } catch (err) {
       console.log(err);
     } finally {
       setloading(false);
     }
   };
+
   useEffect(() => {
     getallcarrerrecommendation();
   }, []);
+
+  useEffect(() => {
+    let filtered = carrerData;
+
+    if (searchQuery) {
+      filtered = filtered.filter((recommendation) => {
+        return recommendation.careers.some((carrer) => {
+          const careerName = carrer.career.name.toLowerCase().trim();
+          const query = searchQuery.toLowerCase().trim();
+
+          return careerName.includes(query);
+        });
+      });
+    }
+
+    setFilteredGoals(filtered);
+  }, [searchQuery, carrerData]);
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
   return (
     <div className=" ">
       <div className="flex flex-wrap justify-between items-center mb-6">
@@ -42,7 +68,11 @@ function CareerRecommendations() {
           My Career Recommendations
         </h1>
         <div className="flex items-center space-x-4 p-3">
-          <SearchInput placeholder={"Search"} />
+          <SearchInput
+            placeholder={"Search"}
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
           <div className="border-l-2 border-gray-300 h-6 mx-4"></div>
           <button
             onClick={handleNavigation}
@@ -54,8 +84,8 @@ function CareerRecommendations() {
       </div>
       <div className="flex justify-center">
         <CareerCards
-        loading={loading}
-        carrerData={carrerData}
+          loading={loading}
+          carrerData={filteredGoals}
           icon={
             <BsFillBookmarkStarFill
               size={"27px"}

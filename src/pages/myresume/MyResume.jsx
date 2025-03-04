@@ -11,6 +11,8 @@ function MyResume() {
   const [dropdownOpen, setDropdownOpen] = useState(null);
 
   const { isFirst, setIsFirst } = useContext(ModalContext);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredGoals, setFilteredGoals] = useState([]);
 
   const navigate = useNavigate();
   const toggleDropdown = (index) => {
@@ -40,7 +42,31 @@ function MyResume() {
   useEffect(() => {
     getResume();
   }, []);
+  useEffect(() => {
+    console.log("useEffect triggered", searchQuery, resume);
 
+    // Make a copy of the resume data
+    let filtered = resume;
+
+    // If searchQuery is not empty, filter based on the createdAt field
+    if (searchQuery) {
+      filtered = resume.filter((item) => {
+        const createdAt = new Date(item.createdAt);
+
+        // Extract only the date part in 'YYYY-MM-DD' format
+        const formattedCreatedAt = createdAt.toISOString().split("T")[0]; // '2025-02-21'
+
+        // Check if the formatted date contains the search query (case-insensitive)
+        return formattedCreatedAt.includes(searchQuery);
+      });
+    }
+    console.log(filtered, "filtered filtered");
+    setFilteredGoals(filtered); // Update filtered goals
+  }, [searchQuery, resume]);
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
   return (
     <>
       {loading ? (
@@ -71,7 +97,11 @@ function MyResume() {
                 My Resume
               </h1>
               <div className="flex items-center">
-                <SearchInput placeholder={"Search"} />
+                <SearchInput
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  placeholder="Search by creation date (YYYY-MM-DD)"
+                />
                 <div className="border-l-2 border-gray-300 h-6 mx-4"></div>
                 <div className="flex flex-col items-start">
                   <button
@@ -84,7 +114,7 @@ function MyResume() {
               </div>
             </div>
             <ResumeFile
-              resume={resume}
+              resume={filteredGoals}
               loading={loading}
               setLoading={setLoading}
               setResume={setResume}

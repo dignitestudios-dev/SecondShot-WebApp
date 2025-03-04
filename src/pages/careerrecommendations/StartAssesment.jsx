@@ -23,7 +23,6 @@ import AssessmentTwentyOne from "../../components/CareerAssessment/AssessmentTwe
 import AssessmentTwentyTwo from "../../components/CareerAssessment/AssessmentTwentyTwo";
 import AssessmentTwentyThree from "../../components/CareerAssessment/AssessmentTwentyThree";
 import AssessmentTwentyFour from "../../components/CareerAssessment/AssessmentTwentyFour";
-import { BgAuth, Leftimg } from "../../assets/export";
 import AssessmentModal from "../../components/careerrecommendation/AssesmentModal";
 import axios from "../../axios";
 import {
