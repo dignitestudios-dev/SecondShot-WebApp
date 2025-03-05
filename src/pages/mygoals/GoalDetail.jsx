@@ -16,7 +16,8 @@ const GoalDetail = () => {
   const [goalDetailModal, setGoalDetailModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [loader, setloader] = useState(false);
-  const [subloader, setsubloader] = useState(false);
+  const [checkload, setcheckload] = useState(false);
+  const [subgoalLoader, setSubgoalLoader] = useState({});
   const { id } = useParams();
   const [goalDetail, setGoalDetail] = useState(null);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -61,27 +62,29 @@ const GoalDetail = () => {
   }, [id]);
 
   const handlecompleted = async () => {
-    setloader(true);
+    setcheckload(true);
     try {
       const response = await axios.post("/api/user/change-goal-status", {
         goalId: id,
       });
 
       if (response.status === 200) {
-        SuccessToast("Goal Completed Successfully");
+        console.log(response?.data);
+        SuccessToast(response?.data?.message);
         setGoalDetailModal(true);
         setIsCompleted(true);
-        getGoalDetail();
+        setGoalDetail(response?.data?.data);
       }
     } catch (err) {
       ErrorToast(err.response.data.message);
       console.log(err);
     } finally {
-      setloader(false);
+      setcheckload(false);
     }
   };
+
   const handlesubgoalstatus = async (subid) => {
-    setsubloader(true);
+    setSubgoalLoader((prev) => ({ ...prev, [subid]: true }));
     try {
       const response = await axios.post("/api/user/update-sub-goal-status", {
         goalId: id,
@@ -89,14 +92,14 @@ const GoalDetail = () => {
       });
 
       if (response.status === 200) {
-        SuccessToast("Sub Goal Completed Successfully");
-        getGoalDetail();
+        SuccessToast(response?.data?.message);
+        setGoalDetail(response?.data?.data);
       }
     } catch (err) {
       ErrorToast(err.response.data.message);
       console.log(err);
     } finally {
-      setsubloader(false);
+      setSubgoalLoader((prev) => ({ ...prev, [subid]: false }));
     }
   };
   const handleDelete = async () => {
@@ -270,16 +273,20 @@ const GoalDetail = () => {
           </div>
           <div className="flex mt-4">
             <div>
-              <input
-                type="checkbox"
-                id="custom-checkbox"
-                className="h-5 w-5 rounded-md border border-gray-300 bg-white checked:bg-[#012C57] checked:border-[#012C57] appearance-none cursor-pointer 
+              {checkload ? (
+                <div className="animate-pulse h-5 w-5 rounded-md border border-gray-300 bg-slate-500 "></div>
+              ) : (
+                <input
+                  type="checkbox"
+                  id="custom-checkbox"
+                  className="h-5 w-5 rounded-md border border-gray-300 bg-white checked:bg-[#012C57] checked:border-[#012C57] appearance-none cursor-pointer 
 checked:before:block checked:before:content-['✓'] checked:before:text-white checked:before:text-sm text-center 
 checked:before:justify-center checked:before:items-center"
-                checked={isCompleted || goalDetail?.status === "Completed"}
-                onChange={handlecompleted}
-                disabled={isCompleted || goalDetail?.status === "Completed"}
-              />
+                  checked={isCompleted || goalDetail?.status === "Completed"}
+                  onChange={handlecompleted}
+                  disabled={isCompleted || goalDetail?.status === "Completed"}
+                />
+              )}
             </div>
             <p className=" text-[#000000] font-[400] text-[16px] leading-[21.6px] px-2 ">
               {goalDetail?.main_goal_name}
@@ -312,8 +319,8 @@ checked:before:justify-center checked:before:items-center"
                       key={item?._id}
                     >
                       <div className="flex items-center gap-2 py-2 text-[14px]">
-                        {subloader ? (
-                          <div className="animate-pulse w-6 h-6 rounded-sm bg-slate-500 "></div>
+                        {subgoalLoader[item?._id] ? (
+                          <div className="animate-pulse h-5 w-5 rounded-md border border-gray-300 bg-slate-500 "></div>
                         ) : (
                           <input
                             type="checkbox"
