@@ -81,13 +81,13 @@ const CareerCards = ({ icon, carrerData, loading, getfavcareer }) => {
                       size={"27px"}
                       className="text-green-500"
                       onClick={() => {
-                        const careerIds = recommendation?.career?.map(
+                        const careerIds = recommendation?.careers?.map(
                           (item) => item?._id
                         );
 
                         handleCareerLike(
                           recommendation?.recommendationId,
-                          careerIds // Send all career IDs as an array
+                          careerIds
                         );
                       }}
                     />
@@ -102,7 +102,7 @@ const CareerCards = ({ icon, carrerData, loading, getfavcareer }) => {
               </div>
 
               <div className="space-y-2 mb-6 text-left">
-                {recommendation?.career?.map((item, index) => (
+                {recommendation?.careers?.map((item, index) => (
                   <div
                     key={index}
                     className="inline-flex items-center justify-center text-start px-3 py-1 text-[14px] font-[400] leading-[18.9px] rounded-[10px] bg-transparent border border-gray-400 text-[#000000] group-hover:border-white group-hover:text-white transition duration-200 mr-2 align-middle"
