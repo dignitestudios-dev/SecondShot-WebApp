@@ -22,10 +22,10 @@ function MyLibrary() {
   };
 
   const [carrerData, setcarrerData] = useState([]);
-  const getallcarrerrecommendation = async () => {
+  const getfavcareer = async () => {
     setloading(true);
     try {
-      const response = await axios.get("/api/user/my-career-recommendations");
+      const response = await axios.get("/api/user/my-favorite-careers");
 
       setcarrerData(response?.data?.data);
       setFilteredGoals(response?.data?.data || []);
@@ -37,8 +37,9 @@ function MyLibrary() {
   };
 
   useEffect(() => {
-    getallcarrerrecommendation();
+    getfavcareer();
   }, []);
+
   useEffect(() => {
     let filtered = carrerData;
 
@@ -103,7 +104,11 @@ function MyLibrary() {
       </div>
 
       {view === "career" ? (
-        <CareerCards loading={loading} carrerData={filteredGoals} getallcarrerrecommendation={getallcarrerrecommendation} />
+        <CareerCards
+          loading={loading}
+          carrerData={filteredGoals}
+          getfavcareer={getfavcareer}
+        />
       ) : (
         <Transferable />
       )}

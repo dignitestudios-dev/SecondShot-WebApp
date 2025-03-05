@@ -5,35 +5,34 @@ import { useNavigate } from "react-router-dom";
 import axios from "../../axios";
 import { SuccessToast } from "../../components/toaster/ToasterContainer";
 
-const CareerCards = ({
-  icon,
-  carrerData,
-  loading,
-  getallcarrerrecommendation,
-}) => {
+const CareerCards = ({ icon, carrerData, loading, getfavcareer }) => {
   const navigate = useNavigate();
-  const [loader, setLoading] = useState(false);
-  const handleCareerLike = async (recommendationId) => {
-    setLoading(true);
+  const [loader, setLoading] = useState({});
+  const handleCareerLike = async (recommendationId, careerIds) => {
+    setLoading((prevState) => ({
+      ...prevState,
+      [recommendationId]: true,
+    }));
     try {
       const response = await axios.post("/api/user/toggle-favorite-career", {
         recommendationId: recommendationId,
+        careers: careerIds,
       });
       if (response.status === 200) {
         SuccessToast(response?.data?.message);
-        getallcarrerrecommendation();
+        getfavcareer();
       }
     } catch (err) {
       console.log(err);
     } finally {
-      setLoading(false);
+      setLoading((prevState) => ({
+        ...prevState,
+        [recommendationId]: false,
+      }));
     }
   };
 
-  const filteredCareers = carrerData?.filter(
-    (recommendation) => recommendation?.is_favorite
-  );
-
+  console.log(carrerData, "carrerDatacarrerData");
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -60,36 +59,40 @@ const CareerCards = ({
                 </div>
               </div>
             ))
-        ) : filteredCareers?.length === 0 ? (
+        ) : carrerData?.length === 0 ? (
           <div className="col-span-full text-center text-lg text-gray-500">
             No favorite career recommendations found.
           </div>
         ) : (
-          filteredCareers?.map((recommendation, recommendationIndex) => (
+          carrerData?.map((recommendation, recommendationIndex) => (
             <div
               key={recommendationIndex}
               className="group relative rounded-[24px] h-auto p-4 bg-[#F6F8FF] text-black shadow-lg cursor-pointer hover:bg-gradient-to-l from-[#012C57] to-[#061523] hover:text-white transition duration-200"
             >
-              {loader ? (
-                <span className="absolute top-4 right-4 animate-pulse text-green-500">
-                  <BsFillBookmarkStarFill size={"27px"} />
-                </span>
-              ) : (
-                <div className="absolute top-4 right-4">
-                  <BsFillBookmarkStarFill
-                    size={"27px"}
-                    className={`transition duration-200 ${
-                      recommendation?.is_favorite
-                        ? "text-green-500"
-                        : "text-gray-500"
-                    }`}
-                    onClick={() =>
-                      handleCareerLike(recommendation?.recommendationId)
-                    }
-                  />
-                </div>
-              )}
               <div className="flex flex-col text-left mb-4">
+                {loader[recommendation?.recommendationId] ? (
+                  <span className="absolute top-4 right-4 animate-pulse text-green-500">
+                    <BsFillBookmarkStarFill size={"27px"} />
+                  </span>
+                ) : (
+                  <div className="absolute top-4 right-4">
+                    {" "}
+                    <BsFillBookmarkStarFill
+                      size={"27px"}
+                      className="text-green-500"
+                      onClick={() => {
+                        const careerIds = recommendation?.career?.map(
+                          (item) => item?._id
+                        );
+
+                        handleCareerLike(
+                          recommendation?.recommendationId,
+                          careerIds // Send all career IDs as an array
+                        );
+                      }}
+                    />
+                  </div>
+                )}
                 <span className="text-[24px] font-[500] leading-[32.4px] group-hover:text-white transition duration-200">
                   Career
                 </span>
@@ -99,16 +102,17 @@ const CareerCards = ({
               </div>
 
               <div className="space-y-2 mb-6 text-left">
-                {recommendation?.careers?.map((item, index) => (
+                {recommendation?.career?.map((item, index) => (
                   <div
                     key={index}
                     className="inline-flex items-center justify-center text-start px-3 py-1 text-[14px] font-[400] leading-[18.9px] rounded-[10px] bg-transparent border border-gray-400 text-[#000000] group-hover:border-white group-hover:text-white transition duration-200 mr-2 align-middle"
                     style={{ height: "43px" }}
                   >
-                    {item?.career?.name}
+                    {item?.career_name}
                   </div>
                 ))}
               </div>
+
               <div className="text-sm flex justify-between items-center group-hover:text-white">
                 <span className="text-[16px] font-[500] leading-[21.6px]">
                   {new Date(recommendation?.createdAt).toLocaleDateString(
@@ -120,16 +124,6 @@ const CareerCards = ({
                     }
                   )}
                 </span>
-                <button
-                  className="p-2 rounded-[8px] flex items-center justify-center bg-[#012C57] w-[43px] h-[43px] text-center text-white group-hover:bg-white group-hover:text-[#012C57] transition duration-200"
-                  onClick={() =>
-                    navigate(
-                      `/careerdetails/${recommendation?.recommendationId}`
-                    )
-                  }
-                >
-                  <IoIosArrowForward size={"16px"} />
-                </button>
               </div>
             </div>
           ))

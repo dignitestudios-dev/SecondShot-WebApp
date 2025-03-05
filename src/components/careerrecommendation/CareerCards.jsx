@@ -4,23 +4,19 @@ import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import axios from "../../axios";
 import { SuccessToast } from "../toaster/ToasterContainer";
-const CareerCards = ({
-  icon,
-  carrerData,
-  loading,
-  getallcarrerrecommendation,
-}) => {
+const CareerCards = ({ carrerData, loading, getallcarrerrecommendation }) => {
   const navigate = useNavigate();
   const [liked, setliked] = useState({});
   const [loader, setloader] = useState({});
-  const handleCareerLike = async (recommendationId) => {
+  const handleCareerLike = async (recommendationId, careerIds) => {
     setloader((prevState) => ({
       ...prevState,
-      [recommendationId]: true, // Set loader true for the clicked card
+      [recommendationId]: true,
     }));
     try {
       const response = await axios.post("/api/user/toggle-favorite-career", {
         recommendationId: recommendationId,
+        careers: careerIds,
       });
       if (response.status === 200) {
         SuccessToast(response?.data?.message);
@@ -31,10 +27,18 @@ const CareerCards = ({
     } finally {
       setloader((prevState) => ({
         ...prevState,
-        [recommendationId]: false, // Set loader true for the clicked card
+        [recommendationId]: false,
       }));
     }
   };
+
+  console.log(
+    carrerData?.map((recommendation) =>
+      recommendation?.careers?.map((item) => item?.career?.id)
+    ),
+    "career IDs"
+  );
+
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -90,9 +94,18 @@ const CareerCards = ({
                         ? "text-green-500"
                         : "text-gray-500"
                     }`}
-                    onClick={() =>
-                      handleCareerLike(recommendation?.recommendationId)
-                    }
+                    onClick={() => {
+                      // Extract all career IDs from the recommendation
+                      const careerIds = recommendation?.careers?.map(
+                        (item) => item?.career?.id
+                      );
+
+                      // Call handleCareerLike with the array of career IDs
+                      handleCareerLike(
+                        recommendation?.recommendationId,
+                        careerIds // Send all career IDs as an array
+                      );
+                    }}
                   />
                 </div>
               )}
