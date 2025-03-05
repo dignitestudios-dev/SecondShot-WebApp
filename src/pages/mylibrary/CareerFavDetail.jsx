@@ -4,17 +4,20 @@ import Backbutton from "../../components/Global/Backbutton";
 import { IoIosArrowBack } from "react-icons/io";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 import axios from "../../axios";
+import { SuccessToast } from "../../components/toaster/ToasterContainer";
 function CareerFavDetail() {
   const [selectedButton, setSelectedButton] = useState("");
   const [carrerDetail, setCarrerDetail] = useState([]);
   const [loader, setloader] = useState(false);
   const [careerFiltered, setcareerFiltered] = useState([]);
   const [careerdate, setcareerdate] = useState("");
+  const [singlecareerload, setsinglecareerload] = useState(false);
+
   const navigate = useNavigate();
-  console.log(carrerDetail, "carrerDetail");
+  console.log(careerFiltered, "careerFilteredcareerFilteredcareerFiltered");
 
   const { id } = useParams();
-  console.log(id, "id");
+
   const getfavDetail = async () => {
     setloader(true);
     try {
@@ -41,10 +44,28 @@ function CareerFavDetail() {
   const handleCarrerData = (id) => {
     setSelectedButton(id);
     const filteredData = carrerDetail?.filter((item) => item?._id === id);
-
     setcareerFiltered(filteredData);
   };
-
+  const handlesingcareerlike = async (careerId) => {
+    setsinglecareerload(true);
+    try {
+      const response = await axios.post(
+        "/api/user/toggle-favorite-single-career",
+        {
+          recommendationId: id,
+          careerId: careerId,
+        }
+      );
+      if (response.status === 200) {
+        SuccessToast(response?.data?.message);
+        
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setsinglecareerload(false);
+    }
+  };
   return (
     <div className="">
       <div className="mb-3">
@@ -115,20 +136,22 @@ function CareerFavDetail() {
                   careerFiltered[0]?.career_name || "No Data Found"
                 )}
               </h3>
-              {careerFiltered[0]?.is_favorite === true ? (
-                <div>
-                  <BsFillBookmarkStarFill
-                    size={"27px"}
-                    className="transition duration-200 group-hover:text-white text-green-500"
-                  />
-                </div>
+              {singlecareerload ? (
+                <span className="animate-pulse text-green-500">
+                  <BsFillBookmarkStarFill size={"27px"} />
+                </span>
               ) : (
-                <div>
-                  <BsFillBookmarkStarFill
-                    size={"27px"}
-                    className="transition duration-200 group-hover:text-white text-gray-500"
-                  />
-                </div>
+                <BsFillBookmarkStarFill
+                  size={"27px"}
+                  onClick={() => {
+                    handlesingcareerlike(careerFiltered[0]?._id);
+                  }}
+                  className={`transition duration-200 cursor-pointer ${
+                    careerFiltered[0]?.is_favorite
+                      ? "text-green-500"
+                      : "text-gray-500"
+                  }`}
+                />
               )}
             </div>
             <p className="text-[#000000cc] font-[400] text-[16px]">

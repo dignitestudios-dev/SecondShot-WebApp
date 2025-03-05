@@ -4,11 +4,16 @@ import Backbutton from "../../components/Global/Backbutton";
 import { IoIosArrowBack } from "react-icons/io";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 import axios from "../../axios";
+import { SuccessToast } from "../../components/toaster/ToasterContainer";
 function CareerDetails() {
   const [selectedButton, setSelectedButton] = useState("");
   const [carrerDetail, setCarrerDetail] = useState([]);
   const [loader, setloader] = useState(false);
+  const [singlecareerload, setsinglecareerload] = useState(false);
   const [careerFiltered, setcareerFiltered] = useState([]);
+
+  console.log("carrerDetail--> ", carrerDetail);
+
   const [careerdate, setcareerdate] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
@@ -37,10 +42,45 @@ function CareerDetails() {
   useEffect(() => {
     getcarrerDetail();
   }, [id]);
+
   const handleCarrerData = (id) => {
     setSelectedButton(id);
     const filteredData = carrerDetail?.filter((item) => item.career?.id === id);
     setcareerFiltered(filteredData);
+  };
+
+  const handlesingcareerlike = async (careerId) => {
+    setsinglecareerload(true);
+    try {
+      const response = await axios.post(
+        "/api/user/toggle-favorite-single-career",
+        {
+          recommendationId: id,
+          careerId: careerId,
+        }
+      );
+      if (response.status === 200) {
+        SuccessToast(response?.data?.message);
+        setCarrerDetail((prevDetails) =>
+          prevDetails.map((item) =>
+            item.career.id === careerId
+              ? { ...item, is_favorite: !item.is_favorite }
+              : item
+          )
+        );
+        setcareerFiltered((prevFiltered) =>
+          prevFiltered.map((item) =>
+            item.career.id === careerId
+              ? { ...item, is_favorite: !item.is_favorite }
+              : item
+          )
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setsinglecareerload(false);
+    }
   };
 
   return (
@@ -113,19 +153,29 @@ function CareerDetails() {
                   careerFiltered[0]?.career?.name || "No Data Found"
                 )}
               </h3>
-              {careerFiltered[0]?.is_favorite === true ? (
-                <div>
-                  <BsFillBookmarkStarFill
-                    size={"27px"}
-                    className="transition duration-200 group-hover:text-white text-green-500"
-                  />
-                </div>
+              {loader ? (
+                <span className="animate-pulse text-gray-200">
+                  <BsFillBookmarkStarFill size={"27px"} />
+                </span>
               ) : (
                 <div>
-                  <BsFillBookmarkStarFill
-                    size={"27px"}
-                    className="transition duration-200 group-hover:text-white text-gray-500"
-                  />
+                  {singlecareerload ? (
+                    <span className="animate-pulse text-green-500">
+                      <BsFillBookmarkStarFill size={"27px"} />
+                    </span>
+                  ) : (
+                    <BsFillBookmarkStarFill
+                      size={"27px"}
+                      onClick={() => {
+                        handlesingcareerlike(careerFiltered[0]?.career?.id);
+                      }}
+                      className={`transition duration-200 cursor-pointer ${
+                        careerFiltered[0]?.is_favorite
+                          ? "text-green-500"
+                          : "text-gray-500"
+                      }`}
+                    />
+                  )}
                 </div>
               )}
             </div>
