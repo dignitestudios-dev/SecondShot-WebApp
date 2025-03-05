@@ -124,6 +124,16 @@ const CareerCards = ({ icon, carrerData, loading, getfavcareer }) => {
                     }
                   )}
                 </span>
+                <button
+                  className="p-2 rounded-[8px] flex items-center justify-center bg-[#012C57] w-[43px] h-[43px] text-center text-white group-hover:bg-white group-hover:text-[#012C57] transition duration-200"
+                  onClick={() =>
+                    navigate(
+                      `/careerfav-detail/${recommendation?._id}`
+                    )
+                  }
+                >
+                  <IoIosArrowForward size={"16px"} />
+                </button>
               </div>
             </div>
           ))

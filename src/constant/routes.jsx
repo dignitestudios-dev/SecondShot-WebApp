@@ -39,6 +39,7 @@ import StartResume from "../pages/myresume/StartResume";
 import NewTrasnferSkill from "../pages/NewtrnaferSkill/NewTrasnferSkill";
 import SuccessScreen from "../components/subscriptions/SuccessScreen";
 import EditResume from "../pages/myresume/EditResume";
+import CareerFavDetail from "../pages/mylibrary/CareerFavDetail";
 
 export const routes = [
   {
@@ -147,6 +148,11 @@ export const routes = [
     title: "GoalDetail",
     url: "/goal-detail/:id",
     page: <Applayout page={<GoalDetail />} />,
+  },
+  {
+    title: "CareerFavDetail",
+    url: "/careerfav-detail/:id",
+    page: <Applayout page={<CareerFavDetail />} />,
   },
   {
     title: "MakeitSmart",

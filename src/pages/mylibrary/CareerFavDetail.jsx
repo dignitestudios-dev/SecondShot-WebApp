@@ -4,27 +4,27 @@ import Backbutton from "../../components/Global/Backbutton";
 import { IoIosArrowBack } from "react-icons/io";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 import axios from "../../axios";
-function CareerDetails() {
+function CareerFavDetail() {
   const [selectedButton, setSelectedButton] = useState("");
   const [carrerDetail, setCarrerDetail] = useState([]);
   const [loader, setloader] = useState(false);
   const [careerFiltered, setcareerFiltered] = useState([]);
   const [careerdate, setcareerdate] = useState("");
   const navigate = useNavigate();
+  console.log(carrerDetail, "carrerDetail");
+
   const { id } = useParams();
-  const getcarrerDetail = async () => {
+  console.log(id, "id");
+  const getfavDetail = async () => {
     setloader(true);
     try {
-      const response = await axios.post(
-        `/api/user/career-recommendation-details`,
-        {
-          recommendationId: id,
-        }
-      );
+      const response = await axios.post(`/api/user/favorite-career-details`, {
+        favoriteId: id,
+      });
       if (response.status === 200) {
         setCarrerDetail(response?.data?.data?.careers);
         setcareerdate(response?.data?.data);
-        setSelectedButton(response?.data?.data?.careers[0].career.id);
+        setSelectedButton(response?.data?.data?.careers[0]._id);
         setcareerFiltered([response?.data?.data?.careers[0]]);
       }
     } catch (err) {
@@ -35,11 +35,13 @@ function CareerDetails() {
   };
 
   useEffect(() => {
-    getcarrerDetail();
+    getfavDetail();
   }, [id]);
+
   const handleCarrerData = (id) => {
     setSelectedButton(id);
-    const filteredData = carrerDetail?.filter((item) => item.career?.id === id);
+    const filteredData = carrerDetail?.filter((item) => item?._id === id);
+
     setcareerFiltered(filteredData);
   };
 
@@ -94,13 +96,13 @@ function CareerDetails() {
                     <button
                       key={index}
                       className={`${
-                        selectedButton === button?.career?.id
+                        selectedButton === button?._id
                           ? "bg-gradient-to-r from-[#061523] to-[#012C57] text-white"
                           : "bg-[#F6F6F6] text-[#474747]"
                       } h-[49px] font-[500] w-[auto] pt-3 pb-3 rounded-lg mr-2 mb-2 text-[14px] leading-[18.9px] pl-3 pr-3`}
-                      onClick={() => handleCarrerData(button?.career?.id)}
+                      onClick={() => handleCarrerData(button?._id)}
                     >
-                      {button?.career?.name}
+                      {button?.career_name}
                     </button>
                   ))}
             </div>
@@ -110,7 +112,7 @@ function CareerDetails() {
                 {loader ? (
                   <div className="h-6 bg-gray-300 w-1/4 animate-pulse rounded"></div>
                 ) : (
-                  careerFiltered[0]?.career?.name || "No Data Found"
+                  careerFiltered[0]?.career_name || "No Data Found"
                 )}
               </h3>
               {careerFiltered[0]?.is_favorite === true ? (
@@ -133,7 +135,7 @@ function CareerDetails() {
               {loader ? (
                 <div className="h-4 bg-gray-300 w-3/4 animate-pulse rounded"></div>
               ) : (
-                careerFiltered[0]?.career?.description || "No Data Found"
+                careerFiltered[0]?.description || "No Data Found"
               )}
             </p>
           </div>
@@ -152,17 +154,15 @@ function CareerDetails() {
                     <div className="h-4 bg-gray-300 mb-2 rounded w-3/4"></div>
                     <div className="h-4 bg-gray-300 mb-2 rounded w-3/4"></div>
                   </div>
-                ) : careerFiltered[0]?.career?.sample_job_titles?.length > 0 ? (
-                  careerFiltered[0]?.career?.sample_job_titles?.map(
-                    (item, index) => (
-                      <li
-                        className="font-[500] list-outside text-[18px]"
-                        key={index}
-                      >
-                        {item}
-                      </li>
-                    )
-                  )
+                ) : careerFiltered[0]?.sample_job_titles?.length > 0 ? (
+                  careerFiltered[0]?.sample_job_titles?.map((item, index) => (
+                    <li
+                      className="font-[500] list-outside text-[18px]"
+                      key={index}
+                    >
+                      {item}
+                    </li>
+                  ))
                 ) : (
                   <p className="font-[500] list-outside text-[18px] text-gray-500">
                     No data found
@@ -180,17 +180,15 @@ function CareerDetails() {
                     <div className="h-4 bg-gray-300 mb-2 rounded w-3/4"></div>
                     <div className="h-4 bg-gray-300 mb-2 rounded w-3/4"></div>
                   </div>
-                ) : careerFiltered[0]?.career?.career_pathways?.length > 0 ? (
-                  careerFiltered[0]?.career?.career_pathways.map(
-                    (item, index) => (
-                      <li
-                        className="font-[500] list-outside text-[18px]"
-                        key={index}
-                      >
-                        {item}
-                      </li>
-                    )
-                  )
+                ) : careerFiltered[0]?.career_pathways?.length > 0 ? (
+                  careerFiltered[0]?.career_pathways.map((item, index) => (
+                    <li
+                      className="font-[500] list-outside text-[18px]"
+                      key={index}
+                    >
+                      {item}
+                    </li>
+                  ))
                 ) : (
                   <p className="font-[500] list-outside text-[18px] text-gray-500">
                     No data found
@@ -208,18 +206,15 @@ function CareerDetails() {
                     <div className="h-4 bg-gray-300 mb-2 rounded w-3/4"></div>
                     <div className="h-4 bg-gray-300 mb-2 rounded w-3/4"></div>
                   </div>
-                ) : careerFiltered[0]?.career?.education_training?.length >
-                  0 ? (
-                  careerFiltered[0]?.career?.education_training.map(
-                    (item, index) => (
-                      <li
-                        className="font-[500] list-outside text-[18px]"
-                        key={index}
-                      >
-                        {item}
-                      </li>
-                    )
-                  )
+                ) : careerFiltered[0]?.education_training?.length > 0 ? (
+                  careerFiltered[0]?.education_training.map((item, index) => (
+                    <li
+                      className="font-[500] list-outside text-[18px]"
+                      key={index}
+                    >
+                      {item}
+                    </li>
+                  ))
                 ) : (
                   <p className="font-[500] list-outside text-[18px] text-gray-500">
                     No data found
@@ -239,7 +234,7 @@ function CareerDetails() {
               <div className="h-4 bg-gray-300 w-3/4 animate-pulse rounded"></div>
             ) : (
               <p className="text-[#000000cc]">
-                {careerFiltered[0]?.career?.career_growth_opportunities ||
+                {careerFiltered[0]?.career_growth_opportunities ||
                   "No Data Found "}
               </p>
             )}
@@ -256,4 +251,4 @@ function CareerDetails() {
   );
 }
 
-export default CareerDetails;
+export default CareerFavDetail;
