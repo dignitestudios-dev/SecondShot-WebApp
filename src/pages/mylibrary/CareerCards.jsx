@@ -4,11 +4,12 @@ import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import axios from "../../axios";
 import { SuccessToast } from "../../components/toaster/ToasterContainer";
+import EmptyScreen from "./EmptyScreen";
 
 const CareerCards = ({ icon, carrerData, loading, getfavcareer }) => {
   const navigate = useNavigate();
   const [loader, setLoading] = useState({});
-  
+
   const handleCareerLike = async (recommendationId, careerIds) => {
     setLoading((prevState) => ({
       ...prevState,
@@ -61,8 +62,8 @@ const CareerCards = ({ icon, carrerData, loading, getfavcareer }) => {
               </div>
             ))
         ) : carrerData?.length === 0 ? (
-          <div className="col-span-full text-center text-lg text-gray-500">
-            No favorite career recommendations found.
+          <div className="flex items-center justify-center min-h-screen absolute z-0 top-40 left-[480px]">
+            <EmptyScreen text={"No Career Recommendations  found yet."} />
           </div>
         ) : (
           carrerData?.map((recommendation, recommendationIndex) => (
@@ -128,9 +129,7 @@ const CareerCards = ({ icon, carrerData, loading, getfavcareer }) => {
                 <button
                   className="p-2 rounded-[8px] flex items-center justify-center bg-[#012C57] w-[43px] h-[43px] text-center text-white group-hover:bg-white group-hover:text-[#012C57] transition duration-200"
                   onClick={() =>
-                    navigate(
-                      `/careerfav-detail/${recommendation?._id}`
-                    )
+                    navigate(`/careerfav-detail/${recommendation?._id}`)
                   }
                 >
                   <IoIosArrowForward size={"16px"} />

@@ -11,10 +11,13 @@ import CareerCards from "./CareerCards";
 function MyLibrary() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
+  const [skillQuery, setSkillQuery] = useState("");
   const [loading, setloading] = useState(false);
+  const [library, setLibrary] = useState([]);
   const [view, setView] = useState("career");
   const { isFirst, setIsFirst } = useContext(ModalContext);
   const [filteredGoals, setFilteredGoals] = useState([]);
+  const [filteredskills, setFilteredskills] = useState([]);
   const [selected, setSelected] = useState("career");
   const handleViewChange = (newView) => {
     setView(newView);
@@ -39,14 +42,33 @@ function MyLibrary() {
   useEffect(() => {
     getfavcareer();
   }, []);
+  const getLibrary = async () => {
+    setloading(true);
+    try {
+      const response = await axios.get(
+        "/api/user/get-user-transferable-skills"
+      );
+      if (response.status === 200) {
+        setLibrary(response?.data?.data);
+        setFilteredskills(response?.data?.data || []);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setloading(false);
+    }
+  };
 
+  useEffect(() => {
+    getLibrary();
+  }, []);
   useEffect(() => {
     let filtered = carrerData;
 
     if (searchQuery) {
       filtered = filtered.filter((recommendation) => {
         return recommendation.careers.some((carrer) => {
-          const careerName = carrer.career.name.toLowerCase().trim();
+          const careerName = carrer.career_name.toLowerCase().trim();
           const query = searchQuery.toLowerCase().trim();
 
           return careerName.includes(query);
@@ -57,9 +79,47 @@ function MyLibrary() {
     setFilteredGoals(filtered);
   }, [searchQuery, carrerData]);
 
+  useEffect(() => {
+    let filtered = library;
+
+    if (skillQuery) {
+      filtered = filtered.filter((item) => {
+        let title = "";
+
+        if (item?.athlete) {
+          title = item?.athlete?.title;
+        }
+        if (item?.favorite_middle_school_subject) {
+          title = item?.favorite_middle_school_subject?.title;
+        }
+        if (item?.favorite_hobby1) {
+          title = item?.favorite_hobby1?.title;
+        }
+        if (item?.favorite_hobby2) {
+          title = item?.favorite_hobby2?.title;
+        }
+        if (item?.rank) {
+          title = item?.rank?.title;
+        }
+
+        title = title ? title.toLowerCase().trim() : "";
+
+        const query = skillQuery.toLowerCase().trim();
+
+        return title && title.includes(query);
+      });
+    }
+
+    setFilteredskills(filtered);
+  }, [skillQuery, library]);
+
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
+  const handleskillsearchChange = (e) => {
+    setSkillQuery(e.target.value);
+  };
+
   return (
     <div className="">
       <WelcomeLibraryModal
@@ -75,8 +135,20 @@ function MyLibrary() {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-semibold text-gray-800">My Library</h1>
 
-        <div className="relative flex items-center w-auto gap-3 mb-4">
-          <SearchInput placeholder={"Search"} />
+        <div className="relative z-10 flex items-center w-auto gap-3 mb-4">
+          {view === "career" ? (
+            <SearchInput
+              placeholder={"Search"}
+              onChange={handleSearchChange}
+              value={searchQuery}
+            />
+          ) : (
+            <SearchInput
+              placeholder={"Search"}
+              onChange={handleskillsearchChange}
+              value={skillQuery}
+            />
+          )}
 
           <div className="flex  h-[48px] items-center rounded-lg border border-gray-500 px-0.5">
             <button
@@ -102,16 +174,21 @@ function MyLibrary() {
           </div>
         </div>
       </div>
-
-      {view === "career" ? (
-        <CareerCards
-          loading={loading}
-          carrerData={filteredGoals}
-          getfavcareer={getfavcareer}
-        />
-      ) : (
-        <Transferable />
-      )}
+      <div className=" ">
+        {view === "career" ? (
+          <CareerCards
+            loading={loading}
+            carrerData={filteredGoals}
+            getfavcareer={getfavcareer}
+          />
+        ) : (
+          <Transferable
+            loading={loading}
+            library={filteredskills}
+            getLibrary={getLibrary}
+          />
+        )}
+      </div>
     </div>
   );
 }
