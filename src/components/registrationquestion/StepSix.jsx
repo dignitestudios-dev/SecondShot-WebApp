@@ -88,7 +88,9 @@ const StepSix = ({
         if (tags.length <= 0) {
           setTagsError("This field is required.");
         } else {
-          nextStep();
+          if (hobbie.length > 0) {
+            nextStep();
+          }
         }
       }}
     >
@@ -112,16 +114,20 @@ const StepSix = ({
                   setSelectedTags={setSelectedTags}
                   selectedTags={selectedTags}
                 />
-                {tagsError && (
-                  <div className="text-red-500 text-xs italic mt-0">
+                {tagsError && tags?.length === 0 && (
+                  <p className="text-red-500 text-xs italic mt-0">
                     This field cannot be left empty.
-                  </div>
+                  </p>
                 )}
               </div>
             </div>
             <div className="flex justify-center pt-4">
               <div className="w-[343px]">
-                <AuthSubmitBtn text={"Next"} type={"submit"} />
+                {hobbie.length === 0 ? (
+                  <AuthSubmitBtn text={"Loading"} />
+                ) : (
+                  <AuthSubmitBtn text={"Next"} type={"submit"} />
+                )}
               </div>
             </div>
             <div className="mt-4">

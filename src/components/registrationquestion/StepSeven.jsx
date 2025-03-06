@@ -72,10 +72,10 @@ const StepSeven = ({
                   setSelectedTags={setSelectedTags}
                   selectedTags={selectedTags}
                 />
-                {tagsError && (
-                  <div className="text-red-500 text-xs italic mt-0">
+                {tagsError && tags?.length === 0 && (
+                  <p className="text-red-500 text-xs italic mt-0">
                     This field cannot be left empty.
-                  </div>
+                  </p>
                 )}
               </div>
             </div>

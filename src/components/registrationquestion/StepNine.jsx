@@ -10,15 +10,15 @@ const StepNine = ({ nextStep, prevStep, formData, setFormData }) => {
     jobValue: Yup.string().required("Please select an option to proceed."),
 
     jobTitle: Yup.string().test(
-      "job-title-validation", // Custom test name
-      "Please provide the job title of your most recent position.", // Custom error message
+      "job-title-validation",
+      "Please provide the job title of your most recent position.",
       function (value) {
-        const { jobValue } = this.parent; // Access other fields (e.g., jobValue)
-        // If jobValue is "Yes", jobTitle is required
+        const { jobValue } = this.parent;
+
         if (jobValue === "Yes" && (!value || value.trim() === "")) {
-          return false; // Fails validation if jobTitle is empty
+          return false;
         }
-        return true; // Passes validation otherwise
+        return true;
       }
     ),
   });

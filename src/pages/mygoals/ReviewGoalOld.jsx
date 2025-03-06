@@ -39,7 +39,8 @@ function ReviewYourGoalOld() {
 
   const location = useLocation("");
   const goaldata = location.state.formData;
-  console.log(goaldata, "goaldata");
+  const threeMonthsAgo = location.state.threeMonthsAgo;
+
   const [isPeople, setIsPeople] = useState(false);
   const handleNavigation = () => {
     setIsPeople(false);
@@ -120,6 +121,7 @@ function ReviewYourGoalOld() {
     }
   };
   const [date, setDate] = useState(new Date());
+
   return (
     <div className="">
       <div className="">
@@ -174,7 +176,14 @@ function ReviewYourGoalOld() {
                         month: "2-digit",
                         day: "2-digit",
                       })}
-                      {goaldata?.startDate
+                      {'-'}
+                      {threeMonthsAgo
+                        ? threeMonthsAgo.toLocaleDateString("en-US", {
+                            year: "2-digit",
+                            month: "2-digit",
+                            day: "2-digit",
+                          })
+                        : goaldata?.startDate
                         ? goaldata?.startDate.toLocaleDateString("en-US", {
                             year: "2-digit",
                             month: "2-digit",

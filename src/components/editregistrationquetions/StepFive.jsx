@@ -214,10 +214,10 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
                     setSelectedTags={setSelectedTags}
                     selectedTags={selectedTags}
                   />
-                  {tagsError && (
-                    <div className="text-red-500 text-xs italic mt-0">
+                  {tagsError && tags?.length === 0 && (
+                    <p className="text-red-500 text-xs italic mt-0">
                       This field cannot be left empty.
-                    </div>
+                    </p>
                   )}
                 </div>
               </div>
@@ -228,7 +228,11 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
               </div>
             </div>
             <div className="mt-4">
-              <BackBtn handleClick={() => prevStep(formData?.ageValue === 'No' ? true : false)} />
+              <BackBtn
+                handleClick={() =>
+                  prevStep(formData?.ageValue === "No" ? true : false)
+                }
+              />
             </div>
           </Form>
         );

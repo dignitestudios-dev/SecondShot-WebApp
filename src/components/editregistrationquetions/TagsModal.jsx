@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
+import { ErrorToast } from "../toaster/ToasterContainer";
 
 const TagsModal = ({
   isOpen,
@@ -52,13 +53,22 @@ const TagsModal = ({
               ))
             ) : (
               <div className="flex items-center justify-center w-full h-[100px]">
-            <p className="text-gray-500 text-center">No tags found</p>
-          </div>
+                <p className="text-gray-500 text-center">No tags found</p>
+              </div>
             )}
           </div>
           <div className="mt-4 flex justify-center">
             <div className="w-full">
-              <AuthSubmitBtn text={"Save"} handleSubmit={() => saveTags()} />
+              <AuthSubmitBtn
+                text={"Save"}
+                handleSubmit={() => {
+                  if (selectedTags) {
+                    saveTags();
+                  } else {
+                    ErrorToast("Please select a tag before saving");
+                  }
+                }}
+              />
             </div>
           </div>
         </div>

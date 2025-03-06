@@ -209,10 +209,10 @@ const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
                       setSelectedTags={setSelectedTags}
                       selectedTags={selectedTags}
                     />
-                    {tagsError && (
-                      <div className="text-red-500 text-xs italic mt-0">
-                        This field cannot be left empty
-                      </div>
+                    {tagsError && tags?.length === 0 && (
+                      <p className="text-red-500 text-xs italic mt-0">
+                        This field cannot be left empty.
+                      </p>
                     )}
                   </div>
                 </div>

@@ -29,7 +29,7 @@ const ResetPassword = () => {
       validateOnChange: true,
       validateOnBlur: true,
       onSubmit: async (values) => {
-        setloading(true)
+        setloading(true);
         try {
           const response = await axios.post("/api/auth/reset-password", {
             email: email,
@@ -38,19 +38,17 @@ const ResetPassword = () => {
           });
 
           if (response.status === 200) {
-            SuccessToast("OTP Resend successfully!");
+            SuccessToast(response?.data?.message);
             setIsTrue(true);
             localStorage.setItem("forgot", false);
           }
         } catch (error) {
-          ErrorToast("OTP verification failed:");
-          console.error("OTP verification failed:", error);
+          ErrorToast(error?.data?.message);
         } finally {
           setloading(false);
         }
       },
     });
-
 
   return (
     <div className=" bg-slate-200 p-3 ">

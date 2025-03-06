@@ -15,7 +15,10 @@ import InviteFriendModal from "../../components/myProfile/InviteFriendModal";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "../../axios";
 import ProfileSkeleton from "../../components/loader/ProfileSkeleton";
-import { SuccessToast } from "../../components/toaster/ToasterContainer";
+import {
+  ErrorToast,
+  SuccessToast,
+} from "../../components/toaster/ToasterContainer";
 import Cookies from "js-cookie";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import { ModalContext } from "../../context/GlobalContext";
@@ -161,7 +164,7 @@ function MyProfile() {
         getnotifications();
       }
     } catch (err) {
-      console.error(err);
+      ErrorToast(err?.response?.data?.message);
     } finally {
       setNotiloader(false);
     }

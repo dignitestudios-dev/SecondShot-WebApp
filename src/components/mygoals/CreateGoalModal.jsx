@@ -42,7 +42,10 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
     context: { showSubGoal },
     onSubmit: (values) => {
       setFormData(values);
-      navigate("/review-goals", { state: { formData: values } });
+
+      navigate("/review-goals", {
+        state: { formData: values, threeMonthsAgo: threeMonthsAgo },
+      });
     },
   });
   const {

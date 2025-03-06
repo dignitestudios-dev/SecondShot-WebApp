@@ -43,13 +43,12 @@ const ForgotPassword = () => {
           if (backendErrorMessage) {
             ErrorToast(backendErrorMessage);
           }
-          console.error("OTP verification failed:", error);
         } finally {
           setloading(false);
         }
       },
     });
-  console.log(values.email, "values.email");
+
   const handleback = () => {
     navigation(-1);
     localStorage.setItem("forgot", false);

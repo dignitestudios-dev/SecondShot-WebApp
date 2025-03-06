@@ -86,20 +86,22 @@ const ProfileDetails = () => {
   };
   const phoneFormater = (input) => {
     if (!input) return ""; // Return an empty string if input is undefined, null, or an empty string
-  
+
     const cleaned = input.replace(/\D/g, ""); // Remove all non-numeric characters
-  
+
     if (cleaned.length > 3 && cleaned.length <= 6) {
       return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
     } else if (cleaned.length > 6) {
-      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(
+        6,
+        10
+      )}`;
     } else if (cleaned.length > 0) {
       return `(${cleaned}`;
     }
-  
+
     return cleaned; // Return cleaned number if less than 1 digit
   };
-  
 
   return (
     <div className=" bg-transparent lg:h-screen h-full px-6 py-4">
@@ -258,6 +260,7 @@ const ProfileDetails = () => {
               type={"text"}
               placeholder={"Address"}
               onChange={handleChange}
+              maxLength={250}
             />
             {errors.address && touched.address ? (
               <span className="text-red-700 text-sm font-medium">

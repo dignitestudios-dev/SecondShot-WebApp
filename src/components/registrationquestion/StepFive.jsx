@@ -103,7 +103,7 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
     //   setFormData({ ...formData, sportsOption: "" });
     // }
   }, [tags]);
-  console.log(formData.ageValue, "Age");
+  
   return (
     <Formik
       initialValues={formData}
@@ -200,10 +200,10 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
                     setSelectedTags={setSelectedTags}
                     selectedTags={selectedTags}
                   />
-                  {tagsError && (
-                    <div className="text-red-500 text-xs italic mt-0">
+                  {tagsError && tags?.length === 0 && (
+                    <p className="text-red-500 text-xs italic mt-0">
                       This field cannot be left empty.
-                    </div>
+                    </p>
                   )}
                 </div>
               </div>

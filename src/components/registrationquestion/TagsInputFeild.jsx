@@ -44,7 +44,9 @@ const TagsInputField = ({
   return (
     <div
       className={`flex items-end border ${
-        tagsError ? "border-red-500" : "border-gray-400"
+        tagsError && (tags?.length === 0 || tags === null)
+          ? "border-red-500"
+          : "border-gray-400"
       } text-sm rounded-lg overflow-hidden p-[1px]`}
     >
       <div className="flex flex-wrap p-0.5 w-[80%]  ">
@@ -55,7 +57,7 @@ const TagsInputField = ({
                 key={tag}
                 className="flex items-center bg-tagsBg text-gray-700 px-3 py-2 rounded-lg mr-1 mb-0.5"
               >
-                {tag.label}
+                {tag?.label}
                 <button
                   onClick={() => removeTag(tag)}
                   className="ml-2 text-red-500 focus:outline-none"

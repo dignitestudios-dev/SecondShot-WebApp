@@ -119,11 +119,6 @@ const Transferable = ({ loading, library, getLibrary }) => {
                   <p className="text-[16px] mb-4 text-left pl-2">
                     {description}
                   </p>
-                  <div className="text-sm flex justify-between items-center group-hover:text-white">
-                    <span className="text-[16px] px-2 font-[500] leading-[21.6px]">
-                      {`July/10/2024`}
-                    </span>
-                  </div>
                 </div>
               );
             })
