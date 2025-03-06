@@ -198,24 +198,6 @@ const NewTrasnferSkill = () => {
             My Transferable Skills
           </h1>
         </div>
-
-        <div className="flex items-center">
-          <div className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer">
-            <img className="w-[27.61px] h-[23px] " src={Printimg} />
-          </div>
-          <div
-            onClick={handleDownloadModal}
-            className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer"
-          >
-            <img className="w-[12px] h-[18.38px] " src={Downloadimg} />
-          </div>
-          <div
-            onClick={handleShowPeopleModal}
-            className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer"
-          >
-            <img className="w-[21px] h-[17px] " src={Shareimg} />
-          </div>
-        </div>
       </div>{" "}
       {topSkill && (
         <div
@@ -305,9 +287,9 @@ const NewTrasnferSkill = () => {
                       });
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                    {item?.title?.length > 8
+                      ? item?.title.substring(0, 8) + "..."
+                      : item?.title}
                     <div
                       className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -555,9 +537,13 @@ const NewTrasnferSkill = () => {
             onClick={handleTopSKill}
           >
             <span>
-              {getSkill?.favorite_hobby1?.hobbie_name?.length > 7
-                ? getSkill.favorite_hobby1.hobbie_name.substring(0, 7) + "..."
-                : getSkill?.favorite_hobby1?.hobbie_name}
+              {loading ? (
+                <div className="w-16 h-16 rounded-[100px] absolute -bottom-8 -left-[22px] bg-green-700 animate-pulse flex justify-center items-center "></div>
+              ) : getSkill?.favorite_hobby1?.hobbie_name?.length > 7 ? (
+                getSkill.favorite_hobby1.hobbie_name.substring(0, 7) + "..."
+              ) : (
+                getSkill?.favorite_hobby1?.hobbie_name
+              )}
             </span>
             <div
               className="absolute -top-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center 
@@ -594,9 +580,13 @@ const NewTrasnferSkill = () => {
             onClick={handleLeftSKill}
           >
             <span className="w-[0px]">
-              {getSkill?.favorite_hobby2?.hobbie_name.length > 7
-                ? getSkill.favorite_hobby2.hobbie_name.substring(0, 7) + "..."
-                : getSkill?.favorite_hobby2?.hobbie_name}
+              {loading ? (
+                <div className="w-16 h-16 rounded-[100px] absolute bottom-2 left-11 bg-green-700 animate-pulse flex justify-center items-center "></div>
+              ) : getSkill?.favorite_hobby2?.hobbie_name.length > 7 ? (
+                getSkill.favorite_hobby2.hobbie_name.substring(0, 7) + "..."
+              ) : (
+                getSkill?.favorite_hobby2?.hobbie_name
+              )}
             </span>
 
             <div
@@ -621,13 +611,17 @@ const NewTrasnferSkill = () => {
             onClick={handleRightSKill}
           >
             <span className="w-[20px]">
-              {getSkill?.favorite_middle_school_subject?.subject_name?.length >
-              7
-                ? getSkill?.favorite_middle_school_subject?.subject_name.substring(
-                    0,
-                    7
-                  ) + "..."
-                : getSkill?.favorite_middle_school_subject?.subject_name}
+              {loading ? (
+                <div className="w-16 h-16 rounded-[100px] absolute bottom-2 left-7 bg-green-700 animate-pulse flex justify-center items-center "></div>
+              ) : getSkill?.favorite_middle_school_subject?.subject_name
+                  ?.length > 7 ? (
+                getSkill?.favorite_middle_school_subject?.subject_name.substring(
+                  0,
+                  7
+                ) + "..."
+              ) : (
+                getSkill?.favorite_middle_school_subject?.subject_name
+              )}
             </span>
             {/* Tooltip */}
             <div
@@ -659,9 +653,13 @@ const NewTrasnferSkill = () => {
             onClick={handlebottomleft}
           >
             <span className=" w-[20px]">
-              {getSkill?.military?.rank?.rank_name?.length > 7
-                ? getSkill?.military?.rank?.rank_name.substring(0, 7) + "..."
-                : getSkill?.military?.rank?.rank_name || "Null"}
+              {loading ? (
+                <div className="w-16 h-16 rounded-[100px] absolute bottom-2 left-3 bg-green-700 animate-pulse flex justify-center items-center "></div>
+              ) : getSkill?.military?.rank?.rank_name?.length > 7 ? (
+                getSkill?.military?.rank?.rank_name.substring(0, 7) + "..."
+              ) : (
+                getSkill?.military?.rank?.rank_name || "Null"
+              )}
             </span>
             <div
               className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center
@@ -682,13 +680,17 @@ const NewTrasnferSkill = () => {
             onClick={handlebottomright}
           >
             <span className=" w-full text-center">
-              {getSkill?.athlete?.sport_position?.position_name?.length > 7
-                ? getSkill?.athlete?.sport_position?.position_name?.substring(
-                    0,
-                    7
-                  ) + "..."
-                : getSkill?.athlete?.sport_position?.position_name ||
-                  "Null"}{" "}
+              {loading ? (
+                <div className="w-16 h-16 rounded-[100px] absolute bottom-2 left-4 bg-green-700 animate-pulse flex justify-center items-center "></div>
+              ) : getSkill?.athlete?.sport_position?.position_name?.length >
+                7 ? (
+                getSkill?.athlete?.sport_position?.position_name?.substring(
+                  0,
+                  7
+                ) + "..."
+              ) : (
+                getSkill?.athlete?.sport_position?.position_name || "Null"
+              )}
             </span>
             <div
               className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center

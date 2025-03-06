@@ -29,6 +29,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
   const handleDateChange = (date) => {
     setThreeMonthsAgo(date);
     formik.setValues({ ...formik.values, startDate: date });
+   
   };
   const formik = useFormik({
     initialValues: {
@@ -54,8 +55,6 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
     handleSubmit,
     setFieldValue,
   } = formik;
-
-  console.log("value is --> ", values);
 
   const handleNavigation = () => {
     setIsPeople(false);

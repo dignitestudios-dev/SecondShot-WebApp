@@ -87,7 +87,6 @@ const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
   }, []);
 
   const handleOptionClick = (value, setFieldValue, setFieldTouched) => {
-    console.log(selectedTags, "sdfsdjfksdkjfhksjdhfjkh");
     setFieldTouched("militaryOption", true);
     setFieldValue("militaryOption", value);
     setFormData({

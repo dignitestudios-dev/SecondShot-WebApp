@@ -41,10 +41,6 @@ const TagsInputField = ({
     setSelectedTags(null);
   };
 
-  useEffect(() => {
-    console.log(tags, "tag");
-  }, [selectedTags]);
-
   return (
     <div
       className={`flex items-end border ${

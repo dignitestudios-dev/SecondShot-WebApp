@@ -5,6 +5,7 @@ import BackBtn from "../onboarding/BackBtn";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 
 const StepTwo = ({ nextStep, prevStep, formData, setFormData }) => {
+  console.log(formData, "step2");
   const validationSchema = Yup.object({
     highestDegree: Yup.string().required("This field cannot be left empty"),
   });
@@ -19,7 +20,7 @@ const StepTwo = ({ nextStep, prevStep, formData, setFormData }) => {
     <Formik
       initialValues={formData}
       validationSchema={validationSchema}
-      onSubmit={()=>nextStep()}
+      onSubmit={() => nextStep()}
     >
       {({ errors, touched, setFieldValue, setFieldTouched }) => (
         <Form>

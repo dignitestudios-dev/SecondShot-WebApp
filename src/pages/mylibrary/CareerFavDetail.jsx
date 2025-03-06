@@ -14,7 +14,6 @@ function CareerFavDetail() {
   const [singlecareerload, setsinglecareerload] = useState(false);
 
   const navigate = useNavigate();
-  console.log(careerFiltered, "careerFilteredcareerFilteredcareerFiltered");
 
   const { id } = useParams();
 
@@ -25,13 +24,15 @@ function CareerFavDetail() {
         favoriteId: id,
       });
       if (response.status === 200) {
-        setCarrerDetail(response?.data?.data?.careers);
+        setCarrerDetail(response?.data?.data);
         setcareerdate(response?.data?.data);
         setSelectedButton(response?.data?.data?.careers[0]._id);
         setcareerFiltered([response?.data?.data?.careers[0]]);
       }
     } catch (err) {
-      console.log(err);
+      if (err.response.data.message === "Favorite career not found") {
+        navigate("/my-library");
+      }
     } finally {
       setloader(false);
     }
@@ -46,19 +47,20 @@ function CareerFavDetail() {
     const filteredData = carrerDetail?.filter((item) => item?._id === id);
     setcareerFiltered(filteredData);
   };
-  const handlesingcareerlike = async (careerId) => {
+
+  const handlesingcareerlike = async (careerId, recommendationId) => {
     setsinglecareerload(true);
     try {
       const response = await axios.post(
         "/api/user/toggle-favorite-single-career",
         {
-          recommendationId: id,
+          recommendationId: recommendationId,
           careerId: careerId,
         }
       );
       if (response.status === 200) {
         SuccessToast(response?.data?.message);
-        
+        getfavDetail();
       }
     } catch (err) {
       console.log(err);
@@ -66,6 +68,8 @@ function CareerFavDetail() {
       setsinglecareerload(false);
     }
   };
+  console.log(careerFiltered, "careerFilteredcareerFiltered");
+
   return (
     <div className="">
       <div className="mb-3">
@@ -73,10 +77,10 @@ function CareerFavDetail() {
           <div>
             <IoIosArrowBack
               className="font-[600]"
-              onClick={() => navigate("/careerrecommendation")}
+              onClick={() => navigate("/my-library")}
             />
           </div>
-          <div onClick={() => navigate("/careerrecommendation")}>BACK</div>
+          <div onClick={() => navigate("/my-library")}>BACK</div>
         </div>
       </div>
       <div className="bg-white rounded-3xl shadow-[0px_8px_50px_0px_rgba(0,0,0,0.06)] p-8 backdrop-blur-[100px]">
@@ -113,7 +117,7 @@ function CareerFavDetail() {
                         className="bg-[#F6F6F6] w-[200px] h-[49px] font-[500] pt-3 pb-3 rounded-lg mr-2 mb-2 text-[14px] leading-[18.9px] pl-3 pr-3 animate-pulse"
                       ></button>
                     ))
-                : carrerDetail?.map((button, index) => (
+                : carrerDetail?.careers?.map((button, index) => (
                     <button
                       key={index}
                       className={`${
@@ -144,7 +148,10 @@ function CareerFavDetail() {
                 <BsFillBookmarkStarFill
                   size={"27px"}
                   onClick={() => {
-                    handlesingcareerlike(careerFiltered[0]?._id);
+                    handlesingcareerlike(
+                      careerFiltered[0]?._id,
+                      carrerDetail?.recommendationId
+                    );
                   }}
                   className={`transition duration-200 cursor-pointer ${
                     careerFiltered[0]?.is_favorite

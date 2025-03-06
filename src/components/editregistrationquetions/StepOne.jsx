@@ -7,13 +7,11 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import RecommendationDropdown from "../careerrecommendation/RecommendationDropdown";
 
 const StepOne = ({ nextStep, formData, setFormData }) => {
-  
-
+  console.log(formData, "formData");
   const [tagsError, setTagsError] = useState(false);
   const [tags, setTags] = useState([]);
 
   const [selectedTags, setSelectedTags] = useState([]);
-
 
   const validationSchema = Yup.object({
     university: Yup.string().required("This field cannot be left empty."),
@@ -52,6 +50,10 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
           if (tags.length <= 0) {
             setTagsError("This field is required.");
           } else {
+            setFormData({
+              ...formData,
+              universityOptions: selectedTags.label,
+            });
             nextStep(
               formData?.university === "School" ||
                 formData?.university === "HighSchool"
@@ -62,7 +64,6 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
         }}
       >
         {({ errors, touched, setFieldValue, setFieldTouched }) => {
-  
           useEffect(() => {
             if (formData?.university) {
               setFieldValue("university", formData?.university);
@@ -73,10 +74,10 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
             if (formData?.universityOptions) {
               setTags([{ label: formData?.universityOptions }]);
 
-              const educationalTags = educationTags[formData?.university].filter(
-                (item) => item.label === formData?.universityOptions
-              );
-              
+              const educationalTags = educationTags[
+                formData?.university
+              ].filter((item) => item.label === formData?.universityOptions);
+
               setSelectedTags({
                 label: formData?.universityOptions,
                 value: educationalTags[0]?.value,

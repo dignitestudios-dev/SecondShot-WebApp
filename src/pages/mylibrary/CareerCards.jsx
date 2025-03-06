@@ -8,6 +8,7 @@ import { SuccessToast } from "../../components/toaster/ToasterContainer";
 const CareerCards = ({ icon, carrerData, loading, getfavcareer }) => {
   const navigate = useNavigate();
   const [loader, setLoading] = useState({});
+  
   const handleCareerLike = async (recommendationId, careerIds) => {
     setLoading((prevState) => ({
       ...prevState,
