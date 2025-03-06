@@ -29,7 +29,6 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
   const handleDateChange = (date) => {
     setThreeMonthsAgo(date);
     formik.setValues({ ...formik.values, startDate: date });
-   
   };
   const formik = useFormik({
     initialValues: {
@@ -135,7 +134,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                           <div>
                             <CustomCalendar
                               startDate={threeMonthsAgo}
-                              setStartDate={handleDateChange} // Use the function to handle the date change
+                              setStartDate={handleDateChange}
                               setShowCalender={setShowCalender}
                             />
                           </div>

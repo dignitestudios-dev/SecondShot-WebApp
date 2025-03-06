@@ -164,7 +164,6 @@ function ReviewYourGoalOld() {
                 <h2 className="text-xl font-semibold mb-2">
                   Main Goal Details
                 </h2>
-
                 <p className="text-gray-700 mt-4 text-sm mb-4 border-b border-b-gray-300">
                   {goaldata?.main_goal_name}
                   <div className="flex space-x-2 mt-2">
@@ -175,9 +174,8 @@ function ReviewYourGoalOld() {
                         month: "2-digit",
                         day: "2-digit",
                       })}
-                      {"-"}
                       {goaldata?.startDate
-                        ? goaldata.startDate.toLocaleDateString("en-US", {
+                        ? goaldata?.startDate.toLocaleDateString("en-US", {
                             year: "2-digit",
                             month: "2-digit",
                             day: "2-digit",

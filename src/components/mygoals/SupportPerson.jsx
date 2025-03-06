@@ -2,7 +2,7 @@ import React from "react";
 import { PiPencilLine } from "react-icons/pi";
 
 const SupportPerson = ({ formData }) => {
-  console.log(formData,"formData+=?")
+  
   return (
     <div>
       {/* Check if formData for the first support person exists */}

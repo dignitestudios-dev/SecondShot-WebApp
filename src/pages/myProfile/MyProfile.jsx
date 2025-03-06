@@ -18,12 +18,18 @@ import ProfileSkeleton from "../../components/loader/ProfileSkeleton";
 import { SuccessToast } from "../../components/toaster/ToasterContainer";
 import Cookies from "js-cookie";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import { ModalContext } from "../../context/GlobalContext";
 function MyProfile() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("profile");
   const [loading, setloading] = useState(false);
   const [loader, setLoading] = useState(false);
-
+  const [inviteOpen, setInviteOpen] = useState(false);
+  const [notificationOnOff, setNotificationOnOff] = useState(false);
+  const [profileData, setProfile] = useState("");
+  const [registrationData, setregistrationData] = useState("");
+  const [notificationstatus, setNotificationstatus] = useState(false);
+  const [notiloader, setNotiloader] = useState(false);
   const [isChangePasswordModalOpen, setIsChangePasswordModalOpen] =
     useState(false);
   const [isChangePaymentMethodModalOpen, setIsChangePaymentMethodModalOpen] =
@@ -35,10 +41,6 @@ function MyProfile() {
     localStorage.setItem("isEditSkill", true);
   };
 
-  const [inviteOpen, setInviteOpen] = useState(false);
-  const { logout } = useContext(AuthContext);
-  const [profileData, setProfile] = useState("");
-  const [registrationData, setregistrationData] = useState("");
   const getProfile = async () => {
     setloading(true);
     try {
@@ -70,12 +72,14 @@ function MyProfile() {
     getProfile();
     getreqQuestion();
   }, []);
+
   async function getDeviceFingerprint() {
     const fp = await FingerprintJS.load();
     const result = await fp.get();
 
     return result.visitorId;
   }
+
   const handlelogout = async () => {
     setLoading(true);
     try {
@@ -112,24 +116,56 @@ function MyProfile() {
     }
   };
   const phoneFormater = (input) => {
-    if (!input) return ""; // Return an empty string if input is undefined, null, or an empty string
+    if (!input) return "";
 
-    const cleaned = input.replace(/\D/g, ""); // Remove all non-numeric characters
+    const cleaned = input.replace(/\D/g, "");
 
     if (cleaned.length > 3 && cleaned.length <= 6) {
-      return `+(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`; // Add '+' in front of the area code
+      return `+(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
     } else if (cleaned.length > 6) {
       return `+(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(
         6,
         10
-      )}`; // Add '+' in front of the area code, and format the number
+      )}`;
     } else if (cleaned.length > 0) {
-      return `+(${cleaned}`; // Add '+' in front when length is between 1 and 3 digits
+      return `+(${cleaned}`;
     }
 
-    return cleaned; // Return cleaned number if less than 1 digit
+    return cleaned;
   };
 
+  const getnotifications = async () => {
+    try {
+      const response = await axios.get("/api/user/my-notification-setting");
+      if (response.status === 200) {
+        setNotificationstatus(response?.data?.data?.notification_enabled);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getnotifications();
+  }, []);
+
+  const handleNotification = async () => {
+    setNotiloader(true);
+    try {
+      const response = await axios.post("/api/user/toggle-notification");
+
+      if (response.status === 200) {
+        const newStatus = response?.data?.data?.notification_enabled;
+        setNotificationOnOff(newStatus);
+        SuccessToast(response?.data?.message);
+        getnotifications();
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setNotiloader(false);
+    }
+  };
   return (
     <div className="">
       <div className="">
@@ -376,25 +412,7 @@ function MyProfile() {
                       />
                     </div>
                   </div>
-                  <hr className=" border-t border-gray-200" />
-                  <div className="flex justify-between items-center text-left">
-                    <div>
-                      <h2 className="text-lg font-semibold text-gray-900 text-left">
-                        Payment Method
-                      </h2>
-                      <p className="text-gray-600 text-left">
-                        Change payment Method
-                      </p>
-                    </div>
-                    <div>
-                      <AuthSubmitBtn
-                        text={"Change"}
-                        handleSubmit={() =>
-                          setIsChangePaymentMethodModalOpen(true)
-                        }
-                      />
-                    </div>
-                  </div>
+
                   <hr className=" border-t border-gray-200" />
                   <div className="flex justify-between items-center">
                     <div>
@@ -437,9 +455,34 @@ function MyProfile() {
                         You can turn your notifications on or off.
                       </p>
                     </div>
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <input type="checkbox" className="sr-only peer" />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-900"></div>
+                    <label
+                      className="relative inline-flex items-center cursor-pointer"
+                      onClick={handleNotification}
+                    >
+                      {notiloader && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-25 rounded-full z-10">
+                          <div className="w-6 h-6 border-blue-900 rounded-full animate-pulse"></div>
+                        </div>
+                      )}
+
+                      <input
+                        type="checkbox"
+                        className="sr-only peer"
+                        checked={notificationstatus}
+                        onChange={handleNotification}
+                        disabled={notiloader}
+                      />
+                      <div
+                        className={`w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white rounded-full peer dark:bg-gray-700 
+        ${
+          notificationstatus
+            ? "peer-checked:bg-blue-900"
+            : "peer-checked:bg-white"
+        } 
+        peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute 
+        after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full 
+        after:h-5 after:w-5 after:transition-all dark:border-gray-600`}
+                      ></div>
                     </label>
                   </div>
                 </div>

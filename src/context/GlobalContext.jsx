@@ -11,6 +11,7 @@ export const ModalContext = createContext();
 export const ModalProvider = ({ children }) => {
   const [showModal, setShowModal] = useState(false);
   const [notifications, setNotifications] = useState([]);
+
   const [isFirst, setIsFirst] = useState(() => {
     const savedState = localStorage.getItem("isFirst");
     return savedState
@@ -36,7 +37,7 @@ export const ModalProvider = ({ children }) => {
   async function getDeviceFingerprint() {
     const fp = await FingerprintJS.load();
     const result = await fp.get();
-    
+
     return result.visitorId;
   }
 
@@ -47,7 +48,6 @@ export const ModalProvider = ({ children }) => {
         deviceToken: token,
         deviceId: await getDeviceFingerprint(),
       });
-  
     } catch (error) {
       console.error(error);
     }

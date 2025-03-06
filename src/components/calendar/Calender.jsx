@@ -7,25 +7,21 @@ const CustomCalendar = ({
   startDate,
   setStartDate,
   maxDate,
-  
 }) => {
   const modalRef = useRef(null);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
-        setShowCalender(false); // Close the calendar
+        setShowCalender(false);
       }
     };
 
-    // Add event listener
     document.addEventListener("mousedown", handleClickOutside);
 
-    // Cleanup the event listener
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [setShowCalender]);
-
 
   const handleSave = () => {
     setShowCalender(false);
@@ -37,7 +33,10 @@ const CustomCalendar = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ">
-      <div    ref={modalRef} className="w-[300px] absolute  z-10 bg-white p-6 rounded-lg shadow-md">
+      <div
+        ref={modalRef}
+        className="w-[300px] absolute  z-10 bg-white p-6 rounded-lg shadow-md"
+      >
         <DatePicker
           selected={startDate}
           onChange={(date) => setStartDate(date)}

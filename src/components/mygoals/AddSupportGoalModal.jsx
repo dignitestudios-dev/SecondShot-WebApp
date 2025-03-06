@@ -19,7 +19,6 @@ const AddSupportGoalModal = ({
   getGoalDetail,
   setSupportPeopleAdded,
 }) => {
-  console.log("error--> ", errors);
   const [loading, setLoading] = useState(false);
 
   const [inputData, setInputData] = useState({
@@ -34,11 +33,9 @@ const AddSupportGoalModal = ({
   const [disableFullname1, setDisableFullname1] = useState(false);
   const [disableFullname2, setDisableFullname2] = useState(false);
   const [secondSupportActive, setSecondSupportActive] = useState(false);
-  console.log("secondSupportActive--> ", secondSupportActive);
 
   useEffect(() => {
     if (goalDetail?.support_people?.length > 0) {
-      console.log("in if ---> ", goalDetail?.support_people);
       setDisableFullname1(!!goalDetail.support_people[0]?.full_name);
       setDisableFullname2(!!goalDetail.support_people[1]?.full_name);
       setSecondSupportActive(true);
