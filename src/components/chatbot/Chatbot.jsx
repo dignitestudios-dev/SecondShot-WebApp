@@ -13,9 +13,15 @@ const Chatbot = () => {
   const toggleChat = () => setIsOpen(!isOpen);
 
   const handleSend = async () => {
-    if (input.trim() === "") return;
-
-    setMessages([...messages, { text: input, sender: "user" }]);
+    if (input.trim() === "" || loading) return;
+    const timestamp = new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    setMessages([
+      ...messages,
+      { text: input, sender: "user", time: timestamp },
+    ]);
     setInput("");
     setLoading(true);
     try {
@@ -23,9 +29,13 @@ const Chatbot = () => {
         message: input,
       });
       if (response.status === 200) {
+        const botTimestamp = new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
         setMessages((prev) => [
           ...prev,
-          { text: response?.data?.data, sender: "bot" },
+          { text: response?.data?.data, sender: "bot", time: botTimestamp },
         ]);
       }
     } catch (error) {
@@ -61,30 +71,43 @@ const Chatbot = () => {
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4 space-y-2">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.map((msg, index) => (
               <div
                 key={index}
-                className={`flex  items-start ${
-                  msg.sender === "user" ? "justify-end" : "justify-start"
+                className={`flex flex-col items-${
+                  msg.sender === "user" ? "end" : "start"
                 }`}
               >
                 <div
-                  className={`max-w-[75%] p-2 break-words rounded-lg ${
-                    msg.sender === "user"
-                      ? "bg-[#012C57] text-white ml-auto rounded-l-[20px] rounded-tr-[20px]"
-                      : "bg-gray-200 text-black mr-auto rounded-r-[20px] rounded-tl-[20px]"
-                  }`}
+                  className={`max-w-[75%] flex items-start p-2 break-all overflow-x-hidden rounded-lg`}
                 >
-                  {msg.text}
+                  <div>
+                    <div
+                      className={`max-w-[100%] p-2 break-all overflow-x-hidden rounded-lg ${
+                        msg.sender === "user"
+                          ? "bg-[#012C57] text-white ml-auto rounded-l-[20px] rounded-tr-[20px]"
+                          : "bg-gray-200 text-black mr-auto rounded-r-[20px] rounded-tl-[20px]"
+                      }`}
+                    >
+                      {msg.text}
+                    </div>
+                    <div
+                      className={`text-[12px] font-[500] text-black mt-1 ${
+                        msg.sender === "user" ? "text-end" : "text-start"
+                      }`}
+                    >
+                      {msg.time}
+                    </div>
+                  </div>
+                  {msg.sender === "user" && (
+                    <img
+                      src={profilepic}
+                      alt="User Avatar"
+                      className="w-[42px] h-[42px] ml-2 rounded-full"
+                    />
+                  )}
                 </div>
-                {msg.sender === "user" && (
-                  <img
-                    src={profilepic}
-                    alt="User Avatar"
-                    className="w-[42px] h-[42px] ml-2 rounded-full "
-                  />
-                )}
               </div>
             ))}
             {loading && (
@@ -97,13 +120,13 @@ const Chatbot = () => {
             )}
           </div>
 
-          {/* Input Field */}
           <div className="p-2 w-full bottom-0 bg-white">
             <div className="relative">
               <input
                 type="text"
                 placeholder="Type Here...."
                 value={input}
+                onKeyDown={(e) => e.key === "Enter" && handleSend()}
                 onChange={(e) => setInput(e.target.value)}
                 className="w-full p-2 h-[49px] placeholder:text-[12px] px-4 bg-[#F5F5F5] text-gray-800 rounded-full outline-none"
               />
@@ -111,11 +134,15 @@ const Chatbot = () => {
                 onClick={handleSend}
                 className="absolute bottom-2 right-2 bg-gradient-to-r w-[37px] h-[37px] flex items-center justify-center from-[#061523] to-[#012C57] rounded-full cursor-pointer"
               >
-                <img
-                  src={sendicon}
-                  className="w-[22.21px] h-[22.21px]"
-                  alt="Send"
-                />
+                {loading ? (
+                  <div className="animate-pulse w-5 h-5 bg-[#F5F5F5] rounded-full"></div>
+                ) : (
+                  <img
+                    src={sendicon}
+                    className="w-[22.21px] h-[22.21px]"
+                    alt="Send"
+                  />
+                )}
               </div>
             </div>
           </div>

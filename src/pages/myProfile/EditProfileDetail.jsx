@@ -30,6 +30,7 @@ const EditProfileDetails = () => {
     handleChange,
     handleSubmit,
     setFieldValue,
+    setFieldTouched,
     errors,
     touched,
   } = useFormik({
@@ -187,7 +188,7 @@ const EditProfileDetails = () => {
           <div className="mt-3">
             <AuthInput
               type={"email"}
-              value={values.email}
+              value={values?.email}
               placeholder={"Email"}
               isDisabled
             />
@@ -210,7 +211,9 @@ const EditProfileDetails = () => {
               value={values?.state}
               onChange={(e) => {
                 handleChange(e);
-                values.city = ""; // Reset city when state changes
+                values.city = "";
+                setFieldValue("country", "");
+                setFieldTouched("country", true);
               }}
               options={[
                 { value: "", label: "--Select State--" },
