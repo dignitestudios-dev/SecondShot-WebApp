@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { chaticon, sendicon } from "../../assets/export";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "../../axios";
@@ -9,6 +9,7 @@ const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const { profilepic } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const chatbotref = useRef(null);
 
   const toggleChat = () => setIsOpen(!isOpen);
 
@@ -44,7 +45,19 @@ const Chatbot = () => {
       setLoading(false);
     }
   };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (chatbotref.current && !chatbotref.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
 
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <div className="fixed bottom-1 right-4 z-50">
       <div onClick={toggleChat} className="cursor-pointer">
@@ -56,8 +69,11 @@ const Chatbot = () => {
       </div>
 
       {isOpen && (
-        <div className="fixed bottom-[100px] right-12 w-[398px] h-[450px] bg-white shadow-md rounded-2xl overflow-hidden flex flex-col z-10">
-          <div className="bg-gradient-to-r from-[#061523] to-[#012C57] h-[66px] text-white flex justify-between items-center px-4">
+        <div
+          className="fixed bottom-[100px] right-12 w-[398px] h-[450px] bg-white shadow-md rounded-2xl overflow-hidden flex flex-col z-10"
+          ref={chatbotref}
+        >
+          <div className="bg-gradient-to-r from-[#061523] to-[#012C57] h-[66px] text-white flex justify-between items-center p-3">
             <div className="flex items-center mt-2">
               <img
                 src={chaticon}

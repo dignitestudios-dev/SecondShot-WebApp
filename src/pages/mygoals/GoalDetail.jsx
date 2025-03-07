@@ -299,7 +299,7 @@ checked:before:justify-center checked:before:items-center"
                 />
               )}
             </div>
-            <p className=" text-[#000000] font-[400] text-[16px] leading-[21.6px] px-2 ">
+            <p className=" text-[#000000] break-words w-full font-[400] text-[16px] leading-[21.6px] px-2 ">
               {goalDetail?.main_goal_name}
             </p>
           </div>
@@ -329,7 +329,7 @@ checked:before:justify-center checked:before:items-center"
                       className="flex justify-between items-center mt-3 border-b  border-gray-200 last:border-b-0 relative"
                       key={item?._id}
                     >
-                      <div className="flex items-center gap-2 py-2 text-[14px]">
+                      <div className="flex items-start gap-2 py-2 text-[14px]">
                         {subgoalLoader[item?._id] ? (
                           <div className="animate-pulse h-5 w-5 rounded-md border border-gray-300 bg-slate-500 "></div>
                         ) : (
@@ -344,8 +344,8 @@ checked:before:justify-center checked:before:items-center"
                             onChange={() => handlesubgoalstatus(item?._id)}
                           />
                         )}
-                        <div className="flex flex-col">
-                          <label className="text-[#0F0F0F] text-[16px] font-semibold">
+                        <div className="flex break-words w-full  flex-col">
+                          <label className="text-[#0F0F0F] break-words w-[600px]  text-[16px] font-semibold">
                             {item?.name}
                           </label>
                         </div>
@@ -398,11 +398,11 @@ checked:before:justify-center checked:before:items-center"
                     <span className="text-[#56EC17]">(0{index + 1})</span>
                   </h2>
                   <div className="mt-4 grid grid-cols-3 gap-x-4">
-                    <p className="text-sm border-r border-gray-300 pr-4 grid grid-cols-1">
+                    <p className="text-sm break-words  border-r border-gray-300 pr-4 grid grid-cols-1">
                       <strong>Full Name:</strong>
                       <span> {support?.full_name} </span>
                     </p>
-                    <p className="text-sm border-r border-gray-300 pr-4">
+                    <p className="text-sm break-words border-r border-gray-300 pr-4">
                       <strong>Email Address:</strong> {support?.email_address}
                     </p>
                     <p className="text-sm grid grid-cols-1">

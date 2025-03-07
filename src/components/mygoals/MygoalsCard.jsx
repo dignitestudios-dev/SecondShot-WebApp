@@ -70,7 +70,7 @@ const MygoalsCard = ({ goaldetail, loading }) => {
                 {/* <h3 className="text-[20px] leading-[32.4px] font-[500] text-gray-800 mb-2">
                 {item.heading}
               </h3> */}
-                <p className="text-md text-gray-600 font-[500] mb-4">
+                <p className="text-md break-words w-full text-gray-600 font-[500] mb-4">
                   {item?.main_goal_name}
                 </p>
                 {/* <div className="grid grid-cols-3 gap-2 mb-4">

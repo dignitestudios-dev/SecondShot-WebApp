@@ -21,11 +21,11 @@ const SupportPerson = ({ formData }) => {
               <span className="text-[16px] font-[600] leading-[21.6px] ">
                 Full Name:
               </span>
-              <span className="text-[14px] leading-[18.9px] font-[400] ">
+              <span className="text-[14px] break-words leading-[18.9px] font-[400] ">
                 {formData?.fullname}
               </span>
             </p>
-            <p className="text-sm border-r border-gray-300 pr-1">
+            <p className="text-sm border-r break-words border-gray-300 pr-1">
               <span className="text-[16px] font-[600] leading-[21.6px] ">
                 Email Address:
               </span>{" "}
@@ -60,15 +60,15 @@ const SupportPerson = ({ formData }) => {
           </div>
           <div className="mt-4 grid grid-cols-3 gap-x-2">
             <p className="border-r border-gray-300 pr-4 grid grid-cols-1">
-              <span className="text-[16px] font-[600] leading-[21.6px] ">
+              <span className="text-[16px]  font-[600] leading-[21.6px] ">
                 Full Name:
               </span>
-              <span className="text-[14px] leading-[18.9px] font-[400] ">
+              <span className="text-[14px] break-words leading-[18.9px] font-[400] ">
                 {formData?.fullname_2}
               </span>
             </p>
-            <p className="text-sm border-r border-gray-300 pr-1">
-              <span className="text-[16px] font-[600] leading-[21.6px] ">
+            <p className="text-sm border-r break-words border-gray-300 pr-1">
+              <span className="text-[16px]  font-[600] leading-[21.6px] ">
                 Email Address:
               </span>{" "}
               {formData?.email_2}

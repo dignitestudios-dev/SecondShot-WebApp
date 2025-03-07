@@ -166,7 +166,7 @@ function ReviewYourGoalOld() {
                 <h2 className="text-xl font-semibold mb-2">
                   Main Goal Details
                 </h2>
-                <p className="text-gray-700 mt-4 text-sm mb-4 border-b border-b-gray-300">
+                <p className="text-gray-700 mt-4 text-sm mb-4 border-b break-words border-b-gray-300">
                   {goaldata?.main_goal_name}
                   <div className="flex space-x-2 mt-2">
                     <p>Deadline for Main goals:</p>
@@ -176,7 +176,7 @@ function ReviewYourGoalOld() {
                         month: "2-digit",
                         day: "2-digit",
                       })}
-                      {'-'}
+                      {"-"}
                       {threeMonthsAgo
                         ? threeMonthsAgo.toLocaleDateString("en-US", {
                             year: "2-digit",
@@ -212,7 +212,7 @@ function ReviewYourGoalOld() {
                         <div className="text-gray-400">
                           <span className="block text-md font-semibold"></span>
                         </div>
-                        <div className="text-gray-700 text-sm mb-2 pb-2 border-b border-b-gray-400">
+                        <div className="text-gray-700 break-words  text-sm mb-2 pb-2 border-b border-b-gray-400">
                           {item?.name}
                           <div className="flex justify-between items-center  text-gray-700">
                             <div className="flex space-x- text-[14px] 2 mt-2">
