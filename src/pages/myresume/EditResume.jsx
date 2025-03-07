@@ -314,6 +314,7 @@ const EditResume = () => {
     };
   }, []);
   const [loading, setLoading] = useState(false);
+
   const convertMonthToNumber = (month) => {
     const months = {
       January: "01",
@@ -333,8 +334,6 @@ const EditResume = () => {
   };
 
   const mapFormDataToPayload = (formData) => {
-    console.log(formData.certificationsList, "formData.certificationsList");
-
     return {
       full_name: formData.informationValues?.fullname,
       email: formData.informationValues?.email,
@@ -417,7 +416,7 @@ const EditResume = () => {
 
   const handleSubmitData = async () => {
     const transformedData = mapFormDataToPayload(formData);
-    console.log(transformedData, "transformedData=={}");
+
     setLoading(true);
     try {
       const response = await axios.put(
@@ -434,17 +433,12 @@ const EditResume = () => {
       );
 
       if (response.status === 200) {
-        SuccessToast("Resume Edit Successfully");
+        SuccessToast(response?.data?.message);
         handleModal();
-
         setesumeData(response?.data?.data);
       }
     } catch (error) {
       ErrorToast(error?.response?.data?.message);
-      console.error(
-        "Error submitting form:",
-        error?.response?.data || error.message
-      );
     } finally {
       setLoading(false);
     }
@@ -567,7 +561,6 @@ const EditResume = () => {
                   formData={formData}
                   setIsSkipped={setIsSkipped}
                   prevStep={prevStep}
-                  
                 />
               )}
               {step === 5 && (
@@ -595,7 +588,6 @@ const EditResume = () => {
                   formData={formData}
                   prevStep={prevStep}
                   setIsSkipped={setIsSkipped}
-
                 />
               )}
               {step === 8 && (
@@ -606,7 +598,6 @@ const EditResume = () => {
                   isSkipped={isSkipped}
                   prevStep={prevStep}
                   setIsSkipped={setIsSkipped}
-
                 />
               )}
               {step === 9 && (
@@ -626,9 +617,7 @@ const EditResume = () => {
                   isSkipped={isSkipped}
                   handleSubmitData={handleSubmitData}
                   loading={loading}
-
                   setIsSkipped={setIsSkipped}
-
                 />
               )}
             </div>

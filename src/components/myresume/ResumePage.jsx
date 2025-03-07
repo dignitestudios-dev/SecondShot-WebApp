@@ -156,7 +156,7 @@ const Resume = ({ formData, isSkipped }) => {
                   {exp?.company}
                 </p>
                 <p className="font-[600] leading-[22.94px] text-[#101010] text-[22.94px]">
-                  {exp?.startyear}- {exp?.endyear}
+                  {exp?.startyear}- {exp?.endyear || "Present"}
                 </p>
               </div>
               <p className="font-[500] text-[#0F0F0F]  leading-[29.7px] text-[22px]">

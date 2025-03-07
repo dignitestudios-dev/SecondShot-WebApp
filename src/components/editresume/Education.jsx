@@ -29,8 +29,6 @@ const Education = ({
 
   const updateData = async (data) => {
     if (data && Array.isArray(data)) {
-      console.log("update-> ", data);
-
       formik.setValues({
         educationList: data?.map((item) => ({
           education: item?.education || "",
@@ -42,13 +40,6 @@ const Education = ({
       });
     }
   };
-
-  console.log(
-    "formData.educationValues==> ",
-    formData.educationValues,
-    "formData?.educationList-->",
-    formData?.educationList
-  );
 
   useEffect(() => {
     if (formData?.educationList?.length > 0) {

@@ -9,33 +9,40 @@ import { FaEllipsisVertical } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import ResumeDeleteModal from "./DeleteResumeModal";
 import AllResume from "./AllResume";
-import { ErrorToast } from "../toaster/ToasterContainer";
+import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
 import axios from "../../axios";
-const ResumeFile = ({ resume, loading, setLoading, setResume }) => {
+const ResumeFile = ({
+  resume,
+  deleteloader,
+  setdeleteloader,
+  
+  loading,
+  setResume
+}) => {
   const navigate = useNavigate();
-  const [dropdownOpen, setDropdownOpen] = useState(null);
+
   const [showDelete, setShowDelete] = useState(false);
   const [dropOpen, setDropOpen] = useState(false);
-  const toggleDropdown = (index) => {
-    setDropdownOpen((prev) => (prev === index ? null : index));
-  };
 
   const handleDelete = async (resume_id) => {
-    setLoading(true);
+    setdeleteloader(true);
     try {
       const response = await axios.delete("/api/user/delete-resume", {
         data: { resume_id: resume_id },
       });
 
       if (response.status === 200) {
+        SuccessToast(response?.data?.message);
+        setShowDelete(false);
         setResume(resume.filter((item) => item._id !== resume_id));
       }
     } catch (err) {
-      ErrorToast(err.message);
+      ErrorToast(err?.response?.data?.message);
     } finally {
-      setLoading(false);
+      setdeleteloader(false);
     }
   };
+
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -52,7 +59,6 @@ const ResumeFile = ({ resume, loading, setLoading, setResume }) => {
           </>
         ) : (
           resume?.map((resumeData, index) => {
-          
             return (
               <div
                 key={index}
@@ -89,6 +95,7 @@ const ResumeFile = ({ resume, loading, setLoading, setResume }) => {
                         onclick={() => setShowDelete(false)}
                         handleDelete={handleDelete}
                         resumeId={resumeData?._id}
+                        deleteloader={deleteloader}
                       />
                     </div>
                   )}

@@ -31,7 +31,7 @@ const PreviewResume = ({
 }) => {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
-
+  console.log(formData, "formData");
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -65,77 +65,100 @@ const PreviewResume = ({
       objective: {
         description: formData.objetiveValues?.description,
       },
-      experience: isSkipped
-        ? []
-        : formData.experienceList.map((exp) => ({
-            job_title: exp.jobTitle,
-            company: exp.company,
-            start_date: `${exp.startyear}-${convertMonthToNumber(
-              exp.startmonth
-            )}`,
-            end_date: exp.isCurrent
-              ? null
-              : `${exp.endyear}-${convertMonthToNumber(exp.endmonth)}-01`,
-            description: exp.description,
-          })),
-      education: isSkipped
-        ? []
-        : formData.educationList.map((edu) => ({
-            institution: edu.education,
-            degree: edu.degree,
-            field_of_study: edu.fieldofStudy,
-            start_year: parseInt(edu.startYear),
-            end_year: parseInt(edu.endYear),
-            description: null,
-          })),
-
-      licenses_and_certifications: isSkipped
-        ? []
-        : formData.certificationsList.map((cert) => ({
-            certification_name: cert.certificationsname,
-            issuing_organization: cert.issuingOrganization,
-            credential_id: cert.credentialId,
-            issue_date: `${cert.Issueyear}-${convertMonthToNumber(
-              cert.Issuemonth
-            )}`,
-            expiration_date:
-              cert.expirationmonth && cert.expirationyear
-                ? `${cert.expirationyear}-${convertMonthToNumber(
-                    cert.expirationmonth
-                  )}`
-                : null,
-          })),
-      soft_skills: isSkipped ? [] : formData.skillsValues?.softskills,
-      technical_skills: isSkipped
-        ? []
-        : formData.skillsValues?.technicalSkills.map((skill) => skill.trim()),
-      volunteer_experience: isSkipped
-        ? []
-        : formData.volunteerList.map((volunteer) => ({
-            organization_name: volunteer.organizationName,
-            role: volunteer.volunteerRules,
-            start_year: parseInt(volunteer.startYear),
-            end_year: parseInt(volunteer.endYear),
-
-            description: volunteer?.description ? volunteer?.description : null,
-          })),
-
-      honors_and_awards: isSkipped
-        ? []
-        : formData?.honorsList?.map((honor) => ({
-            award_name: honor?.awardName,
-            awarding_organization: honor?.awardingOrganization,
-            date_Received: `${honor?.receivedyear}-${convertMonthToNumber(
-              honor?.receivedmonth
-            )}`,
-            description: honor?.description ? honor?.description : null,
-          })),
+      experience:
+        isSkipped &&
+        !formData.experienceList.some(
+          (exp) => exp.jobTitle || exp.company || exp.description
+        )
+          ? []
+          : formData.experienceList.map((exp) => ({
+              job_title: exp.jobTitle,
+              company: exp.company,
+              start_date: `${exp.startyear}-${convertMonthToNumber(
+                exp.startmonth
+              )}`,
+              end_date: exp.isCurrent
+                ? null
+                : `${exp.endyear}-${convertMonthToNumber(exp.endmonth)}-01`,
+              description: exp.description,
+            })),
+      education:
+        isSkipped &&
+        !formData.educationList.some(
+          (edu) => edu.education || edu.degree || edu.fieldofStudy
+        )
+          ? []
+          : formData.educationList.map((edu) => ({
+              institution: edu.education,
+              degree: edu.degree,
+              field_of_study: edu.fieldofStudy,
+              start_year: parseInt(edu.startYear),
+              end_year: parseInt(edu.endYear),
+              description: null,
+            })),
+      licenses_and_certifications:
+        isSkipped &&
+        !formData.certificationsList.some(
+          (cert) => cert.certificationsname || cert.issuingOrganization
+        )
+          ? []
+          : formData.certificationsList.map((cert) => ({
+              certification_name: cert.certificationsname,
+              issuing_organization: cert.issuingOrganization,
+              credential_id: cert.credentialId,
+              issue_date: `${cert.Issueyear}-${convertMonthToNumber(
+                cert.Issuemonth
+              )}`,
+              expiration_date:
+                cert.expirationmonth && cert.expirationyear
+                  ? `${cert.expirationyear}-${convertMonthToNumber(
+                      cert.expirationmonth
+                    )}`
+                  : null,
+            })),
+      soft_skills:
+        isSkipped && !formData.skillsValues?.softskills?.length
+          ? []
+          : formData.skillsValues?.softskills,
+      technical_skills:
+        isSkipped && !formData.skillsValues?.technicalSkills?.length
+          ? []
+          : formData.skillsValues?.technicalSkills?.map((skill) =>
+              skill.trim()
+            ),
+      volunteer_experience:
+        isSkipped &&
+        !formData.volunteerList.some(
+          (volunteer) => volunteer.organizationName || volunteer.volunteerRules
+        )
+          ? []
+          : formData.volunteerList.map((volunteer) => ({
+              organization_name: volunteer.organizationName,
+              role: volunteer.volunteerRules,
+              start_year: parseInt(volunteer.startYear),
+              end_year: parseInt(volunteer.endYear),
+              description: volunteer?.description || null,
+            })),
+      honors_and_awards:
+        isSkipped &&
+        !formData.honorsList.some(
+          (honor) => honor.awardName || honor.receivedyear
+        )
+          ? []
+          : formData.honorsList.map((honor) => ({
+              award_name: honor?.awardName,
+              awarding_organization: honor?.awardingOrganization,
+              date_Received: `${honor?.receivedyear}-${convertMonthToNumber(
+                honor?.receivedmonth
+              )}`,
+              description: honor?.description || null,
+            })),
     };
   };
-  const transformedData = transformFormData(formData);
 
   const handleSubmitData = async () => {
     const transformedData = transformFormData(formData);
+    console.log(transformedData, "transformedData==>in payload");
     setLoading(true);
     try {
       const response = await axios.post(
@@ -148,17 +171,13 @@ const PreviewResume = ({
         }
       );
       if (response.status === 201) {
-        SuccessToast("Resume Create Successfully");
+        SuccessToast(response?.data?.message);
         handleModal();
         setresumeId(response?.data?.data?._id);
         setesumeData(response?.data?.data);
       }
     } catch (error) {
-      ErrorToast(error?.response?.data);
-      console.error(
-        "Error submitting form:",
-        error?.response?.data || error.message
-      );
+      ErrorToast(error?.response?.data?.message);
     } finally {
       setLoading(false);
     }
@@ -255,7 +274,6 @@ const PreviewResume = ({
         )}
       </div>
 
-      {/* Give this id */}
       <div id="download-resume" className="flex  justify-center">
         <ResumePage formData={formData} isSkipped={isSkipped} />
       </div>

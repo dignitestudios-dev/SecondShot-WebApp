@@ -9,6 +9,7 @@ const ResumeDeleteModal = ({
   resumeId,
   handleDelete,
   loading,
+  deleteloader,
 }) => {
   return (
     showModal && (
@@ -41,13 +42,12 @@ const ResumeDeleteModal = ({
             <button
               onClick={() => {
                 handleDelete(resumeId);
-                onclick();
               }}
               className="w-full py-3 h-[49px] px-4 text-sm font-semibold   hover:bg-opacity-85  bg-[#FF0000] text-[16px] text-white leading-[21.6px] rounded-[8px]  mx-1"
             >
               <div className="flex items-center justify-center">
                 <span className="mr-1">Yes</span>
-                {loading && <FiLoader className="animate-spin text-lg " />}
+                {deleteloader && <FiLoader className="animate-spin text-lg " />}
               </div>
             </button>
           </div>

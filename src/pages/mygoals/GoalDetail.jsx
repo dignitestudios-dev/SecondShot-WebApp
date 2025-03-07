@@ -233,11 +233,15 @@ const GoalDetail = () => {
                 {goalDetail?.status}
               </button>
               <div>
-                <AuthSubmitBtn
-                  text={"Mark As Completed"}
-                  handleSubmit={() => handlecompleted()}
-                  loading={loader}
-                />
+                {goalDetail?.status === "Completed" ? (
+                  <AuthSubmitBtn text={"Mark As Completed"} disabled={true} />
+                ) : (
+                  <AuthSubmitBtn
+                    text={"Mark As Completed"}
+                    handleSubmit={() => handlecompleted()}
+                    loading={checkload}
+                  />
+                )}
               </div>
 
               <button

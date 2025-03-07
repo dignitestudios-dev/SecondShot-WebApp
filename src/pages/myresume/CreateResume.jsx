@@ -41,9 +41,7 @@ const CreateResume = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const [resumeData, setesumeData] = useState('');
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+ 
 
   //Skipping State:
   const [isSkipped, setIsSkipped] = useState(false);

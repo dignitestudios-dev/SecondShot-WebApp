@@ -23,10 +23,11 @@ import axios from "../../axios";
 const ViewResume = () => {
   const location = useLocation();
   const resumeData = location?.state;
-  console.log(resumeData, "ViewRes");
+  const [isOpen, setIsOpen] = useState(false);
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [resume, setResume] = useState(false);
+
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
@@ -54,8 +55,7 @@ const ViewResume = () => {
     }
   };
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+
 
   const dropdownRef = useRef(null);
   const toggleDropdown = () => {
@@ -76,6 +76,7 @@ const ViewResume = () => {
   const handleDeleteModal = () => {
     setShowDelete(!showDelete);
   };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

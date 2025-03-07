@@ -219,7 +219,7 @@ const AddSupportModal = ({
       e.preventDefault();
     }
   };
-  console.log(inputData.fullname, "inputData.fullname");
+
   return (
     showModal && (
       <div className="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm ">

@@ -2,9 +2,9 @@ import React from "react";
 
 const AllResume = ({ resume }) => {
   const phoneFormater = (input) => {
-    if (!input) return ""; // Return an empty string if input is undefined, null, or an empty string
+    if (!input) return "";
 
-    const cleaned = input.replace(/\D/g, ""); // Remove all non-numeric characters
+    const cleaned = input.replace(/\D/g, "");
 
     if (cleaned.length > 3 && cleaned.length <= 6) {
       return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
@@ -17,7 +17,7 @@ const AllResume = ({ resume }) => {
       return `(${cleaned}`;
     }
 
-    return cleaned; // Return cleaned number if less than 1 digit
+    return cleaned;
   };
 
   return (
@@ -95,14 +95,14 @@ const AllResume = ({ resume }) => {
                 </li>
               </div>
             ))}
-        <hr className="mt-1" />
+            <hr className="mt-1" />
           </section>
         )}
         {/* Certifications */}
 
         {(resume?.soft_skills?.length > 0 ||
           resume?.technical_skills?.length > 0) && (
-            <section className="mt-1">
+          <section className="mt-1">
             <h2 className="text-[5px] font-[700]">Skills</h2>
 
             {/* Soft Skills */}

@@ -8,22 +8,18 @@ import { ModalContext } from "../../context/GlobalContext";
 import axios from "../../axios";
 import StartResume from "./StartResume";
 function MyResume() {
-  const [dropdownOpen, setDropdownOpen] = useState(null);
-
   const { isFirst, setIsFirst } = useContext(ModalContext);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredGoals, setFilteredGoals] = useState([]);
 
   const navigate = useNavigate();
-  const toggleDropdown = (index) => {
-    setDropdownOpen(dropdownOpen === index ? null : index);
-  };
 
   const handleNavigate = () => {
     navigate("/create-resume-info");
   };
   const [resume, setResume] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [deleteloader, setdeleteloader] = useState(false);
 
   const getResume = async () => {
     setLoading(true);
@@ -33,7 +29,7 @@ function MyResume() {
         setResume(response?.data?.data);
       }
     } catch (err) {
-      ErrorToast(err.message);
+      ErrorToast(err?.response?.data?.data?.message);
     } finally {
       setLoading(false);
     }
@@ -42,26 +38,21 @@ function MyResume() {
   useEffect(() => {
     getResume();
   }, []);
-  useEffect(() => {
-    console.log("useEffect triggered", searchQuery, resume);
 
-    // Make a copy of the resume data
+  useEffect(() => {
     let filtered = resume;
 
-    // If searchQuery is not empty, filter based on the createdAt field
     if (searchQuery) {
       filtered = resume.filter((item) => {
         const createdAt = new Date(item.createdAt);
 
-        // Extract only the date part in 'YYYY-MM-DD' format
-        const formattedCreatedAt = createdAt.toISOString().split("T")[0]; // '2025-02-21'
+        const formattedCreatedAt = createdAt.toISOString().split("T")[0];
 
-        // Check if the formatted date contains the search query (case-insensitive)
         return formattedCreatedAt.includes(searchQuery);
       });
     }
-    console.log(filtered, "filtered filtered");
-    setFilteredGoals(filtered); // Update filtered goals
+
+    setFilteredGoals(filtered);
   }, [searchQuery, resume]);
 
   const handleSearchChange = (e) => {
@@ -115,9 +106,10 @@ function MyResume() {
             </div>
             <ResumeFile
               resume={filteredGoals}
-              loading={loading}
-              setLoading={setLoading}
+              deleteloader={deleteloader}
+              setdeleteloader={setdeleteloader}
               setResume={setResume}
+              loading={loading}
             />
           </div>
         </div>
