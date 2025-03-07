@@ -1,7 +1,8 @@
 import React from "react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
-import Chatbot from "../components/chatboat/chatboat";
+import Chatbot from "../components/chatbot/Chatbot";
+
 const Applayout = ({ page }) => {
   return (
     <div className="bg-global-img  ">
