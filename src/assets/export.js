@@ -96,6 +96,8 @@ import lockModal from "../assets/lockModal.png";
 import commingsoon1 from "../assets/commingsoon1.png";
 import commingsoon2 from "../assets/commingsoon2.png";
 import commingsoon3 from "../assets/commingsoon3.png";
+import chaticon from "../assets/chat.png";
+import sendicon from "../assets/sendicon.png";
 export {
   logo,
   Carriericon1,
@@ -195,4 +197,6 @@ export {
   commingsoon1,
   commingsoon2,
   commingsoon3,
+  chaticon,
+  sendicon,
 };

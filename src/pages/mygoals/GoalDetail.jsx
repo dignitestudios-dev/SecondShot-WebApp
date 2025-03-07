@@ -11,6 +11,7 @@ import {
   SuccessToast,
 } from "../../components/toaster/ToasterContainer";
 import AddSupportGoalModal from "../../components/mygoals/AddSupportGoalModal";
+import { IoIosArrowBack } from "react-icons/io";
 const GoalDetail = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [goalDetailModal, setGoalDetailModal] = useState(false);
@@ -160,10 +161,16 @@ const GoalDetail = () => {
   const subStatus = goalDetail?.sub_goals?.map((item) => {
     return item?.is_completed;
   });
-  console.log(goalDetail?.deadline, "subStatus");
+
   return (
     <div>
-      <Backbutton />
+      <div className="flex items-center gap-1 mb-3 mt-3 text-[12px] font-[600]">
+        <IoIosArrowBack
+          className="font-[600]"
+          onClick={() => navigate("/mygoals")}
+        />
+        <span onClick={() => navigate("/mygoals")}>BACK</span>
+      </div>
       {loader ? (
         <div className="animate-pulse p-6 space-y-4 mt-4 bg-white rounded-lg shadow-md">
           <div className="flex justify-between items-center">

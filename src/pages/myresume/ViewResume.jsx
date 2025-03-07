@@ -27,7 +27,7 @@ const ViewResume = () => {
 
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
+  const [deleteloader, setdeleteloader] = useState(false);
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
@@ -38,7 +38,7 @@ const ViewResume = () => {
   });
 
   const handleDeleteFunction = async () => {
-    setLoading(true);
+    setdeleteloader(true);
     try {
       const response = await axios.delete("/api/user/delete-resume", {
         data: { resume_id: resumeData?._id },
@@ -51,11 +51,9 @@ const ViewResume = () => {
     } catch (err) {
       ErrorToast(err.message);
     } finally {
-      setLoading(false);
+      setdeleteloader(false);
     }
   };
-
-
 
   const dropdownRef = useRef(null);
   const toggleDropdown = () => {
@@ -197,7 +195,7 @@ const ViewResume = () => {
           onclick={handleDeleteModal}
           resumeId={resumeData?._id}
           handleDelete={handleDeleteFunction}
-          loading={loading}
+          deleteloader={deleteloader}
         />
 
         <div>

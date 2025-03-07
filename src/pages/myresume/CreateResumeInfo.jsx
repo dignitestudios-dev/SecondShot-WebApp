@@ -26,7 +26,13 @@ const CreateResumeInfo = () => {
   ];
   return (
     <div className="max-w-screen-xl h-screen mx-auto p-8">
-      <Backbutton />
+      <div className="flex items-center gap-1 mb-3 mt-3 text-[12px] font-[600]">
+        <IoIosArrowBack
+          className="font-[600]"
+          onClick={() => navigate("/myresume")}
+        />
+        <span onClick={() => navigate("/myresume")}>BACK</span>
+      </div>
       <div className="flex justify-between items-start mb-8">
         <h1 className="text-[32px] font-medium text-gray-800">Create Resume</h1>
         <div className="flex items-center"></div>
