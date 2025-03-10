@@ -1,7 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BgAuth, Leftimg, logo, Logonav, logonew } from "../../assets/export";
-
 import axios from "../../axios";
 import StepOne from "../../components/editregistrationquetions/StepOne";
 import StepTwo from "../../components/editregistrationquetions/StepTwo";

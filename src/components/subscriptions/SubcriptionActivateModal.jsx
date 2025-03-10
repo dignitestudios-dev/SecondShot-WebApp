@@ -2,7 +2,7 @@ import React from "react";
 import { TickIcon } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 
-const SubcriptionActivateModal = ({ isOpen, onClose, handleClick }) => {
+const SubcriptionActivateModal = ({ isOpen, handleClick }) => {
   if (!isOpen) return null;
 
   return (

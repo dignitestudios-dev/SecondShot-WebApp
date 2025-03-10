@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import AuthInput from "../onboarding/AuthInput";
 import MonthsInput from "../Global/MonthsInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { honorsSchema } from "../../Schema/resumeSchema";
-import axios from "../../axios";
 const Honors = ({
   nextStep,
   setFormData,

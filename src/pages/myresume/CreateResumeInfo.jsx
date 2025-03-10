@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { CreateResumeimg } from "../../assets/export";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
-import Backbutton from "../../components/Global/Backbutton";
 
 const CreateResumeInfo = () => {
   const navigate = useNavigate();

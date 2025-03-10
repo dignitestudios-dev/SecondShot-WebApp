@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Backbutton from "../../components/Global/Backbutton";
 import { Dottedvertical } from "../../assets/export";
 import GoalCreatedModal from "../../components/mygoals/GoalCreatedModal";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";

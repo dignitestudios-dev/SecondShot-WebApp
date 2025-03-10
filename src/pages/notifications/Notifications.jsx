@@ -1,12 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  FaExclamationCircle,
-  FaCreditCard,
-  FaBullseye,
-  FaTrash,
-} from "react-icons/fa";
+import { FaBullseye, FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import Backbutton from "../../components/Global/Backbutton";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import axios from "../../axios";
 import { SuccessToast } from "../../components/toaster/ToasterContainer";
@@ -19,8 +13,8 @@ const Notifications = () => {
   const [loading, setLoading] = useState(false);
 
   const [deleteLoading, setDeleteLoading] = useState(false);
-  const { setNotifications, notifications,getnotifications,allLoading, } = useContext(ModalContext);
- 
+  const { setNotifications, notifications, getnotifications, allLoading } =
+    useContext(ModalContext);
 
   useEffect(() => {
     getnotifications();

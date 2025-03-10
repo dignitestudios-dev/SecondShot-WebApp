@@ -4,8 +4,6 @@ import SearchInput from "../../components/Global/SearchInput";
 import Transferable from "../../components/mylibrary/Transferable";
 import WelcomeLibraryModal from "../../components/mylibrary/WelcomeLibraryModal";
 import { ModalContext } from "../../context/GlobalContext";
-
-import { BsFillBookmarkStarFill } from "react-icons/bs";
 import axios from "../../axios";
 import CareerCards from "./CareerCards";
 function MyLibrary() {

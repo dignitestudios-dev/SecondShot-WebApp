@@ -5,8 +5,6 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import axios from "../../axios";
 import { ErrorToast } from "../toaster/ToasterContainer";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 

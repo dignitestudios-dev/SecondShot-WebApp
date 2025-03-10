@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
 import { Creategoalimg } from "../../assets/export";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import CreateGoalModal from "../../components/mygoals/CreateGoalModal";
-import { ModalContext } from "../../context/GlobalContext";
-import MakeitSmartModal from "../../components/mygoals/MakeitSmartModal";
 
 const AddGoals = () => {
   const navigate = useNavigate();

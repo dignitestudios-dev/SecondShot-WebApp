@@ -5,7 +5,6 @@ import AuthSubmitBtn from "./../../components/onboarding/AuthBtn";
 import AuthInput from "../../components/onboarding/AuthInput";
 import BackBtn from "../../components/onboarding/BackBtn";
 import axios from "../../axios";
-import * as Yup from "yup";
 import { useFormik } from "formik";
 import { forgetSchema } from "../../Schema/signInSchema";
 import { forgetValues } from "../../data/authentication";

@@ -10,7 +10,7 @@ import {
   ErrorToast,
   SuccessToast,
 } from "../../components/toaster/ToasterContainer";
-import Cookies from "js-cookie";
+
 const SocialLogin = () => {
   const navigation = useNavigate();
   const [googleLoading, setGoogleLoading] = useState(false);
@@ -76,7 +76,6 @@ const SocialLogin = () => {
         const token = await result?.user?.getIdToken();
         const email = result?.user?.email;
         const name = result?.user?.displayName;
-
 
         if (token) {
           try {

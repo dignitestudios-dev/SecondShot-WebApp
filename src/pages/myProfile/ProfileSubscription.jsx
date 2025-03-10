@@ -1,12 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import SubscriptionStripeCard from "../../components/subscriptions/SubscriptionStripeCard";
-import SubriptionCardPath from "../../components/subscriptions/SubriptionCardPath";
-import SubscriptionCardModal from "../../components/Modal/SubscriptionCardModal";
-import SubscriptionModal from "../../components/Modal/SubscriptionModal";
-import SubscirtionProfile from "../../components/subscriptions/SubscirtionProfile";
+import { useNavigate } from "react-router-dom";
 import axios from "../../axios";
-import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import { Tick } from "../../assets/export";
 import {
   ErrorToast,

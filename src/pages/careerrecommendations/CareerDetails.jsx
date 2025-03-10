@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Backbutton from "../../components/Global/Backbutton";
 import { IoIosArrowBack } from "react-icons/io";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 import axios from "../../axios";

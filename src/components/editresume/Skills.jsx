@@ -3,7 +3,6 @@ import AuthInput from "../onboarding/AuthInput";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import { useFormik } from "formik";
-
 import SkillsInputField from "../myresume/SkillsInputField";
 import axios from "../../axios";
 

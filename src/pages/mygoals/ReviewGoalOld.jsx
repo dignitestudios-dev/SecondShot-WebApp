@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { PiPencilLine } from "react-icons/pi";
 import { useLocation, useNavigate } from "react-router-dom";
 import GoalCompletedModal from "../../components/mygoals/GoalCompletedModal";
 import SupportPerson from "../../components/mygoals/SupportPerson";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
-import GoalCreatedModal from "../../components/mygoals/GoalCreatedModal";
 import AddSupportGoalModal from "../../components/mygoals/AddSupportGoalModal";
 import axios from "../../axios";
 import {

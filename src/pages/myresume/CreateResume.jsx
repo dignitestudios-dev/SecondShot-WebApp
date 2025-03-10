@@ -7,12 +7,10 @@ import Education from "../../components/myresume/Education";
 import Licenses from "../../components/myresume/Licenses";
 import Skills from "../../components/myresume/Skills";
 import Volunteer from "../../components/myresume/Volunteer";
-import Backbutton from "../../components/Global/Backbutton";
 import Honors from "../../components/myresume/Honors";
 import PreviewResume from "../../components/myresume/PreviewResume";
 import SuccessResumeModal from "../../components/myresume/SuccessResumeModal";
 import ResumeDownloadModal from "../../components/myresume/ResumeDownloadModal";
-import AddSupportModal from "../../components/myresume/AddSupportModal";
 import ResumeDeleteModal from "../../components/myresume/DeleteResumeModal";
 import {
   step1,

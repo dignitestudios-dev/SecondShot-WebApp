@@ -1,15 +1,11 @@
 import React from "react";
-
 import { FaYoutube } from "react-icons/fa";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
-import { Profileimage } from "../../assets/export";
 
 function SuccessProDetail() {
   const location = useLocation();
   const succesname = location.state.item;
-
-  const navigate = useNavigate();
 
   return (
     <div className="">

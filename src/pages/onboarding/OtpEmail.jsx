@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { BgAuth, OtpScreen } from "../../assets/export";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import { useNavigate } from "react-router-dom";

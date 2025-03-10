@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { BgAuth, Cameraicon, logo } from "../../assets/export";
+import { Cameraicon, logo } from "../../assets/export";
 import AuthInput from "../../components/onboarding/AuthInput";
 import PhoneInputs from "../../components/onboarding/PhoneInputs";
 import SelectInput from "../../components/onboarding/SelectInput";
-import GrayBtn from "../../components/onboarding/grayBtn";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import axios from "../../axios";
 import {
@@ -12,9 +11,7 @@ import {
   SuccessToast,
 } from "../../components/toaster/ToasterContainer";
 import { useFormik } from "formik";
-import { EditProfileSchema, profileSchema } from "../../Schema/profileSchema";
-import { profileValues } from "../../data/authentication";
-import { ModalContext } from "../../context/GlobalContext";
+import { EditProfileSchema } from "../../Schema/profileSchema";
 import { AuthContext } from "../../context/AuthContext";
 import { data } from "../../components/dataStateCity/data";
 import { phoneFormater } from "../lib/helper";

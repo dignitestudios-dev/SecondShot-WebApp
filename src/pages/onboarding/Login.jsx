@@ -1,13 +1,5 @@
 import React, { useContext, useState } from "react";
-import {
-  AppleIcon,
-  BgAuth,
-  FacebookIcon,
-  GoogleIcon,
-  logo,
-  logonew,
-  ORimg,
-} from "../../assets/export";
+import { BgAuth, logonew, ORimg } from "../../assets/export";
 import AuthInput from "../../components/onboarding/AuthInput";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import ToolboxSection from "../../components/ToolboxSection/ToolboxSection ";
