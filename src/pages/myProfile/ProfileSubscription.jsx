@@ -131,10 +131,11 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
                       </li>
                     ))}
                   </ul>
+                  {myplane?.platform === 'stripe' ? (
                   <div className="flex justify-center mt-5">
                     <button
                       className="bg-red-500 p-2 w-[180px] text-center rounded-md text-white font-[600] flex justify-center items-center"
-                      onClick={handleDelete} // Move onClick to the button
+                      onClick={handleDelete} 
                     >
                       {loader ? (
                         <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white"></div>
@@ -143,6 +144,10 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
                       )}
                     </button>
                   </div>
+
+                  ):(
+                    <div></div>
+                  )}
                 </div>
               </div>
             )

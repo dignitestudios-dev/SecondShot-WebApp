@@ -6,7 +6,6 @@ import axios from "../../axios";
 import { SuccessToast } from "../toaster/ToasterContainer";
 const CareerCards = ({ carrerData, loading, getallcarrerrecommendation }) => {
   const navigate = useNavigate();
-  const [liked, setliked] = useState({});
   const [loader, setloader] = useState({});
   const handleCareerLike = async (recommendationId, careerIds) => {
     setloader((prevState) => ({
