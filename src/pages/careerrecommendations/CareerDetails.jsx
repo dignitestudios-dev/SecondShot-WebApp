@@ -12,8 +12,6 @@ function CareerDetails() {
   const [singlecareerload, setsinglecareerload] = useState(false);
   const [careerFiltered, setcareerFiltered] = useState([]);
 
-  console.log("carrerDetail--> ", carrerDetail);
-
   const [careerdate, setcareerdate] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();

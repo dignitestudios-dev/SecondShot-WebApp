@@ -2,7 +2,6 @@ import React from "react";
 import moment from "moment";
 
 const ResumePage = ({ formData }) => {
-  console.log(formData, "formDatasssssssssss");
   const formatDate = (dateString) => {
     return dateString ? moment(dateString).format("DD-MM-YYYY") : "";
   };

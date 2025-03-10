@@ -40,7 +40,6 @@ const Skills = ({
   });
 
   const [skills, setSkills] = useState([]);
-  console.log(skills, "Skills");
 
   const [library, setLibrary] = useState([]);
   const [likedItems, setLikedItems] = useState({});
@@ -88,7 +87,6 @@ const Skills = ({
 
   useEffect(() => {
     if (Array.isArray(values.technicalSkills)) {
-     
       setSkills(values.technicalSkills);
     }
   }, [values]);

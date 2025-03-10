@@ -12,12 +12,12 @@ const AssessmentTwentyFour = ({
   setFormData,
   carrerQuestion,
   loader,
-  loading
+  loading,
 }) => {
   const validationSchema = Yup.object({
     creative: Yup.string().required("A rating is required to proceed."),
   });
-  console.log(formData, "formDataCarrer");
+
   const handleCreative = (value, setFieldValue, setFieldTouched) => {
     setFieldTouched("creative", true);
     setFieldValue("creative", value);
@@ -57,7 +57,7 @@ const AssessmentTwentyFour = ({
             </div>
             <div className="flex justify-center pt-4">
               <div className="w-[60%]">
-                <AuthSubmitBtn text={"Next"} type={"submit" }  loading={loader} />
+                <AuthSubmitBtn text={"Next"} type={"submit"} loading={loader} />
               </div>
             </div>
             <div

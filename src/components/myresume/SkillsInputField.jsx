@@ -11,7 +11,6 @@ const SkillsInputField = ({
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedSkills, setSelectedSkills] = useState([]);
   useEffect(() => {
-    console.log(transferableSkills, "sss");
     if (transferableSkills?.length > 0) {
       setSelectedSkills(transferableSkills);
     }

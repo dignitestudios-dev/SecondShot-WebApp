@@ -31,7 +31,7 @@ const PreviewResume = ({
 }) => {
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
-  console.log(formData, "formData");
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -158,7 +158,7 @@ const PreviewResume = ({
 
   const handleSubmitData = async () => {
     const transformedData = transformFormData(formData);
-    console.log(transformedData, "transformedData==>in payload");
+
     setLoading(true);
     try {
       const response = await axios.post(

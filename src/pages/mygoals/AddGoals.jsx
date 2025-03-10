@@ -20,12 +20,6 @@ const AddGoals = () => {
     setShowModal(!showModal);
   };
 
-  // console.log(modalopen, "modalopen");
-
-  // useEffect(() => {
-  //   setSmartModal(modalopen);
-  // }, [modalopen]);
-
   return (
     <div className="max-w-screen-xl min-h-screen mx-auto p-8">
       <Backbutton />

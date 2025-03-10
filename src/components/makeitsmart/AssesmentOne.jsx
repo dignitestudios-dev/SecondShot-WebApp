@@ -5,17 +5,24 @@ import { Stars } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import Backbutton from "../Global/Backbutton";
 
-const AssessmentOne = ({ nextStep, formData, setFormData,showModal,inputData }) => {
+const AssessmentOne = ({
+  nextStep,
+  formData,
+  setFormData,
+  showModal,
+  inputData,
+}) => {
   const validationSchema = Yup?.object({
-    specific: Yup?.string().required("Please respond before moving forward to proceed with the next step."),
+    specific: Yup?.string().required(
+      "Please respond before moving forward to proceed with the next step."
+    ),
   });
-  console.log(inputData,"inputData")
 
   return (
     <div>
       <Formik
         initialValues={{
-          specific:inputData.main_goal_name ||  formData.specific || "", 
+          specific: inputData.main_goal_name || formData.specific || "",
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
@@ -64,7 +71,7 @@ const AssessmentOne = ({ nextStep, formData, setFormData,showModal,inputData }) 
                    bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                      errors.specific && touched.specific ? "border-red-500" : ""
                    }`}
-                   maxLength="250" 
+                maxLength="250"
               />
               <ErrorMessage
                 name="specific"
@@ -78,7 +85,7 @@ const AssessmentOne = ({ nextStep, formData, setFormData,showModal,inputData }) 
               </div>
             </div>
             <div className="flex justify-center mt-4">
-              <Backbutton  />
+              <Backbutton />
             </div>
           </Form>
         )}

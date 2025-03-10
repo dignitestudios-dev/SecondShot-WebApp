@@ -22,7 +22,7 @@ const Skills = ({
     errors,
     touched,
     setFieldValue,
-    setValues
+    setValues,
   } = useFormik({
     initialValues: formData.skillsValues,
     // validationSchema: skillsSchema,
@@ -39,7 +39,6 @@ const Skills = ({
       nextStep();
     },
   });
-  console.log(values.softskills, "values.softskills");
 
   const [skills, setSkills] = useState(
     Array.isArray(values.technicalSkills) ? values.technicalSkills : []
@@ -47,7 +46,6 @@ const Skills = ({
 
   const updateData = async (data) => {
     if (data) {
-      console.log(data, "data");
       setFieldValue("softskills", data?.softskills || []);
       setFieldValue("technicalSkills", data?.technicalSkills || []);
     }
@@ -192,7 +190,7 @@ const Skills = ({
             <button
               type="button"
               onClick={() => {
-               setValues({
+                setValues({
                   technicalSkills: [],
                   softskills: [],
                 });

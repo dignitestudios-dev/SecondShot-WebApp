@@ -9,7 +9,7 @@ import { phoneFormater } from "../../pages/lib/helper";
 
 const Information = ({ nextStep, setFormData, formData }) => {
   const navigate = useNavigate();
-  console.log(formData, "formData");
+
   const {
     values,
     handleBlur,
@@ -149,7 +149,6 @@ const Information = ({ nextStep, setFormData, formData }) => {
             onChange={handleChange}
             placeholder={"Enter Your Website"}
             maxLength={30}
-            
           />
         </div>
         <div className="flex items-center mb-3 gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">

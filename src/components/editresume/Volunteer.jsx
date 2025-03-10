@@ -47,12 +47,6 @@ const Volunteer = ({
       });
     }
   };
-  console.log(
-    "formData.volunteerValues==> ",
-    formData.volunteerValues,
-    "formData.volunteerValues-->",
-    formData?.volunteerList
-  );
 
   useEffect(() => {
     if (formData?.volunteerList.length > 0) {

@@ -131,7 +131,6 @@ const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
           }
 
           if (formData?.rankOptions) {
-            console.log("formData?.rankOptions are--> ", formData?.rankOptions);
             setSelectedTags(formData?.rankOptions);
             setTags([formData?.rankOptions]);
           }

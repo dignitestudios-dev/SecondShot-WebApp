@@ -155,7 +155,7 @@ const AddSupportModal = ({
 
     allFields.forEach((field) => {
       const errorMessage = validateField(field, inputData[field]);
-      console.log("errorMessage--> ", errorMessage);
+
       if (errorMessage) {
         newErrors[field] = errorMessage;
       }

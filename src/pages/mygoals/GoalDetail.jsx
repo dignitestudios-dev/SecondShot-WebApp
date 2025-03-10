@@ -70,7 +70,6 @@ const GoalDetail = () => {
       });
 
       if (response.status === 200) {
-        console.log(response?.data);
         SuccessToast(response?.data?.message);
         setGoalDetailModal(true);
         setIsCompleted(true);

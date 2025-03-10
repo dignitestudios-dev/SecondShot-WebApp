@@ -6,7 +6,13 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { honorsSchema } from "../../Schema/resumeSchema";
 import axios from "../../axios";
-const Honors = ({ nextStep, setFormData, formData, prevStep, setIsSkipped }) => {
+const Honors = ({
+  nextStep,
+  setFormData,
+  formData,
+  prevStep,
+  setIsSkipped,
+}) => {
   const formik = useFormik({
     initialValues: { honorsList: formData.honorsList },
     validationSchema: honorsSchema,
@@ -41,24 +47,24 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, setIsSkipped }) => 
       });
     }
   };
-console.log(formData?.honorsList,"formData?.honorsList")
-useEffect(() => {
-  if (formData?.honorsList.length > 0) {
-    updateData(formData?.honorsList);
-  } else {
-    formik.setValues({
-      honorsList: [
-        {
-          awardName: "",
-          awardingOrganization: "",
-          receivedmonth: "",
-          receivedyear: "",
-          description: "",
-        },
-      ],
-    });
-  }
-}, [formData?.honorsList]);
+
+  useEffect(() => {
+    if (formData?.honorsList.length > 0) {
+      updateData(formData?.honorsList);
+    } else {
+      formik.setValues({
+        honorsList: [
+          {
+            awardName: "",
+            awardingOrganization: "",
+            receivedmonth: "",
+            receivedyear: "",
+            description: "",
+          },
+        ],
+      });
+    }
+  }, [formData?.honorsList]);
 
   const getYearsArray = () => {
     const startYear = 1990;
@@ -243,7 +249,7 @@ useEffect(() => {
               </>
             )}
           />
-          
+
           <button
             type="button"
             onClick={() => {

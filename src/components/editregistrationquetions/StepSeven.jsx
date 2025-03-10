@@ -12,8 +12,6 @@ const StepSeven = ({
   setFormData,
   stepsixvalue,
 }) => {
-  console.log(formData, "stepsixvalue");
-
   const [tagsError, setTagsError] = useState(false);
 
   const [tags, setTags] = useState([]);

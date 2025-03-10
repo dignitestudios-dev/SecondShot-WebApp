@@ -15,8 +15,6 @@ const Experience = ({
 }) => {
   const [customErrors, setCustomErrors] = useState({});
 
-  console.log(formData, "formDataExpreince");
-
   const validate = (values) => {
     const errors = {};
     values.experienceList.forEach((experience, index) => {
@@ -70,7 +68,6 @@ const Experience = ({
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: (values) => {
-      console.log(values, "values");
       setFormData({ ...formData, experienceList: values?.experienceList });
       setCustomErrors({});
 

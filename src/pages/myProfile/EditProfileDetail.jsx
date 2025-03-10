@@ -83,7 +83,7 @@ const EditProfileDetails = () => {
       }
     },
   });
-  console.log(profileData?.state, "profileData?.state");
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {

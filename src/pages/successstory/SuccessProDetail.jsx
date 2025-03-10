@@ -9,7 +9,6 @@ function SuccessProDetail() {
   const location = useLocation();
   const succesname = location.state.item;
 
-  console.log(succesname, "succesname");
   const navigate = useNavigate();
 
   return (

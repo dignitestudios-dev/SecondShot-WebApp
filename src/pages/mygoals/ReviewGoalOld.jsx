@@ -104,7 +104,7 @@ function ReviewYourGoalOld() {
 
         const goalid = response?.data?.data?._id;
 
-        console.log("Goal ID:", goalid);
+        
         if (goalid) {
           navigate(`/goal-detail/${goalid}`);
         } else {

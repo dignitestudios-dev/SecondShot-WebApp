@@ -139,7 +139,7 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
             const filteredposition = sportsPosition?.filter(
               (item) => item?.sportId === formData?.athleteOption
             );
-            console.log(filteredposition, "filteredposition");
+
             setSelectedTags({
               label: formData?.sportsOption?.label,
               value: formData?.sportsOption?.value,

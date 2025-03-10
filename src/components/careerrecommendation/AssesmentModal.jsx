@@ -13,7 +13,7 @@ const AssessmentModal = ({
   const handleNavigation = () => {
     navigate(`/careerdetails/${carrerId}`);
   };
-  console.log(carrerId, "carrerId");
+
   return (
     showModal && (
       <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-50 backdrop-blur-sm">
@@ -55,7 +55,6 @@ const AssessmentModal = ({
               <button
                 onClick={handleNavigation}
                 className=" bg-gradient-to-r  from-[#061523] to-[#012C57] text-white px-4 py-2 rounded-lg w-full hover:bg-[#012C57] disabled:cursor-not-allowed"
-              
               >
                 Explore Career Recommendations
               </button>

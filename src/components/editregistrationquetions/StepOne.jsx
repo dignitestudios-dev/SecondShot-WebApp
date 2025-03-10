@@ -7,7 +7,6 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import RecommendationDropdown from "../careerrecommendation/RecommendationDropdown";
 
 const StepOne = ({ nextStep, formData, setFormData }) => {
-  console.log(formData, "formData");
   const [tagsError, setTagsError] = useState(false);
   const [tags, setTags] = useState([]);
 

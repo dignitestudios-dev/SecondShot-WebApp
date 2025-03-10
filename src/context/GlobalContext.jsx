@@ -88,7 +88,6 @@ export const ModalProvider = ({ children }) => {
 
   onMessageListener()
     .then((payload) => {
-      console.log(payload, "payload");
       NotificationToast({
         title: payload.notification.title,
         message: payload.notification.body,

@@ -68,7 +68,6 @@ function CareerFavDetail() {
       setsinglecareerload(false);
     }
   };
-  console.log(careerFiltered, "careerFilteredcareerFiltered");
 
   return (
     <div className="">
