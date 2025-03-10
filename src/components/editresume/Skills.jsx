@@ -111,6 +111,7 @@ const Skills = ({
       setSkills(values.technicalSkills);
     }
   }, [values.softskills]);
+  
 
   return (
     <div className="pt-6 px-3">

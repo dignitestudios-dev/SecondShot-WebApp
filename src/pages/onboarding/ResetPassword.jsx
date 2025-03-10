@@ -103,6 +103,8 @@ const ResetPassword = () => {
                   name="password"
                   type="password"
                   placeholder="New Password"
+                maxLength={50}
+
                 />
                 {errors.password && touched.password ? (
                   <span className="text-red-700 text-sm font-medium">
@@ -117,6 +119,8 @@ const ResetPassword = () => {
                   name="Cpassword"
                   type="password"
                   placeholder="Confirm New Password"
+                maxLength={50}
+
                 />
                 {errors.Cpassword && touched.Cpassword ? (
                   <span className="text-red-700 text-sm font-medium">

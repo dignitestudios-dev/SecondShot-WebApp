@@ -8,19 +8,19 @@ export const informationSchema = Yup.object({
  email: Yup.string()
     .test(
       "email-at-symbol",
-      "Email address must contain '@' symbol.",
+      "Email address must contain '@' symbol",
       (value) => {
         return value && value.includes("@");
       }
     )
     .test(
       "email-single-at",
-      "Email address must contain only one '@' symbol.",
+      "Email address must contain only one '@' symbol",
       (value) => {
         return value && value.indexOf("@") === value.lastIndexOf("@");
       }
     )
-    .email("Email must be valid.")
+    .email("Email must be valid")
     .required("Please enter your email"),
   phoneNumber: Yup.string()
     .matches(/^[0-9]{10}$/, "Phone number must be exactly 10 digits.")

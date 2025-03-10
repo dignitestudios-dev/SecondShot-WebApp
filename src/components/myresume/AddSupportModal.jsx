@@ -273,6 +273,8 @@ const AddSupportModal = ({
                   text={"Email Address"}
                   placeholder={"Enter Email"}
                   isDisabled={disableFullname1}
+                  maxLength={254}
+
                 />
                 {errors.email && (
                   <p className="text-red-500 text-sm mx-2">{errors.email}</p>
@@ -328,6 +330,7 @@ const AddSupportModal = ({
                   text={"Email Address"}
                   placeholder={"Enter Email"}
                   isDisabled={disableFullname2}
+                  maxLength={254}
                 />
                 {errors.email_2 && (
                   <p className="text-red-500 text-sm mx-2">{errors.email_2}</p>

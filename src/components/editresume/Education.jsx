@@ -59,6 +59,40 @@ const Education = ({
     }
   }, [formData?.educationList]);
 
+
+
+  const handleEducationChange = (e, index) => {
+    let input = e.target.value;
+  
+    input = input
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  
+    formik.setFieldValue(`educationList[${index}].education`, input);
+  };
+  const handleDegreeChange = (e, index) => {
+    let input = e.target.value;
+  
+    input = input
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  
+    formik.setFieldValue(`educationList[${index}].degree`, input);
+  };
+  
+  const handleStudyChange = (e, index) => {
+    let input = e.target.value;
+  
+    input = input
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  
+    formik.setFieldValue(`educationList[${index}].fieldofStudy`, input);
+  };
+
   return (
     <div className="pt-6 px-3">
       <div>
@@ -90,7 +124,8 @@ const Education = ({
                         id={`educationList[${index}].education`}
                         name={`educationList[${index}].education`}
                         value={values.educationList[index].education}
-                        onChange={handleChange}
+                        onChange={(e) => handleEducationChange(e, index)}
+
                         onBlur={handleBlur}
                         placeholder="Enter Educational Institution"
                         maxLength={30}
@@ -108,7 +143,8 @@ const Education = ({
                         id={`educationList[${index}].degree`}
                         name={`educationList[${index}].degree`}
                         value={values.educationList[index].degree}
-                        onChange={handleChange}
+                        onChange={(e) => handleDegreeChange(e, index)}
+
                         onBlur={handleBlur}
                         placeholder="Enter your degree"
                         maxLength={30}
@@ -127,7 +163,8 @@ const Education = ({
                         id={`educationList[${index}].fieldofStudy`}
                         name={`educationList[${index}].fieldofStudy`}
                         value={values.educationList[index].fieldofStudy}
-                        onChange={handleChange}
+                        onChange={(e) => handleStudyChange(e, index)}
+
                         onBlur={handleBlur}
                         placeholder="Enter your Field of Study"
                         maxLength={30}

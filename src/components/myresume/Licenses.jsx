@@ -33,7 +33,27 @@ const Licenses = ({
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     formik;
  
-
+    const handlecertificationChange = (e, index) => {
+      let input = e.target.value;
+    
+      input = input
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+    
+      formik.setFieldValue(`certificationsList[${index}].certificationsname`, input);
+    };
+    const handleOrganizationChange = (e, index) => {
+      let input = e.target.value;
+    
+      input = input
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+    
+      formik.setFieldValue(`certificationsList[${index}].issuingOrganization`, input);
+    };
+  
   return (
     <div className="pt-6 px-3">
       <div>
@@ -72,7 +92,8 @@ const Licenses = ({
                           values.certificationsList[index].certificationsname
                         }
                         placeholder={"Enter Certification Name"}
-                        onChange={handleChange}
+                        onChange={(e) => handlecertificationChange(e, index)}
+
                         onBlur={handleBlur}
                         maxLength={30}
                       />
@@ -94,7 +115,8 @@ const Licenses = ({
                         value={
                           values.certificationsList[index].issuingOrganization
                         }
-                        onChange={handleChange}
+                        onChange={(e) => handleOrganizationChange(e, index)}
+
                         onBlur={handleBlur}
                         text={"Issuing Organization"}
                         placeholder={"Enter  Issuing Organization"}

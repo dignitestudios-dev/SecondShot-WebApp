@@ -61,3 +61,6 @@ export const phoneFormater = (input) => {
   
   return cleaned; // Return cleaned number if less than 1 digit
 };
+
+
+

@@ -84,6 +84,7 @@ const ForgotPassword = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     placeholder="Email Address"
+                    maxLength={254}
                   />
                   {errors.email && touched.email ? (
                     <span className="text-red-700 text-sm font-medium">

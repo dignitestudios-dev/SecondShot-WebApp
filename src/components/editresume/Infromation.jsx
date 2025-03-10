@@ -60,7 +60,10 @@ const Information = ({ nextStep, setFormData, formData }) => {
     let input = e.target.value;
 
     input = input.replace(/\s{2,}/g, " ");
-
+    input = input
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
     const regex = /^[A-Za-z\s-"']*$/;
 
     if (input.length >= 0 && !input.startsWith(" ") && regex.test(input)) {
@@ -104,6 +107,7 @@ const Information = ({ nextStep, setFormData, formData }) => {
             onChange={handleChange}
             placeholder={"Enter Your Email"}
             text={"Email Address"}
+            maxLength={254}
           />
           {errors.email && touched.email ? (
             <span className="text-red-700 text-sm font-medium">

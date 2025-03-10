@@ -39,9 +39,11 @@ const Information = ({ nextStep, setFormData, formData }) => {
     let input = e.target.value;
 
     input = input.replace(/\s{2,}/g, " ");
-
+    input = input
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
     const regex = /^[A-Za-z\s-"']*$/;
-
     if (input.length >= 0 && !input.startsWith(" ") && regex.test(input)) {
       setFieldValue("fullname", input);
     } else {
@@ -83,7 +85,7 @@ const Information = ({ nextStep, setFormData, formData }) => {
             onChange={handleChange}
             placeholder={"Enter Your Email"}
             text={"Email Address"}
-            maxLength={30}
+            maxLength={254}
           />
           {errors.email && touched.email ? (
             <span className="text-red-700 text-sm font-medium">
@@ -126,7 +128,7 @@ const Information = ({ nextStep, setFormData, formData }) => {
             value={values.address}
             onChange={handleChange}
             placeholder={"Enter Your Website"}
-            maxLength={30}
+            maxLength={50}
           />
         </div>
         <div className="flex items-center mb-3 gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">

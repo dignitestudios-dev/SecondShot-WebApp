@@ -115,7 +115,7 @@ const Login = () => {
                 placeholder="Email"
                 onChange={handleEmailChange}
                 onBlur={handleBlur}
-                maxLength={30}
+                maxLength={254}
               />
               {errors.email && touched.email ? (
                 <span className="text-red-700 text-sm font-medium">
