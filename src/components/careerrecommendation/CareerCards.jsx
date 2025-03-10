@@ -63,7 +63,7 @@ const CareerCards = ({ carrerData, loading, getallcarrerrecommendation }) => {
                 </div>
               </div>
             ))
-        ) : carrerData?.length === 1 ? (
+        ) : carrerData?.length === 0 ? (
           <div className="flex items-center justify-center min-h-screen absolute  top-40 left-[500px]">
            <EmptyScreen  text={' No career recommendations found.'}/>
           </div>
