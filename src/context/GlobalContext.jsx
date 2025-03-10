@@ -11,7 +11,8 @@ export const ModalContext = createContext();
 export const ModalProvider = ({ children }) => {
   const [showModal, setShowModal] = useState(false);
   const [notifications, setNotifications] = useState([]);
-
+  const getToken=Cookies.get("token");
+  const [tokenAlert,setTokenAlert]=useState(false);
   const [isFirst, setIsFirst] = useState(() => {
     const savedState = localStorage.getItem("isFirst");
     return savedState
@@ -54,7 +55,7 @@ export const ModalProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    Cookies.get("token") && updateDeviceId();
+    getToken && updateDeviceId();
   }, []);
 
   const [allLoading, setAllLoading] = useState(false);
@@ -76,9 +77,9 @@ export const ModalProvider = ({ children }) => {
       setAllLoading(false);
     }
   };
-
+console.log(getToken,"fcsxxxx")
   useEffect(() => {
-    Cookies.get("token") && getnotifications();
+    getToken && getnotifications();
   }, []);
 
   useEffect(() => {

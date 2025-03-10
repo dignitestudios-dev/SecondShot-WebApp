@@ -5,10 +5,10 @@ import "./index.css";
 import { Route, Routes } from "react-router-dom";
 import { authRoutes } from "./constant/authRoutes";
 import { routes } from "./constant/routes";
-import { AuthContext } from "./context/AuthContext";
+// import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  const { token } = useContext(AuthContext);
+  // const { token } = useContext(AuthContext);
 
   return (
     <Routes>

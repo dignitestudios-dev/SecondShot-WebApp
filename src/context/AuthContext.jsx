@@ -1,13 +1,14 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "../axios";
+import { ModalContext } from "./GlobalContext";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [profilepic, setProfilepic] = useState("");
-
+  const {getnotifications}=useContext(ModalContext); 
   const [user, setUser] = useState({
     name: Cookies.get("name") || "",
     email: Cookies.get("email") || "",
@@ -27,7 +28,9 @@ const AuthProvider = ({ children }) => {
     Cookies.set("name", userData?.name);
     Cookies.set("email", userData?.email);
     Cookies.set("phone", userData?.phone);
+    
     setToken(userData?.token);
+    getnotifications();
     setRegQuestion(userData?.is_registration_question_completed);
     setSubscriptionpaid(userData?.is_subscription_paid);
     setUser({

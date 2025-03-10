@@ -61,7 +61,7 @@ const Navbar = () => {
         </div>
 
         <ul className="flex flex-col md:flex-row items-start md:items-center md:p-0 p-5 gap-5 md:gap-10 lg:text-[14px] md:text-[14px] font-[600] uppercase text-white">
-          {navItems.map((item) => (
+          {navItems?.map((item) => (
             <li key={item.path}>
               {subscriptionpaid ||
               item.path === "/transferablekills" ||
