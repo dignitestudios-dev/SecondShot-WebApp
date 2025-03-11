@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import EmptyScreen from '../../pages/mylibrary/EmptyScreen'
 
 const MatchedProfile = ({loading,matchedProfile}) => {
     const navigate= useNavigate()
@@ -22,7 +23,12 @@ const MatchedProfile = ({loading,matchedProfile}) => {
     </div>
   ) : (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-11 mt-16">
-      {matchedProfile?.map((item, index) => (
+      { matchedProfile?.length === 0 ? (
+         <div className="flex items-center justify-center min-h-screen absolute z-0 top-40 right-0 left-0 ">
+         <EmptyScreen text={"No Matched Profile Found"} />
+       </div>
+          
+        ) : (matchedProfile?.map((item, index) => (
         <div
           onClick={() => navigate("/matched-pro-detail", { state: { item } })}
           key={index}
@@ -42,7 +48,7 @@ const MatchedProfile = ({loading,matchedProfile}) => {
             {item?.profession}
           </h3>
         </div>
-      ))}
+      )))}
     </div>
   )}
 </div>

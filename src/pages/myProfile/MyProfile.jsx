@@ -250,7 +250,7 @@ function MyProfile() {
                           Phone Number
                         </p>
                         <p className="text-[#050405] text-base">
-                          {phoneFormater(profileData?.phone)}
+                        +1{phoneFormater(profileData?.phone)}
                         </p>
 
                         <p className="text-[#222222] font-medium text-base  ">

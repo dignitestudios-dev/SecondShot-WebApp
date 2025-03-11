@@ -2,7 +2,24 @@ import React from "react";
 import { PiPencilLine } from "react-icons/pi";
 
 const SupportPerson = ({ formData }) => {
-  
+  const phoneFormater = (input) => {
+    if (!input) return "";
+
+    const cleaned = input.replace(/\D/g, "");
+
+    if (cleaned.length > 3 && cleaned.length <= 6) {
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
+    } else if (cleaned.length > 6) {
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(
+        6,
+        10
+      )}`;
+    } else if (cleaned.length > 0) {
+      return `(${cleaned}`;
+    }
+
+    return cleaned;
+  };
   return (
     <div>
       {/* Check if formData for the first support person exists */}
@@ -36,7 +53,7 @@ const SupportPerson = ({ formData }) => {
                 Phone Number:
               </span>
               <span className="text-[14px] leading-[18.9px] font-[400] ">
-                {formData?.phone}
+              +1{phoneFormater(formData?.phone)}   
               </span>
             </p>
           </div>
@@ -78,7 +95,7 @@ const SupportPerson = ({ formData }) => {
                 Phone Number:
               </span>
               <span className="text-[14px] leading-[18.9px] font-[400] ">
-                {formData?.phone_2}
+              +1{phoneFormater(formData?.phone_2)}   
               </span>
             </p>
           </div>

@@ -121,9 +121,14 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                           Set a deadline for achieving your main goal!
                         </p>
                         <p className="text-[16px] mt-2 font-[400] text-[#767676] pb-1">
-                          {threeMonthsAgo
-                            ? threeMonthsAgo.toLocaleDateString()
-                            : "No date selected"}
+                        {threeMonthsAgo
+  ? threeMonthsAgo.toLocaleDateString("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+    })
+  : "No date selected"}
+
                         </p>
                       </div>
                       <div>
@@ -192,7 +197,11 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                                       </p>
                                       <p className="text-[16px] mt-2 font-[400] text-[#767676] pb-1">
                                         {subGoal.deadline
-                                          ? subGoal.deadline.toLocaleDateString()
+                                          ? subGoal.deadline.toLocaleDateString("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+    })
                                           : "No date selected"}
                                       </p>
                                     </div>

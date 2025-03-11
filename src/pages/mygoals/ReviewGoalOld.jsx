@@ -170,21 +170,21 @@ function ReviewYourGoalOld() {
                     <p>Deadline for Main goals:</p>
                     <p className="font-semibold text-blue-600 mb-4">
                       {new Date(date).toLocaleDateString("en-US", {
-                        year: "2-digit",
-                        month: "2-digit",
+                        year: "numeric",
+                        month: "short",
                         day: "2-digit",
                       })}
                       {"-"}
                       {threeMonthsAgo
                         ? threeMonthsAgo.toLocaleDateString("en-US", {
-                            year: "2-digit",
-                            month: "2-digit",
+                            year: "numeric",
+                            month: "short",
                             day: "2-digit",
                           })
                         : goaldata?.startDate
                         ? goaldata?.startDate.toLocaleDateString("en-US", {
-                            year: "2-digit",
-                            month: "2-digit",
+                            year: "numeric",
+                            month: "short",
                             day: "2-digit",
                           })
                         : "No date selected"}
@@ -217,15 +217,15 @@ function ReviewYourGoalOld() {
                               <p>Deadline for Sub-goals:</p>{" "}
                               <p className="font-semibold mx-3 text-blue-600 mb-4">
                                 {new Date(date).toLocaleDateString("en-US", {
-                                  year: "2-digit",
-                                  month: "2-digit",
+                                  year: "numeric",
+                                  month: "short",
                                   day: "2-digit",
                                 })}
                                 {"-"}
                                 {item?.deadline
                                   ? item.deadline.toLocaleDateString("en-US", {
-                                      year: "2-digit",
-                                      month: "2-digit",
+                                      year: "numeric",
+                                      month: "short",
                                       day: "2-digit",
                                     })
                                   : "No date selected"}

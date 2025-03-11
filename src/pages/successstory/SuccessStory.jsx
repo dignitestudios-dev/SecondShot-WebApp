@@ -11,8 +11,9 @@ function SuccessStory() {
   const navigate = useNavigate();
   const { isFirst, setIsFirst } = useContext(ModalContext);
 
- 
-
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredMatchedPro, setfilteredMatchedPro] = useState([]);
+  const [filteredAllPro, setfilteredAllPro] = useState([]);
   const [selected, setSelected] = useState(1);
   const [loading, setLoading] = useState(false);
   const [stories, setStories] = useState([]);
@@ -54,10 +55,27 @@ function SuccessStory() {
       setLoading(false);
     }
   };
-console.log(matchedProfile,"matchedProfile==>")
+
   useEffect(() => {
     getmatchedProfile();
   }, []);
+  const handleChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+  useEffect(() => {
+    let filtered = matchedProfile;
+  
+    if (searchQuery) {
+      filtered = matchedProfile.filter((item) =>
+        item?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+  
+    setfilteredMatchedPro(filtered);
+  }, [searchQuery, matchedProfile]);
+
+ 
+  
   return (
     <div className="">
       <WelcomeStoryModal
@@ -76,7 +94,14 @@ console.log(matchedProfile,"matchedProfile==>")
         </h1>
 
         <div className="relative flex items-center w-auto gap-3">
+        {selected === 1 && (  
+
+          <SearchInput placeholder="Search" onChange={(e)=>handleChange(e)} />
+         )}
+        {selected === 2 && (  
+
           <SearchInput placeholder="Search" />
+         )}
           <div className="flex items-center  h-[48px]   rounded-lg border border-[#012C57] px-0.5">
             <button
               onClick={() => handleToggle(1)}
@@ -103,7 +128,7 @@ console.log(matchedProfile,"matchedProfile==>")
       </div>
       {selected === 1 && (
     <>
-      <MatchedProfile loading={loading} matchedProfile={matchedProfile}  />
+      <MatchedProfile loading={loading} matchedProfile={filteredMatchedPro}  />
 
 </>
       )}

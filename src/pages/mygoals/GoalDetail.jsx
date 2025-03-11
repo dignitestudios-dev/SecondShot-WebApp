@@ -11,6 +11,7 @@ import {
 } from "../../components/toaster/ToasterContainer";
 import AddSupportGoalModal from "../../components/mygoals/AddSupportGoalModal";
 import { IoIosArrowBack } from "react-icons/io";
+import { phoneFormater } from "../lib/helper";
 const GoalDetail = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [goalDetailModal, setGoalDetailModal] = useState(false);
@@ -405,7 +406,7 @@ checked:before:justify-center checked:before:items-center"
                     </p>
                     <p className="text-sm grid grid-cols-1">
                       <strong>Phone Number:</strong>
-                      <span> {support?.phone_number}</span>
+                      <span> +1{phoneFormater(support?.phone_number)}</span>
                     </p>
                   </div>
                 </div>
