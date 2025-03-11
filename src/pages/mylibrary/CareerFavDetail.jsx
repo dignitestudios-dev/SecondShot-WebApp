@@ -271,7 +271,7 @@ function CareerFavDetail() {
             <h3 className="text-[18px] font-medium text-[#011225] mt-2">
               Explore More
             </h3>
-            <p className="text-[#0E73D0] underline">www.healthscience.com</p>
+            <a href={`${careerFiltered[0]?.career_link}`} target="_blank" className="text-[#0E73D0] underline">{careerFiltered[0]?.career_link}</a>
           </div>
         </div>
       </div>

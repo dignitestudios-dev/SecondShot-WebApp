@@ -45,7 +45,7 @@ const ResumeFile = ({
 
   return (
     <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {loading ? (
           <>
             {[1, 2, 3, 4]?.map((item) => (
@@ -62,7 +62,7 @@ const ResumeFile = ({
             return (
               <div
                 key={index}
-                className="bg-[#E8F5EA] w-full rounded-2xl p-4 shadow-lg relative"
+                className="bg-[#E8F5EA]  w-full rounded-2xl p-4 shadow-lg relative"
               >
                 <div className="absolute top-4 right-4">
                   <FaEllipsisVertical
@@ -105,12 +105,12 @@ const ResumeFile = ({
                 </h2>
 
                 <div
-                  className="imageBox w-full cursor-pointer"
+                  className="imageBox w-full  cursor-pointer"
                   onClick={() =>
                     navigate(`/view-resume`, { state: resumeData })
                   }
                 >
-                  <div className="imageInn w-full">
+                  <div className="imageInn  w-full">
                     <AllResume resume={resumeData} />
                   </div>
                 </div>

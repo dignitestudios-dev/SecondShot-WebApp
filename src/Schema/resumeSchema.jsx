@@ -39,13 +39,13 @@ export const educationSchema = Yup.object().shape({
       Yup.object().shape({
         education: Yup.string()
           .required("Please enter your educational institution")
-          .max(30, "Educational institution cannot exceed 30 characters"),
+          .max(50, "Educational institution cannot exceed 50 characters"),
         degree: Yup.string()
           .required("Please enter your degree")
-          .max(30, "Degree cannot exceed 30 characters"),
+          .max(50, "Degree cannot exceed 50 characters"),
         fieldofStudy: Yup.string()
           .required("Please enter your field of study")
-          .max(30, "Field of study cannot exceed 30 characters"),
+          .max(50, "Field of study cannot exceed 50 characters"),
         startYear: Yup.string().required("Please select a start year"),
         endYear: Yup.string().required("Please select an end year"),
       })
@@ -60,10 +60,10 @@ export const experienceSchema = Yup.object().shape({
       Yup.object().shape({
         jobTitle: Yup.string()
           .required("Please enter your jobtitle institution")
-          .max(30, "Jobtitle  cannot exceed 30 characters"),
+          .max(50, "Jobtitle  cannot exceed 50 characters"),
         company: Yup.string()
           .required("Please enter your degree")
-          .max(30, "degree  cannot exceed 30 characters"),
+          .max(50, "degree  cannot exceed 50 characters"),
         startmonth: Yup.string().required("Please select a start month"),
         startyear: Yup.string().required("Please select a start year"),
         endmonth: Yup.string(),
@@ -87,7 +87,7 @@ export const certificationSchema = Yup.object().shape({
         issuingOrganization: Yup.string().required(
           "Please enter your Issuing Organization"
         ),
-        credentialId: Yup.string().required("Please enter your credential Id"),
+        // credentialId: Yup.string().required("Please enter your credential Id"),
         Issuemonth: Yup.string().required("Please select a Issue month"),
         Issueyear: Yup.string().required("Please select a Issue year"),
       })

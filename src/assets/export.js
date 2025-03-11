@@ -98,6 +98,7 @@ import commingsoon2 from "../assets/commingsoon2.png";
 import commingsoon3 from "../assets/commingsoon3.png";
 import chaticon from "../assets/chat.png";
 import sendicon from "../assets/sendicon.png";
+import bell_icon from "../assets/notification_bell_icon.png";
 export {
   logo,
   Carriericon1,
@@ -199,4 +200,5 @@ export {
   commingsoon3,
   chaticon,
   sendicon,
+  bell_icon,
 };

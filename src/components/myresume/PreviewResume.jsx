@@ -104,7 +104,7 @@ const PreviewResume = ({
           : formData.certificationsList.map((cert) => ({
               certification_name: cert.certificationsname,
               issuing_organization: cert.issuingOrganization,
-              credential_id: cert.credentialId,
+              credential_id: null,
               issue_date: `${cert.Issueyear}-${convertMonthToNumber(
                 cert.Issuemonth
               )}`,
@@ -150,7 +150,7 @@ const PreviewResume = ({
               date_Received: `${honor?.receivedyear}-${convertMonthToNumber(
                 honor?.receivedmonth
               )}`,
-              description: honor?.description || null,
+              description: null,
             })),
     };
   };

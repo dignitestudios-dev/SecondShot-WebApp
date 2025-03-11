@@ -124,6 +124,27 @@ const Experience = ({
       });
     }
   }, [formData.experienceList]);
+
+  const handleJobTitle = (e, index) => {
+    let input = e.target.value;
+  
+    input = input
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  
+    formik.setFieldValue(`experienceList[${index}].jobTitle`, input);
+  };
+  const handlecompany = (e, index) => {
+    let input = e.target.value;
+  
+    input = input
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  
+    formik.setFieldValue(`experienceList[${index}].company`, input);
+  };
   return (
     <div className="pt-6 px-3">
       <div>
@@ -140,6 +161,32 @@ const Experience = ({
             render={(arrayHelpers) => (
               <>
                 {values?.experienceList?.map((_, index) => {
+                  const months = [
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                  ];
+                  
+                  const getFilteredMonths = (startMonth, startYear, selectedYear, currentYear) => {
+                    const startMonthIndex = months.indexOf(startMonth);
+                    const currentMonthIndex = new Date().getMonth();
+                  
+                    if (selectedYear > currentYear) {
+                      return months; 
+                    } else if (selectedYear === currentYear) {
+                      return months.slice(currentMonthIndex + 1); 
+                    } else if (selectedYear === startYear) {
+                      return months.slice(startMonthIndex); 
+                    }
+                  
+                    return months; 
+                  };
+                  
+                  const filteredMonths = getFilteredMonths(
+                    values.experienceList[index].startmonth,
+                    values.experienceList[index].startyear,
+                    values.experienceList[index].endyear,
+                    new Date().getFullYear()
+                  );
                   return (
                     <div key={index} className="">
                       <div className="flex justify-between items-center mb-4">
@@ -158,11 +205,11 @@ const Experience = ({
                           name={`experienceList[${index}].jobTitle`}
                           id={`experienceList[${index}].jobTitle`}
                           value={values.experienceList[index].jobTitle}
-                          onChange={handleChange}
+                           onChange={(e) => handleJobTitle(e, index)}
                           onBlur={handleBlur}
                           placeholder={"Enter Job Title"}
                           text={"Job Title"}
-                          maxLength={30}
+                          maxLength={50}
                         />
                         {errors.experienceList?.[index]?.jobTitle &&
                           touched.experienceList?.[index]?.jobTitle && (
@@ -176,11 +223,11 @@ const Experience = ({
                           name={`experienceList[${index}].company`}
                           id={`experienceList[${index}].company`}
                           value={values.experienceList[index].company}
-                          onChange={handleChange}
+                          onChange={(e)=>handlecompany(e, index)}
                           onBlur={handleBlur}
                           placeholder={"Enter Company Name"}
                           text={"Company"}
-                          maxLength={30}
+                          maxLength={50}
                         />
                         {errors.experienceList?.[index]?.company &&
                           touched.experienceList?.[index]?.company && (
@@ -204,6 +251,7 @@ const Experience = ({
                             onBlur={handleBlur}
                             label={"Start date"}
                             options={[
+                              { value: "", label: "Select Month" },
                               { value: "January", label: "January" },
                               { value: "February", label: "February" },
                               { value: "March", label: "March" },
@@ -314,18 +362,8 @@ const Experience = ({
                               onChange={handleChange}
                               onBlur={handleBlur}
                               options={[
-                                { value: "January", label: "January" },
-                                { value: "February", label: "February" },
-                                { value: "March", label: "March" },
-                                { value: "April", label: "April" },
-                                { value: "May", label: "May" },
-                                { value: "June", label: "June" },
-                                { value: "July", label: "July" },
-                                { value: "August", label: "August" },
-                                { value: "September", label: "September" },
-                                { value: "October", label: "October" },
-                                { value: "November", label: "November" },
-                                { value: "December", label: "December" },
+                                { value: "", label: "Select Month" },
+                                ...filteredMonths.map((month) => ({ value: month, label: month }))
                               ]}
                             />
                             {customErrors[

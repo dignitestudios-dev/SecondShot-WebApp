@@ -3,7 +3,7 @@ import { FaYoutube } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
 
-function SuccessProDetail() {
+function MatchedDetail() {
   const location = useLocation();
   const succesname = location.state.item;
 
@@ -91,4 +91,4 @@ function SuccessProDetail() {
   );
 }
 
-export default SuccessProDetail;
+export default MatchedDetail;

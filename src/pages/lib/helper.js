@@ -19,10 +19,12 @@ export const getStartYearsArray = (minYear = 1990) => {
 
   return years;
 };
+
 export function getYear(dateString) {
   const date = new Date(dateString);
   return date.getFullYear().toString();
 }
+
 export function getMonth(dateString) {
   const date = new Date(dateString);
   const months = [

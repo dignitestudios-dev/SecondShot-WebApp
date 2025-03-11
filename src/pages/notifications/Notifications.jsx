@@ -6,6 +6,7 @@ import axios from "../../axios";
 import { SuccessToast } from "../../components/toaster/ToasterContainer";
 import { FiLoader } from "react-icons/fi";
 import { ModalContext } from "../../context/GlobalContext";
+import { Alertnoti, bell_icon } from "../../assets/export";
 
 const Notifications = () => {
   const navigate = useNavigate();
@@ -125,7 +126,12 @@ const Notifications = () => {
                     notif?.notification_type === "created" ? "bg-green-100" : ""
                   } ${notif.iconColor}`}
                 >
-                  {notif.notification_type === "created" && <FaBullseye />}
+               {notif.notification_type === "created" ? (
+  <FaBullseye />
+) : notif.notification_type === "alert" ? (
+  <img src={Alertnoti} alt="Alert Notification" />
+) : <img src={bell_icon}  alt="Alert Notification"/>}
+
                 </div>
                 <div className="ml-4 flex-1">
                   <div className="flex justify-between items-start">

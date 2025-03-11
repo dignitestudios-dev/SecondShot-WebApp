@@ -37,7 +37,7 @@ const ResumePage = ({ formData }) => {
 
       {/* Education */}
       {formData?.educationList[0]?.education && (
-        <section className="mt-6">
+        <section className="mt-4">
           <h2 className="text-[22px] leading-[29.7px] font-[700] text-[#101010] uppercase">
             Education
           </h2>
@@ -60,7 +60,7 @@ const ResumePage = ({ formData }) => {
       {formData?.certificationsList[0]?.certificationsname && (
         <section className="mt-6">
           <hr className="mt-5" />
-          <h2 className="text-[22px] leading-[29.7px] text-[#101010] font-[700] uppercase">
+          <h2 className="text-[22px] mt-4 leading-[29.7px] text-[#101010] font-[700] uppercase">
             Certifications
           </h2>
           {formData?.certificationsList?.map((cert, index) => (
@@ -81,7 +81,7 @@ const ResumePage = ({ formData }) => {
           <hr className="mt-5" />
           {formData?.skillsValues?.softskills?.length > 0 ||
           formData?.skillsValues?.technicalSkills !== "" ? (
-            <h2 className="text-[22px] font-[700] uppercase ">Skills</h2>
+            <h2 className="text-[22px] font-[700] uppercase mt-4 ">Skills</h2>
           ) : null}
           {formData?.skillsValues?.softskills?.length > 0 && (
             <>
@@ -89,7 +89,7 @@ const ResumePage = ({ formData }) => {
                 <p className="text-[22px] font-[500] text-[#0F0F0F]">
                   Soft Skills
                 </p>
-                <ul className="flex list-disc gap-10 ml-6 mt-2">
+                <ul className="flex list-disc gap-10 ml-6 mt-4">
                   {formData?.skillsValues?.softskills?.map((item, index) => (
                     <li
                       key={index}
@@ -107,7 +107,7 @@ const ResumePage = ({ formData }) => {
               <p className="text-[22px] font-[500] text-[#0F0F0F]">
                 Technical Skills
               </p>
-              <ul className="flex list-disc gap-8 ml-6 mt-2">
+              <ul className="flex list-disc gap-8 ml-6 mt-4">
                 {formData?.skillsValues?.technicalSkills?.map(
                   (skill, index) => (
                     <li
@@ -127,7 +127,7 @@ const ResumePage = ({ formData }) => {
       {formData?.experienceList[0]?.company && (
         <section className="mt-6">
           <hr className="mt-5" />
-          <h2 className="text-[22px] font-[700] text-[#101010] uppercase">
+          <h2 className="text-[22px] mt-4 font-[700] text-[#101010] uppercase">
             Work Experience
           </h2>
           {formData?.experienceList?.map((exp, index) => (
@@ -140,11 +140,13 @@ const ResumePage = ({ formData }) => {
                   {exp?.startyear}- {exp?.isCurrent ? "Present" : exp?.endyear}
                 </p>
               </div>
-              <p className="font-[500] text-[#0F0F0F]  leading-[29.7px] text-[22px]">
+              <p className="font-[500] text-[#0F0F0F] mt-3  leading-[29.7px] text-[20px]">
                 {exp?.jobTitle}
               </p>
 
+              <p className="text-[#000000]  pl-1  font-[400] text-[18px]  mt-5">
               {exp?.description}
+              </p>
             </div>
           ))}
         </section>
@@ -154,19 +156,21 @@ const ResumePage = ({ formData }) => {
       {formData?.volunteerList[0]?.organizationName && (
         <section className="mt-6">
           <hr className="mt-5" />
-          <h2 className="text-[22px] font-[700] leading-[29.7px] text-[#101010] uppercase">
+          <h2 className="text-[22px] mt-4 font-[700] leading-[29.7px] text-[#101010] uppercase">
             Volunteer Service
           </h2>
           {formData?.volunteerList?.map((vol, index) => (
             <div key={index} className="mt-4">
+              <div className="flex justify-between items-center">
               <p className="font-[500] text-[#101010] text-[22px] leading-[29.7px]">
                 {vol?.organizationName}
               </p>
-              <p className="text-[15.29px] text-[#101010] mt-2">
+              <p className="font-[600] leading-[22.94px] text-[#101010] text-[22.94px]">
                 {vol?.startYear} - {vol?.endYear}
               </p>
+              </div>
               <ul className="list-outside list-disc">
-                <li className="text-gray-700 mt-2 mx-4">{vol?.description}</li>
+                <li className="text-[#000000]  pl-1 leading-[10.59px] font-[400] text-[18px]  mt-5 mx-4">{vol?.description}</li>
               </ul>
             </div>
           ))}
@@ -175,7 +179,7 @@ const ResumePage = ({ formData }) => {
       {formData?.honorsList[0]?.awardName && (
         <section className="mt-6">
           <hr className="mt-5" />
-          <h2 className="text-[22px] font-[700] leading-[29.7px] text-[#101010] uppercase">
+          <h2 className="text-[22px] mt-4 font-[700] leading-[29.7px] text-[#101010] uppercase">
             Honors
           </h2>
           {formData?.honorsList?.map((honors, index) => (

@@ -29,7 +29,26 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, setIsSkipped }) => 
     setFieldValue,
   } = formik;
 
- 
+  const handleAwardNameChange = (e, index) => {
+    let input = e.target.value;
+  
+    input = input
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  
+    formik.setFieldValue(`honorsList[${index}].awardName`, input);
+  };
+  const handleawardingChange = (e, index) => {
+    let input = e.target.value;
+  
+    input = input
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  
+    formik.setFieldValue(`honorsList[${index}].awardingOrganization`, input);
+  };
   return (
     <div className="pt-6 px-3">
       <div>
@@ -65,12 +84,12 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, setIsSkipped }) => 
                         id={`honorsList[${index}].awardName`}
                         name={`honorsList[${index}].awardName`}
                         value={values.honorsList[index].awardName}
-                        onChange={handleChange}
+                        onChange={(e) => handleAwardNameChange(e, index)}
                         onBlur={handleBlur}
                         placeholder={
                           "Enter Award Name (e.g., Employee of the Year, Academic Excellence Award)"
                         }
-                        maxLength={30}
+                        maxLength={50}
                       />
                       {errors.honorsList?.[index]?.awardName &&
                         touched.honorsList?.[index]?.awardName && (
@@ -85,10 +104,10 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, setIsSkipped }) => 
                         name={`honorsList[${index}].awardingOrganization`}
                         value={values.honorsList[index].awardingOrganization}
                         text={"Awarding Organization or Institution"}
-                        onChange={handleChange}
+                        onChange={(e) => handleawardingChange(e, index)}
                         onBlur={handleBlur}
                         placeholder={"ABC Company"}
-                        maxLength={30}
+                        maxLength={50}
 
                       />
                       {errors.honorsList?.[index]?.awardingOrganization &&
@@ -153,22 +172,6 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, setIsSkipped }) => 
                       </div>
                     </div>
 
-                    <div className="w-full flex flex-col items-start gap-1 my-8">
-                      <label className="text-sm font-medium">
-                        Description{" "}
-                        <span className="text-[#b1b1b2]">(Optional)</span>{" "}
-                      </label>
-                      <textarea
-                        rows="4"
-                        id={`honorsList[${index}].description`}
-                        name={`honorsList[${index}].description`}
-                        value={values?.honorsList[index]?.description}
-                        onChange={handleChange}
-                        className="w-full border rounded-xl px-3 py-3 text-sm bg-transparent border-gray-700 focus:ring-gray-700 focus:border-gray-700 outline-gray-700"
-                        placeholder="A brief description of the award, highlighting its significance, criteria, or relevance to your field (e.g., 'Awarded to the top 5% of students for academic excellence')."
-                        maxLength={250}
-                      />
-                    </div>
                   </div>
                 ))}
                 <div className="flex items-center gap-1 text-[12px] mb-3 mt-3 font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">

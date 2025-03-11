@@ -5,6 +5,7 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { volunteerSchema } from "../../Schema/resumeSchema";
+import { getStartYearsArray, getYearsArray } from "../../pages/lib/helper";
 
 const Volunteer = ({
   nextStep,
@@ -66,15 +67,36 @@ const Volunteer = ({
     }
   }, [formData.volunteerList]);
 
-  const getYearsArray = () => {
-    const startYear = 1990;
-    const currentYear = new Date().getFullYear();
-    const years = [];
+  // const getYearsArray = () => {
+  //   const startYear = 1990;
+  //   const currentYear = new Date().getFullYear();
+  //   const years = [];
 
-    for (let year = startYear; year <= currentYear; year++) {
-      years.push({ value: `${year}`, label: `${year}` });
-    }
-    return years;
+  //   for (let year = startYear; year <= currentYear; year++) {
+  //     years.push({ value: `${year}`, label: `${year}` });
+  //   }
+  //   return years;
+  // };
+
+  const handleOrganizationChange = (e, index) => {
+    let input = e.target.value;
+  
+    input = input
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  
+    formik.setFieldValue(`volunteerList[${index}].organizationName`, input);
+  };
+  const handleVolunteerRulesChange = (e, index) => {
+    let input = e.target.value;
+  
+    input = input
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  
+    formik.setFieldValue(`volunteerList[${index}].volunteerRules`, input);
   };
   return (
     <div className="pt-6 px-3">
@@ -111,10 +133,10 @@ const Volunteer = ({
                         value={values.volunteerList[index].organizationName}
                         id={`volunteerList[${index}].organizationName`}
                         name={`volunteerList[${index}].organizationName`}
-                        onChange={handleChange}
+                        onChange={(e) => handleOrganizationChange(e, index)}
                         onBlur={handleBlur}
                         text={"Organization Name"}
-                        maxLength={30}
+                        maxLength={50}
                       />
                       {errors.volunteerList?.[index]?.organizationName &&
                         touched.volunteerList?.[index]?.organizationName && (
@@ -128,11 +150,11 @@ const Volunteer = ({
                         value={values.volunteerList[index].volunteerRules}
                         id={`volunteerList[${index}].volunteerRules`}
                         name={`volunteerList[${index}].volunteerRules`}
-                        onChange={handleChange}
+                        onChange={(e) => handleVolunteerRulesChange(e, index)}
                         onBlur={handleBlur}
                         placeholder={"Enter Volunteer Role/Title"}
                         text={"Volunteer Role/Title"}
-                        maxLength={30}
+                        maxLength={50}
                       />
                       {errors.volunteerList?.[index]?.volunteerRules &&
                         touched.volunteerList?.[index]?.volunteerRules && (
@@ -151,7 +173,7 @@ const Volunteer = ({
                           name={`volunteerList[${index}].startYear`}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          options={getYearsArray()}
+                          options={getStartYearsArray(1990)}
                         />
                         {errors.volunteerList?.[index]?.startYear &&
                           touched.volunteerList?.[index]?.startYear && (
@@ -173,7 +195,10 @@ const Volunteer = ({
                           name={`volunteerList[${index}].endYear`}
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          options={getYearsArray()}
+                         options={getYearsArray(
+                                                    values.volunteerList[index].startYear || 1990 // Set expiration year options based on Issueyear
+                                                  )}
+                                                  disabled={!values.volunteerList[index].startYear} 
                         />
                         {errors.volunteerList?.[index]?.endYear &&
                           touched.volunteerList?.[index]?.endYear && (

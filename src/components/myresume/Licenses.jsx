@@ -70,7 +70,36 @@ const Licenses = ({
             name="certificationsList"
             render={(arrayHelpers) => (
               <>
-                {values?.certificationsList?.map((_, index) => (
+                {values?.certificationsList?.map((_, index) => {
+                  const months = [
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                  ];
+                  
+                  const getFilteredMonths = (Issuemonth, startYear, selectedYear, currentYear) => {
+                    const startMonthIndex = months.indexOf(Issuemonth);
+                    const currentMonthIndex = new Date().getMonth();
+                  
+                    if (selectedYear > currentYear) {
+                      return months; 
+                    } else if (selectedYear === currentYear) {
+                      return months.slice(currentMonthIndex + 1); 
+                    } else if (selectedYear === startYear) {
+                      return months.slice(startMonthIndex); 
+                    }
+                  
+                    return months; 
+                  };
+                  
+                  const filteredMonths = getFilteredMonths(
+                    values.certificationsList[index].Issuemonth,
+                    values.certificationsList[index].Issueyear,
+                    values.certificationsList[index].expirationyear,
+                    new Date().getFullYear()
+                  );
+                               
+                  return ( 
+
                   <div key={index} className="">
                     <div className="flex justify-between items-center mb-4">
                       {index > 0 && (
@@ -95,7 +124,7 @@ const Licenses = ({
                         onChange={(e) => handlecertificationChange(e, index)}
 
                         onBlur={handleBlur}
-                        maxLength={30}
+                        maxLength={50}
                       />
                       {errors.certificationsList?.[index]?.certificationsname &&
                         touched.certificationsList?.[index]
@@ -120,7 +149,7 @@ const Licenses = ({
                         onBlur={handleBlur}
                         text={"Issuing Organization"}
                         placeholder={"Enter  Issuing Organization"}
-                        maxLength={30}
+                        maxLength={50}
                       />
                       {errors.certificationsList?.[index]
                         ?.issuingOrganization &&
@@ -134,24 +163,7 @@ const Licenses = ({
                           </span>
                         )}
                     </div>
-                    <div className="w-full flex flex-col items-start gap-1 ">
-                      <AuthInput
-                        id={`certificationsList[${index}].credentialId`}
-                        name={`certificationsList[${index}].credentialId`}
-                        value={values.certificationsList[index].credentialId}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        text={" Credential ID"}
-                        placeholder={"Enter Credential ID"}
-                        maxLength={30}
-                      />
-                      {errors.certificationsList?.[index]?.credentialId &&
-                        touched.certificationsList?.[index]?.credentialId && (
-                          <span className="text-red-700 text-sm font-medium">
-                            {errors.certificationsList[index].credentialId}
-                          </span>
-                        )}
-                    </div>
+                   
 
                     <div className="w-full mb-5 flex items-end  mt-8 gap-4">
                       <div className="w-1/2">
@@ -221,19 +233,7 @@ const Licenses = ({
                           onChange={handleChange}
                           options={[
                             { value: "", label: "Select Month" },
-
-                            { value: "January", label: "January" },
-                            { value: "February", label: "February" },
-                            { value: "March", label: "March" },
-                            { value: "April", label: "April" },
-                            { value: "May", label: "May" },
-                            { value: "June", label: "June" },
-                            { value: "July", label: "July" },
-                            { value: "August", label: "August" },
-                            { value: "September", label: "September" },
-                            { value: "October", label: "October" },
-                            { value: "November", label: "November" },
-                            { value: "December", label: "December" },
+                            ...filteredMonths.map((month) => ({ value: month, label: month }))
                           ]}
                         />
                       </div>
@@ -254,7 +254,10 @@ const Licenses = ({
                       </div>
                     </div>
                   </div>
-                ))}
+
+                  )
+                }
+              )}
                 <div className="flex items-center gap-1 mb-3 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
                   <div>
                     <IoIosArrowBack className="font-[600]" onClick={prevStep} />

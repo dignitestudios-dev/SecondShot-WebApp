@@ -372,7 +372,7 @@ const EditResume = () => {
       licenses_and_certifications: formData.certificationsList.map((cert) => ({
         certification_name: cert.certificationsname,
         issuing_organization: cert.issuingOrganization,
-        credential_id: cert.credentialId,
+        credential_id: null,
         issue_date:
           cert.Issueyear && cert.Issuemonth
             ? `${cert.Issueyear}-${convertMonthToNumber(cert.Issuemonth)}-01` // Convert month to number for issue date
@@ -401,7 +401,7 @@ const EditResume = () => {
                     honor.receivedmonth
                   )}-01` // Convert month to number
                 : null,
-            description: honor.description || "",
+            description: null ,
           }))
         : [],
       volunteer_experience: formData.volunteerList.map((volunteer) => ({

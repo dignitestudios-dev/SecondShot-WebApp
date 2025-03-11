@@ -27,7 +27,26 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =
     handleSubmit,
     setFieldValue,
   } = formik;
-
+  const handleOrganizationChange = (e, index) => {
+    let input = e.target.value;
+  
+    input = input
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  
+    formik.setFieldValue(`volunteerList[${index}].organizationName`, input);
+  };
+  const handleVolunteerRulesChange = (e, index) => {
+    let input = e.target.value;
+  
+    input = input
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  
+    formik.setFieldValue(`volunteerList[${index}].volunteerRules`, input);
+  };
   return (
     <div className="pt-6 px-3">
       <div>
@@ -63,10 +82,10 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =
                         value={values.volunteerList[index].organizationName}
                         id={`volunteerList[${index}].organizationName`}
                         name={`volunteerList[${index}].organizationName`}
-                        onChange={handleChange}
+                        onChange={(e) => handleOrganizationChange(e, index)}
                         onBlur={handleBlur}
                         text={"Organization Name"}
-                        maxLength={30}
+                        maxLength={50}
                       />
                       {errors.volunteerList?.[index]?.organizationName &&
                         touched.volunteerList?.[index]?.organizationName && (
@@ -80,11 +99,11 @@ const Volunteer = ({ nextStep, setFormData, formData, prevStep,setIsSkipped }) =
                         value={values.volunteerList[index].volunteerRules}
                         id={`volunteerList[${index}].volunteerRules`}
                         name={`volunteerList[${index}].volunteerRules`}
-                        onChange={handleChange}
+                        onChange={(e) => handleVolunteerRulesChange(e, index)}
                         onBlur={handleBlur}
                         placeholder={"Enter Volunteer Role/Title"}
                         text={"Volunteer Role/Title"}
-                        maxLength={30}
+                        maxLength={50}
                       />
                       {errors.volunteerList?.[index]?.volunteerRules &&
                         touched.volunteerList?.[index]?.volunteerRules && (

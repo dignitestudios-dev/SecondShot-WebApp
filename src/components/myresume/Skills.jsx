@@ -44,6 +44,7 @@ const Skills = ({
   const [library, setLibrary] = useState([]);
   const [likedItems, setLikedItems] = useState({});
   const [loading, setLoading] = useState(true);
+  const [skillsValues, setSkillsValues] = useState("")
 
   const getLibrary = async () => {
     setLoading(true);
@@ -64,26 +65,28 @@ const Skills = ({
   useEffect(() => {
     getLibrary();
   }, []);
-
   const handletechSkill = (e) => {
     if (e.key === "Enter") {
-      e.preventDefault(); // Prevent form submission or other default behaviors
-      const value = e.target.value.trim();
+      e.preventDefault();
+      const value = skillsValues.trim();
+  
+      
+      if (value && !skills.includes(value) && skills.length < 10) {
+        setSkills((prevSkills) => [...prevSkills, value]);
+        setSkillsValues(""); 
+    setFieldValue("technicalSkills");
 
-      // Ensure that the value is not empty and is not already in the list of skills
-      if (value && !skills.includes(value)) {
-        const updatedSkills = [...skills, value]; // Add the new skill to the list
-        setSkills(updatedSkills); // Update local state
       }
-      e.target.value = ""; // Clear the input field after adding the skill
     }
   };
+  
 
   const removeSkill = (skillToRemove) => {
     const updatedSkills = skills.filter((skill) => skill !== skillToRemove);
     setSkills(updatedSkills);
-    // setFieldValue("technicalSkills", updatedSkills); // Fix: Remove ke baad Formik ko update karo
+    setFieldValue("technicalSkills", updatedSkills.join(", "));
   };
+  
 
   useEffect(() => {
     if (Array.isArray(values.technicalSkills)) {
@@ -93,17 +96,28 @@ const Skills = ({
 
   useEffect(() => {
     if (formData?.skillsValues) {
-      // Update technicalSkills
+      
       setFieldValue(
         "technicalSkills",
         formData.skillsValues.technicalSkills || []
       );
 
-      // Update softskills
+      
       setFieldValue("softskills", formData.skillsValues.softskills || []);
     }
-  }, [formData, setFieldValue]); // Watch for changes in formData
+  }, [formData, setFieldValue]); 
 
+  const handleTechChange = (input) => {
+    
+    const formattedInput = input
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+    // setFieldValue("technicalSkills", formattedInput); 
+    setSkillsValues(formattedInput)
+    
+  };
+  
   return (
     <div className="pt-6 px-3">
       <div className="my-6">
@@ -142,6 +156,7 @@ const Skills = ({
                 >
                   {skill}
                   <button
+                  type="button"
                     onClick={() => removeSkill(skill)}
                     className="ml-2 text-red-600 font-bold hover:text-red-800"
                   >
@@ -149,18 +164,22 @@ const Skills = ({
                   </button>
                 </span>
               ))}
+              {skills.length >= 10 && (
+  <p className="text-red-500 text-sm">You can add  10 skills only.</p>
+)}
+
             </div>
 
-            {/* Input field for typing skills */}
+            
             <AuthInput
-              value={values.technicalSkills} // This will show the current value in the input field
-              onChange={handleChange}
+              value={skillsValues} // This will show the current value in the input field
+              onChange={(e)=>handleTechChange(e.target.value)}
               onBlur={handleBlur}
               onKeyDown={handletechSkill} // Capture key events (comma, space, Enter)
               id="technicalSkills"
               name="technicalSkills"
               placeholder={"Enter Technical Skills, separated by Enter"}
-              maxLength={30}
+             maxLength={30}
             />
           </div>
           <div className="flex items-center gap-1 mb-3 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">

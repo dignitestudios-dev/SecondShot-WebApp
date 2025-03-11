@@ -5,6 +5,7 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { honorsSchema } from "../../Schema/resumeSchema";
+import { getStartYearsArray } from "../../pages/lib/helper";
 const Honors = ({
   nextStep,
   setFormData,
@@ -65,17 +66,28 @@ const Honors = ({
     }
   }, [formData?.honorsList]);
 
-  const getYearsArray = () => {
-    const startYear = 1990;
-    const currentYear = new Date().getFullYear();
-    const years = [];
 
-    for (let year = startYear; year <= currentYear; year++) {
-      years.push({ value: `${year}`, label: `${year}` });
-    }
-    return years;
+
+  const handleAwardNameChange = (e, index) => {
+    let input = e.target.value;
+  
+    input = input
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  
+    formik.setFieldValue(`honorsList[${index}].awardName`, input);
   };
-
+  const handleawardingChange = (e, index) => {
+    let input = e.target.value;
+  
+    input = input
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  
+    formik.setFieldValue(`honorsList[${index}].awardingOrganization`, input);
+  };
   return (
     <div className="pt-6 px-3">
       <div>
@@ -92,7 +104,9 @@ const Honors = ({
             name="honorsList"
             render={(arrayHelpers) => (
               <>
-                {values?.honorsList?.map((education, index) => (
+                {values?.honorsList?.map((education, index) => {
+                  
+                   return(
                   <div key={index} className="space-y-4 mt-4">
                     <div className="flex justify-between items-center mb-4">
                       {index > 0 && (
@@ -111,12 +125,12 @@ const Honors = ({
                         id={`honorsList[${index}].awardName`}
                         name={`honorsList[${index}].awardName`}
                         value={values.honorsList[index].awardName}
-                        onChange={handleChange}
+                        onChange={(e) => handleAwardNameChange(e, index)}
                         onBlur={handleBlur}
                         placeholder={
                           "Enter Award Name (e.g., Employee of the Year, Academic Excellence Award)"
                         }
-                        maxLength={30}
+                        maxLength={50}
                       />
                       {errors.honorsList?.[index]?.awardName &&
                         touched.honorsList?.[index]?.awardName && (
@@ -131,10 +145,10 @@ const Honors = ({
                         name={`honorsList[${index}].awardingOrganization`}
                         value={values.honorsList[index].awardingOrganization}
                         text={"Awarding Organization or Institution"}
-                        onChange={handleChange}
+                        onChange={(e) => handleawardingChange(e, index)}
                         onBlur={handleBlur}
                         placeholder={"ABC Company"}
-                        maxLength={30}
+                        maxLength={50}
                       />
                       {errors.honorsList?.[index]?.awardingOrganization &&
                         touched.honorsList?.[index]?.awardingOrganization && (
@@ -159,6 +173,7 @@ const Honors = ({
                             onChange={handleChange}
                             onBlur={handleBlur}
                             options={[
+                              { value: "", label: "Select Month" },
                               { value: "January", label: "January" },
                               { value: "February", label: "February" },
                               { value: "March", label: "March" },
@@ -189,7 +204,7 @@ const Honors = ({
                             value={values.honorsList[index].receivedyear}
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            options={getYearsArray()}
+                            options={getStartYearsArray(1990)}
                           />
                           {errors.honorsList?.[index]?.receivedyear &&
                             touched.honorsList?.[index]?.receivedyear && (
@@ -201,24 +216,8 @@ const Honors = ({
                       </div>
                     </div>
 
-                    <div className="w-full flex flex-col items-start gap-1 my-8">
-                      <label className="text-sm font-medium">
-                        Description{" "}
-                        <span className="text-[#b1b1b2]">(Optional)</span>{" "}
-                      </label>
-                      <textarea
-                        rows="4"
-                        id={`honorsList[${index}].description`}
-                        name={`honorsList[${index}].description`}
-                        value={values?.honorsList[index]?.description}
-                        onChange={handleChange}
-                        className="w-full border rounded-xl px-3 py-3 text-sm bg-transparent border-gray-700 focus:ring-gray-700 focus:border-gray-700 outline-gray-700"
-                        placeholder="A brief description of the award, highlighting its significance, criteria, or relevance to your field (e.g., 'Awarded to the top 5% of students for academic excellence')."
-                        maxLength={250}
-                      />
-                    </div>
                   </div>
-                ))}
+                )})}
                 <div className="flex items-center gap-1 text-[12px] mb-3 mt-3 font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
                   <div>
                     <IoIosArrowBack className="font-[600]" onClick={prevStep} />

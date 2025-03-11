@@ -40,6 +40,7 @@ import NewTrasnferSkill from "../pages/NewtrnaferSkill/NewTrasnferSkill";
 import SuccessScreen from "../components/subscriptions/SuccessScreen";
 import EditResume from "../pages/myresume/EditResume";
 import CareerFavDetail from "../pages/mylibrary/CareerFavDetail";
+import MatchedDetail from "../pages/successstory/MatchedDetail";
 
 export const routes = [
   {
@@ -103,6 +104,11 @@ export const routes = [
     title: "SuccessProDetail",
     url: "/story-pro-detail",
     page: <Applayout page={<SuccessProDetail />} />,
+  },
+  {
+    title: "matheddetail",
+    url: "/matched-pro-detail",
+    page: <Applayout page={<MatchedDetail />} />,
   },
   {
     title: "Mylibrary",
