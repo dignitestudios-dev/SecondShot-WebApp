@@ -22,7 +22,7 @@ const AllResume = ({ resume }) => {
 
   return (
     <div>
-      <div className="bg-white    p-2 rounded-lg shadow-md ">
+      <div className="bg-white h-[280px] overflow-x-auto overflow-hidden    p-2 rounded-lg shadow-md ">
         {/* Header Section */}
         <div className="text-center">
           <h1 className="text-[8.88px] font-[600]">{resume?.full_name}</h1>

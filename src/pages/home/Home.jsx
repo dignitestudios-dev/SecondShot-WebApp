@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { showModal, closeModal, isFirst, setIsFirst } =
+  const { showModal, updateDeviceId, isFirst, setIsFirst } =
     useContext(ModalContext);
   const { regQuestion, token, getProfile } = useContext(AuthContext);
 
@@ -21,6 +21,7 @@ const Home = () => {
 
   useEffect(() => {
     getProfile();
+    updateDeviceId()
   }, []);
 
   return (

@@ -426,7 +426,7 @@ function MyProfile() {
                     </div>
                     <div>
                       <AuthSubmitBtn
-                        text={"Buy Subscription"}
+                        text={"Manage"}
                         handleSubmit={() => navigate("/profile-subscription")}
                       />
                     </div>

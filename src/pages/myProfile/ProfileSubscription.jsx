@@ -7,6 +7,7 @@ import {
   SuccessToast,
 } from "../../components/toaster/ToasterContainer";
 import { AuthContext } from "../../context/AuthContext";
+import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 
 const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
   const navigation = useNavigate();
@@ -153,7 +154,7 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
             )
           ) : (
             <div className="bg-white rounded-[22px] h-[400px] shadow-sm p-6 w-full max-w-sm flex flex-col">
-              <div>
+              <div className="h-[400px]">
                 <div className="flex justify-between items-center">
                   <h2 className="text-[24px] font-[500] text-[#000000] leading-[32.4px]">
                     Basic
@@ -179,6 +180,9 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
                   </li>
                 </ul>
               </div>
+                <div>
+                <AuthSubmitBtn text={'Upgrade Plane'} type={'button'} handleSubmit={()=>navigation('/subscriptionplans')} />
+                </div>
             </div>
           )}
         </div>

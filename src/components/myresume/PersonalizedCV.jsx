@@ -88,10 +88,9 @@ const PersonalizedCV = ({ resumeData, ref }) => {
                  {ctr?.certification_name}
               </p>
               <p className="text-[20px]  text-[#101010] font-[600]">
-            {ctr?.issue_date?.split("T")[0].split("-")[0]} -{" "}
-                    {ctr?.expiration_date
-                      ? ctr.expiration_date?.split("T")[0].split("-")[0]
-                      : "Present"}
+              {ctr?.issue_date?.split("T")[0].split("-")[0]}
+{ctr?.expiration_date && ` - ${ctr.expiration_date.split("T")[0].split("-")[0]}`}
+
               </p>
             </div> 
                  

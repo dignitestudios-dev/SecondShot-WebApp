@@ -19,7 +19,7 @@ export const profileSchema = Yup.object({
 
 export const EditProfileSchema = Yup.object({
   fullname: Yup.string().required("Please enter your fullname."),
-  country: Yup.string().required("Please select your city."),
+  city: Yup.string().required("Please select your city."),
 
   state: Yup.string().required("Please select your state."),
 

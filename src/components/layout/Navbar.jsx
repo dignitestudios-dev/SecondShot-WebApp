@@ -65,8 +65,7 @@ const Navbar = () => {
             <li key={item.path}>
               {subscriptionpaid ||
               item.path === "/transferablekills" ||
-              item.path === "/home" ||
-              item.path === "/success-story" ? (
+              item.path === "/home"? (
                 <Link to={item.path} className="text-white uppercase">
                   {item.label}
                 </Link>
@@ -128,6 +127,7 @@ const Navbar = () => {
         isOpen={lock}
         handleClick={() => navigate("/subscriptionplans")}
         onClose={() => setLock(false)}
+        text={' Buy a subscription to unlock this feature and enjoy exclusive benefits.'}
       />
     </div>
   );

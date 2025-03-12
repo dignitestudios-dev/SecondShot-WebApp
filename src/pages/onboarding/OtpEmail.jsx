@@ -172,9 +172,9 @@ const OtpEmail = () => {
               />
 
               <p className="text-center flex justify-center  text-[16px] text-[#181818] font-[500] mt-4">
-                Didn’t receive the code yet?{" "}
+                Didn’t receive the code yet? {" "}
                 <div
-                  className={`font-medium text-[#012C57] hover:underline cursor-pointer ${
+                  className={`font-medium text-[#012C57] hover:underline mx-2 cursor-pointer ${
                     resendTime ? "pointer-events-none text-gray-400" : ""
                   }`}
                   onClick={() => handleResendOtp()}

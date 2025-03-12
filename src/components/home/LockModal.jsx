@@ -2,7 +2,7 @@ import React from "react";
 import { Cancelicon, lockModal, Mygoalmodal } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 
-const LockModal = ({ isOpen, onClose, handleClick }) => {
+const LockModal = ({ isOpen, onClose, handleClick,text }) => {
   if (!isOpen) return null;
 
   return (
@@ -18,9 +18,8 @@ const LockModal = ({ isOpen, onClose, handleClick }) => {
           Get Full Access
         </h2>
         <div className="w-[419px]  ">
-          <p className="text-[16px] font-[500] mt-2 text-[#000000] text-center leading-[21.6px]  ">
-            Buy a subscription to unlock this feature <br /> and enjoy exclusive
-            benefits.
+          <p className="text-[16px] font-[500] mt-2 text-[#000000] text-center leading-[22.6px]  ">
+           {text}
           </p>
         </div>
         <div className="flex items-center justify-center  mt-3">

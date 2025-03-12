@@ -62,7 +62,7 @@ const ResumeFile = ({
             return (
               <div
                 key={index}
-                className="bg-[#E8F5EA]  w-full rounded-2xl p-4 shadow-lg relative"
+                className="bg-[#E8F5EA] h-[350px]  w-full rounded-2xl p-4 shadow-lg relative"
               >
                 <div className="absolute top-4 right-4">
                   <FaEllipsisVertical
@@ -73,7 +73,7 @@ const ResumeFile = ({
                   />
 
                   {dropOpen === index && (
-                    <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-300 rounded-lg shadow-md z-10">
+                    <div className="absolute right-0 mt-2 w-32  bg-white border border-gray-300 rounded-lg shadow-md z-10">
                       <ul className="py-2">
                         <li
                           className="px-4 py-2 hover:bg-gray-100 text-[14px] cursor-pointer"
@@ -105,12 +105,12 @@ const ResumeFile = ({
                 </h2>
 
                 <div
-                  className="imageBox w-full  cursor-pointer"
+                  className="imageBox w-full h-[350px]  cursor-pointer"
                   onClick={() =>
                     navigate(`/view-resume`, { state: resumeData })
                   }
                 >
-                  <div className="imageInn  w-full">
+                  <div className="imageInn   w-full">
                     <AllResume resume={resumeData} />
                   </div>
                 </div>

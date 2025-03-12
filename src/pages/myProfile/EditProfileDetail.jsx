@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Cameraicon, logo } from "../../assets/export";
 import AuthInput from "../../components/onboarding/AuthInput";
@@ -21,6 +21,7 @@ const EditProfileDetails = () => {
   const profileData = location.state || {};
   const [loading, setLoading] = useState(false);
   const { setProfilepic } = useContext(AuthContext);
+  
   const {
     values,
     handleBlur,
@@ -31,15 +32,17 @@ const EditProfileDetails = () => {
     errors,
     touched,
   } = useFormik({
+
     initialValues: {
       fullname: profileData?.name || "",
       email: profileData?.email || "",
       phoneNumber: profileData?.phone?.replace(/^\+1/, "") || "",
-      country: profileData?.state || "",
-      state: profileData?.city || "",
+      state: profileData?.state || "",
+      city: profileData?.city || "",
       address: profileData?.address || "",
       profilePicture: null,
     },
+    
     validationSchema: EditProfileSchema,
     enableReinitialize: true,
     onSubmit: async (values) => {
@@ -47,8 +50,8 @@ const EditProfileDetails = () => {
       try {
         const formData = new FormData();
         formData.append("name", values.fullname);
-        formData.append("state", values.country);
-        formData.append("city", values.state);
+        formData.append("state", values.state);
+        formData.append("city", values.city);
         formData.append("address", values.address);
 
         if (values.profilePicture) {
@@ -99,6 +102,11 @@ const EditProfileDetails = () => {
     } else {
     }
   };
+  
+  useEffect(()=>{
+    setFieldValue("state", profileData?.state);
+    setFieldValue("city", profileData?.city)
+  },[profileData])
 
   return (
     <div className=" bg-transparent lg:h-screen h-full px-6 py-4">
@@ -208,9 +216,9 @@ const EditProfileDetails = () => {
               value={values?.state}
               onChange={(e) => {
                 handleChange(e);
-                values.city = "";
-                setFieldValue("country", "");
-                setFieldTouched("country", true);
+                // values.city = "";
+                setFieldValue("city", "");
+                setFieldTouched("state", true);
               }}
               options={[
                 { value: "", label: "--Select State--" },
@@ -231,11 +239,14 @@ const EditProfileDetails = () => {
           </div>
           <div className="relative w-full mt-3">
             <SelectInput
-              name="country"
-              id="country"
-              value={values.country}
+              name="city"
+              id="city"
+              value={values.city}
               onChange={(e) => {
                 handleChange(e);
+                setFieldValue("city", e.target.value); // City ka value update karo
+                setFieldTouched("city", true);
+
               }}
               options={[
                 { value: "", label: "--Select City--" },
@@ -248,9 +259,9 @@ const EditProfileDetails = () => {
               ]}
             />
 
-            {errors.country && touched.country ? (
+            {errors.city && touched.city ? (
               <span className="text-red-700 text-sm font-medium">
-                {errors.country}
+                {errors.city}
               </span>
             ) : null}
           </div>

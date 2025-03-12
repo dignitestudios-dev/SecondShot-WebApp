@@ -65,7 +65,7 @@ function SuccessStory() {
       const response = await axios.get(`/api/user/get-success-stories?page=${currentPage}`); 
       if (response.status === 200) {
         setStories(response?.data?.data);
-        setTotalPages(response?.data?.data?.pagination?.totalPages || 1);
+        setTotalPages(response?.data?.pagination?.totalPages || 1);
       }
     } catch (err) {
       console.error("Error fetching stories:", err);
@@ -76,47 +76,43 @@ function SuccessStory() {
 
   useEffect(() => {
     getsuccessstory();
-  }, []);
+  }, [currentPage]);
 
 
-  const handleSearchAllPro = async (e) => {
-    const value = e.target.value;
-    setSearchallQuery(value);
   
+  
+  const [searchTimeout, setSearchTimeout] = useState(null);
 
+const handleSearchAllPro = (e) => {
+  const value = e.target.value;
+  setSearchallQuery(value);
+
+ 
+  if (searchTimeout) clearTimeout(searchTimeout);
+
+ 
+  const newTimeout = setTimeout(async () => {
     if (!value) {
       getsuccessstory();
+      return;
     }
-  };
-  
-  useEffect(() => {
-    if (!searchQuery) return;
-    const fetchData = async () => {
+
+    try {
       setLoading(true);
-      try {
-        if (searchQuery) {
-          const response = await axios.post('/api/user/search-success-story', {
-            search: searchallQuery,
-          });
-          if (response.status === 200) {
-            setStories(response?.data?.data);
-          }
-        } else {
-          getsuccessstory();
-        }
-      } catch (err) {
-        console.error("Error during search:", err);
-      } finally {
-        setLoading(false);
+      const response = await axios.get(`/api/user/search-success-story?search=${value}`);
+      if (response?.status === 200) {
+        setStories(response?.data?.data);
+        setTotalPages(response?.data?.pagination?.totalPages || 1);
       }
-    };
-  
-    const delayDebounce = setTimeout(() => {
-      fetchData();
-    }, 500);
-  
-    return () => clearTimeout(delayDebounce);
-  }, [searchallQuery, currentPage]);
+    } catch (err) {
+      console.error("Error searching profiles:", err);
+    } finally {
+      setLoading(false);
+    }
+  }, 500);
+
+  setSearchTimeout(newTimeout);
+};
 
 
   return (

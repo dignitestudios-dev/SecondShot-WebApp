@@ -90,7 +90,7 @@ const Resume = ({ formData, isSkipped }) => {
                 {cert?.certificationsname}
               </li>
               <p className="text-[20px] text-[#101010] font-[600]">
-                {cert?.Issueyear} - {cert?.expirationyear}
+                {cert?.Issueyear} - {cert?.expirationyear ? cert?.expirationyear : ""}
               </p>
              
             </div>
@@ -189,7 +189,7 @@ const Resume = ({ formData, isSkipped }) => {
                 {vol?.startYear} - {vol?.endYear}
               </p>
               <ul className="list-outside list-disc">
-                <li className="text-[#000000]  pl-1 leading-[10.59px] font-[400] text-[18px]  mt-5 mx-4">{vol?.description}</li>
+                <li className="text-[#000000]  pl-1  font-[400] text-[18px]  mt-5 mx-4">{vol?.description}</li>
               </ul>
             </div>
           ))}

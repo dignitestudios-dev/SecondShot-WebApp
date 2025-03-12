@@ -77,7 +77,7 @@ export const ModalProvider = ({ children }) => {
       setAllLoading(false);
     }
   };
-console.log(getToken,"fcsxxxx")
+ 
   useEffect(() => {
     getToken && getnotifications();
   }, []);
@@ -111,6 +111,7 @@ console.log(getToken,"fcsxxxx")
         setAllLoading,
         allLoading,
         countNoti,
+        updateDeviceId
       }}
     >
       {children}

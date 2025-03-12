@@ -58,6 +58,13 @@ const Chatbot = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  const messageEndRef = useRef(null);
+
+useEffect(() => { 
+  if (messageEndRef.current) {
+    messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+  }
+}, [messages]);
   return (
     <div className="fixed bottom-1 right-4 z-50">
       <div onClick={toggleChat} className="cursor-pointer">
@@ -70,17 +77,21 @@ const Chatbot = () => {
 
       {isOpen && (
         <div
-          className="fixed bottom-[100px] right-12 w-[398px] h-[450px] bg-white shadow-md rounded-2xl overflow-hidden flex flex-col z-10"
+          className="absolute bottom-[100px] right-12 w-[470px]  h-[500px] bg-white shadow-md rounded-2xl overflow-hidden flex flex-col "
           ref={chatbotref}
         >
           <div className="bg-gradient-to-r from-[#061523] to-[#012C57] h-[66px] text-white flex justify-between items-center p-3">
             <div className="flex items-center mt-2">
+              <div>
               <img
                 src={chaticon}
                 alt="Chat Icon"
-                className="w-[57px] h-[57px]"
+                className="w-[70px] h-[70px]"
               />
-              <h3 className="text-[22px] font-[500] mb-3">Chat</h3>
+              </div>
+              <div>
+              <h3 className="text-[19px] font-[500] mb-2">Chat</h3>
+              </div>
             </div>
             <button onClick={toggleChat} className="text-[23.5px]">
               ✕
@@ -88,11 +99,11 @@ const Chatbot = () => {
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
-            {messages.map((msg, index) => (
+            {messages?.map((msg, index) => (
               <div
                 key={index}
                 className={`flex flex-col items-${
-                  msg.sender === "user" ? "end" : "start"
+                  msg?.sender === "user" ? "end" : "start"
                 }`}
               >
                 <div
@@ -100,23 +111,23 @@ const Chatbot = () => {
                 >
                   <div>
                     <div
-                      className={`max-w-[100%] p-2 break-all overflow-x-hidden rounded-lg ${
+                      className={`max-w-[100%] p-2 pe-4 px-4 break-all overflow-x-hidden rounded-lg ${
                         msg.sender === "user"
                           ? "bg-[#012C57] text-white ml-auto rounded-l-[20px] rounded-tr-[20px]"
                           : "bg-gray-200 text-black mr-auto rounded-r-[20px] rounded-tl-[20px]"
                       }`}
                     >
-                      {msg.text}
+                      {msg?.text}
                     </div>
                     <div
                       className={`text-[12px] font-[500] text-black mt-1 ${
-                        msg.sender === "user" ? "text-end" : "text-start"
+                        msg?.sender === "user" ? "text-end" : "text-start"
                       }`}
                     >
-                      {msg.time}
+                      {msg?.time}
                     </div>
                   </div>
-                  {msg.sender === "user" && (
+                  {msg?.sender === "user" && (
                     <img
                       src={profilepic}
                       alt="User Avatar"
@@ -126,6 +137,7 @@ const Chatbot = () => {
                 </div>
               </div>
             ))}
+              <div ref={messageEndRef}></div>
             {loading && (
               <div className="flex items-start justify-start">
                 <div className="max-w-[75%] p-2 rounded-lg bg-gray-200 text-black mr-auto rounded-r-[20px] rounded-tl-[20px] animate-pulse">
@@ -137,18 +149,20 @@ const Chatbot = () => {
           </div>
 
           <div className="p-2 w-full bottom-0 bg-white">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Type Here...."
-                value={input}
-                onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                onChange={(e) => setInput(e.target.value)}
-                className="w-full p-2 h-[49px] placeholder:text-[12px] px-4 bg-[#F5F5F5] text-gray-800 rounded-full outline-none"
-              />
+            <div className="relative bg-[#F5F5F5] flex items-center justify-between h-[49px] max-h-[100px] rounded-full ">
+              
+            <textarea
+  placeholder="Type Here...."
+  value={input}
+  onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
+  onChange={(e) => setInput(e.target.value)}
+  className="w-[92%]   bg-transparent placeholder:text-[12px] placeholder:text-[#B1B1B1] outline-none resize-none pt-2  px-4  text-gray-800"
+  rows={1}
+  
+/>
               <div
                 onClick={handleSend}
-                className="absolute bottom-2 right-2 bg-gradient-to-r w-[37px] h-[37px] flex items-center justify-center from-[#061523] to-[#012C57] rounded-full cursor-pointer"
+                className="absolute   right-2 bg-gradient-to-r w-[37px] h-[37px] flex items-center justify-center from-[#061523] to-[#012C57] rounded-full cursor-pointer"
               >
                 {loading ? (
                   <div className="animate-pulse w-5 h-5 bg-[#F5F5F5] rounded-full"></div>

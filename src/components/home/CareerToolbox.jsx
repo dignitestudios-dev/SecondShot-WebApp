@@ -101,7 +101,7 @@ const CareerToolbox = () => {
     }
 
     if (item.title === "Transferable Skills") {
-      setIsFirst((prev) => ({ ...prev, transferable: true }));
+      setIsFirst((prev) => ({ ...prev, transferable: false }));
     }
 
     navigate(item.path);
@@ -144,13 +144,13 @@ const CareerToolbox = () => {
               className={`${item?.btnBg} flex w-[330px] justify-center items-center text-white h-[49px] rounded-[12px]  uppercase tracking-[0.41px] font-[600] text-center mt-auto absolute bottom-5 left-0 right-0 mx-auto`}
               onClick={() => handleNavigation(item)}
             >
-              {item.btn === "Unlock" && (
+              {item?.btn === "Unlock" && (
                 <div>
                   <img src={homelock} className="w-[33.5px]" alt="" />
                 </div>
               )}
               <div className={`text-[18px]`}>
-                {subscriptionpaid ? item.btn : item.btn}
+                {subscriptionpaid ? item?.btn : item?.btn}
               </div>
             </div>
           </div>
@@ -160,6 +160,7 @@ const CareerToolbox = () => {
           isOpen={lock}
           handleClick={() => navigate("/subscriptionplans")}
           onClose={() => setLock(false)}
+          text={'Buy a subscription to unlock this feature and enjoy exclusive benefits.'}
         />
       </div>
       <div className="grid sm:grid-cols-1 md:grid-cols-[1fr_2fr] lg:grid-cols-[1fr_1fr_1fr] gap-10">

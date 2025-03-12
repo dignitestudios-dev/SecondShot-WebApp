@@ -2050,6 +2050,7 @@ const NewTrasnferSkill = () => {
         isOpen={lock}
         handleClick={() => navigate("/subscriptionplans")}
         onClose={() => setLock(false)}
+        text={'The free version only shows one skill and its nodes. Subscribe now to unlock the full transferable skills map.'}
       />
     </div>
   );
