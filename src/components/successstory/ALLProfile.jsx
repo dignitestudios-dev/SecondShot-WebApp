@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import EmptyScreen from '../../pages/mylibrary/EmptyScreen'
 
 const ALLProfile = ({loading,stories}) => {
     const navigate= useNavigate()
@@ -23,7 +24,12 @@ const ALLProfile = ({loading,stories}) => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-11 mt-16">
-            {stories?.map((item, index) => (
+            {stories?.length  === 0  ? (
+               <div className="flex items-center justify-center min-h-screen absolute z-0 top-70 right-0 left-0 ">
+               <EmptyScreen text={"No Profile Found"} />
+             </div>
+            ) :(
+              stories?.map((item, index) => (
               <div
                 onClick={() => navigate("/story-pro-detail", { state: { item } })}
                 key={index}
@@ -43,7 +49,7 @@ const ALLProfile = ({loading,stories}) => {
                   {item?.profession}
                 </h3>
               </div>
-            ))}
+            )))}
           </div>
         )}
     </div>

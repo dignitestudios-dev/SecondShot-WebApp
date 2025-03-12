@@ -16,6 +16,7 @@ function SuccessStory() {
   const [filteredAllPro, setfilteredAllPro] = useState([]);
   const [selected, setSelected] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [allProloading, setAllProloading] = useState(false);
   const [stories, setStories] = useState([]);
   const [matchedProfile, setMatchedProfile] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -74,8 +75,46 @@ function SuccessStory() {
     setfilteredMatchedPro(filtered);
   }, [searchQuery, matchedProfile]);
 
- 
+  const handleSearchAllPro = async (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
   
+    // Agar input khali ho to foran data fetch karo
+    if (!value) {
+      getsuccessstory();
+    }
+  };
+  
+  useEffect(() => {
+    if (!searchQuery) return;
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        if (searchQuery) {
+          const response = await axios.post('/api/user/search-success-story', {
+            search: searchQuery,
+          });
+          if (response.status === 200) {
+            setStories(response?.data?.data);
+          }
+        } else {
+          getsuccessstory();
+        }
+      } catch (err) {
+        console.error("Error during search:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    const delayDebounce = setTimeout(() => {
+      fetchData();
+    }, 500);
+  
+    return () => clearTimeout(delayDebounce);
+  }, [searchQuery, currentPage]);
+
+
   return (
     <div className="">
       <WelcomeStoryModal
@@ -100,7 +139,7 @@ function SuccessStory() {
          )}
         {selected === 2 && (  
 
-          <SearchInput placeholder="Search" />
+          <SearchInput placeholder="Search" onChange={(e) => handleSearchAllPro(e)} />
          )}
           <div className="flex items-center  h-[48px]   rounded-lg border border-[#012C57] px-0.5">
             <button
@@ -127,22 +166,29 @@ function SuccessStory() {
         </div>
       </div>
       {selected === 1 && (
-    <>
+     <>
       <MatchedProfile loading={loading} matchedProfile={filteredMatchedPro}  />
-
-</>
+     </>
       )}
       {selected === 2 && (
+      <>
+    <div className="flex flex-col min-h-screen">
+  {selected === 2 && (
     <>
       <ALLProfile loading={loading} stories={stories} />
+      <div className="mt-auto">
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}
+        />
+      </div>
+    </>
+  )}
+</div>
 
-<div className="mt-11  bottom-0 right-40">
-  <Pagination
-    currentPage={currentPage}
-    setCurrentPage={setCurrentPage}
-    totalPages={totalPages}
-  />
-</div></>
+      
+     </>
       )}
     </div>
   );
