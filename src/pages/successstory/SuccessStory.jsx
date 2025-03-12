@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import SearchInput from "../../components/Global/SearchInput";
 import WelcomeStoryModal from "../../components/successstory/WelcomeStoryModal";
 import { ModalContext } from "../../context/GlobalContext";
@@ -8,15 +7,14 @@ import Pagination from "../../components/pagination/pagination";
 import ALLProfile from "../../components/successstory/ALLProfile";
 import MatchedProfile from "../../components/successstory/MatchedProfile";
 function SuccessStory() {
-  const navigate = useNavigate();
   const { isFirst, setIsFirst } = useContext(ModalContext);
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchallQuery, setSearchallQuery] = useState("");
   const [filteredMatchedPro, setfilteredMatchedPro] = useState([]);
-  const [filteredAllPro, setfilteredAllPro] = useState([]);
   const [selected, setSelected] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [allProloading, setAllProloading] = useState(false);
+  const [matchedLoading, setmatchedLoading] = useState(false);
   const [stories, setStories] = useState([]);
   const [matchedProfile, setMatchedProfile] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -24,6 +22,43 @@ function SuccessStory() {
   const handleToggle = (option) => {
     setSelected(option);
   };
+  
+  const getmatchedProfile = async () => {
+    setmatchedLoading(true);
+    try {
+      const response = await axios.get("/api/user/my-match-profiles"); 
+      if (response.status === 200) {
+        setMatchedProfile(response?.data?.data);
+        
+      }
+    } catch (err) {
+      console.error("Error fetching stories:", err);
+    } finally {
+      setmatchedLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getmatchedProfile();
+  }, []);
+  const handleChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  useEffect(() => {
+    let filtered = matchedProfile;
+  
+    if (searchQuery) {
+      filtered = matchedProfile.filter((item) =>
+        item?.name?.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+  
+    setfilteredMatchedPro(filtered);
+  }, [searchQuery, matchedProfile]);
+
+
+
   const getsuccessstory = async () => {
     setLoading(true);
     try {
@@ -42,44 +77,13 @@ function SuccessStory() {
   useEffect(() => {
     getsuccessstory();
   }, []);
-  const getmatchedProfile = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get("/api/user/my-match-profiles"); 
-      if (response.status === 200) {
-        setMatchedProfile(response?.data?.data);
-        
-      }
-    } catch (err) {
-      console.error("Error fetching stories:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  useEffect(() => {
-    getmatchedProfile();
-  }, []);
-  const handleChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-  useEffect(() => {
-    let filtered = matchedProfile;
-  
-    if (searchQuery) {
-      filtered = matchedProfile.filter((item) =>
-        item?.name?.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-  
-    setfilteredMatchedPro(filtered);
-  }, [searchQuery, matchedProfile]);
 
   const handleSearchAllPro = async (e) => {
     const value = e.target.value;
-    setSearchQuery(value);
+    setSearchallQuery(value);
   
-    // Agar input khali ho to foran data fetch karo
+
     if (!value) {
       getsuccessstory();
     }
@@ -92,7 +96,7 @@ function SuccessStory() {
       try {
         if (searchQuery) {
           const response = await axios.post('/api/user/search-success-story', {
-            search: searchQuery,
+            search: searchallQuery,
           });
           if (response.status === 200) {
             setStories(response?.data?.data);
@@ -112,7 +116,7 @@ function SuccessStory() {
     }, 500);
   
     return () => clearTimeout(delayDebounce);
-  }, [searchQuery, currentPage]);
+  }, [searchallQuery, currentPage]);
 
 
   return (
@@ -167,7 +171,7 @@ function SuccessStory() {
       </div>
       {selected === 1 && (
      <>
-      <MatchedProfile loading={loading} matchedProfile={filteredMatchedPro}  />
+      <MatchedProfile loading={matchedLoading} matchedProfile={filteredMatchedPro}  />
      </>
       )}
       {selected === 2 && (
