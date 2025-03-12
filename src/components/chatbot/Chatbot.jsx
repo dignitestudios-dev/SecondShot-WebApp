@@ -148,15 +148,19 @@ useEffect(() => {
             )}
           </div>
 
-          <div className="p-2 w-full bottom-0 bg-white">
-            <div className="relative bg-[#F5F5F5] flex items-center justify-between h-[49px] max-h-[100px] rounded-full ">
+          <div className="p-4 w-full bottom-0 bg-white">
+            <div className="relative bg-[#F5F5F5] flex items-center justify-between h-[49px] rounded-full ">
               
             <textarea
   placeholder="Type Here...."
   value={input}
   onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
-  onChange={(e) => setInput(e.target.value)}
-  className="w-[92%]   bg-transparent placeholder:text-[12px] placeholder:text-[#B1B1B1] outline-none resize-none pt-2  px-4  text-gray-800"
+ onChange={(e) => {
+    setInput(e.target.value);
+    e.target.style.height = "49px"; // Reset height
+    // e.target.style.height = `${Math.min(e.target.scrollHeight, 150)}px`; // Max height 150px
+  }}
+  className="w-[92%] caret-[#B1B1B1] bg-transparent placeholder:text-[12px] placeholder:text-[#B1B1B1] outline-none resize-none pt-4 px-4  text-gray-800"
   rows={1}
   
 />
