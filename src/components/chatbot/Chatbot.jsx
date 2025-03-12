@@ -148,8 +148,8 @@ useEffect(() => {
             )}
           </div>
 
-          <div className="p-4 w-full bottom-0 bg-white">
-            <div className="relative bg-[#F5F5F5] flex items-center justify-between h-[49px] rounded-full ">
+          <div className="p-2 w-full bottom-0 bg-white">
+            <div className="relative bg-[#F5F5F5] flex items-center justify-between h-[49px]  rounded-full ">
               
             <textarea
   placeholder="Type Here...."
