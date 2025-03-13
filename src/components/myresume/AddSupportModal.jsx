@@ -5,6 +5,8 @@ import axios from "../../axios";
 import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
 import { useNavigate } from "react-router-dom";
 import { phoneFormater } from "../../pages/lib/helper";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 const AddSupportModal = ({
   showModal,
@@ -13,7 +15,9 @@ const AddSupportModal = ({
   resumeData,
   formData,
   setFormData,
+  supportresumeId,
 }) => {
+  console.log(supportresumeId, "supportresumeId");
   const navigate = useNavigate("");
   const [loading, setLoading] = useState(false);
 
@@ -147,7 +151,8 @@ const AddSupportModal = ({
       handleChange({ target: { name: e.target.name, value: rawValue } });
     }
   };
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = async (e, filename) => {
     e.preventDefault();
 
     const newErrors = {};
@@ -183,17 +188,52 @@ const AddSupportModal = ({
       });
     }
 
-    const formattedData = {
-      resumeId: resumeData?._id,
-      supportPeople,
-    };
-
     setLoading(true);
 
     try {
+      const element = supportresumeId;
+
+      if (!element) {
+        console.error("Element not found");
+        setLoading(false);
+        return;
+      }
+      console.log("✅ Element found. Generating PDF...");
+      const excludeElements = document.querySelectorAll(".pdf-exclude");
+      excludeElements.forEach((el) => (el.style.display = "none"));
+
+      const canvas = await html2canvas(element);
+      const imgData = canvas.toDataURL("image/png");
+
+      const pdf = new jsPDF();
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+
+      const imgProps = pdf.getImageProperties(imgData);
+      const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
+      heightLeft -= pdfHeight;
+
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
+        heightLeft -= pdfHeight;
+      }
+
+      const pdfBlob = pdf.output("blob");
+
+      const formData = new FormData();
+      formData.append("resumeId", resumeData?._id);
+      formData.append("resume", pdfBlob, "resume.pdf");
+      formData.append("supportPeople", JSON.stringify(supportPeople));
       const response = await axios.post(
         "/api/user/add-support-people",
-        formattedData
+        formData
       );
 
       if (response.data.success) {
@@ -204,6 +244,8 @@ const AddSupportModal = ({
     } catch (error) {
       ErrorToast(error?.response?.data?.message);
     } finally {
+      const excludeElements = document.querySelectorAll(".pdf-exclude");
+      excludeElements.forEach((el) => (el.style.display = ""));
       setLoading(false);
     }
   };
@@ -274,7 +316,6 @@ const AddSupportModal = ({
                   placeholder={"Enter Email"}
                   isDisabled={disableFullname1}
                   maxLength={254}
-
                 />
                 {errors.email && (
                   <p className="text-red-500 text-sm mx-2">{errors.email}</p>

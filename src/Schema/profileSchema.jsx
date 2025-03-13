@@ -5,16 +5,16 @@ export const profileSchema = Yup.object({
 
   state: Yup.string().required("Please select your state."),
 
-  address: Yup.string().required("Please enter your address."),
-  profilePicture: Yup.mixed()
-    .required("Profile picture is required")
-    .test(
-      "fileType",
-      "Only PNG, JPEG, and JPG formats are allowed",
-      (value) =>
-        !value ||
-        (value && ["image/png", "image/jpeg", "image/jpg"].includes(value.type))
-    ),
+  // address: Yup.string().required("Please enter your address."),
+  // profilePicture: Yup.mixed()
+  //   .required("Profile picture is required")
+  //   .test(
+  //     "fileType",
+  //     "Only PNG, JPEG, and JPG formats are allowed",
+  //     (value) =>
+  //       !value ||
+  //       (value && ["image/png", "image/jpeg", "image/jpg"].includes(value.type))
+  //   ),
 });
 
 export const EditProfileSchema = Yup.object({

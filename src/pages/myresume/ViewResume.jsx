@@ -111,7 +111,8 @@ const ViewResume = () => {
     printWindow.print();
     printWindow.close();
   };
-
+  const supportresumeId = document.getElementById("download-resume");
+  
   const handleDownload = async (e, elementId, filename, email) => {
     e.preventDefault();
     setLoading(true);
@@ -186,6 +187,7 @@ const ViewResume = () => {
           showModal={showPeopleModal}
           handleClick={handleShowPeopleModal}
           resumeData={resumeData}
+          supportresumeId={supportresumeId}
           setShowPeopleModal={setShowPeopleModal}
           formData={formData}
           setFormData={setFormData}
