@@ -19,7 +19,7 @@ const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
     <div>
       <Formik
         initialValues={{
-          measure: formData.specific || "", // Prefill with formData.specific
+          measure: formData.measure || formData.specific || "", // Prefill with formData.specific
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
@@ -66,6 +66,7 @@ const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
                 name="measure"
                 value={values.measure}
                 onChange={(e) => {
+                  
                   const updatedValue = e.target.value;
                   setFieldValue("measure", updatedValue);
                 }}

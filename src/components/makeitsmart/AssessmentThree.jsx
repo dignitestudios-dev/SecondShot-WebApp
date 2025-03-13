@@ -16,7 +16,7 @@ const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
     <div>
       <Formik
         initialValues={{
-          achievable: formData.measure || "", // Prefill with formData.measure
+          achievable: formData.achievable || formData.measure || "", // Prefill with formData.measure
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {

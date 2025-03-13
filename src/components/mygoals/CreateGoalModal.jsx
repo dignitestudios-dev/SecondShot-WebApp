@@ -15,9 +15,9 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
   const [showCalender, setShowCalender] = useState(false);
   const [showSubGoal, setShowSubGoal] = useState(false);
   const [formData, setFormData] = useState("");
-
   const location = useLocation();
-  const { isSmart, lastStep } = location.state || {};
+  const [isSmart, setIsSmart] = useState(location.state?.isSmart || false);
+  const { lastStep } = location.state || {};
   const [threeMonthsAgo, setThreeMonthsAgo] = useState(new Date());
 
   useEffect(() => {
@@ -87,7 +87,10 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
             <Form onSubmit={handleSubmit}>
               <button
                 className="absolute top-0 right-2 text-xl text-gray-500 hover:text-gray-600"
-                onClick={handleClick}
+                onClick={() => {
+                  handleClick();
+                  setIsSmart(false);
+                }}
               >
                 &times;
               </button>
@@ -121,14 +124,13 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                           Set a deadline for achieving your main goal!
                         </p>
                         <p className="text-[16px] mt-2 font-[400] text-[#767676] pb-1">
-                        {threeMonthsAgo
-  ? threeMonthsAgo.toLocaleDateString("en-US", {
-      month: "short",
-      day: "2-digit",
-      year: "numeric",
-    })
-  : "No date selected"}
-
+                          {threeMonthsAgo
+                            ? threeMonthsAgo.toLocaleDateString("en-US", {
+                                month: "short",
+                                day: "2-digit",
+                                year: "numeric",
+                              })
+                            : "No date selected"}
                         </p>
                       </div>
                       <div>
@@ -197,11 +199,14 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                                       </p>
                                       <p className="text-[16px] mt-2 font-[400] text-[#767676] pb-1">
                                         {subGoal.deadline
-                                          ? subGoal.deadline.toLocaleDateString("en-US", {
-      month: "short",
-      day: "2-digit",
-      year: "numeric",
-    })
+                                          ? subGoal.deadline.toLocaleDateString(
+                                              "en-US",
+                                              {
+                                                month: "short",
+                                                day: "2-digit",
+                                                year: "numeric",
+                                              }
+                                            )
                                           : "No date selected"}
                                       </p>
                                     </div>

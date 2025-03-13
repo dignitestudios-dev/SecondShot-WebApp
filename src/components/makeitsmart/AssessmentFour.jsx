@@ -16,7 +16,7 @@ const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
     <div>
       <Formik
         initialValues={{
-          relevant: formData.achievable || "", // Prefill with formData.achievable
+          relevant:formData.relevant || formData.achievable || "", // Prefill with formData.achievable
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {

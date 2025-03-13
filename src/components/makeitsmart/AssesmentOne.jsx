@@ -26,7 +26,7 @@ const AssessmentOne = ({
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          setFormData(values);
+          setFormData({ ...formData, specific: values.specific });
           nextStep();
         }}
       >

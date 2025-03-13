@@ -18,7 +18,7 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
     <div>
       <Formik
         initialValues={{
-          timebound: formData.relevant || "", 
+          timebound:formData.timebound || formData.relevant || "", 
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
