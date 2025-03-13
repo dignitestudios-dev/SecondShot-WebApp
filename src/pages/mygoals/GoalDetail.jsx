@@ -283,7 +283,7 @@ const GoalDetail = () => {
           </div>
           <div className="flex mt-4">
             <div>
-              {checkload ? (
+              {/* {checkload ? (
                 <div className="animate-pulse h-5 w-5 rounded-md border border-gray-300 bg-slate-500 "></div>
               ) : (
                 <input
@@ -296,7 +296,7 @@ checked:before:justify-center checked:before:items-center"
                   onChange={handlecompleted}
                   disabled={isCompleted || goalDetail?.status === "Completed"}
                 />
-              )}
+              )} */}
             </div>
             <p className=" text-[#000000] break-words w-full font-[400] text-[16px] leading-[21.6px] px-2 ">
               {goalDetail?.main_goal_name}

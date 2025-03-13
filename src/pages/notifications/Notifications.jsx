@@ -126,12 +126,13 @@ const Notifications = () => {
                     notif?.notification_type === "created" ? "bg-green-100" : ""
                   } ${notif.iconColor}`}
                 >
-               {notif.notification_type === "created" ? (
-  <FaBullseye />
-) : notif.notification_type === "alert" ? (
-  <img src={Alertnoti} alt="Alert Notification" />
-) : <img src={bell_icon}  alt="Alert Notification"/>}
-
+                  {notif?.notification_type === "created" ? (
+                    <FaBullseye />
+                  ) : notif?.notification_type === "alert" ? (
+                    <img src={Alertnoti} alt="Alert Notification" />
+                  ) : (
+                    <img src={bell_icon} alt="Alert Notification" />
+                  )}
                 </div>
                 <div className="ml-4 flex-1">
                   <div className="flex justify-between items-start">
@@ -160,16 +161,16 @@ const Notifications = () => {
                         )}
                       </div>
 
-                      <button
-                        onClick={() => deleteNotification(notif?._id)}
-                        className="text-gray-500 hover:text-red-500"
-                      >
-                        {deleteNoti === notif?._id && deleteLoading ? (
-                          <FiLoader className="animate-spin" />
-                        ) : (
-                          <FaTrash />
-                        )}
-                      </button>
+                      <input
+                        type="checkbox"
+                        checked={deleteNoti === notif?._id && deleteLoading}
+                        onChange={() => deleteNotification(notif?._id)}
+                        className={`h-5 w-5 rounded-md border border-gray-300 bg-white checked:bg-[#012C57] checked:border-[#012C57] appearance-none cursor-pointer 
+checked:before:block checked:before:content-['✓'] checked:before:text-white checked:before:text-sm text-center 
+checked:before:justify-center checked:before:items-center hover:text-red-500 ${
+                          notif?._id && deleteLoading ? "animate-pulse" : ""
+                        }`}
+                      />
                     </div>
                   </div>
                 </div>

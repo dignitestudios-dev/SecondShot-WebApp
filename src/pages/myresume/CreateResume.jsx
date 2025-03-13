@@ -172,12 +172,12 @@ const CreateResume = () => {
                   <div className="w-auto flex flex-col items-center gap-2">
                     <div className="flex items-center ">
                       <div
-                        className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-white ${
+                        className={`w-12 h-12 rounded-full flex items-center justify-center font-bold  text-[#012C57]  ${
                           index < step - 1
-                            ? "bg-gradient-to-r from-[#012C57] to-[#061523] z-50"
+                            ? "bg-gradient-to-r from-[#012C57] to-[#061523] z-50 text-white"
                             : index == step - 1
-                            ? "bg-[#56EC17] z-50 text-[#061523]"
-                            : "bg-[#969696]"
+                            ? "bg-[#56EC17] z-50  "
+                            : "bg-[#969696] text-white"
                         }`}
                       >
                         <span className="font-normal">{index + 1}</span>
@@ -189,7 +189,7 @@ const CreateResume = () => {
                           index < step - 1
                             ? " text-gradient-to-r from-[#012C57] to-[#061523] z-50"
                             : index == step - 1
-                            ? "text-[#061523] z-50"
+                            ? "text-[#061523] z-50" 
                             : "text-[#969696]"
                         }`}
                       >

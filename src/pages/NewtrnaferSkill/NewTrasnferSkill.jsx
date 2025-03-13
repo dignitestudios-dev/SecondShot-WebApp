@@ -172,7 +172,7 @@ const NewTrasnferSkill = () => {
       });
 
       if (response.status === 200) {
-        SuccessToast(isLiked ? "Unliked" : "Liked");
+        SuccessToast(isLiked ? "Skills remove from favorites" : "Skills saved to favorites");
         gettransferableskill();
       }
     } catch (err) {
@@ -224,16 +224,18 @@ const NewTrasnferSkill = () => {
                       });
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55]  text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -245,7 +247,7 @@ const NewTrasnferSkill = () => {
                         appear && selectedIndex == 0 ? "scale-100" : "scale-0"
                       } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
                     >
-                      <span className="w-[80%] h-full text-md font-medium text-gray-800">
+                      <span className="w-[80%] h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
 
@@ -296,7 +298,7 @@ const NewTrasnferSkill = () => {
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -308,7 +310,7 @@ const NewTrasnferSkill = () => {
                         appear && selectedIndex == 1 ? "scale-100" : "scale-0"
                       } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
                     >
-                      <span className="w-[80%] h-full text-md font-medium text-gray-800">
+                      <span className="w-[80%] h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
 
@@ -350,16 +352,18 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -371,7 +375,7 @@ const NewTrasnferSkill = () => {
                         appear && selectedIndex == 2 ? "scale-100" : "scale-0"
                       } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
                     >
-                      <span className="w-[80%] h-full text-md font-medium text-gray-800">
+                      <span className="w-[80%] h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
 
@@ -414,16 +418,18 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -435,7 +441,7 @@ const NewTrasnferSkill = () => {
                         appear && selectedIndex == 3 ? "scale-100" : "scale-0"
                       } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
                     >
-                      <span className="w-[80%] h-full text-md font-medium text-gray-800">
+                      <span className="w-[80%] h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
 
@@ -477,16 +483,18 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-6 -left-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -498,7 +506,7 @@ const NewTrasnferSkill = () => {
                         appear && selectedIndex == 4 ? "scale-100" : "scale-0"
                       } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
                     >
-                      <span className="w-[80%] h-full text-md font-medium text-gray-800">
+                      <span className="w-[80%] h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
 
@@ -538,9 +546,11 @@ const NewTrasnferSkill = () => {
           >
             <span>
               {loading ? (
-                <div className="w-16 h-16 rounded-[100px] absolute -bottom-8 -left-[22px] bg-green-700 animate-pulse flex justify-center items-center "></div>
+                <div className="w-16 h-16 rounded-[100px]    absolute -bottom-8 -left-[22px] bg-green-700 animate-pulse flex justify-center items-center "></div>
               ) : getSkill?.favorite_hobby1?.hobbie_name?.length > 7 ? (
-                getSkill.favorite_hobby1.hobbie_name.substring(0, 7) + "..."
+                <div className="text-nowrap">
+                  {getSkill.favorite_hobby1.hobbie_name.substring(0, 7) + "..."}
+                </div>
               ) : (
                 getSkill?.favorite_hobby1?.hobbie_name
               )}
@@ -583,7 +593,9 @@ const NewTrasnferSkill = () => {
               {loading ? (
                 <div className="w-16 h-16 rounded-[100px] absolute bottom-2 left-11 bg-green-700 animate-pulse flex justify-center items-center "></div>
               ) : getSkill?.favorite_hobby2?.hobbie_name.length > 7 ? (
-                getSkill.favorite_hobby2.hobbie_name.substring(0, 7) + "..."
+                <div className="text-nowrap">
+                  {getSkill.favorite_hobby2.hobbie_name.substring(0, 7) + "..."}
+                </div>
               ) : (
                 getSkill?.favorite_hobby2?.hobbie_name
               )}
@@ -615,10 +627,12 @@ const NewTrasnferSkill = () => {
                 <div className="w-16 h-16 rounded-[100px] absolute bottom-2 left-7 bg-green-700 animate-pulse flex justify-center items-center "></div>
               ) : getSkill?.favorite_middle_school_subject?.subject_name
                   ?.length > 7 ? (
-                getSkill?.favorite_middle_school_subject?.subject_name.substring(
-                  0,
-                  7
-                ) + "..."
+                <div className="text-nowrap">
+                  {getSkill?.favorite_middle_school_subject?.subject_name.substring(
+                    0,
+                    7
+                  ) + "..."}
+                </div>
               ) : (
                 getSkill?.favorite_middle_school_subject?.subject_name
               )}
@@ -654,9 +668,11 @@ const NewTrasnferSkill = () => {
           >
             <span className=" w-[20px]">
               {loading ? (
-                <div className="w-16 h-16 rounded-[100px] absolute bottom-2 left-3 bg-green-700 animate-pulse flex justify-center items-center "></div>
+                <div className="w-16 h-16 rounded-[100px] absolute bottom-2 left-9 bg-green-700 animate-pulse flex justify-center items-center "></div>
               ) : getSkill?.military?.rank?.rank_name?.length > 7 ? (
-                getSkill?.military?.rank?.rank_name.substring(0, 7) + "..."
+                <div className="text-nowrap">
+                  {getSkill?.military?.rank?.rank_name.substring(0, 7) + "..."}
+                </div>
               ) : (
                 getSkill?.military?.rank?.rank_name || "Null"
               )}
@@ -684,10 +700,12 @@ const NewTrasnferSkill = () => {
                 <div className="w-16 h-16 rounded-[100px] absolute bottom-2 left-4 bg-green-700 animate-pulse flex justify-center items-center "></div>
               ) : getSkill?.athlete?.sport_position?.position_name?.length >
                 7 ? (
-                getSkill?.athlete?.sport_position?.position_name?.substring(
-                  0,
-                  7
-                ) + "..."
+                <div className="text-nowrap">
+                  {getSkill?.athlete?.sport_position?.position_name?.substring(
+                    0,
+                    7
+                  ) + "..."}
+                </div>
               ) : (
                 getSkill?.athlete?.sport_position?.position_name || "Null"
               )}
@@ -746,7 +764,7 @@ const NewTrasnferSkill = () => {
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -779,7 +797,7 @@ const NewTrasnferSkill = () => {
                           />
                         )}
                       </span>
-                      <span className="h-full text-md font-medium text-gray-800">
+                      <span className="h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
                     </span>
@@ -801,16 +819,18 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-14 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -841,7 +861,7 @@ const NewTrasnferSkill = () => {
                           />
                         )}
                       </span>
-                      <span className=" h-full text-md font-medium text-gray-800">
+                      <span className=" h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
                     </span>
@@ -863,16 +883,18 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -903,7 +925,7 @@ const NewTrasnferSkill = () => {
                           />
                         )}
                       </span>
-                      <span className=" h-full text-md font-medium text-gray-800">
+                      <span className=" h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
                     </span>
@@ -925,16 +947,18 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -965,7 +989,7 @@ const NewTrasnferSkill = () => {
                           />
                         )}
                       </span>
-                      <span className=" h-full text-wrap text-md font-medium text-gray-800">
+                      <span className=" h-full text-wrap text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
                     </span>
@@ -987,16 +1011,18 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -1027,7 +1053,7 @@ const NewTrasnferSkill = () => {
                           />
                         )}
                       </span>
-                      <span className=" h-full text-wrap text-md font-medium text-gray-800">
+                      <span className=" h-full text-wrap text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
                     </span>
@@ -1077,7 +1103,7 @@ const NewTrasnferSkill = () => {
                     transition-all duration-300 ease-in-out"
                       >
                         <div
-                          className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                          className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                         >
                           {item?.title}
@@ -1108,7 +1134,7 @@ const NewTrasnferSkill = () => {
                             />
                           )}
                         </span>
-                        <span className=" h-full text-md font-medium text-gray-800">
+                        <span className=" h-full text-md font-medium text-[#172E55]">
                           {item?.description}
                         </span>
                       </span>
@@ -1141,7 +1167,7 @@ const NewTrasnferSkill = () => {
                     transition-all duration-300 ease-in-out"
                       >
                         <div
-                          className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                          className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                         >
                           {item?.title}
@@ -1172,7 +1198,7 @@ const NewTrasnferSkill = () => {
                             />
                           )}
                         </span>
-                        <span className=" h-full text-md font-medium text-gray-800">
+                        <span className=" h-full text-md font-medium text-[#172E55]">
                           {item?.description}
                         </span>
                       </span>
@@ -1182,7 +1208,7 @@ const NewTrasnferSkill = () => {
                   {index === 2 && (
                     <button
                       onBlur={() => setAppear(false)}
-                      className="relative cursor-pointer top-[245px] left-[245px] w-[50px] group"
+                      className="relative cursor-pointer  top-[245px] left-[240px] w-[50px] group"
                       onClick={() => {
                         setAppear(true);
                         setSelecetedIndex(2);
@@ -1196,16 +1222,18 @@ const NewTrasnferSkill = () => {
                         setNoteDescription(item?.description);
                       }}
                     >
+                      <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
+                        </p>
                       <div
                         className="absolute -top-12 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                       >
                         <div
-                          className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                          className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                         >
                           {item?.title}
@@ -1236,7 +1264,7 @@ const NewTrasnferSkill = () => {
                             />
                           )}
                         </span>
-                        <span className=" h-full text-md font-medium text-gray-800">
+                        <span className=" h-full text-md font-medium text-[#172E55]">
                           {item?.description}
                         </span>
                       </span>
@@ -1260,16 +1288,18 @@ const NewTrasnferSkill = () => {
                         setNoteDescription(item?.description);
                       }}
                     >
+                      <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
+                        </p>
                       <div
                         className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                       >
                         <div
-                          className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                          className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                         >
                           {item?.title}
@@ -1300,7 +1330,7 @@ const NewTrasnferSkill = () => {
                             />
                           )}
                         </span>
-                        <span className=" h-full text-md font-medium text-gray-800">
+                        <span className=" h-full text-md font-medium text-[#172E55]">
                           {item?.description}
                         </span>
                       </span>
@@ -1324,16 +1354,18 @@ const NewTrasnferSkill = () => {
                         setNoteDescription(item?.description);
                       }}
                     >
+                      <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
+                        </p>
                       <div
                         className="absolute -top-12 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                       >
                         <div
-                          className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                          className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                         >
                           {item?.title}
@@ -1364,7 +1396,7 @@ const NewTrasnferSkill = () => {
                             />
                           )}
                         </span>
-                        <span className=" h-full text-md font-medium text-gray-800">
+                        <span className=" h-full text-md font-medium text-[#172E55]">
                           {item?.description}
                         </span>
                       </span>
@@ -1404,16 +1436,18 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -1444,7 +1478,7 @@ const NewTrasnferSkill = () => {
                           />
                         )}
                       </span>
-                      <span className=" h-full text-md font-medium text-gray-800">
+                      <span className=" h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
                     </span>
@@ -1467,16 +1501,18 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -1507,7 +1543,7 @@ const NewTrasnferSkill = () => {
                           />
                         )}
                       </span>
-                      <span className=" h-full text-md font-medium text-gray-800">
+                      <span className=" h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
                     </span>
@@ -1530,16 +1566,18 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -1570,7 +1608,7 @@ const NewTrasnferSkill = () => {
                           />
                         )}
                       </span>
-                      <span className=" h-full text-md font-medium text-gray-800">
+                      <span className=" h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
                     </span>
@@ -1593,16 +1631,18 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -1633,7 +1673,7 @@ const NewTrasnferSkill = () => {
                           />
                         )}
                       </span>
-                      <span className=" h-full text-md font-medium text-gray-800">
+                      <span className=" h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
                     </span>
@@ -1656,16 +1696,18 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -1696,7 +1738,7 @@ const NewTrasnferSkill = () => {
                           />
                         )}
                       </span>
-                      <span className=" h-full text-md font-medium text-gray-800">
+                      <span className=" h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
                     </span>
@@ -1735,16 +1777,18 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -1756,7 +1800,7 @@ const NewTrasnferSkill = () => {
                         appear && selectedIndex == 0 ? "scale-100" : "scale-0"
                       } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
                     >
-                      <span className=" h-full text-md font-medium text-gray-800">
+                      <span className=" h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
                       <span className="w-[20%] h-full flex  items-start">
@@ -1798,16 +1842,18 @@ const NewTrasnferSkill = () => {
                     }}
                   >
                     {" "}
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -1819,7 +1865,7 @@ const NewTrasnferSkill = () => {
                         appear && selectedIndex == 1 ? "scale-100" : "scale-0"
                       } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
                     >
-                      <span className=" h-full text-md font-medium text-gray-800">
+                      <span className=" h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
                       <span className="w-[20%] h-full flex  items-start">
@@ -1860,16 +1906,18 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -1881,7 +1929,7 @@ const NewTrasnferSkill = () => {
                         appear && selectedIndex == 2 ? "scale-100" : "scale-0"
                       } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
                     >
-                      <span className=" h-full text-md font-medium text-gray-800">
+                      <span className=" h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
                       <span className="w-[20%] h-full flex  items-start">
@@ -1922,16 +1970,18 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-12 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -1943,7 +1993,7 @@ const NewTrasnferSkill = () => {
                         appear && selectedIndex == 3 ? "scale-100" : "scale-0"
                       } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
                     >
-                      <span className=" h-full text-md font-medium text-gray-800">
+                      <span className=" h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
                       <span className="w-[20%] h-full flex  items-start">
@@ -1985,16 +2035,18 @@ const NewTrasnferSkill = () => {
                     }}
                   >
                     {" "}
-                    {item.title.length > 8
-                      ? item.title.substring(0, 8) + "..."
-                      : item.title}
+                     <p className="text-nowrap">
+                      {item.title.length > 8
+                        ? item.title.substring(0, 8) + "..."
+                        : item.title}
+                        </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
                     >
                       <div
-                        className="bg-[#56EC17] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                        className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
                       >
                         {item?.title}
@@ -2006,7 +2058,7 @@ const NewTrasnferSkill = () => {
                         appear && selectedIndex == 4 ? "scale-100" : "scale-0"
                       } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
                     >
-                      <span className=" h-full text-md font-medium text-gray-800">
+                      <span className=" h-full text-md font-medium text-[#172E55]">
                         {item?.description}
                       </span>
                       <span className="w-[20%] h-full flex  items-start">
@@ -2050,7 +2102,9 @@ const NewTrasnferSkill = () => {
         isOpen={lock}
         handleClick={() => navigate("/subscriptionplans")}
         onClose={() => setLock(false)}
-        text={'The free version only shows one skill and its nodes. Subscribe now to unlock the full transferable skills map.'}
+        text={
+          "The free version only shows one skill and its nodes. Subscribe now to unlock the full transferable skills map."
+        }
       />
     </div>
   );
