@@ -92,26 +92,24 @@ const Experience = ({
   };
   const handleJobTitle = (e, index) => {
     let input = e.target.value;
-  
+
     input = input
       .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
-  
+
     formik.setFieldValue(`experienceList[${index}].jobTitle`, input);
   };
   const handlecompany = (e, index) => {
     let input = e.target.value;
-  
+
     input = input
       .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
-  
+
     formik.setFieldValue(`experienceList[${index}].company`, input);
   };
-  
- 
 
   return (
     <div className="pt-6 px-3">
@@ -129,254 +127,282 @@ const Experience = ({
             render={(arrayHelpers) => (
               <>
                 {values?.experienceList?.map((_, index) => {
-const months = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
+                  const months = [
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December",
+                  ];
 
-const getFilteredMonths = (startMonth, startYear, selectedYear, currentYear) => {
-  const startMonthIndex = months.indexOf(startMonth);
-  const currentMonthIndex = new Date().getMonth();
+                  const getFilteredMonths = (
+                    startMonth,
+                    startYear,
+                    selectedYear,
+                    currentYear
+                  ) => {
+                    const startMonthIndex = months.indexOf(startMonth);
+                    const currentMonthIndex = new Date().getMonth();
 
-  if (selectedYear > currentYear) {
-    return months; 
-  } else if (selectedYear === currentYear) {
-    return months.slice(currentMonthIndex + 1); 
-  } else if (selectedYear === startYear) {
-    return months.slice(startMonthIndex); 
-  }
+                    if (selectedYear > currentYear) {
+                      return months;
+                    } else if (selectedYear === currentYear) {
+                      return months.slice(currentMonthIndex + 1);
+                    } else if (selectedYear === startYear) {
+                      return months.slice(startMonthIndex);
+                    }
 
-  return months; 
-};
+                    return months;
+                  };
 
-const filteredMonths = getFilteredMonths(
-  values.experienceList[index].startmonth,
-  values.experienceList[index].startyear,
-  values.experienceList[index].endyear,
-  new Date().getFullYear()
-);
-               
+                  const filteredMonths = getFilteredMonths(
+                    values.experienceList[index].startmonth,
+                    values.experienceList[index].startyear,
+                    values.experienceList[index].endyear,
+                    new Date().getFullYear()
+                  );
 
-                return(
-                  <div key={index} className="">
-                    <div className="flex justify-between items-center mb-4">
-                      {index > 0 && (
-                        <button
-                          type="button"
-                          onClick={() => arrayHelpers.remove(index)}
-                          className="text-red-500 text-sm"
-                        >
-                          Remove
-                        </button>
-                      )}
-                    </div>
-                    <div className="w-full flex flex-col items-start gap-1 my-8">
-                      <AuthInput
-                        name={`experienceList[${index}].jobTitle`}
-                        id={`experienceList[${index}].jobTitle`}
-                        value={values.experienceList[index].jobTitle}
-                        onChange={(e) => handleJobTitle(e, index)}
-                        onBlur={handleBlur}
-                        placeholder={"Enter Job Title"}
-                        text={"Job Title"}
-                        maxLength={50}
-                      />
-                      {errors.experienceList?.[index]?.jobTitle &&
-                        touched.experienceList?.[index]?.jobTitle && (
-                          <span className="text-red-700 text-sm font-medium">
-                            {errors.experienceList[index].jobTitle}
-                          </span>
+                  return (
+                    <div key={index} className="">
+                      <div className="flex justify-between items-center mb-4">
+                        {index > 0 && (
+                          <button
+                            type="button"
+                            onClick={() => arrayHelpers.remove(index)}
+                            className="text-red-500 text-sm"
+                          >
+                            Remove
+                          </button>
                         )}
-                    </div>
-                    <div className="w-full flex flex-col items-start gap-1 my-8">
-                      <AuthInput
-                        name={`experienceList[${index}].company`}
-                        id={`experienceList[${index}].company`}
-                        value={values.experienceList[index].company}
-                        onChange={(e) => handlecompany(e, index)}
-                        onBlur={handleBlur}
-                        placeholder={"Enter Company Name"}
-                        text={"Company"}
-                        maxLength={50}
-                      />
-                      {errors.experienceList?.[index]?.company &&
-                        touched.experienceList?.[index]?.company && (
-                          <span className="text-red-700 text-sm font-medium">
-                            {errors.experienceList[index].company}
-                          </span>
-                        )}
-                    </div>
-
-                    <div className="w-full flex gap-4">
-                      <div className="w-1/2">
-                        <MonthsInput
-                          name={`experienceList[${index}].startmonth`}
-                          id={`experienceList[${index}].startmonth`}
-                          value={values.experienceList[index].startmonth}
-                          onChange={handleChange}
+                      </div>
+                      <div className="w-full flex flex-col items-start gap-1 my-8">
+                        <AuthInput
+                          name={`experienceList[${index}].jobTitle`}
+                          id={`experienceList[${index}].jobTitle`}
+                          value={values.experienceList[index].jobTitle}
+                          onChange={(e) => handleJobTitle(e, index)}
                           onBlur={handleBlur}
-                          label={"Start date"}
-                          options={[
-                            { value: "", label: "Select Month" },
-                            { value: "January", label: "January" },
-                            { value: "February", label: "February" },
-                            { value: "March", label: "March" },
-                            { value: "April", label: "April" },
-                            { value: "May", label: "May" },
-                            { value: "June", label: "June" },
-                            { value: "July", label: "July" },
-                            { value: "August", label: "August" },
-                            { value: "September", label: "September" },
-                            { value: "October", label: "October" },
-                            { value: "November", label: "November" },
-                            { value: "December", label: "December" },
-                          ]}
+                          placeholder={"Enter Job Title"}
+                          text={"Job Title"}
+                          maxLength={50}
                         />
-                        {errors.experienceList?.[index]?.startmonth &&
-                          touched.experienceList?.[index]?.startmonth && (
+                        {errors.experienceList?.[index]?.jobTitle &&
+                          touched.experienceList?.[index]?.jobTitle && (
                             <span className="text-red-700 text-sm font-medium">
-                              {errors.experienceList[index].startmonth}
+                              {errors.experienceList[index].jobTitle}
                             </span>
                           )}
                       </div>
-                      <div className="w-1/2 mt-6">
-                        <MonthsInput
-                          name={`experienceList[${index}].startyear`}
-                          id={`experienceList[${index}].startyear`}
-                          value={values.experienceList[index].startyear}
-                          onChange={handleChange}
+                      <div className="w-full flex flex-col items-start gap-1 my-8">
+                        <AuthInput
+                          name={`experienceList[${index}].company`}
+                          id={`experienceList[${index}].company`}
+                          value={values.experienceList[index].company}
+                          onChange={(e) => handlecompany(e, index)}
                           onBlur={handleBlur}
-                          options={getStartYearsArray(1990)}
+                          placeholder={"Enter Company Name"}
+                          text={"Company"}
+                          maxLength={50}
                         />
-                        {errors.experienceList?.[index]?.startyear &&
-                          touched.experienceList?.[index]?.startyear && (
+                        {errors.experienceList?.[index]?.company &&
+                          touched.experienceList?.[index]?.company && (
                             <span className="text-red-700 text-sm font-medium">
-                              {errors.experienceList[index].startyear}
+                              {errors.experienceList[index].company}
                             </span>
                           )}
                       </div>
-                    </div>
-                    <div>
-                      <div className="flex items-center my-2">
-                        <input
-                          type="checkbox"
-                          name={`experienceList[${index}].isCurrent`}
-                          id={`experienceList[${index}].isCurrent`}
-                          value={values.experienceList[index].isCurrent}
-                          checked={values.experienceList[index].isCurrent}
-                          onChange={(e) => {
-                            const isChecked = e.target.checked;
-                            setFieldValue(
-                              `experienceList[${index}].isCurrent`,
-                              isChecked
-                            );
-                            if (isChecked) {
-                              setCustomErrors((prevErrors) => {
-                                const updatedErrors = { ...prevErrors };
-                                delete updatedErrors[
-                                  `experienceList[${index}].endmonth`
-                                ];
-                                delete updatedErrors[
-                                  `experienceList[${index}].endyear`
-                                ];
-                                return updatedErrors;
-                              });
-                            }
-                          }}
-                          className="appearance-none w-4 h-4 border-2 border-gray-400 rounded-sm checked:bg-blue-900 
-      checked:border-transparent focus:outline-none transition duration-300 ease-in-out relative"
-                        />
-                        <label htmlFor="some_id" className="ml-2 text-gray-600">
-                          I am currently in this role
-                        </label>
 
-                        <style jsx>{`
-                          input[type="checkbox"]:checked::before {
-                            content: "\\2714";
-                            color: white;
-                            position: absolute;
-                            top: 0px;
-                            left: 0px;
-                            font-size: 10px;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            width: 100%;
-                            height: 100%;
-                          }
-                        `}</style>
-                      </div>
-                    </div>
-
-                    {!values.experienceList[index].isCurrent && (
-                      <div className="w-full flex gap-4 mt-4">
+                      <div className="w-full flex gap-4">
                         <div className="w-1/2">
                           <MonthsInput
-                            label={"End Date"}
-                            name={`experienceList[${index}].endmonth`}
-                            id={`experienceList[${index}].endmonth`}
-                            value={values.experienceList[index].endmonth}
+                            name={`experienceList[${index}].startmonth`}
+                            id={`experienceList[${index}].startmonth`}
+                            value={values.experienceList[index].startmonth}
                             onChange={handleChange}
                             onBlur={handleBlur}
+                            label={"Start date"}
                             options={[
                               { value: "", label: "Select Month" },
-                              ...filteredMonths.map((month) => ({ value: month, label: month }))
+                              { value: "January", label: "January" },
+                              { value: "February", label: "February" },
+                              { value: "March", label: "March" },
+                              { value: "April", label: "April" },
+                              { value: "May", label: "May" },
+                              { value: "June", label: "June" },
+                              { value: "July", label: "July" },
+                              { value: "August", label: "August" },
+                              { value: "September", label: "September" },
+                              { value: "October", label: "October" },
+                              { value: "November", label: "November" },
+                              { value: "December", label: "December" },
                             ]}
                           />
-                          {customErrors[
-                            `experienceList[${index}].endmonth`
-                          ] && (
-                            <span className="text-red-700 text-sm font-medium">
-                              {
-                                customErrors[
-                                  `experienceList[${index}].endmonth`
-                                ]
-                              }
-                            </span>
-                          )}
+                          {errors.experienceList?.[index]?.startmonth &&
+                            touched.experienceList?.[index]?.startmonth && (
+                              <span className="text-red-700 text-sm font-medium">
+                                {errors.experienceList[index].startmonth}
+                              </span>
+                            )}
                         </div>
                         <div className="w-1/2 mt-6">
                           <MonthsInput
-                            id={`experienceList[${index}].endyear`}
-                            name={`experienceList[${index}].endyear`}
-                            value={values.experienceList[index].endyear}
+                            name={`experienceList[${index}].startyear`}
+                            id={`experienceList[${index}].startyear`}
+                            value={values.experienceList[index].startyear}
                             onChange={handleChange}
-                            options={getYearsArray(
-                              values.experienceList[index].startyear || 1990
-                            )}
-                            disabled={!values.experienceList[index].startyear}
+                            onBlur={handleBlur}
+                            options={getStartYearsArray(1990)}
                           />
-                          {customErrors[`experienceList[${index}].endyear`] && (
-                            <span className="text-red-700 text-sm font-medium">
-                              {customErrors[`experienceList[${index}].endyear`]}
-                            </span>
-                          )}
+                          {errors.experienceList?.[index]?.startyear &&
+                            touched.experienceList?.[index]?.startyear && (
+                              <span className="text-red-700 text-sm font-medium">
+                                {errors.experienceList[index].startyear}
+                              </span>
+                            )}
                         </div>
                       </div>
-                    )}
+                      <div>
+                        <div className="flex items-center my-2">
+                          <input
+                            type="checkbox"
+                            name={`experienceList[${index}].isCurrent`}
+                            id={`experienceList[${index}].isCurrent`}
+                            value={values.experienceList[index].isCurrent}
+                            checked={values.experienceList[index].isCurrent}
+                            onChange={(e) => {
+                              const isChecked = e.target.checked;
+                              setFieldValue(
+                                `experienceList[${index}].isCurrent`,
+                                isChecked
+                              );
+                              if (isChecked) {
+                                setCustomErrors((prevErrors) => {
+                                  const updatedErrors = { ...prevErrors };
+                                  delete updatedErrors[
+                                    `experienceList[${index}].endmonth`
+                                  ];
+                                  delete updatedErrors[
+                                    `experienceList[${index}].endyear`
+                                  ];
+                                  return updatedErrors;
+                                });
+                              }
+                            }}
+                            className="appearance-none w-4 h-4 border-2 border-gray-400 rounded-sm checked:bg-blue-900 
+      checked:border-transparent focus:outline-none transition duration-300 ease-in-out relative"
+                          />
+                          <label
+                            htmlFor="some_id"
+                            className="ml-2 text-gray-600"
+                          >
+                            I am currently in this role
+                          </label>
 
-                    <div className="w-full flex flex-col items-start gap-1 my-8">
-                      <label className="text-sm font-medium">Description</label>
-                      <textarea
-                        rows="4"
-                        name={`experienceList[${index}].description`}
-                        className="w-full border rounded-xl px-3 py-3 text-sm bg-transparent border-gray-700 focus:ring-gray-700 focus:border-gray-700 outline-gray-700"
-                        placeholder="Describe your role"
-                        value={values.experienceList[index].description}
-                        onChange={(e) => handleInput(e, index)}
-                        onBlur={handleBlur}
-                        maxLength={300}
-                      />
-                      {errors.experienceList?.[index]?.description &&
-                        touched.experienceList?.[index]?.description && (
-                          <span className="text-red-700 text-sm font-medium">
-                            {errors.experienceList[index].description}
-                          </span>
-                        )}
+                          <style jsx>{`
+                            input[type="checkbox"]:checked::before {
+                              content: "\\2714";
+                              color: white;
+                              position: absolute;
+                              top: 0px;
+                              left: 0px;
+                              font-size: 10px;
+                              display: flex;
+                              justify-content: center;
+                              align-items: center;
+                              width: 100%;
+                              height: 100%;
+                            }
+                          `}</style>
+                        </div>
+                      </div>
+
+                      {!values.experienceList[index].isCurrent && (
+                        <div className="w-full flex gap-4 mt-4">
+                          <div className="w-1/2">
+                            <MonthsInput
+                              label={"End Date"}
+                              name={`experienceList[${index}].endmonth`}
+                              id={`experienceList[${index}].endmonth`}
+                              value={values.experienceList[index].endmonth}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              options={[
+                                { value: "", label: "Select Month" },
+                                ...filteredMonths.map((month) => ({
+                                  value: month,
+                                  label: month,
+                                })),
+                              ]}
+                            />
+                            {customErrors[
+                              `experienceList[${index}].endmonth`
+                            ] && (
+                              <span className="text-red-700 text-sm font-medium">
+                                {
+                                  customErrors[
+                                    `experienceList[${index}].endmonth`
+                                  ]
+                                }
+                              </span>
+                            )}
+                          </div>
+                          <div className="w-1/2 mt-6">
+                            <MonthsInput
+                              id={`experienceList[${index}].endyear`}
+                              name={`experienceList[${index}].endyear`}
+                              value={values.experienceList[index].endyear}
+                              onChange={handleChange}
+                              options={getYearsArray(
+                                values.experienceList[index].startyear || 1990
+                              )}
+                              disabled={!values.experienceList[index].startyear}
+                            />
+                            {customErrors[
+                              `experienceList[${index}].endyear`
+                            ] && (
+                              <span className="text-red-700 text-sm font-medium">
+                                {
+                                  customErrors[
+                                    `experienceList[${index}].endyear`
+                                  ]
+                                }
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="w-full flex flex-col items-start gap-1 my-8">
+                        <label className="text-sm font-medium">
+                          Description
+                        </label>
+                        <textarea
+                          rows="4"
+                          name={`experienceList[${index}].description`}
+                          className="w-full border rounded-xl px-3 py-3 text-sm bg-transparent border-gray-700 focus:ring-gray-700 focus:border-gray-700 outline-gray-700"
+                          placeholder="Describe your role"
+                          value={values.experienceList[index].description}
+                          onChange={(e) => handleInput(e, index)}
+                          onBlur={handleBlur}
+                          maxLength={300}
+                        />
+                        {errors.experienceList?.[index]?.description &&
+                          touched.experienceList?.[index]?.description && (
+                            <span className="text-red-700 text-sm font-medium">
+                              {errors.experienceList[index].description}
+                            </span>
+                          )}
+                      </div>
                     </div>
-                  </div>
-                )}
-              )}
+                  );
+                })}
                 <div className="flex items-center gap-1 mb-3 mt-3 text-[12px] font-[600]">
                   <IoIosArrowBack className="font-[600]" onClick={prevStep} />
                   <span onClick={prevStep}>BACK</span>

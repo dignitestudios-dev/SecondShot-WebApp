@@ -4,15 +4,47 @@ import SubscriptionModal from "../../components/Modal/SubscriptionModal";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import { useNavigate } from "react-router-dom";
 import axios from "../../axios";
-import { ErrorToast } from "../../components/toaster/ToasterContainer";
+import {
+  ErrorToast,
+  SuccessToast,
+} from "../../components/toaster/ToasterContainer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import { useFormik } from "formik";
+import { accessCodeSchema } from "../../Schema/accesscodeschema";
+import { accessCode } from "../../data/authentication";
 
 const SubscriptionPlannew = () => {
   const navigation = useNavigate("");
   const [isModalOpen, setModalOpen] = useState(false);
   const [subscription, setSubscription] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
+    useFormik({
+      initialValues: accessCode,
+      validationSchema: accessCodeSchema,
+      validateOnChange: true,
+      validateOnBlur: true,
+      onSubmit: async () => {
+        console.log(values, "Ss");
+        try {
+          const response = await axios.post(
+            "/api/subscription/verify-access-code",
+            {
+              code: values.accesscode,
+            }
+          );
+          if (response.status === 200) {
+            SuccessToast(response?.data?.message);
+            navigation("/profiledetail");
+          }
+        } catch (err) {
+          console.log(err?.response?.data?.message);
+          ErrorToast(err?.response?.data?.message);
+        }
+      },
+    });
 
   const getsubscriptionDetail = async () => {
     setIsLoading(true);
@@ -76,35 +108,53 @@ const SubscriptionPlannew = () => {
             className="mySwiper"
           >
             <SwiperSlide>
-              <div className="bg-gradient-to-b from-[#012C57] to-[#061523] text-white rounded-[22px] h-[659px] shadow-lg p-6 w-full max-w-sm flex flex-col">
-                <h2 className="text-[24px] font-semibold ">
-                  Have an access code?
-                </h2>
-                <div className="opacity-[20%]">
-                  <hr className="bg-[#FFFFFF] mt-5 mb-5" />
+              <form onSubmit={handleSubmit}>
+                <div className="bg-gradient-to-b from-[#012C57] to-[#061523] text-white rounded-[22px] h-[659px] shadow-lg p-6 w-full max-w-sm flex flex-col">
+                  <h2 className="text-[24px] font-semibold ">
+                    Have an access code?
+                  </h2>
+                  <div className="opacity-[20%]">
+                    <hr className="bg-[#FFFFFF] mt-5 mb-5" />
+                  </div>
+                  <p className="text-[20px] leading-[27px] font-[600]">
+                    Unlock immediate access to <br /> Your Career Toolbox.
+                  </p>
+                  <div className="space-y-4 mt-9 h-[261px]">
+                    <label className="text-[16px] text-[#56EC17] leading-[21.6px] font-[500] mb-1">
+                      Use Access Code
+                    </label>
+                    <input
+                      type="text"
+                      id="accesscode"
+                      name="accesscode"
+                      placeholder="Access Code"
+                      value={values.accesscode}
+                      onChange={(e) => {
+                        const numericValue = e.target.value.replace(/\D/g, "");
+                        handleChange({
+                          target: { name: "accesscode", value: numericValue },
+                        });
+                      }}
+                      onBlur={handleBlur}
+                      maxLength={6}
+                      className="w-full bg-transparent border border-[#395E81] px-4 py-2 rounded-[15px] text-[16px] text-[white] focus:outline-none focus:ring-2 focus:ring-[#55C9FA]"
+                    />
+                    {errors.accesscode && touched.accesscode ? (
+                      <span className="text-red-700 mx-2 text-sm font-medium">
+                        {errors.accesscode}
+                      </span>
+                    ) : null}
+                  </div>
+                  <div className="mt-auto">
+                    <button
+                      className="bg-white text-[#1E384F] text-[16px] font-[500] w-[171px] h-[45px] rounded-[12px]"
+                      type="submit"
+                    >
+                      Submit
+                    </button>
+                  </div>
                 </div>
-                <p className="text-[20px] leading-[27px] font-[600]">
-                  Unlock immediate access to <br /> Your Career Toolbox.
-                </p>
-                <div className="space-y-4 mt-9 h-[261px]">
-                  <label className="text-[16px] text-[#56EC17] leading-[21.6px] font-[500] mb-1">
-                    Use Access Code
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Access Code"
-                    className="w-full bg-transparent border border-[#395E81] px-4 py-2 rounded-[15px] text-[16px] text-[white] focus:outline-none focus:ring-2 focus:ring-[#55C9FA]"
-                  />
-                </div>
-                <div className="mt-auto">
-                  <button
-                    className="bg-white text-[#1E384F] text-[16px] font-[500] w-[171px] h-[45px] rounded-[12px]"
-                    onClick={() => setModalOpen(true)}
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
+              </form>
             </SwiperSlide>
             <SwiperSlide>
               <div className="bg-white rounded-[22px] h-[659px]  p-6 w-full max-w-sm flex flex-col">

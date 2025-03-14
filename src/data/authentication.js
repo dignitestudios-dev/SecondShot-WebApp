@@ -12,7 +12,6 @@ export const signInValues = {
 };
 
 export const profileValues = {
- 
   country: "",
   state: "",
   address: "",
@@ -27,4 +26,6 @@ export const resetValues = {
   password: "",
   Cpassword: "",
 };
-
+export const accessCode = {
+  accesscode: "",
+};
