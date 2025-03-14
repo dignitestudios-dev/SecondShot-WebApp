@@ -250,7 +250,7 @@ function MyProfile() {
                           Phone Number
                         </p>
                         <p className="text-[#050405] text-base">
-                        +1{phoneFormater(profileData?.phone)}
+                          +1{phoneFormater(profileData?.phone)}
                         </p>
 
                         <p className="text-[#222222] font-medium text-base  ">
@@ -415,21 +415,35 @@ function MyProfile() {
                       />
                     </div>
                   </div>
-
-                  <hr className=" border-t border-gray-200" />
+                  {profileData?.current_subscription_plan === "access-code" ? (
+                    ""
+                  ) : (
+                    <hr className=" border-t border-gray-200" />
+                  )}
                   <div className="flex justify-between items-center">
-                    <div>
-                      <h2 className="text-lg font-semibold text-gray-900 text-left">
-                        Subscription
-                      </h2>
-                      <p className="text-gray-600 text-left">Subscriptions</p>
-                    </div>
-                    <div>
-                      <AuthSubmitBtn
-                        text={"Manage"}
-                        handleSubmit={() => navigate("/profile-subscription")}
-                      />
-                    </div>
+                    {profileData?.current_subscription_plan ===
+                    "access-code" ? (
+                      <div></div>
+                    ) : (
+                      <>
+                        <div>
+                          <h2 className="text-lg font-semibold text-gray-900 text-left">
+                            Subscription
+                          </h2>
+                          <p className="text-gray-600 text-left">
+                            Subscriptions
+                          </p>
+                        </div>
+                        <div>
+                          <AuthSubmitBtn
+                            text={"Manage"}
+                            handleSubmit={() =>
+                              navigate("/profile-subscription")
+                            }
+                          />
+                        </div>
+                      </>
+                    )}
                   </div>
                   <hr className=" border-t border-gray-200" />
                   <div className="flex justify-between items-center">
