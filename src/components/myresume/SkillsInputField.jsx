@@ -150,7 +150,11 @@ const SkillsInputField = ({
               )}
 
               <div className="mt-4 flex justify-center">
-                <AuthSubmitBtn text={"Add Skills"} handleSubmit={closeModal} />
+                <AuthSubmitBtn
+                  text={"Add Skills"}
+                  handleSubmit={closeModal}
+                  disabled={myskills.length === 0}
+                />
               </div>
             </div>
           </div>

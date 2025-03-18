@@ -41,6 +41,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
     validateOnBlur: true,
     context: { showSubGoal },
     onSubmit: (values) => {
+      console.log(values,"Ss")
       setFormData(values);
 
       navigate("/review-goals", {

@@ -21,7 +21,7 @@ const EditProfileDetails = () => {
   const profileData = location.state || {};
   const [loading, setLoading] = useState(false);
   const { setProfilepic } = useContext(AuthContext);
-  
+
   const {
     values,
     handleBlur,
@@ -32,7 +32,6 @@ const EditProfileDetails = () => {
     errors,
     touched,
   } = useFormik({
-
     initialValues: {
       fullname: profileData?.name || "",
       email: profileData?.email || "",
@@ -42,17 +41,18 @@ const EditProfileDetails = () => {
       address: profileData?.address || "",
       profilePicture: null,
     },
-    
+
     validationSchema: EditProfileSchema,
     enableReinitialize: true,
     onSubmit: async (values) => {
+      console.log(values.address);
       setLoading(true);
       try {
         const formData = new FormData();
         formData.append("name", values.fullname);
         formData.append("state", values.state);
         formData.append("city", values.city);
-        formData.append("address", values.address);
+        formData.append("address", values.address || "");
 
         if (values.profilePicture) {
           formData.append("profile_img", values.profilePicture);
@@ -102,11 +102,11 @@ const EditProfileDetails = () => {
     } else {
     }
   };
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     setFieldValue("state", profileData?.state);
-    setFieldValue("city", profileData?.city)
-  },[profileData])
+    setFieldValue("city", profileData?.city);
+  }, [profileData]);
 
   return (
     <div className=" bg-transparent lg:h-screen h-full px-6 py-4">
@@ -246,7 +246,6 @@ const EditProfileDetails = () => {
                 handleChange(e);
                 setFieldValue("city", e.target.value); // City ka value update karo
                 setFieldTouched("city", true);
-
               }}
               options={[
                 { value: "", label: "--Select City--" },
@@ -277,11 +276,6 @@ const EditProfileDetails = () => {
               onChange={handleChange}
               maxLength={250}
             />
-            {errors.address && touched.address ? (
-              <span className="text-red-700 text-sm font-medium">
-                {errors.address}
-              </span>
-            ) : null}
           </div>
         </div>
         <div className="col-span-12">

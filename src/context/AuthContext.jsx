@@ -8,7 +8,8 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [profilepic, setProfilepic] = useState("");
-  const {getnotifications}=useContext(ModalContext); 
+  const [profilename, setProfilename] = useState("");
+  const { getnotifications } = useContext(ModalContext);
   const [user, setUser] = useState({
     name: Cookies.get("name") || "",
     email: Cookies.get("email") || "",
@@ -28,7 +29,7 @@ const AuthProvider = ({ children }) => {
     Cookies.set("name", userData?.name);
     Cookies.set("email", userData?.email);
     Cookies.set("phone", userData?.phone);
-    
+
     setToken(userData?.token);
     getnotifications();
     setRegQuestion(userData?.is_registration_question_completed);
@@ -49,6 +50,7 @@ const AuthProvider = ({ children }) => {
         setSubscriptionpaid(user?.is_subscription_paid);
         Cookies.set("profileData", JSON.stringify(user));
         setProfilepic(user?.profile_img);
+        setProfilename(user?.name);
         setregistrationQuestion(user?.is_registration_question_completed);
         setprofileCompleted(user?.is_profile_completed);
       }
@@ -81,6 +83,7 @@ const AuthProvider = ({ children }) => {
     registrationQuestion,
     getProfile,
     user,
+    profilename
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

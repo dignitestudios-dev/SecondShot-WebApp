@@ -232,11 +232,21 @@ function MyProfile() {
                       </button>
                     </div>
                     <div className="flex flex-wrap items-center mb-8">
-                      <img
-                        src={profileData?.profile_img}
-                        alt="User Avatar"
-                        className="h-24 w-24 rounded-full shadow-lg mr-6"
-                      />
+                      {profileData?.profile_img ? (
+                        <img
+                          src={profileData?.profile_img}
+                          alt="User Avatar"
+                          className="h-24 w-24 rounded-full shadow-lg mr-6"
+                        />
+                      ) : (
+                        <div className="h-24 w-24 flex items-center justify-center rounded-full shadow-lg mr-6 bg-gray-300 text-[#012C57] text-[20px] font-bold uppercase">
+                          {profileData?.name
+                            ?.split(" ")
+                            .map((word) => word[0])
+                            .slice(0, 2)
+                            .join("")}
+                        </div>
+                      )}
                       <div>
                         <h2 className="text-[20px] font-[600] text-[#050405] text-left">
                           {profileData?.name}
@@ -257,7 +267,7 @@ function MyProfile() {
                           Address
                         </p>
                         <p className="text-[#222222] font-normal text-base  ">
-                          {profileData?.address}
+                          {profileData?.address || ""}
                         </p>
 
                         <p className="text-[#050405] text-base font-normal ">

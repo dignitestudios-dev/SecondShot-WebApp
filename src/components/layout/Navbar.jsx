@@ -10,7 +10,7 @@ import { AuthContext } from "../../context/AuthContext";
 import LockModal from "../home/LockModal";
 
 const Navbar = () => {
-  const { subscriptionpaid, profilepic } = useContext(AuthContext);
+  const { subscriptionpaid, profilepic, profilename } = useContext(AuthContext);
   const { notifications, countNoti } = useContext(ModalContext);
 
   const navigate = useNavigate();
@@ -65,7 +65,7 @@ const Navbar = () => {
             <li key={item.path}>
               {subscriptionpaid ||
               item.path === "/transferablekills" ||
-              item.path === "/home"? (
+              item.path === "/home" ? (
                 <Link to={item.path} className="text-white uppercase">
                   {item.label}
                 </Link>
@@ -109,11 +109,21 @@ const Navbar = () => {
             )}
           </div>
           <Link to="/my-profile">
-            <img
-              src={profilepic || ""}
-              alt="User Avatar"
-              className="h-[40px] w-[40px] md:h-[60px] md:w-[60px] rounded-full border-2 border-white p-0.5"
-            />
+            {profilepic ? (
+              <img
+                src={profilepic}
+                alt="User Avatar"
+                className="h-[40px] w-[40px] md:h-[60px] md:w-[60px] rounded-full border-2 border-white p-0.5"
+              />
+            ) : (
+              <div className="h-[40px] w-[40px] md:h-[60px] md:w-[60px] flex items-center justify-center rounded-full shadow-lg bg-gray-300 text-[#012C57] text-[18px] font-bold uppercase">
+                {profilename
+                  ?.split(" ")
+                  .map((word) => word[0])
+                  .slice(0, 2)
+                  .join("")}
+              </div>
+            )}
           </Link>
         </div>
       </div>
@@ -127,7 +137,9 @@ const Navbar = () => {
         isOpen={lock}
         handleClick={() => navigate("/subscriptionplans")}
         onClose={() => setLock(false)}
-        text={' Buy a subscription to unlock this feature and enjoy exclusive benefits.'}
+        text={
+          " Buy a subscription to unlock this feature and enjoy exclusive benefits."
+        }
       />
     </div>
   );

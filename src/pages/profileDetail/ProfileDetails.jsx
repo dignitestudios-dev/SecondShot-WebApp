@@ -48,7 +48,7 @@ const ProfileDetails = () => {
 
         formData.append("state", values.state);
         formData.append("city", values.country);
-        formData.append("address", values.address ? values.address : null);;
+        formData.append("address", values.address || "");
 
         if (values.profilePicture) {
           formData.append("profile_img", values.profilePicture);

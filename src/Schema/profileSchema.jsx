@@ -23,7 +23,6 @@ export const EditProfileSchema = Yup.object({
 
   state: Yup.string().required("Please select your state."),
 
-  address: Yup.string().required("Please enter your address."),
   profilePicture: Yup.mixed()
     .notRequired("Profile picture is required")
     .test(

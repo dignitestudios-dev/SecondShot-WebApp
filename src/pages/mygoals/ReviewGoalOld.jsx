@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import GoalCompletedModal from "../../components/mygoals/GoalCompletedModal";
 import SupportPerson from "../../components/mygoals/SupportPerson";
@@ -9,6 +9,8 @@ import {
   ErrorToast,
   SuccessToast,
 } from "../../components/toaster/ToasterContainer";
+import { PiPencilLine } from "react-icons/pi";
+import EditGoalModal from "../../components/mygoals/EditGoalModal";
 
 function ReviewYourGoalOld() {
   const navigate = useNavigate();
@@ -38,6 +40,13 @@ function ReviewYourGoalOld() {
   const location = useLocation("");
   const goaldata = location.state.formData;
   const threeMonthsAgo = location.state.threeMonthsAgo;
+  console.log("threeMonthsAgo==> ", threeMonthsAgo);
+
+  const [threeMonths, setThreeMonths] = useState(threeMonthsAgo);
+
+  useEffect(() => {
+    setThreeMonths(threeMonthsAgo);
+  }, [threeMonthsAgo]);
 
   const [isPeople, setIsPeople] = useState(false);
   const handleNavigation = () => {
@@ -56,7 +65,8 @@ function ReviewYourGoalOld() {
   const [successModal, setSuccessModal] = useState(false);
   const [showModalsupport, setShowModalsupport] = useState(false);
   const [supportPeopleAdded, setSupportPeopleAdded] = useState(false);
-
+  const [editShowModal, setEditShowModal] = useState(false);
+  const [editedGoals, setEditedGoals] = useState(goaldata);
   const handleCardModal = () => {
     setShowCardModal(!showCardModal);
   };
@@ -89,11 +99,17 @@ function ReviewYourGoalOld() {
         },
     ].filter(Boolean);
 
+    let deadline = threeMonths
+      ? new Date(threeMonths).toLocaleDateString()
+      : editedGoals.startDate
+      ? new Date(editedGoals.startDate).toLocaleDateString()
+      : null;
+
     try {
       const response = await axios.post("/api/user/create-goal", {
-        main_goal_name: goaldata.main_goal_name,
-        deadline: goaldata.startDate,
-        sub_goals: goaldata.sub_goals,
+        main_goal_name: editedGoals.main_goal_name,
+        deadline: deadline,
+        sub_goals: editedGoals.sub_goals,
         support_people: supportPeopleAdded ? formattedSupportPeople : [],
       });
 
@@ -102,7 +118,6 @@ function ReviewYourGoalOld() {
 
         const goalid = response?.data?.data?._id;
 
-        
         if (goalid) {
           navigate(`/goal-detail/${goalid}`);
         } else {
@@ -119,6 +134,11 @@ function ReviewYourGoalOld() {
     }
   };
   const [date, setDate] = useState(new Date());
+
+  const handleEditSave = (updatedGoal) => {
+    setEditedGoals(updatedGoal); // Update main goal and sub-goals
+    setEditShowModal(false); // Close modal
+  };
 
   return (
     <div className="">
@@ -159,13 +179,13 @@ function ReviewYourGoalOld() {
 
         <div className="flex justify-center mt-8">
           <div className="grid grid-cols-2 gap-8">
-            <div className="w-[575px] h-[904px] space-y-6">
+            <div className="w-[575px]  space-y-6">
               <div className="bg-white rounded-xl p-6 relative h-full z-0">
                 <h2 className="text-xl font-semibold mb-2">
                   Main Goal Details
                 </h2>
                 <p className="text-gray-700 mt-4 text-sm mb-4 border-b break-words border-b-gray-300">
-                  {goaldata?.main_goal_name}
+                  {editedGoals?.main_goal_name}
                   <div className="flex space-x-2 mt-2">
                     <p>Deadline for Main goals:</p>
                     <p className="font-semibold text-blue-600 mb-4">
@@ -175,35 +195,39 @@ function ReviewYourGoalOld() {
                         day: "2-digit",
                       })}
                       {"-"}
-                      {threeMonthsAgo
-                        ? threeMonthsAgo.toLocaleDateString("en-US", {
+
+                      {threeMonths
+                        ? new Date(threeMonths).toLocaleDateString("en-US", {
                             year: "numeric",
                             month: "short",
                             day: "2-digit",
                           })
-                        : goaldata?.startDate
-                        ? goaldata?.startDate.toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "short",
-                            day: "2-digit",
-                          })
+                        : editedGoals?.startDate
+                        ? new Date(editedGoals.startDate).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "short",
+                              day: "2-digit",
+                            }
+                          )
                         : "No date selected"}
                     </p>
                   </div>
                 </p>
 
-                {/* <button className="absolute top-4 right-4 p-2 w-10 h-10 bg-[#012C57] text-white rounded-md">
-                  <PiPencilLine size={24} />
-                </button> */}
-                {goaldata?.sub_goals.map((item, index) => (
+                <button className="absolute top-4 right-4 p-2 w-10 h-10 bg-[#012C57] text-white rounded-md">
+                  <PiPencilLine
+                    size={24}
+                    onClick={() => setEditShowModal(true)}
+                  />
+                </button>
+                {editedGoals?.sub_goals.map((item, index) => (
                   <div className="mt-6">
                     <div className="flex justify-between items-center">
                       <h2 className="text-xl font-semibold mb-4">
                         Sub-Goals {String(index + 1).padStart(2, "0")} Details
                       </h2>
-                      {/* <button className="p-2 w-10 h-10 text-xl bg-[#012C57] text-white hover:text-gray-700 rounded-md">
-                        <PiPencilLine size={24} />
-                      </button> */}
                     </div>
                     <div className="space-y-6">
                       <div key={index} className="">
@@ -247,6 +271,15 @@ function ReviewYourGoalOld() {
         </div>
         <div />
       </div>
+      <EditGoalModal
+        showModal={editShowModal}
+        goalData={editedGoals}
+        threeMonthsAgo={threeMonthsAgo}
+        onSave={handleEditSave}
+        onClose={() => setEditShowModal(false)}
+        setThreeMonths={setThreeMonths}
+        threeMonths={threeMonths}
+      />
       <GoalCompletedModal
         showModal={isGoalDetailModalOpen}
         onClose={closeGoalDetailModal}
