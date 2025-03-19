@@ -6,7 +6,13 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FieldArray, Form, FormikProvider, useFormik } from "formik";
 import { honorsSchema } from "../../Schema/resumeSchema";
 import { getStartYearsArray } from "../../pages/lib/helper";
-const Honors = ({ nextStep, setFormData, formData, prevStep, setIsSkipped }) => {
+const Honors = ({
+  nextStep,
+  setFormData,
+  formData,
+  prevStep,
+  setIsSkipped,
+}) => {
   const formik = useFormik({
     initialValues: { honorsList: formData.honorsList },
     validationSchema: honorsSchema,
@@ -14,7 +20,7 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, setIsSkipped }) => 
     validateOnBlur: true,
     onSubmit: async (values) => {
       setFormData({ ...formData, honorsList: values?.honorsList });
-  
+
       nextStep();
     },
   });
@@ -31,22 +37,22 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, setIsSkipped }) => 
 
   const handleAwardNameChange = (e, index) => {
     let input = e.target.value;
-  
+
     input = input
       .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
-  
+
     formik.setFieldValue(`honorsList[${index}].awardName`, input);
   };
   const handleawardingChange = (e, index) => {
     let input = e.target.value;
-  
+
     input = input
       .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
-  
+
     formik.setFieldValue(`honorsList[${index}].awardingOrganization`, input);
   };
   return (
@@ -108,7 +114,6 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, setIsSkipped }) => 
                         onBlur={handleBlur}
                         placeholder={"ABC Company"}
                         maxLength={50}
-
                       />
                       {errors.honorsList?.[index]?.awardingOrganization &&
                         touched.honorsList?.[index]?.awardingOrganization && (
@@ -144,12 +149,6 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, setIsSkipped }) => 
                               { value: "December", label: "December" },
                             ]}
                           />
-                          {errors.honorsList?.[index]?.receivedmonth &&
-                            touched.honorsList?.[index]?.receivedmonth && (
-                              <span className="text-red-700 text-sm font-medium">
-                                {errors.honorsList[index].receivedmonth}
-                              </span>
-                            )}
                         </div>
                       </div>
                       <div className="w-1/2">
@@ -162,16 +161,27 @@ const Honors = ({ nextStep, setFormData, formData, prevStep, setIsSkipped }) => 
                             onBlur={handleBlur}
                             options={getStartYearsArray(1990)}
                           />
-                          {errors.honorsList?.[index]?.receivedyear &&
-                            touched.honorsList?.[index]?.receivedyear && (
-                              <span className="text-red-700 text-sm font-medium">
-                                {errors.honorsList[index].receivedyear}
-                              </span>
-                            )}
                         </div>
                       </div>
                     </div>
-
+                    <div className="flex gap-4">
+                      <div className="w-1/2">
+                        {errors.honorsList?.[index]?.receivedmonth &&
+                          touched.honorsList?.[index]?.receivedmonth && (
+                            <span className="text-red-700 text-sm font-medium block">
+                              {errors.honorsList[index].receivedmonth}
+                            </span>
+                          )}
+                      </div>
+                      <div className="w-1/2">
+                        {errors.honorsList?.[index]?.receivedyear &&
+                          touched.honorsList?.[index]?.receivedyear && (
+                            <span className="text-red-700 text-sm font-medium block">
+                              {errors.honorsList[index].receivedyear}
+                            </span>
+                          )}
+                      </div>
+                    </div>
                   </div>
                 ))}
                 <div className="flex items-center gap-1 text-[12px] mb-3 mt-3 font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">

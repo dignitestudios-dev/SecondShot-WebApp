@@ -66,26 +66,24 @@ const Honors = ({
     }
   }, [formData?.honorsList]);
 
-
-
   const handleAwardNameChange = (e, index) => {
     let input = e.target.value;
-  
+
     input = input
       .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
-  
+
     formik.setFieldValue(`honorsList[${index}].awardName`, input);
   };
   const handleawardingChange = (e, index) => {
     let input = e.target.value;
-  
+
     input = input
       .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
-  
+
     formik.setFieldValue(`honorsList[${index}].awardingOrganization`, input);
   };
   return (
@@ -105,119 +103,124 @@ const Honors = ({
             render={(arrayHelpers) => (
               <>
                 {values?.honorsList?.map((education, index) => {
-                  
-                   return(
-                  <div key={index} className="space-y-4 mt-4">
-                    <div className="flex justify-between items-center mb-4">
-                      {index > 0 && (
-                        <button
-                          type="button"
-                          onClick={() => arrayHelpers.remove(index)}
-                          className="text-red-500 text-sm"
-                        >
-                          Remove
-                        </button>
-                      )}
-                    </div>
-                    <div className="w-full flex flex-col items-start gap-1">
-                      <AuthInput
-                        text={"Award Name"}
-                        id={`honorsList[${index}].awardName`}
-                        name={`honorsList[${index}].awardName`}
-                        value={values.honorsList[index].awardName}
-                        onChange={(e) => handleAwardNameChange(e, index)}
-                        onBlur={handleBlur}
-                        placeholder={
-                          "Enter Award Name (e.g., Employee of the Year, Academic Excellence Award)"
-                        }
-                        maxLength={50}
-                      />
-                      {errors.honorsList?.[index]?.awardName &&
-                        touched.honorsList?.[index]?.awardName && (
-                          <span className="text-red-700 text-sm font-medium">
-                            {errors.honorsList[index].awardName}
-                          </span>
+                  return (
+                    <div key={index} className="space-y-4 mt-4">
+                      <div className="flex justify-between items-center mb-4">
+                        {index > 0 && (
+                          <button
+                            type="button"
+                            onClick={() => arrayHelpers.remove(index)}
+                            className="text-red-500 text-sm"
+                          >
+                            Remove
+                          </button>
                         )}
-                    </div>
-                    <div className="w-full flex flex-col items-start gap-1">
-                      <AuthInput
-                        id={`honorsList[${index}].awardingOrganization`}
-                        name={`honorsList[${index}].awardingOrganization`}
-                        value={values.honorsList[index].awardingOrganization}
-                        text={"Awarding Organization or Institution"}
-                        onChange={(e) => handleawardingChange(e, index)}
-                        onBlur={handleBlur}
-                        placeholder={"ABC Company"}
-                        maxLength={50}
-                      />
-                      {errors.honorsList?.[index]?.awardingOrganization &&
-                        touched.honorsList?.[index]?.awardingOrganization && (
-                          <span className="text-red-700 text-sm font-medium">
-                            {errors.honorsList[index].awardingOrganization}
-                          </span>
-                        )}
-                    </div>
+                      </div>
+                      <div className="w-full flex flex-col items-start gap-1">
+                        <AuthInput
+                          text={"Award Name"}
+                          id={`honorsList[${index}].awardName`}
+                          name={`honorsList[${index}].awardName`}
+                          value={values.honorsList[index].awardName}
+                          onChange={(e) => handleAwardNameChange(e, index)}
+                          onBlur={handleBlur}
+                          placeholder={
+                            "Enter Award Name (e.g., Employee of the Year, Academic Excellence Award)"
+                          }
+                          maxLength={50}
+                        />
+                        {errors.honorsList?.[index]?.awardName &&
+                          touched.honorsList?.[index]?.awardName && (
+                            <span className="text-red-700 text-sm font-medium">
+                              {errors.honorsList[index].awardName}
+                            </span>
+                          )}
+                      </div>
+                      <div className="w-full flex flex-col items-start gap-1">
+                        <AuthInput
+                          id={`honorsList[${index}].awardingOrganization`}
+                          name={`honorsList[${index}].awardingOrganization`}
+                          value={values.honorsList[index].awardingOrganization}
+                          text={"Awarding Organization or Institution"}
+                          onChange={(e) => handleawardingChange(e, index)}
+                          onBlur={handleBlur}
+                          placeholder={"ABC Company"}
+                          maxLength={50}
+                        />
+                        {errors.honorsList?.[index]?.awardingOrganization &&
+                          touched.honorsList?.[index]?.awardingOrganization && (
+                            <span className="text-red-700 text-sm font-medium">
+                              {errors.honorsList[index].awardingOrganization}
+                            </span>
+                          )}
+                      </div>
 
-                    <div className="w-full flex items-end gap-4 mt-4">
-                      <div className="w-1/2">
-                        <div className="">
-                          <MonthsInput
-                            label={"Date Received"}
-                            id={`honorsList[${index}].receivedmonth`}
-                            name={`honorsList[${index}].receivedmonth`}
-                            value={
-                              values.honorsList[index].receivedmonth
-                                ? values.honorsList[index].receivedmonth
-                                : ""
-                            }
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            options={[
-                              { value: "", label: "Select Month" },
-                              { value: "January", label: "January" },
-                              { value: "February", label: "February" },
-                              { value: "March", label: "March" },
-                              { value: "April", label: "April" },
-                              { value: "May", label: "May" },
-                              { value: "June", label: "June" },
-                              { value: "July", label: "July" },
-                              { value: "August", label: "August" },
-                              { value: "September", label: "September" },
-                              { value: "October", label: "October" },
-                              { value: "November", label: "November" },
-                              { value: "December", label: "December" },
-                            ]}
-                          />
+                      <div className="w-full flex items-end gap-4 mt-4">
+                        <div className="w-1/2">
+                          <div className="">
+                            <MonthsInput
+                              label={"Date Received"}
+                              id={`honorsList[${index}].receivedmonth`}
+                              name={`honorsList[${index}].receivedmonth`}
+                              value={
+                                values.honorsList[index].receivedmonth
+                                  ? values.honorsList[index].receivedmonth
+                                  : ""
+                              }
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              options={[
+                                { value: "", label: "Select Month" },
+                                { value: "January", label: "January" },
+                                { value: "February", label: "February" },
+                                { value: "March", label: "March" },
+                                { value: "April", label: "April" },
+                                { value: "May", label: "May" },
+                                { value: "June", label: "June" },
+                                { value: "July", label: "July" },
+                                { value: "August", label: "August" },
+                                { value: "September", label: "September" },
+                                { value: "October", label: "October" },
+                                { value: "November", label: "November" },
+                                { value: "December", label: "December" },
+                              ]}
+                            />
+                          </div>
+                        </div>
+                        <div className="w-1/2">
+                          <div className="">
+                            <MonthsInput
+                              id={`honorsList[${index}].receivedyear`}
+                              name={`honorsList[${index}].receivedyear`}
+                              value={values.honorsList[index].receivedyear}
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              options={getStartYearsArray(1990)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex gap-4">
+                        <div className="w-1/2">
                           {errors.honorsList?.[index]?.receivedmonth &&
                             touched.honorsList?.[index]?.receivedmonth && (
-                              <span className="text-red-700 text-sm font-medium">
+                              <span className="text-red-700 text-sm font-medium block">
                                 {errors.honorsList[index].receivedmonth}
                               </span>
                             )}
                         </div>
-                      </div>
-                      <div className="w-1/2">
-                        <div className="">
-                          <MonthsInput
-                            id={`honorsList[${index}].receivedyear`}
-                            name={`honorsList[${index}].receivedyear`}
-                            value={values.honorsList[index].receivedyear}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            options={getStartYearsArray(1990)}
-                          />
+                        <div className="w-1/2">
                           {errors.honorsList?.[index]?.receivedyear &&
                             touched.honorsList?.[index]?.receivedyear && (
-                              <span className="text-red-700 text-sm font-medium">
+                              <span className="text-red-700 text-sm font-medium block">
                                 {errors.honorsList[index].receivedyear}
                               </span>
                             )}
                         </div>
                       </div>
                     </div>
-
-                  </div>
-                )})}
+                  );
+                })}
                 <div className="flex items-center gap-1 text-[12px] mb-3 mt-3 font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
                   <div>
                     <IoIosArrowBack className="font-[600]" onClick={prevStep} />

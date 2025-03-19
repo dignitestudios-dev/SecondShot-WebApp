@@ -17,7 +17,6 @@ const AddSupportModal = ({
   setFormData,
   supportresumeId,
 }) => {
-  console.log(supportresumeId, "supportresumeId");
   const navigate = useNavigate("");
   const [loading, setLoading] = useState(false);
 

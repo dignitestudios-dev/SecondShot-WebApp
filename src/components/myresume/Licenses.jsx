@@ -32,28 +32,34 @@ const Licenses = ({
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     formik;
- 
-    const handlecertificationChange = (e, index) => {
-      let input = e.target.value;
-    
-      input = input
-        .split(" ")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");
-    
-      formik.setFieldValue(`certificationsList[${index}].certificationsname`, input);
-    };
-    const handleOrganizationChange = (e, index) => {
-      let input = e.target.value;
-    
-      input = input
-        .split(" ")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");
-    
-      formik.setFieldValue(`certificationsList[${index}].issuingOrganization`, input);
-    };
-  
+
+  const handlecertificationChange = (e, index) => {
+    let input = e.target.value;
+
+    input = input
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
+    formik.setFieldValue(
+      `certificationsList[${index}].certificationsname`,
+      input
+    );
+  };
+  const handleOrganizationChange = (e, index) => {
+    let input = e.target.value;
+
+    input = input
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
+    formik.setFieldValue(
+      `certificationsList[${index}].issuingOrganization`,
+      input
+    );
+  };
+
   return (
     <div className="pt-6 px-3">
       <div>
@@ -72,192 +78,213 @@ const Licenses = ({
               <>
                 {values?.certificationsList?.map((_, index) => {
                   const months = [
-                    "January", "February", "March", "April", "May", "June",
-                    "July", "August", "September", "October", "November", "December"
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December",
                   ];
-                  
-                  const getFilteredMonths = (Issuemonth, startYear, selectedYear, currentYear) => {
+
+                  const getFilteredMonths = (
+                    Issuemonth,
+                    startYear,
+                    selectedYear,
+                    currentYear
+                  ) => {
                     const startMonthIndex = months.indexOf(Issuemonth);
                     const currentMonthIndex = new Date().getMonth();
-                  
+
                     if (selectedYear > currentYear) {
-                      return months; 
+                      return months;
                     } else if (selectedYear === currentYear) {
-                      return months.slice(currentMonthIndex + 1); 
+                      return months.slice(currentMonthIndex + 1);
                     } else if (selectedYear === startYear) {
-                      return months.slice(startMonthIndex); 
+                      return months.slice(startMonthIndex);
                     }
-                  
-                    return months; 
+
+                    return months;
                   };
-                  
+
                   const filteredMonths = getFilteredMonths(
                     values.certificationsList[index].Issuemonth,
                     values.certificationsList[index].Issueyear,
                     values.certificationsList[index].expirationyear,
                     new Date().getFullYear()
                   );
-                               
-                  return ( 
 
-                  <div key={index} className="">
-                    <div className="flex justify-between items-center mb-4">
-                      {index > 0 && (
-                        <button
-                          type="button"
-                          onClick={() => arrayHelpers.remove(index)}
-                          className="text-red-500 text-sm"
-                        >
-                          Remove
-                        </button>
-                      )}
-                    </div>
-                    <div className="w-full flex flex-col items-start gap-1 my-8">
-                      <AuthInput
-                        text={"Certification Name"}
-                        id={`certificationsList[${index}].certificationsname`}
-                        name={`certificationsList[${index}].certificationsname`}
-                        value={
-                          values.certificationsList[index].certificationsname
-                        }
-                        placeholder={"Enter Certification Name"}
-                        onChange={(e) => handlecertificationChange(e, index)}
-
-                        onBlur={handleBlur}
-                        maxLength={50}
-                      />
-                      {errors.certificationsList?.[index]?.certificationsname &&
-                        touched.certificationsList?.[index]
-                          ?.certificationsname && (
-                          <span className="text-red-700 text-sm font-medium">
-                            {
-                              errors.certificationsList[index]
-                                .certificationsname
-                            }
-                          </span>
+                  return (
+                    <div key={index} className="">
+                      <div className="flex justify-between items-center mb-4">
+                        {index > 0 && (
+                          <button
+                            type="button"
+                            onClick={() => arrayHelpers.remove(index)}
+                            className="text-red-500 text-sm"
+                          >
+                            Remove
+                          </button>
                         )}
-                    </div>
-                    <div className="w-full flex flex-col items-start gap-1 my-8">
-                      <AuthInput
-                        id={`certificationsList[${index}].issuingOrganization`}
-                        name={`certificationsList[${index}].issuingOrganization`}
-                        value={
-                          values.certificationsList[index].issuingOrganization
-                        }
-                        onChange={(e) => handleOrganizationChange(e, index)}
-
-                        onBlur={handleBlur}
-                        text={"Issuing Organization"}
-                        placeholder={"Enter  Issuing Organization"}
-                        maxLength={50}
-                      />
-                      {errors.certificationsList?.[index]
-                        ?.issuingOrganization &&
-                        touched.certificationsList?.[index]
-                          ?.issuingOrganization && (
-                          <span className="text-red-700 text-sm font-medium">
-                            {
-                              errors.certificationsList[index]
-                                .issuingOrganization
-                            }
-                          </span>
-                        )}
-                    </div>
-                   
-
-                    <div className="w-full mb-5 flex items-end  mt-8 gap-4">
-                      <div className="w-1/2">
-                        <MonthsInput
-                          id={`certificationsList[${index}].Issuemonth`}
-                          name={`certificationsList[${index}].Issuemonth`}
-                          value={values.certificationsList[index].Issuemonth}
-                          label={"Issue Date"}
-                          onChange={handleChange}
-                          options={[
-                            { value: "", label: "Select Month" },
-                            { value: "January", label: "January" },
-                            { value: "February", label: "February" },
-                            { value: "March", label: "March" },
-                            { value: "April", label: "April" },
-                            { value: "May", label: "May" },
-                            { value: "June", label: "June" },
-                            { value: "July", label: "July" },
-                            { value: "August", label: "August" },
-                            { value: "September", label: "September" },
-                            { value: "October", label: "October" },
-                            { value: "November", label: "November" },
-                            { value: "December", label: "December" },
-                          ]}
+                      </div>
+                      <div className="w-full flex flex-col items-start gap-1 my-8">
+                        <AuthInput
+                          text={"Certification Name"}
+                          id={`certificationsList[${index}].certificationsname`}
+                          name={`certificationsList[${index}].certificationsname`}
+                          value={
+                            values.certificationsList[index].certificationsname
+                          }
+                          placeholder={"Enter Certification Name"}
+                          onChange={(e) => handlecertificationChange(e, index)}
+                          onBlur={handleBlur}
+                          maxLength={50}
                         />
-                        {errors.certificationsList?.[index]?.Issuemonth &&
-                          touched.certificationsList?.[index]?.Issuemonth && (
+                        {errors.certificationsList?.[index]
+                          ?.certificationsname &&
+                          touched.certificationsList?.[index]
+                            ?.certificationsname && (
                             <span className="text-red-700 text-sm font-medium">
-                              {errors.certificationsList[index].Issuemonth}
+                              {
+                                errors.certificationsList[index]
+                                  .certificationsname
+                              }
                             </span>
                           )}
                       </div>
-                      <div className="w-1/2">
-                        <MonthsInput
-                          id={`certificationsList[${index}].Issueyear`}
-                          name={`certificationsList[${index}].Issueyear`}
-                          value={values.certificationsList[index].Issueyear}
-                          onChange={handleChange}
-                          options={getStartYearsArray(1990)}
-                          label="Start Year"
+                      <div className="w-full flex flex-col items-start gap-1 my-8">
+                        <AuthInput
+                          id={`certificationsList[${index}].issuingOrganization`}
+                          name={`certificationsList[${index}].issuingOrganization`}
+                          value={
+                            values.certificationsList[index].issuingOrganization
+                          }
+                          onChange={(e) => handleOrganizationChange(e, index)}
+                          onBlur={handleBlur}
+                          text={"Issuing Organization"}
+                          placeholder={"Enter  Issuing Organization"}
+                          maxLength={50}
                         />
-                        {errors.certificationsList?.[index]?.Issueyear &&
-                          touched.certificationsList?.[index]?.Issueyear && (
+                        {errors.certificationsList?.[index]
+                          ?.issuingOrganization &&
+                          touched.certificationsList?.[index]
+                            ?.issuingOrganization && (
                             <span className="text-red-700 text-sm font-medium">
-                              {errors.certificationsList[index].Issueyear}
+                              {
+                                errors.certificationsList[index]
+                                  .issuingOrganization
+                              }
                             </span>
                           )}
                       </div>
-                    </div>
-                    <div className="w-full mb-5 flex items-end  mt-8 gap-4">
-                      <div className="w-1/2">
-                        <label htmlFor="">
-                          {" "}
-                          <span className="text-sm font-medium">
-                            Expiration Date
-                          </span>{" "}
-                          <span className="text-[#9a9a9a] text-[14px] ">
-                            (if applicable)
-                          </span>{" "}
-                        </label>
-                        <MonthsInput
-                          id={`certificationsList[${index}].expirationmonth`}
-                          name={`certificationsList[${index}].expirationmonth`}
-                          value={
-                            values.certificationsList[index].expirationmonth
-                          }
-                          onChange={handleChange}
-                          options={[
-                            { value: "", label: "Select Month" },
-                            ...filteredMonths.map((month) => ({ value: month, label: month }))
-                          ]}
-                        />
-                      </div>
-                      <div className="w-1/2">
-                        <MonthsInput
-                          id={`certificationsList[${index}].expirationyear`}
-                          name={`certificationsList[${index}].expirationyear`}
-                          value={
-                            values.certificationsList[index].expirationyear
-                          }
-                          onChange={handleChange}
-                          options={getYearsArray(
-                            values.certificationsList[index].Issueyear || 1990
-                          )}
-                          label="Expiration Year"
-                          disabled={!values.certificationsList[index].Issueyear}
-                        />
-                      </div>
-                    </div>
-                  </div>
 
-                  )
-                }
-              )}
+                      <div className="w-full mb-5 flex items-end  mt-8 gap-4">
+                        <div className="flex gap-4 w-full">
+                          <div className="w-1/2">
+                            <MonthsInput
+                              id={`certificationsList[${index}].Issuemonth`}
+                              name={`certificationsList[${index}].Issuemonth`}
+                              value={
+                                values.certificationsList[index].Issuemonth
+                              }
+                              label={"Issue Date"}
+                              onChange={handleChange}
+                              options={[
+                                { value: "", label: "Select Month" },
+                                { value: "January", label: "January" },
+                                { value: "February", label: "February" },
+                                { value: "March", label: "March" },
+                                { value: "April", label: "April" },
+                                { value: "May", label: "May" },
+                                { value: "June", label: "June" },
+                                { value: "July", label: "July" },
+                                { value: "August", label: "August" },
+                                { value: "September", label: "September" },
+                                { value: "October", label: "October" },
+                                { value: "November", label: "November" },
+                                { value: "December", label: "December" },
+                              ]}
+                            />
+                            {errors.certificationsList?.[index]?.Issuemonth &&
+                              touched.certificationsList?.[index]
+                                ?.Issuemonth && (
+                                <span className="text-red-700 text-sm font-medium">
+                                  {errors.certificationsList[index].Issuemonth}
+                                </span>
+                              )}
+                          </div>
+                          <div className="w-1/2">
+                            <MonthsInput
+                              id={`certificationsList[${index}].Issueyear`}
+                              name={`certificationsList[${index}].Issueyear`}
+                              value={values.certificationsList[index].Issueyear}
+                              onChange={handleChange}
+                              options={getStartYearsArray(1990)}
+                              label="Start Year"
+                            />
+                            {errors.certificationsList?.[index]?.Issueyear &&
+                              touched.certificationsList?.[index]
+                                ?.Issueyear && (
+                                <span className="text-red-700 text-sm font-medium">
+                                  {errors.certificationsList[index].Issueyear}
+                                </span>
+                              )}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="w-full mb-5 flex items-end  mt-8 gap-4">
+                        <div className="w-1/2">
+                          <label htmlFor="">
+                            {" "}
+                            <span className="text-sm font-medium">
+                              Expiration Date
+                            </span>{" "}
+                            <span className="text-[#9a9a9a] text-[14px] ">
+                              (if applicable)
+                            </span>{" "}
+                          </label>
+                          <MonthsInput
+                            id={`certificationsList[${index}].expirationmonth`}
+                            name={`certificationsList[${index}].expirationmonth`}
+                            value={
+                              values.certificationsList[index].expirationmonth
+                            }
+                            onChange={handleChange}
+                            options={[
+                              { value: "", label: "Select Month" },
+                              ...filteredMonths.map((month) => ({
+                                value: month,
+                                label: month,
+                              })),
+                            ]}
+                          />
+                        </div>
+                        <div className="w-1/2">
+                          <MonthsInput
+                            id={`certificationsList[${index}].expirationyear`}
+                            name={`certificationsList[${index}].expirationyear`}
+                            value={
+                              values.certificationsList[index].expirationyear
+                            }
+                            onChange={handleChange}
+                            options={getYearsArray(
+                              values.certificationsList[index].Issueyear || 1990
+                            )}
+                            label="Expiration Year"
+                            disabled={
+                              !values.certificationsList[index].Issueyear
+                            }
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
                 <div className="flex items-center gap-1 mb-3 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
                   <div>
                     <IoIosArrowBack className="font-[600]" onClick={prevStep} />
