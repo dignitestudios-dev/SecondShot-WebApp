@@ -1,7 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaCircleExclamation } from "react-icons/fa6";
-import { Alertnoti, bell_icon, Expirynoti, Notisuccess } from "../../assets/export";
+import {
+  Alertnoti,
+  bell_icon,
+  Expirynoti,
+  Notisuccess,
+} from "../../assets/export";
 import { FaBullseye } from "react-icons/fa";
 
 const NotificationDropdown = ({ setNotifOpen, notifications }) => {
@@ -39,7 +44,7 @@ const NotificationDropdown = ({ setNotifOpen, notifications }) => {
           View All
         </div>
       </div>
-      {notifications.length === 0 ? (
+      {notifications.filter((notif) => !notif?.is_read).length === 0 ? (
         <div className="flex justify-center items-center h-[400px]">
           <div className="text-[14px] text-[#303030] font-[400] leading-[18.9px] text-center">
             No Notifications
@@ -61,11 +66,13 @@ const NotificationDropdown = ({ setNotifOpen, notifications }) => {
                     notif?.notification_type === "created" ? "bg-green-100" : ""
                   } ${notif.iconColor}`}
                 >
-                    {notif.notification_type === "created" ? (
+                  {notif.notification_type === "created" ? (
                     <FaBullseye />
                   ) : notif.notification_type === "alert" ? (
                     <img src={Alertnoti} alt="Alert Notification" />
-                  ) : <img src={bell_icon}  alt="Alert Notification"/> }
+                  ) : (
+                    <img src={bell_icon} alt="Alert Notification" />
+                  )}
                 </div>
                 <div className="ml-4 flex-1">
                   <div className="flex justify-between items-start">
