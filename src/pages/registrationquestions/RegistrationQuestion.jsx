@@ -21,7 +21,7 @@ import {
 import { AuthContext } from "../../context/AuthContext";
 const RegistrationQuestion = () => {
   const navigate = useNavigate();
-  const [stepforward,setStepforward]=useState(false)
+  const [stepforward, setStepforward] = useState(false);
   const { setRegQuestion } = useContext(AuthContext);
   useEffect(() => {
     const token = Cookies.get("token");
@@ -74,8 +74,8 @@ const RegistrationQuestion = () => {
     has_military_service: formData?.militaryService === "Yes" ? true : false,
     branch_of_service:
       formData?.militaryService === "Yes" ? formData?.militaryOption : null,
-    rank: formData?.militaryService === "Yes" ? formData?.rankOptions?.value
-  : null,
+    rank:
+      formData?.militaryService === "Yes" ? formData?.rankOptions?.value : null,
     is_athlete: formData?.isAthlete === "Yes" ? true : false,
     primary_sport:
       formData?.isAthlete === "Yes" ? formData?.athleteOption : null,
@@ -102,7 +102,7 @@ const RegistrationQuestion = () => {
 
         setRegQuestion("true");
         Cookies.set("regQuestion", "true");
-        navigate("/home");
+        navigate("/congrats-message");
       }
     } catch (error) {
       ErrorToast("Erorr", error.message);

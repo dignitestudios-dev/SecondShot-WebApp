@@ -26,7 +26,7 @@ function CareerRecommendations() {
     setloading(true);
     try {
       const response = await axios.get("/api/user/my-career-recommendations");
-  
+
       setcarrerData(response?.data?.data);
       setFilteredGoals(response?.data?.data || []);
     } catch (err) {

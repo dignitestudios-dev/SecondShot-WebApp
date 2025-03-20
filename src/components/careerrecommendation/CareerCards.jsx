@@ -32,7 +32,6 @@ const CareerCards = ({ carrerData, loading, getallcarrerrecommendation }) => {
     }
   };
 
- 
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -65,7 +64,7 @@ const CareerCards = ({ carrerData, loading, getallcarrerrecommendation }) => {
             ))
         ) : carrerData?.length === 0 ? (
           <div className="flex items-center justify-center min-h-screen absolute  top-40 left-[500px]">
-           <EmptyScreen  text={' No career recommendations found.'}/>
+            <EmptyScreen text={" No career recommendations found."} />
           </div>
         ) : (
           carrerData?.map((recommendation, recommendationIndex) => (
@@ -128,8 +127,8 @@ const CareerCards = ({ carrerData, loading, getallcarrerrecommendation }) => {
                     "en-US",
                     {
                       year: "numeric",
-                      month: "short",
-                      day: "numeric",
+                      month: "long",
+                      day: "2-digit",
                     }
                   )}
                 </span>

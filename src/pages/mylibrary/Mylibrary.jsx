@@ -152,9 +152,7 @@ function MyLibrary() {
             <button
               onClick={() => handleViewChange("career")}
               className={`text-[14px] text-nowrap h-[42px] w- rounded-l-lg font-medium focus:outline-none w-[200px] ${
-                selected === "career"
-                  ? "bg-[#012C57] text-white"
-                  : "text-gray-500"
+                selected === "career" ? "bg-[#012C57] text-white" : "text-black"
               }`}
             >
               Career Recommendations
@@ -164,7 +162,7 @@ function MyLibrary() {
               className={`text-[14px] py-2.5 px-4 h-[42px] rounded-r-lg font-medium focus:outline-none ${
                 selected === "transferable"
                   ? "bg-[#012C57] text-white"
-                  : "text-gray-500"
+                  : "text-black"
               }`}
             >
               Transferable Skills

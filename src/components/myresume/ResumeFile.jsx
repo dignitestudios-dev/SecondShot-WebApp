@@ -15,9 +15,9 @@ const ResumeFile = ({
   resume,
   deleteloader,
   setdeleteloader,
-  
+
   loading,
-  setResume
+  setResume,
 }) => {
   const navigate = useNavigate();
 
@@ -101,7 +101,16 @@ const ResumeFile = ({
                   )}
                 </div>
                 <h2 className="text-[13px] font-[500] leading-[24.3px] mb-2 text-[#000000] text-left">
-                  {resumeData?.createdAt?.split("T")[0] || "Unknown Date"}
+                  {resumeData?.createdAt
+                    ? new Date(resumeData.createdAt).toLocaleDateString(
+                        "en-US",
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "2-digit",
+                        }
+                      )
+                    : "Unknown Date"}
                 </h2>
 
                 <div

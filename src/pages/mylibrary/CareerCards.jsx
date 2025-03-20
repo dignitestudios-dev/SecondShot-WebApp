@@ -106,7 +106,7 @@ const CareerCards = ({ icon, carrerData, loading, getfavcareer }) => {
                 {recommendation?.careers?.map((item, index) => (
                   <div
                     key={index}
-                    className="inline-flex items-center justify-center text-start px-3 py-1 text-[14px] font-[400] leading-[18.9px] rounded-[10px] bg-transparent border border-gray-400 text-[#000000] group-hover:border-white group-hover:text-white transition duration-200 mr-2 align-middle"
+                    className="inline-flex items-center justify-center text-start px-3 py-1 text-[14px] font-[400] leading-[18.9px] rounded-[10px] bg-transparent border border-gray-400 text-black group-hover:border-white group-hover:text-white transition duration-200 mr-2 align-middle"
                     style={{ height: "43px" }}
                   >
                     {item?.career_name}
@@ -120,7 +120,7 @@ const CareerCards = ({ icon, carrerData, loading, getfavcareer }) => {
                     "en-US",
                     {
                       year: "numeric",
-                      month: "short",
+                      month: "long",
                       day: "numeric",
                     }
                   )}

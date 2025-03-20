@@ -140,17 +140,26 @@ const Notifications = () => {
                       <div className="font-semibold text-gray-800">
                         {notif?.title}
                       </div>
-                      <div className="text-sm text-gray-600 mt-[-5px] text-left">
+                      <div className="text-sm text-black mt-[-5px] text-left">
                         {notif?.message}
                       </div>
                     </div>
                     <div className="text-right flex justify-start items-center gap-3">
                       <div>
-                        <div className="text-sm text-gray-600">
+                        <div className="text-sm text-black">
                           {new Date(notif?.createdAt).toLocaleTimeString()}
                         </div>
-                        <div className="text-sm text-gray-400 text-right">
-                          {new Date(notif?.createdAt).toLocaleDateString()}
+                        <div className="text-sm text-black text-right">
+                          {notif?.createdAt
+                            ? new Date(notif?.createdAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                  year: "numeric",
+                                  month: "long",
+                                  day: "2-digit",
+                                }
+                              )
+                            : "Unknown Date"}
                         </div>
                         {notif.dotColor && (
                           <div className="">

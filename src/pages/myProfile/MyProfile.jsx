@@ -172,7 +172,7 @@ function MyProfile() {
   return (
     <div className="">
       <div className="">
-        <h1 className="text-3xl font-semibold text-gray-800 mt-4  mb-4">
+        <h1 className="text-3xl font-semibold text-black mt-4  mb-4">
           Profile & Account Setting
         </h1>
 
@@ -248,29 +248,29 @@ function MyProfile() {
                         </div>
                       )}
                       <div>
-                        <h2 className="text-[20px] font-[600] text-[#050405] text-left">
+                        <h2 className="text-[20px] font-[600] text-black text-left">
                           {profileData?.name}
                         </h2>
-                        <p mailto:classname="text-[#050405] mt-5 text-[16px] ">
+                        <p mailto:classname="text-black mt-5 text-[16px] ">
                           {profileData?.email}
                         </p>
                       </div>
                       <div className="ml-auto text-right">
-                        <p className="text-[#222222] font-medium text-base ">
+                        <p className="text-black font-medium text-base ">
                           Phone Number
                         </p>
-                        <p className="text-[#050405] text-base">
+                        <p className="text-black text-base">
                           +1{phoneFormater(profileData?.phone)}
                         </p>
 
-                        <p className="text-[#222222] font-medium text-base  ">
+                        <p className="text-black font-medium text-base  ">
                           Address
                         </p>
-                        <p className="text-[#222222] font-normal text-base  ">
+                        <p className="text-black font-normal text-base  ">
                           {profileData?.address || ""}
                         </p>
 
-                        <p className="text-[#050405] text-base font-normal ">
+                        <p className="text-black text-base font-normal ">
                           {profileData?.state}, {profileData?.city}
                         </p>
                       </div>
@@ -316,14 +316,14 @@ function MyProfile() {
                         <h3 className="text-[18px] font-[500] text-[#000000] leading-[21.09px] ">
                           Education
                         </h3>
-                        <p className="text-[#5C5C5C] text-[16px] mt-3">
+                        <p className="text-black text-[16px] mt-3">
                           {registrationData?.current_grade_level}
                         </p>
 
                         <p className="text-[16px] font-[500] mt-2 text-[#000000] ">
                           Favorite Grade School Subject
                         </p>
-                        <p className="text-gray-700">
+                        <p className="text-black">
                           {
                             registrationData?.favorite_middle_school_subject
                               ?.subject_name
@@ -331,13 +331,13 @@ function MyProfile() {
                         </p>
                         {registrationData.has_military_service == true ? (
                           <div>
-                            <h3 className="text-[18px] mt-5 font-[500] text-[#000000] ">
+                            <h3 className="text-[18px] mt-5 font-[500] text-black ">
                               Military Service
                             </h3>
-                            <h3 className="text-[16px] mt-1 font-[500] text-[#5C5C5C] ">
+                            <h3 className="text-[16px] mt-1 font-[500] text-black ">
                               Branch of Service
                             </h3>
-                            <p className="text-[#000000] leading-[18.75px] mt-2 mb-2 ">
+                            <p className="text-black leading-[18.75px] mt-2 mb-2 ">
                               {" "}
                               {
                                 registrationData?.branch_of_service
@@ -345,10 +345,10 @@ function MyProfile() {
                               }
                             </p>
 
-                            <p className="text-[20px] font-[500] text-[#000000] ">
+                            <p className="text-[20px] font-[500] text-black ">
                               Position
                             </p>
-                            <p className="text-gray-700">
+                            <p className="text-black">
                               {registrationData?.rank?.rank_name}
                             </p>
                           </div>
@@ -356,10 +356,10 @@ function MyProfile() {
                           ""
                         )}
                         <div>
-                          <h3 className="text-[18px] font-[500] text-[#000000] ">
+                          <h3 className="text-[18px] font-[500] text-black ">
                             Career
                           </h3>
-                          <p className="text-gray-700 w-full text-wrap break-words">
+                          <p className="text-black w-full text-wrap break-words">
                             {registrationData?.desired_career_path}
                           </p>
                         </div>
@@ -374,13 +374,13 @@ function MyProfile() {
                             <p className="text-[18px] mt-3 font-[500] text-[#000000] ">
                               Primary Sport
                             </p>
-                            <p className="text-gray-700">
+                            <p className="text-black">
                               {registrationData?.primary_sport?.sport_name}
                             </p>
                             <p className="text-[18px] mt-3 font-[500] text-[#000000] ">
                               Position
                             </p>
-                            <p className="text-gray-700">
+                            <p className="text-black">
                               {registrationData?.sport_position?.position_name}
                             </p>
                           </>
@@ -391,10 +391,10 @@ function MyProfile() {
                         <h3 className="text-[18px] mt-3 font-[500] text-#000000 ">
                           Hobbies
                         </h3>
-                        <div className=" text-[#0F0F0F]  justify-center  font-[400] cursor-pointer  rounded-[12px] ">
+                        <div className=" text-black  justify-center  font-[400] cursor-pointer  rounded-[12px] ">
                           {registrationData?.favorite_hobby1?.hobbie_name}
                         </div>
-                        <div className=" text-[#0F0F0F]  justify-center  font-[400] cursor-pointer  rounded-[12px] ">
+                        <div className=" text-black  justify-center  font-[400] cursor-pointer  rounded-[12px] ">
                           {registrationData?.favorite_hobby2?.hobbie_name}
                         </div>
                       </div>
@@ -406,17 +406,17 @@ function MyProfile() {
 
             {activeTab === "settings" && (
               <>
-                <h1 className="text-2xl font-semibold text-gray-900 mb-8 text-left">
+                <h1 className="text-2xl font-semibold text-black mb-8 text-left">
                   Account Settings
                 </h1>
 
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <div>
-                      <h2 className="text-lg font-semibold text-gray-900 text-left">
+                      <h2 className="text-lg font-semibold text-black text-left">
                         Password
                       </h2>
-                      <p className="text-gray-600 text-left">*******</p>
+                      <p className="text-black text-left">*******</p>
                     </div>
                     <div>
                       <AuthSubmitBtn
@@ -437,12 +437,10 @@ function MyProfile() {
                     ) : (
                       <>
                         <div>
-                          <h2 className="text-lg font-semibold text-gray-900 text-left">
+                          <h2 className="text-lg font-semibold text-black text-left">
                             Subscription
                           </h2>
-                          <p className="text-gray-600 text-left">
-                            Subscriptions
-                          </p>
+                          <p className="text-black text-left">Subscriptions</p>
                         </div>
                         <div>
                           <AuthSubmitBtn
@@ -458,10 +456,10 @@ function MyProfile() {
                   <hr className=" border-t border-gray-200" />
                   <div className="flex justify-between items-center">
                     <div>
-                      <h2 className="text-lg font-semibold text-gray-900 text-left">
+                      <h2 className="text-lg font-semibold text-black text-left">
                         Delete Account
                       </h2>
-                      <p className="text-gray-600 text-left">
+                      <p className="text-black text-left">
                         Are you sure you want to delete your account?
                       </p>
                     </div>
@@ -475,10 +473,10 @@ function MyProfile() {
                   <hr className=" border-t border-gray-200" />
                   <div className="flex justify-between items-center">
                     <div>
-                      <h2 className="text-lg font-semibold text-gray-900 text-left">
+                      <h2 className="text-lg font-semibold text-black text-left">
                         Notification
                       </h2>
-                      <p className="text-gray-600 text-left">
+                      <p className="text-black text-left">
                         You can turn your notifications on or off.
                       </p>
                     </div>

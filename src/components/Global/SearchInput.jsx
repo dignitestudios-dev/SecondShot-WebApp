@@ -16,7 +16,7 @@ const SearchInput = ({ placeholder, value,onChange }) => {
           value={value}
           placeholder={placeholder}
           onChange={onChange}
-          className="pl-10 pr-4 py-2  border h-[48px] rounded-[10px] border-[#535353] shadow-sm w-full focus:outline-none"
+          className="pl-10 pr-4 py-2 placeholder:text-black  border h-[48px] rounded-[10px] border-[#535353] shadow-sm w-full focus:outline-none"
         />
       </div>
     </div>

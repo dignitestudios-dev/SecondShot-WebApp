@@ -1,6 +1,6 @@
 export const educationTags = {
   School: [
-    { label: "N/A", value: "1" },
+    { label: "I Don't Know", value: "1" },
     { label: "Accounting", value: "2" },
     { label: "Agricultural and Biological Engineering", value: "3" },
     { label: "Anthropology", value: "4" },

@@ -205,13 +205,13 @@ const GoalDetail = () => {
                 <span className="text-[#000000] text-[18px] block text-left font-[500] ">
                   Deadline
                 </span>
-                <span className="text-[#00000070] font-[500] text-[14px]">
+                <span className="text-black font-[400] text-[13px]">
                   {goalDetail?.createdAt
                     ? new Date(goalDetail?.createdAt).toLocaleDateString(
                         "en-US",
                         {
                           year: "numeric",
-                          month: "short",
+                          month: "long",
                           day: "numeric",
                         }
                       )
@@ -222,7 +222,7 @@ const GoalDetail = () => {
                         "en-US",
                         {
                           year: "numeric",
-                          month: "short",
+                          month: "long",
                           day: "numeric",
                         }
                       )
@@ -352,13 +352,13 @@ checked:before:justify-center checked:before:items-center"
 
                       {item?.deadline && (
                         <div className="absolute top-0 right-0 text-[12px] text-[#6B6B6B] mt-2 mr-3">
-                          <span className="text-[#00000070] font-[500] text-[14px]">
+                          <span className="text-black font-[400] text-[14px]">
                             {goalDetail?.createdAt
                               ? new Date(
                                   goalDetail?.createdAt
                                 ).toLocaleDateString("en-US", {
                                   year: "numeric",
-                                  month: "short",
+                                  month: "long",
                                   day: "numeric",
                                 })
                               : "No date selected"}{" "}
@@ -368,7 +368,7 @@ checked:before:justify-center checked:before:items-center"
                                   "en-US",
                                   {
                                     year: "numeric",
-                                    month: "short",
+                                    month: "long",
                                     day: "numeric",
                                   }
                                 )

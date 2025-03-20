@@ -105,8 +105,8 @@ function CareerDetails() {
               <div className="h-6 bg-gray-300 rounded w-1/3 animate-pulse"></div>
             ) : careerdate?.createdAt ? (
               new Date(careerdate.createdAt).toLocaleDateString("en-US", {
-                year: "2-digit",
-                month: "short",
+                year: "numeric",
+                month: "long",
                 day: "2-digit",
               })
             ) : (

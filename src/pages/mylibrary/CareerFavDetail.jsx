@@ -11,7 +11,7 @@ function CareerFavDetail() {
   const [careerFiltered, setcareerFiltered] = useState([]);
   const [careerdate, setcareerdate] = useState("");
   const [singlecareerload, setsinglecareerload] = useState(false);
-
+  console.log(carrerDetail, "carrerDetail");
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -43,7 +43,9 @@ function CareerFavDetail() {
 
   const handleCarrerData = (id) => {
     setSelectedButton(id);
-    const filteredData = carrerDetail?.filter((item) => item?._id === id);
+    const filteredData = carrerDetail?.careers?.filter(
+      (item) => item?._id === id
+    );
     setcareerFiltered(filteredData);
   };
 
@@ -93,8 +95,8 @@ function CareerFavDetail() {
               <div className="h-6 bg-gray-300 rounded w-1/3 animate-pulse"></div>
             ) : careerdate?.createdAt ? (
               new Date(careerdate.createdAt).toLocaleDateString("en-US", {
-                year: "2-digit",
-                month: "short",
+                year: "numeric",
+                month: "long",
                 day: "2-digit",
               })
             ) : (
@@ -121,7 +123,7 @@ function CareerFavDetail() {
                       className={`${
                         selectedButton === button?._id
                           ? "bg-gradient-to-r from-[#061523] to-[#012C57] text-white"
-                          : "bg-[#F6F6F6] text-[#474747]"
+                          : "bg-[#F6F6F6] text-black"
                       } h-[49px] font-[500] w-[auto] pt-3 pb-3 rounded-lg mr-2 mb-2 text-[14px] leading-[18.9px] pl-3 pr-3`}
                       onClick={() => handleCarrerData(button?._id)}
                     >
@@ -133,7 +135,7 @@ function CareerFavDetail() {
             <div className="flex justify-between items-center">
               <h3 className="text-[28px] font-[500] text-[#000000] py-2">
                 {loader ? (
-                  <div className="h-6 bg-gray-300 w-1/4 animate-pulse rounded"></div>
+                  <div className="h-6 bg-gray-300 text-black w-1/4 animate-pulse rounded"></div>
                 ) : (
                   careerFiltered[0]?.career_name || "No Data Found"
                 )}
@@ -154,12 +156,12 @@ function CareerFavDetail() {
                   className={`transition duration-200 cursor-pointer ${
                     careerFiltered[0]?.is_favorite
                       ? "text-green-500"
-                      : "text-gray-500"
+                      : "text-black"
                   }`}
                 />
               )}
             </div>
-            <p className="text-[#000000cc] font-[400] text-[16px]">
+            <p className="text-black font-[400] text-[16px]">
               {loader ? (
                 <div className="h-4 bg-gray-300 w-3/4 animate-pulse rounded"></div>
               ) : (
@@ -192,7 +194,7 @@ function CareerFavDetail() {
                     </li>
                   ))
                 ) : (
-                  <p className="font-[500] list-outside text-[18px] text-gray-500">
+                  <p className="font-[500] list-outside text-[18px] text-black">
                     No data found
                   </p>
                 )}
@@ -218,7 +220,7 @@ function CareerFavDetail() {
                     </li>
                   ))
                 ) : (
-                  <p className="font-[500] list-outside text-[18px] text-gray-500">
+                  <p className="font-[500] list-outside text-[18px] text-black">
                     No data found
                   </p>
                 )}
@@ -244,7 +246,7 @@ function CareerFavDetail() {
                     </li>
                   ))
                 ) : (
-                  <p className="font-[500] list-outside text-[18px] text-gray-500">
+                  <p className="font-[500] list-outside text-[18px] text-black">
                     No data found
                   </p>
                 )}
@@ -271,7 +273,13 @@ function CareerFavDetail() {
             <h3 className="text-[18px] font-medium text-[#011225] mt-2">
               Explore More
             </h3>
-            <a href={`${careerFiltered[0]?.career_link}`} target="_blank" className="text-[#0E73D0] underline">{careerFiltered[0]?.career_link}</a>
+            <a
+              href={`${careerFiltered[0]?.career_link}`}
+              target="_blank"
+              className="text-[#0E73D0] underline"
+            >
+              {careerFiltered[0]?.career_link}
+            </a>
           </div>
         </div>
       </div>

@@ -89,11 +89,11 @@ const MygoalsCard = ({ goaldetail, loading }) => {
                   <span className="bg-white p-1 rounded-md font-[500] px-6 text-lg">
                     Deadline
                   </span>
-                  <span className="bg-white p-1 px-6 text-[#00000070] rounded-md mt-[-2px]">
+                  <span className="bg-white p-1 px-6 text-black rounded-md mt-[-2px]">
                     {item?.createdAt
                       ? new Date(item?.createdAt).toLocaleDateString("en-US", {
                           year: "numeric",
-                          month: "short",
+                          month: "long",
                           day: "numeric",
                         })
                       : "No date selected"}{" "}
@@ -101,7 +101,7 @@ const MygoalsCard = ({ goaldetail, loading }) => {
                     {item?.deadline
                       ? new Date(item?.deadline).toLocaleDateString("en-US", {
                           year: "numeric",
-                          month: "short",
+                          month: "long",
                           day: "numeric",
                         })
                       : "No date selected"}

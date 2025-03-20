@@ -93,7 +93,7 @@ function MyGoals() {
                 className={`${
                   selectedButton === button
                     ? "bg-gradient-to-r from-[#061523] to-[#012C57] text-white"
-                    : "text-[#00000080] text-[16px] font-[400]"
+                    : "text-black text-[16px] font-[400]"
                 }  h-[57px] p-5 text-[14px] rounded-sm leading-[18.9px] `}
                 onClick={() => setSelectedButton(button)}
               >
