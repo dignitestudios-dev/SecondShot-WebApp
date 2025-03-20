@@ -40,7 +40,7 @@ const CareerToolbox = () => {
       btnBg: isFirst.transferable === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Discover the valuable skills you've acquired. Explore how to use them to shape your future and apply them across different areas of your life.",
       path: "/transferablekills",
-      btn: "Launch",
+      btn: isFirst.transferable === false ? "Launch" : "Unlock",
     },
     {
       cardicons: Carriericon2,
@@ -50,7 +50,7 @@ const CareerToolbox = () => {
       btnBg: isFirst.recommendation === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Take a short assessment to receive recommended careers, sample job descriptions, and recommended pathways to success. You will receive 5 career matches.",
       path: "/careerrecommendation",
-      btn: subscriptionpaid === false ? "Unlock" : "Launch",
+      btn: !isFirst.recommendation && subscriptionpaid ? "Launch" : "Unlock",
     },
     {
       cardicons: Carriericon3,
@@ -60,7 +60,7 @@ const CareerToolbox = () => {
       btnBg: isFirst.myresume === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Use this template to build your resume and stand out from your competition.",
       path: "/myresume",
-      btn: subscriptionpaid === false ? "Unlock" : "Launch",
+      btn: !isFirst.myresume && subscriptionpaid ? "Launch" : "Unlock",
     },
     {
       cardicons: Carriericon4,
@@ -70,7 +70,7 @@ const CareerToolbox = () => {
       btnBg: isFirst.mygoals === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Establish a clear action plan to turn your goals into reality. This goal setting provides focus, drives motivation, keeps you accountable and offers a roadmap for success.",
       path: "/mygoals",
-      btn: subscriptionpaid === false ? "Unlock" : "Launch",
+      btn: !isFirst.mygoals && subscriptionpaid ? "Launch" : "Unlock",
     },
 
     {
@@ -81,7 +81,7 @@ const CareerToolbox = () => {
       btnBg: isFirst.successstory === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Explore success stories from individuals who have similar experiences and share your interests.",
       path: "/success-story",
-      btn: subscriptionpaid === false ? "Unlock" : "Launch",
+      btn: !isFirst.successstory && subscriptionpaid ? "Launch" : "Unlock",
     },
     {
       cardicons: Carriericon6,
@@ -91,12 +91,7 @@ const CareerToolbox = () => {
       btnBg: isFirst.mylibrary === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Mark and save your favorite skills and careers for quick reference.",
       path: "/my-library",
-      btn:
-        subscriptionpaid === false
-          ? "Unlock"
-          : isFirst.mylibrary === true
-          ? "Launch"
-          : "Unlock",
+      btn: !isFirst.mylibrary && subscriptionpaid ? "Launch" : "Unlock",
     },
   ];
   const handleNavigation = (item) => {
