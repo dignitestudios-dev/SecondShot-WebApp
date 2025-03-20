@@ -82,7 +82,16 @@ const NotificationDropdown = ({ setNotifOpen, notifications }) => {
                           {notif?.title}
                         </div>
                         <div className="text-[12px] text-[#181818] font-[500] leading-[16.2px] text-left">
-                          {new Date(notif?.createdAt).toDateString()}
+                          {notif?.createdAt
+                            ? new Date(notif.createdAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                  year: "numeric",
+                                  month: "long",
+                                  day: "2-digit",
+                                }
+                              )
+                            : "Unknown Date"}
                         </div>
                       </div>
                       <div className="text-[14px] text-[#303030] font-[400] leading-[18.9px] text-left">

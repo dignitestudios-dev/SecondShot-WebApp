@@ -12,7 +12,7 @@ function MyGoals() {
   const navigate = useNavigate();
   const [selectedButton, setSelectedButton] = useState("All");
   const buttons = ["All", "Not Started yet", "In Progress", "Completed"];
-  const [searchQuery, setSearchQuery] = useState(""); 
+  const [searchQuery, setSearchQuery] = useState("");
 
   const { isFirst, setIsFirst } = useContext(ModalContext);
   const [goaldetail, setgoaldetail] = useState([]);
@@ -60,6 +60,15 @@ function MyGoals() {
   };
   return (
     <>
+      <WelcomeGoalModal
+        isOpen={isFirst.mygoals}
+        handleClick={() => {
+          setIsFirst((prev) => ({
+            ...prev,
+            mygoals: false,
+          }));
+        }}
+      />
       {loading ? (
         <div className="flex gap-3">
           {[1, 2, 3, 4]?.map((item) => (
@@ -73,16 +82,6 @@ function MyGoals() {
         </div>
       ) : goaldetail && goaldetail.length > 0 ? (
         <div className="">
-          <WelcomeGoalModal
-            isOpen={isFirst.mygoals}
-            handleClick={() => {
-              setIsFirst((prev) => ({
-                ...prev,
-                mygoals: false,
-              }));
-            }}
-          />
-
           <h1 className="text-3xl font-semibold text-gray-800 mt-2  leading-[43.2px]  mb-6">
             My Goals
           </h1>

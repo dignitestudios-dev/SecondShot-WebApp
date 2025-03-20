@@ -258,7 +258,7 @@ const ProfileDetails = () => {
               value={values.address}
               onBlur={handleBlur}
               type={"text"}
-              placeholder={"Address"}
+              placeholder={"School / Organization name"}
               onChange={handleChange}
               maxLength={250}
             />

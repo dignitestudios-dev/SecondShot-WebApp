@@ -262,14 +262,20 @@ function MyProfile() {
                         <p className="text-black text-base">
                           +1{phoneFormater(profileData?.phone)}
                         </p>
-
-                        <p className="text-black font-medium text-base  ">
-                          Address
-                        </p>
-                        <p className="text-black font-normal text-base  ">
-                          {profileData?.address || ""}
-                        </p>
-
+                        {profileData?.address ? (
+                          <>
+                            {" "}
+                            <p className="text-black font-medium text-base  ">
+                              School / Organization name
+                            </p>
+                            <p className="text-black font-normal text-base  ">
+                              {profileData?.address || ""}
+                            </p>
+                          </>
+                        ) : (
+                          ""
+                        )}
+                          <p className="text-black font-medium text-base  ">Address</p>
                         <p className="text-black text-base font-normal ">
                           {profileData?.state}, {profileData?.city}
                         </p>

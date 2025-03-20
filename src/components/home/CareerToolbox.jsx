@@ -91,7 +91,12 @@ const CareerToolbox = () => {
       btnBg: isFirst.mylibrary === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Mark and save your favorite skills and careers for quick reference.",
       path: "/my-library",
-      btn: subscriptionpaid === false ? "Unlock" : "Launch",
+      btn:
+        subscriptionpaid === false
+          ? "Unlock"
+          : isFirst.mylibrary === true
+          ? "Launch"
+          : "Unlock",
     },
   ];
   const handleNavigation = (item) => {
@@ -160,7 +165,9 @@ const CareerToolbox = () => {
           isOpen={lock}
           handleClick={() => navigate("/subscriptionplans")}
           onClose={() => setLock(false)}
-          text={'Buy a subscription to unlock this feature and enjoy exclusive benefits.'}
+          text={
+            "Buy a subscription to unlock this feature and enjoy exclusive benefits."
+          }
         />
       </div>
       <div className="grid sm:grid-cols-1 md:grid-cols-[1fr_2fr] lg:grid-cols-[1fr_1fr_1fr] gap-10">

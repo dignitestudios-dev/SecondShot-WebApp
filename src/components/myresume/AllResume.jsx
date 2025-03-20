@@ -79,9 +79,9 @@ const AllResume = ({ resume }) => {
             {resume?.licenses_and_certifications?.map((ctr, i) => (
               <div key={i} className="mt-1">
                 <div className="flex items-center justify-between">
-                  <p className="font-[600] text-[5px]">
+                  <li className="font-[600] text-[5px]">
                     {ctr?.certification_name}
-                  </p>
+                  </li>
                   <p className="text-[3.94px] text-[#101010] font-[600]">
                     {ctr?.issue_date?.split("T")[0]} -{" "}
                     {ctr?.expiration_date
@@ -90,9 +90,9 @@ const AllResume = ({ resume }) => {
                   </p>
                 </div>
 
-                <li className="text-[#000000] pl-1 leading-[10.59px] font-[400] text-[5px]">
+                {/* <li className="text-[#000000] pl-1 leading-[10.59px] font-[400] text-[5px]">
                   {ctr?.issuing_organization || "issuing_organization"}
-                </li>
+                </li> */}
               </div>
             ))}
           </section>

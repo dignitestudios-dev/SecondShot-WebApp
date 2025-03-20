@@ -2,11 +2,7 @@ import React, { useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const CustomCalendar = ({
-  setShowCalender,
-  startDate,
-  setStartDate,
-}) => {
+const CustomCalendar = ({ setShowCalender, startDate, setStartDate }) => {
   const modalRef = useRef(null);
   useEffect(() => {
     const handleClickOutside = (event) => {

@@ -127,7 +127,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                         <p className="text-[16px] mt-2 font-[400] text-[#767676] pb-1">
                           {threeMonthsAgo
                             ? threeMonthsAgo.toLocaleDateString("en-US", {
-                                month: "short",
+                                month: "long",
                                 day: "2-digit",
                                 year: "numeric",
                               })
@@ -203,7 +203,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                                           ? subGoal.deadline.toLocaleDateString(
                                               "en-US",
                                               {
-                                                month: "short",
+                                                month: "long",
                                                 day: "2-digit",
                                                 year: "numeric",
                                               }

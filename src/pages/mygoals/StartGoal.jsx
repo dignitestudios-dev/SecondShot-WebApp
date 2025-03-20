@@ -25,7 +25,7 @@ const StartGoal = () => {
           </div>
         </div>
         <div className="font-[400] text-[#999999] text-[14px] mt-3 ">
-          Need some inspiration?
+         
         </div>
       </div>
     </div>

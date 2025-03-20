@@ -60,6 +60,15 @@ function MyResume() {
   };
   return (
     <>
+      <WelcomeResumeModal
+        isOpen={isFirst.myresume}
+        handleClick={() => {
+          setIsFirst((prev) => ({
+            ...prev,
+            myresume: false,
+          }));
+        }}
+      />
       {loading ? (
         <div className="flex gap-3">
           {[1, 2, 3, 4]?.map((item) => (
@@ -73,15 +82,6 @@ function MyResume() {
         </div>
       ) : resume && resume.length > 0 ? (
         <div className="">
-          <WelcomeResumeModal
-            isOpen={isFirst.myresume}
-            handleClick={() => {
-              setIsFirst((prev) => ({
-                ...prev,
-                myresume: false,
-              }));
-            }}
-          />
           <div className="w-full mx-auto">
             <div className="flex justify-between items-start mb-6">
               <h1 className="text-3xl font-semibold text-gray-800">
@@ -99,7 +99,7 @@ function MyResume() {
                     onClick={handleNavigate}
                     className="text-[#012C57] text-[18px] font-[600]"
                   >
-                    + Create Resume
+                    Create new resume
                   </button>
                 </div>
               </div>

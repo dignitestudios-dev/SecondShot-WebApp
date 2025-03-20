@@ -34,7 +34,7 @@ const NewTrasnferSkill = () => {
   const [appear, setAppear] = useState(false);
   const [cardnote, setCardnote] = useState(false);
   const [lock, setLock] = useState(false);
-  const { subscriptionpaid } = useContext(AuthContext);
+  const { subscriptionpaid, profilepic, profilename } = useContext(AuthContext);
 
   const handleTopSKill = () => {
     setTopSkill((prev) => !prev);
@@ -172,7 +172,9 @@ const NewTrasnferSkill = () => {
       });
 
       if (response.status === 200) {
-        SuccessToast(isLiked ? "Skills remove from favorites" : "Skills saved to favorites");
+        SuccessToast(
+          isLiked ? "Skills remove from favorites" : "Skills saved to favorites"
+        );
         gettransferableskill();
       }
     } catch (err) {
@@ -224,11 +226,11 @@ const NewTrasnferSkill = () => {
                       });
                     }}
                   >
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -352,11 +354,11 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -418,11 +420,11 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -483,11 +485,11 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-6 -left-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -571,14 +573,31 @@ const NewTrasnferSkill = () => {
           </div>
         </div>
 
-        <div className="flex justify-center absolute ">
-          <img
-            src={Centerpro}
-            className=" h-[175.75px] relative top-[43px] left-[2px]  w-[176.1px] rounded-full object-cover"
-            alt=""
-          />
-          <div className="text-lg text-center absolute top-[250px] left-[20px] font-[600] text-[#0a1723] ">
-            Sanethia Thomas
+        <div className="flex justify-center items-center absolute ">
+          {profilepic ? (
+            <img
+              src={profilepic}
+              className=" h-[175.75px] relative top-[43px] left-[2px]  w-[176.1px] rounded-full object-cover"
+              alt=""
+            />
+          ) : (
+            <p className="absolute text-[40px] top-[20px]">
+              {profilename
+                ?.split(" ")
+                .map((word) => word[0])
+                .slice(0, 2)
+                .join("")}
+            </p>
+          )}
+
+          <div
+            className={`text-md text-center absolute ${
+              profilepic
+                ? "top-[250px] left-[35px]"
+                : "top-[170px] -left-[54px]"
+            }  w-[120px] text-wrap break-words   font-[600] text-[#0a1723]`}
+          >
+            {profilename}
           </div>
         </div>
         <img src={CenterSkill} className="h-[655.67px]" alt="" />
@@ -819,11 +838,11 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-14 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -883,11 +902,11 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -947,11 +966,11 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -1011,11 +1030,11 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -1223,10 +1242,10 @@ const NewTrasnferSkill = () => {
                       }}
                     >
                       <p className="text-nowrap">
-                      {item.title.length > 8
-                        ? item.title.substring(0, 8) + "..."
-                        : item.title}
-                        </p>
+                        {item.title.length > 8
+                          ? item.title.substring(0, 8) + "..."
+                          : item.title}
+                      </p>
                       <div
                         className="absolute -top-12 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -1289,10 +1308,10 @@ const NewTrasnferSkill = () => {
                       }}
                     >
                       <p className="text-nowrap">
-                      {item.title.length > 8
-                        ? item.title.substring(0, 8) + "..."
-                        : item.title}
-                        </p>
+                        {item.title.length > 8
+                          ? item.title.substring(0, 8) + "..."
+                          : item.title}
+                      </p>
                       <div
                         className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -1355,10 +1374,10 @@ const NewTrasnferSkill = () => {
                       }}
                     >
                       <p className="text-nowrap">
-                      {item.title.length > 8
-                        ? item.title.substring(0, 8) + "..."
-                        : item.title}
-                        </p>
+                        {item.title.length > 8
+                          ? item.title.substring(0, 8) + "..."
+                          : item.title}
+                      </p>
                       <div
                         className="absolute -top-12 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -1436,11 +1455,11 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -1501,11 +1520,11 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -1566,11 +1585,11 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -1631,11 +1650,11 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -1696,11 +1715,11 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -1777,11 +1796,11 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -1842,11 +1861,11 @@ const NewTrasnferSkill = () => {
                     }}
                   >
                     {" "}
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -1906,11 +1925,11 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -1970,11 +1989,11 @@ const NewTrasnferSkill = () => {
                       setNoteDescription(item?.description);
                     }}
                   >
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-12 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -2035,11 +2054,11 @@ const NewTrasnferSkill = () => {
                     }}
                   >
                     {" "}
-                     <p className="text-nowrap">
+                    <p className="text-nowrap">
                       {item.title.length > 8
                         ? item.title.substring(0, 8) + "..."
                         : item.title}
-                        </p>
+                    </p>
                     <div
                       className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
@@ -2102,9 +2121,7 @@ const NewTrasnferSkill = () => {
         isOpen={lock}
         handleClick={() => navigate("/subscriptionplans")}
         onClose={() => setLock(false)}
-        text={
-          "The free version only shows one skill and its nodes. Subscribe now to unlock the full transferable skills map."
-        }
+        text={"Subscribe to unlock the full map and access all of the modules."}
       />
     </div>
   );

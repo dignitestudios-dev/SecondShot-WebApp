@@ -186,7 +186,7 @@ const SubscriptionPlannew = () => {
                 </div>
                 <div className="mt-auto w-[171px]">
                   <AuthSubmitBtn
-                    text={"Buy Now"}
+                    text={"Try it for free"}
                     handleSubmit={() => navigation("/profiledetail")}
                   />
                 </div>

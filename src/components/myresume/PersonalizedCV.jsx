@@ -84,9 +84,9 @@ const PersonalizedCV = ({ resumeData, ref }) => {
               <div key={i} className="mt-3">
                  
                   <div  className=" flex items-center justify-between">
-              <p className="font-[600] text-[22px] text-[#101010] leading-[30px] ">
+              <li className="font-[600] text-[22px] text-[#101010] leading-[30px] ">
                  {ctr?.certification_name}
-              </p>
+              </li>
               <p className="text-[20px]  text-[#101010] font-[600]">
               {ctr?.issue_date?.split("T")[0].split("-")[0]}
 {ctr?.expiration_date && ` - ${ctr.expiration_date.split("T")[0].split("-")[0]}`}

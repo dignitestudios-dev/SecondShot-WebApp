@@ -191,7 +191,7 @@ function ReviewYourGoalOld() {
                     <p className="font-semibold text-blue-600 mb-4">
                       {new Date(date).toLocaleDateString("en-US", {
                         year: "numeric",
-                        month: "short",
+                        month: "long",
                         day: "2-digit",
                       })}
                       {"-"}
@@ -199,7 +199,7 @@ function ReviewYourGoalOld() {
                       {threeMonths
                         ? new Date(threeMonths).toLocaleDateString("en-US", {
                             year: "numeric",
-                            month: "short",
+                            month: "long",
                             day: "2-digit",
                           })
                         : editedGoals?.startDate
@@ -207,7 +207,7 @@ function ReviewYourGoalOld() {
                             "en-US",
                             {
                               year: "numeric",
-                              month: "short",
+                              month: "long",
                               day: "2-digit",
                             }
                           )
@@ -242,14 +242,14 @@ function ReviewYourGoalOld() {
                               <p className="font-semibold mx-3 text-blue-600 mb-4">
                                 {new Date(date).toLocaleDateString("en-US", {
                                   year: "numeric",
-                                  month: "short",
+                                  month: "long",
                                   day: "2-digit",
                                 })}
                                 {"-"}
                                 {item?.deadline
                                   ? item.deadline.toLocaleDateString("en-US", {
                                       year: "numeric",
-                                      month: "short",
+                                      month: "long",
                                       day: "2-digit",
                                     })
                                   : "No date selected"}
