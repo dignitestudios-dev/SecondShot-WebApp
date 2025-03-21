@@ -10,27 +10,36 @@ const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
     relevant: Yup.string().required(
       "Please respond before moving forward to proceed with the next step."
     ),
+    relevantedit: Yup.string().required(
+      "Please respond before moving forward to proceed with the next step."
+    ),
   });
 
   return (
     <div>
       <Formik
         initialValues={{
-          relevant:formData.relevant || formData.achievable || "", // Prefill with formData.achievable
+          relevant: formData.relevant || formData.achievableedit || "",
+          relevantedit: "", // Prefill with formData.achievable
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          setFormData((prevData) => ({
-            ...prevData,
-            relevant: values.relevant, // Update the 'relevant' field in formData
-          }));
+          setFormData({
+            ...formData,
+            relevant: values.relevant,
+            relevantedit: values.relevantedit,
+          });
+
           nextStep(); // Proceed to the next step
         }}
       >
         {({ errors, touched, values, setFieldValue }) => (
           <Form>
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-2" htmlFor="relevant">
+              <label
+                className="block text-sm font-medium mb-2"
+                htmlFor="relevant"
+              >
                 Relevant
               </label>
               <p className="text-[14px] text-[#000000] font-[400] w-[503px]">
@@ -70,21 +79,43 @@ const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
                   // Ensure user can edit the field freely
                   setFieldValue("relevant", e.target.value); // Update the achievable field value
                 }}
-              
-              
                 className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
                    bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                     errors.relevant && touched.relevant
-                       ? "border-red-500"
-                       : ""
+                     errors.relevant && touched.relevant ? "border-red-500" : ""
                    }`}
-                   maxLength="250" 
+                maxLength="250"
+                disabled
               />
               <ErrorMessage
                 name="relevant"
                 component="div"
                 className="text-red-500 text-xs italic"
               />
+              <div className="mt-3">
+                <Field
+                  as="input"
+                  id="relevantedit"
+                  name="relevantedit"
+                  placeholder="Describe Here"
+                  value={values.relevantedit}
+                  onChange={(e) => {
+                    // Ensure user can edit the field freely
+                    setFieldValue("relevantedit", e.target.value); // Update the achievable field value
+                  }}
+                  className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
+                   bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                     errors.relevantedit && touched.relevantedit
+                       ? "border-red-500"
+                       : ""
+                   }`}
+                  maxLength="250"
+                />
+                <ErrorMessage
+                  name="relevantedit"
+                  component="div"
+                  className="text-red-500 text-xs italic"
+                />
+              </div>
             </div>
 
             <div className="flex justify-center pt-4">

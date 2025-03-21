@@ -41,7 +41,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
     validateOnBlur: true,
     context: { showSubGoal },
     onSubmit: (values) => {
-      console.log(values,"Ss")
+      console.log(values, "Ss");
       setFormData(values);
 
       navigate("/review-goals", {
@@ -165,15 +165,18 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                                   <label className="text-[14px] text-[#181818] font-[500]">
                                     Sub-goal {index + 1}
                                   </label>
-                                  {values.sub_goals.length > 1 && (
-                                    <button
-                                      type="button"
-                                      className="text-red-500 text-[12px] me-5 underline"
-                                      onClick={() => remove(index)}
-                                    >
-                                      Remove
-                                    </button>
-                                  )}
+                                  <button
+                                    type="button"
+                                    className="text-red-500 text-[12px] me-5 underline"
+                                    onClick={() => {
+                                      remove(index);
+                                      if (values.sub_goals.length === 1) {
+                                        setShowSubGoal(false); // ✅ Jab last sub-goal remove ho jaye to hide kar do
+                                      }
+                                    }}
+                                  >
+                                    Remove
+                                  </button>
                                 </div>
 
                                 <AuthInput
@@ -285,17 +288,8 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
                           ? "Hide Sub Goals"
                           : "Add Sub Goals (Optional)"
                       }
-                      handleSubmit={(e) => {
-                        e.preventDefault();
-                        if (showSubGoal) {
-                          setFieldValue("sub_goals", []);
-                        } else if (values.sub_goals.length === 0) {
-                          setFieldValue("sub_goals", [
-                            { name: "", deadline: "" },
-                          ]);
-                        }
-                        setShowSubGoal((prev) => !prev);
-                      }}
+                      type={"button"}
+                      handleSubmit={() => setShowSubGoal((prev) => !prev)}
                     />
                   </div>
                   <div className="mt-2">

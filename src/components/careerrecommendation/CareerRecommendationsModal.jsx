@@ -15,7 +15,7 @@ const CareerRecommendationsModal = ({ isOpen, onClose, handleClick }) => {
           My Career Recommendations
         </h2>
         <div className="w-[419px]  mb-5 ">
-          <p className="text-[18px] font-[500] mt-2 text-[#9A9A9A] text-center leading-[24.3px]  ">
+          <p className="text-[18px] font-[500] mt-2 text-black text-center leading-[24.3px]  ">
             You will be given a short 24 question survey. Make sure you choose
             the answer that comes to mind first. Once you are finished you can
             review your 5 matched careers. You are able to retake the survey to

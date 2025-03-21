@@ -158,21 +158,20 @@ function ReviewYourGoalOld() {
           </div>
           <div className="flex  items-center  gap-4">
             <div className="w-[200px]">
-              {isAnyFieldFilled ? (
-                <AuthSubmitBtn
-                  text={"Finalize Goal"}
-                  handleSubmit={() => handlecreategoal()}
-                  loading={loader}
-                />
-              ) : (
-                <AuthSubmitBtn
-                  text={"Finalize Goal"}
-                  handleSubmit={() => {
-                    setShareModal(true);
-                    setIsUpdate(false);
-                  }}
-                />
-              )}
+              <AuthSubmitBtn
+                text={"Add Support People"}
+                handleSubmit={() => {
+                  setShareModal(true);
+                  setIsUpdate(false);
+                }}
+              />
+            </div>
+            <div className="w-[200px]">
+              <AuthSubmitBtn
+                text={"Finalize Goal"}
+                handleSubmit={() => handlecreategoal()}
+                loading={loader}
+              />
             </div>
           </div>
         </div>

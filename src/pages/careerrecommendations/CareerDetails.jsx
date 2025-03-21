@@ -171,6 +171,11 @@ function CareerDetails() {
                           ? "text-green-500"
                           : "text-gray-500"
                       }`}
+                      title={
+                        careerFiltered[0]?.is_favorite
+                          ? "Remove from Favorites"
+                          : "Add to Favorites"
+                      }
                     />
                   )}
                 </div>
@@ -295,8 +300,13 @@ function CareerDetails() {
             <h3 className="text-[18px] font-medium text-[#011225] mt-2">
               Explore More
             </h3>
-            <a href={`${careerFiltered[0]?.career?.career_link}`} target="_blank" className="text-[#0E73D0] underline">{careerFiltered[0]?.career?.career_link}</a>
-
+            <a
+              href={`${careerFiltered[0]?.career?.career_link}`}
+              target="_blank"
+              className="text-[#0E73D0] underline"
+            >
+              {careerFiltered[0]?.career?.career_link}
+            </a>
           </div>
         </div>
       </div>

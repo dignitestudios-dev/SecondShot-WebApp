@@ -269,6 +269,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -332,6 +337,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -397,6 +407,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -463,6 +478,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -528,6 +548,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -813,6 +838,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -877,6 +907,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -941,6 +976,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -1005,6 +1045,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -1069,6 +1114,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -1150,6 +1200,11 @@ const NewTrasnferSkill = () => {
                                   ? "text-green-500"
                                   : "text-gray-500"
                               }`}
+                              title={
+                                item?.is_favorite
+                                  ? "Remove from Favorites"
+                                  : "Add to Favorites"
+                              }
                             />
                           )}
                         </span>
@@ -1214,6 +1269,11 @@ const NewTrasnferSkill = () => {
                                   ? "text-green-500"
                                   : "text-gray-500"
                               }`}
+                              title={
+                                item?.is_favorite
+                                  ? "Remove from Favorites"
+                                  : "Add to Favorites"
+                              }
                             />
                           )}
                         </span>
@@ -1280,6 +1340,11 @@ const NewTrasnferSkill = () => {
                                   ? "text-green-500"
                                   : "text-gray-500"
                               }`}
+                              title={
+                                item?.is_favorite
+                                  ? "Remove from Favorites"
+                                  : "Add to Favorites"
+                              }
                             />
                           )}
                         </span>
@@ -1346,6 +1411,11 @@ const NewTrasnferSkill = () => {
                                   ? "text-green-500"
                                   : "text-gray-500"
                               }`}
+                              title={
+                                item?.is_favorite
+                                  ? "Remove from Favorites"
+                                  : "Add to Favorites"
+                              }
                             />
                           )}
                         </span>
@@ -1412,6 +1482,11 @@ const NewTrasnferSkill = () => {
                                   ? "text-green-500"
                                   : "text-gray-500"
                               }`}
+                              title={
+                                item?.is_favorite
+                                  ? "Remove from Favorites"
+                                  : "Add to Favorites"
+                              }
                             />
                           )}
                         </span>
@@ -1494,6 +1569,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -1559,6 +1639,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -1624,6 +1709,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -1689,6 +1779,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -1754,6 +1849,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -1838,6 +1938,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -1903,6 +2008,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -1967,6 +2077,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -2031,6 +2146,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>
@@ -2096,6 +2216,11 @@ const NewTrasnferSkill = () => {
                                 ? "text-green-500"
                                 : "text-gray-500"
                             }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
                           />
                         )}
                       </span>

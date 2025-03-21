@@ -11,6 +11,9 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
     timebound: Yup.string().required(
       "Please respond before moving forward to proceed with the next step."
     ),
+    timeboundedit: Yup.string().required(
+      "Please respond before moving forward to proceed with the next step."
+    ),
   });
   const navigate = useNavigate();
 
@@ -18,14 +21,16 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
     <div>
       <Formik
         initialValues={{
-          timebound:formData.timebound || formData.relevant || "", 
+          timebound: formData.timebound || formData.relevantedit || "",
+          timeboundedit: formData.timeboundedit,
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          setFormData((prevData) => ({
-            ...prevData,
+          setFormData({
+            ...formData,
             timebound: values.timebound,
-          }));
+            timeboundedit: values.timeboundedit,
+          });
           navigate("/create-goals", {
             state: {
               isSmart: true,
@@ -87,12 +92,38 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
                       : ""
                   }`}
                 maxLength="250"
+                disabled
               />
               <ErrorMessage
                 name="timebound"
                 component="div"
                 className="text-red-500 text-xs italic"
               />
+              <div className="mt-3">
+                <Field
+                  as="input"
+                  id="timeboundedit"
+                  name="timeboundedit"
+                  placeholder="Describe Here"
+                  value={values.timeboundedit}
+                  onChange={(e) => {
+                    // Ensure user can edit the field freely
+                    setFieldValue("timeboundedit", e.target.value); // Update the achievable field value
+                  }}
+                  className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
+                  bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                    errors.timeboundedit && touched.timeboundedit
+                      ? "border-red-500"
+                      : ""
+                  }`}
+                  maxLength="250"
+                />
+                <ErrorMessage
+                  name="timeboundedit"
+                  component="div"
+                  className="text-red-500 text-xs italic"
+                />
+              </div>
             </div>
             <div className="flex justify-center pt-4">
               <div className="w-[343px]">

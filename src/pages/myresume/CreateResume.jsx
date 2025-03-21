@@ -38,8 +38,7 @@ const CreateResume = () => {
   const [isPreview, setIsPreview] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const [resumeData, setesumeData] = useState('');
- 
+  const [resumeData, setesumeData] = useState("");
 
   //Skipping State:
   const [isSkipped, setIsSkipped] = useState(false);
@@ -158,9 +157,17 @@ const CreateResume = () => {
           <>
             <div></div>
             <div className="flex justify-between items-start mb-6">
-              <h1 className="text-[32px] font-medium text-gray-800">
-                Create Resume
-              </h1>
+              <div>
+                <h1 className="text-[32px] font-medium text-gray-800">
+                  Create Resume
+                </h1>
+                <p className="text-[16px]">
+                  {" "}
+                  Answer the following questions on the left. View the sample
+                  resume and corresponding sections on the right.
+                </p>
+              </div>
+
               <div className="flex items-center"></div>
             </div>
             <div className="flex justify-between items-center mt-4 w-full">
@@ -189,7 +196,7 @@ const CreateResume = () => {
                           index < step - 1
                             ? " text-gradient-to-r from-[#012C57] to-[#061523] z-50"
                             : index == step - 1
-                            ? "text-[#061523] z-50" 
+                            ? "text-[#061523] z-50"
                             : "text-[#969696]"
                         }`}
                       >

@@ -99,6 +99,11 @@ const CareerCards = ({ carrerData, loading, getallcarrerrecommendation }) => {
                         careerIds // Send all career IDs as an array
                       );
                     }}
+                    title={
+                      recommendation?.is_favorite
+                        ? "Remove from Favorites"
+                        : "Add to Favorites"
+                    }
                   />
                 </div>
               )}

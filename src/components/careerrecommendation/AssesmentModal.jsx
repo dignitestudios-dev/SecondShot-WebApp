@@ -2,12 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Assesmentmodal } from "../../assets/export";
 
-const AssessmentModal = ({
-  showModal,
-  step,
-  setShowModal,
-  carrerId ,
-}) => {
+const AssessmentModal = ({ showModal, step, setShowModal, carrerId }) => {
   const navigate = useNavigate();
   const handleNavigation = () => {
     navigate(`/careerdetails/${carrerId}`);
@@ -29,17 +24,17 @@ const AssessmentModal = ({
               You have successfully <br /> completed the assessment
             </h2>
             <div className="w-[419px] ">
-              <p className="text-[18px] font-[500] mt-2 text-[#9A9A9A] text-center leading-[24.3px]  ">
+              <p className="text-[18px] font-[500] mt-2 text-black text-center leading-[24.3px]  ">
                 You’ve been matched with five potential careers! Take a moment
                 to click through each one and explore sample job titles, career
                 pathways, and recommended education.
               </p>
-              <p className="text-[18px] font-[500] mt-2 text-[#9A9A9A] text-center leading-[24.3px] ">
+              <p className="text-[18px] font-[500] mt-2 text-black text-center leading-[24.3px] ">
                 Be sure to mark your favorites so you can save them in your
                 library. This way, you’ll have easy access to revisit and review
                 them later.
               </p>
-              <p className="text-[18px]   font-[500] mt-2 text-[#9A9A9A] text-center leading-[24.3px] ">
+              <p className="text-[18px]   font-[500] mt-2 text-black text-center leading-[24.3px] ">
                 If you’re interested in exploring even more career options, you
                 can always retake the assessment for additional matches.
               </p>

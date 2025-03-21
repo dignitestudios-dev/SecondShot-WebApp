@@ -13,20 +13,26 @@ const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
     measure: Yup.string().required(
       "Please respond before moving forward to proceed with the next step."
     ),
+    measureedit: Yup.string().required(
+      "Please respond before moving forward to proceed with the next step."
+    ),
   });
 
   return (
     <div>
       <Formik
         initialValues={{
-          measure: formData.measure || formData.specific || "", // Prefill with formData.specific
+          measure: formData.measure || formData.specificedit || "",
+          measureedit: formData.measureedit || "", // Prefill with formData.specific
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          setFormData((prevData) => ({
-            ...prevData,
-            measure: values.measure, // This updates the 'measure' field in formData
-          }));
+          setFormData({
+            ...formData,
+            measure: values.measure,
+            measureedit: values.measureedit,
+          });
+
           nextStep(); // Proceed to the next step
         }}
       >
@@ -66,7 +72,6 @@ const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
                 name="measure"
                 value={values.measure}
                 onChange={(e) => {
-                  
                   const updatedValue = e.target.value;
                   setFieldValue("measure", updatedValue);
                 }}
@@ -76,12 +81,38 @@ const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
                      errors.measure && touched.measure ? "border-red-500" : ""
                    }`}
                 maxLength="250"
+                disabled
               />
               <ErrorMessage
                 name="measure"
                 component="div"
                 className="text-red-500 text-xs italic"
               />
+              <div className="mt-3">
+                <Field
+                  as="input"
+                  id="measureedit"
+                  name="measureedit"
+                  value={values.measureedit}
+                  onChange={(e) => {
+                    const updatedValue = e.target.value;
+                    setFieldValue("measureedit", updatedValue);
+                  }}
+                  placeholder="Describe Here"
+                  className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
+                   bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                     errors.measureedit && touched.measureedit
+                       ? "border-red-500"
+                       : ""
+                   }`}
+                  maxLength="250"
+                />
+                <ErrorMessage
+                  name="measureedit"
+                  component="div"
+                  className="text-red-500 text-xs italic"
+                />
+              </div>
             </div>
 
             <div className="flex justify-center pt-4">

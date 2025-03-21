@@ -16,13 +16,13 @@ const WelcomeModal = ({ isOpen, handleClick }) => {
           Welcome to career toolbox!
         </h2>
         {subscriptionpaid === false ? (
-          <p className="text-[18px] font-[500] mt-4 text-[#9A9A9A] text-center leading-[24.3px] ">
+          <p className="text-[18px] font-[500] mt-4 text-black text-center leading-[24.3px] ">
             Thank you for trying out Career Prep. Your free access lets you try
             out our Transferable Skills Module. Click anywhere else on the
             screen to subscribe and get access to all modules.
           </p>
         ) : (
-          <p className="text-[18px] font-[500] mt-4 text-[#9A9A9A] text-center leading-[24.3px] ">
+          <p className="text-[18px] font-[500] mt-4 text-black text-center leading-[24.3px] ">
             You can start with any tool first. Click on each tool to learn more
             of how to use it in your life.
           </p>

@@ -103,7 +103,9 @@ const SideResume = ({ step }) => {
   return (
     <div className="bg-gradient-to-br w-[612px] from-[#012C57] h-[1000px] to-[#061523]  mx-auto p-8 rounded-[28px] mt-5 shadow-md ">
       {/* Header Section */}
-
+      <div className="text-center text-white mb-2 ">
+        <h1>Sample Template</h1>
+      </div>
       <div
         className={`text-center ${
           step === 1 ? "text-[#56EC17]" : " text-white"
@@ -292,7 +294,9 @@ const SideResume = ({ step }) => {
         ))}
       </section>
 
-      <section className={`mt-2 ${step === 8 ? "text-[#56EC17]" : "text-white"}`}>
+      <section
+        className={`mt-2 ${step === 8 ? "text-[#56EC17]" : "text-white"}`}
+      >
         <h2 className="text-[12px] font-[600] leading-[16.2px]  uppercase">
           Honors
         </h2>

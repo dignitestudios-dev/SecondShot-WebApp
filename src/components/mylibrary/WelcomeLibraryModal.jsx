@@ -15,7 +15,7 @@ const WelcomeLibraryModal = ({ isOpen, onClose, handleClick }) => {
           Welcome to your Library!
         </h2>
         <div className="w-[419px] ">
-          <p className="text-[18px] font-[500] mt-4 text-[#9A9A9A] text-center leading-[24.3px]  ">
+          <p className="text-[18px] font-[500] mt-4 text-black text-center leading-[24.3px]  ">
             You can view your saved transferable skills and matched careers.
             View your library as a snapshot of your strengths and abilities.
           </p>

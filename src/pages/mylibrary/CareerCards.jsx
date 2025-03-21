@@ -114,7 +114,7 @@ const CareerCards = ({ icon, carrerData, loading, getfavcareer }) => {
                 ))}
               </div>
 
-              <div className="text-sm flex justify-between items-center group-hover:text-white">
+              <div className="text-sm  absolute bottom-0 left-4 right-4  flex justify-between items-center group-hover:text-white">
                 <span className="text-[16px] font-[500] leading-[21.6px]">
                   {new Date(recommendation?.createdAt).toLocaleDateString(
                     "en-US",

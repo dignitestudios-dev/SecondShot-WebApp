@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CustomCalendar from "../calendar/Calender";
 import { Calender } from "../../assets/export";
 import AuthInput from "../onboarding/AuthInput";
+import AuthSubmitBtn from "../onboarding/AuthBtn";
 
 const EditGoalModal = ({
   showModal,
@@ -20,6 +21,9 @@ const EditGoalModal = ({
   const [showCalender, setShowCalender] = useState(false);
   const [errorMain, setMainError] = useState("");
   const [errors, setErrors] = useState([]);
+  const [showSubGoal, setShowSubGoal] = useState(
+    editedGoal?.sub_goals?.length > 0
+  );
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -108,12 +112,19 @@ const EditGoalModal = ({
     if (hasError) return; // Stop execution if there are errors
 
     onSave(editedGoal);
+    setShowSubGoal(true)
   };
 
   return (
     showModal && (
       <div className="fixed top-0 right-0 w-screen h-screen z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-80 backdrop-blur-sm">
-        <div className="bg-white rounded-lg shadow-lg w-[450px] h-[500px] overflow-scroll p-6 relative">
+        <div
+          className={`bg-white rounded-lg shadow-lg w-[450px] overflow-auto p-6 relative ${
+            showSubGoal && editedGoal?.sub_goals.length > 1
+              ? "h-[660px]"
+              : "h-auto"
+          }`}
+        >
           <h2 className="text-[24px] text-center font-semibold">Edit Goal</h2>
 
           <AuthInput
@@ -166,85 +177,97 @@ const EditGoalModal = ({
             </div>
           </div>
 
-          {editedGoal?.sub_goals?.map((subGoal, index) => (
-            <div key={index} className="mb-4 mt-3">
-              <div className="flex justify-between">
-                <label className="text-[14px] mx-2 text-[#181818] font-[500]">
-                  Sub-goal {index + 1}
-                </label>
-                <button
-                  type="button"
-                  className="text-red-500 text-[12px] me-5 cursor-pointer underline"
-                  onClick={() => handleRemoveSubGoal(index)}
-                >
-                  Remove
-                </button>
-              </div>
-              <AuthInput
-                placeholder="Write your sub goal here"
-                name="name"
-                value={subGoal.name}
-                onChange={(e) => handleSubGoalChange(index, e)}
-                maxLength={250}
-              />
-              {errors[index] && (
-                <p className="text-red-500 text-[13px] mt-2 mx-2 font-[500]">
-                  {errors[index]}
-                </p>
-              )}
-
-              <div className="mt-4">
-                <p className="text-[14px] font-[500] m-1">Time-Bound</p>
-                <div className="text-xs p-3 rounded-lg bg-[#F5F5F5] flex justify-between items-center">
-                  <div>
-                    <p className="font-[500] text-[16px] py-1">
-                      Set a deadline for this sub-goal!
-                    </p>
-                    <p className="text-[16px] mt-2 font-[400] text-[#767676] pb-1">
-                      {subGoal.deadline
-                        ? subGoal.deadline.toLocaleDateString("en-US", {
-                            month: "long",
-                            day: "2-digit",
-                            year: "numeric",
-                          })
-                        : "No date selected"}
-                    </p>
-                  </div>
-                  <div>
-                    <span
-                      className="p-2 cursor-pointer"
-                      onClick={() =>
-                        setShowCalenderIndex(
-                          index === showCalenderIndex ? null : index
-                        )
-                      }
+          {showSubGoal && (
+            <>
+              {editedGoal?.sub_goals?.map((subGoal, index) => (
+                <div key={index} className="mb-4 mt-3">
+                  <div className="flex justify-between">
+                    <label className="text-[14px] mx-2 text-[#181818] font-[500]">
+                      Sub-goal {index + 1}
+                    </label>
+                    <button
+                      type="button"
+                      className="text-red-500 text-[12px] me-5 cursor-pointer underline"
+                      onClick={() => handleRemoveSubGoal(index)}
                     >
-                      <img className="w-[24px]" src={Calender} />
-                    </span>
-                    {showCalenderIndex === index && (
-                      <div className="absolute z-10">
-                        <CustomCalendar
-                          startDate={subGoal.deadline}
-                          setStartDate={(date) =>
-                            handleSubGoalDateChange(index, date)
-                          }
-                          setShowCalender={() => setShowCalenderIndex(null)}
-                        />
+                      Remove
+                    </button>
+                  </div>
+                  <AuthInput
+                    placeholder="Write your sub goal here"
+                    name="name"
+                    value={subGoal.name}
+                    onChange={(e) => handleSubGoalChange(index, e)}
+                    maxLength={250}
+                  />
+                  {errors[index] && (
+                    <p className="text-red-500 text-[13px] mt-2 mx-2 font-[500]">
+                      {errors[index]}
+                    </p>
+                  )}
+
+                  <div className="mt-4">
+                    <p className="text-[14px] font-[500] m-1">Time-Bound</p>
+                    <div className="text-xs p-3 rounded-lg bg-[#F5F5F5] flex justify-between items-center">
+                      <div>
+                        <p className="font-[500] text-[16px] py-1">
+                          Set a deadline for this sub-goal!
+                        </p>
+                        <p className="text-[16px] mt-2 font-[400] text-[#767676] pb-1">
+                          {subGoal.deadline
+                            ? subGoal.deadline.toLocaleDateString("en-US", {
+                                month: "long",
+                                day: "2-digit",
+                                year: "numeric",
+                              })
+                            : "No date selected"}
+                        </p>
                       </div>
-                    )}
+                      <div>
+                        <span
+                          className="p-2 cursor-pointer"
+                          onClick={() =>
+                            setShowCalenderIndex(
+                              index === showCalenderIndex ? null : index
+                            )
+                          }
+                        >
+                          <img className="w-[24px]" src={Calender} />
+                        </span>
+                        {showCalenderIndex === index && (
+                          <div className="absolute z-10">
+                            <CustomCalendar
+                              startDate={subGoal.deadline}
+                              setStartDate={(date) =>
+                                handleSubGoalDateChange(index, date)
+                              }
+                              setShowCalender={() => setShowCalenderIndex(null)}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              ))}
 
-          <button
-            type="button"
-            className="text-[#012C57] cursor-pointer underline font-[500] text-[12px] leading-[13.31px] mt-2"
-            onClick={handleAddSubGoal}
-          >
-            + Add More
-          </button>
+              <button
+                type="button"
+                className="text-[#012C57] cursor-pointer underline font-[500] text-[12px] leading-[13.31px] mt-2"
+                onClick={handleAddSubGoal}
+              >
+                + Add More
+              </button>
+            </>
+          )}
+
+          <div className="mt-3">
+            <AuthSubmitBtn
+              text={showSubGoal ? "Hide Sub Goals" : "Add Sub Goals (Optional)"}
+              type={"button"}
+              handleSubmit={() => setShowSubGoal((prev) => !prev)}
+            />
+          </div>
 
           <div className="flex justify-between mt-4">
             <button

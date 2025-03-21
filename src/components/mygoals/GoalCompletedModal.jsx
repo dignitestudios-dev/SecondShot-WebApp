@@ -44,22 +44,16 @@ const GoalCompletedModal = ({
               <div className="flex justify-between">
                 <button
                   className=" w-[207px] h-[49px] bg-[#E5EAED] rounded-[8px] text-[#000000] font-[500] "
-                  onClick={() => handlecreategoal()}
+                  onClick={onclick}
                 >
-                  {loader ? (
-                    <div className="flex items-center justify-center">
-                      <FiLoader className="animate-spin text-lg" />
-                    </div>
-                  ) : (
-                    "No"
-                  )}
+                  No
                 </button>
                 <div className="w-[207px] ">
                   <AuthSubmitBtn
                     text={"Yes"}
                     handleSubmit={() => {
                       handleClick();
-                    
+
                       setShowModalsupport(true);
                     }}
                   />

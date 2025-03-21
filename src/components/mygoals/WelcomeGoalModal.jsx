@@ -19,7 +19,7 @@ const WelcomeGoalModal = ({ isOpen, onClose, handleClick }) => {
           Welcome to the Goal Setting Hub!
         </h2>
         <div className="w-[419px]  ">
-          <p className="text-[18px] font-[500] mt-4 text-[#9A9A9A] text-center leading-[24.3px]  ">
+          <p className="text-[18px] font-[500] mt-4 text-black text-center leading-[24.3px]  ">
             Here you can create goals, set deadlines, make them S.M.A.R.T. and
             even break them down into sub-goals. Share your goals with your
             support network and track your progress easily. Let’s start turning

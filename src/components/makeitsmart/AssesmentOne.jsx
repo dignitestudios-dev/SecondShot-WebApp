@@ -16,6 +16,9 @@ const AssessmentOne = ({
     specific: Yup?.string().required(
       "Please respond before moving forward to proceed with the next step."
     ),
+    specificedit: Yup?.string().required(
+      "Please respond before moving forward to proceed with the next step."
+    ),
   });
 
   return (
@@ -23,10 +26,15 @@ const AssessmentOne = ({
       <Formik
         initialValues={{
           specific: inputData.main_goal_name || formData.specific || "",
+          specificedit: formData.specificedit || "",
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          setFormData({ ...formData, specific: values.specific });
+          setFormData({
+            ...formData,
+            specific: values.specific,
+            specificedit: values.specificedit,
+          });
           nextStep();
         }}
       >
@@ -67,17 +75,38 @@ const AssessmentOne = ({
                 id="specific"
                 name="specific"
                 placeholder="Describe Here"
-                className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
+                className={`border  border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
                    bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                      errors.specific && touched.specific ? "border-red-500" : ""
                    }`}
                 maxLength="250"
+                disabled
               />
               <ErrorMessage
                 name="specific"
                 component="div"
                 className="text-red-500 text-xs italic"
               />
+              <div className="mt-3">
+                <Field
+                  as="input"
+                  id="specificedit"
+                  name="specificedit"
+                  placeholder="Describe Here"
+                  className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
+                   bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                     errors.specificedit && touched.specificedit
+                       ? "border-red-500"
+                       : ""
+                   }`}
+                  maxLength="250"
+                />
+                <ErrorMessage
+                  name="specificedit"
+                  component="div"
+                  className="text-red-500 text-xs italic"
+                />
+              </div>
             </div>
             <div className="flex justify-center pt-4">
               <div className="w-[343px]">

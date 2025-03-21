@@ -19,16 +19,16 @@ const TransferableSkillsModal = ({ isOpen, onClose, handleClick }) => {
           My transferable skills
         </h2>
         <div className="w-[395px]  h-[286px] ">
-          <p className="text-[18px] font-[500] mt-4 text-[#9A9A9A] text-center leading-[24.3px]  ">
+          <p className="text-[18px] font-[500] mt-4 text-black text-center leading-[24.3px]  ">
             Here is a map of your transferable skills. Take a look at all the
             soft skills you have inside of you that you have have learned over
             your life.
           </p>
-          <p className="text-[18px] font-[500] mt-5 text-[#9A9A9A] text-center leading-[24.3px] ">
+          <p className="text-[18px] font-[500] mt-5 text-black text-center leading-[24.3px] ">
             Click on each circle to expand to learn about how you can use your
             soft skills in other areas of your life.
           </p>
-          <p className="text-[18px]   font-[500] mt-5 text-[#9A9A9A] text-center leading-[24.3px] ">
+          <p className="text-[18px]   font-[500] mt-5 text-black text-center leading-[24.3px] ">
             Click the ribbon to save your favorite skills. Once it turns green,
             your skill is stored in your library and ready to be added to your
             resume{" "}
@@ -43,7 +43,6 @@ const TransferableSkillsModal = ({ isOpen, onClose, handleClick }) => {
           </div>
         </div>
       </div>
-     
     </div>
   );
 };

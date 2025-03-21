@@ -15,7 +15,7 @@ const WelcomeStoryModal = ({ isOpen, onClose, handleClick }) => {
           Success Stories
         </h2>
         <div className="w-[419px] ">
-          <p className="text-[18px] font-[500] mt-4 text-[#9A9A9A] text-center leading-[24.3px]  ">
+          <p className="text-[18px] font-[500] mt-4 text-black text-center leading-[24.3px]  ">
             Here are success stories of people who have walked similar paths in
             life as you. You can search by profession, sport, military rank, or
             school. If they can do it, you can do it too!

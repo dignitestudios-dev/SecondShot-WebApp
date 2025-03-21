@@ -12,7 +12,6 @@ const AssessmentModal = ({ showModal, onclick }) => {
     showModal && (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-70">
         <div className="bg-white rounded-xl shadow-custom-shadow w-[500px] p-4 relative">
-         
           <div className="flex justify-center mt-6">
             <img
               src={assessmentLogo}

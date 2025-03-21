@@ -10,20 +10,25 @@ const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
     achievable: Yup.string().required(
       "Please respond before moving forward to proceed with the next step."
     ),
+    achievableedit: Yup.string().required(
+      "Please respond before moving forward to proceed with the next step."
+    ),
   });
 
   return (
     <div>
       <Formik
         initialValues={{
-          achievable: formData.achievable || formData.measure || "", // Prefill with formData.measure
+          achievable: formData.achievable || formData.measureedit || "",
+          achievableedit: formData.achievableedit, // Prefill with formData.measure
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          setFormData((prevData) => ({
-            ...prevData,
-            achievable: values.achievable, // Update the 'achievable' field in formData
-          }));
+          setFormData({
+            ...formData,
+            achievable: values.achievable,
+            achievableedit: values.achievableedit,
+          });
           nextStep(); // Proceed to the next step
         }}
       >
@@ -81,13 +86,39 @@ const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
                        ? "border-red-500"
                        : ""
                    }`}
-                   maxLength="250" 
+                maxLength="250"
+                disabled
               />
               <ErrorMessage
                 name="achievable"
                 component="div"
                 className="text-red-500 text-xs italic"
               />
+              <div className="mt-3">
+                <Field
+                  as="input"
+                  id="achievableedit"
+                  name="achievableedit"
+                  value={values.achievableedit}
+                  placeholder="Describe Here"
+                  onChange={(e) => {
+                    // Ensure user can edit the field freely
+                    setFieldValue("achievableedit", e.target.value); // Update the achievable field value
+                  }}
+                  className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
+                   bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                     errors.achievableedit && touched.achievableedit
+                       ? "border-red-500"
+                       : ""
+                   }`}
+                  maxLength="250"
+                />
+                <ErrorMessage
+                  name="achievableedit"
+                  component="div"
+                  className="text-red-500 text-xs italic"
+                />
+              </div>
             </div>
             <div className="flex justify-center pt-4">
               <div className="w-[343px]">

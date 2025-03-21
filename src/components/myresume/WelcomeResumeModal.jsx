@@ -15,7 +15,7 @@ const WelcomeResumeModal = ({ isOpen, onClose, handleClick }) => {
           Welcome to the Resume Builder!
         </h2>
         <div className="w-[419px] ">
-          <p className="text-[18px] font-[500] mt-4 text-[#9A9A9A] text-center leading-[24.3px]  ">
+          <p className="text-[18px] font-[500] mt-4 text-black text-center leading-[24.3px]  ">
             Easily create your professional resume with our guided example, step
             by step. Once you're done, forward it to your support network for
             feedback or download it for future use. Let's get started on your
