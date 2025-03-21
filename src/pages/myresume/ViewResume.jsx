@@ -112,7 +112,7 @@ const ViewResume = () => {
     printWindow.close();
   };
   const supportresumeId = document.getElementById("download-resume");
-  
+
   const handleDownload = async (e, elementId, filename, email) => {
     e.preventDefault();
     setLoading(true);
@@ -140,12 +140,12 @@ const ViewResume = () => {
 
       let heightLeft = imgHeight;
       let position = 0;
-
+      const paddingTop = 10;
       pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
       heightLeft -= pdfHeight;
 
       while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
+        position = heightLeft - imgHeight + paddingTop;
         pdf.addPage();
         pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
         heightLeft -= pdfHeight;

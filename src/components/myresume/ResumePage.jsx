@@ -23,7 +23,7 @@ const Resume = ({ formData, isSkipped }) => {
   };
 
   return (
-    <div className="bg-white w-[1200px]  mx-auto p-8 rounded-lg shadow-md ">
+    <div className="bg-white w-[1200px] resumefonts  mx-auto p-8 rounded-lg shadow-md ">
       {/* Header Section */}
       <div className="text-center">
         <h1 className="text-[45.88px] font-[600]">

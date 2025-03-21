@@ -16,50 +16,51 @@ const ResumeDownloadModal = ({ showModal, onclick }) => {
   const handleDownload = async (e, elementId, filename) => {
     e.preventDefault();
     setloading(true); // Start loading
-
+  
     if (!selectedOption) {
       setloading(false); // Stop loading if no option selected
       return;
     }
-
+  
     const element = document.getElementById(elementId);
     if (!element) {
       console.error("Element not found");
       setloading(false); // Stop loading on error
       return;
     }
-
+  
     try {
       // Temporarily hide elements with the class 'pdf-exclude'
       const excludeElements = document.querySelectorAll(".pdf-exclude");
       excludeElements.forEach((el) => (el.style.display = "none"));
-
+  
       // Capture the element as a canvas
       const canvas = await html2canvas(element);
       const imgData = canvas.toDataURL("image/png");
-
+  
       const pdf = new jsPDF();
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
-
+  
       const imgProps = pdf.getImageProperties(imgData);
       const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
+  
       let heightLeft = imgHeight;
       let position = 0;
-
+      const paddingTop = 8; // Adjust this value to control the padding
+  
       // Add first page
       pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
       heightLeft -= pdfHeight;
-
+  
       // Add remaining pages if needed
       while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
+        position = heightLeft - imgHeight + paddingTop;
         pdf.addPage();
         pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
         heightLeft -= pdfHeight;
       }
-
+  
       pdf.save(filename);
     } catch (error) {
       console.error("Error generating PDF:", error);
@@ -68,12 +69,12 @@ const ResumeDownloadModal = ({ showModal, onclick }) => {
       document
         .querySelectorAll(".pdf-exclude")
         .forEach((el) => (el.style.display = ""));
-
+  
       setloading(false); // Stop loading once download completes
       onclick(); // Close the modal
     }
   };
-
+  
   return (
     showModal && (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
