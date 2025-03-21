@@ -61,14 +61,14 @@ const CareerCards = ({ icon, carrerData, loading, getfavcareer }) => {
               </div>
             ))
         ) : carrerData?.length === 0 ? (
-          <div className="flex items-center justify-center min-h-screen absolute z-0 top-40 left-[480px]">
+          <div className="flex items-center justify-center min-h-screen absolute z-0 top-40 left-0 right-0 ">
             <EmptyScreen text={"No Career Recommendations  found yet."} />
           </div>
         ) : (
           carrerData?.map((recommendation, recommendationIndex) => (
             <div
               key={recommendationIndex}
-              className="group relative rounded-[24px] h-auto p-4 bg-[#F6F8FF] text-black shadow-lg cursor-pointer hover:bg-gradient-to-l from-[#012C57] to-[#061523] hover:text-white transition duration-200"
+              className="group relative rounded-[24px] h-[400px] p-4  bg-[#F6F8FF] text-black shadow-lg cursor-pointer hover:bg-gradient-to-l from-[#012C57] to-[#061523] hover:text-white transition duration-200"
             >
               <div className="flex flex-col text-left mb-4">
                 {loader[recommendation?.recommendationId] ? (
@@ -91,6 +91,11 @@ const CareerCards = ({ icon, carrerData, loading, getfavcareer }) => {
                           careerIds
                         );
                       }}
+                      title={
+                        recommendation?.recommendationId
+                          ? "Remove from Favorites"
+                          : "Add to Favorites"
+                      }
                     />
                   </div>
                 )}
@@ -114,7 +119,7 @@ const CareerCards = ({ icon, carrerData, loading, getfavcareer }) => {
                 ))}
               </div>
 
-              <div className="text-sm  absolute bottom-0 left-4 right-4  flex justify-between items-center group-hover:text-white">
+              <div className="text-sm pb-3    absolute bottom-0 left-6 right-6   flex justify-between items-center group-hover:text-white">
                 <span className="text-[16px] font-[500] leading-[21.6px]">
                   {new Date(recommendation?.createdAt).toLocaleDateString(
                     "en-US",

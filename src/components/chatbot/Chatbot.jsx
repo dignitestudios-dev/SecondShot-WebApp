@@ -60,11 +60,11 @@ const Chatbot = () => {
   }, []);
   const messageEndRef = useRef(null);
 
-useEffect(() => { 
-  if (messageEndRef.current) {
-    messageEndRef.current.scrollIntoView({ behavior: "smooth" });
-  }
-}, [messages]);
+  useEffect(() => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
   return (
     <div className="fixed bottom-1 right-4 z-50">
       <div onClick={toggleChat} className="cursor-pointer">
@@ -83,14 +83,14 @@ useEffect(() => {
           <div className="bg-gradient-to-r from-[#061523] to-[#012C57] h-[66px] text-white flex justify-between items-center p-3">
             <div className="flex items-center mt-2">
               <div>
-              <img
-                src={chaticon}
-                alt="Chat Icon"
-                className="w-[70px] h-[70px]"
-              />
+                <img
+                  src={chaticon}
+                  alt="Chat Icon"
+                  className="w-[70px] h-[70px]"
+                />
               </div>
               <div>
-              <h3 className="text-[19px] font-[500] mb-2">Chat</h3>
+                <h3 className="text-[19px] font-[500] mb-2">Chat</h3>
               </div>
             </div>
             <button onClick={toggleChat} className="text-[23.5px]">
@@ -137,7 +137,7 @@ useEffect(() => {
                 </div>
               </div>
             ))}
-              <div ref={messageEndRef}></div>
+            <div ref={messageEndRef}></div>
             {loading && (
               <div className="flex items-start justify-start">
                 <div className="max-w-[75%] p-2 rounded-lg bg-gray-200 text-black mr-auto rounded-r-[20px] rounded-tl-[20px] animate-pulse">
@@ -150,20 +150,20 @@ useEffect(() => {
 
           <div className="p-2 w-full bottom-0 bg-white">
             <div className="relative bg-[#F5F5F5] flex items-center justify-between h-[49px]  rounded-full ">
-              
-            <textarea
-  placeholder="Type Here...."
-  value={input}
-  onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
- onChange={(e) => {
-    setInput(e.target.value);
-    e.target.style.height = "49px"; // Reset height
-    // e.target.style.height = `${Math.min(e.target.scrollHeight, 150)}px`; // Max height 150px
-  }}
-  className="w-[92%] caret-[#B1B1B1] bg-transparent placeholder:text-[12px] placeholder:text-[#B1B1B1] outline-none resize-none pt-4 px-4  text-gray-800"
-  rows={1}
-  
-/>
+              <textarea
+                placeholder="Type Here...."
+                value={input}
+                onKeyDown={(e) =>
+                  e.key === "Enter" && !e.shiftKey && handleSend()
+                }
+                onChange={(e) => {
+                  setInput(e.target.value);
+                  e.target.style.height = "49px"; // Reset height
+                  // e.target.style.height = `${Math.min(e.target.scrollHeight, 150)}px`; // Max height 150px
+                }}
+                className="w-[92%] caret-[#B1B1B1]  leading-[1rem]  bg-transparent placeholder:text-[12px] placeholder:text-[#B1B1B1] outline-none resize-none pt-4 px-4  text-gray-800"
+                rows={1}
+              />
               <div
                 onClick={handleSend}
                 className="absolute   right-2 bg-gradient-to-r w-[37px] h-[37px] flex items-center justify-center from-[#061523] to-[#012C57] rounded-full cursor-pointer"

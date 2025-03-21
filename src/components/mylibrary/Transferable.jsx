@@ -50,7 +50,7 @@ const Transferable = ({ loading, library, getLibrary }) => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 cursor-pointer">
           {library.length === 0 ? (
-            <div className="flex items-center justify-center min-h-screen absolute  top-40 left-[500px]">
+            <div className="flex items-center justify-center min-h-screen absolute  top-40 left-0 right-0 ">
               <EmptyScreen text={"No transferable skills found yet."} />
             </div>
           ) : (
@@ -113,6 +113,7 @@ const Transferable = ({ loading, library, getLibrary }) => {
                       <BsFillBookmarkStarFill
                         className={`text-2xl cursor-pointer text-[#56EC17] `}
                         onClick={() => handleLike(index, skillData)}
+                        title={"Remove from Favorites"}
                       />
                     )}
                   </div>

@@ -148,7 +148,7 @@ function MyLibrary() {
             />
           )}
 
-          <div className="flex  h-[48px] items-center rounded-lg border border-gray-500 px-0.5">
+          <div className="flex  relative -z-0  h-[48px] items-center rounded-lg border border-gray-500 px-0.5">
             <button
               onClick={() => handleViewChange("career")}
               className={`text-[14px] text-nowrap h-[42px] w- rounded-l-lg font-medium focus:outline-none w-[200px] ${

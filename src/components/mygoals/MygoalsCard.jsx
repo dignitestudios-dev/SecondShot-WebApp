@@ -41,7 +41,7 @@ const MygoalsCard = ({ goaldetail, loading }) => {
             ></div>
           ))
         ) : goaldetail?.length === 0 ? (
-          <div className="col-span-full text-center text-lg text-gray-500">
+          <div className="col-span-full flex items-center justify-center h-[500px] text-center text-lg text-gray-500">
             No goal found.
           </div>
         ) : (
