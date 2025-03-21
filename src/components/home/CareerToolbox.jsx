@@ -119,7 +119,7 @@ const CareerToolbox = () => {
               <div className="bg-white w-[82px] h-[82px] rounded-[20px] p-3">
                 <img src={item?.cardicons} alt={item?.title} />
               </div>
-              <div className="text-[28px] w-[120px] text-start leading-[33px] font-[600] text-white">
+              <div className="text-[24px] w-[120px] text-start  uppercase leading-[33px] font-[600] text-white">
                 {item?.title}
               </div>
             </div>

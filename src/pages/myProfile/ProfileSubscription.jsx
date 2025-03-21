@@ -132,21 +132,20 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
                       </li>
                     ))}
                   </ul>
-                  {myplane?.platform === 'stripe' ? (
-                  <div className="flex justify-center mt-5">
-                    <button
-                      className="bg-red-500 p-2 w-[180px] text-center rounded-md text-white font-[600] flex justify-center items-center"
-                      onClick={handleDelete} 
-                    >
-                      {loader ? (
-                        <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white"></div>
-                      ) : (
-                        "Cancel Subscription"
-                      )}
-                    </button>
-                  </div>
-
-                  ):(
+                  {myplane?.platform === "stripe" ? (
+                    <div className="flex justify-center mt-5">
+                      <button
+                        className="bg-red-500 p-2 w-[180px] text-center rounded-md text-white font-[600] flex justify-center items-center"
+                        onClick={handleDelete}
+                      >
+                        {loader ? (
+                          <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-white"></div>
+                        ) : (
+                          "Cancel Subscription"
+                        )}
+                      </button>
+                    </div>
+                  ) : (
                     <div></div>
                   )}
                 </div>
@@ -180,9 +179,13 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
                   </li>
                 </ul>
               </div>
-                <div>
-                <AuthSubmitBtn text={'Upgrade Plane'} type={'button'} handleSubmit={()=>navigation('/subscriptionplans')} />
-                </div>
+              <div>
+                <AuthSubmitBtn
+                  text={"Upgrade Plan"}
+                  type={"button"}
+                  handleSubmit={() => navigation("/subscriptionplans")}
+                />
+              </div>
             </div>
           )}
         </div>

@@ -8,7 +8,10 @@
   font-weight: 100 900;
   font-style: normal;
 }
-
+.resumefonts{
+  font-family: "new roman";
+  src: url('../src/assets/times\ new\ roman.ttf');
+}
 /* @layer directive  */
 @layer base {
   body {

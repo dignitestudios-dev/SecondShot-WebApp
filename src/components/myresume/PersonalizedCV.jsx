@@ -23,7 +23,7 @@ const PersonalizedCV = ({ resumeData, ref }) => {
   return (
     <div>
       <div
-        className="bg-white w-[1200px]  mx-auto p-8 rounded-lg shadow-md"
+        className="bg-white w-[1200px] resumefonts mx-auto p-8 rounded-lg shadow-md"
         ref={ref}
       >
         {/* Header Section */}
@@ -48,7 +48,7 @@ const PersonalizedCV = ({ resumeData, ref }) => {
             {resumeData?.objective?.description}
           </p>
         </section>
-          <hr className="mt-6  " />
+        <hr className="mt-6  " />
 
         {/* Education */}
         {resumeData?.education?.length > 0 && (
@@ -67,8 +67,8 @@ const PersonalizedCV = ({ resumeData, ref }) => {
                 </div>
 
                 <li className="text-[#000000] pl-1 leading-[10.59px] font-[400] text-[20px] mt-5">
-                {edu?.degree}
-              </li>
+                  {edu?.degree}
+                </li>
               </div>
             ))}
             <hr className="mt-5" />
@@ -81,26 +81,23 @@ const PersonalizedCV = ({ resumeData, ref }) => {
             </h2>
 
             {resumeData?.licenses_and_certifications?.map((ctr, i) => (
-              <div key={i} className="mt-3">
-                 
-                  <div  className=" flex items-center justify-between">
-              <li className="font-[600] text-[22px] text-[#101010] leading-[30px] ">
-                 {ctr?.certification_name}
-              </li>
-              <p className="text-[20px]  text-[#101010] font-[600]">
-              {ctr?.issue_date?.split("T")[0].split("-")[0]}
-{ctr?.expiration_date && ` - ${ctr.expiration_date.split("T")[0].split("-")[0]}`}
-
-              </p>
-            </div> 
-                 
+              <div key={i} className="mt-4">
+                <div className=" flex items-center justify-between">
+                  <li className="font-[600] text-[22px] text-[#101010] leading-[30px] ">
+                    {ctr?.certification_name}
+                  </li>
+                  <p className="text-[20px]  text-[#101010] font-[600]">
+                    {ctr?.issue_date?.split("T")[0].split("-")[0]}
+                    {ctr?.expiration_date &&
+                      ` - ${ctr.expiration_date.split("T")[0].split("-")[0]}`}
+                  </p>
+                </div>
 
                 {/* <li className="text-[#000000] pl-3 mt-2 leading-[22px] font-[400] text-[20px]">
                   {ctr?.issuing_organization || "issuing_organization"}
                 </li> */}
               </div>
             ))}
-
           </section>
         )}
         {/* Certifications */}
@@ -108,7 +105,7 @@ const PersonalizedCV = ({ resumeData, ref }) => {
         {(resumeData?.soft_skills?.length > 0 ||
           resumeData?.technical_skills?.length > 0) && (
           <section className="mt-4">
-                      <hr className="mt-5" />
+            <hr className="mt-5" />
 
             <h2 className="text-[22px] font-[700] uppercase  mt-4">Skills</h2>
             {/* Soft Skills */}
@@ -132,7 +129,7 @@ const PersonalizedCV = ({ resumeData, ref }) => {
 
             {/* Technical Skills */}
             {resumeData?.technical_skills?.length > 0 && (
-              <div className="mt-6">
+              <div className="mt-4">
                 <p className="text-[22px] font-[500] text-[#0F0F0F]">
                   Technical Skills
                 </p>
@@ -154,7 +151,7 @@ const PersonalizedCV = ({ resumeData, ref }) => {
         {/* Experience */}
         {resumeData?.experience?.length > 0 && (
           <section className="mt-6">
-            <hr className="mt-5" />
+            <hr className="mt-4" />
             <h2 className="text-[22px] mt-4 font-[700] text-[#101010] uppercase">
               Work Experience
             </h2>
@@ -188,19 +185,22 @@ const PersonalizedCV = ({ resumeData, ref }) => {
         {/* Volunteer */}
         {resumeData?.volunteer_experience?.length > 0 && (
           <section className="mt-6">
-                <hr className="mt-5" />
+            <hr className="mt-5" />
 
             <h2 className="text-[22px] mt-4 font-[700] leading-[29.7px] text-[#101010] uppercase">
               Volunteer Service
             </h2>
             {resumeData?.volunteer_experience?.map((vol, index) => (
               <div key={index} className="mt-4">
-                <p className="font-[500] leading-[30.97px] text-[#101010] text-[22px]">
-                  {vol?.organization_name}
-                </p>
-                <p className="text-[15.29px] text-[#101010] mt-2">
-                  {vol.start_year} {'-'} {vol?.end_year}
-                </p>
+                <div className="flex justify-between items-center">
+                  <p className="font-[500] leading-[30.97px] text-[#101010] text-[22px]">
+                    {vol?.organization_name}
+                  </p>
+                  <p className="font-[600] leading-[22.94px] text-[#101010] text-[20px]">
+                    {vol.start_year} {"-"} {vol?.end_year}
+                  </p>
+                </div>
+
                 <ul className="list-outside list-disc">
                   <li className="text-[#101010] mt-2 text-[20px] mx-4">
                     {vol?.description}
