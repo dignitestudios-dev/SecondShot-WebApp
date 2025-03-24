@@ -221,9 +221,9 @@ const NewTrasnferSkill = () => {
             My Transferable Skills
           </h1>
           <p className="text-[16px] leading-[24px] text-gray-800 w-[550px]">
-            Here is a map of your transferable skills. Click on each circle to
-            expand to learn about how you can use your soft skills in other
-            areas of your life. Click the ribbon to save your favorite skills.
+            {subscriptionpaid === false
+              ? "Explore key skills that can help you transition into new career paths. On the Free Plan, you can only access the first node in the Transferable Map. Unlock all nodes by upgrading your plan."
+              : "  Here is a map of your transferable skills. Click on each circle to expand to learn about how you can use your soft skills in other areas of your life. Click the ribbon to save your favorite skills."}
           </p>
         </div>
       </div>
@@ -232,7 +232,10 @@ const NewTrasnferSkill = () => {
           onClick={() => handleDownload(getSkill)}
           className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-pointer"
         >
-          <img className="h-[20px] w-[20px] object-contain " src={Downloadimg} />
+          <img
+            className="h-[20px] w-[20px] object-contain "
+            src={Downloadimg}
+          />
         </div>
       </div>
       {topSkill && (

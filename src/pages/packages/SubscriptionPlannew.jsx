@@ -23,7 +23,7 @@ const SubscriptionPlannew = () => {
   const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const cardShow = location?.state?.cardShow;
-  console.log(cardShow, "cardShow");
+
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
       initialValues: accessCode,
