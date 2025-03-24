@@ -55,9 +55,8 @@ const ToolboxSection = () => {
         Your <span className="text-[#56EC17]"> Career Toolbox</span>
       </h1>
       <p className="text-[20px] lg:text-[24px] font-[400] leading-[34.44px] capitalize">
-        Discover your strengths and unlock{" "}
-        New Opportunities awaiting for
-        you within your career toolbox.
+        Discover your strengths and unlock New Opportunities awaiting for you
+        within your career toolbox.
       </p>
 
       <div className="opacity-[20%]">
@@ -87,6 +86,9 @@ const ToolboxSection = () => {
           </div>
         ))}
       </div>
+      <p className="capitalize text-end text-md font-semibold text-gray-300 italic">
+       and more...
+      </p>
     </div>
   );
 };

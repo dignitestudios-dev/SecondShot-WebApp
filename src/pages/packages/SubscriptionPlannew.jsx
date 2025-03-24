@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Bgsubscription, Tick } from "../../assets/export";
 import SubscriptionModal from "../../components/Modal/SubscriptionModal";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "../../axios";
 import {
   ErrorToast,
@@ -13,13 +13,17 @@ import { Navigation } from "swiper/modules";
 import { useFormik } from "formik";
 import { accessCodeSchema } from "../../Schema/accesscodeschema";
 import { accessCode } from "../../data/authentication";
+import BackBtn from "../../components/onboarding/BackBtn";
+import Backbutton from "../../components/Global/Backbutton";
 
 const SubscriptionPlannew = () => {
   const navigation = useNavigate("");
   const [isModalOpen, setModalOpen] = useState(false);
   const [subscription, setSubscription] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const location = useLocation();
+  const cardShow = location?.state?.cardShow;
+  console.log(cardShow, "cardShow");
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
       initialValues: accessCode,
@@ -93,7 +97,6 @@ const SubscriptionPlannew = () => {
           </a>
         </p>
       </div>
-
       <div className="flex flex-col lg:flex-row items-center justify-between gap-8 w-full max-w-6xl">
         <div className="w-full max-w-6xl">
           <Swiper
@@ -156,42 +159,44 @@ const SubscriptionPlannew = () => {
                 </div>
               </form>
             </SwiperSlide>
-            <SwiperSlide>
-              <div className="bg-white rounded-[22px] h-[659px]  p-6 w-full max-w-sm flex flex-col">
-                <div>
-                  <div className="flex justify-between items-center">
-                    <h2 className="text-[24px] font-[500] text-[#000000] leading-[32.4px]">
-                      Basic
-                    </h2>
-                    <h2 className="text-[32px] font-[600] leading-[43.2px] text-[#56EC17]">
-                      Free
-                    </h2>
+            {!cardShow && (
+              <SwiperSlide>
+                <div className="bg-white rounded-[22px] h-[659px]  p-6 w-full max-w-sm flex flex-col">
+                  <div>
+                    <div className="flex justify-between items-center">
+                      <h2 className="text-[24px] font-[500] text-[#000000] leading-[32.4px]">
+                        Basic
+                      </h2>
+                      <h2 className="text-[32px] font-[600] leading-[43.2px] text-[#56EC17]">
+                        Free
+                      </h2>
+                    </div>
+                    <hr className="bg-[#000000] mb-4 mt-3" />
+                    <div className="text-[22px] font-[600] text-gray-900">
+                      Basic Plan
+                    </div>
+                    <ul className="space-y-2 text-gray-700">
+                      <li className="flex items-center space-x-2 space-y-3 mt-3">
+                        <img
+                          src={Tick}
+                          className="h-[10.5px] mt-3 w-[13.5px]"
+                          alt=""
+                        />
+                        <span className="text-[17px] leading-[22.95px] font-[500] text-[#181818]">
+                          Discover Your Transferable Skills
+                        </span>
+                      </li>
+                    </ul>
                   </div>
-                  <hr className="bg-[#000000] mb-4 mt-3" />
-                  <div className="text-[22px] font-[600] text-gray-900">
-                    Basic Plan
+                  <div className="mt-auto w-[171px]">
+                    <AuthSubmitBtn
+                      text={"Try it for free"}
+                      handleSubmit={() => navigation("/profiledetail")}
+                    />
                   </div>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-center space-x-2 space-y-3 mt-3">
-                      <img
-                        src={Tick}
-                        className="h-[10.5px] mt-3 w-[13.5px]"
-                        alt=""
-                      />
-                      <span className="text-[17px] leading-[22.95px] font-[500] text-[#181818]">
-                        Discover Your Transferable Skills
-                      </span>
-                    </li>
-                  </ul>
                 </div>
-                <div className="mt-auto w-[171px]">
-                  <AuthSubmitBtn
-                    text={"Try it for free"}
-                    handleSubmit={() => navigation("/profiledetail")}
-                  />
-                </div>
-              </div>
-            </SwiperSlide>
+              </SwiperSlide>
+            )}
 
             {isLoading
               ? Array.from({ length: 3 }).map((_, index) => (

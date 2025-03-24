@@ -19,7 +19,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
   const [isSmart, setIsSmart] = useState(location.state?.isSmart || false);
   const { lastStep } = location.state || {};
   const [threeMonthsAgo, setThreeMonthsAgo] = useState(new Date());
-
+  console.log(lastStep, "lastStep");
   useEffect(() => {
     const date = new Date();
     date.setMonth(date.getMonth() + 3);
@@ -32,7 +32,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
   };
   const formik = useFormik({
     initialValues: {
-      main_goal_name: lastStep?.timebound || "",
+      main_goal_name: lastStep || "",
       startDate: threeMonthsAgo,
       sub_goals: [],
     },
@@ -57,9 +57,14 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
     handleBlur,
     handleSubmit,
     setFieldValue,
+    setErrors,
   } = formik;
 
   const handleNavigation = () => {
+    if (!values.main_goal_name) {
+      setErrors({ main_goal_name: "Please enter your main goal first" });
+      return;
+    }
     setIsPeople(false);
     navigate("/make-smart", { state: { inputData: values } });
   };
@@ -71,8 +76,8 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
   }, [showSubGoal]);
 
   useEffect(() => {
-    if (lastStep?.timebound) {
-      formik.setFieldValue("main_goal_name", lastStep.timebound, false);
+    if (lastStep?.timeboundedit) {
+      formik.setFieldValue("main_goal_name", lastStep.timeboundedit, false);
     }
   }, [lastStep]);
 

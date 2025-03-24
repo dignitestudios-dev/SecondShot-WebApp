@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   Centerpro,
   CenterSkill,
+  Dottedvertical,
   Downloadimg,
   Printimg,
   Shareimg,
@@ -21,6 +22,7 @@ import { SuccessToast } from "../../components/toaster/ToasterContainer";
 import { AuthContext } from "../../context/AuthContext";
 import LockModal from "../../components/home/LockModal";
 import { useNavigate } from "react-router-dom";
+import { downloadProfilePDF } from "../../lib/utils";
 
 const NewTrasnferSkill = () => {
   const navigate = useNavigate();
@@ -183,7 +185,26 @@ const NewTrasnferSkill = () => {
       setLoading(false);
     }
   };
+  const handleDownload = (data) => {
+    try {
+      let userData = data;
 
+      if (data && !loading && Array.isArray(data) && data.length > 0) {
+        userData = data[0];
+      } else if (data && !loading && typeof data === "object" && data._id) {
+        userData = data;
+      }
+
+      if (!userData) {
+        console.error("No valid user data available for PDF generation");
+        return;
+      }
+
+      downloadProfilePDF(userData);
+    } catch (error) {
+      console.error("Error handling download:", error);
+    }
+  };
   return (
     <div className="relative  ">
       <ResumeDownloadModal
@@ -194,13 +215,26 @@ const NewTrasnferSkill = () => {
         showModal={showPeopleModal}
         handleClick={handleShowPeopleModal}
       /> */}
-      <div className="flex mt-4 justify-between items-start mb-8">
+      <div className="flex mt-4 justify-between items-start ">
         <div>
-          <h1 className="text-3xl font-semibold text-gray-800 mb-24">
+          <h1 className="text-3xl font-semibold text-gray-800 mb-4">
             My Transferable Skills
           </h1>
+          <p className="text-[16px] leading-[24px] text-gray-800 w-[550px]">
+            Here is a map of your transferable skills. Click on each circle to
+            expand to learn about how you can use your soft skills in other
+            areas of your life. Click the ribbon to save your favorite skills.
+          </p>
         </div>
-      </div>{" "}
+      </div>
+      <div className="flex items-center justify-end">
+        <div
+          onClick={() => handleDownload(getSkill)}
+          className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-pointer"
+        >
+          <img className="h-[20px] w-[20px] object-contain " src={Downloadimg} />
+        </div>
+      </div>
       {topSkill && (
         <div
           className={`flex relative top-[186px] left-[5px] justify-center transition-all duration-1000 ease-in-out ${

@@ -16,6 +16,7 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
   const [loading, setloading] = useState(false);
   const [myplane, setMyplane] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
+  const [cardShow, setCardShow] = useState(false);
   const { subscriptionpaid } = useContext(AuthContext);
   const handleToggle = (option) => {
     setSelected(option);
@@ -183,7 +184,9 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
                 <AuthSubmitBtn
                   text={"Upgrade Plan"}
                   type={"button"}
-                  handleSubmit={() => navigation("/subscriptionplans")}
+                  handleSubmit={() => {
+                    navigation("/subscriptionplans", { state: {cardShow:true} });
+                  }}
                 />
               </div>
             </div>

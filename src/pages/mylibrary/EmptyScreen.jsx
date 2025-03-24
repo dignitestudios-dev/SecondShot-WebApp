@@ -11,9 +11,6 @@ const EmptyScreen = ({ text }) => {
         <div className="font-[500] text-[32px] leading-[43.2px] text-[#000000]">
           {text}
         </div>
-        <div className="font-[400] text-[#999999] text-[14px] mt-3">
-          Need some inspiration?
-        </div>
       </div>
     </div>
   );
