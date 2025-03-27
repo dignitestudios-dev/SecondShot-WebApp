@@ -751,7 +751,7 @@ const NewTrasnferSkill = () => {
           >
             <span className=" w-[20px]">
               {loading ? (
-                <div className="w-16 h-16 rounded-[100px] absolute bottom-2 left-9 bg-green-700 animate-pulse flex justify-center items-center "></div>
+                <div className="w-16 h-16 rounded-[100px] absolute bottom-2 right-[2px] bg-green-700 animate-pulse flex "></div>
               ) : getSkill?.military?.rank?.rank_name?.length > 7 ? (
                 <div className="text-nowrap">
                   {getSkill?.military?.rank?.rank_name.substring(0, 7) + "..."}
