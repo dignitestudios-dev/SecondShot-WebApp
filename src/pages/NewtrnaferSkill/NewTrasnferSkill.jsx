@@ -1332,7 +1332,7 @@ const NewTrasnferSkill = () => {
                   {index === 2 && (
                     <button
                       onBlur={() => setAppear(false)}
-                      className="relative cursor-pointer  top-[245px] left-[240px] w-[50px] group"
+                      className="relative cursor-pointer  top-[245px] left-[250px] w-[50px] group"
                       onClick={() => {
                         setAppear(true);
                         setSelecetedIndex(2);
@@ -1403,7 +1403,7 @@ const NewTrasnferSkill = () => {
                   {index === 3 && (
                     <button
                       onBlur={() => setAppear(false)}
-                      className="relative cursor-pointer top-[395px] left-[315px] w-[50px] group"
+                      className="relative cursor-pointer top-[395px] left-[325px] w-[50px] group"
                       onClick={() => {
                         setAppear(true);
                         setSelecetedIndex(3);
