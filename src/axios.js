@@ -5,7 +5,6 @@ export const baseUrl = "https://backend.mycareertoolbox.com";
 
 const instance = axios.create({
   baseURL: baseUrl,
- 
 });
 
 instance.interceptors.request.use((request) => {
