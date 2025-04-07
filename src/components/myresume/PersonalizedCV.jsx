@@ -31,7 +31,7 @@ const PersonalizedCV = ({ resumeData, ref }) => {
           <h1 className="text-[45.88px] font-[600]">{resumeData?.full_name}</h1>
           <p className="mt-2 flex gap-4 justify-center text-[19.12px] text-[#000000] font-[500] ">
             <span> {resumeData?.email} </span>
-            <span> {phoneFormater(resumeData?.phone)}</span>
+            <span> +1 {phoneFormater(resumeData?.phone)}</span>
             <span className="cursor-pointer">
               <a href={`${resumeData?.address}`} target="_blank">
                 {" "}
@@ -111,10 +111,10 @@ const PersonalizedCV = ({ resumeData, ref }) => {
             {/* Soft Skills */}
             {resumeData?.soft_skills?.length > 0 && (
               <div className="mt-4">
-                <p className="text-[22px] font-[500] text-[#0F0F0F]">
+                <p className="text-[22px]  font-[500] text-[#0F0F0F]">
                   Soft Skills
                 </p>
-                <ul className="flex list-disc gap-10 ml-6 mt-4 mb-4">
+                <ul className="flex  list-disc gap-10 ml-6 mt-4 mb-4">
                   {resumeData?.soft_skills?.map((skill, index) => (
                     <li
                       key={index}

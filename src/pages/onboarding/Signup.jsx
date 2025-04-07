@@ -204,7 +204,7 @@ const SignUpForm = () => {
         <div className="w-full bg-white md:w-1/2 flex rounded md:rounded-r-[20px]  items-center justify-center relative">
           <div className="w-full max-w-md p-7 ">
             <div className="flex justify-center ">
-              <img src={logonew} alt="Logo" className="h-[206px] w-[206px]" />
+              <img src={logonew} alt="Logo" className="h-[215px] w-[215px] object-contain" />
             </div>
             <h2 className="text-[32px] font-[600] text-center leading-[43.2px] mb-4">
               Sign Up

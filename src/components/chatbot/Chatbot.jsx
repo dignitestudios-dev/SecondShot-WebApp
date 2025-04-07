@@ -149,7 +149,7 @@ const Chatbot = () => {
           </div>
 
           <div className="p-2 w-full bottom-0 bg-white">
-            <div className="relative bg-[#F5F5F5] flex items-center justify-between h-[49px]  rounded-full ">
+            <div className="relative bg-[#F5F5F5]  flex items-center justify-between h-[49px]  rounded-full ">
               <textarea
                 placeholder="Type Here...."
                 value={input}
@@ -158,10 +158,10 @@ const Chatbot = () => {
                 }
                 onChange={(e) => {
                   setInput(e.target.value);
-                  e.target.style.height = "49px"; // Reset height
+                  // e.target.style.height = "49px"; // Reset height
                   // e.target.style.height = `${Math.min(e.target.scrollHeight, 150)}px`; // Max height 150px
                 }}
-                className="w-[92%] caret-[#B1B1B1]  leading-[1rem]  bg-transparent placeholder:text-[12px] placeholder:text-[#B1B1B1] outline-none resize-none pt-4 px-4  text-gray-800"
+                className="w-[92%] caret-[#B1B1B1]  leading-[1rem]  bg-transparent placeholder:text-[12px] placeholder:text-[#B1B1B1] outline-none resize-none  px-4  text-gray-800"
                 rows={1}
               />
               <div

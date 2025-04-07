@@ -1,4 +1,4 @@
-import logo from "../assets/logo.png";
+import logo from "../assets/newLogo.png";
 import Carriericon1 from "../assets/carriericon1.png";
 import Carriericon2 from "../assets/carriericon2.png";
 import Carriericon3 from "../assets/carriericon3.png";
@@ -73,7 +73,7 @@ import Pro5 from "../assets/pro5.png";
 import Pro6 from "../assets/pro6.png";
 import Pro7 from "../assets/pro7.png";
 import Pro8 from "../assets/pro8.png";
-import logonew from "../assets/logonew2.png";
+import logonew from "../assets/newLogo.png";
 import empty_img from "../assets/listing_empty_light.svg";
 import CenterSkill from "../assets/transferSKills/centerImg.png";
 import skilltop from "../assets/transferSKills/topskill.png";

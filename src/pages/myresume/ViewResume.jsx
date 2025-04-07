@@ -152,6 +152,7 @@ const ViewResume = () => {
       }
 
       const pdfBlob = pdf.output("blob");
+      console.log(pdfBlob, "pdfBlob");
 
       const formData = new FormData();
 

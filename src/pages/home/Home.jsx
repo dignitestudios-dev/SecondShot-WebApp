@@ -21,11 +21,12 @@ const Home = () => {
 
   useEffect(() => {
     getProfile();
-    updateDeviceId()
+    updateDeviceId();
   }, []);
-
+ 
   return (
     <div>
+     
       <WelcomeModal
         isOpen={isFirst.dashboard}
         handleClick={() => {

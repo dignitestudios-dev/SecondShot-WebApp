@@ -10,7 +10,7 @@ const StepThree = ({ nextStep, prevStep, formData, setFormData }) => {
   });
 
   const [ageValue, SetageValue] = useState("");
-
+  console.log(formData, "formData");
   const handleAgeValue = (value, setFieldValue, setFieldTouched) => {
     setFieldTouched("ageValue", true);
     setFieldValue("ageValue", value);
@@ -24,6 +24,7 @@ const StepThree = ({ nextStep, prevStep, formData, setFormData }) => {
       nextStep();
     }
   };
+
   return (
     <Formik
       initialValues={formData}

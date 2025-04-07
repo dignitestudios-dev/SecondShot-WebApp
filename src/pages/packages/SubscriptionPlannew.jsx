@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Bgsubscription, Tick } from "../../assets/export";
 import SubscriptionModal from "../../components/Modal/SubscriptionModal";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
@@ -15,15 +15,18 @@ import { accessCodeSchema } from "../../Schema/accesscodeschema";
 import { accessCode } from "../../data/authentication";
 import BackBtn from "../../components/onboarding/BackBtn";
 import Backbutton from "../../components/Global/Backbutton";
+import { AuthContext } from "../../context/AuthContext";
+import { FiLoader } from "react-icons/fi";
 
 const SubscriptionPlannew = () => {
   const navigation = useNavigate("");
   const [isModalOpen, setModalOpen] = useState(false);
   const [subscription, setSubscription] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const cardShow = location?.state?.cardShow;
-
+  const { profileCompleted, registrationQuestion } = useContext(AuthContext);
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
       initialValues: accessCode,
@@ -31,7 +34,7 @@ const SubscriptionPlannew = () => {
       validateOnChange: true,
       validateOnBlur: true,
       onSubmit: async () => {
-        console.log(values, "Ss");
+        setLoading(true);
         try {
           const response = await axios.post(
             "/api/subscription/verify-access-code",
@@ -39,13 +42,23 @@ const SubscriptionPlannew = () => {
               code: values.accesscode,
             }
           );
+
           if (response.status === 200) {
+            if (!profileCompleted) {
+              navigation("/profiledetail");
+            } else if (!registrationQuestion) {
+              navigation("/registration-question");
+            } else {
+              navigation("/home");
+            }
             SuccessToast(response?.data?.message);
-            navigation("/profiledetail");
+            // navigation("/profiledetail");
           }
         } catch (err) {
           console.log(err?.response?.data?.message);
           ErrorToast(err?.response?.data?.message);
+        } finally {
+          setLoading(false);
         }
       },
     });
@@ -57,7 +70,7 @@ const SubscriptionPlannew = () => {
         `/api/subscription/subscription-products`
       );
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         setSubscription(response?.data?.data);
       }
     } catch (err) {
@@ -85,7 +98,7 @@ const SubscriptionPlannew = () => {
         backgroundSize: "cover",
       }}
     >
-      <div className="text-center mb-8">
+      <div className="text-center ">
         <h1 className="text-[40px] font-[600] text-gray-900">
           Explore Our Subscription Plans
         </h1>
@@ -97,6 +110,14 @@ const SubscriptionPlannew = () => {
           </a>
         </p>
       </div>
+      {!cardShow && (
+        <div className="mt-3 mb-3 flex justify-center w-[171px]">
+          <AuthSubmitBtn
+            text={"Try it for free"}
+            handleSubmit={() => navigation("/profiledetail")}
+          />
+        </div>
+)}
       <div className="flex flex-col lg:flex-row items-center justify-between gap-8 w-full max-w-6xl">
         <div className="w-full max-w-6xl">
           <Swiper
@@ -153,13 +174,18 @@ const SubscriptionPlannew = () => {
                       className="bg-white text-[#1E384F] text-[16px] font-[500] w-[171px] h-[45px] rounded-[12px]"
                       type="submit"
                     >
-                      Submit
+                      <div className="flex items-center justify-center">
+                        <span className="mr-1">Submit</span>
+                        {loading && (
+                          <FiLoader className="animate-spin text-lg" />
+                        )}
+                      </div>
                     </button>
                   </div>
                 </div>
               </form>
             </SwiperSlide>
-            {!cardShow && (
+            {/* {!cardShow && (
               <SwiperSlide>
                 <div className="bg-white rounded-[22px] h-[659px]  p-6 w-full max-w-sm flex flex-col">
                   <div>
@@ -196,7 +222,7 @@ const SubscriptionPlannew = () => {
                   </div>
                 </div>
               </SwiperSlide>
-            )}
+            )} */}
 
             {isLoading
               ? Array.from({ length: 3 }).map((_, index) => (
@@ -209,7 +235,7 @@ const SubscriptionPlannew = () => {
                     </div>
                   </SwiperSlide>
                 ))
-              : subscription.slice(0, 3).map((item, index) => (
+              : subscription?.slice(0, 3)?.map((item, index) => (
                   <SwiperSlide key={index}>
                     <div className="bg-white rounded-[22px] h-[659px]  p-6 w-full max-w-sm flex flex-col">
                       <div>

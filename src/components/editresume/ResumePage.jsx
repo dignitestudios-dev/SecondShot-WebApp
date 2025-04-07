@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import { phoneFormater } from "../../pages/lib/helper";
 
 const ResumePage = ({ formData }) => {
   const formatDate = (dateString) => {
@@ -9,7 +10,7 @@ const ResumePage = ({ formData }) => {
   const rawDate = "2013-06-01T00:00:00.000Z";
 
   return (
-    <div className="bg-white w-[1200px]  mx-auto p-8 rounded-lg shadow-md ">
+    <div className="bg-white w-[1200px] resumefonts  mx-auto p-8 rounded-lg shadow-md ">
       {/* Header Section */}
       <div className="text-center">
         <h1 className="text-[45.88px] font-[600]">
@@ -18,7 +19,7 @@ const ResumePage = ({ formData }) => {
         <p className="mt-2 flex gap-4 justify-center text-[19.12px] text-[#000000] font-[500] ">
           {formData?.informationValues?.email}
 
-          <span> {formData?.informationValues?.phoneNumber}</span>
+          <span>+1 {phoneFormater(formData?.informationValues?.phoneNumber)}</span>
           <span className="cursor-pointer">
             <a href={`${formData?.informationValues?.address}`}></a>{" "}
             {formData?.informationValues?.address}
@@ -89,12 +90,12 @@ const ResumePage = ({ formData }) => {
                 <p className="text-[22px] font-[500] text-[#0F0F0F]">
                   Soft Skills
                 </p>
-                <ul className="flex list-disc gap-10 ml-6 mt-4">
+                <ul className="flex  list-disc gap-10 ml-6 mt-4 mb-4">
                   {formData?.skillsValues?.softskills?.map((item, index) => (
                     <li
                       key={index}
-                      className="font-[400] text-[20px] text-[#0F0F0F] leading-[16px]"
-                    >
+                      className="font-[400] text-[20px] text-[#0F0F0F] leading-[27px]"
+                    > 
                       {item}
                     </li>
                   ))}

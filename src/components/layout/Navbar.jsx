@@ -1,5 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Logonav, Profileimage } from "../../assets/export";
+import {
+  Carriericon1,
+  Carriericon2,
+  Carriericon3,
+  Carriericon4,
+  Carriericon5,
+  Carriericon6,
+  Logonav,
+  Profileimage,
+} from "../../assets/export";
 import { Link, useNavigate } from "react-router-dom";
 import { RiNotification2Line } from "react-icons/ri";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
@@ -17,13 +26,43 @@ const Navbar = () => {
   const [lock, setLock] = useState(false);
 
   const navItems = [
-    { path: "/home", label: "Dashboard" },
-    { path: "/transferablekills", label: "My Transferable Skills" },
-    { path: "/careerrecommendation", label: "My Career Recommendations" },
-    { path: "/myresume", label: "My Resume" },
-    { path: "/mygoals", label: "My Goals" },
-    { path: "/success-story", label: "Success Stories" },
-    { path: "/my-library", label: "My Library" },
+    { path: "/home", label: "Dashboard", icon: Carriericon1 },
+    {
+      path: "/transferablekills",
+      label: "My Transferable Skills",
+      icon: Carriericon1,
+    },
+    {
+      path: "/careerrecommendation",
+      label: "My Career Recommendations",
+      subpath1: "/careerdetails",
+      icon: Carriericon2,
+    },
+    {
+      path: "/myresume",
+      label: "My Resume",
+      subpath1: "/view-resume",
+      icon: Carriericon3,
+    },
+    {
+      path: "/mygoals",
+      label: "My Goals",
+      subpath1: "/goal-detail",
+      icon: Carriericon4,
+    },
+    {
+      path: "/success-story",
+      label: "Success Stories",
+      subpath1: "/matched-pro-detail",
+      subpath2: "/story-pro-detail",
+      icon: Carriericon5,
+    },
+    {
+      path: "/my-library",
+      label: "My Library",
+      subpath1: "/careerfav-detail",
+      icon: Carriericon6,
+    },
   ];
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -62,34 +101,55 @@ const Navbar = () => {
 
         <ul className="flex flex-col md:flex-row items-start md:items-center md:p-0 p-5 gap-5 md:gap-10 lg:text-[14px] md:text-[14px] font-[600] uppercase text-white">
           {navItems?.map((item) => (
-            <li key={item.path}>
+            <li key={item.path} className="flex flex-col items-center">
               {subscriptionpaid ||
               item.path === "/transferablekills" ||
               item.path === "/home" ? (
-                <Link to={item.path} className="text-white uppercase">
-                  {item.label}
+                <Link
+                  to={item.path}
+                  className="text-white uppercase flex flex-col items-center"
+                >
+                  {item.path !== "/home" && (
+                    <div>
+                      <img
+                        src={item.icon}
+                        alt={item.label}
+                        className="h-5 w-5 object-contain mb-2"
+                      />
+                    </div>
+                  )}
+                  <div className={`${item.path === "/home" ? "mt-6" : ""}`}>
+                    {item.label}
+                  </div>
                 </Link>
               ) : (
-                <button
-                  onClick={() => setLock(true)}
-                  className="text-white uppercase"
-                >
-                  {item.label}
-                </button>
+                <div>
+                  <button
+                    onClick={() => setLock(true)}
+                    className="text-white uppercase flex flex-col items-center"
+                  >
+                    <img src={item.icon} alt="" className="h-5 w-5 mb-2" />{" "}
+                    {/* Icon above */}
+                    {item.label}
+                  </button>
+                </div>
               )}
+
               <div
-                className={`${
-                  location.pathname === item.path
-                    ? "w-auto h-[1px] bg-white"
-                    : ""
+                className={`h-[2px] mt-1  ${
+                  location.pathname === item.path ||
+                  location.pathname.includes(item.subpath1) ||
+                  location.pathname.includes(item.subpath2)
+                    ? "w-full bg-white"
+                    : "w-0"
                 }`}
-              ></div>
+              />
             </li>
           ))}
         </ul>
 
-        <div className="flex items-center space-x-4 md:space-x-6 md:px-5 px-5 md:mt-0">
-          <div className="relative cursor-pointer">
+        <div className="flex items-center space-x-4  md:space-x-6 md:px-5 px-5 md:mt-0 ">
+          <div className="relative cursor-pointer mt-6">
             <RiNotification2Line
               size={"20px"}
               className="text-white"
@@ -108,6 +168,7 @@ const Navbar = () => {
               />
             )}
           </div>
+          <div className="mt-2">
           <Link to="/my-profile">
             {profilepic ? (
               <img
@@ -124,7 +185,7 @@ const Navbar = () => {
                   .join("")}
               </div>
             )}
-          </Link>
+          </Link></div>
         </div>
       </div>
       {menuOpen && (

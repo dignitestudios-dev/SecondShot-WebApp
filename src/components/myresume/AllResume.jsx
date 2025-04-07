@@ -28,7 +28,7 @@ const AllResume = ({ resume }) => {
           <h1 className="text-[8.88px] font-[600]">{resume?.full_name}</h1>
           <p className="mt-1 flex gap-4 justify-center text-[5.12px] text-[#000000] font-[500] ">
             <span> {resume?.email} </span>
-            <span> {phoneFormater(resume?.phone)}</span>
+            <span>+1 {phoneFormater(resume?.phone)}</span>
           </p>
         </div>
 
@@ -101,7 +101,7 @@ const AllResume = ({ resume }) => {
 
         {(resume?.soft_skills?.length > 0 ||
           resume?.technical_skills?.length > 0) && (
-            <section className="mt-1">
+          <section className="mt-1">
             <hr className="mt-1" />
             <h2 className="text-[5px] mt-2 font-[700]">Skills</h2>
 
@@ -186,12 +186,12 @@ const AllResume = ({ resume }) => {
             {resume?.volunteer_experience?.map((vol, index) => (
               <div key={index} className="">
                 <div className="flex justify-between items-center">
-                <p className="font-[500] text-[#101010] text-[5px] leading-[10.7px]">
-                  {vol?.organization_name}
-                </p>
-                <p className="text-[3.9px] text-[#101010]   ">
-                  {vol.start_year} {vol?.end_year}
-                </p>
+                  <p className="font-[500] text-[#101010] text-[5px] leading-[10.7px]">
+                    {vol?.organization_name}
+                  </p>
+                  <p className="text-[3.9px] text-[#101010]   ">
+                    {vol.start_year} {vol?.end_year}
+                  </p>
                 </div>
                 <ul className="list-outside list-disc">
                   <li className="text-gray-700 mt-1 ml-3 text-[4px]">

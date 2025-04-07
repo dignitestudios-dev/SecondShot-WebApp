@@ -34,7 +34,7 @@ const Resume = ({ formData, isSkipped }) => {
 
           <span>
             {" "}
-            {phoneFormater(formData?.informationValues?.phoneNumber)}
+            +1 {phoneFormater(formData?.informationValues?.phoneNumber)}
           </span>
           <span className="cursor-pointer">
             <a href={`${formData?.informationValues?.address}`}>
@@ -78,7 +78,7 @@ const Resume = ({ formData, isSkipped }) => {
           <hr className="mt-5" />
         </section>
       )}
-      
+
       {formData?.certificationsList[0]?.certificationsname && (
         <section className="mt-6">
           <h2 className="text-[22px] leading-[29.7px] text-[#101010] font-[700] uppercase">
@@ -90,9 +90,9 @@ const Resume = ({ formData, isSkipped }) => {
                 {cert?.certificationsname}
               </li>
               <p className="text-[20px] text-[#101010] font-[600]">
-                {cert?.Issueyear} - {cert?.expirationyear ? cert?.expirationyear : ""}
+                {cert?.Issueyear} -{" "}
+                {cert?.expirationyear ? cert?.expirationyear : ""}
               </p>
-             
             </div>
           ))}
           <hr className="mt-5" />
@@ -103,7 +103,9 @@ const Resume = ({ formData, isSkipped }) => {
         {(formData?.skillsValues?.softskills?.length > 0 ||
           formData?.skillsValues?.technicalSkills?.length > 0) && (
           <>
-            <h2 className="text-[22px] leading-[29.7px] text-[#101010] font-[700] uppercase">Skills</h2>
+            <h2 className="text-[22px] leading-[29.7px] text-[#101010] font-[700] uppercase">
+              Skills
+            </h2>
             {formData?.skillsValues?.softskills?.length > 0 && (
               <div className="mt-4">
                 <p className="text-[22px] font-[500] text-[#0F0F0F]">
@@ -138,7 +140,6 @@ const Resume = ({ formData, isSkipped }) => {
                     )
                   )}
                 </ul>
-
               </div>
             )}
           </>
@@ -148,7 +149,7 @@ const Resume = ({ formData, isSkipped }) => {
       {/* Experience */}
       {formData?.experienceList[0]?.company && (
         <section className="mt-6">
-            <hr className="mt-5" />
+          <hr className="mt-5" />
 
           <h2 className="text-[22px] mt-4 font-[700] text-[#101010] uppercase">
             Work Experience
@@ -166,8 +167,8 @@ const Resume = ({ formData, isSkipped }) => {
               <p className="font-[500] text-[#0F0F0F]  leading-[29.7px] text-[20px] mt-3 mb-2">
                 {exp?.jobTitle}
               </p>
-<p className="text-[#000000]  pl-1  font-[400] text-[18px]  mt-6">
-              {exp?.description}
+              <p className="text-[#000000]  pl-1  font-[400] text-[18px]  mt-6">
+                {exp?.description}
               </p>
             </div>
           ))}
@@ -189,7 +190,9 @@ const Resume = ({ formData, isSkipped }) => {
                 {vol?.startYear} - {vol?.endYear}
               </p>
               <ul className="list-outside list-disc">
-                <li className="text-[#000000]  pl-1  font-[400] text-[18px]  mt-5 mx-4">{vol?.description}</li>
+                <li className="text-[#000000]  pl-1  font-[400] text-[18px]  mt-5 mx-4">
+                  {vol?.description}
+                </li>
               </ul>
             </div>
           ))}
