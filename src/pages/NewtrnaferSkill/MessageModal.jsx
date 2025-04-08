@@ -13,8 +13,7 @@ const MessageModal = ({ showModal, handleClick, setShowPeopleModal }) => {
           </button>
           <div className="flex justify-center items-center  text-center text-[16px] font-[500] ">
             Please open all nodes before downloading the full Transferable
-            Skills Map. The download will include only the nodes that are
-            currently expanded
+            Skills Map.
           </div>
         </div>
       </div>
