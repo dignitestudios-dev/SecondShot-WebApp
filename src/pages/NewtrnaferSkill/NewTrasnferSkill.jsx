@@ -27,6 +27,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import AddTrasnferSkillPeople from "./AddTrasnferSkillPeople";
 import { FiLoader } from "react-icons/fi";
+import MessageModal from "./MessageModal";
 
 const NewTrasnferSkill = () => {
   const navigate = useNavigate();
@@ -49,7 +50,8 @@ const NewTrasnferSkill = () => {
     email_2: "",
     phone_2: "",
   });
-
+  const [messageModal, setMessageModal] = useState(false); // For controlling modal visibility
+  const [modalMessage, setModalMessage] = useState("");
   const handleTopSKill = () => {
     setTopSkill((prev) => !prev);
   };
@@ -185,11 +187,22 @@ const NewTrasnferSkill = () => {
       setLoading(false);
     }
   };
-
-  const handleDownloadCombined = (e, data, filename) => {
   
+  const handleDownloadCombined = (e, data, filename) => {
+    if (
+      !topSkill ||
+      !leftSkill ||
+      !rightSkill ||
+      !bottomLeft ||
+      !bottomright
+    ) {
+      
+      setModalMessage("Please open all skills before downloading.");
+      setMessageModal(true);
+      return; 
+    }
     e.preventDefault();
-    downloadCombinedPDF(data, "download-skills", filename, setDownloading,subscriptionpaid);
+    downloadCombinedPDF(data, "download-skills", filename, setDownloading,subscriptionpaid,profilename);
   };
 
   const transferpdfElement = document.getElementById("download-skills");
@@ -197,6 +210,11 @@ const NewTrasnferSkill = () => {
   return (
     <>
       <div className="relative w-full overflow-hidden ">
+        <MessageModal 
+        showModal={messageModal}
+        setShowModal={setMessageModal}
+      handleClick={()=>setMessageModal(false)}
+        />
         <ResumeDownloadModal
           showModal={showModalDownload}
           onclick={handleDownloadModal}
@@ -210,6 +228,7 @@ const NewTrasnferSkill = () => {
           formData={formData}
           gettransferableskill={gettransferableskill}
           setShowPeopleModal={setShowPeopleModal}
+          profilename={profilename}
         />
         <div>
           <div className="flex mt-4 justify-between items-start  ">
@@ -236,24 +255,37 @@ const NewTrasnferSkill = () => {
                 src={Shareimg}
               />
             </div>
-            <div
-              onClick={(e) =>
-                handleDownloadCombined(e, getSkill, "profile-report.pdf")
-              }
-              className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-pointer  "
-            >
-              {downloading ? (
-                <FiLoader className="animate-spin text-lg" />
-              ) : (
-                <img
-                  className="h-[20px] w-[20px] object-contain"
-                  src={Downloadimg}
-                />
-              )}
-            </div>
+            {loading ? (
+  <div
+    className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-not-allowed"
+  >
+    <img
+      className="h-[20px] w-[20px] object-contain"
+      src={Downloadimg}
+    />
+  </div>
+) : (
+  <div
+    onClick={(e) =>
+      handleDownloadCombined(e, getSkill, "profile-report.pdf")
+    }
+    className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-pointer"
+  >
+    {downloading ? (
+      <FiLoader className="animate-spin text-lg" />
+    ) : (
+      <img
+        className="h-[20px] w-[20px] object-contain"
+        src={Downloadimg}
+      />
+    )}
+  </div>
+)}
+
           </div>
         </div>
         <div id="download-skills">
+     
             <div
               className={`  ${
                 topSkill ? "visible" : "invisible"

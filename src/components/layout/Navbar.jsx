@@ -114,7 +114,7 @@ const Navbar = () => {
                       <img
                         src={item.icon}
                         alt={item.label}
-                        className="h-5 w-5 object-contain mb-2"
+                        className="h-6 w-6 object-cover mb-2"
                       />
                     </div>
                   )}

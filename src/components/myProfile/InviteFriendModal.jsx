@@ -1,17 +1,24 @@
 import React, { useState } from "react";
-import { AppleIcon, ArrowRight, GoogleIcon } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 
 const InviteFriendModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
-  const [activeOption, setActiveOption] = useState("text");
 
-  const handleOptionClick = (option) => {
-    setActiveOption(option);
+  const [copiedLink, setCopiedLink] = useState("");
+
+  const instaLink = "https://www.instagram.com/yoursecondshot/";
+  const fbLink = "https://www.facebook.com/yoursecondshot";
+  const xLink = "https://x.com/yoursecondshot";
+
+  const handleCopy = (link) => {
+    navigator.clipboard.writeText(link);
+    setCopiedLink(link);
+    setTimeout(() => setCopiedLink(""), 1500);
   };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg shadow-lg  max-w-md p-6 relative">
+      <div className="bg-white rounded-lg shadow-lg max-w-md p-6 relative">
         <button
           className="absolute top-0 right-2 text-xl text-gray-400 hover:text-gray-600"
           onClick={onClose}
@@ -23,61 +30,58 @@ const InviteFriendModal = ({ isOpen, onClose }) => {
           <h2 className="text-[24px] font-[600] leading-[32.4px] text-[#000000] text-center mb-4">
             Refer a friend and help them build their own Career Toolbox!
           </h2>
-          <div className="space-y-4 cursor-pointer">
-            <div
-              className={`flex justify-between p-3 items-center rounded-[12px] h-[61px] ${
-                activeOption === "text"
-                  ? "bg-grad-button text-white"
-                  : "bg-[#F6F6F6] text-[#000000]"
-              }`}
-              onClick={() => handleOptionClick("text")}
-            >
-              Via Text
-              <div
-                className={`rounded-full flex items-center justify-center w-[26px] h-[26px] ${
-                  activeOption === "text"
-                    ? "bg-white"
-                    : "border-[#dcdbdb] border-2 bg-[white]"
-                }`}
-              >
-                <div
-                  className={`w-[18px] h-[18px] border-2 ${
-                    activeOption === "text"
-                      ? "bg-[#02284F] border-[#02284F]"
-                      : "border-white"
-                  } rounded-full`}
-                ></div>
-              </div>
-            </div>
 
-            <div
-              className={`flex justify-between p-3 items-center rounded-[12px] h-[61px] ${
-                activeOption === "email"
-                  ? "bg-grad-button text-white"
-                  : "bg-[#F6F6F6] text-[#000000]"
-              }`}
-              onClick={() => handleOptionClick("email")}
+          {/* Instagram */}
+          <div className="relative w-full mb-3">
+            <input
+              type="text"
+              value={instaLink}
+              readOnly
+              className="border border-gray-400 w-full rounded-md p-3 pr-12"
+            />
+            <button
+              onClick={() => handleCopy(instaLink)}
+              className="absolute right-[1px] rounded-r-md top-1/2 -translate-y-1/2 bg-gray-200 h-12 w-14 text-blue-500 text-sm font-medium"
             >
-              Via Email
-              <div
-                className={`rounded-full flex items-center justify-center w-[26px] h-[26px] ${
-                  activeOption === "email"
-                    ? "bg-white"
-                    : "border-[#dcdbdb] border-2 bg-[white]"
-                }`}
-              >
-                <div
-                  className={`w-[18px] h-[18px] border-2 ${
-                    activeOption === "email"
-                      ? "bg-[#02284F] border-[#02284F]"
-                      : "border-white"
-                  } rounded-full`}
-                ></div>
-              </div>
-            </div>
+              {copiedLink === instaLink ? "Copied!" : "Copy"}
+            </button>
           </div>
+
+          {/* Facebook */}
+          <div className="relative w-full mb-3">
+            <input
+              type="text"
+              value={fbLink}
+              readOnly
+              className="border border-gray-400 w-full rounded-md p-3 pr-12"
+            />
+            <button
+              onClick={() => handleCopy(fbLink)}
+              className="absolute right-[1px] rounded-r-md top-1/2 -translate-y-1/2 bg-gray-200 h-12 w-14 text-blue-500 text-sm font-medium"
+            >
+              {copiedLink === fbLink ? "Copied!" : "Copy"}
+            </button>
+          </div>
+
+          {/* X (Twitter) */}
+          <div className="relative w-full mb-3">
+            <input
+              type="text"
+              value={xLink}
+              readOnly
+              className="border border-gray-400 w-full rounded-md p-3 pr-12"
+            />
+            <button
+              onClick={() => handleCopy(xLink)}
+              className="absolute right-[1px] rounded-r-md top-1/2 -translate-y-1/2 bg-gray-200 h-12 w-14 text-blue-500 text-sm font-medium"
+            >
+              {copiedLink === xLink ? "Copied!" : "Copy"}
+            </button>
+          </div>
+
+          {/* Next Button */}
           <div className="mt-4">
-            <AuthSubmitBtn text={"Next"} handleSubmit={() => onClose()} />
+            <AuthSubmitBtn text={"Close"} handleSubmit={() => onClose()} />
           </div>
         </div>
       </div>

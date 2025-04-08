@@ -64,7 +64,7 @@ const EditRegistrationQuestion = () => {
         universityOptions: registrationData?.major_trade_or_military,
         ageValue: registrationData?.is_eighteen_or_older ? "Yes" : "No",
         militaryService: registrationData?.has_military_service ? "Yes" : "No",
-        militaryOption: registrationData?.branch_of_service?._id || "",
+        militaryOption: registrationData?.branch_of_service?._id || null,
         rankOptions: registrationData?.rank
           ? {
               label: registrationData?.rank?.rank_name,
@@ -106,7 +106,7 @@ const EditRegistrationQuestion = () => {
       });
     }
   }, [registrationData]);
-
+console.log(formData,"formData")
   const payload = {
     current_grade_level: formData?.university || "",
     major_trade_or_military: formData?.universityOptions || "",

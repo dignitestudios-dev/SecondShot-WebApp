@@ -116,8 +116,8 @@ const CareerToolbox = () => {
             className={`${item?.bgcolors} group cursor-pointer w-[380px] h-[438px] rounded-[28px] p-5 mx-auto transition-all duration-500 relative`}
           >
             <div className="flex items-center gap-4 mb-5 group-hover:hidden">
-              <div className="bg-white w-[82px] h-[82px] rounded-[20px] p-3">
-                <img src={item?.cardicons} alt={item?.title} />
+              <div className="bg-white w-[82px] h-[82px] rounded-[20px] ">
+                <img src={item?.cardicons} alt={item?.title} className="w-[80px] object-contain h-[80px] " />
               </div>
               <div className="text-[24px] w-[120px] text-start  uppercase leading-[33px] font-[600] text-white">
                 {item?.title}

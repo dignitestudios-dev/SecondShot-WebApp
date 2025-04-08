@@ -8,17 +8,23 @@ const StepThree = ({ nextStep, prevStep, formData, setFormData }) => {
   const validationSchema = Yup.object({
     ageValue: Yup.string().required("Please select an option to proceed."),
   });
+  console.log(formData, "formData");
 
   const [ageValue, SetageValue] = useState("");
-  console.log(formData, "formData");
   const handleAgeValue = (value, setFieldValue, setFieldTouched) => {
     setFieldTouched("ageValue", true);
     setFieldValue("ageValue", value);
     setFormData({ ...formData, ageValue: value });
     SetageValue(value);
   };
-  const handleSubmit = (values) => {
+  const handleSubmit = (values,) => {
     if (values?.ageValue === "No") {
+      setFormData({
+        ...formData,
+        militaryOption: "", // Set militaryOption to empty string
+        rankOptions: "",
+        militaryService:"" // Set militaryOption to empty string
+      });
       nextStep(true);
     } else {
       nextStep();

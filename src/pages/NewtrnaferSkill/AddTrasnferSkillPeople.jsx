@@ -28,9 +28,10 @@ const AddTrasnferSkillPeople = ({
   transferId,
   InputDataSupport,
   gettransferableskill,
+  
 }) => {
   const supportData = InputDataSupport;
-  console.log(supportData, "supportData");
+
   const navigate = useNavigate("");
   const [loading, setLoading] = useState(false);
   const [downloading, setDownloading] = useState(false);
@@ -216,7 +217,8 @@ const AddTrasnferSkillPeople = ({
         "download-skills",
         filename,
         setDownloading,
-        subscriptionpaid
+        subscriptionpaid,
+        profilename
       );
 
       if (!pdfBlob) {

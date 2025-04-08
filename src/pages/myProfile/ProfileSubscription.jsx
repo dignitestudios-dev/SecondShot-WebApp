@@ -147,7 +147,9 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
                       </button>
                     </div>
                   ) : (
-                    <div></div>
+                    <div className="text-center bg-red-400 p-3 rounded-md mt-3 text-white">
+                      This subscription was purchased through the mobile app. Please use the app to view or manage your subscription. 
+                    </div>
                   )}
                 </div>
               </div>

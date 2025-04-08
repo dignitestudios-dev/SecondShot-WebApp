@@ -51,7 +51,7 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
           } else {
             setFormData({
               ...formData,
-              universityOptions: selectedTags.label,
+              universityOptions: selectedTags?.label,
             });
             nextStep(
               formData?.university === "School" ||
@@ -75,7 +75,7 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
 
               const educationalTags = educationTags[
                 formData?.university
-              ].filter((item) => item.label === formData?.universityOptions);
+              ]?.filter((item) => item?.label === formData?.universityOptions);
 
               setSelectedTags({
                 label: formData?.universityOptions,
