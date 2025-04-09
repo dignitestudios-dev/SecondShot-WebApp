@@ -59,16 +59,14 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
         initialValues={formData}
         validationSchema={validationSchema}
         onSubmit={(e) => {
-          if (tags.length <= 0) {
-            setTagsError("This field is required.");
-          } else {
+         
             nextStep(
               formData?.university === "School" ||
                 formData?.university === "HighSchool"
                 ? true
                 : false
             );
-          }
+          
         }}
       >
         {({ errors, touched, setFieldValue, setFieldTouched }) => {
@@ -111,7 +109,7 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
                   className="text-red-500 text-xs italic mt-2"
                 />
               </div>
-              {(formData?.university === "School" ||
+              {/* {(formData?.university === "School" ||
                 formData?.university === "HighSchool" ||
                 formData?.university === "College" ||
                 formData?.university === "early" ||
@@ -144,7 +142,7 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
                     </p>
                   )}
                 </div>
-              )}
+              )} */}
 
               <div className="flex justify-center pt-4">
                 <div className="w-[343px]">

@@ -106,10 +106,10 @@ const EditRegistrationQuestion = () => {
       });
     }
   }, [registrationData]);
-console.log(formData,"formData")
+  console.log(formData, "formData");
   const payload = {
     current_grade_level: formData?.university || "",
-    major_trade_or_military: formData?.universityOptions || "",
+    major_trade_or_military: "Default" || "",
     highest_degree_completion: formData?.highestDegree || "",
     is_eighteen_or_older: formData?.ageValue === "Yes",
     has_military_service: formData?.militaryService === "Yes",
@@ -127,7 +127,7 @@ console.log(formData,"formData")
     favorite_middle_school_subject: formData?.subjectOptions?.value || "",
     has_job_experience: formData?.jobValue === "Yes",
     recent_job_title: formData?.jobTitle || null,
-    desired_career_path: formData?.desireCareer || "",
+    desired_career_path: "Default" || "",
   };
 
   const handleRegistration = async () => {
@@ -149,11 +149,11 @@ console.log(formData,"formData")
     }
   };
   const nextStep = (skip = false) => {
-    setStep(skip ? step + 2 : step + 1);
+    setStep(skip ? 5 : step + 1);
   };
 
   const prevStep = (skip = false) => {
-    setStep(skip ? step - 2 : step - 1);
+    setStep(step === 5 ? 1 : skip ? step - 2 : step - 1);
   };
 
   return (
@@ -183,22 +183,24 @@ console.log(formData,"formData")
                       Please answer a few quick registration questions to help
                       build out your profile.
                     </p>
-                    <div className="flex justify-between mt-6">
+                    <div className="flex justify-between items-center mt-6">
                       <p className="text-xs font-medium">Steps</p>
                       <p className="text-xs font-medium">
-                        {step.toString().padStart(2, "0")}/10
+                        {step.toString().padStart(2, "0")}/9
                       </p>
                     </div>
-                    <div className="grid grid-cols-10 divide-x mt-2">
-                      {Array.from({ length: 10 }, (_, index) => (
+
+                    <div className="grid grid-cols-9 gap-1 mt-2">
+                      {Array.from({ length: 9 }, (_, index) => (
                         <div
                           key={index}
-                          className={`h-1 w-full rounded-xl ${
+                          className={`h-1 rounded-xl ${
                             index < step ? "bg-slate-600" : "bg-[#EFF2F4]"
                           }`}
                         ></div>
                       ))}
                     </div>
+
                     <div className="mt-6">
                       {step === 1 && (
                         <StepOne
@@ -275,9 +277,11 @@ console.log(formData,"formData")
                           setFormData={setFormData}
                           formData={formData}
                           prevStep={prevStep}
+                          handleRegistration={handleRegistration}
+                          loading={loader}
                         />
                       )}
-                      {step === 10 && (
+                      {/* {step === 10 && (
                         <StepTen
                           nextStep={nextStep}
                           setFormData={setFormData}
@@ -286,7 +290,7 @@ console.log(formData,"formData")
                           handleRegistration={handleRegistration}
                           loading={loader}
                         />
-                      )}
+                      )} */}
                     </div>
                   </div>
                 </div>

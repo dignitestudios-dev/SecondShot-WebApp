@@ -5,7 +5,7 @@ import AuthSubmitBtn from "../onboarding/AuthBtn";
 import BackBtn from "../onboarding/BackBtn";
 import RecommendatioBtn from "../careerrecommendation/RecommendatioBtn";
 
-const StepNine = ({ nextStep, prevStep, formData, setFormData }) => {
+const StepNine = ({ nextStep, prevStep, formData, setFormData,loading,handleRegistration }) => {
   const validationSchema = Yup.object({
     jobValue: Yup.string().required("Please select an option to proceed."),
   
@@ -40,7 +40,7 @@ const StepNine = ({ nextStep, prevStep, formData, setFormData }) => {
     <Formik
       initialValues={formData}
       validationSchema={validationSchema}
-      onSubmit={() => nextStep()}
+      onSubmit={handleRegistration}
     >
       {({ errors, touched, setFieldValue, setFieldTouched }) => (
         <Form>
@@ -94,7 +94,7 @@ const StepNine = ({ nextStep, prevStep, formData, setFormData }) => {
 
           <div className="flex justify-center pt-4">
             <div className="w-[343px]">
-              <AuthSubmitBtn text={"Next"} type={"submit"} />
+              <AuthSubmitBtn text={"Next"} type={"submit"} loading={loading} />
             </div>
           </div>
           <div className="mt-4">

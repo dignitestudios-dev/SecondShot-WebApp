@@ -99,7 +99,19 @@ import commingsoon3 from "../assets/commingsoon3.png";
 import chaticon from "../assets/chat.png";
 import sendicon from "../assets/sendicon.png";
 import bell_icon from "../assets/notification_bell_icon.png";
+import  Comunityservice from '../assets/comunityservice.png'
+import  MockInterview from '../assets/MockInterview.png'
+import  Entrepreneurship from '../assets/Entrepreneurship.png'
+import  Entrepreneurshipicon from '../assets/Entrepreneurshipicon.png'
+import  Comunityser from '../assets/comunityser.png'
+import  Mockicon from '../assets/Mockicon.png'
 export {
+  Comunityservice,
+  MockInterview,
+  Entrepreneurship,
+  Comunityser,
+  Mockicon,
+  Entrepreneurshipicon,
   logo,
   Carriericon1,
   Carriericon2,

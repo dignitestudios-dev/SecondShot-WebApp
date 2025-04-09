@@ -361,14 +361,14 @@ function MyProfile() {
                         ) : (
                           ""
                         )}
-                        <div>
+                        {/* <div>
                           <h3 className="text-[18px] font-[500] text-black ">
                             Career
                           </h3>
                           <p className="text-black w-full text-wrap break-words">
                             {registrationData?.desired_career_path}
                           </p>
-                        </div>
+                        </div> */}
                       </div>
 
                       <div className="pl-4">

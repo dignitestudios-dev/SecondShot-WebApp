@@ -15,7 +15,13 @@ import {
   commingsoon1,
   commingsoon2,
   commingsoon3,
+  Comunityser,
+  Comunityservice,
+  Entrepreneurship,
+  Entrepreneurshipicon,
   homelock,
+  Mockicon,
+  MockInterview,
 } from "../../assets/export";
 import { useNavigate } from "react-router-dom";
 import { ModalContext } from "../../context/GlobalContext";
@@ -93,6 +99,33 @@ const CareerToolbox = () => {
       path: "/my-library",
       btn: !isFirst.mylibrary && subscriptionpaid ? "Launch" : "Unlock",
     },
+    {
+      cardicons: Comunityser,
+      bgcolors: "bg-gradient-to-b from-[#f68a20] to-[#f36c28]",
+      title: "Community Service",
+      cardimage: Comunityservice,
+      btnBg: "bg-[#FFFFFF1A]",
+      para: "Comming Soon",
+      btn: "Comming Soon",
+    },
+    {
+      cardicons: Mockicon,
+      bgcolors: "bg-gradient-to-t from-[#b11f2b] to-[#e91f25]",
+      title: "Mock Interview",
+      cardimage: MockInterview,
+      btnBg: "bg-[#FFFFFF1A]",
+      para: "Comming Soon",
+      btn: "Comming Soon",
+    },
+    {
+      cardicons: Entrepreneurshipicon,
+      bgcolors: "bg-gradient-to-t from-[#99227b] to-[#9c206f]",
+      title: "Enterpreneurship",
+      cardimage: Entrepreneurship,
+      btnBg: "bg-[#FFFFFF1A]",
+      para: "Comming Soon",
+      btn: "Comming Soon",
+    },
   ];
   const handleNavigation = (item) => {
     if (!subscriptionpaid && item.title !== "Transferable Skills") {
@@ -117,7 +150,11 @@ const CareerToolbox = () => {
           >
             <div className="flex items-center gap-4 mb-5 group-hover:hidden">
               <div className="bg-white w-[82px] h-[82px] rounded-[20px] ">
-                <img src={item?.cardicons} alt={item?.title} className="w-[80px] object-contain h-[80px] " />
+                <img
+                  src={item?.cardicons}
+                  alt={item?.title}
+                  className="w-[80px] object-contain h-[80px] "
+                />
               </div>
               <div className="text-[24px] w-[120px] text-start  uppercase leading-[33px] font-[600] text-white">
                 {item?.title}
@@ -164,19 +201,6 @@ const CareerToolbox = () => {
             "Buy a subscription to unlock this feature and enjoy exclusive benefits."
           }
         />
-      </div>
-      <div className="grid sm:grid-cols-1 md:grid-cols-[1fr_2fr] lg:grid-cols-[1fr_1fr_1fr] gap-10">
-        {[commingsoon1, commingsoon2, commingsoon3]?.map((item, index) => (
-          <div key={index} className="flex justify-center">
-            <div className="w-full h-[458px]  rounded-[20px] overflow-hidden">
-              <img
-                src={item}
-                alt="Coming Soon"
-                className="object-cover w-[380px] h-[458px] rounded-[20px]"
-              />
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   );

@@ -103,7 +103,7 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
     //   setFormData({ ...formData, sportsOption: "" });
     // }
   }, [tags]);
-  
+
   return (
     <Formik
       initialValues={formData}
@@ -215,7 +215,15 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
             </div>
             <div className="mt-4">
               <BackBtn
-                handleClick={() => prevStep(formData?.ageValue === 'No' ? true : false)}
+                handleClick={() =>
+                  prevStep(
+                    formData?.ageValue === "No" ||
+                      formData?.university === "School" ||
+                      formData?.university === "HighSchool"
+                      ? true
+                      : false
+                  )
+                }
               />
             </div>
           </Form>

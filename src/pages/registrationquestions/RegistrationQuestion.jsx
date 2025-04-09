@@ -54,12 +54,14 @@ const RegistrationQuestion = () => {
   });
 
   const nextStep = (skip = false) => {
-    setStep(skip ? step + 2 : step + 1);
+    setStep(skip ? 5 : step + 1);
   };
 
   const prevStep = (skip = false) => {
-    setStep(skip ? step - 2 : step - 1);
+    // If on step 5 or higher, skip directly to step 1
+    setStep(step === 5 ? 1 : skip ? step - 2 : step - 1);
   };
+  
 
   const handleIsSkill = () => {
     localStorage.removeItem("isEditSkill");
@@ -68,7 +70,7 @@ const RegistrationQuestion = () => {
 
   const payload = {
     current_grade_level: formData?.university,
-    major_trade_or_military: formData?.universityOptions.label,
+    major_trade_or_military: "Default",
     highest_degree_completion: formData?.highestDegree,
     is_eighteen_or_older: formData?.ageValue === "Yes" ? true : false,
     has_military_service: formData?.militaryService === "Yes" ? true : false,
@@ -86,7 +88,7 @@ const RegistrationQuestion = () => {
     favorite_middle_school_subject: formData?.subjectOptions?.value,
     has_job_experience: formData?.jobValue === "Yes" ? true : false,
     recent_job_title: formData?.jobTitle,
-    desired_career_path: formData?.desireCareer,
+    desired_career_path:  "Default",
   };
 
   const handleRegistration = async () => {
@@ -140,22 +142,23 @@ const RegistrationQuestion = () => {
                     Please answer a few quick registration questions to help
                     build out your profile.
                   </p>
-                  <div className="flex justify-between mt-6">
-                    <p className="text-xs font-medium">Steps</p>
-                    <p className="text-xs font-medium">
-                      {step.toString().padStart(2, "0")}/10
-                    </p>
-                  </div>
-                  <div className="grid grid-cols-10 divide-x mt-2">
-                    {Array.from({ length: 10 }, (_, index) => (
-                      <div
-                        key={index}
-                        className={`h-1 w-full rounded-xl ${
-                          index < step ? "bg-slate-600" : "bg-[#EFF2F4]"
-                        }`}
-                      ></div>
-                    ))}
-                  </div>
+                  <div className="flex justify-between items-center mt-6">
+                      <p className="text-xs font-medium">Steps</p>
+                      <p className="text-xs font-medium">
+                        {step.toString().padStart(2, "0")}/9
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-9 gap-1 mt-2">
+                      {Array.from({ length: 9 }, (_, index) => (
+                        <div
+                          key={index}
+                          className={`h-1 rounded-xl ${
+                            index < step ? "bg-slate-600" : "bg-[#EFF2F4]"
+                          }`}
+                        ></div>
+                      ))}
+                    </div>
                   <div className="mt-6">
                     {step === 1 && (
                       <StepOne
@@ -234,9 +237,11 @@ const RegistrationQuestion = () => {
                         setFormData={setFormData}
                         formData={formData}
                         prevStep={prevStep}
+                        handleRegistration={handleRegistration}
+                        loading={loading}
                       />
                     )}
-                    {step === 10 && (
+                    {/* {step === 10 && (
                       <StepTen
                         nextStep={nextStep}
                         setFormData={setFormData}
@@ -245,7 +250,7 @@ const RegistrationQuestion = () => {
                         handleRegistration={handleRegistration}
                         loading={loading}
                       />
-                    )}
+                    )} */}
                   </div>
                 </div>
               </div>
