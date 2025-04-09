@@ -102,11 +102,11 @@ const CareerToolbox = () => {
     {
       cardicons: Comunityser,
       bgcolors: "bg-gradient-to-b from-[#f68a20] to-[#f36c28]",
-      title: "Community Service",
+      title: "Branding / NIL",
       cardimage: Comunityservice,
       btnBg: "bg-[#FFFFFF1A]",
-      para: "Comming Soon",
-      btn: "Comming Soon",
+      para: "",
+      btn: "coming  Soon",
     },
     {
       cardicons: Mockicon,
@@ -114,8 +114,8 @@ const CareerToolbox = () => {
       title: "Mock Interview",
       cardimage: MockInterview,
       btnBg: "bg-[#FFFFFF1A]",
-      para: "Comming Soon",
-      btn: "Comming Soon",
+      para: "",
+      btn: "coming  Soon",
     },
     {
       cardicons: Entrepreneurshipicon,
@@ -123,8 +123,8 @@ const CareerToolbox = () => {
       title: "Enterpreneurship",
       cardimage: Entrepreneurship,
       btnBg: "bg-[#FFFFFF1A]",
-      para: "Comming Soon",
-      btn: "Comming Soon",
+      para: "",
+      btn: "coming  Soon",
     },
   ];
   const handleNavigation = (item) => {
