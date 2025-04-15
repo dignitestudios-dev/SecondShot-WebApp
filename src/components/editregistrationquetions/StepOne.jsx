@@ -36,8 +36,8 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
     setIsOpen(false);
     setTags([]);
     setSelectedTags([]);
-    const filteredTags = educationTags[value] || [];
-    setFilteredTags(filteredTags);
+    // const filteredTags = educationTags[value] || [];
+    // setFilteredTags(filteredTags);
   };
 
   return (
@@ -74,8 +74,8 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
           useEffect(() => {
             if (formData?.university) {
               setFieldValue("university", formData?.university);
-              const filteredTags = educationTags[formData?.university] || [];
-              setFilteredTags(filteredTags);
+              // const filteredTags = educationTags[formData?.university] || [];
+              // setFilteredTags(filteredTags);
             }
 
             if (formData?.universityOptions) {
@@ -87,7 +87,7 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
 
               setSelectedTags({
                 label: formData?.universityOptions,
-                value: educationalTags[0]?.value,
+                // value: educationalTags[0]?.value,
               });
             }
           }, [formData?.universityOptions]);
