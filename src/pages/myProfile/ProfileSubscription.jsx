@@ -112,7 +112,14 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
 
                 <div className="p-3">
                   <div className="text-[22px] font-[600] text-gray-900 ">
-                    {myplane?.subscriptionProduct?.product_name}
+                    {myplane?.subscriptionProduct?.product_name ===
+                      "yearly_plan"
+                      ? "Yearly Plan"
+                      : myplane?.subscriptionProduct?.product_name ||
+                        myplane?.subscriptionProduct?.product_name ===
+                      "quarterly_plan"
+                      ? "Quarterly Plan"
+                      : myplane?.subscriptionProduct?.product_name}
                   </div>
                   <ul className="space-y-3 text-gray-700">
                     {Object.values(
@@ -148,7 +155,8 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
                     </div>
                   ) : (
                     <div className="text-center bg-red-400 p-3 rounded-md mt-3 text-white">
-                      This subscription was purchased through the mobile app. Please use the app to view or manage your subscription. 
+                      This subscription was purchased through the mobile app.
+                      Please use the app to view or manage your subscription.
                     </div>
                   )}
                 </div>
@@ -187,7 +195,9 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
                   text={"Upgrade Plan"}
                   type={"button"}
                   handleSubmit={() => {
-                    navigation("/subscriptionplans", { state: {cardShow:true} });
+                    navigation("/subscriptionplans", {
+                      state: { cardShow: true },
+                    });
                   }}
                 />
               </div>

@@ -153,7 +153,11 @@ const EditRegistrationQuestion = () => {
   };
 
   const prevStep = (skip = false) => {
-    setStep(step === 5 ? 1 : skip ? step - 2 : step - 1);
+    if (formData.university === "College"  ||  formData.university === "career" || formData.university === "early") {
+      setStep(step - 1);
+    } else {
+      setStep(step === 5 ? 1 : skip ? step - 2 : step - 1);
+    }
   };
 
   return (

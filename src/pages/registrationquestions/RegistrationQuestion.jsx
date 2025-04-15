@@ -52,16 +52,22 @@ const RegistrationQuestion = () => {
     jobValue: "",
     desireCareer: "",
   });
-
+console.log(formData,"formData")
   const nextStep = (skip = false) => {
     setStep(skip ? 5 : step + 1);
   };
 
+  // const prevStep = (skip = false) => {
+  //   // If on step 5 or higher, skip directly to step 1
+  //   setStep(step === 5 ? 1 : skip ? step - 2 : step - 1);
+  // };
   const prevStep = (skip = false) => {
-    // If on step 5 or higher, skip directly to step 1
-    setStep(step === 5 ? 1 : skip ? step - 2 : step - 1);
+    if (formData.university === "College"  ||  formData.university === "career" || formData.university === "early") {
+      setStep(step - 1);
+    } else {
+      setStep(step === 5 ? 1 : skip ? step - 2 : step - 1);
+    }
   };
-  
 
   const handleIsSkill = () => {
     localStorage.removeItem("isEditSkill");
@@ -88,7 +94,7 @@ const RegistrationQuestion = () => {
     favorite_middle_school_subject: formData?.subjectOptions?.value,
     has_job_experience: formData?.jobValue === "Yes" ? true : false,
     recent_job_title: formData?.jobTitle,
-    desired_career_path:  "Default",
+    desired_career_path: "Default",
   };
 
   const handleRegistration = async () => {
@@ -143,22 +149,22 @@ const RegistrationQuestion = () => {
                     build out your profile.
                   </p>
                   <div className="flex justify-between items-center mt-6">
-                      <p className="text-xs font-medium">Steps</p>
-                      <p className="text-xs font-medium">
-                        {step.toString().padStart(2, "0")}/9
-                      </p>
-                    </div>
+                    <p className="text-xs font-medium">Steps</p>
+                    <p className="text-xs font-medium">
+                      {step.toString().padStart(2, "0")}/9
+                    </p>
+                  </div>
 
-                    <div className="grid grid-cols-9 gap-1 mt-2">
-                      {Array.from({ length: 9 }, (_, index) => (
-                        <div
-                          key={index}
-                          className={`h-1 rounded-xl ${
-                            index < step ? "bg-slate-600" : "bg-[#EFF2F4]"
-                          }`}
-                        ></div>
-                      ))}
-                    </div>
+                  <div className="grid grid-cols-9 gap-1 mt-2">
+                    {Array.from({ length: 9 }, (_, index) => (
+                      <div
+                        key={index}
+                        className={`h-1 rounded-xl ${
+                          index < step ? "bg-slate-600" : "bg-[#EFF2F4]"
+                        }`}
+                      ></div>
+                    ))}
+                  </div>
                   <div className="mt-6">
                     {step === 1 && (
                       <StepOne

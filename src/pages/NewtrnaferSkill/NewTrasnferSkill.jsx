@@ -241,6 +241,7 @@ const NewTrasnferSkill = () => {
                   ? "Explore key skills that can help you transition into new career paths. On the Free Plan, you can only access the first node in the Transferable Map. Unlock all nodes by upgrading your plan."
                   : "  Here is a map of your transferable skills. Click on each circle to expand to learn about how you can use your soft skills in other areas of your life. Click the ribbon to save your favorite skills."}
               </p>
+              <h2 className="text-red-500 text-[16px] px-[130px] font-[500] mt-3 leading-[24px]">    {subscriptionpaid === false ? "The free version allows clicking only on the top circle."  : "" }</h2>
             </div>
           </div>
           <div className="flex items-center justify-end max-w-screen-xl     ">

@@ -199,7 +199,7 @@ const Navbar = () => {
         handleClick={() => navigate("/subscriptionplans")}
         onClose={() => setLock(false)}
         text={
-          " Buy a subscription to unlock this feature and enjoy exclusive benefits."
+          " Buy a subscription to unlock this feature and access all of the modules."
         }
       />
     </div>
