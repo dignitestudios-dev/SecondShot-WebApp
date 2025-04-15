@@ -29,7 +29,7 @@ const InviteFriendModal = ({ isOpen, onClose }) => {
         </button>
 
         <h2 className="text-lg font-semibold text-center text-black mb-6">
-          Refer a friend and help them build their own Career Toolbox!
+          Refer a friend and help them build their own Career Prep Toolbox!
         </h2>
 
         {data.map(({ label, link }) => (
