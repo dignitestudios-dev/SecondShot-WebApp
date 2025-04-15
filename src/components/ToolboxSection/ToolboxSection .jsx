@@ -52,11 +52,11 @@ const ToolboxSection = () => {
   return (
     <div className="text-white p-8 space-y-6 ">
       <h1 className="text-[30px] lg:text-[41px] font-[600] leading-[54.94px]">
-        Your <span className="text-[#56EC17]"> Career Toolbox</span>
+        Your <span className="text-[#56EC17]"> Career Prep Toolbox</span>
       </h1>
       <p className="text-[20px] lg:text-[24px] font-[400] leading-[34.44px] capitalize">
         Discover your strengths and unlock New Opportunities awaiting for you
-        within your career toolbox.
+        within your career Prep toolbox.
       </p>
 
       <div className="opacity-[20%]">
@@ -65,7 +65,7 @@ const ToolboxSection = () => {
       <div className="text-[26px] lg:text-[32px] font-[600] leading-[42.88px] ">
         What's Inside
         <br />
-        Your <span className="text-[#56EC17]"> Career Toolbox</span>
+        Your <span className="text-[#56EC17]"> Career Prep Toolbox</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 md:gap-10 lg:grid-cols-3 lg:gap-4">
