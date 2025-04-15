@@ -4,7 +4,8 @@ import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import axios from "../../axios";
 import { SuccessToast } from "../toaster/ToasterContainer";
-import EmptyScreen from "../../pages/mylibrary/EmptyScreen";
+import EmptyScreen from "./EmptyScreen";
+
 const CareerCards = ({ carrerData, loading, getallcarrerrecommendation }) => {
   const navigate = useNavigate();
   const [loader, setloader] = useState({});
@@ -63,8 +64,8 @@ const CareerCards = ({ carrerData, loading, getallcarrerrecommendation }) => {
               </div>
             ))
         ) : carrerData?.length === 0 ? (
-          <div className="flex items-center justify-center min-h-screen absolute  top-40 left-[500px]">
-            <EmptyScreen text={" No career recommendations found."} />
+          <div className=" absolute  left-0 right-0 bottom-0 flex items-center justify-center ">
+            <EmptyScreen  />
           </div>
         ) : (
           carrerData?.map((recommendation, recommendationIndex) => (

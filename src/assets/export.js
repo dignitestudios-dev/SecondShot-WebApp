@@ -105,6 +105,8 @@ import  Entrepreneurship from '../assets/Entrepreneurship.png'
 import  Entrepreneurshipicon from '../assets/Entrepreneurshipicon.png'
 import  Comunityser from '../assets/comunityser.png'
 import  Mockicon from '../assets/Mockicon.png'
+import  Playstore from '../assets/playstore.png'
+import  Globalweb from '../assets/globalweb.png'
 export {
   Comunityservice,
   MockInterview,
@@ -213,4 +215,6 @@ export {
   chaticon,
   sendicon,
   bell_icon,
+  Playstore,
+  Globalweb
 };

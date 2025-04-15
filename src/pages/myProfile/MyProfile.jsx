@@ -2,8 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Backbutton from "../../components/Global/Backbutton";
 import {
+  AppleIcon,
   facebook,
+  Globalweb,
   Instaicon,
+  Playstore,
   Profileimage,
   Twittericon,
 } from "../../assets/export";
@@ -284,11 +287,11 @@ function MyProfile() {
                     <hr />
                     <div className="flex items-center justify-between gap-3 mt-5">
                       <div className="flex gap-3">
-                        {[Instaicon, facebook, Twittericon]?.map(
+                        {[Playstore,AppleIcon,Globalweb]?.map(
                           (item, index) => (
                             <img
                               src={item}
-                              className="w-[24px] h-[24px] "
+                              className="w-[22px] h-[22px] object-contain "
                               key={index}
                               alt=""
                             />
