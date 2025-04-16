@@ -149,11 +149,11 @@ function ReviewYourGoalOld() {
               Review Your Goal
             </h1>
             <p className="text-black mt-1 font-[500] ">
-              Take a moment to review your goal below. If you need to make
-              changes you can click on the edit button. If you are fully
-              satisfied with your goal you have the option to add 2 people for
-              support and accountability. Click finalize goal to send to your
-              support network add to your goal to the goal setting hub.
+              Revise Instructions: Take a moment to review your goal below. If
+              you need to make changes you can click on the edit button. If you
+              are fully satisfied with your goal you have the option to add 2
+              people for support and accountability. Click finalize goal to add
+              the goal to the goal setting hub.
             </p>
           </div>
           <div className="flex  items-center  gap-4">
@@ -219,6 +219,7 @@ function ReviewYourGoalOld() {
                   <PiPencilLine
                     size={24}
                     onClick={() => setEditShowModal(true)}
+                    title="Edit"
                   />
                 </button>
                 {editedGoals?.sub_goals.map((item, index) => (

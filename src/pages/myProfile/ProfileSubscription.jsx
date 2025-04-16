@@ -73,7 +73,7 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
   return (
     <>
       <div className="text-[40px] mt-5 text-center leading-[54px] font-[500] text-[#181818] ">
-        Subscription Plans
+        Subscription Plane 
       </div>
       <div className=" text-[16px] leading-[21.6px] text-center w-full flex justify-center items-center ">
         <p className=" w-[639px] mt-5">
@@ -95,7 +95,7 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
                 <div className="bg-gray-300 h-[50px] w-[100%] rounded-[10px] mb-2"></div>
               </div>
             ) : myplane?.status === "cancelled" ? (
-              <div>No Plane Found</div>
+              <div>No Plan Found</div>
             ) : (
               <div className="  bg-white rounded-[22px]  md:h-full  shadow-lg   p-2 w-full max-w-sm">
                 <div className="flex justify-between items-center  mt-3 ">

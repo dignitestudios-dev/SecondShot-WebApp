@@ -33,7 +33,7 @@ const MatchedProfile = ({ loading, matchedProfile }) => {
             matchedProfile?.map((item, index) => (
               <div
                 key={index}
-                className="flip-card w-[280px] h-[203px] relative cursor-pointer"
+                className="flip-card w-[280px] h-[243px] relative cursor-pointer"
                 onClick={() =>
                   navigate("/matched-pro-detail", { state: { item } })
                 }
@@ -80,7 +80,14 @@ const MatchedProfile = ({ loading, matchedProfile }) => {
                         <li key={i}>{skill}</li>
                       ))}
                     </ul>
-
+                    <div >
+                      <p className="text-[10px]">
+                        <span className="font-[600]">Quote: </span>
+                        
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Deserunt debitis laudantium accusamus
+                      </p>
+                    </div>
                     <div className="flex gap-2 mt-2">
                       {[facebook, Instaicon, Twittericon].map((link, i) => (
                         <img src={link} className="w-6 h-6" />

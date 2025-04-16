@@ -11,9 +11,7 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
     timebound: Yup.string().required(
       "Please respond before moving forward to proceed with the next step."
     ),
-    timeboundedit: Yup.string().required(
-      "Please respond before moving forward to proceed with the next step."
-    ),
+   
   });
   const navigate = useNavigate();
 
@@ -21,7 +19,7 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
     <div>
       <Formik
         initialValues={{
-          timebound: formData.timebound || formData.relevantedit || "",
+          timebound: formData.timebound || formData.relevantedit ?formData.relevantedit :formData.relevant || "",
           timeboundedit: formData.timeboundedit,
         }}
         validationSchema={validationSchema}
@@ -34,7 +32,7 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
           navigate("/create-goals", {
             state: {
               isSmart: true,
-              lastStep: values.timeboundedit,
+              lastStep: values,
             },
           });
         }}

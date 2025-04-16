@@ -21,6 +21,7 @@ import {
 } from "firebase/auth";
 import { phoneFormater } from "../lib/helper";
 import SocialLogin from "./SocialLogin";
+import FreeModal from "../../components/Global/FreeModal";
 
 const SignUpForm = () => {
   const navigation = useNavigate();
@@ -28,6 +29,8 @@ const SignUpForm = () => {
   const [idToken, setIdToken] = useState(null);
   const [loading, setLoading] = useState(false);
   const [newUser, setNewUser] = useState("");
+  const [freeModal, setFreeModal] = useState(false);
+
   const checkStatus = async () => {
     try {
       const response = await axios.post("/api/auth/check-firebase-user", {
@@ -201,10 +204,23 @@ const SignUpForm = () => {
         <div className="auth-bg hidden rounded-l-[20px] w-full md:w-1/2 md:flex items-center justify-center p-10  ">
           <ToolboxSection />
         </div>
-        <div className="w-full bg-white md:w-1/2 flex rounded md:rounded-r-[20px]  items-center justify-center relative">
+
+        <div className="w-full bg-white md:w-1/2 flex flex-col rounded md:rounded-r-[20px]  items-center justify-center relative">
+            <div className="flex  justify-end mt-3 ms-auto pe-3">
+              <div className="w-[140px]">
+                <AuthSubmitBtn
+                  text={"Try if For Free"}
+                  handleSubmit={() => setFreeModal(true)}
+                />
+              </div>
+            </div>
           <div className="w-full max-w-md p-7 ">
             <div className="flex justify-center ">
-              <img src={logonew} alt="Logo" className="h-[215px] w-[215px] object-contain" />
+              <img
+                src={logonew}
+                alt="Logo"
+                className="h-[215px] w-[215px] object-contain"
+              />
             </div>
             <h2 className="text-[32px] font-[600] text-center leading-[43.2px] mb-4">
               Sign Up
@@ -319,13 +335,14 @@ const SignUpForm = () => {
             </div>
             <div className="text-center font-medium text-[16px] leading-[21.6px] mt-2">
               I agree to the{" "}
-              <a href="#" className="text-blue-900 font-[500] underline">
+              <Link to={'/terms-and-condition'} className="text-blue-900 font-[500] underline">
                 Terms & Conditions
-              </a>{" "}
+              </Link>{" "}
               &{" "}
-              <a href="#" className="text-blue-900 font-[500] underline">
-                Privacy Policy
-              </a>
+              <Link to={'/privacy-policy'} className="text-blue-900 font-[500] relative z-10 underline">
+              Privacy Policy
+              </Link>{" "}
+             
             </div>
           </div>
           <img
@@ -335,6 +352,11 @@ const SignUpForm = () => {
           />
         </div>
       </div>
+      <FreeModal
+        isOpen={freeModal}
+        handleClick={() => setFreeModal(false)}
+        onClose={() => setFreeModal(false)}
+      />
     </div>
   );
 };

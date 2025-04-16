@@ -102,9 +102,9 @@ import bell_icon from "../assets/notification_bell_icon.png";
 import  Comunityservice from '../assets/comunityservice.png'
 import  MockInterview from '../assets/MockInterview.png'
 import  Entrepreneurship from '../assets/Entrepreneurship.png'
-import  Entrepreneurshipicon from '../assets/Entrepreneurshipicon.png'
-import  Comunityser from '../assets/comunityser.png'
-import  Mockicon from '../assets/Mockicon.png'
+import  Entrepreneurshipicon from '../assets/newlogos/Enterpreneurship.png'
+import  Comunityser from '../assets/newlogos/BrandingLogo.png'
+import  Mockicon from '../assets/newlogos/MockInterviewLogo.png'
 import  Playstore from '../assets/playstore.png'
 import  Globalweb from '../assets/globalweb.png'
 export {

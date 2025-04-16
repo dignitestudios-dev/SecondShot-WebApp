@@ -141,7 +141,7 @@ function CareerDetails() {
                     </button>
                   ))}
             </div>
-            <hr />
+            <hr className="h-[1px] bg-gray-300 " />
             <div className="flex justify-between items-center">
               <h3 className="text-[28px] font-[500] text-[#000000] py-2">
                 {loader ? (
@@ -190,10 +190,10 @@ function CareerDetails() {
             </p>
           </div>
 
-          <hr className="h-px my-8 bg-gray-300 border-0" />
+          <hr className="" />
 
           <div className="bg-white rounded-lg">
-            <div className="grid grid-cols-3 divide-x-[1px] gap-4 text-[#011225]">
+            <div className="grid grid-cols-3 gap-4 text-[#011225]">
               <ul className="pl-8 space-y-6 list-disc list-inside">
                 <h3 className="text-[22px] font-medium text-[#011225]">
                   Sample Job Titles
@@ -280,8 +280,7 @@ function CareerDetails() {
               </ul>
             </div>
           </div>
-
-          <hr className="h-px my-8 bg-gray-300 border-0" />
+  <hr className="" />  
 
           <div>
             <h3 className="text-[22px] font-[600] leading-[32.67px] text-[#011225]">

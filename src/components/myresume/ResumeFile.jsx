@@ -57,7 +57,11 @@ const ResumeFile = ({
               </div>
             ))}
           </>
-        ) : (
+        ) : resume?.length === 0 ? (
+          <div className="text-[24px] text-gray-500 absolute  left-0 right-0 bottom-20 top-50 flex items-center justify-center ">
+        No results matched your search.
+          </div>
+        ) :  (
           resume?.map((resumeData, index) => {
             return (
               <div

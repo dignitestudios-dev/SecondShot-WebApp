@@ -16,9 +16,7 @@ const AssessmentOne = ({
     specific: Yup?.string().required(
       "Please respond before moving forward to proceed with the next step."
     ),
-    specificedit: Yup?.string().required(
-      "Please respond before moving forward to proceed with the next step."
-    ),
+   
   });
 
   return (
@@ -70,7 +68,7 @@ const AssessmentOne = ({
             as="input"
             id="specific"
             name="specific"
-            placeholder="Describe Here"
+            placeholder="Revise Goal Here"
             className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
                bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                  errors.specific && touched.specific ? "border-red-500" : ""
@@ -98,7 +96,7 @@ const AssessmentOne = ({
               as="input"
               id="specificedit"
               name="specificedit"
-              placeholder="Describe Here"
+              placeholder="Revise Goal Here"
               className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
                bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                  errors.specificedit && touched.specificedit

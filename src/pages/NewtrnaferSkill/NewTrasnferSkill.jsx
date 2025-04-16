@@ -254,6 +254,7 @@ const NewTrasnferSkill = () => {
               <img
                 className="h-[20px] w-[20px] object-contain "
                 src={Shareimg}
+                title="Share"
               />
             </div>
             {loading ? (
@@ -263,6 +264,7 @@ const NewTrasnferSkill = () => {
     <img
       className="h-[20px] w-[20px] object-contain"
       src={Downloadimg}
+          
     />
   </div>
 ) : (
@@ -278,6 +280,7 @@ const NewTrasnferSkill = () => {
       <img
         className="h-[20px] w-[20px] object-contain"
         src={Downloadimg}
+        title="Download"
       />
     )}
   </div>

@@ -13,17 +13,15 @@ const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
     measure: Yup.string().required(
       "Please respond before moving forward to proceed with the next step."
     ),
-    measureedit: Yup.string().required(
-      "Please respond before moving forward to proceed with the next step."
-    ),
+  
   });
-
+console.log(formData.specific)
   return (
     <div>
       <Formik
         initialValues={{
-          measure: formData.measure || formData.specificedit || "",
-          measureedit: formData.measureedit || "", // Prefill with formData.specific
+          measure: formData.measure ||formData.specificedit ? formData.specificedit : formData.specific || "",
+          measureedit: formData.measureedit || "",
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
@@ -104,7 +102,7 @@ const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
                     const updatedValue = e.target.value;
                     setFieldValue("measureedit", updatedValue);
                   }}
-                  placeholder="Describe Here"
+                  placeholder="Revise Goal Here"
                   className={`border border-gray-400 rounded-lg w-full py-2 px-3 placeholder-gray-900 text-sm
                    bg-transparent text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                      errors.measureedit && touched.measureedit

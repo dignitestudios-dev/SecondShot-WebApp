@@ -5,6 +5,8 @@ import OtpPhone from "../pages/onboarding/OtpPhone";
 import ResetPassword from "../pages/onboarding/ResetPassword";
 import SignUpForm from "../pages/onboarding/Signup";
 import VerifiedScreen from "../pages/onboarding/VerifedScreen";
+import PrivacyPolicy from "../pages/privacyPolicy/PrivacyPolicy";
+import TermsAndCondition from "../pages/TermsAndCondition/TermsAndCondition";
 import ForgotPassword from "./../pages/onboarding/ForgotPassword";
 
 export const authRoutes = [
@@ -38,6 +40,16 @@ export const authRoutes = [
     title: "verify-payment",
     url: "/verify-payment",
     page: <SuccessScreen />
+  },
+  {
+    title: "terms-condition",
+    url: "/terms-and-condition",
+    page: <TermsAndCondition />
+  },
+  {
+    title: "privacy-policy",
+    url: "/privacy-policy",
+    page: <PrivacyPolicy />
   },
  
 ];

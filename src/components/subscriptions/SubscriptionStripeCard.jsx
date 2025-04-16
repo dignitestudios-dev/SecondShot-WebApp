@@ -56,7 +56,6 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
     }
   };
 
-  
   const handlestarted = () => {
     setActivatModal(false);
     if (profileCompleted === true && registrationQuestion === true) {
@@ -65,8 +64,6 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
       navigation("/profiledetail");
     }
   };
-
-
 
   useEffect(() => {
     (cardsubdata?._id || product_id) && getPaymentInfo();
@@ -89,6 +86,10 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
       return null;
     }
   });
+  console.log(
+    cardData?.subscription_duration,
+    "cardData?.subscription_duration"
+  );
   return (
     <div>
       <div className="bg-transparent p-2 mb-20 ">
@@ -101,14 +102,28 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
         <div className="bg-gradient-to-l from-[#012C57] to-[#061523] text-white py-2 px-4 rounded-lg flex justify-between items-center">
           <div>
             <p className="font-[600] text-[18px] leading-[24.3px] ">
-              {cardData?.subscription_duration}
+              {cardData?.subscription_duration === "3-month"
+                ? "3-Month"
+                : cardData?.subscription_duration ||
+                  cardData?.subscription_duration === "yearly"
+                ? "1-Year"
+                : cardData?.subscription_duration}
             </p>
           </div>
           <div className="text-right flex items-center h-12">
             <p className="text-[#56EC17] font-semibold text-lg pe-1">
               {cardData?.price}
             </p>
-            / <p className="text-sm px-1">{cardData?.subscription_duration}</p>
+            /{" "}
+            <p className="text-sm px-1">
+              {" "}
+              {cardData?.subscription_duration === "3-month"
+                ? "3-Month"
+                : cardData?.subscription_duration ||
+                  cardData?.subscription_duration === "yearly"
+                ? "1-Year"
+                : cardData?.subscription_duration}
+            </p>
           </div>
         </div>
 

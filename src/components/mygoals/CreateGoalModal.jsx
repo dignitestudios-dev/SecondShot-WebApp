@@ -78,8 +78,11 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
   useEffect(() => {
     if (lastStep?.timeboundedit) {
       formik.setFieldValue("main_goal_name", lastStep.timeboundedit, false);
+    } else if (lastStep?.timebound) {
+      formik.setFieldValue("main_goal_name", lastStep.timebound, false);
     }
   }, [lastStep]);
+  
 
   return (
     showModal && (

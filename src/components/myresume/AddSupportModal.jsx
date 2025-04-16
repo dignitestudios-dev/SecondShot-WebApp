@@ -413,7 +413,7 @@ const AddSupportModal = ({
 
               <div className="mt-2">
                 <AuthSubmitBtn
-                  text={"Send"}
+                  text={"Submit"}
                   type={"submit"}
                   loading={loading}
                   disabled={disableFullname1 && disableFullname2}

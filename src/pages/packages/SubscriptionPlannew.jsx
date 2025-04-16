@@ -241,7 +241,7 @@ const SubscriptionPlannew = () => {
                       <div>
                         <div className="flex justify-between items-center">
                           <h2 className="text-[24px] font-[500] text-[#000000] leading-[32.4px]">
-                            {item?.subscription_duration || "N/A"}
+                            {item?.subscription_duration === "3-month" ? "3-Month" : item?.subscription_duration || item?.subscription_duration === "yearly" ? "1-Year" : item?.subscription_duration }
                           </h2>
                           <h2 className="text-[32px] font-[600] leading-[43.2px] text-[#56EC17]">
                             {item?.price || "0.00"}
@@ -249,7 +249,7 @@ const SubscriptionPlannew = () => {
                         </div>
                         <hr className="bg-[#000000] mb-4 mt-3" />
                         <div className="text-[22px] font-[600] text-gray-900">
-                          {item?.product_name || "No Product Name"}
+                          {/* {item?.product_name || "No Product Name"} */}
                         </div>
                         <ul className="space-y-2 text-gray-700">
                           {Object.values(item?.description || {}).map(

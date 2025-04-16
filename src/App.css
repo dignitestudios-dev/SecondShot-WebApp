@@ -14,7 +14,17 @@
   background-position: center;
   height: 100%;
 }
-
+.terms  h2 {
+  font-size: 32px !important;
+  font-weight: 500;
+  line-height: 80px;
+}
+.terms  p {
+  color: #00000080;
+  font-size: 16px !important;
+  
+  line-height: 30px;
+}
 .bg-grad-button {
   background: rgb(1, 44, 87);
   background: linear-gradient(230.2deg, #012c57 17.65%, #061523 129%);

@@ -64,8 +64,8 @@ const CareerCards = ({ carrerData, loading, getallcarrerrecommendation }) => {
               </div>
             ))
         ) : carrerData?.length === 0 ? (
-          <div className=" absolute  left-0 right-0 bottom-0 flex items-center justify-center ">
-            <EmptyScreen  />
+          <div className="text-[24px] text-gray-500 absolute  left-0 right-0 bottom-20 top-50 flex items-center justify-center ">
+        No results matched your search.
           </div>
         ) : (
           carrerData?.map((recommendation, recommendationIndex) => (

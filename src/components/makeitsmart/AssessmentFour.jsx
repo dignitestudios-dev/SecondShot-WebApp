@@ -10,16 +10,14 @@ const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
     relevant: Yup.string().required(
       "Please respond before moving forward to proceed with the next step."
     ),
-    relevantedit: Yup.string().required(
-      "Please respond before moving forward to proceed with the next step."
-    ),
+  
   });
 
   return (
     <div>
       <Formik
         initialValues={{
-          relevant: formData.relevant || formData.achievableedit || "",
+          relevant: formData.relevant || formData.achievableedit ?formData.achievableedit :formData.achievable|| "",
           relevantedit: "", // Prefill with formData.achievable
         }}
         validationSchema={validationSchema}
@@ -102,7 +100,7 @@ const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
                   as="input"
                   id="relevantedit"
                   name="relevantedit"
-                  placeholder="Describe Here"
+                  placeholder="Revise Goal Here"
                   value={values.relevantedit}
                   onChange={(e) => {
                     // Ensure user can edit the field freely

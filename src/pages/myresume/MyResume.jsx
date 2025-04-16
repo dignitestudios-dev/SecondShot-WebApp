@@ -99,7 +99,7 @@ function MyResume() {
                     onClick={handleNavigate}
                     className="text-[#012C57] text-[18px] font-[600]"
                   >
-                    Create new resume
+                    Create New Resume
                   </button>
                 </div>
               </div>

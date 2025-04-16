@@ -14,12 +14,13 @@ import {
   SuccessToast,
 } from "../../components/toaster/ToasterContainer";
 import SocialLogin from "./SocialLogin";
+import FreeModal from "../../components/Global/FreeModal";
 
 const Login = () => {
   const navigation = useNavigate();
   const { login } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-
+  const [freeModal, setFreeModal] = useState(false);
   const {
     values,
     handleBlur,
@@ -93,10 +94,22 @@ const Login = () => {
           <ToolboxSection />
         </div>
 
-        <div className="w-full bg-white md:w-1/2 flex rounded md:rounded-r-[20px]  justify-center relative">
+        <div className="w-full bg-white md:w-1/2 flex flex-col rounded md:rounded-r-[20px]  items-center justify-center relative">
+        <div className="flex absolute top-2 right-0 justify-end   ms-auto pe-3">
+            <div className="w-[140px]">
+              <AuthSubmitBtn
+                text={"Try if For Free"}
+                handleSubmit={() => setFreeModal(true)}
+              />
+            </div>
+          </div>
           <div className="w-full max-w-md p-7 ">
             <div className="flex justify-center ">
-              <img src={logonew} alt="Logo" className="h-[215px] w-[215px] object-contain" />
+              <img
+                src={logonew}
+                alt="Logo"
+                className="h-[215px] w-[215px] object-contain"
+              />
             </div>
 
             <h2 className="text-[32px] font-[600] text-center leading-[43.2px] mb-4">
@@ -174,6 +187,11 @@ const Login = () => {
           />
         </div>
       </div>
+      <FreeModal
+        isOpen={freeModal}
+        handleClick={() => setFreeModal(false)}
+        onClose={() => setFreeModal(false)}
+      />
     </div>
   );
 };

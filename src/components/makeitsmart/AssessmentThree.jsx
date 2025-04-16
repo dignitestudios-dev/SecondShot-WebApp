@@ -10,16 +10,14 @@ const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
     achievable: Yup.string().required(
       "Please respond before moving forward to proceed with the next step."
     ),
-    achievableedit: Yup.string().required(
-      "Please respond before moving forward to proceed with the next step."
-    ),
+   
   });
 
   return (
     <div>
       <Formik
         initialValues={{
-          achievable: formData.achievable || formData.measureedit || "",
+          achievable: formData.achievable || formData.measureedit ? formData.measureedit : formData.measure || "",
           achievableedit: formData.achievableedit, // Prefill with formData.measure
         }}
         validationSchema={validationSchema}
@@ -107,7 +105,7 @@ const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
                   id="achievableedit"
                   name="achievableedit"
                   value={values.achievableedit}
-                  placeholder="Describe Here"
+                  placeholder="Revise Goal Here"
                   onChange={(e) => {
                     // Ensure user can edit the field freely
                     setFieldValue("achievableedit", e.target.value); // Update the achievable field value

@@ -167,7 +167,7 @@ const Licenses = ({
                           onChange={(e) => handleOrganizationChange(e, index)}
                           onBlur={handleBlur}
                           text={"Issuing Organization"}
-                          placeholder={"Enter  Issuing Organization"}
+                          placeholder={"Enter Issuing Organization"}
                           maxLength={50}
                         />
                         {errors.certificationsList?.[index]

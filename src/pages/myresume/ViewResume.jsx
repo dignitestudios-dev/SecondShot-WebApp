@@ -211,19 +211,19 @@ const ViewResume = () => {
             className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer"
             onClick={() => handlePrint()}
           >
-            <img className="w-[27.61px] h-[23px] " src={Printimg} />
+            <img className="w-[27.61px] h-[23px] " src={Printimg} title="Print Resume" />
           </div>
           <div
             onClick={handleDownloadModal}
             className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer"
           >
-            <img className="w-[12px] h-[18.38px] " src={Downloadimg} />
+            <img className="w-[12px] h-[18.38px] " src={Downloadimg} title="Download" />
           </div>
           <div
             onClick={handleShowPeopleModal}
             className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer"
           >
-            <img className="w-[21px] h-[17px] " src={Shareimg} />
+            <img className="w-[21px] h-[17px] " src={Shareimg} title="Share" />
           </div>
           <div className="w-[189px]">
             <AuthSubmitBtn
