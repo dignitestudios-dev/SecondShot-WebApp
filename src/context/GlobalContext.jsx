@@ -13,6 +13,7 @@ export const ModalProvider = ({ children }) => {
   const [notifications, setNotifications] = useState([]);
   const getToken=Cookies.get("token");
   const [tokenAlert,setTokenAlert]=useState(false);
+  const [btnShow,setBtnShow]=useState(false);
   const [isFirst, setIsFirst] = useState(() => {
     const savedState = localStorage.getItem("isFirst");
     return savedState
@@ -111,7 +112,9 @@ export const ModalProvider = ({ children }) => {
         setAllLoading,
         allLoading,
         countNoti,
-        updateDeviceId
+        updateDeviceId,
+        btnShow,
+        setBtnShow
       }}
     >
       {children}

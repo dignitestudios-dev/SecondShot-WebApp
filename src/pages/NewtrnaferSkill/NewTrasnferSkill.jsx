@@ -305,7 +305,7 @@ const NewTrasnferSkill = () => {
                     {index === 0 && (
                       <button
                         onBlur={() => setAppear(false)}
-                        className="absolute cursor-pointer bg-transparent h-[70px] text-center rounded-full flex justify-center items-center top-[150px] group"
+                        className="absolute top-[52%] left-[9%]   z-0 w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-white leading-[12.82px] text-[12.82px] font-[600] text-center"
                         onClick={() => {
                           setAppear(true);
 
@@ -1371,7 +1371,7 @@ const NewTrasnferSkill = () => {
                       {index === 1 && (
                         <button
                           onBlur={() => setAppear(false)}
-                          className="relative cursor-pointer top-[60px] left-[285px] w-[50px] group"
+                          className="relative  cursor-pointer top-[60px] left-[285px] w-[50px] group"
                           onClick={() => {
                             setAppear(true);
                             setSelecetedIndex({
@@ -2476,7 +2476,9 @@ const NewTrasnferSkill = () => {
         />
         <LockModal
           isOpen={lock}
-          handleClick={() => navigate("/subscriptionplans")}
+          handleClick={() => navigate("/subscriptionplans", {
+            state: { cardShow: true },
+          })}
           onClose={() => setLock(false)}
           text={
             "Subscribe to unlock the full map and access all of the modules."

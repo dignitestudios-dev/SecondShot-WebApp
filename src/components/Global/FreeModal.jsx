@@ -1,9 +1,11 @@
 import React from "react";
 import { Cancelicon } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
+import { useNavigate } from "react-router-dom";
 
 const FreeModal = ({ isOpen, onClose, handleClick, text }) => {
   if (!isOpen) return null;
+ 
 
   return (
     <div className="fixed top-0 right-0 w-screen h-screen  z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-50 backdrop-blur-sm">

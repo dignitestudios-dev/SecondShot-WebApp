@@ -189,7 +189,7 @@ const Login = () => {
       </div>
       <FreeModal
         isOpen={freeModal}
-        handleClick={() => setFreeModal(false)}
+        handleClick={() => navigation('/')}
         onClose={() => setFreeModal(false)}
       />
     </div>

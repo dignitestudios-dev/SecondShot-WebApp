@@ -196,7 +196,9 @@ const Navbar = () => {
       )}
       <LockModal
         isOpen={lock}
-        handleClick={() => navigate("/subscriptionplans")}
+        handleClick={() => navigate("/subscriptionplans", {
+          state: { cardShow: true },
+        })}
         onClose={() => setLock(false)}
         text={
           " Buy a subscription to unlock this feature and access all of the modules."

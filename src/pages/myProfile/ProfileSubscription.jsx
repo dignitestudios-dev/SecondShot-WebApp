@@ -73,7 +73,7 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
   return (
     <>
       <div className="text-[40px] mt-5 text-center leading-[54px] font-[500] text-[#181818] ">
-        Subscription Plane 
+        Subscription Plan
       </div>
       <div className=" text-[16px] leading-[21.6px] text-center w-full flex justify-center items-center ">
         <p className=" w-[639px] mt-5">
@@ -100,27 +100,34 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
               <div className="  bg-white rounded-[22px]  md:h-full  shadow-lg   p-2 w-full max-w-sm">
                 <div className="flex justify-between items-center  mt-3 ">
                   <h2 className="text-[24px] px-3 font-[500] text-[#000000] leading-[32.4px] ">
-                    {myplane?.subscriptionProduct?.subscription_duration}
+                    {myplane?.subscriptionProduct?.subscription_duration ===
+                    "3-month"
+                      ? "3-Month"
+                      : myplane?.subscriptionProduct?.subscription_duration ||
+                        myplane?.subscriptionProduct?.subscription_duration ===
+                          "yearly"
+                      ? "1-Year"
+                      : myplane?.subscriptionProduct?.subscription_duration}
                   </h2>
                   <h2 className="text-[32px] font-[600] pe-3 leading-[43.2px] text-[#56EC17]">
                     {myplane?.subscriptionProduct?.price}
                   </h2>
                 </div>
                 <div>
-                  <hr className="bg-[#000000] mb-4 mt-3" />
+                  <hr className="bg-[#000000]  mt-3" />
                 </div>
 
                 <div className="p-3">
-                  <div className="text-[22px] font-[600] text-gray-900 ">
+                  {/* <div className="text-[22px] font-[600] text-gray-900 ">
                     {myplane?.subscriptionProduct?.product_name ===
-                      "yearly_plan"
+                    "yearly_plan"
                       ? "Yearly Plan"
                       : myplane?.subscriptionProduct?.product_name ||
                         myplane?.subscriptionProduct?.product_name ===
-                      "quarterly_plan"
+                          "quarterly_plan"
                       ? "Quarterly Plan"
                       : myplane?.subscriptionProduct?.product_name}
-                  </div>
+                  </div> */}
                   <ul className="space-y-3 text-gray-700">
                     {Object.values(
                       myplane?.subscriptionProduct?.description || {}
