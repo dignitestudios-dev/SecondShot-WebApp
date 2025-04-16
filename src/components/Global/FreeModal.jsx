@@ -24,7 +24,7 @@ const FreeModal = ({ isOpen, onClose, handleClick, text }) => {
         </div>
         <div className="flex items-center justify-center  mt-3">
           <div className=" w-[200px]">
-            <AuthSubmitBtn text={"Close"} handleSubmit={handleClick} />
+            <AuthSubmitBtn text={"Sign Up"} handleSubmit={handleClick} />
           </div>
         </div>
       </div>

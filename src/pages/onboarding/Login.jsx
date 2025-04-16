@@ -98,7 +98,7 @@ const Login = () => {
         <div className="flex absolute top-2 right-0 justify-end   ms-auto pe-3">
             <div className="w-[140px]">
               <AuthSubmitBtn
-                text={"Try if For Free"}
+                text={"Try It For Free"}
                 handleSubmit={() => setFreeModal(true)}
               />
             </div>
