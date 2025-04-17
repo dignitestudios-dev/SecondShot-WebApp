@@ -11,7 +11,7 @@ const TermsAndCondition = () => {
           alt="Auth Background"
         />
       </div>
-      <div className="p-40">
+      <div className="md:p-40 p-3">
       <div className="bg-[#FFFFFF] rounded-[26px]  p-6  ">
         <h2 className="text-[32px] font-[500] text-[#000000] ">
           Terms & conditions

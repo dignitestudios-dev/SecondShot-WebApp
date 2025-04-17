@@ -18,7 +18,7 @@ const PrivacyPolicy = () => {
   />
 </div>
 
-      <div className="p-20">
+      <div className="md:p-40 p-3">
         <div className="bg-[#FFFFFF] rounded-[26px]  mx-auto px-4 py-12 max-w-5xl">
           <div className="space-y-8">
             <div className=" mb-12">

@@ -682,7 +682,7 @@ const NewTrasnferSkill = () => {
               </div>
               <img src={skilltop} className="h-[474px]" alt="" />
             </div>
-          <div className="flex justify-center relative -top-[119px] items-baseline flex-nowrap">
+          <div className="flex justify-center relative -top-[119px] items-baseline flex-nowrap ">
             <div
               className={` ${
                 leftSkill ? "visible" : "invisible"
@@ -711,7 +711,7 @@ const NewTrasnferSkill = () => {
                           setNoteDescription(item?.description);
                         }}
                       >
-                        <p className="text-nowrap">
+                        <p className="text-sm md:text-base lg:text-[14px] truncate max-w-[80px]">
                           {item?.title.length > 8
                             ? item?.title.substring(0, 8) + "..."
                             : item?.title}

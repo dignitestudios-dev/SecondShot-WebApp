@@ -14,17 +14,31 @@
   background-position: center;
   height: 100%;
 }
-.terms  h2 {
+.terms h2 {
   font-size: 32px !important;
   font-weight: 500;
   line-height: 80px;
 }
-.terms  p {
+
+.terms p {
   color: #00000080;
   font-size: 16px !important;
-  
   line-height: 30px;
 }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .terms h2 {
+    font-size: 22px !important;
+    line-height: 40px;
+  }
+
+  .terms p {
+    font-size: 14px !important;
+    line-height: 24px;
+  }
+}
+
 .bg-grad-button {
   background: rgb(1, 44, 87);
   background: linear-gradient(230.2deg, #012c57 17.65%, #061523 129%);
