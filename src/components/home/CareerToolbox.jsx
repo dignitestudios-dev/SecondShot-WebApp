@@ -51,7 +51,7 @@ const CareerToolbox = () => {
     {
       cardicons: Carriericon2,
       bgcolors: "bg-gradient-to-b from-[#FF6CAC] to-[#ED3283]",
-      title: "Career Recommendation",
+      title: "Career Recommendations",
       cardimage: Card2,
       btnBg: isFirst.recommendation === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Take a short assessment to receive recommended careers, sample job descriptions, and recommended pathways to success. You will receive 5 career matches.",

@@ -40,7 +40,6 @@ function ReviewYourGoalOld() {
   const location = useLocation("");
   const goaldata = location.state.formData;
   const threeMonthsAgo = location.state.threeMonthsAgo;
-  console.log("threeMonthsAgo==> ", threeMonthsAgo);
 
   const [threeMonths, setThreeMonths] = useState(threeMonthsAgo);
 
@@ -149,11 +148,11 @@ function ReviewYourGoalOld() {
               Review Your Goal
             </h1>
             <p className="text-black mt-1 font-[500] ">
-              Revise Instructions: Take a moment to review your goal below. If
-              you need to make changes you can click on the edit button. If you
-              are fully satisfied with your goal you have the option to add 2
-              people for support and accountability. Click finalize goal to add
-              the goal to the goal setting hub.
+              Take a moment to review your goal below. If you need to make
+              changes you can click on the edit button. If you are fully
+              satisfied with your goal you have the option to add 2 people for
+              support and accountability. Click finalize goal to add the goal to
+              the goal setting hub.
             </p>
           </div>
           <div className="flex  items-center  gap-4">
@@ -161,7 +160,8 @@ function ReviewYourGoalOld() {
               <AuthSubmitBtn
                 text={"Add Support People"}
                 handleSubmit={() => {
-                  setShareModal(true);
+                  setShowModalsupport(true);
+                  // setShareModal(true);
                   setIsUpdate(false);
                 }}
               />
@@ -169,7 +169,33 @@ function ReviewYourGoalOld() {
             <div className="w-[200px]">
               <AuthSubmitBtn
                 text={"Finalize Goal"}
-                handleSubmit={() => handlecreategoal()}
+                handleSubmit={() => {
+                  const {
+                    fullname = "",
+                    email = "",
+                    phone = "",
+                    fullname_2 = "",
+                    email_2 = "",
+                    phone_2 = "",
+                  } = formData || {};
+
+                  const firstSetFilled =
+                    fullname.trim() !== "" &&
+                    email.trim() !== "" &&
+                    phone.trim() !== "";
+
+                  const secondSetFilled =
+                    fullname_2.trim() !== "" &&
+                    email_2.trim() !== "" &&
+                    phone_2.trim() !== "";
+
+                  if (firstSetFilled && secondSetFilled) {
+                    handlecreategoal();
+                  } else {
+                    setShareModal(true);
+                  }
+                }}
+                // handlecreategoal()
                 loading={loader}
               />
             </div>

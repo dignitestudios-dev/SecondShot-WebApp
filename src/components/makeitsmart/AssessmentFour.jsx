@@ -10,14 +10,23 @@ const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
     relevant: Yup.string().required(
       "Please respond before moving forward to proceed with the next step."
     ),
-  
+    relevantedit: Yup.string().required(
+      "Please respond before moving forward to proceed with the next step."
+    ),
   });
-
+  console.log(formData, "FourtStep");
   return (
     <div>
       <Formik
         initialValues={{
-          relevant: formData.relevant || formData.achievableedit ?formData.achievableedit :formData.achievable|| "",
+          relevant:
+            formData.relevant || formData.achievableedit
+              ? formData.achievableedit
+              : formData.measureedit
+              ? formData.measureedit
+              : formData.measure || formData.specificedit
+              ? formData.specificedit
+              : formData.specific,
           relevantedit: "", // Prefill with formData.achievable
         }}
         validationSchema={validationSchema}
@@ -90,12 +99,12 @@ const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
                 className="text-red-500 text-xs italic"
               />
               <div className="mt-3">
-              <label
-                className="block text-sm font-medium mb-2"
-                htmlFor="relevant"
-              >
-                    Make it Relevant
-              </label>
+                <label
+                  className="block text-sm font-medium mb-2"
+                  htmlFor="relevant"
+                >
+                  Make it Relevant
+                </label>
                 <Field
                   as="input"
                   id="relevantedit"
@@ -122,12 +131,29 @@ const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
               </div>
             </div>
 
-            <div className="flex justify-center pt-4">
+            <div className="flex justify-center pt-4 gap-3 ">
+              <div className="w-[343px]">
+                <button
+                  onClick={() => {
+                    console.log("Before Skip:", formData);
+
+                    setFormData((prev) => ({
+                      ...prev,
+                      relevantedit: "",
+                    }));
+
+                    console.log("After Skip:", formData);
+                    nextStep();
+                  }}
+                  className="w-full text-[#012C57] h-[49px] bg-gray-300  p-3 text-center rounded-[12px] font-[500] leading-[21.6px] text-[16px]"
+                >
+                  Skip
+                </button>
+              </div>
               <div className="w-[343px]">
                 <AuthSubmitBtn text={"Next"} type={"submit"} />
               </div>
             </div>
-
             <div className="flex justify-center mt-4">
               <div>
                 <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">

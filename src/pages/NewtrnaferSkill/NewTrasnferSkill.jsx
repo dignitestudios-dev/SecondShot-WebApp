@@ -711,7 +711,7 @@ const NewTrasnferSkill = () => {
                           setNoteDescription(item?.description);
                         }}
                       >
-                        <p className="text-sm md:text-base lg:text-[14px] truncate max-w-[80px]">
+                        <p className="text-nowrap">
                           {item?.title.length > 8
                             ? item?.title.substring(0, 8) + "..."
                             : item?.title}

@@ -103,10 +103,10 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
           <div>
             <p className="font-[600] text-[18px] leading-[24.3px] ">
               {cardData?.subscription_duration === "3-month"
-                ? "3-Month"
+                ? "Quarterly "
                 : cardData?.subscription_duration ||
                   cardData?.subscription_duration === "yearly"
-                ? "1-Year"
+                ? "Yearly"
                 : cardData?.subscription_duration}
             </p>
           </div>
@@ -118,10 +118,10 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
             <p className="text-sm px-1">
               {" "}
               {cardData?.subscription_duration === "3-month"
-                ? "3-Month"
+                ? "Quarterly "
                 : cardData?.subscription_duration ||
                   cardData?.subscription_duration === "yearly"
-                ? "1-Year"
+                ? "Yearly"
                 : cardData?.subscription_duration}
             </p>
           </div>

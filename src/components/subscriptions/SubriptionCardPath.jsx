@@ -22,12 +22,12 @@ const SubriptionCardPath = ({ selected, cardsubdata }) => {
         <div className="  bg-white rounded-[22px]   overflow-y-auto   shadow-lg   p-2 w-[438px] max-w-sm">
           <div className="flex justify-between items-center  mt-3 ">
             <h2 className="text-[24px] px-3 font-[500] text-[#000000] leading-[32.4px] ">
-            {cardData?.subscription_duration === "3-month" ? "3-Month" : cardData?.subscription_duration || cardData?.subscription_duration === 'yearly' ? "1-Year" : cardData?.subscription_duration}
+            {cardData?.subscription_duration === "3-month" ? "Quarterly " : cardData?.subscription_duration || cardData?.subscription_duration === 'yearly' ? "Yearly" : cardData?.subscription_duration}
             </h2>
             <h2 className="text-[32px] font-[600] leading-[43.2px] pe-3 text-[#56EC17]">
               {cardData?.price} /
               <span className="text-[12px] text-black">
-              {cardData?.subscription_duration === "3-month" ? "3-Month" : cardData?.subscription_duration || cardData?.subscription_duration === 'yearly' ? "1-Year" : cardData?.subscription_duration}
+              {cardData?.subscription_duration === "3-month" ? "Quarterly " : cardData?.subscription_duration || cardData?.subscription_duration === 'yearly' ? "Yearly" : cardData?.subscription_duration}
               </span>
             </h2>
           </div>

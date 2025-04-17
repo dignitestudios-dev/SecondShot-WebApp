@@ -13,7 +13,7 @@ const WelcomeModal = ({ isOpen, handleClick }) => {
           <img src={WelcomeImg} className="w-[199.02px] h-[191.21px] " alt="" />
         </div>
         <h2 className="text-[32px] font-[600] capitalize mt-3 text-[#000000] text-center leading-[43.2px] ">
-          Welcome to career toolbox!
+          Welcome to career prep toolbox!
         </h2>
         {subscriptionpaid === false ? (
           <p className="text-[18px] font-[500] mt-4 text-black text-center leading-[24.3px] ">

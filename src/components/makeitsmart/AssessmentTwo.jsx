@@ -13,9 +13,12 @@ const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
     measure: Yup.string().required(
       "Please respond before moving forward to proceed with the next step."
     ),
+    measureedit: Yup.string().required(
+      "Please respond before moving forward to proceed with the next step."
+    ),
   
   });
-console.log(formData.specific)
+console.log(formData)
   return (
     <div>
       <Formik
@@ -91,7 +94,7 @@ console.log(formData.specific)
                 className="block text-sm font-medium mb-2"
                 htmlFor="specific"
               >
-               Make it Measure
+               Make it Measureable
               </label>
                 <Field
                   as="input"
@@ -119,10 +122,30 @@ console.log(formData.specific)
               </div>
             </div>
 
-            <div className="flex justify-center pt-4">
-              <div className="w-[343px]">
-                <AuthSubmitBtn text={"Next"} type={"submit"} />
-              </div>
+            <div className="flex justify-center pt-4 gap-3 " >
+            <div className="w-[343px]">
+              <button
+              
+              onClick={() => {
+                console.log("Before Skip:", formData);
+              
+                setFormData((prev) => ({
+                  ...prev,
+                  measureedit: "", 
+                }));
+              
+                console.log("After Skip:", formData); 
+                nextStep();
+              }}
+              
+                className="w-full text-[#012C57] h-[49px] bg-gray-300  p-3 text-center rounded-[12px] font-[500] leading-[21.6px] text-[16px]"
+              >
+                Skip
+              </button>
+            </div>
+            <div className="w-[343px]">
+              <AuthSubmitBtn text={"Next"} type={"submit"} />
+            </div>
             </div>
 
             <div className="flex justify-center mt-4">

@@ -2,6 +2,7 @@ import React from "react";
 import { PiPencilLine } from "react-icons/pi";
 
 const SupportPerson = ({ formData }) => {
+  console.log(formData,"formData")
   const phoneFormater = (input) => {
     if (!input) return "";
 

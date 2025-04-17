@@ -11,7 +11,9 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
     timebound: Yup.string().required(
       "Please respond before moving forward to proceed with the next step."
     ),
-   
+    timeboundedit: Yup.string().required(
+      "Please respond before moving forward to proceed with the next step."
+    ),
   });
   const navigate = useNavigate();
 
@@ -19,7 +21,16 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
     <div>
       <Formik
         initialValues={{
-          timebound: formData.timebound || formData.relevantedit ?formData.relevantedit :formData.relevant || "",
+          timebound:
+            formData.timebound || formData.relevantedit
+              ? formData.relevantedit
+              : formData.relevant || formData.achievableedit
+              ? formData.achievableedit
+              : formData.measureedit
+              ? formData.measureedit
+              : formData.measure || formData.specificedit
+              ? formData.specificedit
+              : formData.specific,
           timeboundedit: formData.timeboundedit,
         }}
         validationSchema={validationSchema}
@@ -129,7 +140,30 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
                 />
               </div>
             </div>
-            <div className="flex justify-center pt-4">
+            <div className="flex justify-center pt-4 gap-3 ">
+              <div className="w-[343px]">
+                <button
+                  onClick={() => {
+                    console.log("Before Skip:", formData);
+
+                    setFormData((prev) => ({
+                      ...prev,
+                      timeboundedit: "",
+                    }));
+
+                    console.log("After Skip:", formData);
+                    navigate("/create-goals", {
+                      state: {
+                        isSmart: true,
+                        lastStep: values,
+                      },
+                    });
+                  }}
+                  className="w-full text-[#012C57] h-[49px] bg-gray-300  p-3 text-center rounded-[12px] font-[500] leading-[21.6px] text-[16px]"
+                >
+                  Skip
+                </button>
+              </div>
               <div className="w-[343px]">
                 <AuthSubmitBtn text={"Next"} type={"submit"} />
               </div>

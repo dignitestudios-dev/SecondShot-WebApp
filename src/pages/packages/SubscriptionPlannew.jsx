@@ -241,7 +241,7 @@ const SubscriptionPlannew = () => {
                       <div>
                         <div className="flex justify-between items-center">
                           <h2 className="text-[24px] font-[500] text-[#000000] leading-[32.4px]">
-                            {item?.subscription_duration === "3-month" ? "3-Month" : item?.subscription_duration || item?.subscription_duration === "yearly" ? "1-Year" : item?.subscription_duration }
+                            {item?.subscription_duration === "3-month" ? "Quarterly " : item?.subscription_duration || item?.subscription_duration === "yearly" ? "Yearly" : item?.subscription_duration }
                           </h2>
                           <h2 className="text-[32px] font-[600] leading-[43.2px] text-[#56EC17]">
                             {item?.price || "0.00"}

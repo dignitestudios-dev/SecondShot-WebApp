@@ -10,6 +10,9 @@ const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
     achievable: Yup.string().required(
       "Please respond before moving forward to proceed with the next step."
     ),
+    achievableedit: Yup.string().required(
+      "Please respond before moving forward to proceed with the next step."
+    ),
    
   });
 
@@ -17,7 +20,8 @@ const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
     <div>
       <Formik
         initialValues={{
-          achievable: formData.achievable || formData.measureedit ? formData.measureedit : formData.measure || "",
+          achievable: formData.achievable || formData.measureedit ? formData.measureedit : formData.specificedit 
+          || formData.specificedit ?formData.specificedit : formData.specific,
           achievableedit: formData.achievableedit, // Prefill with formData.measure
         }}
         validationSchema={validationSchema}
@@ -125,10 +129,30 @@ const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
                 />
               </div>
             </div>
-            <div className="flex justify-center pt-4">
-              <div className="w-[343px]">
-                <AuthSubmitBtn text={"Next"} type={"submit"} />
-              </div>
+            <div className="flex justify-center pt-4 gap-3 " >
+            <div className="w-[343px]">
+              <button
+              
+              onClick={() => {
+                console.log("Before Skip:", formData);
+              
+                setFormData((prev) => ({
+                  ...prev,
+                  achievableedit: "", 
+                }));
+              
+                console.log("After Skip:", formData); 
+                nextStep();
+              }}
+              
+                className="w-full text-[#012C57] h-[49px] bg-gray-300  p-3 text-center rounded-[12px] font-[500] leading-[21.6px] text-[16px]"
+              >
+                Skip
+              </button>
+            </div>
+            <div className="w-[343px]">
+              <AuthSubmitBtn text={"Next"} type={"submit"} />
+            </div>
             </div>
             <div className="flex justify-center mt-4">
               <div>

@@ -133,11 +133,7 @@ const MakeitSmart = () => {
           </div>
         </div>
       </div>
-      <img
-        src={BgAuth}
-        alt="logo"
-        className="absolute -bottom-6 -right-8 w-[20%]"
-      />
+    
     </div>
   );
 };
