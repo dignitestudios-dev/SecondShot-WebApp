@@ -290,7 +290,7 @@ const NewTrasnferSkill = () => {
         </div>
         <div id="download-skills">
      
-            <div
+        <div
               className={`  ${
                 topSkill ? "visible" : "invisible"
               } flex    justify-center transition-all duration-1000 ease-in-out ${
@@ -305,7 +305,7 @@ const NewTrasnferSkill = () => {
                     {index === 0 && (
                       <button
                         onBlur={() => setAppear(false)}
-                        className="absolute top-[52%] left-[9%]   z-0 w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-white leading-[12.82px] text-[12.82px] font-[600] text-center"
+                        className="absolute cursor-pointer bg-transparent h-[70px] text-center rounded-full flex justify-center items-center top-[150px] group"
                         onClick={() => {
                           setAppear(true);
 

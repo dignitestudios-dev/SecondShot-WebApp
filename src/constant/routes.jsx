@@ -41,6 +41,7 @@ import SuccessScreen from "../components/subscriptions/SuccessScreen";
 import EditResume from "../pages/myresume/EditResume";
 import CareerFavDetail from "../pages/mylibrary/CareerFavDetail";
 import MatchedDetail from "../pages/successstory/MatchedDetail";
+import NewTranfer from "../pages/NewtrnaferSkill/NewTranfer";
 
 export const routes = [
   {
@@ -64,6 +65,11 @@ export const routes = [
     title: "MyTransferableSkills",
     url: "/transferablekills",
     page: <Applayout page={<NewTrasnferSkill />} />,
+  },
+  {
+    title: "MyTransferableSkills",
+    url: "/newtranfer",
+    page: <Applayout page={<NewTranfer />} />,
   },
   {
     title: "Careerrecommendation",
