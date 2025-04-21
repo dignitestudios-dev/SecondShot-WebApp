@@ -988,6 +988,7 @@ export const downloadSendCombinedPDF = async (
   elementId,
   filename = "profile-report.pdf",
   setDownloading,
+
   subscriptionpaid,
   profilename
 ) => {

@@ -18,16 +18,17 @@ import { ModalContext } from "../../context/GlobalContext";
 import ResumeDownloadModal from "../../components/myresume/ResumeDownloadModal";
 import AddSupportModal from "../../components/myresume/AddSupportModal";
 import axios from "../../axios";
-import { SuccessToast } from "../../components/toaster/ToasterContainer";
+import { ErrorToast, SuccessToast } from "../../components/toaster/ToasterContainer";
 import { AuthContext } from "../../context/AuthContext";
 import LockModal from "../../components/home/LockModal";
 import { useNavigate } from "react-router-dom";
-import { downloadCombinedPDF, downloadProfilePDF } from "../../lib/utils";
+import { downloadCombinedPDF, downloadProfilePDF, downloadSendCombinedPDF } from "../../lib/utils";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import AddTrasnferSkillPeople from "./AddTrasnferSkillPeople";
 import { FiLoader } from "react-icons/fi";
 import MessageModal from "./MessageModal";
+import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 
 const NewTrasnferSkill = () => {
   const navigate = useNavigate();
@@ -94,17 +95,15 @@ const NewTrasnferSkill = () => {
 
     setAppear(false);
   };
-  
+
   useEffect(() => {
     const isPaid = !!subscriptionpaid;
-  
-   
+
     setLeftSkill(isPaid);
     setRightSkill(isPaid);
     setBottomLeft(isPaid);
     setBottomright(isPaid);
   }, [subscriptionpaid]);
-  
 
   const handleIconClick = () => {
     setIsActive(!isActive);
@@ -187,33 +186,77 @@ const NewTrasnferSkill = () => {
       setLoading(false);
     }
   };
-  
+
   const handleDownloadCombined = (e, data, filename) => {
-    if (
-      !topSkill ||
-      !leftSkill ||
-      !rightSkill ||
-      !bottomLeft ||
-      !bottomright
-    ) {
-      
+    if (!topSkill || !leftSkill || !rightSkill || !bottomLeft || !bottomright) {
       setModalMessage("Please open all skills before downloading.");
       setMessageModal(true);
-      return; 
+      return;
     }
     e.preventDefault();
-    downloadCombinedPDF(data, "download-skills", filename, setDownloading,subscriptionpaid,profilename);
+    downloadCombinedPDF(
+      data,
+      "download-skills",
+      filename,
+      setDownloading,
+      subscriptionpaid,
+      profilename
+    );
   };
-
+  const [emailLoading,setEmailLoading] =useState(false)
+  const handleEmailSend = async (filename) => {
+    setEmailLoading(true);
+     try {
+      
+   
+         // Get the PDF blob from the modified function
+         const pdfBlob = await downloadSendCombinedPDF(
+           getSkill,
+           "download-skills",
+           filename,
+           setEmailLoading,
+           subscriptionpaid,
+           profilename
+         );
+   
+         if (!pdfBlob) {
+           console.error("Failed to generate PDF blob");
+           return;
+         }
+   
+         const formData = new FormData();
+         formData.append("transferablleSkills", pdfBlob, "resume.pdf");
+       
+   
+         const response = await axios.post(
+           "/api/user/send-skills",
+           formData
+         );
+   
+         if (response.status === 200) {
+           SuccessToast(response?.data?.message);
+           setShowPeopleModal(false);
+           gettransferableskill();
+         }
+       } catch (error) {
+        console.log(error,"errorerror")
+         ErrorToast(error?.response?.data?.message);
+       } finally {
+         const excludeElements = document.querySelectorAll(".pdf-exclude");
+         excludeElements.forEach((el) => (el.style.display = ""));
+         setEmailLoading(false);
+       }
+  };
+  
   const transferpdfElement = document.getElementById("download-skills");
 
   return (
     <>
       <div className="relative w-full overflow-hidden ">
-        <MessageModal 
-        showModal={messageModal}
-        setShowModal={setMessageModal}
-      handleClick={()=>setMessageModal(false)}
+        <MessageModal
+          showModal={messageModal}
+          setShowModal={setMessageModal}
+          handleClick={() => setMessageModal(false)}
         />
         <ResumeDownloadModal
           showModal={showModalDownload}
@@ -241,7 +284,12 @@ const NewTrasnferSkill = () => {
                   ? "Explore key skills that can help you transition into new career paths. On the Free Plan, you can only access the first node in the Transferable Map. Unlock all nodes by upgrading your plan."
                   : "  Here is a map of your transferable skills. Click on each circle to expand to learn about how you can use your soft skills in other areas of your life. Click the ribbon to save your favorite skills."}
               </p>
-              <h2 className="text-red-500 text-[16px] px-[130px] font-[500] mt-3 leading-[24px]">    {subscriptionpaid === false ? "The free version allows clicking only on the top circle."  : "" }</h2>
+              <h2 className="text-red-500 text-[16px] px-[130px] font-[500] mt-3 leading-[24px]">
+                {" "}
+                {subscriptionpaid === false
+                  ? "The free version allows clicking only on the top circle."
+                  : ""}
+              </h2>
             </div>
           </div>
           <div className="flex items-center justify-end max-w-screen-xl     ">
@@ -258,430 +306,432 @@ const NewTrasnferSkill = () => {
               />
             </div>
             {loading ? (
-  <div
-    className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-not-allowed"
-  >
-    <img
-      className="h-[20px] w-[20px] object-contain"
-      src={Downloadimg}
-          
-    />
-  </div>
-) : (
-  <div
-    onClick={(e) =>
-      handleDownloadCombined(e, getSkill, "profile-report.pdf")
-    }
-    className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-pointer"
-  >
-    {downloading ? (
-      <FiLoader className="animate-spin text-lg" />
-    ) : (
-      <img
-        className="h-[20px] w-[20px] object-contain"
-        src={Downloadimg}
-        title="Download"
-      />
-    )}
-  </div>
-)}
-
+              <div className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-not-allowed">
+                <img
+                  className="h-[20px] w-[20px] object-contain"
+                  src={Downloadimg}
+                />
+              </div>
+            ) : (
+              <div
+                onClick={(e) =>
+                  handleDownloadCombined(e, getSkill, "profile-report.pdf")
+                }
+                className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-pointer"
+              >
+                {downloading ? (
+                  <FiLoader className="animate-spin text-lg" />
+                ) : (
+                  <img
+                    className="h-[20px] w-[20px] object-contain"
+                    src={Downloadimg}
+                    title="Download"
+                  />
+                )}
+              </div>
+            )}
+            <div className="w-[189px] shadow-lg rounded-full">
+              <AuthSubmitBtn
+                text={"Email It To Yourself"}
+                handleSubmit={handleEmailSend}
+                loading={emailLoading}
+              />
+            </div>
           </div>
         </div>
         <div id="download-skills">
-     
-        <div
-              className={`  ${
-                topSkill ? "visible" : "invisible"
-              } flex    justify-center transition-all duration-1000 ease-in-out ${
-                topSkill
-                  ? "animationtransferaable"
-                  : "opacity-0 transform scale-95"
-              }`}
-            >
-              <div className="absolute  text-sm font-medium text-white text-center ">
-                {getSkill?.favorite_hobby1?.topics?.map((item, index) => (
-                  <div key={index}>
-                    {index === 0 && (
-                      <button
-                        onBlur={() => setAppear(false)}
-                        className="absolute cursor-pointer bg-transparent h-[70px] text-center rounded-full flex justify-center items-center top-[150px] group"
-                        onClick={() => {
-                          setAppear(true);
+          <div
+            className={`  ${
+              topSkill ? "visible" : "invisible"
+            } flex    justify-center transition-all duration-1000 ease-in-out ${
+              topSkill
+                ? "animationtransferaable"
+                : "opacity-0 transform scale-95"
+            }`}
+          >
+            <div className="absolute  text-sm font-medium text-white text-center ">
+              {getSkill?.favorite_hobby1?.topics?.map((item, index) => (
+                <div key={index}>
+                  {index === 0 && (
+                    <button
+                      onBlur={() => setAppear(false)}
+                      className="absolute cursor-pointer bg-transparent h-[70px] text-center rounded-full flex justify-center items-center top-[150px] group"
+                      onClick={() => {
+                        setAppear(true);
 
-                          setSelecetedIndex({ id: 0, name: item.title });
-                          setNoteData({
-                            favorite_hobby1: {
-                              favorite_hobbyId: getSkill?.favorite_hobby1?._id,
-                              descriptionId: item._id,
-                            },
-                          });
-                        }}
-                      >
-                        <p className="text-nowrap">
-                          {item.title.length > 8
-                            ? item.title.substring(0, 8) + "..."
-                            : item.title}
-                        </p>
-                        <div
-                          className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                        setSelecetedIndex({ id: 0, name: item.title });
+                        setNoteData({
+                          favorite_hobby1: {
+                            favorite_hobbyId: getSkill?.favorite_hobby1?._id,
+                            descriptionId: item._id,
+                          },
+                        });
+                      }}
+                    >
+                      <p className="text-nowrap">
+                        {item.title.length > 8
+                          ? item.title.substring(0, 8) + "..."
+                          : item.title}
+                      </p>
+                      <div
+                        className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                        >
-                          <div
-                            className="bg-[#56EC17] text-[#172E55]  text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
-                          >
-                            {item?.title}
-                          </div>
-                          <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                        </div>
-                        <span
-                          className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0 z-10 ${
-                            appear &&
-                            selectedIndex?.id === 0 &&
-                            selectedIndex?.name === item?.title
-                              ? "scale-100"
-                              : "scale-0"
-                          } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
-                        >
-                          <span className="w-[80%] h-full text-md font-medium text-[#172E55]">
-                            {item?.description}
-                          </span>
-
-                          <span className="w-[20%] h-full flex justify-end items-start">
-                            {loading ? (
-                              <span className="animate-pulse text-green-500">
-                                <BsFillBookmarkStarFill size={"27px"} />
-                              </span>
-                            ) : (
-                              <BsFillBookmarkStarFill
-                                size={"27px"}
-                                onClick={() =>
-                                  handleLike(noteData, item?.is_favorite)
-                                }
-                                className={`transition duration-200 cursor-pointer ${
-                                  item?.is_favorite
-                                    ? "text-green-500"
-                                    : "text-gray-500"
-                                }`}
-                                title={
-                                  item?.is_favorite
-                                    ? "Remove from Favorites"
-                                    : "Add to Favorites"
-                                }
-                              />
-                            )}
-                          </span>
-                        </span>
-                      </button>
-                    )}
-                    {index === 1 && (
-                      <button
-                        onBlur={() => setAppear(false)}
-                        className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center top-[60px] right-[200px] group"
-                        onClick={() => {
-                          setAppear(true);
-
-                          setSelecetedIndex({
-                            id: 1,
-                            name: item.title,
-                            description: item.description,
-                          });
-                          setNoteData({
-                            favorite_hobby1: {
-                              favorite_hobbyId: getSkill?.favorite_hobby1?._id,
-                              descriptionId: item._id,
-                            },
-                          });
-                        }}
                       >
-                        <p className="text-nowrap">
-                          {item?.title?.length > 8
-                            ? item?.title.substring(0, 8) + "..."
-                            : item?.title}
-                        </p>
                         <div
-                          className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                          className="bg-[#56EC17] text-[#172E55]  text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                        >
+                          {item?.title}
+                        </div>
+                        <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                      </div>
+                      <span
+                        className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0 z-10 ${
+                          appear &&
+                          selectedIndex?.id === 0 &&
+                          selectedIndex?.name === item?.title
+                            ? "scale-100"
+                            : "scale-0"
+                        } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
+                      >
+                        <span className="w-[80%] h-full text-md font-medium text-[#172E55]">
+                          {item?.description}
+                        </span>
+
+                        <span className="w-[20%] h-full flex justify-end items-start">
+                          {loading ? (
+                            <span className="animate-pulse text-green-500">
+                              <BsFillBookmarkStarFill size={"27px"} />
+                            </span>
+                          ) : (
+                            <BsFillBookmarkStarFill
+                              size={"27px"}
+                              onClick={() =>
+                                handleLike(noteData, item?.is_favorite)
+                              }
+                              className={`transition duration-200 cursor-pointer ${
+                                item?.is_favorite
+                                  ? "text-green-500"
+                                  : "text-gray-500"
+                              }`}
+                              title={
+                                item?.is_favorite
+                                  ? "Remove from Favorites"
+                                  : "Add to Favorites"
+                              }
+                            />
+                          )}
+                        </span>
+                      </span>
+                    </button>
+                  )}
+                  {index === 1 && (
+                    <button
+                      onBlur={() => setAppear(false)}
+                      className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center top-[60px] right-[200px] group"
+                      onClick={() => {
+                        setAppear(true);
+
+                        setSelecetedIndex({
+                          id: 1,
+                          name: item.title,
+                          description: item.description,
+                        });
+                        setNoteData({
+                          favorite_hobby1: {
+                            favorite_hobbyId: getSkill?.favorite_hobby1?._id,
+                            descriptionId: item._id,
+                          },
+                        });
+                      }}
+                    >
+                      <p className="text-nowrap">
+                        {item?.title?.length > 8
+                          ? item?.title.substring(0, 8) + "..."
+                          : item?.title}
+                      </p>
+                      <div
+                        className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                        >
-                          <div
-                            className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
-                          >
-                            {item?.title}
-                          </div>
-                          <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                        </div>
-                        <span
-                          className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0 z-10 ${
-                            appear &&
-                            selectedIndex?.id === 1 &&
-                            selectedIndex?.description === item?.description
-                              ? "scale-100"
-                              : "scale-0"
-                          } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
-                        >
-                          <span className="w-[80%] h-full text-md font-medium text-[#172E55]">
-                            {item?.description}
-                          </span>
-
-                          <span className="w-[20%] h-full flex justify-end items-start">
-                            {loading ? (
-                              <span className="animate-pulse text-green-500">
-                                <BsFillBookmarkStarFill size={"27px"} />
-                              </span>
-                            ) : (
-                              <BsFillBookmarkStarFill
-                                size={"27px"}
-                                onClick={() =>
-                                  handleLike(noteData, item?.is_favorite)
-                                }
-                                className={`transition duration-200 cursor-pointer ${
-                                  item?.is_favorite
-                                    ? "text-green-500"
-                                    : "text-gray-500"
-                                }`}
-                                title={
-                                  item?.is_favorite
-                                    ? "Remove from Favorites"
-                                    : "Add to Favorites"
-                                }
-                              />
-                            )}
-                          </span>
-                        </span>
-                      </button>
-                    )}
-                    {index === 2 && (
-                      <button
-                        onBlur={() => setAppear(false)}
-                        className="relative cursor-pointer top-[-20px] bg-transparent h-[90px] rounded-full flex justify-center items-center left-[190px] group"
-                        onClick={() => {
-                          setAppear(true);
-                          setSelecetedIndex({ id: 2, name: item.title });
-                          setNoteData({
-                            favorite_hobby1: {
-                              favorite_hobbyId: getSkill?.favorite_hobby1?._id,
-                              descriptionId: item._id,
-                            },
-                          });
-                          setNoteDescription(item?.description);
-                        }}
                       >
-                        <p className="text-nowrap">
-                          {item.title.length > 8
-                            ? item.title.substring(0, 8) + "..."
-                            : item.title}
-                        </p>
                         <div
-                          className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                          className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                        >
+                          {item?.title}
+                        </div>
+                        <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                      </div>
+                      <span
+                        className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0 z-10 ${
+                          appear &&
+                          selectedIndex?.id === 1 &&
+                          selectedIndex?.description === item?.description
+                            ? "scale-100"
+                            : "scale-0"
+                        } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
+                      >
+                        <span className="w-[80%] h-full text-md font-medium text-[#172E55]">
+                          {item?.description}
+                        </span>
+
+                        <span className="w-[20%] h-full flex justify-end items-start">
+                          {loading ? (
+                            <span className="animate-pulse text-green-500">
+                              <BsFillBookmarkStarFill size={"27px"} />
+                            </span>
+                          ) : (
+                            <BsFillBookmarkStarFill
+                              size={"27px"}
+                              onClick={() =>
+                                handleLike(noteData, item?.is_favorite)
+                              }
+                              className={`transition duration-200 cursor-pointer ${
+                                item?.is_favorite
+                                  ? "text-green-500"
+                                  : "text-gray-500"
+                              }`}
+                              title={
+                                item?.is_favorite
+                                  ? "Remove from Favorites"
+                                  : "Add to Favorites"
+                              }
+                            />
+                          )}
+                        </span>
+                      </span>
+                    </button>
+                  )}
+                  {index === 2 && (
+                    <button
+                      onBlur={() => setAppear(false)}
+                      className="relative cursor-pointer top-[-20px] bg-transparent h-[90px] rounded-full flex justify-center items-center left-[190px] group"
+                      onClick={() => {
+                        setAppear(true);
+                        setSelecetedIndex({ id: 2, name: item.title });
+                        setNoteData({
+                          favorite_hobby1: {
+                            favorite_hobbyId: getSkill?.favorite_hobby1?._id,
+                            descriptionId: item._id,
+                          },
+                        });
+                        setNoteDescription(item?.description);
+                      }}
+                    >
+                      <p className="text-nowrap">
+                        {item.title.length > 8
+                          ? item.title.substring(0, 8) + "..."
+                          : item.title}
+                      </p>
+                      <div
+                        className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                        >
-                          <div
-                            className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
-                          >
-                            {item?.title}
-                          </div>
-                          <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                        </div>
-                        <span
-                          className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0 z-10 ${
-                            appear &&
-                            selectedIndex?.id === 2 &&
-                            selectedIndex?.name === item?.title
-                              ? "scale-100"
-                              : "scale-0"
-                          } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
-                        >
-                          <span className="w-[80%] h-full text-md font-medium text-[#172E55]">
-                            {item?.description}
-                          </span>
-
-                          <span className="w-[20%] h-full flex justify-end items-start">
-                            {loading ? (
-                              <span className="animate-pulse text-green-500">
-                                <BsFillBookmarkStarFill size={"27px"} />
-                              </span>
-                            ) : (
-                              <BsFillBookmarkStarFill
-                                size={"27px"}
-                                onClick={() =>
-                                  handleLike(noteData, item?.is_favorite)
-                                }
-                                className={`transition duration-200 cursor-pointer ${
-                                  item?.is_favorite
-                                    ? "text-green-500"
-                                    : "text-gray-500"
-                                }`}
-                                title={
-                                  item?.is_favorite
-                                    ? "Remove from Favorites"
-                                    : "Add to Favorites"
-                                }
-                              />
-                            )}
-                          </span>
-                        </span>
-                      </button>
-                    )}
-                    {index === 3 && (
-                      <button
-                        onBlur={() => setAppear(false)}
-                        className="relative cursor-pointer bg-transparent h-[70px] top-[70px] flex justify-center items-center rounded-full left-[260px] group"
-                        onClick={() => {
-                          setAppear(true);
-
-                          setSelecetedIndex({ id: 3, name: item.title });
-                          setNoteData({
-                            favorite_hobby1: {
-                              favorite_hobbyId: getSkill?.favorite_hobby1?._id,
-                              descriptionId: item._id,
-                            },
-                          });
-                          setNoteDescription(item?.description);
-                        }}
                       >
-                        <p className="text-nowrap">
-                          {item.title.length > 8
-                            ? item.title.substring(0, 8) + "..."
-                            : item.title}
-                        </p>
                         <div
-                          className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                          className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                        >
+                          {item?.title}
+                        </div>
+                        <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                      </div>
+                      <span
+                        className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0 z-10 ${
+                          appear &&
+                          selectedIndex?.id === 2 &&
+                          selectedIndex?.name === item?.title
+                            ? "scale-100"
+                            : "scale-0"
+                        } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
+                      >
+                        <span className="w-[80%] h-full text-md font-medium text-[#172E55]">
+                          {item?.description}
+                        </span>
+
+                        <span className="w-[20%] h-full flex justify-end items-start">
+                          {loading ? (
+                            <span className="animate-pulse text-green-500">
+                              <BsFillBookmarkStarFill size={"27px"} />
+                            </span>
+                          ) : (
+                            <BsFillBookmarkStarFill
+                              size={"27px"}
+                              onClick={() =>
+                                handleLike(noteData, item?.is_favorite)
+                              }
+                              className={`transition duration-200 cursor-pointer ${
+                                item?.is_favorite
+                                  ? "text-green-500"
+                                  : "text-gray-500"
+                              }`}
+                              title={
+                                item?.is_favorite
+                                  ? "Remove from Favorites"
+                                  : "Add to Favorites"
+                              }
+                            />
+                          )}
+                        </span>
+                      </span>
+                    </button>
+                  )}
+                  {index === 3 && (
+                    <button
+                      onBlur={() => setAppear(false)}
+                      className="relative cursor-pointer bg-transparent h-[70px] top-[70px] flex justify-center items-center rounded-full left-[260px] group"
+                      onClick={() => {
+                        setAppear(true);
+
+                        setSelecetedIndex({ id: 3, name: item.title });
+                        setNoteData({
+                          favorite_hobby1: {
+                            favorite_hobbyId: getSkill?.favorite_hobby1?._id,
+                            descriptionId: item._id,
+                          },
+                        });
+                        setNoteDescription(item?.description);
+                      }}
+                    >
+                      <p className="text-nowrap">
+                        {item.title.length > 8
+                          ? item.title.substring(0, 8) + "..."
+                          : item.title}
+                      </p>
+                      <div
+                        className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                        >
-                          <div
-                            className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
-                          >
-                            {item?.title}
-                          </div>
-                          <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                        </div>
-                        <span
-                          className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0 z-10 ${
-                            appear &&
-                            selectedIndex?.id === 3 &&
-                            selectedIndex?.name === item?.title
-                              ? "scale-100"
-                              : "scale-0"
-                          } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
-                        >
-                          <span className="w-[80%] h-full text-md font-medium text-[#172E55]">
-                            {item?.description}
-                          </span>
-
-                          <span className="w-[20%] h-full flex justify-end items-start">
-                            {loading ? (
-                              <span className="animate-pulse text-green-500">
-                                <BsFillBookmarkStarFill size={"27px"} />
-                              </span>
-                            ) : (
-                              <BsFillBookmarkStarFill
-                                size={"27px"}
-                                onClick={() =>
-                                  handleLike(noteData, item?.is_favorite)
-                                }
-                                className={`transition duration-200 cursor-pointer ${
-                                  item?.is_favorite
-                                    ? "text-green-500"
-                                    : "text-gray-500"
-                                }`}
-                                title={
-                                  item?.is_favorite
-                                    ? "Remove from Favorites"
-                                    : "Add to Favorites"
-                                }
-                              />
-                            )}
-                          </span>
-                        </span>
-                      </button>
-                    )}
-                    {index === 4 && (
-                      <button
-                        onBlur={() => setAppear(false)}
-                        className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center top-[10px] right-[260px] group"
-                        onClick={() => {
-                          setAppear(true);
-                          setSelecetedIndex({ id: 4, name: item.title });
-                          setNoteData({
-                            favorite_hobby1: {
-                              favorite_hobbyId: getSkill?.favorite_hobby1?._id,
-                              descriptionId: item._id,
-                            },
-                          });
-                          setNoteDescription(item?.description);
-                        }}
                       >
-                        <p className="text-nowrap">
-                          {item.title.length > 8
-                            ? item.title.substring(0, 8) + "..."
-                            : item.title}
-                        </p>
                         <div
-                          className="absolute -top-6 -left-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                          className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      w-max max-w-[250px] text-center"
+                        >
+                          {item?.title}
+                        </div>
+                        <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                      </div>
+                      <span
+                        className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0 z-10 ${
+                          appear &&
+                          selectedIndex?.id === 3 &&
+                          selectedIndex?.name === item?.title
+                            ? "scale-100"
+                            : "scale-0"
+                        } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
+                      >
+                        <span className="w-[80%] h-full text-md font-medium text-[#172E55]">
+                          {item?.description}
+                        </span>
+
+                        <span className="w-[20%] h-full flex justify-end items-start">
+                          {loading ? (
+                            <span className="animate-pulse text-green-500">
+                              <BsFillBookmarkStarFill size={"27px"} />
+                            </span>
+                          ) : (
+                            <BsFillBookmarkStarFill
+                              size={"27px"}
+                              onClick={() =>
+                                handleLike(noteData, item?.is_favorite)
+                              }
+                              className={`transition duration-200 cursor-pointer ${
+                                item?.is_favorite
+                                  ? "text-green-500"
+                                  : "text-gray-500"
+                              }`}
+                              title={
+                                item?.is_favorite
+                                  ? "Remove from Favorites"
+                                  : "Add to Favorites"
+                              }
+                            />
+                          )}
+                        </span>
+                      </span>
+                    </button>
+                  )}
+                  {index === 4 && (
+                    <button
+                      onBlur={() => setAppear(false)}
+                      className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center top-[10px] right-[260px] group"
+                      onClick={() => {
+                        setAppear(true);
+                        setSelecetedIndex({ id: 4, name: item.title });
+                        setNoteData({
+                          favorite_hobby1: {
+                            favorite_hobbyId: getSkill?.favorite_hobby1?._id,
+                            descriptionId: item._id,
+                          },
+                        });
+                        setNoteDescription(item?.description);
+                      }}
+                    >
+                      <p className="text-nowrap">
+                        {item.title.length > 8
+                          ? item.title.substring(0, 8) + "..."
+                          : item.title}
+                      </p>
+                      <div
+                        className="absolute -top-6 -left-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
                     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
                     transition-all duration-300 ease-in-out"
-                        >
-                          <div
-                            className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
+                      >
+                        <div
+                          className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
                       w-max max-w-[250px] text-center"
-                          >
-                            {item?.title}
-                          </div>
-                          <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
-                        </div>
-                        <span
-                          className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0 z-10 ${
-                            appear &&
-                            selectedIndex?.id === 4 &&
-                            selectedIndex?.name === item?.title
-                              ? "scale-100"
-                              : "scale-0"
-                          } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
                         >
-                          <span className="w-[80%] h-full text-md font-medium text-[#172E55]">
-                            {item?.description}
-                          </span>
-
-                          <span className="w-[20%] h-full flex justify-end items-start">
-                            {loading ? (
-                              <span className="animate-pulse text-green-500">
-                                <BsFillBookmarkStarFill size={"27px"} />
-                              </span>
-                            ) : (
-                              <BsFillBookmarkStarFill
-                                size={"27px"}
-                                onClick={() =>
-                                  handleLike(noteData, item?.is_favorite)
-                                }
-                                className={`transition duration-200 cursor-pointer ${
-                                  item?.is_favorite
-                                    ? "text-green-500"
-                                    : "text-gray-500"
-                                }`}
-                                title={
-                                  item?.is_favorite
-                                    ? "Remove from Favorites"
-                                    : "Add to Favorites"
-                                }
-                              />
-                            )}
-                          </span>
+                          {item?.title}
+                        </div>
+                        <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                      </div>
+                      <span
+                        className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0 z-10 ${
+                          appear &&
+                          selectedIndex?.id === 4 &&
+                          selectedIndex?.name === item?.title
+                            ? "scale-100"
+                            : "scale-0"
+                        } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
+                      >
+                        <span className="w-[80%] h-full text-md font-medium text-[#172E55]">
+                          {item?.description}
                         </span>
-                      </button>
-                    )}
-                  </div>
-                ))}
-              </div>
-              <img src={skilltop} className="h-[474px]" alt="" />
+
+                        <span className="w-[20%] h-full flex justify-end items-start">
+                          {loading ? (
+                            <span className="animate-pulse text-green-500">
+                              <BsFillBookmarkStarFill size={"27px"} />
+                            </span>
+                          ) : (
+                            <BsFillBookmarkStarFill
+                              size={"27px"}
+                              onClick={() =>
+                                handleLike(noteData, item?.is_favorite)
+                              }
+                              className={`transition duration-200 cursor-pointer ${
+                                item?.is_favorite
+                                  ? "text-green-500"
+                                  : "text-gray-500"
+                              }`}
+                              title={
+                                item?.is_favorite
+                                  ? "Remove from Favorites"
+                                  : "Add to Favorites"
+                              }
+                            />
+                          )}
+                        </span>
+                      </span>
+                    </button>
+                  )}
+                </div>
+              ))}
             </div>
+            <img src={skilltop} className="h-[474px]" alt="" />
+          </div>
           <div className="flex justify-center relative -top-[119px] items-baseline flex-nowrap ">
             <div
               className={` ${
@@ -1280,14 +1330,13 @@ const NewTrasnferSkill = () => {
             </div>
 
             <div
-            
-            className={`${
-              rightSkill ? "visible" : "invisible"
-            } relative -top-[70px] -left-16 duration-1000 ease-in-out ${
-              rightSkill
-                ? "animationtransferaable"
-                : "opacity-0 transform scale-95"
-            }`}
+              className={`${
+                rightSkill ? "visible" : "invisible"
+              } relative -top-[70px] -left-16 duration-1000 ease-in-out ${
+                rightSkill
+                  ? "animationtransferaable"
+                  : "opacity-0 transform scale-95"
+              }`}
             >
               <div className="absolute cursor-pointer text-sm font-medium text-white text-center">
                 {getSkill?.favorite_middle_school_subject?.topics.map(
@@ -2273,7 +2322,7 @@ const NewTrasnferSkill = () => {
                             className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0 z-10 ${
                               appear &&
                               (selectedIndex?.id === 2) &
-                              (selectedIndex?.name === item?.title)
+                                (selectedIndex?.name === item?.title)
                                 ? "scale-100"
                                 : "scale-0"
                             } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
@@ -2476,9 +2525,11 @@ const NewTrasnferSkill = () => {
         />
         <LockModal
           isOpen={lock}
-          handleClick={() => navigate("/subscriptionplans", {
-            state: { cardShow: true },
-          })}
+          handleClick={() =>
+            navigate("/subscriptionplans", {
+              state: { cardShow: true },
+            })
+          }
           onClose={() => setLock(false)}
           text={
             "Subscribe to unlock the full map and access all of the modules."

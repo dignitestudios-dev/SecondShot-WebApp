@@ -396,18 +396,16 @@ checked:before:justify-center checked:before:items-center"
                     Support Person
                     <span className="text-[#56EC17]">(0{index + 1})</span>
                   </h2>
-                  <div className="mt-4 grid grid-cols-3 gap-x-4">
+                  <div className="mt-4 grid grid-cols-2 gap-x-4">
                     <p className="text-sm break-words  border-r border-gray-300 pr-4 grid grid-cols-1">
                       <strong>Full Name:</strong>
                       <span> {support?.full_name} </span>
                     </p>
-                    <p className="text-sm break-words border-r border-gray-300 pr-4">
-                      <strong>Email Address:</strong> {support?.email_address}
+                    <p clasclassName="text-sm break-words  border-r border-gray-300 pr-4 grid grid-cols-1">
+                      <strong>Email Address:</strong>   
+                      <span> {support?.email_address} </span>
                     </p>
-                    <p className="text-sm grid grid-cols-1">
-                      <strong>Phone Number:</strong>
-                      <span> +1{phoneFormater(support?.phone_number)}</span>
-                    </p>
+                    
                   </div>
                 </div>
               ))}
@@ -415,6 +413,10 @@ checked:before:justify-center checked:before:items-center"
           </div>
         </>
       )}
+      {/* <p className="text-sm grid grid-cols-1">
+                      <strong>Phone Number:</strong>
+                      <span> +1{phoneFormater(support?.phone_number)}</span>
+                    </p> */}
       <GoalCreatedModal
         showModal={goalDetailModal}
         handleClick={() => setGoalDetailModal(false)}

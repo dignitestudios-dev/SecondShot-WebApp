@@ -2,7 +2,7 @@ import React from "react";
 import { PiPencilLine } from "react-icons/pi";
 
 const SupportPerson = ({ formData }) => {
-  console.log(formData,"formData")
+
   const phoneFormater = (input) => {
     if (!input) return "";
 
@@ -34,8 +34,8 @@ const SupportPerson = ({ formData }) => {
               <PiPencilLine size={24} />
             </button> */}
           </div>
-          <div className="mt-4 grid grid-cols-3 gap-x-2">
-            <p className="border-r border-gray-300 pr-4 grid grid-cols-1">
+          <div className="mt-4 grid grid-cols-2 gap-x-2">
+            <p className="border-r  pr-4 grid grid-cols-1">
               <span className="text-[16px] font-[600] leading-[21.6px] ">
                 Full Name:
               </span>
@@ -43,20 +43,20 @@ const SupportPerson = ({ formData }) => {
                 {formData?.fullname}
               </span>
             </p>
-            <p className="text-sm border-r break-words border-gray-300 pr-1">
+            <p assName="  pr-4 grid grid-cols-1">
               <span className="text-[16px] font-[600] leading-[21.6px] ">
                 Email Address:
               </span>{" "}
               {formData?.email}
             </p>
-            <p className="text-sm grid grid-cols-1">
+            {/* <p className="text-sm grid grid-cols-1">
               <span className="text-[16px] font-[600] leading-[21.6px] ">
                 Phone Number:
               </span>
               <span className="text-[14px] leading-[18.9px] font-[400] ">
               +1{phoneFormater(formData?.phone)}   
               </span>
-            </p>
+            </p> */}
           </div>
         </div>
       ) : (
@@ -76,7 +76,7 @@ const SupportPerson = ({ formData }) => {
               <PiPencilLine size={24} />
             </button> */}
           </div>
-          <div className="mt-4 grid grid-cols-3 gap-x-2">
+          <div className="mt-4 grid grid-cols-2 gap-x-2">
             <p className="border-r border-gray-300 pr-4 grid grid-cols-1">
               <span className="text-[16px]  font-[600] leading-[21.6px] ">
                 Full Name:
@@ -85,20 +85,20 @@ const SupportPerson = ({ formData }) => {
                 {formData?.fullname_2}
               </span>
             </p>
-            <p className="text-sm border-r break-words border-gray-300 pr-1">
+            <p className="  pr-4 grid grid-cols-1"  >
               <span className="text-[16px]  font-[600] leading-[21.6px] ">
                 Email Address:
               </span>{" "}
               {formData?.email_2}
             </p>
-            <p className="text-sm grid grid-cols-1">
+            {/* <p className="text-sm grid grid-cols-1">
               <span className="text-[16px] font-[600] leading-[21.6px] ">
                 Phone Number:
               </span>
               <span className="text-[14px] leading-[18.9px] font-[400] ">
               +1{phoneFormater(formData?.phone_2)}   
               </span>
-            </p>
+            </p> */}
           </div>
         </div>
       ) : (

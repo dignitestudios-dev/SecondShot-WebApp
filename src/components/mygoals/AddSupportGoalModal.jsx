@@ -92,11 +92,11 @@ const AddSupportGoalModal = ({
           errorMessage = "Enter a valid email.";
         }
         break;
-      case "phone":
-        if (!value) errorMessage = "Phone number is required.";
-        else if (!/^\d{10}$/.test(value))
-          errorMessage = "Enter a valid phone number.";
-        break;
+      // case "phone":
+      //   if (!value) errorMessage = "Phone number is required.";
+      //   else if (!/^\d{10}$/.test(value))
+      //     errorMessage = "Enter a valid phone number.";
+      //   break;
 
       case "fullname_2":
         if (secondSupportActive && !value)
@@ -112,12 +112,12 @@ const AddSupportGoalModal = ({
           errorMessage = "Email addresses cannot be the same.";
         }
         break;
-      case "phone_2":
-        if (secondSupportActive && !value)
-          errorMessage = "Phone number  is required.";
-        else if (secondSupportActive && !/^\d{10}$/.test(value))
-          errorMessage = "Enter a valid phone number .";
-        break;
+      // case "phone_2":
+      //   if (secondSupportActive && !value)
+      //     errorMessage = "Phone number  is required.";
+      //   else if (secondSupportActive && !/^\d{10}$/.test(value))
+      //     errorMessage = "Enter a valid phone number .";
+      //   break;
       default:
         break;
     }
@@ -168,10 +168,10 @@ const AddSupportGoalModal = ({
       ...prevFormData,
       fullname: inputData.fullname,
       email: inputData.email,
-      phone: inputData.phone,
+      phone: '222222222',
       fullname_2: inputData.fullname_2,
       email_2: inputData.email_2,
-      phone_2: inputData.phone_2,
+      phone_2: '222222222',
     }));
 
     if (!isUpdate) {
@@ -185,12 +185,12 @@ const AddSupportGoalModal = ({
         {
           full_name: inputData.fullname,
           email_address: inputData.email,
-          phone_number: inputData.phone,
+          phone_number:"111223312312",
         },
         secondSupportActive && {
           full_name: inputData.fullname_2,
           email_address: inputData.email_2,
-          phone_number: inputData.phone_2,
+          phone_number: "111223312312",
         },
       ].filter(Boolean),
     };
@@ -285,7 +285,7 @@ const AddSupportGoalModal = ({
                   <p className="text-red-500 text-sm mx-2">{errors.email}</p>
                 )}
 
-                <AuthInput
+                {/* <AuthInput
                   id={"phone"}
                   name={"phone"}
                   value={phoneFormater(inputData.phone || "")}
@@ -299,7 +299,7 @@ const AddSupportGoalModal = ({
                 />
                 {errors.phone && (
                   <p className="text-red-500 text-sm mx-2">{errors.phone}</p>
-                )}
+                )} */}
               </div>
 
               <hr className="my-6 bg-slate-300" />
@@ -346,7 +346,7 @@ const AddSupportGoalModal = ({
                     </p>
                   )}
 
-                  <AuthInput
+                  {/* <AuthInput
                     id={"phone_2"}
                     name={"phone_2"}
                     value={phoneFormater(inputData.phone_2 || "")}
@@ -362,7 +362,7 @@ const AddSupportGoalModal = ({
                     <p className="text-red-500 text-sm mx-2">
                       {errors.phone_2}
                     </p>
-                  )}
+                  )} */}
                 </>
               </div>
 

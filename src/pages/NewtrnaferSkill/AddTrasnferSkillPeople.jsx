@@ -28,7 +28,6 @@ const AddTrasnferSkillPeople = ({
   transferId,
   InputDataSupport,
   gettransferableskill,
-  
 }) => {
   const supportData = InputDataSupport;
 
@@ -39,10 +38,10 @@ const AddTrasnferSkillPeople = ({
   const [inputData, setInputData] = useState({
     fullname: formData.fullname || supportData[0]?.full_name || "",
     email: formData.email || supportData[0]?.email_address || "",
-    phone: formData.phone || supportData[0]?.phone_number || "",
+    phone: "",
     fullname_2: formData.fullname_2 || supportData[1]?.full_name || "",
     email_2: formData.email_2 || supportData[1]?.email_address || "",
-    phone_2: formData.phone_2 || supportData[1]?.phone_number || "",
+    phone_2: "",
   });
 
   const [disableFullname1, setDisableFullname1] = useState(false);
@@ -59,16 +58,14 @@ const AddTrasnferSkillPeople = ({
           formData.fullname || supportData.support_people[0]?.full_name || "",
         email:
           formData.email || supportData.support_people[0]?.email_address || "",
-        phone:
-          formData.phone || supportData.support_people[0]?.phone_number || "",
+        phone: "Default",
         fullname_2:
           formData.fullname_2 || supportData.support_people[1]?.full_name || "",
         email_2:
           formData.email_2 ||
           supportData.support_people[1]?.email_address ||
           "",
-        phone_2:
-          formData.phone_2 || supportData.support_people[1]?.phone_number || "",
+        phone_2: "Default",
       });
     }
   }, [supportData]);
@@ -117,11 +114,8 @@ const AddTrasnferSkillPeople = ({
           errorMessage = "Enter a valid email.";
         }
         break;
-      case "phone":
-        if (!value) errorMessage = "Phone number is required.";
-        else if (!/^\d{10}$/.test(value))
-          errorMessage = "Enter a valid phone number.";
-        break;
+     
+      
 
       case "fullname_2":
         if (secondSupportActive && !value)
@@ -137,12 +131,8 @@ const AddTrasnferSkillPeople = ({
           errorMessage = "Email addresses cannot be the same.";
         }
         break;
-      case "phone_2":
-        if (secondSupportActive && !value)
-          errorMessage = "Phone number  is required.";
-        else if (secondSupportActive && !/^\d{10}$/.test(value))
-          errorMessage = "Enter a valid phone number .";
-        break;
+
+     
       default:
         break;
     }
@@ -194,7 +184,7 @@ const AddTrasnferSkillPeople = ({
       {
         full_name: inputData.fullname,
         email_address: inputData.email,
-        phone_number: inputData.phone,
+        phone_number: "Default",
       },
     ];
 
@@ -202,7 +192,7 @@ const AddTrasnferSkillPeople = ({
       supportPeople.push({
         full_name: inputData.fullname_2,
         email_address: inputData.email_2,
-        phone_number: inputData.phone_2,
+        phone_number: "Default",
       });
     }
 
@@ -319,7 +309,7 @@ const AddTrasnferSkillPeople = ({
                 {errors.email && (
                   <p className="text-red-500 text-sm mx-2">{errors.email}</p>
                 )}
-                <div className="w-full ">
+                {/* <div className="w-full ">
                   <AuthInput
                     id={"phone"}
                     name={"phone"}
@@ -335,7 +325,7 @@ const AddTrasnferSkillPeople = ({
                   {errors.phone && (
                     <p className="text-red-500 text-sm mx-2">{errors.phone}</p>
                   )}
-                </div>
+                </div> */}
               </div>
 
               <hr className="my-6 bg-slate-300" />
@@ -375,7 +365,7 @@ const AddTrasnferSkillPeople = ({
                 {errors.email_2 && (
                   <p className="text-red-500 text-sm mx-2">{errors.email_2}</p>
                 )}
-                <div className="w-full ">
+                {/* <div className="w-full ">
                   <AuthInput
                     id={"phone_2"}
                     name={"phone_2"}
@@ -393,7 +383,7 @@ const AddTrasnferSkillPeople = ({
                       {errors.phone_2}
                     </p>
                   )}{" "}
-                </div>
+                </div> */}
                 {/* <AuthInput
                     id={"phone_2"}
                     name={"phone_2"}
