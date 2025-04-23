@@ -107,6 +107,11 @@ import  Comunityser from '../assets/newlogos/BrandingLogo.png'
 import  Mockicon from '../assets/newlogos/MockInterviewLogo.png'
 import  Playstore from '../assets/playstore.png'
 import  Globalweb from '../assets/globalweb.png'
+import  Rookieaward from '../assets/rookieaward.png'
+import  PlaybookAward from '../assets/playbookAward.png'
+import  GameTime from '../assets/gameTime.png'
+import  ChampionAward from '../assets/championAward.png'
+import  FameAward from '../assets/fameAward.png'
 export {
   Comunityservice,
   MockInterview,
@@ -216,5 +221,10 @@ export {
   sendicon,
   bell_icon,
   Playstore,
-  Globalweb
+  Globalweb,
+  Rookieaward,
+  PlaybookAward,
+  GameTime,
+  ChampionAward,
+  FameAward,
 };

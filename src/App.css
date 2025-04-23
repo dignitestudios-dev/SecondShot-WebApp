@@ -1,12 +1,14 @@
 :root {
-  --swiper-navigation-size: 20px !important; 
+  --swiper-navigation-size: 20px !important;
 }
+
 .auth-bg {
   background: url("./assets/auth_bg.png");
   background-repeat: none;
   background-size: cover;
   background-position: center;
 }
+
 .bg-global-img {
   background: url("./assets/bg-colors.png");
   background-repeat: none;
@@ -14,6 +16,7 @@
   background-position: center;
   height: 100%;
 }
+
 .terms h2 {
   font-size: 32px !important;
   font-weight: 500;
@@ -72,9 +75,11 @@
   color: white !important;
 
 }
+
 .react-datepicker__day .react-datepicker__day--008 .react-datepicker__day--keyboard-selected {
   color: white !important;
 }
+
 .react-datepicker__day--weekend {
   color: red !important;
 }
@@ -83,9 +88,11 @@
   background-color: white !important;
   border-bottom: none !important;
 }
+
 .react-datepicker__navigation--previous {
   left: -10px !important;
 }
+
 h2.react-datepicker__current-month {
   text-align: center !important;
   font-size: 20px !important;
@@ -93,6 +100,7 @@ h2.react-datepicker__current-month {
   position: relative !important;
   top: -4px !important;
 }
+
 .react-datepicker__year-read-view--down-arrow,
 .react-datepicker__month-read-view--down-arrow,
 .react-datepicker__month-year-read-view--down-arrow,
@@ -107,21 +115,26 @@ h2.react-datepicker__current-month {
   top: 6px;
   width: 9px;
 }
+
 .react-datepicker__navigation--next {
   left: 210px !important;
- 
+
   color: black !important;
   right: 0px;
 }
+
 .react-datepicker__day-name {
   color: #3c3c4399 !important;
 }
+
 .react-datepicker__day-name {
   color: #8b8b8b;
 }
+
 .imageBox:hover .hoverImg {
   display: block;
 }
+
 .imageBox {
   position: relative;
   float: left;
@@ -143,6 +156,7 @@ h2.react-datepicker__current-month {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -151,6 +165,7 @@ h2.react-datepicker__current-month {
 .animationtransferaable {
   animation: fadeIn 0.5s ease-in-out;
 }
+
 .flip-card {
   perspective: 1000px;
 }
@@ -182,12 +197,14 @@ h2.react-datepicker__current-month {
     top: 28px;
     left: -214px;
   }
+
   .nodecarrer {
     position: absolute;
     top: 54px;
     right: 0px;
   }
 }
+
 @media screen and (max-width: 768px) {
   .mobileScreenhide {
     display: none;
@@ -205,4 +222,36 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+@keyframes fadeInSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInSlide 0.4s ease-out;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-pop {
+  animation: pop 0.3s ease-out;
 }

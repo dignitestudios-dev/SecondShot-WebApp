@@ -6,6 +6,7 @@ import WelcomeLibraryModal from "../../components/mylibrary/WelcomeLibraryModal"
 import { ModalContext } from "../../context/GlobalContext";
 import axios from "../../axios";
 import CareerCards from "./CareerCards";
+import AwardForm from "../../components/awardForm/AwardForm";
 function MyLibrary() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
@@ -17,6 +18,7 @@ function MyLibrary() {
   const [filteredGoals, setFilteredGoals] = useState([]);
   const [filteredskills, setFilteredskills] = useState([]);
   const [selected, setSelected] = useState("career");
+  const [formOpen, setFormOpen] = useState(false);
   const handleViewChange = (newView) => {
     setView(newView);
     setSelected(newView);
@@ -168,6 +170,14 @@ function MyLibrary() {
               Transferable Skills
             </button>
           </div>
+          <div>
+            <button
+              onClick={() => setFormOpen(true)}
+              className="text-[18px] font-[600] "
+            >
+              + IDP Form
+            </button>
+          </div>
         </div>
       </div>
       <div className=" ">
@@ -185,6 +195,7 @@ function MyLibrary() {
           />
         )}
       </div>
+      <AwardForm showModal={formOpen} setFormOpen={setFormOpen} />
     </div>
   );
 }
