@@ -4,6 +4,7 @@ import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import StepFour from "./StepFour";
 import StepFive from "./StepFive";
+import { RxCross2 } from "react-icons/rx";
 
 const Steps = ({ showModal,setFormOpen }) => {
   const [step, setStep] = useState(1);
@@ -38,6 +39,9 @@ const Steps = ({ showModal,setFormOpen }) => {
     showModal && (
       <div className="fixed top-0 left-0 w-screen h-screen z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-50 backdrop-blur-sm">
         <div className="bg-white rounded-xl shadow-lg p-6 w-[90%] max-w-4xl relative">
+            <div onClick={()=>setFormOpen(false)} className="flex justify-end cursor-pointer">
+            <RxCross2 />
+            </div>
           <div className="flex items-center justify-between w-full px-4 md:px-10">
             {sections.map((label, index) => (
               <div
