@@ -158,7 +158,7 @@ const Login = () => {
               ) : null}
               <p
                 onClick={() => navigation("/forgot")}
-                className="text-[12px] text-[#181818] font-[500] text-right cursor-pointer leading-[16.2px] "
+                className="text-[12px] relative z-10 text-[#181818] font-[500] text-right cursor-pointer leading-[16.2px] "
               >
                 Forgot Password
               </p>
@@ -182,7 +182,7 @@ const Login = () => {
 
           <img
             src={BgAuth}
-            className="absolute w-[300px] h-[383px] bottom-0 right-0 rounded-br-[20px]"
+            className="absolute w-[300px] h-[383px] bottom-0 right-0 z-0 rounded-br-[20px]"
             alt="Auth Background"
           />
         </div>

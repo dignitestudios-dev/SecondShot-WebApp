@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { PlaybookAward } from "../../assets/export";
-import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowBack, IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import CongratsModal from "./CongratsModal";
 import { useFormik } from "formik";
 import { stepTwoAward } from "../../Schema/awardSchema";
 
+const SKILL_OPTIONS = [
+  "Communication",
+  "Leadership",
+  "Problem Solving",
+  "Teamwork",
+  "Other",
+];
 const StepTwo = ({
   nextStep,
   prevStep,
@@ -13,20 +20,64 @@ const StepTwo = ({
   imageFaded,
   modalOpen,
   setModalOpen,
+  setSelectedCareer,
+  selectedCareer,
 }) => {
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
-    useFormik({
-      initialValues: {
-        carreroption: "",
-      },
-      validationSchema: stepTwoAward,
-      validateOnChange: true,
-      validateOnBlur: true,
-      onSubmit: async (values, action) => {
-        console.log("Selected carreroption:", values.carreroption);
-        setModalOpen(true);
-      },
-    });
+  const [errorSkills, setErroSkills] = useState("");
+  const [showOtherInput, setShowOtherInput] = useState(false);
+  const [otherSkill, setOtherSkill] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [skillLimitError, setSkillLimitError] = useState("");
+
+  const { handleSubmit, errors, touched, handleBlur } = useFormik({
+    initialValues: selectedCareer,
+    validationSchema: stepTwoAward,
+    onSubmit: async () => {
+      if (selectedCareer.length === 0) {
+        setErroSkills("Careers required");
+        return;
+      }
+
+      setModalOpen(true);
+    },
+  });
+
+  const handleSkillSelect = (skill) => {
+    setShowOtherInput(false);
+    if (selectedCareer.length >= 5) {
+      setSkillLimitError("You can only select up to 5 skills.");
+
+      return;
+    }
+
+    if (skill === "Other") {
+      setShowOtherInput(true);
+      setSkillLimitError("");
+    } else if (!selectedCareer.includes(skill)) {
+      setSelectedCareer([...selectedCareer, skill]);
+      setSkillLimitError("");
+    }
+  };
+
+  const handleRemoveSkill = (skill) => {
+    setSelectedCareer(selectedCareer.filter((s) => s !== skill));
+    setSkillLimitError("");
+  };
+
+  const handleOtherSave = () => {
+    if (selectedCareer.length >= 5) {
+      setSkillLimitError("You can only select up to 5 skills.");
+      return;
+    }
+
+    if (otherSkill && !selectedCareer.includes(otherSkill)) {
+      setSelectedCareer([...selectedCareer, otherSkill]);
+      setOtherSkill("");
+      setShowOtherInput(false);
+      setSkillLimitError("");
+    }
+  };
+
   return (
     <div>
       <div className="mt-10  px-4">
@@ -45,27 +96,82 @@ const StepTwo = ({
         <p className="text-[16px] text-center text-[#00000080] mb-2">
           Exploring Career Choices
         </p>
+
         <form onSubmit={handleSubmit}>
-          <label className="text-[14px] font-[500] text-[#181818]   ">
+          <label className="text-[14px] font-[500]  text-[#181818]">
             Research and narrow down 1-2 potential career paths that align with
             strengths and passions.
           </label>
-          <select
-            name="carreroption"
-            value={values.carreroption}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            className="w-full border rounded-[12px] p-2 h-[49px] mb-1 mt-2 text-sm"
+
+          <div
+            className="relative w-full border rounded-[12px] p-2  mb-1 mt-2 text-sm"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           >
-            <option value="">Select career path</option>
-            <option value="communication">Communication</option>
-            <option value="leadership">Leadership</option>
-            <option value="problemSolving">Problem Solving</option>
-            <option value="teamwork">Teamwork</option>
-          </select>
-          {errors.carreroption && touched.carreroption && (
-            <p className="text-red-500 text-sm mb-2">{errors.carreroption}</p>
+            <div className="flex justify-between mt-[2px] items-center">
+              <span className="flex flex-wrap gap-2">
+                {selectedCareer.length > 0
+                  ? selectedCareer.map((skill, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center gap-1 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"
+                      >
+                        {skill}
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveSkill(skill)}
+                          className="text-xs text-red-500"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ))
+                  : "Select career path"}
+              </span>
+              <span className="text-gray-500">
+                {isDropdownOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+              </span>
+            </div>
+
+            {isDropdownOpen && (
+              <div className="absolute top-[50px] left-0 right-0 bg-white shadow-md rounded-[12px] z-10">
+                {SKILL_OPTIONS?.map((skill) => (
+                  <div
+                    key={skill}
+                    className="p-2 hover:bg-blue-100 cursor-pointer"
+                    onClick={() => handleSkillSelect(skill)}
+                  >
+                    {skill}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          {skillLimitError && (
+            <p className="text-red-500 text-sm mt-1">{skillLimitError}</p>
           )}
+          {errorSkills && selectedCareer.length === 0 && (
+            <p className="text-red-500 text-sm mb-2">{errorSkills}</p>
+          )}
+
+          {showOtherInput && (
+            <div className="mt-2 flex gap-2">
+              <input
+                type="text"
+                placeholder="Enter career path"
+                className="flex-1 border p-2 rounded-[8px] text-sm"
+                value={otherSkill}
+                onChange={(e) => setOtherSkill(e.target.value)}
+              />
+              <button
+                type="button"
+                onClick={handleOtherSave}
+                className="bg-[#012C57] text-white px-4 rounded-[8px] text-sm"
+              >
+                Save
+              </button>
+            </div>
+          )}
+
           <div className="mt-3">
             <AuthSubmitBtn text="Submit" type="submit" />
           </div>

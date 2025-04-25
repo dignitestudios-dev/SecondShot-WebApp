@@ -6,19 +6,20 @@ import StepFour from "./StepFour";
 import StepFive from "./StepFive";
 import { RxCross2 } from "react-icons/rx";
 
-const Steps = ({ showModal,setFormOpen }) => {
+const Steps = ({ showModal, setFormOpen }) => {
   const [step, setStep] = useState(1);
   const [imageFaded, setImageFaded] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedSkills, setSelectedSkills] = useState([]); // lifted state
+  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [selectedCareer, setSelectedCareer] = useState([]);
   const handleModalClose = () => {
-    setImageFaded(true); // trigger fade-in animation
+    setImageFaded(true);
     setModalOpen(false);
 
     setTimeout(() => {
       nextStep();
-      setImageFaded(false); // reset for future step
-    }, 1000); // delay before moving to next step
+      setImageFaded(false);
+    }, 1000);
   };
 
   const nextStep = () => {
@@ -39,9 +40,12 @@ const Steps = ({ showModal,setFormOpen }) => {
     showModal && (
       <div className="fixed top-0 left-0 w-screen h-screen z-50 flex items-center justify-center bg-[#FCFCFC] bg-opacity-50 backdrop-blur-sm">
         <div className="bg-white rounded-xl shadow-lg p-6 w-[90%] max-w-4xl relative">
-            <div onClick={()=>setFormOpen(false)} className="flex justify-end cursor-pointer">
+          <div
+            onClick={() => setFormOpen(false)}
+            className="flex justify-end cursor-pointer"
+          >
             <RxCross2 />
-            </div>
+          </div>
           <div className="flex items-center justify-between w-full px-4 md:px-10">
             {sections.map((label, index) => (
               <div
@@ -112,6 +116,8 @@ const Steps = ({ showModal,setFormOpen }) => {
                       imageFaded={imageFaded}
                       modalOpen={modalOpen}
                       setModalOpen={setModalOpen}
+                      selectedCareer={selectedCareer}
+                      setSelectedCareer={setSelectedCareer}
                     />
                   </div>
                 )}

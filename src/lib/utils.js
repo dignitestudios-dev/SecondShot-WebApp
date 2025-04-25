@@ -353,8 +353,10 @@ export const generateCombinedPDF = async (
   elementId,
   filename = "profile-report.pdf",
   subscriptionpaid,
-  profilename
+  profilename,
+  setIsSnapshot
 ) => {
+  setIsSnapshot(true)
   try {
     // Validate inputs (existing code)
     if (!userData) {
@@ -422,25 +424,29 @@ export const generateCombinedPDF = async (
       );
 
       // Center the main title
-   // Set up coordinates
-const titleY = logoY + logoHeight + 1;
-const preparedForY = titleY + 6;
-const transferableY = preparedForY + 5; // Give some space below "Prepared For"
+      // Set up coordinates
+      const titleY = logoY + logoHeight + 1;
+      const preparedForY = titleY + 6;
+      const transferableY = preparedForY + 5; // Give some space below "Prepared For"
 
-// Title
-pdf.setFont("helvetica", "bold");
-pdf.setFontSize(10);
-pdf.text("Second Shot Career Prep Toolbox Report", pdfWidth / 2, titleY, { align: "center" });
+      // Title
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(10);
+      pdf.text("Second Shot Career Prep Toolbox Report", pdfWidth / 2, titleY, {
+        align: "center",
+      });
 
-// Prepared For
-pdf.setFont("helvetica", "normal");
-pdf.setFontSize(10);
-pdf.text(`Prepared For : ${profilename}`, pdfWidth / 2, preparedForY, { align: "center" });
+      // Prepared For
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(10);
+      pdf.text(`Prepared For : ${profilename}`, pdfWidth / 2, preparedForY, {
+        align: "center",
+      });
 
-// ✅ Transferable Skills Report (LEFT aligned)
-pdf.setFont("helvetica", "bold");
-pdf.setFontSize(12);
-pdf.text("Transferable Skills Report", leftMargin, transferableY);
+      // ✅ Transferable Skills Report (LEFT aligned)
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(12);
+      pdf.text("Transferable Skills Report", leftMargin, transferableY);
 
       // Add subheading also aligned to the left, positioned below the heading
       pdf.setFont("helvetica", "normal");
@@ -478,6 +484,8 @@ pdf.text("Transferable Skills Report", leftMargin, transferableY);
       document
         .querySelectorAll(".pdf-exclude")
         .forEach((el) => (el.style.display = ""));
+        setIsSnapshot(false)
+      // Reset the snapshot state
     }
   } catch (error) {
     console.error("Error generating combined PDF:", error);
@@ -588,7 +596,6 @@ function addStructuredContent(doc, userData, subscriptionpaid) {
 
   // Add Sport section if athlete data exists
   if (
-    subscriptionpaid &&
     userData?.is_athlete &&
     userData?.athlete &&
     userData?.athlete?.primary_sport
@@ -715,7 +722,7 @@ function addStructuredContent(doc, userData, subscriptionpaid) {
   }
 
   // Add Hobby 1 section
-  if (userData.favorite_hobby1) {
+  if (subscriptionpaid && userData.favorite_hobby1) {
     const hobbyName = userData.favorite_hobby1.hobbie_name || "Unnamed Hobby";
     yPosition = addSectionTitle(`Favorite Hobby: ${hobbyName}`, yPosition);
 
@@ -822,9 +829,11 @@ export const downloadCombinedPDF = async (
   filename = "profile-report.pdf",
   setDownloading,
   subscriptionpaid,
-  profilename
+  profilename,
+  setIsSnapshot
 ) => {
   setDownloading(true);
+  setIsSnapshot(true); // Set the snapshot state to true
   try {
     const userData = normalizeUserData(data);
     if (!userData) {
@@ -837,12 +846,14 @@ export const downloadCombinedPDF = async (
       elementId,
       filename,
       subscriptionpaid,
-      profilename
+      profilename,
+      setIsSnapshot
     );
   } catch (error) {
     console.error("Error generating combined PDF:", error);
   } finally {
     setDownloading(false);
+    setIsSnapshot(false); // Reset the snapshot state
   }
 };
 
@@ -920,25 +931,29 @@ export const sendCombinedPDF = async (
       );
 
       // Center the main title
-   // Set up coordinates
-const titleY = logoY + logoHeight + 1;
-const preparedForY = titleY + 6;
-const transferableY = preparedForY + 5; // Give some space below "Prepared For"
+      // Set up coordinates
+      const titleY = logoY + logoHeight + 1;
+      const preparedForY = titleY + 6;
+      const transferableY = preparedForY + 5; // Give some space below "Prepared For"
 
-// Title
-pdf.setFont("helvetica", "bold");
-pdf.setFontSize(10);
-pdf.text("Second Shot Career Prep Toolbox Report", pdfWidth / 2, titleY, { align: "center" });
+      // Title
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(10);
+      pdf.text("Second Shot Career Prep Toolbox Report", pdfWidth / 2, titleY, {
+        align: "center",
+      });
 
-// Prepared For
-pdf.setFont("helvetica", "normal");
-pdf.setFontSize(10);
-pdf.text(`Prepared For : ${profilename}`, pdfWidth / 2, preparedForY, { align: "center" });
+      // Prepared For
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(10);
+      pdf.text(`Prepared For : ${profilename}`, pdfWidth / 2, preparedForY, {
+        align: "center",
+      });
 
-// ✅ Transferable Skills Report (LEFT aligned)
-pdf.setFont("helvetica", "bold");
-pdf.setFontSize(12);
-pdf.text("Transferable Skills Report", leftMargin, transferableY);
+      // ✅ Transferable Skills Report (LEFT aligned)
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(12);
+      pdf.text("Transferable Skills Report", leftMargin, transferableY);
 
       // Add subheading also aligned to the left, positioned below the heading
       pdf.setFont("helvetica", "normal");

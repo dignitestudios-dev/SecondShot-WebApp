@@ -18,25 +18,35 @@ import { ModalContext } from "../../context/GlobalContext";
 import ResumeDownloadModal from "../../components/myresume/ResumeDownloadModal";
 import AddSupportModal from "../../components/myresume/AddSupportModal";
 import axios from "../../axios";
-import { ErrorToast, SuccessToast } from "../../components/toaster/ToasterContainer";
+import {
+  ErrorToast,
+  SuccessToast,
+} from "../../components/toaster/ToasterContainer";
 import { AuthContext } from "../../context/AuthContext";
 import LockModal from "../../components/home/LockModal";
 import { useNavigate } from "react-router-dom";
-import { downloadCombinedPDF, downloadProfilePDF, downloadSendCombinedPDF } from "../../lib/utils";
+import {
+  downloadCombinedPDF,
+  downloadProfilePDF,
+  downloadSendCombinedPDF,
+} from "../../lib/utils";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import AddTrasnferSkillPeople from "./AddTrasnferSkillPeople";
 import { FiLoader } from "react-icons/fi";
 import MessageModal from "./MessageModal";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
+import NewTranfer from "./NewTranfer";
 
-const NewTrasnferSkill = () => {
+const NewTrasnferSkill = ({ id }) => {
+  console.log(id, "firstid");
   const navigate = useNavigate();
   const [topSkill, setTopSkill] = useState(true);
   const [leftSkill, setLeftSkill] = useState(true);
   const [rightSkill, setRightSkill] = useState(true);
   const [bottomLeft, setBottomLeft] = useState(true);
   const [bottomright, setBottomright] = useState(true);
+  
   const { isFirst, setIsFirst } = useContext(ModalContext);
   const [isActive, setIsActive] = useState(false);
   const [appear, setAppear] = useState(false);
@@ -148,6 +158,7 @@ const NewTrasnferSkill = () => {
   const [noteData, setNoteData] = useState({});
   const [notedescription, setNoteDescription] = useState("");
   const [downloading, setDownloading] = useState(false);
+  const [isSnapshot, setIsSnapshot] = useState(true);
   const gettransferableskill = async () => {
     setLoading(true);
     try {
@@ -200,59 +211,124 @@ const NewTrasnferSkill = () => {
       filename,
       setDownloading,
       subscriptionpaid,
-      profilename
+      profilename,
+      setIsSnapshot
     );
   };
-  const [emailLoading,setEmailLoading] =useState(false)
+  const [emailLoading, setEmailLoading] = useState(false);
+
   const handleEmailSend = async (filename) => {
     setEmailLoading(true);
-     try {
-      
-   
-         // Get the PDF blob from the modified function
-         const pdfBlob = await downloadSendCombinedPDF(
-           getSkill,
-           "download-skills",
-           filename,
-           setEmailLoading,
-           subscriptionpaid,
-           profilename
-         );
-   
-         if (!pdfBlob) {
-           console.error("Failed to generate PDF blob");
-           return;
-         }
-   
-         const formData = new FormData();
-         formData.append("transferablleSkills", pdfBlob, "resume.pdf");
-       
-   
-         const response = await axios.post(
-           "/api/user/send-skills",
-           formData
-         );
-   
-         if (response.status === 200) {
-           SuccessToast(response?.data?.message);
-           setShowPeopleModal(false);
-           gettransferableskill();
-         }
-       } catch (error) {
-        console.log(error,"errorerror")
-         ErrorToast(error?.response?.data?.message);
-       } finally {
-         const excludeElements = document.querySelectorAll(".pdf-exclude");
-         excludeElements.forEach((el) => (el.style.display = ""));
-         setEmailLoading(false);
-       }
+    try {
+      // Get the PDF blob from the modified function
+      const pdfBlob = await downloadSendCombinedPDF(
+        getSkill,
+        "download-skills",
+        filename,
+        setEmailLoading,
+        subscriptionpaid,
+        profilename
+      );
+
+      if (!pdfBlob) {
+        console.error("Failed to generate PDF blob");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("transferablleSkills", pdfBlob, "skills.pdf");
+
+      const response = await axios.post("/api/user/send-skills", formData);
+
+      if (response.status === 200) {
+        SuccessToast(response?.data?.message);
+        setShowPeopleModal(false);
+        gettransferableskill();
+      }
+    } catch (error) {
+      console.log(error, "errorerror");
+      ErrorToast(error?.response?.data?.message);
+    } finally {
+      const excludeElements = document.querySelectorAll(".pdf-exclude");
+      excludeElements.forEach((el) => (el.style.display = ""));
+      setEmailLoading(false);
+    }
   };
-  
+
   const transferpdfElement = document.getElementById("download-skills");
 
   return (
     <>
-      <div className="relative w-full overflow-hidden ">
+      <div>
+        <div className="flex justify-between items-center max-w-screen-xl mx-auto mt-11 px-2 pe-11">
+       <div className="w-[450px]">
+        <h1 className="text-3xl  font-semibold text-gray-800 mb-4">
+          My Transferable Skills
+        </h1>
+        <p className="text-[16px]   leading-[24px] text-gray-800 ">
+          {subscriptionpaid === false
+            ? "Explore key skills that can help you transition into new career paths. On the Free Plan, you can only access the first node in the Transferable Map. Unlock all nodes by upgrading your plan."
+            : "  Here is a map of your transferable skills. Click on each circle to expand to learn about how you can use your soft skills in other areas of your life. Click the ribbon to save your favorite skills."}
+        </p>
+        <h2 className="text-red-500 text-[16px]  font-[500] mt-3 leading-[24px]">
+          {" "}
+          {subscriptionpaid === false
+            ? "The free version allows clicking only on the top circle."
+            : ""}
+        </h2>
+      </div>
+      </div>
+        <div className="flex gap-2 justify-end items-center max-w-screen-xl mx-auto mt-11 px-11 pe-11    ">
+          <div
+            onClick={() =>
+              handleShowPeopleModal(() => setShowPeopleModal(true))
+            }
+            className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-pointer  "
+          >
+            <img
+              className="h-[20px] w-[20px] object-contain "
+              src={Shareimg}
+              title="Share"
+            />
+          </div>
+          {loading ? (
+            <div className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-not-allowed">
+              <img
+                className="h-[20px] w-[20px] object-contain"
+                src={Downloadimg}
+              />
+            </div>
+          ) : (
+            <div
+              onClick={(e) =>
+                handleDownloadCombined(e, getSkill, "profile-report.pdf")
+              }
+              className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-pointer"
+            >
+              {downloading ? (
+                <FiLoader className="animate-spin text-lg" />
+              ) : (
+                <img
+                  className="h-[20px] w-[20px] object-contain"
+                  src={Downloadimg}
+                  title="Download"
+                />
+              )}
+            </div>
+          )}
+          <div className="w-[189px] shadow-lg rounded-full">
+            <AuthSubmitBtn
+              text={"Email It To Yourself"}
+              handleSubmit={handleEmailSend}
+              loading={emailLoading}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-center items-center ">
+        <NewTranfer />
+      </div>
+      <div className="relative w-full overflow-hidden  ">
         <MessageModal
           showModal={messageModal}
           setShowModal={setMessageModal}
@@ -273,76 +349,13 @@ const NewTrasnferSkill = () => {
           setShowPeopleModal={setShowPeopleModal}
           profilename={profilename}
         />
-        <div>
-          <div className="flex mt-4 justify-between items-start  ">
-            <div>
-              <h1 className="text-3xl px-[130px] font-semibold text-gray-800 mb-4">
-                My Transferable Skills
-              </h1>
-              <p className="text-[16px] px-[130px] leading-[24px] text-gray-800 w-[650px]">
-                {subscriptionpaid === false
-                  ? "Explore key skills that can help you transition into new career paths. On the Free Plan, you can only access the first node in the Transferable Map. Unlock all nodes by upgrading your plan."
-                  : "  Here is a map of your transferable skills. Click on each circle to expand to learn about how you can use your soft skills in other areas of your life. Click the ribbon to save your favorite skills."}
-              </p>
-              <h2 className="text-red-500 text-[16px] px-[130px] font-[500] mt-3 leading-[24px]">
-                {" "}
-                {subscriptionpaid === false
-                  ? "The free version allows clicking only on the top circle."
-                  : ""}
-              </h2>
-            </div>
-          </div>
-          <div className="flex items-center justify-end max-w-screen-xl     ">
-            <div
-              onClick={() =>
-                handleShowPeopleModal(() => setShowPeopleModal(true))
-              }
-              className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-pointer  "
-            >
-              <img
-                className="h-[20px] w-[20px] object-contain "
-                src={Shareimg}
-                title="Share"
-              />
-            </div>
-            {loading ? (
-              <div className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-not-allowed">
-                <img
-                  className="h-[20px] w-[20px] object-contain"
-                  src={Downloadimg}
-                />
-              </div>
-            ) : (
-              <div
-                onClick={(e) =>
-                  handleDownloadCombined(e, getSkill, "profile-report.pdf")
-                }
-                className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-pointer"
-              >
-                {downloading ? (
-                  <FiLoader className="animate-spin text-lg" />
-                ) : (
-                  <img
-                    className="h-[20px] w-[20px] object-contain"
-                    src={Downloadimg}
-                    title="Download"
-                  />
-                )}
-              </div>
-            )}
-            <div className="w-[189px] shadow-lg rounded-full">
-              <AuthSubmitBtn
-                text={"Email It To Yourself"}
-                handleSubmit={handleEmailSend}
-                loading={emailLoading}
-              />
-            </div>
-          </div>
-        </div>
-        <div id="download-skills">
+
+        <div id="download-skills" className={" absolute -z-30"}>
           <div
             className={`  ${
-              topSkill ? "visible" : "invisible"
+              getSkill?.athlete?.sport_position?.topics && topSkill
+                ? "visible"
+                : "invisible"
             } flex    justify-center transition-all duration-1000 ease-in-out ${
               topSkill
                 ? "animationtransferaable"
@@ -350,7 +363,7 @@ const NewTrasnferSkill = () => {
             }`}
           >
             <div className="absolute  text-sm font-medium text-white text-center ">
-              {getSkill?.favorite_hobby1?.topics?.map((item, index) => (
+              {getSkill?.athlete?.sport_position?.topics?.map((item, index) => (
                 <div key={index}>
                   {index === 0 && (
                     <button
@@ -361,9 +374,9 @@ const NewTrasnferSkill = () => {
 
                         setSelecetedIndex({ id: 0, name: item.title });
                         setNoteData({
-                          favorite_hobby1: {
-                            favorite_hobbyId: getSkill?.favorite_hobby1?._id,
-                            descriptionId: item._id,
+                          athlete: {
+                            athleteId: getSkill?.athlete?.sport_position?._id,
+                            descriptionId: item?._id,
                           },
                         });
                       }}
@@ -375,12 +388,12 @@ const NewTrasnferSkill = () => {
                       </p>
                       <div
                         className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                       >
                         <div
                           className="bg-[#56EC17] text-[#172E55]  text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                         >
                           {item?.title}
                         </div>
@@ -439,9 +452,9 @@ const NewTrasnferSkill = () => {
                           description: item.description,
                         });
                         setNoteData({
-                          favorite_hobby1: {
-                            favorite_hobbyId: getSkill?.favorite_hobby1?._id,
-                            descriptionId: item._id,
+                          athlete: {
+                            athleteId: getSkill?.athlete?.sport_position?._id,
+                            descriptionId: item?._id,
                           },
                         });
                       }}
@@ -453,12 +466,12 @@ const NewTrasnferSkill = () => {
                       </p>
                       <div
                         className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                       >
                         <div
                           className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                         >
                           {item?.title}
                         </div>
@@ -512,9 +525,9 @@ const NewTrasnferSkill = () => {
                         setAppear(true);
                         setSelecetedIndex({ id: 2, name: item.title });
                         setNoteData({
-                          favorite_hobby1: {
-                            favorite_hobbyId: getSkill?.favorite_hobby1?._id,
-                            descriptionId: item._id,
+                          athlete: {
+                            athleteId: getSkill?.athlete?.sport_position?._id,
+                            descriptionId: item?._id,
                           },
                         });
                         setNoteDescription(item?.description);
@@ -527,12 +540,12 @@ const NewTrasnferSkill = () => {
                       </p>
                       <div
                         className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                       >
                         <div
                           className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                         >
                           {item?.title}
                         </div>
@@ -587,9 +600,9 @@ const NewTrasnferSkill = () => {
 
                         setSelecetedIndex({ id: 3, name: item.title });
                         setNoteData({
-                          favorite_hobby1: {
-                            favorite_hobbyId: getSkill?.favorite_hobby1?._id,
-                            descriptionId: item._id,
+                          athlete: {
+                            athleteId: getSkill?.athlete?.sport_position?._id,
+                            descriptionId: item?._id,
                           },
                         });
                         setNoteDescription(item?.description);
@@ -602,12 +615,12 @@ const NewTrasnferSkill = () => {
                       </p>
                       <div
                         className="absolute -top-6 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                       >
                         <div
                           className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                         >
                           {item?.title}
                         </div>
@@ -661,9 +674,9 @@ const NewTrasnferSkill = () => {
                         setAppear(true);
                         setSelecetedIndex({ id: 4, name: item.title });
                         setNoteData({
-                          favorite_hobby1: {
-                            favorite_hobbyId: getSkill?.favorite_hobby1?._id,
-                            descriptionId: item._id,
+                          athlete: {
+                            athleteId: getSkill?.athlete?.sport_position?._id,
+                            descriptionId: item?._id,
                           },
                         });
                         setNoteDescription(item?.description);
@@ -676,12 +689,12 @@ const NewTrasnferSkill = () => {
                       </p>
                       <div
                         className="absolute -top-6 -left-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                       >
                         <div
                           className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                         >
                           {item?.title}
                         </div>
@@ -743,7 +756,7 @@ const NewTrasnferSkill = () => {
               }`}
             >
               <div className="absolute text-sm font-medium text-white">
-                {getSkill?.favorite_hobby2?.topics.map((item, index) => (
+                {getSkill?.favorite_hobby2?.topics?.map((item, index) => (
                   <div key={index}>
                     {index === 0 && (
                       <button
@@ -770,12 +783,12 @@ const NewTrasnferSkill = () => {
                         {/* Tooltip */}
                         <div
                           className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                         >
                           <div
                             className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                           >
                             {item?.title}
                           </div>
@@ -845,12 +858,12 @@ const NewTrasnferSkill = () => {
                         </p>
                         <div
                           className="absolute -top-14 -left-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                         >
                           <div
                             className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                           >
                             {item?.title}
                           </div>
@@ -918,12 +931,12 @@ const NewTrasnferSkill = () => {
                         </p>
                         <div
                           className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                         >
                           <div
                             className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                           >
                             {item?.title}
                           </div>
@@ -991,12 +1004,12 @@ const NewTrasnferSkill = () => {
                         </p>
                         <div
                           className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                         >
                           <div
                             className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                           >
                             {item?.title}
                           </div>
@@ -1064,12 +1077,12 @@ const NewTrasnferSkill = () => {
                         </p>
                         <div
                           className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                         >
                           <div
                             className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                           >
                             {item?.title}
                           </div>
@@ -1123,31 +1136,38 @@ const NewTrasnferSkill = () => {
             <div className={`flex justify-center  items-center`}>
               <div className="absolute ">
                 <div
-                  className="relative text-[16px] leading-[16px] w-[20px] flex justify-center text-[#172E55] font-[600] bottom-[242px] cursor-pointer left-[13px] text-center z-10 group"
+                  className="relative right-[12px]  text-[16px] leading-[16px] w-[20px] flex justify-center text-[#172E55] font-[600] bottom-[242px] cursor-pointer  text-center z-10 group"
                   onClick={handleTopSKill}
                 >
-                  <span>
+                  <span className=" w-full text-center">
                     {loading ? (
-                      <div className="w-16 h-16 rounded-[100px]    absolute -bottom-8 -left-[22px] bg-green-700 animate-pulse flex justify-center items-center "></div>
-                    ) : getSkill?.favorite_hobby1?.hobbie_name?.length > 7 ? (
+                      <div className="w-16 h-16 rounded-[100px]    absolute -bottom-8 left-0 bg-green-700 animate-pulse flex justify-center items-center "></div>
+                    ) : getSkill?.athlete?.sport_position?.position_name
+                        ?.length > 7 ? (
                       <div className="text-nowrap">
-                        {getSkill.favorite_hobby1.hobbie_name.substring(0, 7) +
-                          "..."}
+                        {getSkill?.athlete?.sport_position?.position_name?.substring(
+                          0,
+                          7
+                        ) + "..."}
                       </div>
                     ) : (
-                      getSkill?.favorite_hobby1?.hobbie_name
+                      <span className="absolute left-[14px] -top-2">
+                        {getSkill?.athlete?.sport_position?.position_name ||
+                          "Null"}
+                      </span>
                     )}
                   </span>
+
                   <div
-                    className="absolute -top-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center 
-            opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 
-            transition-all duration-300 ease-in-out "
+                    className="absolute -top-16 bottom-full mb-2 hidden group-hover:flex flex-col items-center 
+          opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 
+          transition-all duration-300 ease-in-out "
                   >
                     <div
                       className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3 
-            w-max max-w-[250px] relative z-10 text-center"
+          w-max max-w-[250px] relative z-10 text-center"
                     >
-                      {getSkill?.favorite_hobby1?.hobbie_name}
+                      {getSkill?.athlete?.sport_position?.position_name}
                     </div>
                     <div className="w-3 h-3 bg-[#172E55] relative z-0 -top-2 rotate-45 -mb-10"></div>
                   </div>
@@ -1185,8 +1205,8 @@ const NewTrasnferSkill = () => {
               <div className="absolute">
                 <div
                   className="relative text-[16px] w-[80px] h-[80px] bg-transparent rounded-full 
-               items-center leading-[16px] flex justify-center text-[#172E55] font-[600] 
-               z-10 cursor-pointer top-[-47px] right-[285px] text-center group"
+             items-center leading-[16px] flex justify-center text-[#172E55] font-[600] 
+             z-10 cursor-pointer top-[-47px] right-[285px] text-center group"
                   onClick={handleLeftSKill}
                 >
                   <span className="w-[0px]">
@@ -1204,12 +1224,12 @@ const NewTrasnferSkill = () => {
 
                   <div
                     className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center 
-                 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 
-                 transition-all duration-300 ease-in-out"
+               opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 
+               transition-all duration-300 ease-in-out"
                   >
                     <div
                       className="bg-[#172E55]   text-white text-md font-medium rounded-lg shadow-lg py-2 px-3 
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                     >
                       {getSkill?.favorite_hobby2?.hobbie_name}
                     </div>
@@ -1220,52 +1240,8 @@ const NewTrasnferSkill = () => {
 
               <div className="absolute">
                 <div
-                  className="relative text-[16px] leading-[16px] w-[80px] h-[80px] bg-transparent items-center flex justify-center text-[#172E55] font-[600] cursor-pointer z-10 top-[-47px] left-[231px] text-center group"
+                  className="relative text-[16px] leading-[16px] w-[80px] h-[80px] bg-transparent items-center flex justify-center text-[#172E55] font-[600] cursor-pointer z-10 top-[-47px] left-[225px] text-center group"
                   onClick={handleRightSKill}
-                >
-                  <span className="w-[20px]">
-                    {loading ? (
-                      <div className="w-16 h-16 rounded-[100px] absolute bottom-2 -right-[10px] bg-green-700 animate-pulse flex justify-center items-center "></div>
-                    ) : getSkill?.favorite_middle_school_subject?.subject_name
-                        ?.length > 7 ? (
-                      <div className="text-nowrap">
-                        {getSkill?.favorite_middle_school_subject?.subject_name.substring(
-                          0,
-                          7
-                        ) + "..."}
-                      </div>
-                    ) : (
-                      getSkill?.favorite_middle_school_subject?.subject_name
-                    )}
-                  </span>
-                  {/* Tooltip */}
-                  <div
-                    className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center
-        opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-        transition-all duration-300 ease-in-out"
-                  >
-                    <div
-                      className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
-          w-max max-w-[250px] text-center"
-                    >
-                      {getSkill?.favorite_middle_school_subject?.subject_name}
-                    </div>
-                    <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="absolute  ">
-                <div
-                  className={`relative text-[16px] leading-[16px] w-[80px] h-[80px] bg-transparent 
-              items-center flex justify-center text-[#172E55] font-[600] 
-              cursor-pointer z-10 top-[305px] text-center  group
-              ${
-                !getSkill?.military?.rank?.rank_name
-                  ? "right-[185px]"
-                  : "right-[200px]"
-              }`}
-                  onClick={handlebottomleft}
                 >
                   <span className=" w-[20px]">
                     {loading ? (
@@ -1276,19 +1252,64 @@ const NewTrasnferSkill = () => {
                           "..."}
                       </div>
                     ) : (
-                      getSkill?.military?.rank?.rank_name || "Null"
+                      <span className="absolute -right-[1px] top-8">
+                        {getSkill?.military?.rank?.rank_name || "Null"}
+                      </span>
+                    )}
+                  </span>
+                  {/* Tooltip */}
+                  <div
+                    className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center
+      opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+      transition-all duration-300 ease-in-out"
+                  >
+                    <div
+                      className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+        w-max max-w-[250px] text-center"
+                    >
+                      {getSkill?.military?.rank?.rank_name}
+                    </div>
+                    <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="absolute  ">
+                <div
+                  className={`relative text-[16px] leading-[16px] w-[80px] h-[80px] bg-transparent 
+            items-center flex justify-center text-[#172E55] font-[600] 
+            cursor-pointer z-10 top-[305px] text-center  group
+            ${
+              !getSkill?.favorite_hobby1?.hobbie_name
+                ? "right-[185px]"
+                : "right-[200px]"
+            }`}
+                  onClick={handlebottomleft}
+                >
+                  <span className=" w-[20px]">
+                    {loading ? (
+                      <div className="w-16 h-16 rounded-[100px] absolute bottom-2 -right-[13px] bg-green-700 animate-pulse flex "></div>
+                    ) : getSkill?.favorite_hobby1?.hobbie_name?.length > 7 ? (
+                      <div className="text-nowrap">
+                        {getSkill?.favorite_hobby1?.hobbie_name.substring(
+                          0,
+                          7
+                        ) + "..."}
+                      </div>
+                    ) : (
+                      getSkill?.favorite_hobby1?.hobbie_name || "Null"
                     )}
                   </span>
                   <div
                     className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center
-        opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-        transition-all duration-300 ease-in-out"
+      opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+      transition-all duration-300 ease-in-out"
                   >
                     <div
                       className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
-          w-max max-w-[250px] text-center"
+        w-max max-w-[250px] text-center"
                     >
-                      {getSkill?.military?.rank?.rank_name}
+                      {getSkill?.favorite_hobby1?.hobbie_name}
                     </div>
                     <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
                   </div>
@@ -1300,28 +1321,29 @@ const NewTrasnferSkill = () => {
                   <span className=" w-full text-center">
                     {loading ? (
                       <div className="w-16 h-16 rounded-[100px] absolute bottom-2 left-[18px] bg-green-700 animate-pulse flex justify-center items-center "></div>
-                    ) : getSkill?.athlete?.sport_position?.position_name
+                    ) : getSkill?.favorite_middle_school_subject?.subject_name
                         ?.length > 7 ? (
                       <div className="text-nowrap">
-                        {getSkill?.athlete?.sport_position?.position_name?.substring(
+                        {getSkill?.favorite_middle_school_subject?.subject_name?.substring(
                           0,
                           7
                         ) + "..."}
                       </div>
                     ) : (
-                      getSkill?.athlete?.sport_position?.position_name || "Null"
+                      getSkill?.favorite_middle_school_subject?.subject_name ||
+                      "Null"
                     )}
                   </span>
                   <div
                     className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center
-        opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-        transition-all duration-300 ease-in-out"
+      opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+      transition-all duration-300 ease-in-out"
                   >
                     <div
                       className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
-          w-max max-w-[250px] text-center"
+        w-max max-w-[250px] text-center"
                     >
-                      {getSkill?.athlete?.sport_position?.position_name}
+                      {getSkill?.favorite_middle_school_subject?.subject_name}
                     </div>
                     <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
                   </div>
@@ -1331,7 +1353,9 @@ const NewTrasnferSkill = () => {
 
             <div
               className={`${
-                rightSkill ? "visible" : "invisible"
+                getSkill?.military?.rank?.topics && rightSkill
+                  ? "visible"
+                  : "invisible"
               } relative -top-[70px] -left-16 duration-1000 ease-in-out ${
                 rightSkill
                   ? "animationtransferaable"
@@ -1339,390 +1363,383 @@ const NewTrasnferSkill = () => {
               }`}
             >
               <div className="absolute cursor-pointer text-sm font-medium text-white text-center">
-                {getSkill?.favorite_middle_school_subject?.topics.map(
-                  (item, index) => (
-                    <div key={item._id}>
-                      {index === 0 && (
-                        <button
-                          onBlur={() => setAppear(false)}
-                          className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center top-[90px] -right-[100px] group"
-                          onClick={() => {
-                            setAppear(true);
-                            setSelecetedIndex({ id: 0, name: item.title });
-                            setNoteData({
-                              favorite_middle_school_subject: {
-                                favoriteSubjectId:
-                                  getSkill?.favorite_middle_school_subject?._id,
-                                descriptionId: item._id,
-                              },
-                            });
-                            setNoteDescription(item?.description);
-                          }}
+                {getSkill?.military?.rank?.topics?.map((item, index) => (
+                  <div key={item._id}>
+                    {index === 0 && (
+                      <button
+                        onBlur={() => setAppear(false)}
+                        className="relative cursor-pointer bg-transparent h-[70px] rounded-full flex justify-center items-center top-[90px] -right-[100px] group"
+                        onClick={() => {
+                          setAppear(true);
+                          setSelecetedIndex({ id: 0, name: item.title });
+                          setNoteData({
+                            rank: {
+                              rankId: getSkill?.military?.rank?._id,
+                              descriptionId: item._id,
+                            },
+                          });
+                          setNoteDescription(item?.description);
+                        }}
+                      >
+                        <p className="text-nowrap">
+                          {item.title.length > 8
+                            ? item.title.substring(0, 8) + "..."
+                            : item.title}
+                        </p>
+                        <div
+                          className="absolute -top-5 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                         >
-                          <p className="text-nowrap">
-                            {item.title.length > 8
-                              ? item.title.substring(0, 8) + "..."
-                              : item.title}
-                          </p>
                           <div
-                            className="absolute -top-5 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                            className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    w-max max-w-[250px] text-center"
                           >
-                            <div
-                              className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
-                            >
-                              {item?.title}
-                            </div>
-                            <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                            {item?.title}
                           </div>
-                          <span
-                            className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0  z-10 ${
-                              appear &&
-                              selectedIndex?.id === 0 &&
-                              selectedIndex?.name === item?.title
-                                ? "scale-100"
-                                : "scale-0"
-                            } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
-                          >
-                            <span className="w-[20%] h-full flex  items-start">
-                              {loading ? (
-                                <span className="animate-pulse text-green-500">
-                                  <BsFillBookmarkStarFill size={"27px"} />
-                                </span>
-                              ) : (
-                                <BsFillBookmarkStarFill
-                                  size={"27px"}
-                                  onClick={() =>
-                                    handleLike(noteData, item?.is_favorite)
-                                  }
-                                  className={`transition duration-200 cursor-pointer ${
-                                    item?.is_favorite
-                                      ? "text-green-500"
-                                      : "text-gray-500"
-                                  }`}
-                                  title={
-                                    item?.is_favorite
-                                      ? "Remove from Favorites"
-                                      : "Add to Favorites"
-                                  }
-                                />
-                              )}
-                            </span>
-                            <span className=" h-full text-md font-medium text-[#172E55]">
-                              {item?.description}
-                            </span>
+                          <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                        </div>
+                        <span
+                          className={`w-[388px]  flex transition-all duration-500 absolute top-20 right-0  z-10 ${
+                            appear &&
+                            selectedIndex?.id === 0 &&
+                            selectedIndex?.name === item?.title
+                              ? "scale-100"
+                              : "scale-0"
+                          } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
+                        >
+                          <span className="w-[20%] h-full flex  items-start">
+                            {loading ? (
+                              <span className="animate-pulse text-green-500">
+                                <BsFillBookmarkStarFill size={"27px"} />
+                              </span>
+                            ) : (
+                              <BsFillBookmarkStarFill
+                                size={"27px"}
+                                onClick={() =>
+                                  handleLike(noteData, item?.is_favorite)
+                                }
+                                className={`transition duration-200 cursor-pointer ${
+                                  item?.is_favorite
+                                    ? "text-green-500"
+                                    : "text-gray-500"
+                                }`}
+                                title={
+                                  item?.is_favorite
+                                    ? "Remove from Favorites"
+                                    : "Add to Favorites"
+                                }
+                              />
+                            )}
                           </span>
-                        </button>
-                      )}
+                          <span className=" h-full text-md font-medium text-[#172E55]">
+                            {item?.description}
+                          </span>
+                        </span>
+                      </button>
+                    )}
 
-                      {index === 1 && (
-                        <button
-                          onBlur={() => setAppear(false)}
-                          className="relative  cursor-pointer top-[60px] left-[285px] w-[50px] group"
-                          onClick={() => {
-                            setAppear(true);
-                            setSelecetedIndex({
-                              id: 1,
-                              name: item.title,
-                              description: item.description,
-                            });
-                            setNoteData({
-                              favorite_middle_school_subject: {
-                                favoriteSubjectId:
-                                  getSkill?.favorite_middle_school_subject?._id,
-                                descriptionId: item._id,
-                              },
-                            });
-                            setNoteDescription(item?.description);
-                          }}
+                    {index === 1 && (
+                      <button
+                        onBlur={() => setAppear(false)}
+                        className="relative  cursor-pointer top-[60px] left-[285px] w-[50px] group"
+                        onClick={() => {
+                          setAppear(true);
+                          setSelecetedIndex({
+                            id: 1,
+                            name: item.title,
+                            description: item.description,
+                          });
+                          setNoteData({
+                            rank: {
+                              rankId: getSkill?.military?.rank?._id,
+                              descriptionId: item._id,
+                            },
+                          });
+                          setNoteDescription(item?.description);
+                        }}
+                      >
+                        <p className="text-nowrap">
+                          {item.title.length > 8
+                            ? item.title.substring(0, 8) + "..."
+                            : item.title}
+                        </p>
+                        <div
+                          className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                         >
-                          <p className="text-nowrap">
-                            {item.title.length > 8
-                              ? item.title.substring(0, 8) + "..."
-                              : item.title}
-                          </p>
                           <div
-                            className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                            className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    w-max max-w-[250px] text-center"
                           >
-                            <div
-                              className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
-                            >
-                              {item?.title}
-                            </div>
-                            <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                            {item?.title}
                           </div>
-                          <span
-                            className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0  z-10 ${
-                              appear &&
-                              selectedIndex?.id === 1 &&
-                              selectedIndex?.description === item?.description
-                                ? "scale-100"
-                                : "scale-0"
-                            } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
-                          >
-                            <span className="w-[20%] h-full flex  items-start">
-                              {loading ? (
-                                <span className="animate-pulse text-green-500">
-                                  <BsFillBookmarkStarFill size={"27px"} />
-                                </span>
-                              ) : (
-                                <BsFillBookmarkStarFill
-                                  size={"27px"}
-                                  onClick={() =>
-                                    handleLike(noteData, item?.is_favorite)
-                                  }
-                                  className={`transition duration-200 cursor-pointer ${
-                                    item?.is_favorite
-                                      ? "text-green-500"
-                                      : "text-gray-500"
-                                  }`}
-                                  title={
-                                    item?.is_favorite
-                                      ? "Remove from Favorites"
-                                      : "Add to Favorites"
-                                  }
-                                />
-                              )}
-                            </span>
-                            <span className=" h-full text-md font-medium text-[#172E55]">
-                              {item?.description}
-                            </span>
+                          <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                        </div>
+                        <span
+                          className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0  z-10 ${
+                            appear &&
+                            selectedIndex?.id === 1 &&
+                            selectedIndex?.description === item?.description
+                              ? "scale-100"
+                              : "scale-0"
+                          } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
+                        >
+                          <span className="w-[20%] h-full flex  items-start">
+                            {loading ? (
+                              <span className="animate-pulse text-green-500">
+                                <BsFillBookmarkStarFill size={"27px"} />
+                              </span>
+                            ) : (
+                              <BsFillBookmarkStarFill
+                                size={"27px"}
+                                onClick={() =>
+                                  handleLike(noteData, item?.is_favorite)
+                                }
+                                className={`transition duration-200 cursor-pointer ${
+                                  item?.is_favorite
+                                    ? "text-green-500"
+                                    : "text-gray-500"
+                                }`}
+                                title={
+                                  item?.is_favorite
+                                    ? "Remove from Favorites"
+                                    : "Add to Favorites"
+                                }
+                              />
+                            )}
                           </span>
-                        </button>
-                      )}
+                          <span className=" h-full text-md font-medium text-[#172E55]">
+                            {item?.description}
+                          </span>
+                        </span>
+                      </button>
+                    )}
 
-                      {index === 2 && (
-                        <button
-                          onBlur={() => setAppear(false)}
-                          className="relative cursor-pointer  top-[245px] left-[220px] w-[50px] group"
-                          onClick={() => {
-                            setAppear(true);
-                            setSelecetedIndex({ id: 2, name: item.title });
-                            setNoteData({
-                              favorite_middle_school_subject: {
-                                favoriteSubjectId:
-                                  getSkill?.favorite_middle_school_subject?._id,
-                                descriptionId: item._id,
-                              },
-                            });
-                            setNoteDescription(item?.description);
-                          }}
+                    {index === 2 && (
+                      <button
+                        onBlur={() => setAppear(false)}
+                        className="relative cursor-pointer  top-[245px] left-[220px] w-[50px] group"
+                        onClick={() => {
+                          setAppear(true);
+                          setSelecetedIndex({ id: 2, name: item.title });
+                          setNoteData({
+                            rank: {
+                              rankId: getSkill?.military?.rank?._id,
+                              descriptionId: item._id,
+                            },
+                          });
+                          setNoteDescription(item?.description);
+                        }}
+                      >
+                        <p className="text-nowrap">
+                          {item.title.length > 8
+                            ? item.title.substring(0, 8) + "..."
+                            : item.title}
+                        </p>
+                        <div
+                          className="absolute -top-12 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                         >
-                          <p className="text-nowrap">
-                            {item.title.length > 8
-                              ? item.title.substring(0, 8) + "..."
-                              : item.title}
-                          </p>
                           <div
-                            className="absolute -top-12 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                            className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    w-max max-w-[250px] text-center"
                           >
-                            <div
-                              className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
-                            >
-                              {item?.title}
-                            </div>
-                            <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                            {item?.title}
                           </div>
-                          <span
-                            className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0  z-10 ${
-                              appear &&
-                              selectedIndex?.id === 2 &&
-                              selectedIndex?.name === item?.title
-                                ? "scale-100"
-                                : "scale-0"
-                            } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
-                          >
-                            <span className="w-[20%] h-full flex  items-start">
-                              {loading ? (
-                                <span className="animate-pulse text-green-500">
-                                  <BsFillBookmarkStarFill size={"27px"} />
-                                </span>
-                              ) : (
-                                <BsFillBookmarkStarFill
-                                  size={"27px"}
-                                  onClick={() =>
-                                    handleLike(noteData, item?.is_favorite)
-                                  }
-                                  className={`transition duration-200 cursor-pointer ${
-                                    item?.is_favorite
-                                      ? "text-green-500"
-                                      : "text-gray-500"
-                                  }`}
-                                  title={
-                                    item?.is_favorite
-                                      ? "Remove from Favorites"
-                                      : "Add to Favorites"
-                                  }
-                                />
-                              )}
-                            </span>
-                            <span className=" h-full text-md font-medium text-[#172E55]">
-                              {item?.description}
-                            </span>
+                          <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                        </div>
+                        <span
+                          className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0  z-10 ${
+                            appear &&
+                            selectedIndex?.id === 2 &&
+                            selectedIndex?.name === item?.title
+                              ? "scale-100"
+                              : "scale-0"
+                          } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
+                        >
+                          <span className="w-[20%] h-full flex  items-start">
+                            {loading ? (
+                              <span className="animate-pulse text-green-500">
+                                <BsFillBookmarkStarFill size={"27px"} />
+                              </span>
+                            ) : (
+                              <BsFillBookmarkStarFill
+                                size={"27px"}
+                                onClick={() =>
+                                  handleLike(noteData, item?.is_favorite)
+                                }
+                                className={`transition duration-200 cursor-pointer ${
+                                  item?.is_favorite
+                                    ? "text-green-500"
+                                    : "text-gray-500"
+                                }`}
+                                title={
+                                  item?.is_favorite
+                                    ? "Remove from Favorites"
+                                    : "Add to Favorites"
+                                }
+                              />
+                            )}
                           </span>
-                        </button>
-                      )}
+                          <span className=" h-full text-md font-medium text-[#172E55]">
+                            {item?.description}
+                          </span>
+                        </span>
+                      </button>
+                    )}
 
-                      {index === 3 && (
-                        <button
-                          onBlur={() => setAppear(false)}
-                          className="relative cursor-pointer top-[395px] left-[285px] w-[50px] group"
-                          onClick={() => {
-                            setAppear(true);
-                            setSelecetedIndex({ id: 3, name: item.title });
-                            setNoteData({
-                              favorite_middle_school_subject: {
-                                favoriteSubjectId:
-                                  getSkill?.favorite_middle_school_subject?._id,
-                                descriptionId: item._id,
-                              },
-                            });
-                            setNoteDescription(item?.description);
-                          }}
+                    {index === 3 && (
+                      <button
+                        onBlur={() => setAppear(false)}
+                        className="relative cursor-pointer top-[395px] left-[285px] w-[50px] group"
+                        onClick={() => {
+                          setAppear(true);
+                          setSelecetedIndex({ id: 3, name: item.title });
+                          setNoteData({
+                            rank: {
+                              rankId: getSkill?.military?.rank?._id,
+                              descriptionId: item._id,
+                            },
+                          });
+                          setNoteDescription(item?.description);
+                        }}
+                      >
+                        <p className="text-nowrap">
+                          {item.title.length > 8
+                            ? item.title.substring(0, 8) + "..."
+                            : item.title}
+                        </p>
+                        <div
+                          className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                         >
-                          <p className="text-nowrap">
-                            {item.title.length > 8
-                              ? item.title.substring(0, 8) + "..."
-                              : item.title}
-                          </p>
                           <div
-                            className="absolute -top-16 -right-20 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                            className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    w-max max-w-[250px] text-center"
                           >
-                            <div
-                              className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
-                            >
-                              {item?.title}
-                            </div>
-                            <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                            {item?.title}
                           </div>
-                          <span
-                            className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0  z-10 ${
-                              appear &&
-                              selectedIndex?.id === 3 &&
-                              selectedIndex?.name === item?.title
-                                ? "scale-100"
-                                : "scale-0"
-                            } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
-                          >
-                            <span className="w-[20%] h-full flex  items-start">
-                              {loading ? (
-                                <span className="animate-pulse text-green-500">
-                                  <BsFillBookmarkStarFill size={"27px"} />
-                                </span>
-                              ) : (
-                                <BsFillBookmarkStarFill
-                                  size={"27px"}
-                                  onClick={() =>
-                                    handleLike(noteData, item?.is_favorite)
-                                  }
-                                  className={`transition duration-200 cursor-pointer ${
-                                    item?.is_favorite
-                                      ? "text-green-500"
-                                      : "text-gray-500"
-                                  }`}
-                                  title={
-                                    item?.is_favorite
-                                      ? "Remove from Favorites"
-                                      : "Add to Favorites"
-                                  }
-                                />
-                              )}
-                            </span>
-                            <span className=" h-full text-md font-medium text-[#172E55]">
-                              {item?.description}
-                            </span>
+                          <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                        </div>
+                        <span
+                          className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0  z-10 ${
+                            appear &&
+                            selectedIndex?.id === 3 &&
+                            selectedIndex?.name === item?.title
+                              ? "scale-100"
+                              : "scale-0"
+                          } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
+                        >
+                          <span className="w-[20%] h-full flex  items-start">
+                            {loading ? (
+                              <span className="animate-pulse text-green-500">
+                                <BsFillBookmarkStarFill size={"27px"} />
+                              </span>
+                            ) : (
+                              <BsFillBookmarkStarFill
+                                size={"27px"}
+                                onClick={() =>
+                                  handleLike(noteData, item?.is_favorite)
+                                }
+                                className={`transition duration-200 cursor-pointer ${
+                                  item?.is_favorite
+                                    ? "text-green-500"
+                                    : "text-gray-500"
+                                }`}
+                                title={
+                                  item?.is_favorite
+                                    ? "Remove from Favorites"
+                                    : "Add to Favorites"
+                                }
+                              />
+                            )}
                           </span>
-                        </button>
-                      )}
+                          <span className=" h-full text-md font-medium text-[#172E55]">
+                            {item?.description}
+                          </span>
+                        </span>
+                      </button>
+                    )}
 
-                      {index === 4 && (
-                        <button
-                          onBlur={() => setAppear(false)}
-                          className="relative cursor-pointer top-[465px] left-[180px] group"
-                          onClick={() => {
-                            setAppear(true);
-                            setSelecetedIndex({ id: 4, name: item.title });
-                            setNoteData({
-                              favorite_middle_school_subject: {
-                                favoriteSubjectId:
-                                  getSkill?.favorite_middle_school_subject?._id,
-                                descriptionId: item._id,
-                              },
-                            });
-                            setNoteDescription(item?.description);
-                          }}
+                    {index === 4 && (
+                      <button
+                        onBlur={() => setAppear(false)}
+                        className="relative cursor-pointer top-[465px] left-[180px] group"
+                        onClick={() => {
+                          setAppear(true);
+                          setSelecetedIndex({ id: 4, name: item.title });
+                          setNoteData({
+                            rank: {
+                              rankId: getSkill?.military?.rank?._id,
+                              descriptionId: item._id,
+                            },
+                          });
+                          setNoteDescription(item?.description);
+                        }}
+                      >
+                        <p className="text-nowrap">
+                          {item.title.length > 8
+                            ? item.title.substring(0, 8) + "..."
+                            : item.title}
+                        </p>
+                        <div
+                          className="absolute -top-12 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                         >
-                          <p className="text-nowrap">
-                            {item.title.length > 8
-                              ? item.title.substring(0, 8) + "..."
-                              : item.title}
-                          </p>
                           <div
-                            className="absolute -top-12 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                            className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    w-max max-w-[250px] text-center"
                           >
-                            <div
-                              className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
-                            >
-                              {item?.title}
-                            </div>
-                            <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                            {item?.title}
                           </div>
-                          <span
-                            className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0  z-10 ${
-                              appear &&
-                              selectedIndex?.id === 4 &&
-                              selectedIndex?.name === item?.title
-                                ? "scale-100"
-                                : "scale-0"
-                            } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
-                          >
-                            <span className="w-[20%] h-full flex  items-start">
-                              {loading ? (
-                                <span className="animate-pulse text-green-500">
-                                  <BsFillBookmarkStarFill size={"27px"} />
-                                </span>
-                              ) : (
-                                <BsFillBookmarkStarFill
-                                  size={"27px"}
-                                  onClick={() =>
-                                    handleLike(noteData, item?.is_favorite)
-                                  }
-                                  className={`transition duration-200 cursor-pointer ${
-                                    item?.is_favorite
-                                      ? "text-green-500"
-                                      : "text-gray-500"
-                                  }`}
-                                  title={
-                                    item?.is_favorite
-                                      ? "Remove from Favorites"
-                                      : "Add to Favorites"
-                                  }
-                                />
-                              )}
-                            </span>
-                            <span className=" h-full text-md font-medium text-[#172E55]">
-                              {item?.description}
-                            </span>
+                          <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10"></div>
+                        </div>
+                        <span
+                          className={`w-[388px]  flex transition-all duration-500 absolute top-10 right-0  z-10 ${
+                            appear &&
+                            selectedIndex?.id === 4 &&
+                            selectedIndex?.name === item?.title
+                              ? "scale-100"
+                              : "scale-0"
+                          } zIndex   rounded-2xl bg-[#D4FFC2] p-4  justify-between items-start`}
+                        >
+                          <span className="w-[20%] h-full flex  items-start">
+                            {loading ? (
+                              <span className="animate-pulse text-green-500">
+                                <BsFillBookmarkStarFill size={"27px"} />
+                              </span>
+                            ) : (
+                              <BsFillBookmarkStarFill
+                                size={"27px"}
+                                onClick={() =>
+                                  handleLike(noteData, item?.is_favorite)
+                                }
+                                className={`transition duration-200 cursor-pointer ${
+                                  item?.is_favorite
+                                    ? "text-green-500"
+                                    : "text-gray-500"
+                                }`}
+                                title={
+                                  item?.is_favorite
+                                    ? "Remove from Favorites"
+                                    : "Add to Favorites"
+                                }
+                              />
+                            )}
                           </span>
-                        </button>
-                      )}
-                    </div>
-                  )
-                )}
+                          <span className=" h-full text-md font-medium text-[#172E55]">
+                            {item?.description}
+                          </span>
+                        </span>
+                      </button>
+                    )}
+                  </div>
+                ))}
               </div>
               <img src={skillright} className="h-[725px] " alt="" />
             </div>
@@ -1731,9 +1748,7 @@ const NewTrasnferSkill = () => {
             <div className="h-[600px]">
               <div
                 className={`${
-                  getSkill?.military?.rank?.rank_name && bottomLeft
-                    ? "visible"
-                    : "invisible"
+                  bottomLeft ? "visible" : "invisible"
                 } relative -top-[270px]  left-[78px] duration-1000 ease-in-out ${
                   bottomLeft
                     ? "animationtransferaable"
@@ -1741,7 +1756,7 @@ const NewTrasnferSkill = () => {
                 }`}
               >
                 <div className="absolute text-sm font-medium text-white text-center">
-                  {getSkill?.military?.rank?.topics?.map((item, index) => (
+                  {getSkill?.favorite_hobby1?.topics?.map((item, index) => (
                     <div key={item._id}>
                       {index === 0 && (
                         <button
@@ -1751,8 +1766,9 @@ const NewTrasnferSkill = () => {
                             setAppear(true);
                             setSelecetedIndex({ id: 0, name: item.title });
                             setNoteData({
-                              rank: {
-                                rankId: getSkill?.military?.rank?._id,
+                              favorite_hobby1: {
+                                favorite_hobbyId:
+                                  getSkill?.favorite_hobby1?._id,
                                 descriptionId: item._id,
                               },
                             });
@@ -1766,12 +1782,12 @@ const NewTrasnferSkill = () => {
                           </p>
                           <div
                             className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                           >
                             <div
                               className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                             >
                               {item?.title}
                             </div>
@@ -1825,8 +1841,9 @@ const NewTrasnferSkill = () => {
                             setAppear(true);
                             setSelecetedIndex({ id: 1, name: item.title });
                             setNoteData({
-                              rank: {
-                                rankId: getSkill?.military?.rank?._id,
+                              favorite_hobby1: {
+                                favorite_hobbyId:
+                                  getSkill?.favorite_hobby1?._id,
                                 descriptionId: item._id,
                               },
                             });
@@ -1840,12 +1857,12 @@ const NewTrasnferSkill = () => {
                           </p>
                           <div
                             className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                           >
                             <div
                               className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                             >
                               {item?.title}
                             </div>
@@ -1899,8 +1916,9 @@ const NewTrasnferSkill = () => {
                             setAppear(true);
                             setSelecetedIndex({ id: 2, name: item.title });
                             setNoteData({
-                              rank: {
-                                rankId: getSkill?.military?.rank?._id,
+                              favorite_hobby1: {
+                                favorite_hobbyId:
+                                  getSkill?.favorite_hobby1?._id,
                                 descriptionId: item._id,
                               },
                             });
@@ -1914,12 +1932,12 @@ const NewTrasnferSkill = () => {
                           </p>
                           <div
                             className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                           >
                             <div
                               className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                             >
                               {item?.title}
                             </div>
@@ -1973,8 +1991,9 @@ const NewTrasnferSkill = () => {
                             setAppear(true);
                             setSelecetedIndex({ id: 3, name: item.title });
                             setNoteData({
-                              rank: {
-                                rankId: getSkill?.military?.rank?._id,
+                              favorite_hobby1: {
+                                favorite_hobbyId:
+                                  getSkill?.favorite_hobby1?._id,
                                 descriptionId: item._id,
                               },
                             });
@@ -1988,12 +2007,12 @@ const NewTrasnferSkill = () => {
                           </p>
                           <div
                             className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                           >
                             <div
                               className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                             >
                               {item?.title}
                             </div>
@@ -2047,8 +2066,9 @@ const NewTrasnferSkill = () => {
                             setAppear(true);
                             setSelecetedIndex({ id: 4, name: item.title });
                             setNoteData({
-                              rank: {
-                                rankId: getSkill?.military?.rank?._id,
+                              favorite_hobby1: {
+                                favorite_hobbyId:
+                                  getSkill?.favorite_hobby1?._id,
                                 descriptionId: item._id,
                               },
                             });
@@ -2062,12 +2082,12 @@ const NewTrasnferSkill = () => {
                           </p>
                           <div
                             className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                           >
                             <div
                               className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                             >
                               {item?.title}
                             </div>
@@ -2121,9 +2141,7 @@ const NewTrasnferSkill = () => {
 
             <div
               className={`${
-                getSkill?.athlete?.sport_position?.position_name && bottomright
-                  ? "visible"
-                  : "invisible"
+                bottomright ? "visible" : "invisible"
               } relative -top-[230px]  right-[104px] duration-1000 ease-in-out ${
                 bottomright
                   ? "animationtransferaable"
@@ -2131,7 +2149,7 @@ const NewTrasnferSkill = () => {
               }`}
             >
               <div className="absolute text-sm font-medium text-white ">
-                {getSkill?.athlete?.sport_position?.topics?.map(
+                {getSkill?.favorite_middle_school_subject?.topics?.map(
                   (item, index) => (
                     <div key={item._id}>
                       {index === 0 && (
@@ -2142,10 +2160,10 @@ const NewTrasnferSkill = () => {
                             setAppear(true);
                             setSelecetedIndex({ id: 0, name: item.title });
                             setNoteData({
-                              athlete: {
-                                athleteId:
-                                  getSkill?.athlete?.sport_position?._id,
-                                descriptionId: item?._id,
+                              favorite_middle_school_subject: {
+                                favoriteSubjectId:
+                                  getSkill?.favorite_middle_school_subject?._id,
+                                descriptionId: item._id,
                               },
                             });
                             setNoteDescription(item?.description);
@@ -2158,12 +2176,12 @@ const NewTrasnferSkill = () => {
                           </p>
                           <div
                             className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                           >
                             <div
                               className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                             >
                               {item?.title}
                             </div>
@@ -2215,11 +2233,12 @@ const NewTrasnferSkill = () => {
                           onClick={() => {
                             setAppear(true);
                             setSelecetedIndex({ id: 1, name: item.title });
+
                             setNoteData({
-                              athlete: {
-                                athleteId:
-                                  getSkill?.athlete?.sport_position?._id,
-                                descriptionId: item?._id,
+                              favorite_middle_school_subject: {
+                                favoriteSubjectId:
+                                  getSkill?.favorite_middle_school_subject?._id,
+                                descriptionId: item._id,
                               },
                             });
                             setNoteDescription(item?.description);
@@ -2233,12 +2252,12 @@ const NewTrasnferSkill = () => {
                           </p>
                           <div
                             className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                           >
                             <div
                               className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                             >
                               {item?.title}
                             </div>
@@ -2291,10 +2310,10 @@ const NewTrasnferSkill = () => {
                             setAppear(true);
                             setSelecetedIndex({ id: 2, name: item.title });
                             setNoteData({
-                              athlete: {
-                                athleteId:
-                                  getSkill?.athlete?.sport_position?._id,
-                                descriptionId: item?._id,
+                              favorite_middle_school_subject: {
+                                favoriteSubjectId:
+                                  getSkill?.favorite_middle_school_subject?._id,
+                                descriptionId: item._id,
                               },
                             });
                             setNoteDescription(item?.description);
@@ -2307,12 +2326,12 @@ const NewTrasnferSkill = () => {
                           </p>
                           <div
                             className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                           >
                             <div
                               className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                             >
                               {item?.title}
                             </div>
@@ -2365,10 +2384,10 @@ const NewTrasnferSkill = () => {
                             setAppear(true);
                             setSelecetedIndex({ id: 3, name: item.title });
                             setNoteData({
-                              athlete: {
-                                athleteId:
-                                  getSkill?.athlete?.sport_position?._id,
-                                descriptionId: item?._id,
+                              favorite_middle_school_subject: {
+                                favoriteSubjectId:
+                                  getSkill?.favorite_middle_school_subject?._id,
+                                descriptionId: item._id,
                               },
                             });
                             setNoteDescription(item?.description);
@@ -2381,12 +2400,12 @@ const NewTrasnferSkill = () => {
                           </p>
                           <div
                             className="absolute -top-12 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                           >
                             <div
                               className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                             >
                               {item?.title}
                             </div>
@@ -2439,10 +2458,10 @@ const NewTrasnferSkill = () => {
                             setAppear(true);
                             setSelecetedIndex({ id: 4, name: item.title });
                             setNoteData({
-                              athlete: {
-                                athleteId:
-                                  getSkill?.athlete?.sport_position?._id,
-                                descriptionId: item?._id,
+                              favorite_middle_school_subject: {
+                                favoriteSubjectId:
+                                  getSkill?.favorite_middle_school_subject?._id,
+                                descriptionId: item._id,
                               },
                             });
                             setNoteDescription(item?.description);
@@ -2456,12 +2475,12 @@ const NewTrasnferSkill = () => {
                           </p>
                           <div
                             className="absolute -top-14 -right-10 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-                    opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
-                    transition-all duration-300 ease-in-out"
+                  opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
+                  transition-all duration-300 ease-in-out"
                           >
                             <div
                               className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3
-                      w-max max-w-[250px] text-center"
+                    w-max max-w-[250px] text-center"
                             >
                               {item?.title}
                             </div>
@@ -2514,6 +2533,7 @@ const NewTrasnferSkill = () => {
             </div>
           </div>
         </div>
+
         <TransferableSkillsModal
           isOpen={isFirst.transferable}
           handleClick={() => {
