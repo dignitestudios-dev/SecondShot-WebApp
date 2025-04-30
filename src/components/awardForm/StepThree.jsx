@@ -1,11 +1,12 @@
-import React from "react";
-import { GameTime } from "../../assets/export";
+import React, { useEffect, useState } from "react";
+import { GameTime, PlaybookAward } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import CongratsModal from "./CongratsModal";
 import { stepThreeAward } from "../../Schema/awardSchema";
 import { useFormik } from "formik";
-
+import axios from "../../axios";
+import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
 const StepThree = ({
   nextStep,
   prevStep,
@@ -13,18 +14,47 @@ const StepThree = ({
   imageFaded,
   modalOpen,
   setModalOpen,
+  question,
+  gameTime,
+  setGameTime,
+  questionId,
+  getMyIdp,
+  cardData
+
 }) => {
+
+  const [loading, setLoading] = useState(false);
+
+  
+  
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
       initialValues: {
-        gameTime: "",
+        gameTime: cardData?.[2] || '', // use cardData[2] directly
       },
+      enableReinitialize: true,
       validationSchema: stepThreeAward,
       validateOnChange: true,
       validateOnBlur: true,
       onSubmit: async (values, action) => {
-        console.log("Selected carreroption:", values.gameTime);
-        setModalOpen(true);
+        setGameTime(values.gameTime);
+        setLoading(true)
+        try {
+          const response = await axios.post("/api/user/update-idp-form", {
+            questionId: questionId,
+            answer:values.gameTime,
+          });
+          if (response.status === 200) {
+            SuccessToast(response?.data?.message);
+            setModalOpen(true);
+            getMyIdp();
+          }
+        } catch (error) {
+          ErrorToast(error?.response?.data?.message);
+        } finally {
+          setLoading(false);
+        }
+        
       },
     });
   return (
@@ -32,7 +62,7 @@ const StepThree = ({
       <div className="mt-10  px-4">
         <div className="flex justify-center items-center">
           <img
-            src={GameTime}
+            src={PlaybookAward}
             className={`w-[90px] h-[85.63px] transition-opacity duration-500 ${
               imageFaded ? "opacity-100" : "opacity-20"
             }`}
@@ -40,7 +70,7 @@ const StepThree = ({
           />
         </div>
         <h2 className="text-[32px] text-center font-semibold text-[#012C57] ">
-          Ready to Compete
+          Most Valuable Player
         </h2>
         <p className="text-[16px] text-center text-[#00000080] mb-3 mt-2">
           Selecting a College, Trade School, or Company to research or apply to.
@@ -49,8 +79,7 @@ const StepThree = ({
           htmlFor=""
           className="text-[14px] text-start font-[500] text-[#181818] mb-3 mt-3"
         >
-          Evaluate and choose a college or program that supports your academic
-          goals  /or identify a company that aligns with your career goals.
+          {question}
         </label>
         <form action="" onSubmit={handleSubmit}>
           <div>
@@ -63,6 +92,7 @@ const StepThree = ({
               type="text"
               className="w-full border rounded-[12px] p-2 h-[49px]  mb-2  mt-2 text-sm"
               placeholder="Enter your answer here"
+              maxLength={50}
             />
             {errors.gameTime && touched.gameTime && (
               <p className="text-red-500 text-sm mb-2">{errors.gameTime}</p>
@@ -70,7 +100,7 @@ const StepThree = ({
           </div>
 
           <div>
-            <AuthSubmitBtn text={"Submit"} />
+            <AuthSubmitBtn text={"Submit"} loading={loading} type={'submit'} />
           </div>
         </form>
         <button
@@ -94,7 +124,7 @@ const StepThree = ({
         showModal={modalOpen}
         heading={"Congratulations!"}
         para={
-          "Second Shot has awarded Sanethia Thomas the Game Time Award for selecting the University of Florida to further research and apply."
+          " Second Shot has awarded Sanethia Thomas the Game Time Award for selecting the University of Florida to further research and apply. Congratulations! "
         }
         handleClick={handleModalClose}
         onclick={() => setModalOpen(false)}

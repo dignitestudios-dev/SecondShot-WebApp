@@ -46,7 +46,13 @@ const NewTrasnferSkill = ({ id }) => {
   const [rightSkill, setRightSkill] = useState(true);
   const [bottomLeft, setBottomLeft] = useState(true);
   const [bottomright, setBottomright] = useState(true);
-  
+  const [isTopSkillActive, setIsTopSkillActive] = useState(true);
+const [isLeftSkillActive, setIsLeftSkillActive] = useState(true);
+const [isLocked, setIsLocked] = useState(false);
+const [isRightSkillActive, setIsRightSkillActive] = useState(true);
+const [isBottomRightSkillActive, setIsBottomRightSkillActive] = useState(true);
+const [isBottomLeftSkillActive, setIsBottomLeftSkillActive] = useState(true);
+
   const { isFirst, setIsFirst } = useContext(ModalContext);
   const [isActive, setIsActive] = useState(false);
   const [appear, setAppear] = useState(false);
@@ -199,7 +205,7 @@ const NewTrasnferSkill = ({ id }) => {
   };
 
   const handleDownloadCombined = (e, data, filename) => {
-    if (!topSkill || !leftSkill || !rightSkill || !bottomLeft || !bottomright) {
+    if (!isTopSkillActive || !isLeftSkillActive || !isRightSkillActive || !isBottomLeftSkillActive || !isBottomRightSkillActive) {
       setModalMessage("Please open all skills before downloading.");
       setMessageModal(true);
       return;
@@ -258,7 +264,7 @@ const NewTrasnferSkill = ({ id }) => {
   const transferpdfElement = document.getElementById("download-skills");
 
   return (
-    <>
+    <div>
       <div>
         <div className="flex justify-between items-center max-w-screen-xl mx-auto mt-11 px-2 pe-11">
        <div className="w-[450px]">
@@ -326,9 +332,21 @@ const NewTrasnferSkill = ({ id }) => {
         </div>
       </div>
       <div className="flex justify-center items-center ">
-        <NewTranfer />
+        <NewTranfer 
+        topSkill={isTopSkillActive}
+        setTopSkill={setIsTopSkillActive}
+        LeftSkill={isLeftSkillActive}
+        setLeftSkill={setIsLeftSkillActive}
+        RightSkill={isRightSkillActive}
+        setRightSkill={setIsRightSkillActive}
+        BottomLeftSkill={isBottomLeftSkillActive}
+        setBottomLeftSkill={setIsBottomLeftSkillActive}
+        BottomRightSkill={isBottomRightSkillActive}
+        setBottomRightSkill={setIsBottomRightSkillActive}
+
+        />
       </div>
-      <div className="relative w-full overflow-hidden  ">
+      <div className="relative w-full   ">
         <MessageModal
           showModal={messageModal}
           setShowModal={setMessageModal}
@@ -350,7 +368,7 @@ const NewTrasnferSkill = ({ id }) => {
           profilename={profilename}
         />
 
-        <div id="download-skills" className={" absolute -z-30"}>
+        <div id="download-skills" className={" absolute -z-50 bottom-0"}>
           <div
             className={`  ${
               getSkill?.athlete?.sport_position?.topics && topSkill
@@ -2556,7 +2574,7 @@ const NewTrasnferSkill = ({ id }) => {
           }
         />
       </div>
-    </>
+    </div>
   );
 };
 

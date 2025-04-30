@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
-import { PlaybookAward } from "../../assets/export";
+import { GameTime, PlaybookAward } from "../../assets/export";
 import { IoIosArrowBack, IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import CongratsModal from "./CongratsModal";
 import { useFormik } from "formik";
 import { stepTwoAward } from "../../Schema/awardSchema";
-
+import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
+import axios from "../../axios";
 const SKILL_OPTIONS = [
   "Communication",
   "Leadership",
@@ -22,13 +23,25 @@ const StepTwo = ({
   setModalOpen,
   setSelectedCareer,
   selectedCareer,
+  carrer,
+  question,
+  questionId,
+  getMyIdp,
+  cardData
 }) => {
+  console.log(carrer, "carrer");
   const [errorSkills, setErroSkills] = useState("");
   const [showOtherInput, setShowOtherInput] = useState(false);
   const [otherSkill, setOtherSkill] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [skillLimitError, setSkillLimitError] = useState("");
+  const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (selectedCareer.length === 0 && cardData && cardData[1]) {
+      setSelectedCareer(cardData[1]);
+    }
+  }, [cardData]);
   const { handleSubmit, errors, touched, handleBlur } = useFormik({
     initialValues: selectedCareer,
     validationSchema: stepTwoAward,
@@ -38,7 +51,23 @@ const StepTwo = ({
         return;
       }
 
-      setModalOpen(true);
+      setLoading(true);
+      try {
+        const response = await axios.post("/api/user/update-idp-form", {
+          questionId: questionId,
+          answer: selectedCareer,
+        });
+        if (response.status === 200) {
+          SuccessToast(response?.data?.message);
+          setModalOpen(true);
+          getMyIdp();
+        }
+      } catch (error) {
+        ErrorToast(error?.response?.data?.message);
+      } finally {
+        setLoading(false);
+      }
+
     },
   });
 
@@ -83,7 +112,7 @@ const StepTwo = ({
       <div className="mt-10  px-4">
         <div className="flex justify-center items-center">
           <img
-            src={PlaybookAward}
+            src={GameTime}
             className={`w-[90px] h-[85.63px] transition-opacity duration-500 ${
               imageFaded ? "opacity-100" : "opacity-20"
             }`}
@@ -91,7 +120,7 @@ const StepTwo = ({
           />
         </div>
         <h2 className="text-[32px] text-center font-semibold text-[#012C57] ">
-          Learning the Plays
+          Ready to Compete
         </h2>
         <p className="text-[16px] text-center text-[#00000080] mb-2">
           Exploring Career Choices
@@ -99,8 +128,7 @@ const StepTwo = ({
 
         <form onSubmit={handleSubmit}>
           <label className="text-[14px] font-[500]  text-[#181818]">
-            Research and narrow down 1-2 potential career paths that align with
-            strengths and passions.
+            {question}
           </label>
 
           <div
@@ -133,16 +161,27 @@ const StepTwo = ({
             </div>
 
             {isDropdownOpen && (
-              <div className="absolute top-[50px] left-0 right-0 bg-white shadow-md rounded-[12px] z-10">
-                {SKILL_OPTIONS?.map((skill) => (
-                  <div
-                    key={skill}
-                    className="p-2 hover:bg-blue-100 cursor-pointer"
-                    onClick={() => handleSkillSelect(skill)}
-                  >
-                    {skill}
-                  </div>
-                ))}
+              <div className="absolute top-[50px] left-0 right-0 h-auto max-h-[200px] overflow-auto bg-white shadow-md rounded-[12px] z-10">
+                {carrer?.map((careerItem, index) => {
+                  const titles = careerItem?.careers
+                    ?.map((item) => item?.career_name)
+                    .filter(Boolean);
+                  return titles.map((title, idx) => (
+                    <div
+                      key={`${index}-${idx}`}
+                      className="p-2 hover:bg-blue-100 cursor-pointer"
+                      onClick={() => handleSkillSelect(title)}
+                    >
+                      {title}
+                    </div>
+                  ));
+                })}
+                <div
+                  className="p-2 hover:bg-blue-100 cursor-pointer"
+                  onClick={() => handleSkillSelect("Other")}
+                >
+                  Other
+                </div>
               </div>
             )}
           </div>
@@ -161,6 +200,7 @@ const StepTwo = ({
                 className="flex-1 border p-2 rounded-[8px] text-sm"
                 value={otherSkill}
                 onChange={(e) => setOtherSkill(e.target.value)}
+                maxLength={50}
               />
               <button
                 type="button"
@@ -173,7 +213,7 @@ const StepTwo = ({
           )}
 
           <div className="mt-3">
-            <AuthSubmitBtn text="Submit" type="submit" />
+            <AuthSubmitBtn text="Submit" type="submit" loading={loading} />
           </div>
         </form>
 
@@ -194,11 +234,11 @@ const StepTwo = ({
         </div>
       </div>
       <CongratsModal
-        img={PlaybookAward}
+        img={GameTime}
         showModal={modalOpen}
         heading={"Congratulations!"}
         para={
-          "Second Shot has awarded Sanethia Thomas the Playbook Pro Award for identifying her top Career Choice: Computer Science."
+          "Second Shot has awarded Sanethia Thomas the Playbook Pro Award for identifying her top Career Choice: Computer Science. Congratulations!"
         }
         handleClick={handleModalClose}
         onclick={() => setModalOpen(false)}

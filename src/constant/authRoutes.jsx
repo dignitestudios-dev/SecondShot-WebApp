@@ -4,7 +4,6 @@ import OtpEmail from "../pages/onboarding/OtpEmail";
 import OtpPhone from "../pages/onboarding/OtpPhone";
 import ResetPassword from "../pages/onboarding/ResetPassword";
 import SignUpForm from "../pages/onboarding/Signup";
-import VerifiedScreen from "../pages/onboarding/VerifedScreen";
 import PrivacyPolicy from "../pages/privacyPolicy/PrivacyPolicy";
 import TermsAndCondition from "../pages/TermsAndCondition/TermsAndCondition";
 import ForgotPassword from "./../pages/onboarding/ForgotPassword";

@@ -17,6 +17,7 @@ import { ModalContext } from "../../context/GlobalContext";
 import Cookies from "js-cookie";
 import { AuthContext } from "../../context/AuthContext";
 import LockModal from "../home/LockModal";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 const Navbar = () => {
   const { subscriptionpaid, profilepic, profilename } = useContext(AuthContext);
@@ -24,6 +25,7 @@ const Navbar = () => {
 
   const navigate = useNavigate();
   const [lock, setLock] = useState(false);
+  const [drop, setDrop] = useState(false);
 
   const navItems = [
     { path: "/home", label: "Dashboard", icon: Carriericon1 },
@@ -58,10 +60,11 @@ const Navbar = () => {
       icon: Carriericon5,
     },
     {
-      path: "/my-library",
-      label: "My Library",
+      path: "/idp-form",
+      label: "Awards & IDP",
       subpath1: "/careerfav-detail",
       icon: Carriericon6,
+      dropdownItems: [{ path: "/my-library ", label: "My Library" }],
     },
   ];
 
@@ -101,7 +104,10 @@ const Navbar = () => {
 
         <ul className="flex flex-col md:flex-row items-start md:items-center md:p-0 p-5 gap-5 md:gap-10 lg:text-[14px] md:text-[14px] font-[600] uppercase text-white">
           {navItems?.map((item) => (
-            <li key={item.path} className="flex flex-col items-center">
+            <li
+              key={item.path}
+              className="relative group flex flex-col items-center"
+            >
               {subscriptionpaid ||
               item.path === "/transferablekills" ||
               item.path === "/home" ? (
@@ -118,25 +124,33 @@ const Navbar = () => {
                       />
                     </div>
                   )}
-                  <div className={`${item.path === "/home" ? "mt-6" : ""}`}>
+                  <div
+                    className={` flex  items-center gap-1 ${
+                      item.path === "/home" ? "mt-6" : ""
+                    }`}
+                  >
                     {item.label}
+                    {item.path === "/idp-form" && (
+                      <IoMdArrowDropdown
+                        size={18}
+                        onClick={() => setDrop((prev) => !prev)}
+                      />
+                    )}
                   </div>
                 </Link>
               ) : (
-                <div>
-                  <button
-                    onClick={() => setLock(true)}
-                    className="text-white uppercase flex flex-col items-center"
-                  >
-                    <img src={item.icon} alt="" className="h-5 w-5 mb-2" />{" "}
-                    {/* Icon above */}
-                    {item.label}
-                  </button>
-                </div>
+                <button
+                  onClick={() => setLock(true)}
+                  className="text-white uppercase flex flex-col items-center"
+                >
+                  <img src={item.icon} alt="" className="h-5 w-5 mb-2" />
+                  {item.label}
+                </button>
               )}
 
+              {/* Active underline */}
               <div
-                className={`h-[2px] mt-1  ${
+                className={`h-[2px] mt-1 ${
                   location.pathname === item.path ||
                   location.pathname.includes(item.subpath1) ||
                   location.pathname.includes(item.subpath2)
@@ -144,6 +158,21 @@ const Navbar = () => {
                     : "w-0"
                 }`}
               />
+              {drop && item.dropdownItems && (
+                <ul className="hidden group-hover:flex flex-col absolute top-full mt-2 bg-white rounded-sm shadow-lg">
+                  {item.dropdownItems.map((dropdownItem) => (
+                    <li key={dropdownItem.path}>
+                      <Link
+                        to={dropdownItem.path}
+                        className="px-4 py-2 whitespace-nowrap text-[#012C57]"
+                      >
+                        {dropdownItem.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {/* Dropdown (only for My Library) */}
             </li>
           ))}
         </ul>
@@ -169,23 +198,24 @@ const Navbar = () => {
             )}
           </div>
           <div className="mt-2">
-          <Link to="/my-profile">
-            {profilepic ? (
-              <img
-                src={profilepic}
-                alt="User Avatar"
-                className="h-[40px] w-[40px] md:h-[60px] md:w-[60px] rounded-full border-2 border-white p-0.5"
-              />
-            ) : (
-              <div className="h-[40px] w-[40px] md:h-[60px] md:w-[60px] flex items-center justify-center rounded-full shadow-lg bg-gray-300 text-[#012C57] text-[18px] font-bold uppercase">
-                {profilename
-                  ?.split(" ")
-                  .map((word) => word[0])
-                  .slice(0, 2)
-                  .join("")}
-              </div>
-            )}
-          </Link></div>
+            <Link to="/my-profile">
+              {profilepic ? (
+                <img
+                  src={profilepic}
+                  alt="User Avatar"
+                  className="h-[40px] w-[40px] md:h-[60px] md:w-[60px] rounded-full border-2 border-white p-0.5"
+                />
+              ) : (
+                <div className="h-[40px] w-[40px] md:h-[60px] md:w-[60px] flex items-center justify-center rounded-full shadow-lg bg-gray-300 text-[#012C57] text-[18px] font-bold uppercase">
+                  {profilename
+                    ?.split(" ")
+                    .map((word) => word[0])
+                    .slice(0, 2)
+                    .join("")}
+                </div>
+              )}
+            </Link>
+          </div>
         </div>
       </div>
       {menuOpen && (
@@ -196,9 +226,11 @@ const Navbar = () => {
       )}
       <LockModal
         isOpen={lock}
-        handleClick={() => navigate("/subscriptionplans", {
-          state: { cardShow: true },
-        })}
+        handleClick={() =>
+          navigate("/subscriptionplans", {
+            state: { cardShow: true },
+          })
+        }
         onClose={() => setLock(false)}
         text={
           " Buy a subscription to unlock this feature and access all of the modules."

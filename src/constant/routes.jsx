@@ -42,6 +42,7 @@ import EditResume from "../pages/myresume/EditResume";
 import CareerFavDetail from "../pages/mylibrary/CareerFavDetail";
 import MatchedDetail from "../pages/successstory/MatchedDetail";
 import NewTranfer from "../pages/NewtrnaferSkill/NewTranfer";
+import IdpForm from "../pages/idpFrom/IdpForm";
 
 export const routes = [
   {
@@ -221,6 +222,11 @@ export const routes = [
     title: "edit-resume",
     url: "/edit-resume/:id",
     page: <Applayout page={<EditResume />} />,
+  },
+  {
+    title: "idp-form",
+    url: "/idp-form",
+    page: <Applayout page={<IdpForm />} />,
   },
  
 ];

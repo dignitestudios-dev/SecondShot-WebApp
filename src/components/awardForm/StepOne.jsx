@@ -1,18 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Rookieaward } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { useFormik } from "formik";
 import { stepOneAward } from "../../Schema/awardSchema";
 import CongratsModal from "./CongratsModal";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-
-const SKILL_OPTIONS = [
-  "Communication",
-  "Leadership",
-  "Problem Solving",
-  "Teamwork",
-  "Other",
-];
+import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
+import axios from "../../axios";
 
 const StepOne = ({
   nextStep,
@@ -22,12 +16,25 @@ const StepOne = ({
   setModalOpen,
   setSelectedSkills,
   selectedSkills,
+  skills,
+  question,
+  questionId,
+  getMyIdp,
+  cardData,
+  idpData
 }) => {
   const [errorSkills, setErroSkills] = useState("");
   const [showOtherInput, setShowOtherInput] = useState(false);
   const [otherSkill, setOtherSkill] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [skillLimitError, setSkillLimitError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (selectedSkills.length === 0 && cardData && cardData[0]) {
+      setSelectedSkills(cardData[0]);
+    }
+  }, [cardData]);
 
   const { handleSubmit, errors, touched, handleBlur } = useFormik({
     initialValues: selectedSkills,
@@ -37,8 +44,22 @@ const StepOne = ({
         setErroSkills("Skills required");
         return;
       }
-
-      setModalOpen(true);
+      setLoading(true);
+      try {
+        const response = await axios.post("/api/user/update-idp-form", {
+          questionId: questionId,
+          answer: selectedSkills,
+        });
+        if (response.status === 200) {
+          SuccessToast(response?.data?.message);
+          setModalOpen(true);
+          getMyIdp();
+        }
+      } catch (error) {
+        ErrorToast(error?.response?.data?.message);
+      } finally {
+        setLoading(false);
+      }
     },
   });
 
@@ -46,10 +67,13 @@ const StepOne = ({
     setShowOtherInput(false);
     if (selectedSkills.length >= 5) {
       setSkillLimitError("You can only select up to 5 skills.");
-
       return;
     }
 
+    if (!selectedSkills.includes(skill) && skill !== "Other") {
+      setSelectedSkills([...selectedSkills, skill]);
+      setSkillLimitError("");
+    }
     if (skill === "Other") {
       setShowOtherInput(true);
       setSkillLimitError("");
@@ -63,7 +87,7 @@ const StepOne = ({
     setSelectedSkills(selectedSkills.filter((s) => s !== skill));
     setSkillLimitError("");
   };
-
+  // const Data=cardData[0]?.map((item)=>item )
   const handleOtherSave = () => {
     if (selectedSkills.length >= 5) {
       setSkillLimitError("You can only select up to 5 skills.");
@@ -77,14 +101,14 @@ const StepOne = ({
       setSkillLimitError("");
     }
   };
-
+  // console.log(cardData[0]?.map((item)=>item ),"cardDatacarsssdData")
   return (
     <div className="mt-10 px-4">
       <div className="flex justify-center items-center">
         <img
           src={Rookieaward}
           className={`w-[90px] h-[85.63px] transition-opacity duration-500 ${
-            imageFaded ? "opacity-100" : "opacity-20"
+        imageFaded      ? "opacity-100" : "opacity-20"
           }`}
           alt=""
         />
@@ -99,7 +123,7 @@ const StepOne = ({
 
       <form onSubmit={handleSubmit}>
         <label className="text-[14px] font-[500]  text-[#181818]">
-          Select the top 3-5 transferable skills that you identify with the most
+          {question}
         </label>
 
         <div
@@ -108,8 +132,8 @@ const StepOne = ({
         >
           <div className="flex justify-between mt-[2px] items-center">
             <span className="flex flex-wrap gap-2">
-              {selectedSkills.length > 0
-                ? selectedSkills.map((skill, index) => (
+              {selectedSkills?.length > 0
+                ? selectedSkills?.map((skill, index) => (
                     <div
                       key={index}
                       className="flex items-center gap-1 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"
@@ -132,16 +156,38 @@ const StepOne = ({
           </div>
 
           {isDropdownOpen && (
-            <div className="absolute top-[50px] left-0 right-0 bg-white shadow-md rounded-[12px] z-10">
-              {SKILL_OPTIONS?.map((skill) => (
-                <div
-                  key={skill}
-                  className="p-2 hover:bg-blue-100 cursor-pointer"
-                  onClick={() => handleSkillSelect(skill)}
-                >
-                  {skill}
-                </div>
-              ))}
+            <div className="absolute top-[50px] left-0 right-0 bg-white shadow-md rounded-[12px] z-10 h-auto max-h-[200px] overflow-auto">
+              {skills?.map((skill) => {
+                let title = "";
+
+                if (skill?.athlete) {
+                  title = skill?.athlete?.title;
+                } else if (skill?.favorite_middle_school_subject) {
+                  title = skill?.favorite_middle_school_subject?.title;
+                } else if (skill?.favorite_hobby1) {
+                  title = skill?.favorite_hobby1?.title;
+                } else if (skill?.favorite_hobby2) {
+                  title = skill?.favorite_hobby2?.title;
+                } else if (skill?.rank) {
+                  title = skill?.rank?.title;
+                }
+
+                return (
+                  <div
+                    key={title}
+                    className="p-2 hover:bg-blue-100 cursor-pointer"
+                    onClick={() => handleSkillSelect(title)}
+                  >
+                    {title}
+                  </div>
+                );
+              })}
+              <div
+                className="p-2 hover:bg-blue-100 cursor-pointer"
+                onClick={() => handleSkillSelect("Other")}
+              >
+                Other
+              </div>
             </div>
           )}
         </div>
@@ -160,6 +206,7 @@ const StepOne = ({
               className="flex-1 border p-2 rounded-[8px] text-sm"
               value={otherSkill}
               onChange={(e) => setOtherSkill(e.target.value)}
+              maxLength={50}
             />
             <button
               type="button"
@@ -172,7 +219,7 @@ const StepOne = ({
         )}
 
         <div className="mt-3">
-          <AuthSubmitBtn text="Submit" type="submit" />
+          <AuthSubmitBtn text="Submit" type="submit" loading={loading} />
         </div>
       </form>
 

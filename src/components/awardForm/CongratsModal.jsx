@@ -13,12 +13,7 @@ const CongratsModal = ({
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-20 flex items-center justify-center z-50 backdrop-blur-sm ">
           <div className="bg-white z rounded-xl shadow-custom-shadow w-[471px] p-4 relative">
-            <button
-              className="absolute top-0 right-2 text-xl text-gray-500 hover:text-gray-600"
-              onClick={onclick}
-            >
-              &times;
-            </button>
+          
             <div className="flex justify-center mt-6">
               <img
                 src={img}

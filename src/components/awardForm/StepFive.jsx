@@ -1,35 +1,60 @@
 import React, { useState } from "react";
-import { ChampionAward, Downloadimg, Printimg } from "../../assets/export";
+import {
+  ChampionAward,
+  Downloadimg,
+  FameAward,
+  Printimg,
+} from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
 import { useFormik } from "formik";
 import { stepFiveAward } from "../../Schema/awardSchema";
 import CongratsModal from "./CongratsModal";
-
+import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
+import axios from "../../axios";
 const StepFive = ({
   prevStep,
   imageFaded,
   modalOpen,
   setModalOpen,
   setFormOpen,
-  setImageFaded
+  setImageFaded,
+  question,
+  championAward,
+  setChampionAward,
+  questionId,
+  getMyIdp,
+  cardData
 }) => {
-  const [hideBtn, setHideBtn] = useState(false);
+  
+  const [loading, setLoading] = useState(false);
+
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
       initialValues: {
-        ChampionAward: "",
+        ChampionAward: cardData[4] || "",
       },
       validationSchema: stepFiveAward,
       validateOnChange: true,
       validateOnBlur: true,
       onSubmit: async (values, action) => {
-        console.log("Selected carreroption:", values.ChampionAward);
-        if (hideBtn === true) {
-          setFormOpen(false);
-        } else {
-          setModalOpen(true);
-          setImageFaded(true)
+        setChampionAward(values.ChampionAward);
+        setLoading(true)
+        try {
+          const response = await axios.post("/api/user/update-idp-form", {
+            questionId: questionId,
+            answer:values.ChampionAward,
+          });
+          if (response.status === 200) {
+            SuccessToast(response?.data?.message);
+            setModalOpen(true);
+            setImageFaded(true);
+            getMyIdp();
+          }
+        } catch (error) {
+          ErrorToast(error?.response?.data?.message);
+        } finally {
+          setLoading(false);
         }
       },
     });
@@ -38,7 +63,7 @@ const StepFive = ({
       <div className="mt-10  px-4">
         <div className="flex justify-center items-center">
           <img
-            src={ChampionAward}
+            src={FameAward}
             className={`w-[90px] h-[85.63px] transition-opacity duration-500 ${
               imageFaded ? "opacity-100" : "opacity-20"
             }`}
@@ -46,7 +71,7 @@ const StepFive = ({
           />
         </div>
         <h2 className="text-[32px] text-center font-semibold text-[#012C57] ">
-          Outstanding and Significant
+          The GOAT
         </h2>
         <p className="text-[16px] text-center text-[#00000080] mb-3 mt-2">
           Creating a Statement of Focus
@@ -55,9 +80,7 @@ const StepFive = ({
           htmlFor=""
           className="text-[14px] text-start font-[500] text-[#181818] mb-3 mt-3"
         >
-          Write a clear, focused statement about yourself and who you are to
-          become. Use transferable skills, summarize college and career goals
-          and how you plan to achieve them.
+          {question}
         </label>
         <form action="" onSubmit={handleSubmit}>
           <div>
@@ -70,6 +93,7 @@ const StepFive = ({
               type="text"
               className="w-full border rounded-[12px] p-2 h-[49px]  mb-2  mt-2 text-sm"
               placeholder="Write your asnwer here"
+              maxLength={50}
             />
             {errors.ChampionAward && touched.ChampionAward && (
               <p className="text-red-500 text-sm mb-2">
@@ -80,8 +104,9 @@ const StepFive = ({
 
           <div>
             <AuthSubmitBtn
-              text={`${hideBtn ? "Close" : "Submit"}`}
+              text={"Submit"}
               type={"submit"}
+              loading={loading}
             />
           </div>
         </form>
@@ -94,7 +119,7 @@ const StepFive = ({
             Back
           </button>
         </div>
-        {hideBtn && (
+        {/* {hideBtn && (
           <div className="flex mt-10 justify-center animate-fade-in">
             <div className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer">
               <img
@@ -115,20 +140,20 @@ const StepFive = ({
               <AuthSubmitBtn text={"Email It To Yourself"} />
             </div>
           </div>
-        )}
+        )} */}
       </div>
       <CongratsModal
-        img={ChampionAward}
+        img={FameAward}
         showModal={modalOpen}
         heading={"Congratulations!"}
         para={
-          "Second Shot has awarded Sanethia Thomas the Hall of Fame Award for completing her Individual Development Plan."
+          "Second Shot has awarded Sanethia Thomas the Hall of Fame Award for completing her Individual Development Plan. Congratulations!"
         }
         handleClick={() => {
           setModalOpen(false);
-          setHideBtn(true);
+          setFormOpen(false);
         }}
-        onclick={() => setModalOpen(false)}
+        onclick={() => setFormOpen(false)}
       />
     </div>
   );

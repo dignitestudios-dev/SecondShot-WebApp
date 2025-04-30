@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
   CenterSkill,
-  Downloadimg,
-  Profileimage,
-  Shareimg,
   skillbottomleft,
   skillbottomright,
   skillleft,
@@ -13,25 +10,24 @@ import {
 import axios from "../../axios";
 import { AuthContext } from "../../context/AuthContext";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
-import {
-  ErrorToast,
-  SuccessToast,
-} from "../../components/toaster/ToasterContainer";
-import { downloadCombinedPDF, downloadSendCombinedPDF } from "../../lib/utils";
-import { FiLoader } from "react-icons/fi";
-import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
+import { SuccessToast } from "../../components/toaster/ToasterContainer";
 import AddTrasnferSkillPeople from "./AddTrasnferSkillPeople";
 import MessageModal from "./MessageModal";
-import NewTrasnferSkill from "./NewTrasnferSkill";
 import LockModal from "../../components/home/LockModal";
 
-const NewTranfer = () => {
-  const [topSkill, setTopSkill] = useState(true);
-  const [LeftSkill, setLeftSkill] = useState(true);
+const NewTranfer = ({
+  topSkill,
+  setTopSkill,
+  LeftSkill,
+  setLeftSkill,
+  setRightSkill,
+  setBottomLeftSkill,
+  BottomLeftSkill,
+  setBottomRightSkill,
+  BottomRightSkill,
+  RightSkill
+}) => {
   const [lock, setLock] = useState(false);
-  const [RightSkill, setRightSkill] = useState(true);
-  const [BottomRightSkill, setBottomRightSkill] = useState(true);
-  const [BottomLeftSkill, setBottomLeftSkill] = useState(true);
   const [appear, setAppear] = useState(false);
   const [indexAppear, setIndexAppear] = useState("");
   const [rigtindexAppear, setRigtindexAppear] = useState("");
@@ -56,16 +52,16 @@ const NewTranfer = () => {
   const handleShowPeopleModal = () => {
     setShowPeopleModal(!showPeopleModal);
   };
-  
+
   const { subscriptionpaid, profilepic, profilename } = useContext(AuthContext);
   useEffect(() => {
-     const isPaid = !!subscriptionpaid;
- 
-     setLeftSkill(isPaid);
-     setRightSkill(isPaid);
-     setBottomLeftSkill(isPaid);
-     setBottomRightSkill(isPaid);
-   }, [subscriptionpaid]);
+    const isPaid = !!subscriptionpaid;
+
+    setLeftSkill(isPaid);
+    setRightSkill(isPaid);
+    setBottomLeftSkill(isPaid);
+    setBottomRightSkill(isPaid);
+  }, [subscriptionpaid]);
   const gettransferableskill = async () => {
     setLoading(true);
     try {
@@ -104,65 +100,6 @@ const NewTranfer = () => {
     gettransferableskill();
   }, []);
 
-  const handleDownloadCombined = (e, data, filename) => {
-    if (
-      !topSkill ||
-      !LeftSkill ||
-      !RightSkill ||
-      !BottomLeftSkill ||
-      !BottomRightSkill
-    ) {
-      setModalMessage("Please open all skills before downloading.");
-      setMessageModal(true);
-      return;
-    }
-    e.preventDefault();
-    downloadCombinedPDF(
-      data,
-      "download-skills",
-      filename,
-      setDownloading,
-      subscriptionpaid,
-      profilename
-    );
-  };
-  const handleEmailSend = async (filename) => {
-    setEmailLoading(true);
-    try {
-      // Get the PDF blob from the modified function
-      const pdfBlob = await downloadSendCombinedPDF(
-        getSkill,
-        "download-skills",
-        filename,
-        setEmailLoading,
-        subscriptionpaid,
-        profilename
-      );
-
-      if (!pdfBlob) {
-        console.error("Failed to generate PDF blob");
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append("transferablleSkills", pdfBlob, "skills.pdf");
-
-      const response = await axios.post("/api/user/send-skills", formData);
-
-      if (response.status === 200) {
-        SuccessToast(response?.data?.message);
-
-        gettransferableskill();
-      }
-    } catch (error) {
-      console.log(error, "errorerror");
-      ErrorToast(error?.response?.data?.message);
-    } finally {
-      const excludeElements = document.querySelectorAll(".pdf-exclude");
-      excludeElements.forEach((el) => (el.style.display = ""));
-      setEmailLoading(false);
-    }
-  };
   const positionMapRightSkill = {
     0: {
       bottom: "64%",
@@ -198,7 +135,7 @@ const NewTranfer = () => {
   const transferpdfElement = document.getElementById("download-skills");
 
   return (
-    <div className="max-w-screen-xl overflow-hidden">
+    <div className="max-w-screen-xl ">
       <MessageModal
         showModal={messageModal}
         setShowModal={setMessageModal}
@@ -341,7 +278,10 @@ const NewTranfer = () => {
                 return (
                   <button
                     key={item?._id}
-                    onBlur={() => setAppear(false)}
+                    onBlur={() => {
+                      setAppear(false);
+                      setIndexAppear(-1);
+                    }}
                     className="group absolute  w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-white leading-[12.82px] text-[11.82px] font-[600] text-center"
                     style={positions[index]}
                     onClick={() => {
@@ -418,11 +358,7 @@ const NewTranfer = () => {
           </div>
         </div>
 
-        <div
-          className={`grid grid-cols-12 relative ${
-            rigtindexAppear ? "z-40 " : ""
-          }`}
-        >
+        <div className={`grid grid-cols-12 relative`}>
           <div
             className={`col-span-3 flex justify-center relative bottom-[150px] left-[60px]  ${
               LeftSkill ? "flex" : "invisible"
@@ -434,118 +370,116 @@ const NewTranfer = () => {
                 className="h-[725px] object-contain "
                 alt="Left Skill"
               />
-              {getSkill?.favorite_hobby2?.topics
-                ?.slice(0, 5)
-                ?.map((item, index) => {
-                  const positions = [
-                    {
-                      bottom: "61.4%",
-                      left: "30%",
-                      transform: "translate(-50%, -50%)",
-                      zIndex: 10,
-                    },
-                    {
-                      bottom: "63%",
-                      right: "33%",
-                      transform: "translate(50%, -50%)",
-                      zIndex: 10,
-                    },
-                    {
-                      bottom: "42%",
-                      left: "38%",
-                      transform: "translate(-50%, -50%)",
-                      zIndex: 7,
-                    },
-                    {
-                      bottom: "37.5%",
-                      left: "22%",
-                      transform: "translate(-50%, 50%)",
-                      zIndex: 6,
-                    },
-                    {
-                      bottom: "29%",
-                      left: "26%",
-                      transform: "translate(50%, 50%)",
-                      zIndex: 5,
-                    },
-                  ];
+              {getSkill?.favorite_hobby2?.topics?.map((item, index) => {
+                const positions = [
+                  {
+                    bottom: "61.4%",
+                    left: "30%",
+                    transform: "translate(-50%, -50%)",
+                    zIndex: 10,
+                  },
+                  {
+                    bottom: "63%",
+                    right: "33%",
+                    transform: "translate(50%, -50%)",
+                    zIndex: 50,
+                  },
+                  {
+                    bottom: "42%",
+                    left: "38%",
+                    transform: "translate(-50%, -50%)",
+                    zIndex: 7,
+                  },
+                  {
+                    bottom: "37.5%",
+                    left: "22%",
+                    transform: "translate(-50%, 50%)",
+                    zIndex: 6,
+                  },
+                  {
+                    bottom: "29%",
+                    left: "26%",
+                    transform: "translate(50%, 50%)",
+                    zIndex: 5,
+                  },
+                ];
 
-                  return (
-                    <button
-                      key={item._id}
-                      onBlur={() => setAppear(false)}
-                      className="group absolute  w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-white leading-[12.82px] text-[11.82px] font-[600] text-center"
-                      style={positions[index]}
-                      onClick={() => {
-                        setSelecetedIndex({ id: item?._id, name: item?.title });
+                return (
+                  <button
+                    key={item._id}
+                    onBlur={() => setAppear(false)}
+                    className="group absolute  w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-white leading-[12.82px] text-[11.82px] font-[600] text-center"
+                    style={positions[index]}
+                    onClick={() => {
+                      setSelecetedIndex({ id: item?._id, name: item?.title });
 
-                        setAppear((prev) => (prev === index ? null : item._id));
-                        setNoteData({
-                          favorite_hobby2: {
-                            favorite_hobbyId: getSkill?.favorite_hobby2?._id,
-                            descriptionId: item._id,
-                          },
-                        });
+                      setAppear((prev) => (prev === index ? null : item._id));
+                      setNoteData({
+                        favorite_hobby2: {
+                          favorite_hobbyId: getSkill?.favorite_hobby2?._id,
+                          descriptionId: item._id,
+                        },
+                      });
 
-                        setNoteDescription(item?.description);
-                      }}
-                    >
-                      <div className="text-nowrap max-h-10 ">
-                        {item?.title.length > 9
-                          ? item?.title.substring(0, 9) + "..."
-                          : item?.title}
-                      </div>
-                      <div
-                        className="absolute -top-4 -right-18 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                      setNoteDescription(item?.description);
+                    }}
+                  >
+                    <div className="text-nowrap max-h-10 ">
+                      {item?.title.length > 9
+                        ? item?.title.substring(0, 9) + "..."
+                        : item?.title}
+                    </div>
+                    <div
+                      className="absolute -top-4 -right-18 bottom-full mb-2 hidden group-hover:flex flex-col items-center
           opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100
           transition-all duration-300 ease-in-out z-30"
-                      >
-                        <div className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3 w-max max-w-[250px] text-center">
-                          {item?.title}
-                        </div>
-                        <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10" />
+                    >
+                      <div className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3 w-max max-w-[250px] text-center">
+                        {item?.title}
                       </div>
-                      <div
-                        className={`w-[310px] flex  p-3  transition-all duration-500 absolute top-12  right-0 left-0 z-40 rounded-2xl bg-[#D4FFC2] justify-between items-start ${
-                          appear &&
-                          selectedIndex?.id === item?._id &&
-                          selectedIndex?.name === item?.title
-                            ? "scale-100"
-                            : "scale-0"
-                        }`}
-                      >
-                        <span className="w-[20%] h-full flex  items-start">
-                          {loading ? (
-                            <span className="animate-pulse text-green-500">
-                              <BsFillBookmarkStarFill size={"27px"} />
-                            </span>
-                          ) : (
-                            <BsFillBookmarkStarFill
-                              size={"27px"}
-                              onClick={() =>
-                                handleLike(noteData, item?.is_favorite)
-                              }
-                              className={`transition duration-200 cursor-pointer ${
-                                item?.is_favorite
-                                  ? "text-green-500"
-                                  : "text-gray-500"
-                              }`}
-                              title={
-                                item?.is_favorite
-                                  ? "Remove from Favorites"
-                                  : "Add to Favorites"
-                              }
-                            />
-                          )}
-                        </span>
-                        <span className="text-start text-wrap text-[14px] leading-[20px] font-medium text-[#172E55]">
-                          {item?.description}
-                        </span>
-                        <div className="absolute -top-2 left-3 w-0 h-0 border-l-[6px] border-r-[6px] border-b-[8px] border-l-transparent border-r-transparent border-b-[#D4FFC2]" />
-                      </div>
-                    </button>
-                  );
-                })}
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10" />
+                    </div>
+                    <div
+                      className={`w-[310px] flex  p-3  transition-all duration-500 absolute top-12  right-0 left-0 z-40 rounded-2xl bg-[#D4FFC2] justify-between items-start ${
+                        appear &&
+                        selectedIndex?.id === item?._id &&
+                        selectedIndex?.name === item?.title
+                          ? "scale-100"
+                          : "scale-0"
+                      }`}
+                    >
+                      <span className="w-[20%] h-full flex  items-start">
+                        {loading ? (
+                          <span className="animate-pulse text-green-500">
+                            <BsFillBookmarkStarFill size={"27px"} />
+                          </span>
+                        ) : (
+                          <BsFillBookmarkStarFill
+                            size={"27px"}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
+                            className={`transition duration-200 cursor-pointer ${
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
+                            }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
+                          />
+                        )}
+                      </span>
+                      <span className="text-start text-wrap text-[14px] leading-[20px] font-medium text-[#172E55]">
+                        {item?.description}
+                      </span>
+                      <div className="absolute -top-2 left-3 w-0 h-0 border-l-[6px] border-r-[6px] border-b-[8px] border-l-transparent border-r-transparent border-b-[#D4FFC2]" />
+                    </div>
+                  </button>
+                );
+              })}
             </div>
           </div>
           {/* Center Section Start */}
@@ -556,7 +490,7 @@ const NewTranfer = () => {
                 className="h-[615.67px] object-contain"
                 alt="Center Skill"
               />
-              <div className="absolute bottom-[41.7%] left-[38.35%]">
+              <div className="absolute  w-full  bottom-[41.7%] left-[38.35%]">
                 {profilepic ? (
                   <img
                     src={profilepic}
@@ -564,7 +498,7 @@ const NewTranfer = () => {
                     alt=""
                   />
                 ) : (
-                  <p className="absolute text-[40px] top-[20px]">
+                  <p className="absolute text-[40px] left-14  right-0 bottom-[42px]">
                     {profilename
                       ?.split(" ")
                       .map((word) => word[0])
@@ -573,15 +507,15 @@ const NewTranfer = () => {
                   </p>
                 )}
                 <div>
-                <div
-                className={`text-md text-center absolute ${
-                  profilepic
-                    ? "top-[180px] left-[21px]"
-                    : "top-[170px] -left-[54px]"
-                }  w-[120px] text-wrap break-words   font-[600] text-[#0a1723]`}
-              >
-                {profilename}
-              </div>
+                  <div
+                    className={`text-md text-center absolute ${
+                      profilepic
+                        ? "top-[180px] left-[21px]"
+                        : "top-[29px] left-[24px]"
+                    }  w-[120px] text-wrap break-words   font-[600] text-[#0a1723]`}
+                  >
+                    {profilename}
+                  </div>
                 </div>
               </div>
               <div
@@ -672,7 +606,7 @@ const NewTranfer = () => {
                 className="absolute z-0 w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-[#152b4e] leading-[12.82px] text-[12.82px] font-[600] text-center group"
                 style={{
                   top: "37%",
-                  right: "2%",
+                  right: "3%",
                   transform: "translate(-50%, -50%)",
                 }}
                 onClick={() => {
@@ -680,8 +614,8 @@ const NewTranfer = () => {
                     setLock(true);
                     return;
                   }
-                  setRightSkill((prev) => !prev)
-                  setAppear(false)
+                  setRightSkill((prev) => !prev);
+                  setAppear(false);
                 }}
               >
                 <span className="w-full text-center">
@@ -699,12 +633,12 @@ const NewTranfer = () => {
 
                 {/* Tooltip on hover */}
                 <div
-                  className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                  className="absolute  bottom-full mb-2 hidden group-hover:flex flex-col items-center
     opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100
     transition-all duration-300 ease-in-out"
                 >
                   <div
-                    className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
+                    className="bg-[#172E55] relative text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
       w-max max-w-[250px] text-center"
                   >
                     {getSkill?.military?.rank?.rank_name || "Not Found"}
@@ -714,24 +648,25 @@ const NewTranfer = () => {
               </div>
 
               <div
-                className="absolute 0 w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-[#152b4e] leading-[12.82px] text-[12.82px] font-[600] text-center group"
+                className="absolute  w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-[#152b4e] leading-[12.82px] text-[12.82px] font-[600] text-center group"
                 style={{
                   bottom: "17%",
                   right: "13%",
                   transform: "translate(-50%, -50%)",
+                  zIndex: 4,
                 }}
                 onClick={() => {
                   if (!subscriptionpaid) {
                     setLock(true);
                     return;
                   }
-                  setBottomRightSkill((prev) => !prev)
-                
-                  setAppear(false);}}
+                  setBottomRightSkill((prev) => !prev);
+                  setAppear(false);
+                }}
               >
                 <span className=" w-full text-center">
                   {loading ? (
-                    <div className="w-14 h-14 rounded-[100px] absolute bottom-[3px] left-[3px]  bg-green-700 animate-pulse flex justify-center items-center "></div>
+                    <div className="w-14 h-14  rounded-[100px] absolute bottom-[3px] left-[3px]  bg-green-700 animate-pulse flex justify-center items-center "></div>
                   ) : getSkill?.favorite_middle_school_subject?.subject_name
                       ?.length > 7 ? (
                     <div className="text-nowrap">
@@ -772,9 +707,8 @@ const NewTranfer = () => {
                     setLock(true);
                     return;
                   }
-                  setBottomLeftSkill((prev) => !prev)
+                  setBottomLeftSkill((prev) => !prev);
                   setAppear(false);
-                
                 }}
               >
                 <span className=" w-full   text-center">
@@ -813,7 +747,7 @@ const NewTranfer = () => {
                 : "invisible"
             }`}
           >
-            <div className="relative ">
+            <div className="relative -z-0 ">
               <img
                 src={skillright}
                 className="h-[725px]  object-contain"
@@ -1036,11 +970,11 @@ const NewTranfer = () => {
           </div>
           {/* {'Bottom Right Skills'} */}
           <div
-            className={`col-span-6 z-1 flex justify-center relative bottom-[204px] right-[61px]  ${
+            className={`col-span-6 z-1 flex justify-center  relative bottom-[204px] right-[61px]  ${
               BottomRightSkill ? "flex" : "invisible"
             }`}
           >
-            <div className="relative">
+            <div className="relative ">
               <img
                 src={skillbottomright}
                 className="h-[425px] object-contain "
@@ -1053,7 +987,7 @@ const NewTranfer = () => {
                       top: "19%",
                       right: "10%",
                       transform: "translate(-50%, -50%)",
-                      zIndex: 10,
+                      zIndex: 50,
                     },
                     {
                       bottom: "5%",
@@ -1114,7 +1048,7 @@ const NewTranfer = () => {
                         <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10" />
                       </div>
                       <div
-                        className={`w-[348px] flex  p-3  transition-all duration-500 absolute top-12 right-0 left-0 z-10 rounded-2xl bg-[#D4FFC2] justify-between items-start ${
+                        className={`w-[348px] flex  p-3  transition-all duration-500 absolute top-12 right-0   overflow-auto z-10 rounded-2xl bg-[#D4FFC2] justify-between items-start ${
                           appear &&
                           selectedIndex?.id === item?._id &&
                           selectedIndex?.name === item?.title

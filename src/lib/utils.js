@@ -356,7 +356,7 @@ export const generateCombinedPDF = async (
   profilename,
   setIsSnapshot
 ) => {
-  setIsSnapshot(true)
+  setIsSnapshot(true);
   try {
     // Validate inputs (existing code)
     if (!userData) {
@@ -484,7 +484,7 @@ export const generateCombinedPDF = async (
       document
         .querySelectorAll(".pdf-exclude")
         .forEach((el) => (el.style.display = ""));
-        setIsSnapshot(false)
+      setIsSnapshot(false);
       // Reset the snapshot state
     }
   } catch (error) {
@@ -1003,7 +1003,6 @@ export const downloadSendCombinedPDF = async (
   elementId,
   filename = "profile-report.pdf",
   setDownloading,
-
   subscriptionpaid,
   profilename
 ) => {

@@ -5,19 +5,19 @@ import "./index.css";
 import { Route, Routes } from "react-router-dom";
 import { authRoutes } from "./constant/authRoutes";
 import { routes } from "./constant/routes";
-// import { AuthContext } from "./context/AuthContext";
+import { AuthContext } from "./context/AuthContext";
+import ProtectedRoutes from "./constant/ProtectedRoutes";
 
 function App() {
-  // const { token } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
   return (
     <Routes>
-      {authRoutes.map((route) => {
-        return (
-          <Route path={route?.url} element={route?.page} key={route?.title} />
-        );
-      })}
-
+        {authRoutes?.map((route) => {
+          return (
+            <Route path={route?.url} element={route?.page} key={route?.title} />
+          );
+        })}
       {routes?.map((route, key) => (
         <Route path={route?.url} element={route?.page} key={key} />
       ))}
