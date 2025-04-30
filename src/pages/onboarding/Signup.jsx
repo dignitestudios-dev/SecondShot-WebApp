@@ -206,14 +206,7 @@ const SignUpForm = () => {
         </div>
 
         <div className="w-full bg-white md:w-1/2 flex flex-col rounded md:rounded-r-[20px]  items-center justify-center relative">
-            <div className="flex  justify-end mt-3 ms-auto pe-3">
-              <div className="w-[140px]">
-                <AuthSubmitBtn
-                  text={"Try It For Free"}
-                  handleSubmit={() => setFreeModal(true)}
-                />
-              </div>
-            </div>
+           
           <div className="w-full max-w-md p-7 ">
             <div className="flex justify-center ">
               <img
@@ -225,6 +218,14 @@ const SignUpForm = () => {
             <h2 className="text-[32px] font-[600] text-center leading-[43.2px] mb-4">
               Sign Up
             </h2>
+            <div className="flex justify-center mb-3">
+              <div className="w-[140px]">
+                <AuthSubmitBtn
+                  text={"Try It For Free"}
+                  handleSubmit={() => setFreeModal(true)}
+                />
+              </div>
+            </div>
             <p className="text-center text-[16px] leading-[21.6px] font-[500] mb-6">
               Please enter the details below to continue
             </p>

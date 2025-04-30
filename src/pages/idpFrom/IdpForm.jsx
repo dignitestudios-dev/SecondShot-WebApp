@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import {
@@ -19,6 +19,7 @@ import {
   ErrorToast,
   SuccessToast,
 } from "../../components/toaster/ToasterContainer";
+import { AuthContext } from "../../context/AuthContext";
 
 const IdpForm = () => {
   const [step, setStep] = useState(1);
@@ -77,9 +78,7 @@ const IdpForm = () => {
   }, []);
 
   const cardData = idpData?.data?.map((item) => item.answer);
-
-
-
+console.log(cardData,"cardData")
   return (
     <div>
       <AwardForm
@@ -119,12 +118,13 @@ const IdpForm = () => {
           <h1 className="text-[32px]  text-[#000000] font-[500] ">
             Awards and IDP
           </h1>
-          <div className="flex  justify-end">
-          
-            <DownladButton idpData={idpData} />
+          { idpData?.data?.length > 0 &&
+  idpData.data.every(item => item.answer !== null && item.answer !== undefined) && (
+    <div className="flex justify-end">
+      <DownladButton idpData={idpData} />
+    </div>
+)}
 
-          
-          </div>
         </div>
 
         <div className="flex gap-5 mt-5 flex-wrap">

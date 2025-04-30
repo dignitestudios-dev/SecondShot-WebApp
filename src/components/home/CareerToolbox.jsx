@@ -92,7 +92,7 @@ const CareerToolbox = () => {
     {
       cardicons: Carriericon6,
       bgcolors: "bg-gradient-to-t from-[#D39100] to-[#FFDF9B]",
-      title: "My Library",
+      title: "My Library, Awards & IDP",
       cardimage: Card6,
       btnBg: isFirst.mylibrary === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Mark and save your favorite skills and careers for quick reference.",
@@ -156,7 +156,7 @@ const CareerToolbox = () => {
                   className="w-[60px] object-contain h-[60px] "
                 />
               </div>
-              <div className="text-[24px] w-[120px] text-start  uppercase leading-[33px] font-[600] text-white">
+              <div className="text-[24px] traun w-[180px] text-start  uppercase leading-[33px] font-[600] text-white">
                 {item?.title}
               </div>
             </div>
@@ -195,9 +195,11 @@ const CareerToolbox = () => {
 
         <LockModal
           isOpen={lock}
-          handleClick={() => navigate("/subscriptionplans", {
-            state: { cardShow: true },
-          })}
+          handleClick={() =>
+            navigate("/subscriptionplans", {
+              state: { cardShow: true },
+            })
+          }
           onClose={() => setLock(false)}
           text={
             "Buy a subscription to unlock this feature and access all of the modules."

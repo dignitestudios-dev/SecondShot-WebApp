@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ChampionAward, FameAward } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
@@ -7,6 +7,7 @@ import { stepFourAward } from "../../Schema/awardSchema";
 import CongratsModal from "./CongratsModal";
 import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
 import axios from "../../axios";
+import { AuthContext } from "../../context/AuthContext";
 const StepFour = ({
   nextStep,
   prevStep,
@@ -54,6 +55,8 @@ const StepFour = ({
       
       },
     });
+    const{ profilename} =useContext(AuthContext)
+
   return (
     <div>
       <div className="mt-10  px-4">
@@ -122,7 +125,7 @@ const StepFour = ({
         showModal={modalOpen}
         heading={"Congratulations!"}
         para={
-          "Second Shot has awarded Sanethia Thomas the Career Champion Award for completing her LinkedIn Profile. "
+          `Second Shot has awarded  ${profilename} the Career Champion Award for completing her LinkedIn Profile. `
         }
         handleClick={handleModalClose}
         onclick={() => setModalOpen(false)}

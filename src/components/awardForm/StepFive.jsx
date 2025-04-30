@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   ChampionAward,
   Downloadimg,
@@ -12,6 +12,7 @@ import { stepFiveAward } from "../../Schema/awardSchema";
 import CongratsModal from "./CongratsModal";
 import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
 import axios from "../../axios";
+import { AuthContext } from "../../context/AuthContext";
 const StepFive = ({
   prevStep,
   imageFaded,
@@ -28,6 +29,7 @@ const StepFive = ({
 }) => {
   
   const [loading, setLoading] = useState(false);
+  const{ profilename} =useContext(AuthContext)
 
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
@@ -147,7 +149,7 @@ const StepFive = ({
         showModal={modalOpen}
         heading={"Congratulations!"}
         para={
-          "Second Shot has awarded Sanethia Thomas the Hall of Fame Award for completing her Individual Development Plan. Congratulations!"
+          `Second Shot has awarded ${profilename} the Hall of Fame Award for completing her Individual Development Plan. Congratulations!`
         }
         handleClick={() => {
           setModalOpen(false);

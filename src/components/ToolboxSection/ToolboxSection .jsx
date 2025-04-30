@@ -43,7 +43,7 @@ const ToolboxSection = () => {
     },
     {
       imgcard: Carriericon6,
-      title: "My Library",
+      title: "My Library, Awards & IDP",
       description: "Save your favorite careers and skills in your library.",
       gradient: "bg-gradient-to-r from-[#D39100] to-[#FFDF9B]",
     },

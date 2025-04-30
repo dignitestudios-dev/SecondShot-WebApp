@@ -6,7 +6,7 @@ import StepFour from "./StepFour";
 import StepFive from "./StepFive";
 import { RxCross2 } from "react-icons/rx";
 import axios from "../../axios";
-const AwardForm = ({ showModal, setFormOpen, getMyIdp,step,setStep ,cardData,idpData}) => {
+const AwardForm = ({ showModal, setFormOpen, getMyIdp,step,setStep ,cardData,idpData,profilename}) => {
  
   const [formLoading, setFormLoading] = useState(false);
   const [imageFaded, setImageFaded] = useState(false);
@@ -279,6 +279,7 @@ const AwardForm = ({ showModal, setFormOpen, getMyIdp,step,setStep ,cardData,idp
                       getMyIdp={getMyIdp}
                       cardData={cardData}
                       idpData={idpData}
+                 
                     />
                   </div>
                 )}

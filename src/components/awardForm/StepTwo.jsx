@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { GameTime, PlaybookAward } from "../../assets/export";
 import { IoIosArrowBack, IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import { stepTwoAward } from "../../Schema/awardSchema";
 import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
 import axios from "../../axios";
+import { AuthContext } from "../../context/AuthContext";
 const SKILL_OPTIONS = [
   "Communication",
   "Leadership",
@@ -29,7 +30,8 @@ const StepTwo = ({
   getMyIdp,
   cardData
 }) => {
-  console.log(carrer, "carrer");
+      const{ profilename} =useContext(AuthContext)
+  
   const [errorSkills, setErroSkills] = useState("");
   const [showOtherInput, setShowOtherInput] = useState(false);
   const [otherSkill, setOtherSkill] = useState("");
@@ -238,7 +240,7 @@ const StepTwo = ({
         showModal={modalOpen}
         heading={"Congratulations!"}
         para={
-          "Second Shot has awarded Sanethia Thomas the Playbook Pro Award for identifying her top Career Choice: Computer Science. Congratulations!"
+          `Second Shot has awarded ${profilename} the Playbook Pro Award for identifying her top Career Choice:${selectedCareer.join(', ')}. Congratulations!`
         }
         handleClick={handleModalClose}
         onclick={() => setModalOpen(false)}

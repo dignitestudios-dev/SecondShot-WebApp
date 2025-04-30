@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Rookieaward } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { useFormik } from "formik";
@@ -7,6 +7,7 @@ import CongratsModal from "./CongratsModal";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
 import axios from "../../axios";
+import { AuthContext } from "../../context/AuthContext";
 
 const StepOne = ({
   nextStep,
@@ -21,7 +22,8 @@ const StepOne = ({
   questionId,
   getMyIdp,
   cardData,
-  idpData
+  idpData,
+
 }) => {
   const [errorSkills, setErroSkills] = useState("");
   const [showOtherInput, setShowOtherInput] = useState(false);
@@ -29,6 +31,7 @@ const StepOne = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [skillLimitError, setSkillLimitError] = useState("");
   const [loading, setLoading] = useState(false);
+    const{ profilename} =useContext(AuthContext)
 
   useEffect(() => {
     if (selectedSkills.length === 0 && cardData && cardData[0]) {
@@ -234,7 +237,7 @@ const StepOne = ({
         img={Rookieaward}
         showModal={modalOpen}
         heading={"Congratulations!"}
-        para={`Second Shot has awarded Sanethia Thomas the Rookie Award for identifying her top transferable skills: ${selectedSkills.join(
+        para={`Second Shot has awarded ${profilename} the Rookie Award for identifying her top transferable skills: ${selectedSkills.join(
           ", "
         )}. Congratulations!`}
         handleClick={handleModalClose}

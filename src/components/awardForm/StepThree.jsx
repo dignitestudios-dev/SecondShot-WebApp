@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GameTime, PlaybookAward } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import { IoIosArrowBack } from "react-icons/io";
@@ -7,6 +7,7 @@ import { stepThreeAward } from "../../Schema/awardSchema";
 import { useFormik } from "formik";
 import axios from "../../axios";
 import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
+import { AuthContext } from "../../context/AuthContext";
 const StepThree = ({
   nextStep,
   prevStep,
@@ -24,6 +25,7 @@ const StepThree = ({
 }) => {
 
   const [loading, setLoading] = useState(false);
+  const{ profilename} =useContext(AuthContext)
 
   
   
@@ -120,11 +122,11 @@ const StepThree = ({
         </div>
       </div>
       <CongratsModal
-        img={GameTime}
+        img={PlaybookAward}
         showModal={modalOpen}
         heading={"Congratulations!"}
         para={
-          " Second Shot has awarded Sanethia Thomas the Game Time Award for selecting the University of Florida to further research and apply. Congratulations! "
+          `Second Shot has awarded ${profilename} the Game Time Award for selecting the ${values.gameTime} to further research and apply. Congratulations!`
         }
         handleClick={handleModalClose}
         onclick={() => setModalOpen(false)}
