@@ -60,7 +60,7 @@ const Navbar = () => {
       icon: Carriericon5,
     },
     {
-      path: "/my-library",
+      path: "/idp-form",
       label: "My library",
       subpath1: "/careerfav-detail",
       icon: Carriericon6,
@@ -134,7 +134,7 @@ const Navbar = () => {
                     }`}
                   >
                     {item.label}
-                    {item.path === "/my-library" && (
+                    {item.path === "/idp-form" && (
                       <IoMdArrowDropdown
                         size={18}
                         onClick={() => setDrop((prev) => !prev)}

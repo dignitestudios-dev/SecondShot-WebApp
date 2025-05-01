@@ -78,7 +78,7 @@ const IdpForm = () => {
   }, []);
 
   const cardData = idpData?.data?.map((item) => item.answer);
-console.log(cardData,"cardData")
+  console.log(cardData, "cardData");
   return (
     <div>
       <AwardForm
@@ -118,13 +118,14 @@ console.log(cardData,"cardData")
           <h1 className="text-[32px]  text-[#000000] font-[500] ">
             Awards and IDP
           </h1>
-          { idpData?.data?.length > 0 &&
-  idpData.data.every(item => item.answer !== null && item.answer !== undefined) && (
-    <div className="flex justify-end">
-      <DownladButton idpData={idpData} />
-    </div>
-)}
-
+          {idpData?.data?.length > 0 &&
+            idpData.data.every(
+              (item) => item.answer !== null && item.answer !== undefined
+            ) && (
+              <div className="flex justify-end">
+                <DownladButton idpData={idpData} />
+              </div>
+            )}
         </div>
 
         <div className="flex gap-5 mt-5 flex-wrap">
@@ -159,7 +160,7 @@ console.log(cardData,"cardData")
                 <div className="text-center text-[16px] font-[600] text-nowrap mt-2">
                   <h2
                     className={`${
-                      answer === null ? "text-gray-400" : card.textColor
+                        idpData.length === 0 || answer === null ? "text-gray-400" : card.textColor
                     }`}
                   >
                     {card.title}
