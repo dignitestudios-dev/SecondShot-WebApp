@@ -732,70 +732,77 @@ export function createPDFWithUserDataAndResume(userData, resume, idpData) {
     }
   }
 
+  const BOTTOM_PADDING = 20; // To ensure we don't write over footer
+
   pdf.addPage();
   yPosition = 20;
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(16);
   pdf.text("  (IDP)", leftMargin, yPosition);
   yPosition += 10;
-  // Check if idpData exists and has data array
+
+  function getWrappedTextHeight(text, fontSize, maxWidth, lineHeight) {
+    const lines = pdf.splitTextToSize(text, maxWidth);
+    return lines.length * lineHeight;
+  }
+
   if (
     idpData &&
     idpData.data &&
     Array.isArray(idpData.data) &&
     idpData.data.length > 0
   ) {
-    // Process each question-answer pair
     idpData.data.forEach((item, index) => {
       if (item && item.question) {
-        yPosition = checkPageBreak(yPosition);
-
-        // Add placeholder image before each question (40x40mm square)
         const imageSize = 20;
-        const currentImage = awardImages[index] || Rookieaward; // fallback
+        const textX = leftMargin + imageSize + 5;
+        const questionWidth = maxLineWidth - imageSize - 5;
 
-        // Draw the image
+        // Calculate heights beforehand
+        const questionText = item.question.question || "No question available";
+        const questionHeight =
+          getWrappedTextHeight(questionText, 10, questionWidth, 6) + 12;
+
+        let answerHeight = 6;
+        if (item.answer === null || item.answer === undefined) {
+          answerHeight += 6;
+        } else if (Array.isArray(item.answer)) {
+          item.answer.forEach((ans) => {
+            if (ans) {
+              answerHeight +=
+                getWrappedTextHeight(ans, 10, questionWidth - 5, 6) + 2;
+            }
+          });
+        } else {
+          answerHeight += getWrappedTextHeight(
+            item.answer.toString(),
+            10,
+            questionWidth,
+            6
+          );
+        }
+
+        const totalEstimatedHeight =
+          imageSize + questionHeight + answerHeight + 15;
+
+        if (
+          yPosition + totalEstimatedHeight >
+          pdf.internal.pageSize.height - BOTTOM_PADDING
+        ) {
+          pdf.addPage();
+          yPosition = 20;
+        }
+
+        // Draw image
+        const currentImage = awardImages[index] || Rookieaward;
         pdf.addImage(
           currentImage,
-          "PNG", // or 'JPEG' depending on the format
+          "PNG",
           leftMargin,
           yPosition,
           imageSize,
           imageSize
         );
-        // Add image border
-        // pdf.setDrawColor(100, 100, 100); // Darker gray for border
-        // pdf.setLineWidth(0.5);
-        // pdf.rect(leftMargin, yPosition, imageSize, imageSize, 'S');
-
-        // // Add image icon (simple drawing in the center of placeholder)
-        // pdf.setDrawColor(80, 80, 80);
-        // pdf.setLineWidth(0.8);
-
-        // // Draw a simple icon inside the placeholder (e.g., document icon)
-        // const iconMargin = 5;
-        // pdf.line(
-        //   leftMargin + iconMargin,
-        //   yPosition + iconMargin,
-        //   leftMargin + imageSize - iconMargin,
-        //   yPosition + iconMargin
-        // );
-        // pdf.line(
-        //   leftMargin + iconMargin,
-        //   yPosition + imageSize/2,
-        //   leftMargin + imageSize - iconMargin,
-        //   yPosition + imageSize/2
-        // );
-        // pdf.line(
-        //   leftMargin + iconMargin,
-        //   yPosition + imageSize - iconMargin,
-        //   leftMargin + imageSize - iconMargin,
-        //   yPosition + imageSize - iconMargin
-        // );
-
-        // Position text to the right of the image
-        const textX = leftMargin + imageSize + 5;
-        const questionWidth = maxLineWidth - imageSize - 5;
 
         // Question number
         pdf.setFont("helvetica", "bold");
@@ -806,30 +813,27 @@ export function createPDFWithUserDataAndResume(userData, resume, idpData) {
         pdf.setFont("helvetica", "normal");
         pdf.setFontSize(10);
         yPosition = wrapText(
-          item.question.question || "No question available",
+          questionText,
           textX,
           yPosition + 12,
           questionWidth,
           6
         );
-
         yPosition += 6;
 
-        // Answer section
+        // Answer label
         pdf.setFont("helvetica", "bold");
         pdf.setFontSize(10);
         pdf.text("Answer:", textX, yPosition);
         yPosition += 6;
 
-        // Format the answer based on its type
+        // Answer content
         pdf.setFont("helvetica", "normal");
-
         if (item.answer === null || item.answer === undefined) {
           pdf.text("No answer provided.", textX, yPosition);
           yPosition += 6;
         } else if (Array.isArray(item.answer)) {
-          // Handle array of answers (bullets)
-          item.answer.forEach((ans, i) => {
+          item.answer.forEach((ans) => {
             if (ans) {
               pdf.text("•", textX, yPosition);
               yPosition = wrapText(
@@ -843,7 +847,6 @@ export function createPDFWithUserDataAndResume(userData, resume, idpData) {
             }
           });
         } else {
-          // Handle single answer
           yPosition = wrapText(
             item.answer.toString(),
             textX,
@@ -853,20 +856,23 @@ export function createPDFWithUserDataAndResume(userData, resume, idpData) {
           );
         }
 
-        yPosition += 15; // Extra space between questions
-        // ✅ Check for page break again after rendering answer
-        yPosition = checkPageBreak(yPosition);
+        yPosition += 15;
+
+        // Final check to prevent breaking at the end
+        if (yPosition > pdf.internal.pageSize.height - BOTTOM_PADDING) {
+          pdf.addPage();
+          yPosition = 20;
+        }
       }
     });
   } else {
-    // No IDP data available
     pdf.setFont("helvetica", "italic");
     pdf.setFontSize(10);
-    pdf.text("No  data available.", leftMargin, yPosition);
+    pdf.text("No data available.", leftMargin, yPosition);
     yPosition += 10;
   }
 
-  // Add End of document marker on the last page
+  // Footer
   pdf.setFontSize(8);
   pdf.setTextColor(150, 150, 150);
   pdf.text("End of document", pdfWidth - rightMargin, 280, null, null, "right");
