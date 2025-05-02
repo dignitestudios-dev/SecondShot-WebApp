@@ -554,6 +554,7 @@ transition-all duration-300 ease-in-out z-30"
                     className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
       w-max max-w-[250px] text-center"
                   >
+                    {getSkill?.athlete?.primary_sport?.sport_name || "N/A"}
                     {/* {getSkill?.athlete?.primary_sport?.sport_name
                       ? getSkill?.athlete?.primary_sport?.sport_name
                       : getSkill?.favorite_middle_school_subject?.subject_name} */}
