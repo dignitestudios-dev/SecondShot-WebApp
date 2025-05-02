@@ -28,10 +28,10 @@ const StepTwo = ({
   question,
   questionId,
   getMyIdp,
-  cardData
+  cardData,
 }) => {
-      const{ profilename} =useContext(AuthContext)
-  
+  const { profilename } = useContext(AuthContext);
+  console.log(selectedCareer, "selectedCareer");
   const [errorSkills, setErroSkills] = useState("");
   const [showOtherInput, setShowOtherInput] = useState(false);
   const [otherSkill, setOtherSkill] = useState("");
@@ -69,7 +69,6 @@ const StepTwo = ({
       } finally {
         setLoading(false);
       }
-
     },
   });
 
@@ -140,7 +139,7 @@ const StepTwo = ({
             <div className="flex justify-between mt-[2px] items-center">
               <span className="flex flex-wrap gap-2">
                 {selectedCareer.length > 0
-                  ? selectedCareer.map((skill, index) => (
+                  ? selectedCareer?.map((skill, index) => (
                       <div
                         key={index}
                         className="flex items-center gap-1 bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"
@@ -239,9 +238,9 @@ const StepTwo = ({
         img={GameTime}
         showModal={modalOpen}
         heading={"Congratulations!"}
-        para={
-          `Second Shot has awarded ${profilename} the Playbook Pro Award for identifying her top Career Choice:${selectedCareer.join(', ')}. Congratulations!`
-        }
+        para={`Second Shot has awarded ${profilename} the Playbook Pro Award for identifying her top Career Choice:${selectedCareer.join(
+          ", "
+        )}. Congratulations!`}
         handleClick={handleModalClose}
         onclick={() => setModalOpen(false)}
       />

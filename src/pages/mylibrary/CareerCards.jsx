@@ -61,8 +61,8 @@ const CareerCards = ({ icon, carrerData, loading, getfavcareer }) => {
               </div>
             ))
         ) : carrerData?.length === 0 ? (
-          <div className="flex items-center justify-center min-h-screen absolute z-0 top-40 left-0 right-0 ">
-            <EmptyScreen text={"No Career Recommendations  found yet."} />
+          <div className="absolute z-2 mt-[200px] top-0 bottom-0 left-0 right-0 flex items-center justify-center">
+            <EmptyScreen text={"No Career Recommendations found yet."} />
           </div>
         ) : (
           carrerData?.map((recommendation, recommendationIndex) => (

@@ -13,11 +13,11 @@ function App() {
 
   return (
     <Routes>
-        {authRoutes?.map((route) => {
-          return (
-            <Route path={route?.url} element={route?.page} key={route?.title} />
-          );
-        })}
+      {authRoutes?.map((route) => {
+        return (
+          <Route path={route?.url} element={route?.page} key={route?.title} />
+        );
+      })}
       {routes?.map((route, key) => (
         <Route path={route?.url} element={route?.page} key={key} />
       ))}
