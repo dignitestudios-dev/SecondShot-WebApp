@@ -230,7 +230,7 @@ const NewTranfer = ({
         <div className="grid grid-cols-12 justify-center items-center relative z-50">
           <div
             className={`col-span-12 flex justify-center relative top-[65px] left-[4px]  ${
-              topSkill ? "flex" : "invisible"
+              getSkill?.athlete?.primary_sport?.topics &&  topSkill ? "flex" : "invisible"
             }`}
           >
             <div className="relative">
@@ -239,8 +239,7 @@ const NewTranfer = ({
                 className="h-[344px] object-contain"
                 alt="Top Skill"
               />
-              {getSkill?.athlete?.primary_sport?.topics
-                ? getSkill?.athlete?.primary_sport?.topics?.map(
+             { getSkill?.athlete?.primary_sport?.topics?.map(
                     (item, index) => {
                       const positions = [
                         {
@@ -313,127 +312,6 @@ const NewTranfer = ({
                             className="absolute -top-4 -right-18 bottom-full mb-2 hidden group-hover:flex flex-col items-center
 opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100
 transition-all duration-300 ease-in-out z-30"
-                          >
-                            <div className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3 w-max max-w-[250px] text-center">
-                              {item?.title}
-                            </div>
-                            <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10" />
-                          </div>
-                          <div
-                            className={`w-[388px] flex  z-50    p-3  transition-all duration-500 absolute  top-12 right-0 left-0  rounded-2xl bg-[#D4FFC2] justify-between items-start ${
-                              appear &&
-                              selectedIndex?.id === item?._id &&
-                              selectedIndex?.name === item?.title
-                                ? "scale-100"
-                                : "scale-0"
-                            }`}
-                          >
-                            <span className="w-[20%] h-full flex  items-start">
-                              {loading ? (
-                                <span className="animate-pulse text-green-500">
-                                  <BsFillBookmarkStarFill size={"27px"} />
-                                </span>
-                              ) : (
-                                <BsFillBookmarkStarFill
-                                  size={"27px"}
-                                  onClick={() =>
-                                    handleLike(noteData, item?.is_favorite)
-                                  }
-                                  className={`transition duration-200 cursor-pointer ${
-                                    item?.is_favorite
-                                      ? "text-green-500"
-                                      : "text-gray-500"
-                                  }`}
-                                  title={
-                                    item?.is_favorite
-                                      ? "Remove from Favorites"
-                                      : "Add to Favorites"
-                                  }
-                                />
-                              )}
-                            </span>
-                            <span className="text-start text-wrap text-[14px] leading-[20px] font-medium text-[#172E55]">
-                              {item?.description}
-                            </span>
-                            <div className="absolute -top-2 right-0 left-4 w-0 h-0 border-l-[6px] border-r-[6px] border-b-[8px] border-l-transparent border-r-transparent border-b-[#D4FFC2]" />
-                          </div>
-                        </button>
-                      );
-                    }
-                  )
-                : getSkill?.favorite_middle_school_subject?.topics?.map(
-                    (item, index) => {
-                      const positions = [
-                        {
-                          top: "21%",
-                          left: "22.5%",
-                          transform: "translate(-50%, -50%)",
-                          zIndex: 10,
-                        },
-                        {
-                          top: "21%",
-                          right: "24%",
-                          transform: "translate(50%, -50%)",
-                          zIndex: 10,
-                        },
-                        {
-                          top: "39%",
-                          left: "50%",
-                          transform: "translate(-50%, -50%)",
-                          zIndex: appear == index - 10,
-                        },
-                        {
-                          bottom: "41%",
-                          left: "14%",
-                          transform: "translate(-50%, 50%)",
-                          zIndex: 7,
-                        },
-                        {
-                          bottom: "43%",
-                          right: "14%",
-                          transform: "translate(50%, 50%)",
-                          zIndex: indexAppear == 2 && -2,
-                        },
-                      ];
-
-                      return (
-                        <button
-                          key={item?._id}
-                          onBlur={() => {
-                            setAppear(false);
-                            setIndexAppear(-1);
-                          }}
-                          className="group absolute  w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-white leading-[12.82px] text-[11.82px] font-[600] text-center"
-                          style={positions[index]}
-                          onClick={() => {
-                            setSelecetedIndex({
-                              id: item?._id,
-                              name: item?.title,
-                            });
-                            setIndexAppear(index);
-                            setAppear((prev) =>
-                              prev === index ? null : item._id
-                            );
-                            setNoteData({
-                              favorite_middle_school_subject: {
-                                favoriteSubjectId:
-                                  getSkill?.favorite_middle_school_subject?._id,
-                                descriptionId: item._id,
-                              },
-                            });
-
-                            setNoteDescription(item?.description);
-                          }}
-                        >
-                          <div className="text-nowrap max-h-10">
-                            {item?.title.length > 9
-                              ? item?.title.substring(0, 9) + "..."
-                              : item?.title}
-                          </div>
-                          <div
-                            className="absolute -top-4 -right-18 bottom-full mb-2 hidden group-hover:flex flex-col items-center
-          opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100
-          transition-all duration-300 ease-in-out z-30"
                           >
                             <div className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3 w-max max-w-[250px] text-center">
                               {item?.title}
@@ -656,33 +534,18 @@ transition-all duration-300 ease-in-out z-30"
                 onClick={() => setTopSkill((prev) => !prev)}
               >
                 <span className=" w-full text-center">
-                  {getSkill?.athlete?.primary_sport?.sport_name ? (
-                    loading ? (
-                      <div className="w-14 h-14 rounded-[100px] absolute bottom-[3px] left-[3px]  bg-green-700 animate-pulse flex justify-center items-center "></div>
-                    ) : getSkill?.athlete?.primary_sport?.sport_name
-                        ?.length > 7 ? (
-                      <div className="text-nowrap">
-                        {getSkill?.athlete?.primary_sport?.sport_name?.substring(
-                          0,
-                          7
-                        ) + "..."}
-                      </div>
-                    ) : (
-                      getSkill?.athlete?.primary_sport?.sport_name || "Null"
-                    )
-                  ) : loading ? (
+                  {loading ? (
                     <div className="w-14 h-14 rounded-[100px] absolute bottom-[3px] left-[3px]  bg-green-700 animate-pulse flex justify-center items-center "></div>
-                  ) : getSkill?.favorite_middle_school_subject?.subject_name
-                      .length > 7 ? (
+                  ) : getSkill?.athlete?.primary_sport?.sport_name?.length >
+                    7 ? (
                     <div className="text-nowrap">
-                      {getSkill?.favorite_middle_school_subject?.subject_name?.substring(
+                      {getSkill?.athlete?.primary_sport?.sport_name?.substring(
                         0,
                         7
                       ) + "..."}
                     </div>
                   ) : (
-                    getSkill?.favorite_middle_school_subject?.subject_name ||
-                    "Null"
+                    getSkill?.athlete?.primary_sport?.sport_name || "Null"
                   )}
                 </span>
                 <div
@@ -694,9 +557,9 @@ transition-all duration-300 ease-in-out z-30"
                     className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
       w-max max-w-[250px] text-center"
                   >
-                    {getSkill?.athlete?.primary_sport?.sport_name
+                    {/* {getSkill?.athlete?.primary_sport?.sport_name
                       ? getSkill?.athlete?.primary_sport?.sport_name
-                      : getSkill?.favorite_middle_school_subject?.subject_name}
+                      : getSkill?.favorite_middle_school_subject?.subject_name} */}
                   </div>
                   <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
                 </div>
@@ -765,7 +628,8 @@ transition-all duration-300 ease-in-out z-30"
                 <span className="w-full text-center">
                   {loading ? (
                     <div className="w-14 h-14 rounded-[100px] absolute bottom-[3px] left-[3px] bg-green-700 animate-pulse flex justify-center items-center"></div>
-                  ) : getSkill?.athlete?.sport_position?.position_name.length > 7 ? (
+                  ) : getSkill?.athlete?.sport_position?.position_name.length >
+                    7 ? (
                     <div className="text-nowrap">
                       {getSkill?.athlete?.sport_position?.position_name?.substring(
                         0,
@@ -826,16 +690,34 @@ transition-all duration-300 ease-in-out z-30"
                     getSkill?.favorite_middle_school_subject?.subject_name ||
                     "Null"
                   )} */}
-                  {loading ? (
+                  {/* {loading ? (
                     <div className="w-14 h-14  rounded-[100px] absolute bottom-[3px] left-[3px]  bg-green-700 animate-pulse flex justify-center items-center "></div>
-                  ) : getSkill?.military?.rank?.rank_name?.length > 7 ? (
+                  ) : getSkill?.favorite_middle_school_subject.subject_name
+                      .length > 7 ? (
                     <div className="text-nowrap">
-                      {getSkill?.military?.rank?.rank_name?.substring(0, 7) +
-                        "..."}
+                      {getSkill?.favorite_middle_school_subject.subject_name.substring(
+                        0,
+                        7
+                      ) + "..."}
                     </div>
                   ) : (
-                    getSkill?.military?.rank?.rank_name || "Null"
-                  )}
+                    getSkill?.favorite_middle_school_subject.subject_name ||
+                    "Null"
+                  )} */}
+                   {loading ? (
+                    <div className="w-14 h-14  rounded-[100px] absolute bottom-[3px] left-[3px]  bg-green-700 animate-pulse flex justify-center items-center "></div>
+                  ) : getSkill?.favorite_middle_school_subject?.subject_name
+                      .length > 7 ? (
+                    <div className="text-nowrap">
+                      {getSkill?.favorite_middle_school_subject?.subject_name.substring(
+                        0,
+                        7
+                      ) + "..."}
+                    </div>
+                  ) : (
+                    getSkill?.favorite_middle_school_subject?.subject_name ||
+                    "Null"
+                  )} 
                 </span>
                 <div
                   className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center
@@ -846,7 +728,8 @@ transition-all duration-300 ease-in-out z-30"
                     className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
       w-max max-w-[250px] text-center"
                   >
-                    {getSkill?.military?.rank?.rank_name || "Not Found"}
+                    {getSkill?.favorite_middle_school_subject?.subject_name ||
+                      "Not Found"}
                   </div>
                   <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
                 </div>
@@ -1126,7 +1009,8 @@ transition-all duration-300 ease-in-out z-30"
           {/* {'Bottom Right Skills'} */}
           <div
             className={`col-span-6 z-1 flex justify-center  relative bottom-[204px] right-[61px]  ${
-              getSkill?.military?.rank?.rank_name && BottomRightSkill
+              
+              BottomRightSkill
                 ? "flex"
                 : "invisible"
             }`}
@@ -1137,111 +1021,113 @@ transition-all duration-300 ease-in-out z-30"
                 className="h-[425px] object-contain "
                 alt="Right Skill"
               />
-              {getSkill?.military?.rank?.topics?.map((item, index) => {
-                const positions = [
-                  {
-                    top: "19%",
-                    right: "10%",
-                    transform: "translate(-50%, -50%)",
-                    zIndex: 50,
-                  },
-                  {
-                    bottom: "5%",
-                    left: "33%",
-                    transform: "translate(50%, -50%)",
-                  },
-                  {
-                    top: "52%",
-                    right: "30%",
-                    transform: "translate(-50%, -50%)",
-                  },
-                  {
-                    bottom: "39.5%",
-                    left: "22%",
-                    transform: "translate(-50%, 50%)",
-                  },
-                  {
-                    bottom: "47%",
-                    right: "14%",
-                    transform: "translate(50%, 50%)",
-                  },
-                ];
+              {getSkill?.favorite_middle_school_subject?.topics?.map(
+                (item, index) => {
+                  const positions = [
+                    {
+                      top: "19%",
+                      right: "10%",
+                      transform: "translate(-50%, -50%)",
+                      zIndex: 50,
+                    },
+                    {
+                      bottom: "5%",
+                      left: "33%",
+                      transform: "translate(50%, -50%)",
+                    },
+                    {
+                      top: "52%",
+                      right: "30%",
+                      transform: "translate(-50%, -50%)",
+                    },
+                    {
+                      bottom: "39.5%",
+                      left: "22%",
+                      transform: "translate(-50%, 50%)",
+                    },
+                    {
+                      bottom: "47%",
+                      right: "14%",
+                      transform: "translate(50%, 50%)",
+                    },
+                  ];
 
-                return (
-                  <button
-                    key={item._id}
-                    onBlur={() => setAppear(false)}
-                    className="group absolute  w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-white leading-[12.82px] text-[11.82px] font-[600] text-center"
-                    style={positions[index]}
-                    onClick={() => {
-                      setSelecetedIndex({ id: item?._id, name: item?.title });
-                      setRigtindexAppear(index);
-                      setAppear((prev) => (prev === index ? null : item._id));
-                      setNoteData({
-                        rank: {
-                          rankId: getSkill?.military?.rank?._id,
-                          descriptionId: item._id,
-                        },
-                      });
-                      setNoteDescription(item?.description);
-                    }}
-                  >
-                    <div className="text-nowrap max-h-10 ">
-                      {item?.title.length > 10
-                        ? item?.title.substring(0, 10) + "..."
-                        : item?.title}
-                    </div>
-                    <div
-                      className="absolute -top-4 -right-18 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                  return (
+                    <button
+                      key={item._id}
+                      onBlur={() => setAppear(false)}
+                      className="group absolute  w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-white leading-[12.82px] text-[11.82px] font-[600] text-center"
+                      style={positions[index]}
+                      onClick={() => {
+                        setSelecetedIndex({ id: item?._id, name: item?.title });
+                        setRigtindexAppear(index);
+                        setAppear((prev) => (prev === index ? null : item._id));
+                        setNoteData({
+                          rank: {
+                            rankId: getSkill?.military?.rank?._id,
+                            descriptionId: item._id,
+                          },
+                        });
+                        setNoteDescription(item?.description);
+                      }}
+                    >
+                      <div className="text-nowrap max-h-10 ">
+                        {item?.title.length > 10
+                          ? item?.title.substring(0, 10) + "..."
+                          : item?.title}
+                      </div>
+                      <div
+                        className="absolute -top-4 -right-18 bottom-full mb-2 hidden group-hover:flex flex-col items-center
           opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100
           transition-all duration-300 ease-in-out z-30"
-                    >
-                      <div className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3 w-max max-w-[250px] text-center">
-                        {item?.title}
+                      >
+                        <div className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3 w-max max-w-[250px] text-center">
+                          {item?.title}
+                        </div>
+                        <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10" />
                       </div>
-                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10" />
-                    </div>
-                    <div
-                      className={`w-[348px] flex  p-3  transition-all duration-500 absolute top-12 right-0   overflow-auto z-10 rounded-2xl bg-[#D4FFC2] justify-between items-start ${
-                        appear &&
-                        selectedIndex?.id === item?._id &&
-                        selectedIndex?.name === item?.title
-                          ? "scale-100"
-                          : "scale-0"
-                      }`}
-                    >
-                      <span className="w-[20%] h-full flex  items-start">
-                        {loading ? (
-                          <span className="animate-pulse text-green-500">
-                            <BsFillBookmarkStarFill size={"27px"} />
-                          </span>
-                        ) : (
-                          <BsFillBookmarkStarFill
-                            size={"27px"}
-                            onClick={() =>
-                              handleLike(noteData, item?.is_favorite)
-                            }
-                            className={`transition duration-200 cursor-pointer ${
-                              item?.is_favorite
-                                ? "text-green-500"
-                                : "text-gray-500"
-                            }`}
-                            title={
-                              item?.is_favorite
-                                ? "Remove from Favorites"
-                                : "Add to Favorites"
-                            }
-                          />
-                        )}
-                      </span>
-                      <span className="text-start text-wrap text-[14px] leading-[20px] font-medium text-[#172E55]">
-                        {item?.description}
-                      </span>
-                      <div className="absolute -top-2 right-0 left-4 w-0 h-0 border-l-[6px] border-r-[6px] border-b-[8px] border-l-transparent border-r-transparent border-b-[#D4FFC2]" />
-                    </div>
-                  </button>
-                );
-              })}
+                      <div
+                        className={`w-[348px] flex  p-3  transition-all duration-500 absolute top-12 right-0   overflow-auto z-10 rounded-2xl bg-[#D4FFC2] justify-between items-start ${
+                          appear &&
+                          selectedIndex?.id === item?._id &&
+                          selectedIndex?.name === item?.title
+                            ? "scale-100"
+                            : "scale-0"
+                        }`}
+                      >
+                        <span className="w-[20%] h-full flex  items-start">
+                          {loading ? (
+                            <span className="animate-pulse text-green-500">
+                              <BsFillBookmarkStarFill size={"27px"} />
+                            </span>
+                          ) : (
+                            <BsFillBookmarkStarFill
+                              size={"27px"}
+                              onClick={() =>
+                                handleLike(noteData, item?.is_favorite)
+                              }
+                              className={`transition duration-200 cursor-pointer ${
+                                item?.is_favorite
+                                  ? "text-green-500"
+                                  : "text-gray-500"
+                              }`}
+                              title={
+                                item?.is_favorite
+                                  ? "Remove from Favorites"
+                                  : "Add to Favorites"
+                              }
+                            />
+                          )}
+                        </span>
+                        <span className="text-start text-wrap text-[14px] leading-[20px] font-medium text-[#172E55]">
+                          {item?.description}
+                        </span>
+                        <div className="absolute -top-2 right-0 left-4 w-0 h-0 border-l-[6px] border-r-[6px] border-b-[8px] border-l-transparent border-r-transparent border-b-[#D4FFC2]" />
+                      </div>
+                    </button>
+                  );
+                }
+              )}
               {/* {getSkill?.favorite_middle_school_subject?.topics?.map(
                 (item, index) => {
                   const positions = [
