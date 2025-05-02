@@ -673,34 +673,7 @@ transition-all duration-300 ease-in-out z-30"
                 }}
               >
                 <span className=" w-full text-center">
-                  {/* {loading ? (
-                    <div className="w-14 h-14  rounded-[100px] absolute bottom-[3px] left-[3px]  bg-green-700 animate-pulse flex justify-center items-center "></div>
-                  ) : getSkill?.favorite_middle_school_subject?.subject_name
-                      ?.length > 7 ? (
-                    <div className="text-nowrap">
-                      {getSkill?.favorite_middle_school_subject?.subject_name?.substring(
-                        0,
-                        7
-                      ) + "..."}
-                    </div>
-                  ) : (
-                    getSkill?.favorite_middle_school_subject?.subject_name ||
-                    "Null"
-                  )} */}
-                  {/* {loading ? (
-                    <div className="w-14 h-14  rounded-[100px] absolute bottom-[3px] left-[3px]  bg-green-700 animate-pulse flex justify-center items-center "></div>
-                  ) : getSkill?.favorite_middle_school_subject.subject_name
-                      .length > 7 ? (
-                    <div className="text-nowrap">
-                      {getSkill?.favorite_middle_school_subject.subject_name.substring(
-                        0,
-                        7
-                      ) + "..."}
-                    </div>
-                  ) : (
-                    getSkill?.favorite_middle_school_subject.subject_name ||
-                    "Null"
-                  )} */}
+                  
                   {loading ? (
                     <div className="w-14 h-14  rounded-[100px] absolute bottom-[3px] left-[3px]  bg-green-700 animate-pulse flex justify-center items-center "></div>
                   ) : getSkill?.favorite_middle_school_subject?.subject_name
@@ -833,7 +806,7 @@ transition-all duration-300 ease-in-out z-30"
                   </div>
 
                   <span
-                    className={`w-[300px] flex text-start transition-all duration-500 absolute top-12 right-0 z-10 ${
+                    className={`w-[300px] flex text-start transition-all duration-500 absolute top-12 ${index === 4 ? "left-0" : 'right-0'} z-10 ${
                       appear &&
                       selectedIndex?.id === item?._id &&
                       selectedIndex?.name === item?.title
