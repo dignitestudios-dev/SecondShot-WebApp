@@ -239,8 +239,8 @@ const NewTranfer = ({
                 className="h-[344px] object-contain"
                 alt="Top Skill"
               />
-              {getSkill?.athlete?.sport_position?.topics
-                ? getSkill?.athlete?.sport_position?.topics?.map(
+              {getSkill?.athlete?.primary_sport?.topics
+                ? getSkill?.athlete?.primary_sport?.topics?.map(
                     (item, index) => {
                       const positions = [
                         {
@@ -656,19 +656,19 @@ transition-all duration-300 ease-in-out z-30"
                 onClick={() => setTopSkill((prev) => !prev)}
               >
                 <span className=" w-full text-center">
-                  {getSkill?.athlete?.sport_position?.position_name ? (
+                  {getSkill?.athlete?.primary_sport?.sport_name ? (
                     loading ? (
                       <div className="w-14 h-14 rounded-[100px] absolute bottom-[3px] left-[3px]  bg-green-700 animate-pulse flex justify-center items-center "></div>
-                    ) : getSkill?.athlete?.sport_position?.position_name
+                    ) : getSkill?.athlete?.primary_sport?.sport_name
                         ?.length > 7 ? (
                       <div className="text-nowrap">
-                        {getSkill?.athlete?.sport_position?.position_name?.substring(
+                        {getSkill?.athlete?.primary_sport?.sport_name?.substring(
                           0,
                           7
                         ) + "..."}
                       </div>
                     ) : (
-                      getSkill?.athlete?.sport_position?.position_name || "Null"
+                      getSkill?.athlete?.primary_sport?.sport_name || "Null"
                     )
                   ) : loading ? (
                     <div className="w-14 h-14 rounded-[100px] absolute bottom-[3px] left-[3px]  bg-green-700 animate-pulse flex justify-center items-center "></div>
@@ -694,8 +694,8 @@ transition-all duration-300 ease-in-out z-30"
                     className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
       w-max max-w-[250px] text-center"
                   >
-                    {getSkill?.athlete?.sport_position?.position_name
-                      ? getSkill?.athlete?.sport_position?.position_name
+                    {getSkill?.athlete?.primary_sport?.sport_name
+                      ? getSkill?.athlete?.primary_sport?.sport_name
                       : getSkill?.favorite_middle_school_subject?.subject_name}
                   </div>
                   <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
@@ -765,15 +765,15 @@ transition-all duration-300 ease-in-out z-30"
                 <span className="w-full text-center">
                   {loading ? (
                     <div className="w-14 h-14 rounded-[100px] absolute bottom-[3px] left-[3px] bg-green-700 animate-pulse flex justify-center items-center"></div>
-                  ) : getSkill?.athlete?.primary_sport?.sport_name.length > 7 ? (
+                  ) : getSkill?.athlete?.sport_position?.position_name.length > 7 ? (
                     <div className="text-nowrap">
-                      {getSkill?.athlete?.primary_sport?.sport_name?.substring(
+                      {getSkill?.athlete?.sport_position?.position_name?.substring(
                         0,
                         7
                       ) + "..."}
                     </div>
                   ) : (
-                    getSkill?.athlete?.primary_sport?.sport_name || "Null"
+                    getSkill?.athlete?.sport_position?.position_name || "Null"
                   )}
                 </span>
 
@@ -787,7 +787,7 @@ transition-all duration-300 ease-in-out z-30"
                     className="bg-[#172E55] relative text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
       w-max max-w-[250px] text-center"
                   >
-                    {getSkill?.athlete?.primary_sport?.sport_name ||
+                    {getSkill?.athlete?.sport_position?.position_name ||
                       "Not Found"}
                   </div>
                   <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
@@ -909,7 +909,7 @@ transition-all duration-300 ease-in-out z-30"
                 className="h-[725px]  object-contain"
                 alt="Right Skill"
               />
-              {getSkill?.athlete?.primary_sport?.topics?.map((item, index) => (
+              {getSkill?.athlete?.sport_position?.topics?.map((item, index) => (
                 <button
                   key={item._id}
                   onBlur={() => setAppear(false)}

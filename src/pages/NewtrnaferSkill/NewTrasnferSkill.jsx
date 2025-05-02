@@ -368,7 +368,7 @@ const [isBottomLeftSkillActive, setIsBottomLeftSkillActive] = useState(true);
           profilename={profilename}
         />
 
-        <div id="download-skills" className={" absolute -z-50 bottom-0"}>
+        <div id="download-skills" className={"absolute  -z-50 bottom-0"}>
           <div
             className={`  ${
              topSkill
@@ -381,9 +381,9 @@ const [isBottomLeftSkillActive, setIsBottomLeftSkillActive] = useState(true);
             }`}
           >
             <div className="absolute  text-sm font-medium text-white text-center ">
-              {getSkill?.athlete?.sport_position?.topics ? (
+              {getSkill?.athlete?.primary_sport?.topics ? (
 <>
-{getSkill?.athlete?.sport_position?.topics?.map((item, index) => (
+{getSkill?.athlete?.primary_sport?.topics?.map((item, index) => (
                 <div key={index}>
                   {index === 0 && (
                     <button
@@ -1545,21 +1545,21 @@ const [isBottomLeftSkillActive, setIsBottomLeftSkillActive] = useState(true);
                   onClick={handleTopSKill}
                 >
                   <span className=" w-full text-center">
-                    {getSkill?.athlete?.sport_position?.position_name ? (
+                    {getSkill?.athlete?.primary_sport?.sport_name ? (
 
                       loading ? (
                         <div className="w-16 h-16 rounded-[100px]    absolute -bottom-8 left-0 bg-green-700 animate-pulse flex justify-center items-center "></div>
-                      ) : getSkill?.athlete?.sport_position?.position_name
+                      ) : getSkill?.athlete?.primary_sport?.sport_name
                           ?.length > 7 ? (
                         <div className="text-nowrap">
-                          {getSkill?.athlete?.sport_position?.position_name?.substring(
+                          {getSkill?.athlete?.primary_sport?.sport_name?.substring(
                             0,
                             7
                           ) + "..."}
                         </div>
                       ) : (
                         <span className="absolute left-[14px] -top-2">
-                          {getSkill?.athlete?.sport_position?.position_name ||
+                          {getSkill?.athlete?.primary_sport?.sport_name ||
                             "Null"}
                         </span>
                       )
@@ -1592,7 +1592,7 @@ const [isBottomLeftSkillActive, setIsBottomLeftSkillActive] = useState(true);
                       className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3 
           w-max max-w-[250px] relative z-10 text-center"
                     >
-                      {getSkill?.athlete?.sport_position?.position_name}
+                      {getSkill?.athlete?.primary_sport?.sport_name}
                     </div>
                     <div className="w-3 h-3 bg-[#172E55] relative z-0 -top-2 rotate-45 -mb-10"></div>
                   </div>
@@ -1671,14 +1671,14 @@ const [isBottomLeftSkillActive, setIsBottomLeftSkillActive] = useState(true);
                   <span className=" w-[20px]">
                     {loading ? (
                       <div className="w-16 h-16 rounded-[100px] absolute bottom-2 truncate  bg-green-700 animate-pulse flex "></div>
-                    ) : getSkill?.athlete?.primary_sport?.sport_name.length > 5 ? (
+                    ) : getSkill?.athlete?.sport_position?.position_name.length > 5 ? (
                       <div className="text-nowrap">
-                        {getSkill?.athlete?.primary_sport?.sport_name.substring(0, 5) +
+                        {getSkill?.athlete?.sport_position?.position_name.substring(0, 5) +
                           "..."}
                       </div>
                     ) : (
                       <span className="absolute -right-[1px] top-8">
-                        {getSkill?.athlete?.primary_sport?.sport_name || "Null"}
+                        {getSkill?.athlete?.sport_position?.position_name || "Null"}
                       </span>
                     )}
                   </span>
@@ -1778,7 +1778,7 @@ const [isBottomLeftSkillActive, setIsBottomLeftSkillActive] = useState(true);
 
             <div
               className={`${
-                getSkill?.athlete?.primary_sport?.topics && rightSkill
+                getSkill?.athlete?.sport_position?.topics && rightSkill
                   ? "visible"
                   : "invisible"
               } relative -top-[70px] -left-16 duration-1000 ease-in-out ${
@@ -1788,7 +1788,7 @@ const [isBottomLeftSkillActive, setIsBottomLeftSkillActive] = useState(true);
               }`}
             >
               <div className="absolute cursor-pointer text-sm font-medium text-white text-center">
-                {getSkill?.athlete?.primary_sport?.topics?.map((item, index) => (
+                {getSkill?.athlete?.sport_position?.topics?.map((item, index) => (
                   <div key={item._id}>
                     {index === 0 && (
                       <button
@@ -2574,7 +2574,7 @@ const [isBottomLeftSkillActive, setIsBottomLeftSkillActive] = useState(true);
               }`}
             >
               <div className="absolute text-sm font-medium text-white ">
-                {getSkill?.military?.rank?.rank_name?.topics?.map(
+                {getSkill?.military?.rank?.topics?.map(
                   (item, index) => (
                     <div key={item._id}>
                       {index === 0 && (
