@@ -123,17 +123,19 @@ function CareerRecommendations() {
               getallcarrerrecommendation={getallcarrerrecommendation}
             />
           </div>
-          <CareerRecommendationsModal
-            isOpen={isFirst.recommendation}
-            handleClick={() => {
-              setIsFirst((prev) => ({
-                ...prev,
-                recommendation: false,
-              }));
-            }}
-          />
+
         </>
       )}
+      <CareerRecommendationsModal
+        isOpen={isFirst.recommendation}
+        handleClick={() => {
+          setIsFirst((prev) => ({
+            ...prev,
+            recommendation: false,
+          }));
+        }}
+     
+      />
     </div>
   );
 }

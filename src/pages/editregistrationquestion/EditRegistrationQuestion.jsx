@@ -106,7 +106,7 @@ const EditRegistrationQuestion = () => {
       });
     }
   }, [registrationData]);
-  console.log(formData, "formData");
+
   const payload = {
     current_grade_level: formData?.university || "",
     major_trade_or_military: "Default" || "",
@@ -149,14 +149,22 @@ const EditRegistrationQuestion = () => {
     }
   };
   const nextStep = (skip = false) => {
-    setStep(skip ? 5 : step + 1);
+    setStep(skip ? 4 : step + 1);
   };
 
   const prevStep = (skip = false) => {
-    if (formData.university === "College"  ||  formData.university === "career" || formData.university === "early") {
-      setStep(step - 1);
+    if (
+      formData.university === "College" ||
+      formData.university === "career" ||
+      formData.university === "early"
+    ) {
+      if (skip) {
+        setStep(step - 2);
+      } else {
+        setStep(step - 1);
+      }
     } else {
-      setStep(step === 5 ? 1 : skip ? step - 2 : step - 1);
+      setStep(step === 4 ? 1 : skip ? step - 2 : step - 1);
     }
   };
 
@@ -190,12 +198,12 @@ const EditRegistrationQuestion = () => {
                     <div className="flex justify-between items-center mt-6">
                       <p className="text-xs font-medium">Steps</p>
                       <p className="text-xs font-medium">
-                        {step.toString().padStart(2, "0")}/9
+                        {step.toString().padStart(2, "0")}/08
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-9 gap-1 mt-2">
-                      {Array.from({ length: 9 }, (_, index) => (
+                    <div className="grid grid-cols-8 gap-1 mt-2">
+                      {Array.from({ length: 8 }, (_, index) => (
                         <div
                           key={index}
                           className={`h-1 rounded-xl ${
@@ -214,15 +222,15 @@ const EditRegistrationQuestion = () => {
                           prevStep={prevStep}
                         />
                       )}
-                      {step === 2 && (
+                      {/* {step === 2 && (
                         <StepTwo
                           nextStep={nextStep}
                           setFormData={setFormData}
                           formData={formData}
                           prevStep={prevStep}
                         />
-                      )}
-                      {step === 3 && (
+                      )} */}
+                      {step === 2 && (
                         <StepThree
                           nextStep={nextStep}
                           setFormData={setFormData}
@@ -230,7 +238,7 @@ const EditRegistrationQuestion = () => {
                           prevStep={prevStep}
                         />
                       )}
-                      {step === 4 && (
+                      {step === 3 && (
                         <StepFour
                           nextStep={nextStep}
                           setFormData={setFormData}
@@ -239,7 +247,7 @@ const EditRegistrationQuestion = () => {
                         />
                       )}
 
-                      {step === 5 && (
+                      {step === 4 && (
                         <StepFive
                           nextStep={nextStep}
                           setFormData={setFormData}
@@ -247,7 +255,7 @@ const EditRegistrationQuestion = () => {
                           prevStep={prevStep}
                         />
                       )}
-                      {step === 6 && (
+                      {step === 5 && (
                         <StepSix
                           nextStep={nextStep}
                           setFormData={setFormData}
@@ -257,7 +265,7 @@ const EditRegistrationQuestion = () => {
                           setstepsixvalue={setstepsixvalue}
                         />
                       )}
-                      {step === 7 && (
+                      {step === 6 && (
                         <StepSeven
                           nextStep={nextStep}
                           setFormData={setFormData}
@@ -267,7 +275,7 @@ const EditRegistrationQuestion = () => {
                           setstepsixvalue={setstepsixvalue}
                         />
                       )}
-                      {step === 8 && (
+                      {step === 7 && (
                         <StepEight
                           nextStep={nextStep}
                           setFormData={setFormData}
@@ -275,7 +283,7 @@ const EditRegistrationQuestion = () => {
                           prevStep={prevStep}
                         />
                       )}
-                      {step === 9 && (
+                      {step === 8 && (
                         <StepNine
                           nextStep={nextStep}
                           setFormData={setFormData}

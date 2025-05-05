@@ -143,174 +143,143 @@ export function createPDFWithUserDataAndResume(userData, resume, idpData) {
     return currentY;
   };
 
-  // Add PDF title
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(16);
-  pdf.text("User Profile & Resume", leftMargin, yPosition);
+  pdf.text("  (IDP)", leftMargin, yPosition);
+  yPosition += 10;
+  // Check if idpData exists and has data array
+  if (
+    idpData &&
+    idpData.data &&
+    Array.isArray(idpData.data) &&
+    idpData.data.length > 0
+  ) {
+    // Process each question-answer pair
+    idpData.data.forEach((item, index) => {
+      if (item && item.question) {
+        yPosition = checkPageBreak(yPosition);
+
+        // Add placeholder image before each question (40x40mm square)
+        const imageSize = 20;
+        const currentImage = awardImages[index] || Rookieaward; // fallback
+
+        // Draw the image
+        pdf.addImage(
+          currentImage,
+          "PNG", // or 'JPEG' depending on the format
+          leftMargin,
+          yPosition,
+          imageSize,
+          imageSize
+        );
+        // Add image border
+        // pdf.setDrawColor(100, 100, 100); // Darker gray for border
+        // pdf.setLineWidth(0.5);
+        // pdf.rect(leftMargin, yPosition, imageSize, imageSize, 'S');
+
+        // // Add image icon (simple drawing in the center of placeholder)
+        // pdf.setDrawColor(80, 80, 80);
+        // pdf.setLineWidth(0.8);
+
+        // // Draw a simple icon inside the placeholder (e.g., document icon)
+        // const iconMargin = 5;
+        // pdf.line(
+        //   leftMargin + iconMargin,
+        //   yPosition + iconMargin,
+        //   leftMargin + imageSize - iconMargin,
+        //   yPosition + iconMargin
+        // );
+        // pdf.line(
+        //   leftMargin + iconMargin,
+        //   yPosition + imageSize/2,
+        //   leftMargin + imageSize - iconMargin,
+        //   yPosition + imageSize/2
+        // );
+        // pdf.line(
+        //   leftMargin + iconMargin,
+        //   yPosition + imageSize - iconMargin,
+        //   leftMargin + imageSize - iconMargin,
+        //   yPosition + imageSize - iconMargin
+        // );
+
+        // Position text to the right of the image
+        const textX = leftMargin + imageSize + 5;
+        const questionWidth = maxLineWidth - imageSize - 5;
+
+        // Question number
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(12);
+        pdf.text(`Question ${index + 1}:`, textX, yPosition + 6);
+
+        // Question text
+        pdf.setFont("helvetica", "normal");
+        pdf.setFontSize(10);
+        yPosition = wrapText(
+          item.question.question || "No question available",
+          textX,
+          yPosition + 12,
+          questionWidth,
+          6
+        );
+
+        yPosition += 6;
+
+        // Answer section
+        pdf.setFont("helvetica", "bold");
+        pdf.setFontSize(10);
+        pdf.text("Answer:", textX, yPosition);
+        yPosition += 6;
+
+        // Format the answer based on its type
+        pdf.setFont("helvetica", "normal");
+
+        if (item.answer === null || item.answer === undefined) {
+          pdf.text("No answer provided.", textX, yPosition);
+          yPosition += 6;
+        } else if (Array.isArray(item.answer)) {
+          // Handle array of answers (bullets)
+          item.answer.forEach((ans, i) => {
+            if (ans) {
+              pdf.text("•", textX, yPosition);
+              yPosition = wrapText(
+                ans,
+                textX + 5,
+                yPosition,
+                questionWidth - 5,
+                6
+              );
+              yPosition += 2;
+            }
+          });
+        } else {
+          // Handle single answer
+          yPosition = wrapText(
+            item.answer.toString(),
+            textX,
+            yPosition,
+            questionWidth,
+            6
+          );
+        }
+        yPosition += 15;
+        yPosition = checkPageBreak(yPosition);
+      }
+    });
+  } else {
+    // No IDP data available
+    pdf.setFont("helvetica", "italic");
+    pdf.setFontSize(10);
+    pdf.text("No  data available.", leftMargin, yPosition);
+    yPosition += 10;
+  }
+  // Add PDF title
+
+
+  yPosition = 20;
+
+  yPosition = addSectionTitle("USER PROFILE", yPosition);
   yPosition += 10;
 
-  // PART 1: Add User Profile Data
-  yPosition = addSectionTitle("USER PROFILE", yPosition);
-  yPosition += 5;
-
-  // Add Sport section if athlete data exists
-  if (
-    userData?.is_athlete &&
-    userData?.athlete &&
-    userData?.athlete?.primary_sport
-  ) {
-    yPosition = addSectionTitle(
-      `Sport: ${
-        userData?.athlete?.primary_sport?.sport_name || "Not specified"
-      }`,
-      yPosition
-    );
-
-    // Add Position section if athlete data exists
-    if (userData.athlete && userData.athlete.sport_position) {
-      yPosition = addSectionTitle(
-        `Position: ${
-          userData.athlete.sport_position.position_name || "Not specified"
-        }`,
-        yPosition
-      );
-
-      // Extract topics from the position data
-      const positionTopics = userData.athlete.sport_position.topics || [];
-      if (Array.isArray(positionTopics) && positionTopics.length > 0) {
-        positionTopics.forEach((topic, index) => {
-          if (topic) {
-            yPosition = addListItem(
-              index + 1,
-              topic.title || "Untitled",
-              yPosition,
-              [{ description: topic.description || "No description available" }]
-            );
-            yPosition += 3;
-            yPosition = checkPageBreak(yPosition);
-          }
-        });
-      }
-      yPosition += 5;
-    }
-  }
-
-  // Add Military section if data exists
-  if (
-    userData.has_military_service &&
-    userData.military &&
-    userData.military.branch_of_service
-  ) {
-    yPosition = addSectionTitle(
-      `Military: ${
-        userData.military.branch_of_service.service_name || "Not specified"
-      }`,
-      yPosition
-    );
-
-    // Add Rank section if data exists
-    if (userData.military && userData.military.rank) {
-      yPosition = addSectionTitle(
-        `Position: ${userData.military.rank.rank_name || "Not specified"}`,
-        yPosition
-      );
-
-      // Extract topics from the rank data
-      const rankTopics = userData.military.rank.topics || [];
-      if (Array.isArray(rankTopics) && rankTopics.length > 0) {
-        rankTopics.forEach((topic, index) => {
-          if (topic) {
-            yPosition = addListItem(
-              index + 1,
-              topic.title || "Untitled",
-              yPosition,
-              [{ description: topic.description || "No description available" }]
-            );
-            yPosition += 3;
-            yPosition = checkPageBreak(yPosition);
-          }
-        });
-      }
-      yPosition += 5;
-    }
-  }
-
-  // Add Favorite Subject section
-  if (userData.favorite_middle_school_subject) {
-    const subjectName =
-      userData.favorite_middle_school_subject.subject_name || "Unnamed Subject";
-    yPosition = addSectionTitle(`Favorite Subject: ${subjectName}`, yPosition);
-
-    // Extract topics from the subject data
-    const subjectTopics = userData.favorite_middle_school_subject.topics || [];
-    if (Array.isArray(subjectTopics) && subjectTopics.length > 0) {
-      subjectTopics.forEach((topic, index) => {
-        if (topic) {
-          yPosition = addListItem(
-            index + 1,
-            topic.title || "Untitled",
-            yPosition,
-            [{ description: topic.description || "No description available" }]
-          );
-          yPosition += 3;
-          yPosition = checkPageBreak(yPosition);
-        }
-      });
-    }
-    yPosition += 5;
-  }
-
-  // Add Hobby 1 section
-  if (userData.favorite_hobby1) {
-    const hobbyName = userData.favorite_hobby1.hobbie_name || "Unnamed Hobby";
-    yPosition = addSectionTitle(`Favorite Hobby: ${hobbyName}`, yPosition);
-
-    // Extract topics from the hobby data
-    const hobbyTopics = userData.favorite_hobby1.topics || [];
-    if (Array.isArray(hobbyTopics) && hobbyTopics.length > 0) {
-      hobbyTopics.forEach((topic, index) => {
-        if (topic) {
-          yPosition = addListItem(
-            index + 1,
-            topic.title || "Untitled",
-            yPosition,
-            [{ description: topic.description || "No description available" }]
-          );
-          yPosition += 3;
-          yPosition = checkPageBreak(yPosition);
-        }
-      });
-    }
-    yPosition += 5;
-  }
-
-  // Add Hobby 2 section
-  if (userData.favorite_hobby2) {
-    const hobbyName = userData.favorite_hobby2.hobbie_name || "Unnamed Hobby";
-    yPosition = addSectionTitle(`Favorite Hobby 2: ${hobbyName}`, yPosition);
-
-    // Extract topics from the hobby data
-    const hobbyTopics = userData.favorite_hobby2.topics || [];
-    if (Array.isArray(hobbyTopics) && hobbyTopics.length > 0) {
-      hobbyTopics.forEach((topic, index) => {
-        if (topic) {
-          yPosition = addListItem(
-            index + 1,
-            topic.title || "Untitled",
-            yPosition,
-            [{ description: topic.description || "No description available" }]
-          );
-          yPosition += 3;
-          yPosition = checkPageBreak(yPosition);
-        }
-      });
-    }
-    yPosition += 5;
-  }
-
-  // Add a page break between sections
-  pdf.addPage();
-  yPosition = 20;
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(16);
   pdf.text(" Resume", leftMargin, yPosition);
@@ -731,148 +700,171 @@ export function createPDFWithUserDataAndResume(userData, resume, idpData) {
       });
     }
   }
-
-  const BOTTOM_PADDING = 20; // To ensure we don't write over footer
-
+  // Add Sport section if athlete data exists\
   pdf.addPage();
   yPosition = 20;
+
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(16);
-  pdf.text("  (IDP)", leftMargin, yPosition);
+  pdf.text("User Skill", leftMargin, yPosition);
   yPosition += 10;
-
-  function getWrappedTextHeight(text, fontSize, maxWidth, lineHeight) {
-    const lines = pdf.splitTextToSize(text, maxWidth);
-    return lines.length * lineHeight;
-  }
-
   if (
-    idpData &&
-    idpData.data &&
-    Array.isArray(idpData.data) &&
-    idpData.data.length > 0
+    userData?.is_athlete &&
+    userData?.athlete &&
+    userData?.athlete?.primary_sport
   ) {
-    idpData.data.forEach((item, index) => {
-      if (item && item.question) {
-        const imageSize = 20;
-        const textX = leftMargin + imageSize + 5;
-        const questionWidth = maxLineWidth - imageSize - 5;
+    yPosition = addSectionTitle(
+      `Sport: ${
+        userData?.athlete?.primary_sport?.sport_name || "Not specified"
+      }`,
+      yPosition
+    );
 
-        // Calculate heights beforehand
-        const questionText = item.question.question || "No question available";
-        const questionHeight =
-          getWrappedTextHeight(questionText, 10, questionWidth, 6) + 12;
+    // Add Position section if athlete data exists
+    if (userData.athlete && userData.athlete.sport_position) {
+      yPosition = addSectionTitle(
+        `Position: ${
+          userData.athlete.sport_position.position_name || "Not specified"
+        }`,
+        yPosition
+      );
 
-        let answerHeight = 6;
-        if (item.answer === null || item.answer === undefined) {
-          answerHeight += 6;
-        } else if (Array.isArray(item.answer)) {
-          item.answer.forEach((ans) => {
-            if (ans) {
-              answerHeight +=
-                getWrappedTextHeight(ans, 10, questionWidth - 5, 6) + 2;
-            }
-          });
-        } else {
-          answerHeight += getWrappedTextHeight(
-            item.answer.toString(),
-            10,
-            questionWidth,
-            6
-          );
-        }
-
-        const totalEstimatedHeight =
-          imageSize + questionHeight + answerHeight + 15;
-
-        if (
-          yPosition + totalEstimatedHeight >
-          pdf.internal.pageSize.height - BOTTOM_PADDING
-        ) {
-          pdf.addPage();
-          yPosition = 20;
-        }
-
-        // Draw image
-        const currentImage = awardImages[index] || Rookieaward;
-        pdf.addImage(
-          currentImage,
-          "PNG",
-          leftMargin,
-          yPosition,
-          imageSize,
-          imageSize
-        );
-
-        // Question number
-        pdf.setFont("helvetica", "bold");
-        pdf.setFontSize(12);
-        pdf.text(`Question ${index + 1}:`, textX, yPosition + 6);
-
-        // Question text
-        pdf.setFont("helvetica", "normal");
-        pdf.setFontSize(10);
-        yPosition = wrapText(
-          questionText,
-          textX,
-          yPosition + 12,
-          questionWidth,
-          6
-        );
-        yPosition += 6;
-
-        // Answer label
-        pdf.setFont("helvetica", "bold");
-        pdf.setFontSize(10);
-        pdf.text("Answer:", textX, yPosition);
-        yPosition += 6;
-
-        // Answer content
-        pdf.setFont("helvetica", "normal");
-        if (item.answer === null || item.answer === undefined) {
-          pdf.text("No answer provided.", textX, yPosition);
-          yPosition += 6;
-        } else if (Array.isArray(item.answer)) {
-          item.answer.forEach((ans) => {
-            if (ans) {
-              pdf.text("•", textX, yPosition);
-              yPosition = wrapText(
-                ans,
-                textX + 5,
-                yPosition,
-                questionWidth - 5,
-                6
-              );
-              yPosition += 2;
-            }
-          });
-        } else {
-          yPosition = wrapText(
-            item.answer.toString(),
-            textX,
-            yPosition,
-            questionWidth,
-            6
-          );
-        }
-
-        yPosition += 15;
-
-        // Final check to prevent breaking at the end
-        if (yPosition > pdf.internal.pageSize.height - BOTTOM_PADDING) {
-          pdf.addPage();
-          yPosition = 20;
-        }
+      // Extract topics from the position data
+      const positionTopics = userData.athlete.sport_position.topics || [];
+      if (Array.isArray(positionTopics) && positionTopics.length > 0) {
+        positionTopics.forEach((topic, index) => {
+          if (topic) {
+            yPosition = addListItem(
+              index + 1,
+              topic.title || "Untitled",
+              yPosition,
+              [{ description: topic.description || "No description available" }]
+            );
+            yPosition += 3;
+            yPosition = checkPageBreak(yPosition);
+          }
+        });
       }
-    });
-  } else {
-    pdf.setFont("helvetica", "italic");
-    pdf.setFontSize(10);
-    pdf.text("No data available.", leftMargin, yPosition);
-    yPosition += 10;
+      yPosition += 5;
+    }
   }
 
-  // Footer
+  // Add Military section if data exists
+  if (
+    userData.has_military_service &&
+    userData.military &&
+    userData.military.branch_of_service
+  ) {
+    yPosition = addSectionTitle(
+      `Military: ${
+        userData.military.branch_of_service.service_name || "Not specified"
+      }`,
+      yPosition
+    );
+
+    // Add Rank section if data exists
+    if (userData.military && userData.military.rank) {
+      yPosition = addSectionTitle(
+        `Position: ${userData.military.rank.rank_name || "Not specified"}`,
+        yPosition
+      );
+
+      // Extract topics from the rank data
+      const rankTopics = userData.military.rank.topics || [];
+      if (Array.isArray(rankTopics) && rankTopics.length > 0) {
+        rankTopics.forEach((topic, index) => {
+          if (topic) {
+            yPosition = addListItem(
+              index + 1,
+              topic.title || "Untitled",
+              yPosition,
+              [{ description: topic.description || "No description available" }]
+            );
+            yPosition += 3;
+            yPosition = checkPageBreak(yPosition);
+          }
+        });
+      }
+      yPosition += 5;
+    }
+  }
+
+  // Add Favorite Subject section
+  if (userData.favorite_middle_school_subject) {
+    const subjectName =
+      userData.favorite_middle_school_subject.subject_name || "Unnamed Subject";
+    yPosition = addSectionTitle(`Favorite Subject: ${subjectName}`, yPosition);
+
+    // Extract topics from the subject data
+    const subjectTopics = userData.favorite_middle_school_subject.topics || [];
+    if (Array.isArray(subjectTopics) && subjectTopics.length > 0) {
+      subjectTopics.forEach((topic, index) => {
+        if (topic) {
+          yPosition = addListItem(
+            index + 1,
+            topic.title || "Untitled",
+            yPosition,
+            [{ description: topic.description || "No description available" }]
+          );
+          yPosition += 3;
+          yPosition = checkPageBreak(yPosition);
+        }
+      });
+    }
+    yPosition += 5;
+  }
+
+  // Add Hobby 1 section
+  if (userData.favorite_hobby1) {
+    const hobbyName = userData.favorite_hobby1.hobbie_name || "Unnamed Hobby";
+    yPosition = addSectionTitle(`Favorite Hobby: ${hobbyName}`, yPosition);
+
+    // Extract topics from the hobby data
+    const hobbyTopics = userData.favorite_hobby1.topics || [];
+    if (Array.isArray(hobbyTopics) && hobbyTopics.length > 0) {
+      hobbyTopics.forEach((topic, index) => {
+        if (topic) {
+          yPosition = addListItem(
+            index + 1,
+            topic.title || "Untitled",
+            yPosition,
+            [{ description: topic.description || "No description available" }]
+          );
+          yPosition += 3;
+          yPosition = checkPageBreak(yPosition);
+        }
+      });
+    }
+    yPosition += 5;
+  }
+
+  // Add Hobby 2 section
+  if (userData.favorite_hobby2) {
+    const hobbyName = userData.favorite_hobby2.hobbie_name || "Unnamed Hobby";
+    yPosition = addSectionTitle(`Favorite Hobby 2: ${hobbyName}`, yPosition);
+
+    // Extract topics from the hobby data
+    const hobbyTopics = userData.favorite_hobby2.topics || [];
+    if (Array.isArray(hobbyTopics) && hobbyTopics.length > 0) {
+      hobbyTopics.forEach((topic, index) => {
+        if (topic) {
+          yPosition = addListItem(
+            index + 1,
+            topic.title || "Untitled",
+            yPosition,
+            [{ description: topic.description || "No description available" }]
+          );
+          yPosition += 3;
+          yPosition = checkPageBreak(yPosition);
+        }
+      });
+    }
+    yPosition += 5;
+  }
+
+  // Add a page break between sections
+
+  // Add End of document marker on the last page
   pdf.setFontSize(8);
   pdf.setTextColor(150, 150, 150);
   pdf.text("End of document", pdfWidth - rightMargin, 280, null, null, "right");

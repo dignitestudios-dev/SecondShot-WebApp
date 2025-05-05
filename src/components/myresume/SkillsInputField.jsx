@@ -10,6 +10,12 @@ const SkillsInputField = ({
 }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedSkills, setSelectedSkills] = useState([]);
+  console.log("selectedSkills--> ", selectedSkills);
+
+  const [customSkill, setCustomSkill] = useState("");
+  const [customSkillArr, setCustomSkillArr] = useState([]);
+
+  const [showCustomInput, setShowCustomInput] = useState(false);
   useEffect(() => {
     if (transferableSkills?.length > 0) {
       setSelectedSkills(transferableSkills);
@@ -21,34 +27,14 @@ const SkillsInputField = ({
 
   const handleSkillSelect = (title) => {
     setSelectedSkills((prevSkills) => {
-      const newSkills = prevSkills.includes(title)
+      const updatedSkills = prevSkills.includes(title)
         ? prevSkills.filter((s) => s !== title)
         : [...prevSkills, title];
 
-      // Update the field value based on selected titles
-      setFieldValue("softskills", newSkills);
-      return newSkills;
+      setFieldValue("softskills", updatedSkills);
+      return updatedSkills;
     });
   };
-
-  const skillTitles = myskills
-    ?.filter((skill) =>
-      selectedSkills.includes(
-        skill?.favorite_hobby2?.title ||
-          skill?.favorite_hobby1?.title ||
-          skill?.favorite_middle_school_subject?.title ||
-          skill?.rank?.title ||
-          skill?.athlete?.title
-      )
-    )
-    .map(
-      (skill) =>
-        skill?.favorite_hobby2?.title ||
-        skill?.favorite_hobby1?.title ||
-        skill?.favorite_middle_school_subject?.title ||
-        skill?.rank?.title ||
-        skill?.athlete?.title
-    );
 
   return (
     <div className="flex items-center border border-[#9A9A9A] rounded-lg overflow-hidden p-1">
@@ -56,7 +42,7 @@ const SkillsInputField = ({
         {loading ? (
           <div className="text-gray-500 italic">Loading...</div>
         ) : selectedSkills.length > 0 ? (
-          skillTitles?.map((title, index) => (
+          selectedSkills?.map((title, index) => (
             <div
               key={index}
               className="flex items-center bg-gray-200 text-black px-3 py-1 rounded-lg"
@@ -148,6 +134,41 @@ const SkillsInputField = ({
                   <p>No skills have been added in your library yet</p>
                 </div>
               )}
+
+              {/* "Other" custom skill entry */}
+              <div className="mt-4 w-full">
+                {!showCustomInput ? (
+                  <button
+                    onClick={() => setShowCustomInput(true)}
+                    className="text-blue-600 underline"
+                  >
+                    + Add other skill
+                  </button>
+                ) : (
+                  <div className="flex gap-2 items-center">
+                    <input
+                      type="text"
+                      value={customSkill}
+                      onChange={(e) => setCustomSkill(e.target.value)}
+                      placeholder="Enter custom skill"
+                      className="border border-gray-300 rounded px-2 py-1 w-full"
+                    />
+                    <button
+                      onClick={() => {
+                        const trimmed = customSkill.trim();
+                        if (trimmed) {
+                          handleSkillSelect(trimmed); // toggle add/remove directly
+                          setCustomSkill("");
+                          setShowCustomInput(false);
+                        }
+                      }}
+                      className="bg-[#012C57] text-white px-3 py-1 rounded"
+                    >
+                      Add
+                    </button>
+                  </div>
+                )}
+              </div>
 
               <div className="mt-4 flex justify-center">
                 <AuthSubmitBtn

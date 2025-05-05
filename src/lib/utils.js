@@ -408,8 +408,8 @@ export const generateCombinedPDF = async (
       const leftMargin = 20; // Left margin for alignment
 
       // Add logo (you'll need to have the logo available)
-      const logoWidth = 40; // adjust as needed, in mm
-      const logoHeight = 40; // adjust as needed, in mm
+      const logoWidth = 60; // adjust as needed, in mm
+      const logoHeight = 50; // adjust as needed, in mm
       const logoX = (pdfWidth - logoWidth) / 2; // Center horizontally
       const logoY = 15; // Position from top
 

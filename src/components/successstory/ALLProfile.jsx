@@ -70,7 +70,7 @@ const ALLProfile = ({ loading, stories }) => {
                       </a>
                     </button>
 
-                    <p className="text-[14px] text-[#012C57]">
+                    {/* <p className="text-[14px] text-[#012C57]">
                       StanFord University
                     </p>
                     <p className="text-[14px] text-[#012C57] font-semibold">
@@ -92,7 +92,7 @@ const ALLProfile = ({ loading, stories }) => {
                       {[facebook, Instaicon, Twittericon].map((link, i) => (
                         <img src={link} className="w-6 h-6" />
                       ))}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

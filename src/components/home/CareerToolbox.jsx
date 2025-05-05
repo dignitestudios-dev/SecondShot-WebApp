@@ -27,13 +27,15 @@ import { useNavigate } from "react-router-dom";
 import { ModalContext } from "../../context/GlobalContext";
 import { AuthContext } from "../../context/AuthContext";
 import LockModal from "./LockModal";
+import CommingSoonModal from "./CommingSoonModal";
 
 const CareerToolbox = () => {
   const navigate = useNavigate();
   const { showModal, closeModal, isFirst, setIsFirst } =
     useContext(ModalContext);
-
+console.log(isFirst,"isFirstisFirst")
   const [lock, setLock] = useState(false);
+  const [commingSoon, setCommingSoon] = useState(false);
 
   const { subscriptionpaid } = useContext(AuthContext);
 
@@ -92,7 +94,7 @@ const CareerToolbox = () => {
     {
       cardicons: Carriericon6,
       bgcolors: "bg-gradient-to-t from-[#D39100] to-[#FFDF9B]",
-      title: "My Library, Awards & IDP",
+      title: "Awards, IDP, & Library",
       cardimage: Card6,
       btnBg: isFirst.mylibrary === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Mark and save your favorite skills and careers for quick reference.",
@@ -106,7 +108,7 @@ const CareerToolbox = () => {
       cardimage: Comunityservice,
       btnBg: "bg-[#FFFFFF1A]",
       para: "",
-      btn: "coming  Soon",
+      btn: "Coming Soon",
     },
     {
       cardicons: Mockicon,
@@ -115,7 +117,7 @@ const CareerToolbox = () => {
       cardimage: MockInterview,
       btnBg: "bg-[#FFFFFF1A]",
       para: "",
-      btn: "coming  Soon",
+      btn: "Coming Soon",
     },
     {
       cardicons: Entrepreneurshipicon,
@@ -124,11 +126,11 @@ const CareerToolbox = () => {
       cardimage: Entrepreneurship,
       btnBg: "bg-[#FFFFFF1A]",
       para: "",
-      btn: "coming  Soon",
+      btn: "Coming Soon",
     },
   ];
   const handleNavigation = (item) => {
-    if (!subscriptionpaid && item.title !== "Transferable Skills") {
+    if (!subscriptionpaid && item.title !== "Transferable Skills" && item.btn !== "Coming Soon") {
       setLock(true);
       return;
     }
@@ -137,6 +139,9 @@ const CareerToolbox = () => {
       setIsFirst((prev) => ({ ...prev, transferable: false }));
     }
 
+    if (item.btn === "Coming Soon") {
+      setCommingSoon(true);
+    }
     navigate(item.path);
   };
 
@@ -156,7 +161,7 @@ const CareerToolbox = () => {
                   className="w-[60px] object-contain h-[60px] "
                 />
               </div>
-              <div className="text-[24px] traun w-[180px] text-start  uppercase leading-[33px] font-[600] text-white">
+              <div className="text-[24px] w-[180px] text-start  uppercase leading-[33px] font-[600] text-white">
                 {item?.title}
               </div>
             </div>
@@ -205,6 +210,7 @@ const CareerToolbox = () => {
             "Buy a subscription to unlock this feature and access all of the modules."
           }
         />
+        <CommingSoonModal isOpen={commingSoon} onClose={()=>setCommingSoon(false)} />
       </div>
     </div>
   );

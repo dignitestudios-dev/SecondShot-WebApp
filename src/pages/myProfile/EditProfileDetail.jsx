@@ -44,7 +44,6 @@ const EditProfileDetails = () => {
     validationSchema: EditProfileSchema,
     enableReinitialize: true,
     onSubmit: async (values) => {
-     
       setLoading(true);
       try {
         const formData = new FormData();
@@ -52,11 +51,11 @@ const EditProfileDetails = () => {
         formData.append("state", values.state);
         formData.append("city", values.city);
         formData.append("address", values.address || "");
-        
+
         if (values.profilePicture) {
           formData.append("profile_img", values.profilePicture);
         }
-  
+
         const response = await axios.put("/api/user/update-profile", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
@@ -280,7 +279,16 @@ const EditProfileDetails = () => {
         <div className="col-span-12">
           <div className=" flex justify-center space-x-2 mb-6">
             <div className="w-[169px]">
-              <AuthSubmitBtn text={"Next"} type={"submit"} loading={loading} />
+              <button
+              type="button"
+                className="bg-gray-300 w-[169px]  h-[49px] rounded-[12px]  font-[500] "
+                onClick={() => navigation(-1)}
+              >
+                Back
+              </button>
+            </div>
+            <div className="w-[169px]">
+              <AuthSubmitBtn text={"Save"} type={"submit"} loading={loading} />
             </div>
           </div>
         </div>

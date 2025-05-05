@@ -138,10 +138,10 @@ const IdpForm = () => {
               </h1>
             </div>
             <div
-              className="border rounded-[12px] flex items-center w-[149px] justify-center h-[48px]  font-[600] text-[18px] cursor-pointer "
+              className="border rounded-[12px] flex items-center  p-3 justify-center h-[48px]  font-[600] text-[18px] cursor-pointer "
               onClick={() => setFormOpen(true)}
             >
-              + IDP Form
+              + Create your Individual Development Plan
             </div>
           </div>
           <div className="bg-white rounded-[20px] p-4 mt-5">
