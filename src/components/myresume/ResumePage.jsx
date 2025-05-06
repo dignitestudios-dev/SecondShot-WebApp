@@ -34,7 +34,7 @@ const Resume = ({ formData, isSkipped }) => {
 
           <span>
             {" "}
-            +1 {phoneFormater(formData?.informationValues?.phoneNumber)}
+          {phoneFormater(formData?.informationValues?.phoneNumber)}
           </span>
           <span className="cursor-pointer">
             <a href={`${formData?.informationValues?.address}`}>

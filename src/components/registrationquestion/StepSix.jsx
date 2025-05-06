@@ -38,7 +38,7 @@ const StepSix = ({
         const hobbieOptions = response?.data?.data?.map((item) => ({
           value: item?._id,
           label: item?.hobbie_name,
-        }));
+        }))?.sort((a, b) => a.label.localeCompare(b.label));
         setHobbie(hobbieOptions);
       }
     } catch (err) {

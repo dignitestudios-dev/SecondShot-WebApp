@@ -27,7 +27,7 @@ const StepEight = ({ nextStep, prevStep, formData, setFormData }) => {
         const subjectsOptions = response?.data?.data?.map((item) => ({
           value: item?._id,
           label: item?.subject_name,
-        }));
+        }))?.sort((a, b) => a.label.localeCompare(b.label));
         setSubjects(subjectsOptions);
       }
     } catch (err) {

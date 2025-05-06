@@ -31,7 +31,7 @@ const PersonalizedCV = ({ resumeData, ref }) => {
           <h1 className="text-[45.88px] font-[600]">{resumeData?.full_name}</h1>
           <p className="mt-2 flex gap-4 justify-center text-[19.12px] text-[#000000] font-[500] ">
             <span> {resumeData?.email} </span>
-            <span> +1 {phoneFormater(resumeData?.phone)}</span>
+            <span> {phoneFormater(resumeData?.phone)}</span>
             <span className="cursor-pointer">
               <a href={`${resumeData?.address}`} target="_blank">
                 {" "}

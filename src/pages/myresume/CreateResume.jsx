@@ -64,7 +64,7 @@ const CreateResume = () => {
   useEffect(() => {
     preloadImages();
   }, []);
-  const [step, setStep] = useState(5);
+  const [step, setStep] = useState(1);
 
   const [formData, setFormData] = useState({
     informationValues,

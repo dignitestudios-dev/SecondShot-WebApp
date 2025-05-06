@@ -93,7 +93,9 @@ const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
     setIsOpen(false);
     setTags([]);
     setSelectedTags([]);
-    const filteredRanks = rankData?.filter((item) => item?.serviceId === value);
+    const filteredRanks = rankData
+      ?.filter((item) => item?.serviceId === value)
+      ?.sort((a, b) => a.label.localeCompare(b.label));
     setFilteredTags(filteredRanks);
   };
 
@@ -124,9 +126,9 @@ const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
           if (formData?.militaryOption) {
             setFieldValue("militaryOption", formData?.militaryOption);
 
-            const filteredRanks = rankData?.filter(
-              (item) => item?.serviceId === formData?.militaryOption
-            );
+            const filteredRanks = rankData
+              ?.filter((item) => item?.serviceId === formData?.militaryOption)
+              ?.sort((a, b) => a.label.localeCompare(b.label));
             setFilteredTags(filteredRanks);
           }
 

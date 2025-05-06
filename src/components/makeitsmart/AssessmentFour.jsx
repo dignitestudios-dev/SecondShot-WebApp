@@ -147,7 +147,7 @@ const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
                   }}
                   className="w-full text-[#012C57] h-[49px] bg-gray-300  p-3 text-center rounded-[12px] font-[500] leading-[21.6px] text-[16px]"
                 >
-                  Skip
+                      Do Not Revise
                 </button>
               </div>
               <div className="w-[343px]">

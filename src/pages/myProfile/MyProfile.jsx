@@ -263,7 +263,7 @@ function MyProfile() {
                           Phone Number
                         </p>
                         <p className="text-black text-base">
-                          +1 {phoneFormater(profileData?.phone)}
+                          {phoneFormater(profileData?.phone)}
                         </p>
                         {profileData?.address ? (
                           <>

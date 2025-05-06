@@ -8,7 +8,10 @@ const InviteFriendModal = ({ isOpen, onClose }) => {
 
   const data = [
     { label: "Website", link: "https://secondshot-app.vercel.app/" },
-    { label: "Play Store", link: "https://play.google.com/store/apps/details?id=example" },
+    {
+      label: "Play Store",
+      link: "https://play.google.com/store/apps/details?id=example",
+    },
     { label: "Appstore", link: "https://apps.apple.com/app/example" },
   ];
 
@@ -28,9 +31,14 @@ const InviteFriendModal = ({ isOpen, onClose }) => {
           &times;
         </button>
 
-        <h2 className="text-lg font-semibold text-center text-black mb-6">
+        <h2 className="text-lg font-semibold text-center text-black mb-2">
           Refer a friend and help them build their own Career Prep Toolbox!
         </h2>
+        <p className="text-center  text-gray-400 text-[14px]  mb-4">
+          Invite your friends by sharing the download link, available on App
+          Store, Play Store and the web. One tap to copy and you're ready to
+          share!
+        </p>
 
         {data.map(({ label, link }) => (
           <div key={label} className="relative w-full mb-4">

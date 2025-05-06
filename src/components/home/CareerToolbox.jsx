@@ -48,7 +48,7 @@ console.log(isFirst,"isFirstisFirst")
       btnBg: isFirst.transferable === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Discover the valuable skills you've acquired. Explore how to use them to shape your future and apply them across different areas of your life.",
       path: "/transferablekills",
-      btn: isFirst.transferable === false ? "Launch" : "Unlock",
+      btn: isFirst.transferable === false && subscriptionpaid === false  ? "Try it for Free" : "launch",
     },
     {
       cardicons: Carriericon2,
@@ -94,7 +94,7 @@ console.log(isFirst,"isFirstisFirst")
     {
       cardicons: Carriericon6,
       bgcolors: "bg-gradient-to-t from-[#D39100] to-[#FFDF9B]",
-      title: "Awards, IDP, & Library",
+      title: "Personal Plan",
       cardimage: Card6,
       btnBg: isFirst.mylibrary === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Mark and save your favorite skills and careers for quick reference.",

@@ -28,7 +28,7 @@ const AllResume = ({ resume }) => {
           <h1 className="text-[8.88px] font-[600]">{resume?.full_name}</h1>
           <p className="mt-1 flex gap-4 justify-center text-[5.12px] text-[#000000] font-[500] ">
             <span> {resume?.email} </span>
-            <span>+1 {phoneFormater(resume?.phone)}</span>
+            <span>{phoneFormater(resume?.phone)}</span>
           </p>
         </div>
 

@@ -159,7 +159,7 @@ const IdpForm = () => {
                 )}
             </div>
 
-            <div className="flex gap-5 mt-5 flex-wrap">
+            <div className="flex gap-5   mt-5 flex-wrap" onClick={()=>setFormOpen(true)}>
               {cards?.map((card, index) => {
                 const answer = cardData?.[index];
 

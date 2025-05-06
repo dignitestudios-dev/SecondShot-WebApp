@@ -91,7 +91,7 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
     setSelectedTags([]);
     const filteredSports = sportsPosition?.filter(
       (item) => item?.sportId === value
-    );
+    )?.sort((a, b) => a.label.localeCompare(b.label));
     setFilteredTags(filteredSports);
   };
 
@@ -123,7 +123,7 @@ console.log(formData?.ageValue,"formData?.ageValue")
 
             const filteredSports = sportsPosition?.filter(
               (item) => item?.sportId === formData?.athleteOption
-            );
+            )?.sort((a, b) => a.label.localeCompare(b.label));
             setFilteredTags(filteredSports);
           }
 

@@ -133,7 +133,7 @@ function MyLibrary() {
       />
 
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-semibold text-gray-800">My Library,Awards & IDP</h1>
+        <h1 className="text-3xl font-semibold text-gray-800">My Library</h1>
 
         <div className="relative z-10 flex items-center w-auto gap-3 mb-4">
           {view === "career" ? (

@@ -34,9 +34,7 @@ const MatchedProfile = ({ loading, matchedProfile }) => {
               <div
                 key={index}
                 className="flip-card w-[280px] h-[243px] relative cursor-pointer"
-                onClick={() =>
-                  navigate("/matched-pro-detail", { state: { item } })
-                }
+               
               >
                 <div className="flip-card-inner w-full h-full rounded-[12px] shadow-lg">
                   <div className="flip-card-front bg-[#F2F7FF] rounded-[12px] p-4 flex flex-col items-center">

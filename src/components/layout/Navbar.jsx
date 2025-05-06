@@ -61,7 +61,7 @@ const Navbar = () => {
     },
     {
       path: "/idp-form",
-      label: "My library",
+      label: "Personal Plan",
       subpath1: "/careerfav-detail",
       icon: Carriericon6,
       dropdownItems: [
