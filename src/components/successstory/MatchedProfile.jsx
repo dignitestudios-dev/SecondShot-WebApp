@@ -66,7 +66,9 @@ const MatchedProfile = ({ loading, matchedProfile }) => {
                         YouTube
                       </a>
                     </button>
-
+                    <p className="text-[14px] text-[#012C57]">
+                      {item?.current_profession}
+                    </p>
                     {/* <p className="text-[14px] text-[#012C57]">
                       StanFord University
                     </p>
@@ -91,6 +93,11 @@ const MatchedProfile = ({ loading, matchedProfile }) => {
                         <img src={link} className="w-6 h-6" />
                       ))}
                     </div> */}
+                     <div className="flex gap-2 mt-2">
+                      {[facebook, Instaicon, Twittericon].map((link, i) => (
+                        <img src={link} className="w-6 h-6" />
+                      ))}
+                    </div> 
                   </div>
                 </div>
               </div>

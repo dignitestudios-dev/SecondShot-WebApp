@@ -1,8 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import EmptyScreen from "../../pages/mylibrary/EmptyScreen";
 import { facebook, Instaicon, Twittericon } from "../../assets/export";
-import { FaYoutube } from "react-icons/fa";
+import { FaLinkedin, FaYoutube } from "react-icons/fa";
 
 const ALLProfile = ({ loading, stories }) => {
   const navigate = useNavigate();
@@ -35,7 +35,6 @@ const ALLProfile = ({ loading, stories }) => {
               <div
                 key={index}
                 className="flip-card w-[280px] h-[243px] relative cursor-pointer"
-             
               >
                 <div className="flip-card-inner w-full h-full rounded-[12px] shadow-lg">
                   <div className="flip-card-front bg-[#F2F7FF] rounded-[12px] p-4 flex flex-col items-center">
@@ -67,7 +66,9 @@ const ALLProfile = ({ loading, stories }) => {
                         YouTube
                       </a>
                     </button>
-
+                    <p className="text-[14px] text-[#012C57]">
+                      {item.current_profession}
+                    </p>
                     {/* <p className="text-[14px] text-[#012C57]">
                       StanFord University
                     </p>
@@ -91,6 +92,18 @@ const ALLProfile = ({ loading, stories }) => {
                         <img src={link} className="w-6 h-6" />
                       ))}
                     </div> */}
+                    <div className="flex gap-2 mt-2">
+                      {item?.linkedin_profile && (
+                        <a
+                          href={item?.linkedin_profile}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline flex items-center gap-1"
+                        >
+                          <FaLinkedin size={20} />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

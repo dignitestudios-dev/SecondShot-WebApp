@@ -85,6 +85,7 @@ const IdpForm = () => {
     setView(newView);
     setSelected(newView);
   };
+  
 
   return (
     <div>
@@ -198,6 +199,7 @@ const IdpForm = () => {
                       >
                         {card.title}
                       </h2>
+                      
                     </div>
                     {loading ? (
                       <>
