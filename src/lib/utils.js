@@ -830,9 +830,18 @@ export const downloadCombinedPDF = async (
   setDownloading,
   subscriptionpaid,
   profilename,
-  setIsSnapshot
+  setIsSnapshot,
+  loaders
 ) => {
-  setDownloading(true);
+  if (loaders === true ){
+    setDownloading(true);
+
+  }else{
+    setDownloading(false);
+
+  }
+
+
   setIsSnapshot(true); // Set the snapshot state to true
   try {
     const userData = normalizeUserData(data);

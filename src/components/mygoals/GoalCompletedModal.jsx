@@ -59,7 +59,7 @@ const GoalCompletedModal = ({
                     text={"Yes"}
                     handleSubmit={() => {
                       handleClick();
-
+                      setGoalDetailModal(true);
                       setShowModalsupport(true);
                     }}
                   />
@@ -70,15 +70,7 @@ const GoalCompletedModal = ({
         </div>
       )}
 
-      <GoalCreatedModal
-        showModal={goalDetailModal}
-        handleClick={() => {
-          setGoalDetailModal(false);
-          navigate("/goal-detail");
-        }}
-        heading={"Goal Successfully Created"}
-        onclick={() => setGoalDetailModal(false)}
-      />
+      
     </>
   );
 };

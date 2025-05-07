@@ -63,6 +63,7 @@ const StartAssesment = () => {
   });
 
   // For Modal
+  const [selectedLabels, setSelectedLabels] = useState([]); 
   const [showModal, setShowModal] = useState(false);
   const handleModal = () => {
     setShowModal(!showModal);
@@ -159,7 +160,7 @@ const StartAssesment = () => {
       if (response.status === 201) {
         SuccessToast(response?.data?.message);
         setcarrerId(response?.data?.data?._id);
-
+        setSelectedLabels('')
         setCongrats(true);
       }
     } catch (err) {
@@ -271,6 +272,8 @@ const StartAssesment = () => {
                     carrerQuestion={carrerQuestion}
                     loading={loading}
                     formData={formData}
+                    setSelectedLabels={setSelectedLabels}
+                    selectedLabels={selectedLabels}
                   />
                 )}
                 {step === 6 && (

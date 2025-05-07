@@ -21,10 +21,6 @@ const awardImages = [
 ];
 
 export function createPDFWithUserDataAndResume(userData, resume, idpData) {
-  console.log("userData--> ", userData);
-  console.log("resume--> ", resume);
-  console.log("idpData--> ", idpData);
-
   // Define PDF dimensions
   const pdfWidth = 210; // A4 width in mm
   const pdfHeight = 297; // A4 height in mm
@@ -143,9 +139,26 @@ export function createPDFWithUserDataAndResume(userData, resume, idpData) {
     return currentY;
   };
 
+  function startResumeSection(currentYPosition) {
+    // Calculate how much space is left on the current page
+    const remainingSpace = 270 - currentYPosition; // 270 seems to be your page height limit
+
+    // Define minimum space needed for the Resume header
+    const minSpaceForResumeHeader = 30; // Adjust based on your needs
+
+    // If there's not enough space for at least the Resume header, start a new page
+    if (remainingSpace < minSpaceForResumeHeader) {
+      pdf.addPage();
+      return 20; // Reset Y position to top of new page
+    }
+
+    // If there's enough space, continue on current page
+    return currentYPosition;
+  }
+
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(16);
-  pdf.text("  (IDP)", leftMargin, yPosition);
+  pdf.text(" (IDP)", leftMargin, yPosition);
   yPosition += 10;
   // Check if idpData exists and has data array
   if (
@@ -274,15 +287,11 @@ export function createPDFWithUserDataAndResume(userData, resume, idpData) {
   }
   // Add PDF title
 
-
-  yPosition = 20;
-
-  yPosition = addSectionTitle("USER PROFILE", yPosition);
-  yPosition += 10;
+  yPosition = startResumeSection(yPosition);
 
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(16);
-  pdf.text(" Resume", leftMargin, yPosition);
+  pdf.text(`${resume[0] ? "Resume" : ""}`, leftMargin, yPosition);
   yPosition += 10;
   // PART 2: Add Resume data
   // Get the first resume from the array if resume is an array
@@ -701,7 +710,10 @@ export function createPDFWithUserDataAndResume(userData, resume, idpData) {
     }
   }
   // Add Sport section if athlete data exists\
-  pdf.addPage();
+  if(resume[0] ) {
+    pdf.addPage();
+
+  }
   yPosition = 20;
 
   pdf.setFont("helvetica", "bold");
@@ -873,10 +885,6 @@ export function createPDFWithUserDataAndResume(userData, resume, idpData) {
 }
 
 export function downloadSendReportPDF(userData, resume, idpData) {
-  console.log("userData--> ", userData);
-  console.log("resume--> ", resume);
-  console.log("idpData--> ", idpData);
-
   // Define PDF dimensions
   const pdfWidth = 210; // A4 width in mm
   const pdfHeight = 297; // A4 height in mm

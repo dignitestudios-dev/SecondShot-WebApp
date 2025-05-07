@@ -64,11 +64,6 @@ const Navbar = () => {
       label: "Personal Plan",
       subpath1: "/careerfav-detail",
       icon: Carriericon6,
-      dropdownItems: [
-        { path: "/idp-form", label: "Awards & IDP" },
-
-        { path: "/my-library ", label: "My library" },
-      ],
     },
   ];
 
@@ -134,12 +129,12 @@ const Navbar = () => {
                     }`}
                   >
                     {item.label}
-                    {item.path === "/idp-form" && (
+                    {/* {item.path === "/idp-form" && (
                       <IoMdArrowDropdown
                         size={18}
                         onClick={() => setDrop((prev) => !prev)}
                       />
-                    )}
+                    )} */}
                   </div>
                 </Link>
               ) : (
@@ -162,7 +157,7 @@ const Navbar = () => {
                     : "w-0"
                 }`}
               />
-              {drop && item.dropdownItems && (
+              {/* {drop && item.dropdownItems && (
                 <ul className="hidden group-hover:flex flex-col absolute top-full mt-2 bg-white rounded-sm shadow-lg">
                   {item.dropdownItems.map((dropdownItem) => (
                     <li key={dropdownItem.path}>
@@ -175,7 +170,7 @@ const Navbar = () => {
                     </li>
                   ))}
                 </ul>
-              )}
+              )} */}
               {/* Dropdown (only for My Library) */}
             </li>
           ))}

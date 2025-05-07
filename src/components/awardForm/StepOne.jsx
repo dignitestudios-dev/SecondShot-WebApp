@@ -32,7 +32,7 @@ const StepOne = ({
   const [skillLimitError, setSkillLimitError] = useState("");
   const [loading, setLoading] = useState(false);
     const{ profilename} =useContext(AuthContext)
-
+console.log(idpData,"idpData")
   useEffect(() => {
     if (selectedSkills.length === 0 && cardData && cardData[0]) {
       setSelectedSkills(cardData[0]);
@@ -108,13 +108,14 @@ const StepOne = ({
   return (
     <div className="mt-10 px-4">
       <div className="flex justify-center items-center">
-        <img
-          src={Rookieaward}
-          className={`w-[90px] h-[85.63px] transition-opacity duration-500 ${
-        imageFaded      ? "opacity-100" : "opacity-20"
-          }`}
-          alt=""
-        />
+      <img
+  src={Rookieaward}
+  className={`w-[90px] h-[85.63px] transition-opacity duration-500 ${
+    idpData?.data?.[0]?.answer?.length > 0 ? "opacity-100" : "opacity-20"
+  }`}
+  alt=""
+/>
+
       </div>
 
       <h2 className="text-[32px] text-center font-semibold text-[#012C57]">

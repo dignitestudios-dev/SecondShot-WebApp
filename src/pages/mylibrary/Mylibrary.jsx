@@ -87,6 +87,9 @@ function MyLibrary() {
         let title = "";
 
         if (item?.athlete) {
+          title = item?.sport_position?.position_name;
+        }
+        if (item?.athlete) {
           title = item?.athlete?.title;
         }
         if (item?.favorite_middle_school_subject) {

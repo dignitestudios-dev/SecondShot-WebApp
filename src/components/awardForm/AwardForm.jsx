@@ -299,6 +299,7 @@ const AwardForm = ({ showModal, setFormOpen, getMyIdp,step,setStep ,cardData,idp
                       questionId={QuestionID[1]}
                       getMyIdp={getMyIdp}
                       cardData={cardData}
+                      idpData={idpData}
                     />
                   </div>
                 )}
@@ -317,6 +318,7 @@ const AwardForm = ({ showModal, setFormOpen, getMyIdp,step,setStep ,cardData,idp
                       questionId={QuestionID[2]}
                       getMyIdp={getMyIdp}
                       cardData={cardData}
+                      idpData={idpData}
                     />
                   </div>
                 )}
@@ -335,6 +337,7 @@ const AwardForm = ({ showModal, setFormOpen, getMyIdp,step,setStep ,cardData,idp
                       questionId={QuestionID[3]}
                       getMyIdp={getMyIdp}
                       cardData={cardData}
+                      idpData={idpData}
                     />
                   </div>
                 )}
@@ -354,6 +357,7 @@ const AwardForm = ({ showModal, setFormOpen, getMyIdp,step,setStep ,cardData,idp
                       questionId={QuestionID[4]}
                       getMyIdp={getMyIdp}
                       cardData={cardData}
+                      idpData={idpData}
                     />
                   </div>
                 )}

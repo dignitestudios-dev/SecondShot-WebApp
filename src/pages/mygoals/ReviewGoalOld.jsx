@@ -118,7 +118,11 @@ function ReviewYourGoalOld() {
         const goalid = response?.data?.data?._id;
 
         if (goalid) {
-          navigate(`/goal-detail/${goalid}`);
+          navigate(`/goal-detail/${goalid}`, {
+            state: { Modal: true },
+          });
+          
+          
         } else {
           console.log("Goal ID is missing in the response");
         }

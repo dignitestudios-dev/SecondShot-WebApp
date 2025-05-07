@@ -20,7 +20,8 @@ const StepFour = ({
   linkdInprofile,
   questionId,
   getMyIdp,
-  cardData
+  cardData,
+  idpData
 }) => {
 
   
@@ -64,8 +65,8 @@ const StepFour = ({
           <img
             src={ChampionAward}
             className={`w-[90px] h-[85.63px] transition-opacity duration-500 ${
-                imageFaded ? "opacity-100" : "opacity-20"
-              }`}
+              idpData?.data?.[3]?.answer?.length > 0 ? "opacity-100" : "opacity-20"
+            }`}
             alt=""
           />
         </div>

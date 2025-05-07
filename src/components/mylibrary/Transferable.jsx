@@ -96,6 +96,13 @@ const Transferable = ({ loading, library, getLibrary }) => {
                   id: item?.athlete?.athleteId?._id,
                   descriptionId: item?.athlete?.descriptionId,
                 };
+              }else if(item?.sport){
+                title = item?.sport?.title;
+                description = item?.sport?.description;
+                skillData = {
+                  id: item?.sport?.sportId?._id,
+                  descriptionId: item?.sport?.descriptionId,
+                };
               }
 
               return (

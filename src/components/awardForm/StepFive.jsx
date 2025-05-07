@@ -25,7 +25,8 @@ const StepFive = ({
   setChampionAward,
   questionId,
   getMyIdp,
-  cardData
+  cardData,
+  idpData
 }) => {
   
   const [loading, setLoading] = useState(false);
@@ -67,7 +68,7 @@ const StepFive = ({
           <img
             src={FameAward}
             className={`w-[90px] h-[85.63px] transition-opacity duration-500 ${
-              imageFaded ? "opacity-100" : "opacity-20"
+              idpData?.data?.[4]?.answer?.length > 0 ? "opacity-100" : "opacity-20"
             }`}
             alt=""
           />

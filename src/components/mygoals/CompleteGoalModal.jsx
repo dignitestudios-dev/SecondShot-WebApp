@@ -1,53 +1,46 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Assesmentmodal,
-  SubmitGoalimg,
-  SuccessfullyGoaimg,
-} from "../../assets/export";
+import { SubmitGoalimg } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
-import AddSupportModal from "../myresume/AddSupportModal";
+import { FiLoader } from "react-icons/fi";
 
-const GoalCreatedModal = ({
+const CompleteGoalModal = ({
   showModal,
+  onclick,
   handleClick,
-  heading,
-  para,
-  onClick
+
 }) => {
   const navigate = useNavigate();
-  const handleNavigation = () => {
-    navigate("/careerdetails");
-  };
-
-  const [showModalsupport, setShowModalSupport] = useState(false);
   return (
     <>
       {showModal && (
         <div className="fixed inset-0 bg-white bg-opacity-50 flex items-center justify-center z-50 backdrop-blur-sm ">
           <div className="bg-white z rounded-xl shadow-custom-shadow w-[500px] p-4 relative">
-           
+            <button
+              className="absolute top-0 right-2 text-xl text-gray-500 hover:text-gray-600"
+              onClick={onclick}
+            >
+              &times;
+            </button>
             <div className="flex justify-center mt-6">
               <img
-                src={SuccessfullyGoaimg}
+                src={SubmitGoalimg}
                 alt="logo"
-                className="object-cover w-[303.49px] h-[194.52px] "
+                className="object-cover w-[203.44px] h-[198px] "
               />
             </div>
-            <div className="px-4 pt-2 pb-2 mt-4">
-              <h2 className="text-[24px] font-semibold text-center">
-                {heading}
+            <div className="px-4 pt-2 pb-2">
+              <h2 className="text-[24px] font-semibold mb-4 text-center">
+             
               </h2>
-              <p className="text-center text-[#9A9A9A] text-[16px] font-[400]">
-                {para}
-              </p>
-              <div className="flex justify-between mt-4">
+              <div className="flex justify-between">
                 <button
                   className=" w-[207px] h-[49px] bg-[#E5EAED] rounded-[8px] text-[#000000] font-[500] "
-                  onClick={onClick}
+                  onClick={() => {}}
                 >
                   <div className="flex items-center justify-center">
                     <span className="mr-1">Done</span>
+                 <FiLoader className="animate-spin text-lg" />
                   </div>{" "}
                 </button>
                 <div className="w-[207px] ">
@@ -67,4 +60,4 @@ const GoalCreatedModal = ({
   );
 };
 
-export default GoalCreatedModal;
+export default CompleteGoalModal;

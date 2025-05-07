@@ -20,7 +20,8 @@ const StepThree = ({
   setGameTime,
   questionId,
   getMyIdp,
-  cardData
+  cardData,
+  idpData
 
 }) => {
 
@@ -66,7 +67,7 @@ const StepThree = ({
           <img
             src={PlaybookAward}
             className={`w-[90px] h-[85.63px] transition-opacity duration-500 ${
-              imageFaded ? "opacity-100" : "opacity-20"
+              idpData?.data?.[2]?.answer?.length > 0 ? "opacity-100" : "opacity-20"
             }`}
             alt=""
           />

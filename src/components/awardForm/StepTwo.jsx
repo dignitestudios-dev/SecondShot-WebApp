@@ -29,6 +29,7 @@ const StepTwo = ({
   questionId,
   getMyIdp,
   cardData,
+  idpData
 }) => {
   const { profilename } = useContext(AuthContext);
   console.log(selectedCareer, "selectedCareer");
@@ -115,7 +116,7 @@ const StepTwo = ({
           <img
             src={GameTime}
             className={`w-[90px] h-[85.63px] transition-opacity duration-500 ${
-              imageFaded ? "opacity-100" : "opacity-20"
+              idpData?.data?.[1]?.answer?.length > 0 ? "opacity-100" : "opacity-20"
             }`}
             alt=""
           />

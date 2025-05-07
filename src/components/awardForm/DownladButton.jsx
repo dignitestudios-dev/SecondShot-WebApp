@@ -47,7 +47,7 @@ const DownladButton = ({ idpData }) => {
 
   const handlePdf = async () => {
     const pdf = createPDFWithUserDataAndResume(getSKill, resume, idpData);
-    pdf.save("skills_and_resume.pdf");
+    pdf.save("Second Shot Full Report.pdf");
   };
 
   const handleEmailSend = async () => {

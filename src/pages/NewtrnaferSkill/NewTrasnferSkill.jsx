@@ -204,7 +204,7 @@ const [isBottomLeftSkillActive, setIsBottomLeftSkillActive] = useState(true);
     }
   };
 
-  const handleDownloadCombined = (e, data, filename) => {
+  const handleDownloadCombined = (e, data, filename,loaders) => {
     if (!isTopSkillActive || !isLeftSkillActive || !isRightSkillActive || !isBottomLeftSkillActive || !isBottomRightSkillActive) {
       setModalMessage("Please open all skills before downloading.");
       setMessageModal(true);
@@ -218,9 +218,15 @@ const [isBottomLeftSkillActive, setIsBottomLeftSkillActive] = useState(true);
       setDownloading,
       subscriptionpaid,
       profilename,
-      setIsSnapshot
+      setIsSnapshot,
+      loaders
     );
   };
+
+
+
+
+
   const [emailLoading, setEmailLoading] = useState(false);
 
   const handleEmailSend = async (filename) => {
@@ -242,7 +248,7 @@ const [isBottomLeftSkillActive, setIsBottomLeftSkillActive] = useState(true);
       }
 
       const formData = new FormData();
-      formData.append("transferablleSkills", pdfBlob, "skills.pdf");
+      formData.append("transferablleSkills", pdfBlob, "Transferable Skills Report.pdf");
 
       const response = await axios.post("/api/user/send-skills", formData);
 
@@ -285,6 +291,16 @@ const [isBottomLeftSkillActive, setIsBottomLeftSkillActive] = useState(true);
       </div>
       </div>
         <div className="flex gap-2 justify-end items-center max-w-screen-xl mx-auto mt-11 px-11 pe-11    ">
+             <div
+                  onClick={(e) =>handleDownloadCombined(e, getSkill, "Transferable Skills Report.pdf",false)}
+                  className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white  shadow-lg    rounded-lg cursor-pointer"
+                >
+                  <img
+                    className="w-[27.61px] h-[23px] "
+                    src={Printimg}
+                    title="Print Resume"
+                  />
+                </div>
           <div
             onClick={() =>
               handleShowPeopleModal(() => setShowPeopleModal(true))
@@ -307,7 +323,7 @@ const [isBottomLeftSkillActive, setIsBottomLeftSkillActive] = useState(true);
           ) : (
             <div
               onClick={(e) =>
-                handleDownloadCombined(e, getSkill, "profile-report.pdf")
+                handleDownloadCombined(e, getSkill, "Transferable Skills Report.pdf",true)
               }
               className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-pointer"
             >

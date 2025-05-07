@@ -102,8 +102,8 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
         <div className="bg-gradient-to-l from-[#012C57] to-[#061523] text-white py-2 px-4 rounded-lg flex justify-between items-center">
           <div>
             <p className="font-[600] text-[18px] leading-[24.3px] ">
-              {cardData?.subscription_duration === "3-month"
-                ? "Quarterly "
+              {cardData?.subscription_duration === "monthly"
+                ? "Monthly"
                 : cardData?.subscription_duration ||
                   cardData?.subscription_duration === "yearly"
                 ? "Yearly"
@@ -111,14 +111,14 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
             </p>
           </div>
           <div className="text-right flex items-center h-12">
-            <p className="text-[#56EC17] font-semibold text-lg pe-1">
+            <p className="text-white font-semibold text-lg pe-1">
               {cardData?.price}
             </p>
             /{" "}
             <p className="text-sm px-1">
               {" "}
-              {cardData?.subscription_duration === "3-month"
-                ? "Quarterly "
+              {cardData?.subscription_duration === "monthly"
+                ? "Monthly "
                 : cardData?.subscription_duration ||
                   cardData?.subscription_duration === "yearly"
                 ? "Yearly"

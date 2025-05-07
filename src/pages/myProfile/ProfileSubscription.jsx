@@ -101,15 +101,15 @@ const ProfileSubscription = ({ handleIsTrue, selected, setSelected }) => {
                 <div className="flex justify-between items-center  mt-3 ">
                   <h2 className="text-[24px] px-3 font-[500] text-[#000000] leading-[32.4px] ">
                     {myplane?.subscriptionProduct?.subscription_duration ===
-                    "3-month"
-                      ? "Quarterly "
+                    "monthly"
+                      ? "Monthly "
                       : myplane?.subscriptionProduct?.subscription_duration ||
                         myplane?.subscriptionProduct?.subscription_duration ===
                           "yearly"
                       ? "Yearly"
                       : myplane?.subscriptionProduct?.subscription_duration}
                   </h2>
-                  <h2 className="text-[32px] font-[600] pe-3 leading-[43.2px] text-[#56EC17]">
+                  <h2 className="text-[32px] font-[600] pe-3 leading-[43.2px] text-[#012C57]">
                     {myplane?.subscriptionProduct?.price}
                   </h2>
                 </div>

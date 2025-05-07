@@ -4,7 +4,7 @@ import GoalCreatedModal from "../../components/mygoals/GoalCreatedModal";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import DeleteGoalModal from "../../components/mygoals/DeleteGoalModal";
 import axios from "../../axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   ErrorToast,
   SuccessToast,
@@ -12,7 +12,12 @@ import {
 import AddSupportGoalModal from "../../components/mygoals/AddSupportGoalModal";
 import { IoIosArrowBack } from "react-icons/io";
 import { phoneFormater } from "../lib/helper";
+import CompleteGoalModal from "../../components/mygoals/CompleteGoalModal";
 const GoalDetail = () => {
+  const location = useLocation();
+  const isModal = location.state?.Modal;
+
+  console.log(isModal, "ISMODAL++");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [goalDetailModal, setGoalDetailModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -23,6 +28,7 @@ const GoalDetail = () => {
   const [goalDetail, setGoalDetail] = useState(null);
   const [isCompleted, setIsCompleted] = useState(false);
   const [showModalsupport, setShowModalsupport] = useState(false);
+  const [completeModalsupport, setCompleteModalsupport] = useState(isModal);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullname: "",
@@ -160,7 +166,7 @@ const GoalDetail = () => {
   const subStatus = goalDetail?.sub_goals?.map((item) => {
     return item?.is_completed;
   });
-
+  // true
   return (
     <div>
       <div className="flex items-center gap-1 mb-3 mt-3 text-[12px] font-[600]">
@@ -402,10 +408,9 @@ checked:before:justify-center checked:before:items-center"
                       <span> {support?.full_name} </span>
                     </p>
                     <p clasclassName="text-sm break-words  border-r border-gray-300 pr-4 grid grid-cols-1">
-                      <strong>Email Address:</strong>   
+                      <strong>Email Address:</strong>
                       <span> {support?.email_address} </span>
                     </p>
-                    
                   </div>
                 </div>
               ))}
@@ -441,6 +446,15 @@ checked:before:justify-center checked:before:items-center"
         onclick={() => setShowDeleteModal(false)}
         handleclick={() => handleDelete()}
         loader={loader}
+      />
+      {/* <CompleteGoalModal showModal={completeModalsupport}  /> */}
+      <GoalCreatedModal
+        showModal={completeModalsupport}
+        handleClick={() => {
+        navigate('/create-goals');
+        }}
+        onClick={() => setCompleteModalsupport(false)}
+        heading={"Goal Successfully Created"}
       />
     </div>
   );
