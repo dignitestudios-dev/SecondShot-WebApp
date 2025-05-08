@@ -39,7 +39,7 @@ import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import NewTranfer from "./NewTranfer";
 
 const NewTrasnferSkill = ({ id }) => {
-  console.log(id, "firstid");
+
   const navigate = useNavigate();
   const [topSkill, setTopSkill] = useState(true);
   const [leftSkill, setLeftSkill] = useState(true);

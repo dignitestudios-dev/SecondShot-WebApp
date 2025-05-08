@@ -189,7 +189,7 @@ const IdpForm = () => {
                   (item) => item.answer !== null && item.answer !== undefined
                 ) && (
                   <div className="flex justify-end">
-                    <DownladButton idpData={idpData} />
+                    <DownladButton idpData={idpData} getMyIdp={getMyIdp} />
                   </div>
                 )}
             </div>

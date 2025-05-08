@@ -17,7 +17,7 @@ const GoalDetail = () => {
   const location = useLocation();
   const isModal = location.state?.Modal;
 
-  console.log(isModal, "ISMODAL++");
+ 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [goalDetailModal, setGoalDetailModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
