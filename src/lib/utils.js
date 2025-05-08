@@ -609,15 +609,12 @@ function addStructuredContent(doc, userData, subscriptionpaid) {
     if (
       userData.is_athlete &&
       userData.athlete &&
-      userData.athlete.sport_position
+      userData.athlete.primary_sport
     ) {
-      yPosition = addSectionTitle(
-        `Position: ${userData.athlete.sport_position.position_name}`,
-        yPosition
-      );
+     
 
       // Extract topics from the hobby data
-      const hobbyTopics = userData.athlete.sport_position.topics || [];
+      const hobbyTopics = userData.athlete.primary_sport.topics || [];
       if (Array.isArray(hobbyTopics)) {
         hobbyTopics.forEach((topic, index) => {
           if (topic && index <= hobbyTopics.length - 1) {
@@ -642,27 +639,29 @@ function addStructuredContent(doc, userData, subscriptionpaid) {
 
   // Add Military section if data exists
   if (
-    subscriptionpaid &&
-    userData.military &&
-    userData.military.branch_of_service
+    userData?.is_athlete &&
+    userData?.athlete &&
+    userData?.athlete?.sport_position
   ) {
     yPosition = addSectionTitle(
-      `Military: ${userData.military.branch_of_service.service_name}`,
+      `Position: ${userData?.athlete?.sport_position?.position_name}`,
       yPosition
     );
 
-    // Add Rank section if data exists
-    if (userData.military && userData.military.rank) {
-      yPosition = addSectionTitle(
-        `Position: ${userData.military.rank.rank_name}`,
-        yPosition
-      );
+    // Add Position section if athlete data exists
+    if (
+      userData.is_athlete &&
+      userData.athlete &&
+      userData.athlete.sport_position
+    ) {
+    
 
-      // Extract topics from the rank data
-      const hobbyTopics = userData.military.rank.topics || [];
+      // Extract topics from the hobby data
+      const hobbyTopics = userData.athlete.sport_position.topics || [];
       if (Array.isArray(hobbyTopics)) {
         hobbyTopics.forEach((topic, index) => {
           if (topic && index <= hobbyTopics.length - 1) {
+            // Limit to first 2 topics to match format in image
             const prevPosition = yPosition;
             yPosition = addListItem(index + 1, topic.title, yPosition, [
               { description: topic.description || "No description available" },
@@ -833,14 +832,11 @@ export const downloadCombinedPDF = async (
   setIsSnapshot,
   loaders
 ) => {
-  if (loaders === true ){
+  if (loaders === true) {
     setDownloading(true);
-
-  }else{
+  } else {
     setDownloading(false);
-
   }
-
 
   setIsSnapshot(true); // Set the snapshot state to true
   try {

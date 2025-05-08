@@ -217,7 +217,7 @@ const AddTrasnferSkillPeople = ({
       }
 
       const formData = new FormData();
-      formData.append("transferablleSkills", pdfBlob, "resume.pdf");
+      formData.append("transferablleSkills", pdfBlob, "Second Shot Report.pdf");
       formData.append("supportPeople", JSON.stringify(supportPeople));
 
       const response = await axios.post(

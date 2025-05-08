@@ -864,7 +864,6 @@ transition-all duration-300 ease-in-out z-30"
                 alt="Left Skill"
               />
               {getSkill?.favorite_hobby1?.topics
-                ?.slice(0, 5)
                 ?.map((item, index) => {
                   const positions = [
                     {

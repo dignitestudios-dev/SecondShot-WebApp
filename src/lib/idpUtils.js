@@ -733,16 +733,11 @@ export function createPDFWithUserDataAndResume(userData, resume, idpData) {
     );
 
     // Add Position section if athlete data exists
-    if (userData.athlete && userData.athlete.sport_position) {
-      yPosition = addSectionTitle(
-        `Position: ${
-          userData.athlete.sport_position.position_name || "Not specified"
-        }`,
-        yPosition
-      );
+    if (userData.athlete && userData.athlete.primary_sport) {
+     
 
       // Extract topics from the position data
-      const positionTopics = userData.athlete.sport_position.topics || [];
+      const positionTopics = userData.athlete.primary_sport.topics || [];
       if (Array.isArray(positionTopics) && positionTopics.length > 0) {
         positionTopics.forEach((topic, index) => {
           if (topic) {
@@ -763,28 +758,25 @@ export function createPDFWithUserDataAndResume(userData, resume, idpData) {
 
   // Add Military section if data exists
   if (
-    userData.has_military_service &&
-    userData.military &&
-    userData.military.branch_of_service
+    userData?.is_athlete &&
+    userData?.athlete &&
+    userData?.athlete?.sport_position
   ) {
-    yPosition = addSectionTitle(
-      `Military: ${
-        userData.military.branch_of_service.service_name || "Not specified"
-      }`,
-      yPosition
-    );
+    
 
-    // Add Rank section if data exists
-    if (userData.military && userData.military.rank) {
+    // Add Position section if athlete data exists
+    if (userData.athlete && userData.athlete.sport_position) {
       yPosition = addSectionTitle(
-        `Position: ${userData.military.rank.rank_name || "Not specified"}`,
+        `Position: ${
+          userData.athlete.sport_position.position_name || "Not specified"
+        }`,
         yPosition
       );
 
-      // Extract topics from the rank data
-      const rankTopics = userData.military.rank.topics || [];
-      if (Array.isArray(rankTopics) && rankTopics.length > 0) {
-        rankTopics.forEach((topic, index) => {
+      // Extract topics from the position data
+      const positionTopics = userData.athlete.sport_position.topics || [];
+      if (Array.isArray(positionTopics) && positionTopics.length > 0) {
+        positionTopics.forEach((topic, index) => {
           if (topic) {
             yPosition = addListItem(
               index + 1,
@@ -1598,16 +1590,16 @@ export function downloadSendReportPDF(userData, resume, idpData) {
      );
  
      // Add Position section if athlete data exists
-     if (userData.athlete && userData.athlete.sport_position) {
+     if (userData.athlete && userData.athlete.primary_sport) {
        yPosition = addSectionTitle(
          `Position: ${
-           userData.athlete.sport_position.position_name || "Not specified"
+           userData.athlete.primary_sport.sport_name || "Not specified"
          }`,
          yPosition
        );
  
        // Extract topics from the position data
-       const positionTopics = userData.athlete.sport_position.topics || [];
+       const positionTopics = userData.athlete.primary_sport.topics || [];
        if (Array.isArray(positionTopics) && positionTopics.length > 0) {
          positionTopics.forEach((topic, index) => {
            if (topic) {
@@ -1628,43 +1620,45 @@ export function downloadSendReportPDF(userData, resume, idpData) {
  
    // Add Military section if data exists
    if (
-     userData.has_military_service &&
-     userData.military &&
-     userData.military.branch_of_service
-   ) {
-     yPosition = addSectionTitle(
-       `Military: ${
-         userData.military.branch_of_service.service_name || "Not specified"
-       }`,
-       yPosition
-     );
- 
-     // Add Rank section if data exists
-     if (userData.military && userData.military.rank) {
-       yPosition = addSectionTitle(
-         `Position: ${userData.military.rank.rank_name || "Not specified"}`,
-         yPosition
-       );
- 
-       // Extract topics from the rank data
-       const rankTopics = userData.military.rank.topics || [];
-       if (Array.isArray(rankTopics) && rankTopics.length > 0) {
-         rankTopics.forEach((topic, index) => {
-           if (topic) {
-             yPosition = addListItem(
-               index + 1,
-               topic.title || "Untitled",
-               yPosition,
-               [{ description: topic.description || "No description available" }]
-             );
-             yPosition += 3;
-             yPosition = checkPageBreak(yPosition);
-           }
-         });
-       }
-       yPosition += 5;
-     }
-   }
+    userData?.is_athlete &&
+    userData?.athlete &&
+    userData?.athlete?.sport_position
+  ) {
+    yPosition = addSectionTitle(
+      `Sport: ${
+        userData?.athlete?.sport_position?.position_name || "Not specified"
+      }`,
+      yPosition
+    );
+
+    // Add Position section if athlete data exists
+    if (userData.athlete && userData.athlete.sport_position) {
+      yPosition = addSectionTitle(
+        `Position: ${
+          userData.athlete.sport_position.position_name || "Not specified"
+        }`,
+        yPosition
+      );
+
+      // Extract topics from the position data
+      const positionTopics = userData.athlete.sport_position.topics || [];
+      if (Array.isArray(positionTopics) && positionTopics.length > 0) {
+        positionTopics.forEach((topic, index) => {
+          if (topic) {
+            yPosition = addListItem(
+              index + 1,
+              topic.title || "Untitled",
+              yPosition,
+              [{ description: topic.description || "No description available" }]
+            );
+            yPosition += 3;
+            yPosition = checkPageBreak(yPosition);
+          }
+        });
+      }
+      yPosition += 5;
+    }
+  }
  
    // Add Favorite Subject section
    if (userData.favorite_middle_school_subject) {
