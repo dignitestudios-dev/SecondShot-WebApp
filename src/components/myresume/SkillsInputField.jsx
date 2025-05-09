@@ -102,7 +102,8 @@ const SkillsInputField = ({
                         skill?.favorite_hobby1?.title ||
                         skill?.favorite_middle_school_subject?.title ||
                         skill?.rank?.title ||
-                        skill?.athlete?.title;
+                        skill?.athlete?.title ||
+                        skill?.sport?.title;
 
                       return (
                         <div

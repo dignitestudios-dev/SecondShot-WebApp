@@ -401,7 +401,7 @@ const EditResume = () => {
                     honor.receivedmonth
                   )}-01` // Convert month to number
                 : null,
-            description: null ,
+            description: null,
           }))
         : [],
       volunteer_experience: formData.volunteerList.map((volunteer) => ({

@@ -32,7 +32,7 @@ const StepOne = ({
   const [skillLimitError, setSkillLimitError] = useState("");
   const [loading, setLoading] = useState(false);
     const{ profilename} =useContext(AuthContext)
-console.log(idpData,"idpData")
+
   useEffect(() => {
     if (selectedSkills.length === 0 && cardData && cardData[0]) {
       setSelectedSkills(cardData[0]);
@@ -163,8 +163,9 @@ console.log(idpData,"idpData")
             <div className="absolute top-[50px] left-0 right-0 bg-white shadow-md rounded-[12px] z-10 h-auto max-h-[200px] overflow-auto">
               {skills?.map((skill) => {
                 let title = "";
-
-                if (skill?.athlete) {
+                if (skill?.sport) {
+                  title = skill?.sport?.title;
+                } else  if (skill?.athlete) {
                   title = skill?.athlete?.title;
                 } else if (skill?.favorite_middle_school_subject) {
                   title = skill?.favorite_middle_school_subject?.title;
