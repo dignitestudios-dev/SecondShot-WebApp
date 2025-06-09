@@ -122,23 +122,26 @@ function MyProfile() {
     }
   };
   const phoneFormater = (input) => {
-    if (!input) return "";
+  if (!input) return "";
 
-    const cleaned = input.replace(/\D/g, "");
+  // Preserve country code if present
+  const countryCodeMatch = input.match(/^\+(\d{1,3})/);
+  const countryCode = countryCodeMatch ? `+${countryCodeMatch[1]}` : "";
+  
+  // Remove non-digit characters and country code
+  const cleaned = input.replace(/\D/g, "").replace(/^(\d{1,3})/, '');
 
-    if (cleaned.length > 3 && cleaned.length <= 6) {
-      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
-    } else if (cleaned.length > 6) {
-      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(
-        6,
-        10
-      )}`;
-    } else if (cleaned.length > 0) {
-      return `(${cleaned}`;
-    }
+  if (cleaned.length > 3 && cleaned.length <= 6) {
+    return `${countryCode} (${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
+  } else if (cleaned.length > 6) {
+    return `${countryCode} (${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+  } else if (cleaned.length > 0) {
+    return `${countryCode} (${cleaned}`;
+  }
 
-    return cleaned;
-  };
+  return countryCode;
+};
+
 
   const getnotifications = async () => {
     try {

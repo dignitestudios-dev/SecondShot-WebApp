@@ -153,7 +153,7 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
                 className="block text-[14px] font-[500] leading-[17.85px] mb-2"
                 htmlFor="isAthlete"
               >
-                Are you an athlete?
+              Are you an athlete, former athlete, or consider yourself athletic?
               </label>
 
               <RecommendatioBtn
@@ -175,7 +175,7 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
             {formData?.isAthlete === "Yes" && (
               <div>
                 <label className="block font-medium mb-2" htmlFor="university">
-                  What is your primary sport and position?
+                  What is your primary sport and primary position?
                 </label>
                 <label
                   className="block text-[#181818]  text-[14px] font-[500] leading-[17.85px] mb-3"

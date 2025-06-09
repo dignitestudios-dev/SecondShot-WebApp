@@ -33,7 +33,7 @@ const CareerToolbox = () => {
   const navigate = useNavigate();
   const { showModal, closeModal, isFirst, setIsFirst } =
     useContext(ModalContext);
-console.log(isFirst,"isFirstisFirst")
+  console.log(isFirst, "isFirstisFirst");
   const [lock, setLock] = useState(false);
   const [commingSoon, setCommingSoon] = useState(false);
 
@@ -48,7 +48,10 @@ console.log(isFirst,"isFirstisFirst")
       btnBg: isFirst.transferable === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Discover the valuable skills you've acquired. Explore how to use them to shape your future and apply them across different areas of your life.",
       path: "/transferablekills",
-      btn: isFirst.transferable === false && subscriptionpaid === false  ? "Try it for Free" : "launch",
+      btn:
+        isFirst.transferable === true || subscriptionpaid === true
+          ? "launch"
+          : "Try it for Free",
     },
     {
       cardicons: Carriericon2,
@@ -130,7 +133,11 @@ console.log(isFirst,"isFirstisFirst")
     },
   ];
   const handleNavigation = (item) => {
-    if (!subscriptionpaid && item.title !== "Transferable Skills" && item.btn !== "Coming Soon") {
+    if (
+      !subscriptionpaid &&
+      item.title !== "Transferable Skills" &&
+      item.btn !== "Coming Soon"
+    ) {
       setLock(true);
       return;
     }
@@ -210,7 +217,10 @@ console.log(isFirst,"isFirstisFirst")
             "Buy a subscription to unlock this feature and access all of the modules."
           }
         />
-        <CommingSoonModal isOpen={commingSoon} onClose={()=>setCommingSoon(false)} />
+        <CommingSoonModal
+          isOpen={commingSoon}
+          onClose={() => setCommingSoon(false)}
+        />
       </div>
     </div>
   );

@@ -89,9 +89,9 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
     setIsOpen(false);
     setTags([]);
     setSelectedTags([]);
-    const filteredSports = sportsPosition?.filter(
-      (item) => item?.sportId === value
-    )?.sort((a, b) => a.label.localeCompare(b.label));
+    const filteredSports = sportsPosition
+      ?.filter((item) => item?.sportId === value)
+      ?.sort((a, b) => a.label.localeCompare(b.label));
     setFilteredTags(filteredSports);
   };
 
@@ -103,7 +103,7 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
     //   setFormData({ ...formData, sportsOption: "" });
     // }
   }, [tags]);
-console.log(formData?.ageValue,"formData?.ageValue")
+  console.log(formData?.ageValue, "formData?.ageValue");
   return (
     <Formik
       initialValues={formData}
@@ -121,9 +121,9 @@ console.log(formData?.ageValue,"formData?.ageValue")
           if (formData?.athleteOption) {
             setFieldValue("athleteOption", formData?.athleteOption);
 
-            const filteredSports = sportsPosition?.filter(
-              (item) => item?.sportId === formData?.athleteOption
-            )?.sort((a, b) => a.label.localeCompare(b.label));
+            const filteredSports = sportsPosition
+              ?.filter((item) => item?.sportId === formData?.athleteOption)
+              ?.sort((a, b) => a.label.localeCompare(b.label));
             setFilteredTags(filteredSports);
           }
 
@@ -139,7 +139,8 @@ console.log(formData?.ageValue,"formData?.ageValue")
                 className="block text-[14px] font-[500] leading-[17.85px] mb-2"
                 htmlFor="isAthlete"
               >
-                Are you an athlete?
+                Are you an athlete, former athlete, or consider yourself
+                athletic?
               </label>
 
               <RecommendatioBtn
@@ -161,7 +162,7 @@ console.log(formData?.ageValue,"formData?.ageValue")
             {formData?.isAthlete === "Yes" && (
               <div>
                 <label className="block font-medium mb-2" htmlFor="university">
-                  What is your primary sport and position?
+                  What is your primary sport and primary position?
                 </label>
                 <label
                   className="block text-[#181818]  text-[14px] font-[500] leading-[17.85px] mb-3"

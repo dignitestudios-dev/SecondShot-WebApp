@@ -14,6 +14,7 @@ import { SuccessToast } from "../../components/toaster/ToasterContainer";
 import AddTrasnferSkillPeople from "./AddTrasnferSkillPeople";
 import MessageModal from "./MessageModal";
 import LockModal from "../../components/home/LockModal";
+import { useNavigate } from "react-router-dom";
 
 const NewTranfer = ({
   topSkill,
@@ -27,6 +28,7 @@ const NewTranfer = ({
   BottomRightSkill,
   RightSkill,
 }) => {
+  const navigate =useNavigate()
   const [lock, setLock] = useState(false);
   const [appear, setAppear] = useState(false);
   const [indexAppear, setIndexAppear] = useState("");

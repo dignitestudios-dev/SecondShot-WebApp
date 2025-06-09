@@ -20,8 +20,8 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
     { label: "Middle School", value: "School" },
     { label: "High School", value: "HighSchool" },
     { label: "College", value: "College" },
-    { label: "Early Professional", value: "early" },
-    { label: "Career Change Professional", value: "career" },
+    { label: "Masters", value: "early" },
+    { label: "PhD", value: "career" },
   ];
 
   const [filteredTags, setFilteredTags] = useState([]);
@@ -99,7 +99,7 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
                   className="block text-[14px] font-[500] text-[#181818] leading-[17.85px]  mb-1"
                   htmlFor="university"
                 >
-                  Select grade level or professional level
+                 Revise the first question: Select the last grade/degree level of completion
                 </label>
                 <RecommendationDropdown
                   options={options}

@@ -37,8 +37,7 @@ const MakeitSmart = () => {
     setShowModal(!showModal);
   };
   const location = useLocation();
-  const { showModal ,inputData } = location.state || {};
-  
+  const { showModal, inputData } = location.state || {};
 
   return (
     <div className="    ">
@@ -58,6 +57,10 @@ const MakeitSmart = () => {
                 <h1 className="text-[38px] leading-9 text-[#000000] font-semibold text-center mb-2">
                   Create S.M.A.R.T Goal
                 </h1>
+                <p className="text-center text-[14px] ">
+                  Type your goal in the chat and add make it a Smart Goal.
+                  Review and add the sub goals you want to focus on
+                </p>
               </div>
               <div className="flex justify-between mt-6">
                 <p className="text-xs font-medium">Steps</p>
@@ -133,7 +136,6 @@ const MakeitSmart = () => {
           </div>
         </div>
       </div>
-    
     </div>
   );
 };

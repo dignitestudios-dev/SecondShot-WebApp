@@ -9,8 +9,10 @@ const AddGoals = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { isSmart, lastStep } = location.state || {};
-  const [showModal, setShowModal] = useState(isSmart);
+  const { isSmart, lastStep, modalback } = location.state || {};
+  console.log(modalback, "modalback");
+
+  const [showModal, setShowModal] = useState(isSmart ? isSmart :modalback);
 
   const [smartModal, setSmartModal] = useState(false);
 

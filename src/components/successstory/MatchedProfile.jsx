@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import EmptyScreen from "../../pages/mylibrary/EmptyScreen";
-import { FaYoutube } from "react-icons/fa";
+import { FaLinkedin, FaYoutube } from "react-icons/fa";
 import { facebook, Instaicon, Twittericon } from "../../assets/export";
 
 const MatchedProfile = ({ loading, matchedProfile }) => {
@@ -93,11 +93,18 @@ const MatchedProfile = ({ loading, matchedProfile }) => {
                         <img src={link} className="w-6 h-6" />
                       ))}
                     </div> */}
-                     <div className="flex gap-2 mt-2">
-                      {[facebook, Instaicon, Twittericon].map((link, i) => (
-                        <img src={link} className="w-6 h-6" />
-                      ))}
-                    </div> 
+                       <div className="flex gap-2 mt-2">
+                                           {item?.linkedin_profile && (
+                                             <a
+                                               href={item?.linkedin_profile}
+                                               target="_blank"
+                                               rel="noopener noreferrer"
+                                               className="text-blue-600 hover:underline flex items-center gap-1"
+                                             >
+                                               <FaLinkedin size={20} />
+                                             </a>
+                                           )}
+                                         </div>
                   </div>
                 </div>
               </div>

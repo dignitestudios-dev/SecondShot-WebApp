@@ -97,8 +97,10 @@ function CareerDetails() {
         <div className="w-full mb-5 flex justify-between items-center">
           <div className="w-[80%]">
             <h1 className="text-[32px] font-[500] text-[#000000] leading-[43.2px] mb-1">
-              Your Recommended Careers are:
+              Your Recommended Careers 
             </h1>
+            <p className="text-[14px]">There are your recommended careers in no particular order.
+ </p>
           </div>
           <p className="text-[18px] text-[#000000] font-[500]">
             {loader ? (
@@ -141,7 +143,7 @@ function CareerDetails() {
                     </button>
                   ))}
             </div>
-            <hr className="h-[1px] bg-gray-300 " />
+            <hr className="h-[3px] bg-gray-300 " />
             <div className="flex justify-between items-center">
               <h3 className="text-[28px] font-[500] text-[#000000] py-2">
                 {loader ? (
@@ -190,7 +192,7 @@ function CareerDetails() {
             </p>
           </div>
 
-          <hr className="" />
+          <hr className="h-[3px] bg-gray-300" />
 
           <div className="bg-white rounded-lg">
             <div className="grid grid-cols-3 gap-4 text-[#011225]">
@@ -280,7 +282,8 @@ function CareerDetails() {
               </ul>
             </div>
           </div>
-  <hr className="" />  
+          <hr className="h-[3px] bg-gray-300" />
+
 
           <div>
             <h3 className="text-[22px] font-[600] leading-[32.67px] text-[#011225]">

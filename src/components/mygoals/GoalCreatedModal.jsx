@@ -43,14 +43,14 @@ const GoalCreatedModal = ({
               </p>
               <div className="flex justify-between mt-4">
                 <button
-                  className=" w-[207px] h-[49px] bg-[#E5EAED] rounded-[8px] text-[#000000] font-[500] "
+                  className=" w-[210px] h-[49px] bg-[#E5EAED] rounded-[8px] text-[#000000] font-[500] "
                   onClick={onClick}
                 >
                   <div className="flex items-center justify-center">
-                    <span className="mr-1">Done</span>
+                    <span className="mr-1">Done With Setting Goals</span>
                   </div>{" "}
                 </button>
-                <div className="w-[207px] ">
+                <div className="w-[210px] ">
                   <AuthSubmitBtn
                     text={"Submit Another Goal"}
                     handleSubmit={() => {

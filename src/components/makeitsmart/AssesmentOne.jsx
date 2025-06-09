@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import { Stars } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import Backbutton from "../Global/Backbutton";
+import { IoIosArrowBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const AssessmentOne = ({
   nextStep,
@@ -12,6 +14,7 @@ const AssessmentOne = ({
   showModal,
   inputData,
 }) => {
+  const navigate = useNavigate();
   const validationSchema = Yup?.object({
     specific: Yup?.string().required(
       "Please respond before moving forward to proceed with the next step."
@@ -119,18 +122,17 @@ const AssessmentOne = ({
           <div className="flex justify-center pt-4 gap-3">
             <div className="w-[343px]">
               <button
-              onClick={() => {
-                setFormData((prev) => ({
-                  ...prev,
-                  specific: prev.specific || inputData.main_goal_name || "", 
-                  specificedit: "", 
-                }));
-                nextStep();
-              }}
-              
+                onClick={() => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    specific: prev.specific || inputData.main_goal_name || "",
+                    specificedit: "",
+                  }));
+                  nextStep();
+                }}
                 className="w-full text-[#012C57] h-[49px] bg-gray-300  p-3 text-center rounded-[12px] font-[500] leading-[21.6px] text-[16px]"
               >
-                  Do Not Revise
+                Do Not Revise
               </button>
             </div>
             <div className="w-[343px]">
@@ -138,7 +140,23 @@ const AssessmentOne = ({
             </div>
           </div>
           <div className="flex justify-center mt-4">
-            <Backbutton />
+            <div className="flex items-center gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
+              <div>
+                <IoIosArrowBack
+                  className="font-[600]"
+                  onClick={() => navigate(-1)}
+                />
+              </div>
+              <div
+                onClick={() =>
+                  navigate("/create-goals", {
+                    state: { modalback: true },
+                  })
+                }
+              >
+                BACK
+              </div>
+            </div>
           </div>
         </Form>
       )}

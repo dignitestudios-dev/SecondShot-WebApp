@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "../../axios";
 import { ErrorToast, SuccessToast } from "../toaster/ToasterContainer";
 import { Downloadimg, Printimg, Shareimg } from "../../assets/export";
@@ -8,12 +8,14 @@ import {
 } from "../../lib/idpUtils";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 import AddSupportIdp from "./AddSupportIdp";
+import { AuthContext } from "../../context/AuthContext";
 const DownladButton = ({ idpData, getMyIdp }) => {
   const [getSKill, setGetSkill] = useState(false);
   const [resume, setResume] = useState(false);
   const [emailLoading, setEmailLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showPeopleModal, setShowPeopleModal] = useState(false);
+  const { profilename } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
@@ -60,7 +62,12 @@ const DownladButton = ({ idpData, getMyIdp }) => {
   }, []);
 
   const handlePdf = async () => {
-    const pdf = createPDFWithUserDataAndResume(getSKill, resume, idpData);
+    const pdf = createPDFWithUserDataAndResume(
+      getSKill,
+      resume,
+      idpData,
+      profilename
+    );
     pdf.save("Second Shot Full Report.pdf");
   };
 
@@ -68,7 +75,12 @@ const DownladButton = ({ idpData, getMyIdp }) => {
     setEmailLoading(true);
     try {
       // Get the PDF blob from the modified function
-      const pdfBlob = await downloadSendReportPDF(getSKill, resume, idpData);
+      const pdfBlob = await downloadSendReportPDF(
+        getSKill,
+        resume,
+        idpData,
+        profilename
+      );
 
       if (!pdfBlob) {
         console.error("Failed to generate PDF blob");
