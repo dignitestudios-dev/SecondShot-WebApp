@@ -25,6 +25,7 @@ import {
 import Cookies from "js-cookie";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import { ModalContext } from "../../context/GlobalContext";
+import { phoneFormater } from "../lib/helper";
 function MyProfile() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("profile");
@@ -121,26 +122,7 @@ function MyProfile() {
       setLoading(false);
     }
   };
-  const phoneFormater = (input) => {
-  if (!input) return "";
-
-  // Preserve country code if present
-  const countryCodeMatch = input.match(/^\+(\d{1,3})/);
-  const countryCode = countryCodeMatch ? `+${countryCodeMatch[1]}` : "";
-  
-  // Remove non-digit characters and country code
-  const cleaned = input.replace(/\D/g, "").replace(/^(\d{1,3})/, '');
-
-  if (cleaned.length > 3 && cleaned.length <= 6) {
-    return `${countryCode} (${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
-  } else if (cleaned.length > 6) {
-    return `${countryCode} (${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
-  } else if (cleaned.length > 0) {
-    return `${countryCode} (${cleaned}`;
-  }
-
-  return countryCode;
-};
+ 
 
 
   const getnotifications = async () => {
@@ -266,7 +248,8 @@ function MyProfile() {
                           Phone Number
                         </p>
                         <p className="text-black text-base">
-                          {phoneFormater(profileData?.phone)}
+                         +1 {phoneFormater(profileData?.phone || "")}
+
                         </p>
                         {profileData?.address ? (
                           <>

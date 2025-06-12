@@ -51,7 +51,7 @@ export function getMonth(dateString) {
 // lib/helper.js
 
 export const phoneFormater = (input) => {
-  const cleaned = input.replace(/\D/g, ""); // Remove all non-numeric characters
+  const cleaned = input?.replace(/\D/g, ""); // Remove all non-numeric characters
   
   if (cleaned.length > 3 && cleaned.length <= 6) {
     return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
