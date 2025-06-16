@@ -127,7 +127,7 @@ const DownladButton = ({ idpData, getMyIdp }) => {
         <img
           className="w-[27.61px] h-[23px] "
           src={Printimg}
-          title="Print Resume"
+          title="Print"
         />
       </div>
       <div

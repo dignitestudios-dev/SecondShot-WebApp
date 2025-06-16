@@ -585,7 +585,7 @@ transition-all duration-300 ease-in-out z-30"
                 <span className=" w-full text-center">
                   {loading ? (
                     <div className="w-14 h-14 rounded-[100px] absolute bottom-[3px] left-[3px]  bg-green-700 animate-pulse flex justify-center items-center "></div>
-                  ) : getSkill?.favorite_hobby2?.hobbie_name?.length > 7 ? (
+                  ) :!subscriptionpaid ?   <div className="text-[11px]">Subscribed</div> :  getSkill?.favorite_hobby2?.hobbie_name?.length > 7 ? (
                     <div className="text-nowrap">
                       {getSkill?.favorite_hobby2?.hobbie_name?.substring(0, 7) +
                         "..."}
@@ -603,7 +603,7 @@ transition-all duration-300 ease-in-out z-30"
                     className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
       w-max max-w-[250px] text-center"
                   >
-                    {getSkill?.favorite_hobby2?.hobbie_name || "Not Found"}
+                     {!subscriptionpaid ? "Subscribed" :getSkill?.favorite_hobby2?.hobbie_name || "Not Found"}
                   </div>
                   <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
                 </div>
@@ -628,7 +628,7 @@ transition-all duration-300 ease-in-out z-30"
                 <span className="w-full text-center">
                   {loading ? (
                     <div className="w-14 h-14 rounded-[100px] absolute bottom-[3px] left-[3px] bg-green-700 animate-pulse flex justify-center items-center"></div>
-                  ) : getSkill?.athlete?.sport_position?.position_name.length >
+                  ) : !subscriptionpaid ?   <div className="text-[11px]">Subscribed</div> : getSkill?.athlete?.sport_position?.position_name.length >
                     7 ? (
                     <div className="text-nowrap">
                       {getSkill?.athlete?.sport_position?.position_name?.substring(
@@ -651,7 +651,7 @@ transition-all duration-300 ease-in-out z-30"
                     className="bg-[#172E55] relative text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
       w-max max-w-[250px] text-center"
                   >
-                    {getSkill?.athlete?.sport_position?.position_name ||
+                    {!subscriptionpaid ? "Subscribed" : getSkill?.athlete?.sport_position?.position_name ||
                       "Not Found"}
                   </div>
                   <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
@@ -678,7 +678,7 @@ transition-all duration-300 ease-in-out z-30"
                 <span className=" w-full text-center">
                   {loading ? (
                     <div className="w-14 h-14  rounded-[100px] absolute bottom-[3px] left-[3px]  bg-green-700 animate-pulse flex justify-center items-center "></div>
-                  ) : getSkill?.favorite_middle_school_subject?.subject_name
+                  ) : !subscriptionpaid ?  <div className="text-[11px]">Subscribed</div>: getSkill?.favorite_middle_school_subject?.subject_name
                       .length > 7 ? (
                     <div className="text-nowrap">
                       {getSkill?.favorite_middle_school_subject?.subject_name.substring(
@@ -700,7 +700,7 @@ transition-all duration-300 ease-in-out z-30"
                     className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
       w-max max-w-[250px] text-center"
                   >
-                    {getSkill?.favorite_middle_school_subject?.subject_name ||
+                    {!subscriptionpaid ? "Subscribed" : getSkill?.favorite_middle_school_subject?.subject_name ||
                       "Not Found"}
                   </div>
                   <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
@@ -724,15 +724,17 @@ transition-all duration-300 ease-in-out z-30"
               >
                 <span className=" w-full   text-center">
                   {loading ? (
-                    <div className="w-14 h-14 rounded-[100px] absolute bottom-[3px] left-[3px]  bg-green-700 animate-pulse flex justify-center items-center "></div>
-                  ) : getSkill?.favorite_hobby1?.hobbie_name?.length > 7 ? (
-                    <div className="text-nowrap">
-                      {getSkill?.favorite_hobby1?.hobbie_name?.substring(0, 7) +
-                        "..."}
-                    </div>
-                  ) : (
-                    getSkill?.favorite_hobby1?.hobbie_name || "Null"
-                  )}
+  <div className="w-14 h-14 rounded-[100px] absolute bottom-[3px] left-[3px] bg-green-700 animate-pulse flex justify-center items-center"></div>
+) : !subscriptionpaid ? (
+  <div className="text-[11px]">Subscribed</div>
+) : getSkill?.favorite_hobby1?.hobbie_name?.length > 7 ? (
+  <div className="text-nowrap">
+    {getSkill?.favorite_hobby1?.hobbie_name?.substring(0, 7) + "..."}
+  </div>
+) : (
+  getSkill?.favorite_hobby1?.hobbie_name || "Null"
+)}
+
                 </span>
                 <div
                   className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center
@@ -743,7 +745,7 @@ transition-all duration-300 ease-in-out z-30"
                     className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
       w-max max-w-[250px] text-center"
                   >
-                    {getSkill?.favorite_hobby1?.hobbie_name || "Not Found"}
+                    {!subscriptionpaid ? "Subscribed" : getSkill?.favorite_hobby1?.hobbie_name  }
                   </div>
                   <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
                 </div>

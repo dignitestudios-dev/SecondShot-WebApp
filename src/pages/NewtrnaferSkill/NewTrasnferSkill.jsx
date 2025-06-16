@@ -70,11 +70,9 @@ const NewTrasnferSkill = ({ id }) => {
   const [messageModal, setMessageModal] = useState(false); // For controlling modal visibility
   const [modalMessage, setModalMessage] = useState("");
 
-  const handleLock = () =>{
-
-      setLock(true);
- 
-  }
+  const handleLock = () => {
+    setLock(true);
+  };
   const handleTopSKill = () => {
     setTopSkill((prev) => !prev);
   };
@@ -286,7 +284,7 @@ const NewTrasnferSkill = ({ id }) => {
   return (
     <div>
       <div>
-        <div className="flex justify-between items-center max-w-screen-xl mx-auto mt-11 px-2 pe-11">
+        <div className="flex gap-20 items-center max-w-screen-xl mx-auto mt-11 px-2 pe-11">
           <div className="w-[450px]">
             <h1 className="text-3xl  font-semibold text-gray-800 mb-4">
               My Transferable Skills
@@ -297,33 +295,38 @@ const NewTrasnferSkill = ({ id }) => {
                 : "  Here is a map of your transferable skills. Click on each circle to expand to learn about how you can use your soft skills in other areas of your life. Click the ribbon to save your favorite skills."}
             </p>
           </div>
-            <h2 className="text-red-500 text-[16px]    font-[500] mt-24 leading-[24px]">
-              {" "}
-              {subscriptionpaid === false
-                ? "The free version allows clicking only on the top circle."
-                : ""}
-            </h2>
+          <h2 className="text-red-500 text-[16px]    font-[500] leading-[24px]">
+            {" "}
+            {subscriptionpaid === false
+              ? "The free version allows clicking only on the top circle."
+              : ""}
+          </h2>
         </div>
         <div className="flex gap-2 justify-end items-center max-w-screen-xl mx-auto mt-11 px-11 pe-11    ">
           <div
-        onClick={(e) =>
-  subscriptionpaid 
-    ? handleDownloadCombined(e, getSkill, "Transferable Skills Report.pdf", false)
-    : setLock(true)
-}
-
+            onClick={(e) =>
+              subscriptionpaid
+                ? handleDownloadCombined(
+                    e,
+                    getSkill,
+                    "Transferable Skills Report.pdf",
+                    false
+                  )
+                : setLock(true)
+            }
             className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white  shadow-lg    rounded-lg cursor-pointer"
           >
             <img
               className="w-[27.61px] h-[23px] "
               src={Printimg}
-              title="Print Resume"
+              title="Print "
             />
           </div>
           <div
             onClick={() =>
-                subscriptionpaid  ? 
-              handleShowPeopleModal(() => setShowPeopleModal(true)) : setLock(true)
+              subscriptionpaid
+                ? handleShowPeopleModal(() => setShowPeopleModal(true))
+                : setLock(true)
             }
             className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-pointer  "
           >
@@ -343,13 +346,14 @@ const NewTrasnferSkill = ({ id }) => {
           ) : (
             <div
               onClick={(e) =>
-                subscriptionpaid ? 
-                handleDownloadCombined(
-                  e,
-                  getSkill,
-                  "Transferable Skills Report.pdf",
-                  true
-                ) : setLock(true)
+                subscriptionpaid
+                  ? handleDownloadCombined(
+                      e,
+                      getSkill,
+                      "Transferable Skills Report.pdf",
+                      true
+                    )
+                  : setLock(true)
               }
               className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-pointer"
             >

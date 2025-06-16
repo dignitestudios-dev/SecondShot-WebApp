@@ -7,9 +7,11 @@ import AssessmentThree from "../../components/makeitsmart/AssessmentThree";
 import AssessmentFour from "../../components/makeitsmart/AssessmentFour";
 import AssessmentFive from "../../components/makeitsmart/AssessmentFive";
 import { useLocation } from "react-router-dom";
+import GoalContentModal from "../../components/careerrecommendation/GoalContentModal";
 
 const MakeitSmart = () => {
   const [congrats, setCongrats] = useState(false);
+  const [goalContentModal, setContentModal] = useState(true);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     specific: "",
@@ -49,6 +51,7 @@ const MakeitSmart = () => {
           onclick={handleModal}
           setShowModal={setShowModal}
         />
+        <GoalContentModal showModal={goalContentModal} onClose={() => setContentModal(false)} />
 
         <div className="grid grid-cols-1 my-6">
           <div className="flex justify-center items-center mt-24 ">
@@ -57,10 +60,10 @@ const MakeitSmart = () => {
                 <h1 className="text-[38px] leading-9 text-[#000000] font-semibold text-center mb-2">
                   Create S.M.A.R.T Goal
                 </h1>
-                <p className="text-center text-[14px] ">
+                {/* <p className="text-center text-[14px] ">
                   Type your goal in the chat and add make it a Smart Goal.
                   Review and add the sub goals you want to focus on
-                </p>
+                </p> */}
               </div>
               <div className="flex justify-between mt-6">
                 <p className="text-xs font-medium">Steps</p>

@@ -99,7 +99,7 @@ function CareerDetails() {
             <h1 className="text-[32px] font-[500] text-[#000000] leading-[43.2px] mb-1">
               Your Recommended Careers 
             </h1>
-            <p className="text-[14px]">There are your recommended careers in no particular order.
+            <p className="text-[14px]">These are your recommended careers in no particular order.
  </p>
           </div>
           <p className="text-[18px] text-[#000000] font-[500]">

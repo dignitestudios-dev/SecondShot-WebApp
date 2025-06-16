@@ -90,7 +90,7 @@ function CareerFavDetail() {
               Your Recommended Careers are:
             </h1>
             <p className="text-[14px]">
-              There are your recommended careers in no particular order.
+              These are your recommended careers in no particular order.
             </p>
           </div>
           <p className="text-[18px] text-[#000000] font-[500]">

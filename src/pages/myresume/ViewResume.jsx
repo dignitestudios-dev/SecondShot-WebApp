@@ -95,7 +95,7 @@ const ViewResume = () => {
     printWindow.document.write(`
       <html>
         <head>
-          <title>Print Resume</title>
+          <title>Print </title>
           <style>
             body { font-family: Arial, sans-serif; margin: 20px; }
           </style>
@@ -211,7 +211,7 @@ const ViewResume = () => {
             className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer"
             onClick={() => handlePrint()}
           >
-            <img className="w-[27.61px] h-[23px] " src={Printimg} title="Print Resume" />
+            <img className="w-[27.61px] h-[23px] " src={Printimg} title="Print " />
           </div>
           <div
             onClick={handleDownloadModal}

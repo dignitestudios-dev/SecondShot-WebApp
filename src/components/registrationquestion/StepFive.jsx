@@ -188,7 +188,7 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
                 />
                 <div className="mt-4">
                   <label className="block text-[#181818] text-[14px] font-[500] leading-[17.85px] mb-3">
-                    Sport Position
+                    Primary Position
                   </label>
 
                   <TagsInputField

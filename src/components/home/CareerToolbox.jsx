@@ -49,9 +49,15 @@ const CareerToolbox = () => {
       para: "Discover the valuable skills you've acquired. Explore how to use them to shape your future and apply them across different areas of your life.",
       path: "/transferablekills",
       btn:
-        isFirst.transferable === true || subscriptionpaid === true
+        subscriptionpaid === true && isFirst.transferable === true
+          ? "Unlock"
+          : subscriptionpaid === true && isFirst.transferable === false
+          ? "Launch"
+          : isFirst.transferable === false
           ? "launch"
-          : "Try it for Free",
+          : isFirst.transferable === true
+          ? "Try It For Free"
+          : "Try It For Free",
     },
     {
       cardicons: Carriericon2,

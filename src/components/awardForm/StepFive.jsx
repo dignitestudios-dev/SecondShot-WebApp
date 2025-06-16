@@ -128,7 +128,7 @@ const StepFive = ({
               <img
                 className="w-[27.61px] h-[23px] "
                 src={Printimg}
-                title="Print Resume"
+                title="Print "
               />
             </div>
             <div className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer">
