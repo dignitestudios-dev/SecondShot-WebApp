@@ -15,6 +15,8 @@ const SubriptionCardPath = ({ selected, cardsubdata }) => {
       return null;
     }
   });
+  const coupenPrice = localStorage.getItem("coupenPrice");
+
   return (
     <div>
       <div>
@@ -29,7 +31,7 @@ const SubriptionCardPath = ({ selected, cardsubdata }) => {
                 : cardData?.subscription_duration}
             </h2>
             <h2 className="text-[32px] font-[600] leading-[43.2px] pe-3 text-[#1E384F]">
-              {cardData?.price} /
+             {coupenPrice || cardData?.price} /
               <span className="text-[12px] text-black">
                 {cardData?.subscription_duration === "monthly"
                   ? "Monthly "

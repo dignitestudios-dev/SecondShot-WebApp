@@ -22,7 +22,7 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
   const [showAdded, setShowAdded] = useState(false);
   const [activatModal, setActivatModal] = useState(modal);
   const navigation = useNavigate();
-
+  const coupenCode = localStorage.getItem("coupenCode");
   const { setSubscriptionpaid, profileCompleted, registrationQuestion } =
     useContext(AuthContext);
   const [clientSecret, setClientSecret] = useState(null);
@@ -35,6 +35,7 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
         "/api/subscription/create-subscription-intent",
         {
           product_id: cardsubdata?._id || product_id,
+          ...(coupenCode && { promoCode: coupenCode }),
         }
       );
 
@@ -47,6 +48,7 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
         localStorage.setItem("product_id", cardsubdata?._id || product_id);
         localStorage.setItem("cardsubdata", JSON.stringify(cardsubdata));
         localStorage.setItem("paymentIntentId", data?.paymentIntentId);
+        localStorage.setItem("coupenPrice", data?.amountToPay);
         setSubscriptionpaid(true);
       }
     } catch (error) {
@@ -86,10 +88,7 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
       return null;
     }
   });
-  console.log(
-    cardData?.subscription_duration,
-    "cardData?.subscription_duration"
-  );
+  const coupenPrice = localStorage.getItem("coupenPrice");
   return (
     <div>
       <div className="bg-transparent p-2 mb-20 ">
@@ -112,7 +111,7 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
           </div>
           <div className="text-right flex items-center h-12">
             <p className="text-white font-semibold text-lg pe-1">
-              {cardData?.price}
+              {coupenPrice || cardData?.price}
             </p>
             /{" "}
             <p className="text-sm px-1">

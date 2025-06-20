@@ -26,6 +26,8 @@ const SubscriptionPlannew = () => {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const cardShow = location?.state?.cardShow;
+  const [coupenLoading, setCoupenLoading] = useState(false);
+  const [coupen, setCoupen] = useState({});
   const { profileCompleted, registrationQuestion } = useContext(AuthContext);
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
@@ -87,6 +89,44 @@ const SubscriptionPlannew = () => {
     getsubscriptionDetail();
   }, []);
 
+  const handleCouponChange = (index, value) => {
+    setCoupen((prev) => ({ ...prev, [index]: value }));
+  };
+
+  const handleCoupenCode = async (index, item) => {
+    const code = coupen[index]?.trim();
+
+    if (!code || code.length < 3) {
+      ErrorToast("Please enter a coupon code");
+      return;
+    }
+
+    setCoupenLoading((prev) => ({ ...prev, [index]: true }));
+    try {
+      const response = await axios.post(
+        "/api/subscription/verify-promotion-code",
+        {
+          code,
+        }
+      );
+
+      if (response.status === 200) {
+        SuccessToast(response.data?.message || "Coupon applied successfully");
+        localStorage.setItem("coupenCode", code);
+        setCoupen({});
+        navigation("/subscription-new", {
+          state: { cardsubdata: item },
+        });
+      }
+    } catch (err) {
+      const errorMsg =
+        err.response?.data?.message || "Invalid or expired promotion code.";
+      ErrorToast(errorMsg);
+    } finally {
+      setCoupenLoading((prev) => ({ ...prev, [index]: false }));
+    }
+  };
+
   return (
     <div
       className="min-h-screen bg_subscription flex flex-col items-center py-10 px-4"
@@ -117,7 +157,7 @@ const SubscriptionPlannew = () => {
             handleSubmit={() => navigation("/profiledetail")}
           />
         </div>
-)}
+      )}
       <div className="flex flex-col lg:flex-row items-center justify-between gap-8 w-full max-w-6xl">
         <div className="w-full max-w-6xl">
           <Swiper
@@ -185,7 +225,7 @@ const SubscriptionPlannew = () => {
                 </div>
               </form>
             </SwiperSlide>
-         
+
             {isLoading
               ? Array.from({ length: 3 }).map((_, index) => (
                   <SwiperSlide key={index}>
@@ -203,10 +243,15 @@ const SubscriptionPlannew = () => {
                       <div>
                         <div className="flex justify-between items-center">
                           <h2 className="text-[24px] font-[500] text-[#000000] leading-[32.4px]">
-                            {item?.subscription_duration === "monthly" ? "Monthly " : item?.subscription_duration || item?.subscription_duration === "yearly" ? "Yearly" : item?.subscription_duration }
+                            {item?.subscription_duration === "monthly"
+                              ? "Monthly "
+                              : item?.subscription_duration ||
+                                item?.subscription_duration === "yearly"
+                              ? "Yearly"
+                              : item?.subscription_duration}
                           </h2>
                           <h2 className="text-[32px] font-[600] leading-[43.2px] text-[#1E384F]">
-                           $ {item?.price || "0.00"}
+                            $ {item?.price || "0.00"}
                           </h2>
                         </div>
                         <hr className="bg-[#000000] mb-4 mt-3" />
@@ -232,6 +277,39 @@ const SubscriptionPlannew = () => {
                             )
                           )}
                         </ul>
+                        <div className="mt-6">
+                          <label
+                            htmlFor="coupon"
+                            className="block text-sm font-medium text-gray-700 mb-1"
+                          >
+                            Coupon Code
+                          </label>
+                          <div className="flex gap-2">
+                            <input
+                              type="text"
+                              id={`coupen-${index}`}
+                              value={coupen[index] || ""}
+                              onChange={(e) =>
+                                handleCouponChange(index, e.target.value)
+                              }
+                              placeholder="Enter coupon code"
+                              className="flex-1 h-[49px] px-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                              disabled={coupenLoading[index]}
+                            />
+                            <button
+                              onClick={() => handleCoupenCode(index, item)}
+                              type="button"
+                              disabled={coupenLoading[index]}
+                              className={`h-[49px] px-4 text-sm rounded-md text-white transition ${
+                                coupenLoading[index]
+                                  ? "bg-gray-400 cursor-not-allowed"
+                                  : "bg-[#1E384F] hover:bg-[#162a3d]"
+                              }`}
+                            >
+                              {coupenLoading[index] ? "Loading..." : "Submit"}
+                            </button>
+                          </div>
+                        </div>
                       </div>
                       <div className="mt-auto w-[171px]">
                         <AuthSubmitBtn

@@ -29,8 +29,12 @@ import {
   ErrorToast,
   SuccessToast,
 } from "../../components/toaster/ToasterContainer";
+import PasswordModal from "./PasswordModal";
 
 const StartAssesment = () => {
+  const [modalPassword, setModalPassword] = useState(false);
+  const [password, setPassword] = useState("");
+
   const [congrats, setCongrats] = useState(false);
   const [carrerQuestion, setCarrerQuestion] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -63,7 +67,7 @@ const StartAssesment = () => {
   });
 
   // For Modal
-  const [selectedLabels, setSelectedLabels] = useState([]); 
+  const [selectedLabels, setSelectedLabels] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const handleModal = () => {
     setShowModal(!showModal);
@@ -160,7 +164,7 @@ const StartAssesment = () => {
       if (response.status === 201) {
         SuccessToast(response?.data?.message);
         setcarrerId(response?.data?.data?._id);
-        setSelectedLabels('')
+        setSelectedLabels("");
         setCongrats(true);
       }
     } catch (err) {
@@ -176,6 +180,33 @@ const StartAssesment = () => {
     }
   }, [carrerId]);
 
+  const handleSubmit = async () => {
+    if (!password.trim()) {
+      ErrorToast("Password cannot be empty.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await axios.post("/api/user/verify-password", {
+        current_password: password,
+      });
+
+      if (response?.data?.success) {
+        SuccessToast(response.data.message);
+        setModalPassword(false)
+        setShowModal(false);
+        setStep(1);
+      } else {
+        ErrorToast(response.data.message || "Something went wrong");
+      }
+    } catch (err) {
+      ErrorToast(err?.response?.data?.message || "Server error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="    ">
       <div className="max-w-screen-xl mx-auto p-8">
@@ -185,6 +216,7 @@ const StartAssesment = () => {
           onclick={handleModal}
           setShowModal={setShowModal}
           carrerId={carrerId}
+          setModalPassword={setModalPassword}
         />
 
         <div className="grid grid-cols-1 my-6">
@@ -468,6 +500,15 @@ const StartAssesment = () => {
                 )}
               </div>
             </div>
+            {modalPassword && (
+              <PasswordModal
+                handleSubmit={handleSubmit}
+                loading={loading}
+                password={password}
+                setPassword={setPassword}
+                onClose={() => setModalPassword(false)}
+              />
+            )}{" "}
           </div>
         </div>
       </div>

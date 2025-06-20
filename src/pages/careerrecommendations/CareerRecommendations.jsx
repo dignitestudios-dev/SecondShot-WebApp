@@ -12,14 +12,20 @@ import Backbutton from "../../components/Global/Backbutton";
 import { ModalContext } from "../../context/GlobalContext";
 import axios from "../../axios";
 import EmptyScreen from "../../components/careerrecommendation/EmptyScreen";
+import PasswordModal from "./PasswordModal";
+import { ErrorToast, SuccessToast } from "../../components/toaster/ToasterContainer";
 function CareerRecommendations() {
   const navigate = useNavigate();
+    const [password, setPassword] = useState("");
+
   const { isFirst, setIsFirst } = useContext(ModalContext);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredGoals, setFilteredGoals] = useState([]);
-
+  const [modalPassword, setModalPassword] = useState(false);
+  const [loader, setLoading] = useState(false);
   const handleNavigation = () => {
-    navigate("/start-assesment");
+    // navigate("/start-assesment");
+    setModalPassword(true);
   };
   const [loading, setloading] = useState(false);
   const [carrerData, setcarrerData] = useState([]);
@@ -61,34 +67,58 @@ function CareerRecommendations() {
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
+  const handleSubmit = async () => {
+    if (!password.trim()) {
+      ErrorToast("Password cannot be empty.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await axios.post("/api/user/verify-password", {
+        current_password: password,
+      });
+
+      if (response?.data?.success) {
+        SuccessToast(response.data.message);
+        navigate("/start-assesment");
+      } else {
+        ErrorToast(response.data.message || "Something went wrong");
+      }
+    } catch (err) {
+      ErrorToast(err?.response?.data?.message || "Server error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className=" ">
-       {loading ? (
+      {loading ? (
         <div className="flex gap-3">
           {[1, 2, 3, 4]?.map((index) => (
-           <div
-           key={index}
-           className="group relative lg:w-[400px] md:w-auto rounded-[24px] h-auto p-4 bg-[#F6F8FF] text-black shadow-lg cursor-pointer hover:bg-gradient-to-l from-[#012C57] to-[#061523] hover:text-white transition duration-200 animate-pulse"
-         >
-           <div className="absolute top-4 right-4 bg-gray-300 rounded-full w-6 h-6" />
+            <div
+              key={index}
+              className="group relative lg:w-[400px] md:w-auto rounded-[24px] h-auto p-4 bg-[#F6F8FF] text-black shadow-lg cursor-pointer hover:bg-gradient-to-l from-[#012C57] to-[#061523] hover:text-white transition duration-200 animate-pulse"
+            >
+              <div className="absolute top-4 right-4 bg-gray-300 rounded-full w-6 h-6" />
 
-           <div className="flex flex-col text-left mb-4">
-             <div className="w-3/4 h-6 bg-gray-300 rounded-md mb-2" />
-             <div className="w-2/4 h-6 bg-gray-300 rounded-md" />
-           </div>
+              <div className="flex flex-col text-left mb-4">
+                <div className="w-3/4 h-6 bg-gray-300 rounded-md mb-2" />
+                <div className="w-2/4 h-6 bg-gray-300 rounded-md" />
+              </div>
 
-           <div className="space-y-2 mb-6 text-left">
-             <div className="w-3/4 h-11 bg-gray-300 rounded-md" />
-             <div className="w-2/4 h-11 bg-gray-300 rounded-md" />
-           </div>
+              <div className="space-y-2 mb-6 text-left">
+                <div className="w-3/4 h-11 bg-gray-300 rounded-md" />
+                <div className="w-2/4 h-11 bg-gray-300 rounded-md" />
+              </div>
 
-           <div className="text-sm flex justify-between items-center group-hover:text-white">
-             <div className="w-1/2 h-6 bg-gray-300 rounded-md" />
+              <div className="text-sm flex justify-between items-center group-hover:text-white">
+                <div className="w-1/2 h-6 bg-gray-300 rounded-md" />
 
-             <div className="w-11 h-11 bg-gray-300 rounded-full" />
-           </div>
-         </div>
+                <div className="w-11 h-11 bg-gray-300 rounded-full" />
+              </div>
+            </div>
           ))}
         </div>
       ) : carrerData?.length === 0 ? (
@@ -123,8 +153,16 @@ function CareerRecommendations() {
               getallcarrerrecommendation={getallcarrerrecommendation}
             />
           </div>
-
         </>
+      )}
+      {modalPassword && (
+        <PasswordModal
+          loading={loader}
+          handleSubmit={handleSubmit}
+          onClose={() => setModalPassword(false)}
+          setPassword={setPassword}
+          password={password}
+        />
       )}
       <CareerRecommendationsModal
         isOpen={isFirst.recommendation}
@@ -134,7 +172,6 @@ function CareerRecommendations() {
             recommendation: false,
           }));
         }}
-     
       />
     </div>
   );

@@ -2,7 +2,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Assesmentmodal } from "../../assets/export";
 
-const AssessmentModal = ({ showModal, step, setShowModal, carrerId }) => {
+const AssessmentModal = ({
+  showModal,
+  step,
+  setShowModal,
+  carrerId,
+  setModalPassword,
+}) => {
   const navigate = useNavigate();
   const handleNavigation = () => {
     navigate(`/careerdetails/${carrerId}`);
@@ -50,8 +56,7 @@ const AssessmentModal = ({ showModal, step, setShowModal, carrerId }) => {
             <div className="mt-4 flex justify-center">
               <button
                 onClick={() => {
-                  setShowModal(false);
-                  step(1);
+                  setModalPassword(true);
                 }}
                 className="bg-[#E5EAED] text-[#012C57] font-medium px-4 py-2 rounded-lg w-full"
               >
