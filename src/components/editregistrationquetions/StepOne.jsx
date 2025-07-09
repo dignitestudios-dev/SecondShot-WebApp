@@ -17,6 +17,7 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
   });
 
   const options = [
+    { label: "Elementary", value: "Elementary" },
     { label: "Middle School", value: "School" },
     { label: "High School", value: "HighSchool" },
     { label: "College", value: "College" },
@@ -53,22 +54,27 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
           //     ...formData,
           //     universityOptions: selectedTags?.label,
           //   });
-          if (formData?.university === "School" || formData?.university === "HighSchool") {
+          if (
+            formData?.university === "School" ||
+            formData?.university === "HighSchool" ||
+            formData?.university === "Elementary"
+          ) {
             // Reset military-related fields in formData
             setFormData({
               ...formData,
-              militaryOption: "",  // Clear militaryOption
-              rankOptions: "",     // Clear rankOptions
+              militaryOption: "", // Clear militaryOption
+              rankOptions: "", // Clear rankOptions
               militaryService: "", // Clear militaryService
             });
           }
-            nextStep(
-              formData?.university === "School" ||
-                formData?.university === "HighSchool"
-                ? true
-                : false
-            );
-          }}
+          nextStep(
+            formData?.university === "School" ||
+              formData?.university === "HighSchool" ||
+              formData?.university === "Elementary"
+              ? true
+              : false
+          );
+        }}
       >
         {({ errors, touched, setFieldValue, setFieldTouched }) => {
           useEffect(() => {
@@ -99,7 +105,7 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
                   className="block text-[14px] font-[500] text-[#181818] leading-[17.85px]  mb-1"
                   htmlFor="university"
                 >
-                 Select the last grade/degree level of completion
+                  Select the last grade/degree level of completion
                 </label>
                 <RecommendationDropdown
                   options={options}

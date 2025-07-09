@@ -18,6 +18,7 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
   });
 
   const options = [
+    { label: "Elementary", value: "Elementary" },
     { label: "Middle School", value: "School" },
     { label: "High School", value: "HighSchool" },
     { label: "College", value: "College" },
@@ -59,14 +60,13 @@ const StepOne = ({ nextStep, formData, setFormData }) => {
         initialValues={formData}
         validationSchema={validationSchema}
         onSubmit={(e) => {
-         
-            nextStep(
-              formData?.university === "School" ||
-                formData?.university === "HighSchool"
-                ? true
-                : false
-            );
-          
+          nextStep(
+            formData?.university === "School" ||
+              formData?.university === "HighSchool" ||
+              formData?.university === "Elementary"
+              ? true
+              : false
+          );
         }}
       >
         {({ errors, touched, setFieldValue, setFieldTouched }) => {
