@@ -28,7 +28,7 @@ const NewTranfer = ({
   BottomRightSkill,
   RightSkill,
 }) => {
-  const navigate =useNavigate()
+  const navigate = useNavigate();
   const [lock, setLock] = useState(false);
   const [appear, setAppear] = useState(false);
   const [indexAppear, setIndexAppear] = useState("");
@@ -164,69 +164,6 @@ const NewTranfer = ({
         onClose={() => setLock(false)}
         text={"Subscribe to unlock the full map and access all of the modules."}
       />
-      {/* <div className="w-[450px]">
-        <h1 className="text-3xl  font-semibold text-gray-800 mb-4">
-          My Transferable Skills
-        </h1>
-        <p className="text-[16px]   leading-[24px] text-gray-800 ">
-          {subscriptionpaid === false
-            ? "Explore key skills that can help you transition into new career paths. On the Free Plan, you can only access the first node in the Transferable Map. Unlock all nodes by upgrading your plan."
-            : "  Here is a map of your transferable skills. Click on each circle to expand to learn about how you can use your soft skills in other areas of your life. Click the ribbon to save your favorite skills."}
-        </p>
-        <h2 className="text-red-500 text-[16px]  font-[500] mt-3 leading-[24px]">
-          {" "}
-          {subscriptionpaid === false
-            ? "The free version allows clicking only on the top circle."
-            : ""}
-        </h2>
-      </div>
-
-      <div className="flex justify-end items-center gap-3">
-        <div
-          onClick={() => handleShowPeopleModal(() => setShowPeopleModal(true))}
-          className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-pointer  "
-        >
-          <img
-            className="h-[20px] w-[20px] object-contain "
-            src={Shareimg}
-            title="Share"
-          />
-        </div>
-        <div>
-          {loading ? (
-            <div className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-not-allowed">
-              <img
-                className="h-[20px] w-[20px] object-contain"
-                src={Downloadimg}
-              />
-            </div>
-          ) : (
-            <div
-              onClick={(e) =>
-                handleDownloadCombined(e, getSkill, "profile-report.pdf")
-              }
-              className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-lg rounded-lg cursor-pointer"
-            >
-              {downloading ? (
-                <FiLoader className="animate-spin text-lg" />
-              ) : (
-                <img
-                  className="h-[20px] w-[20px] object-contain"
-                  src={Downloadimg}
-                  title="Download"
-                />
-              )}
-            </div>
-          )}
-        </div>
-        <div className="w-[189px] shadow-lg rounded-full">
-          <AuthSubmitBtn
-            text={"Email It To Yourself"}
-            handleSubmit={handleEmailSend}
-            loading={emailLoading}
-          />
-        </div>
-      </div> */}
 
       <div className="relative z-10">
         <div className="grid grid-cols-12 justify-center items-center relative z-50">
@@ -557,9 +494,6 @@ transition-all duration-300 ease-in-out z-30"
       w-max max-w-[250px] text-center"
                   >
                     {getSkill?.athlete?.primary_sport?.sport_name || "N/A"}
-                    {/* {getSkill?.athlete?.primary_sport?.sport_name
-                      ? getSkill?.athlete?.primary_sport?.sport_name
-                      : getSkill?.favorite_middle_school_subject?.subject_name} */}
                   </div>
                   <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
                 </div>
@@ -585,7 +519,9 @@ transition-all duration-300 ease-in-out z-30"
                 <span className=" w-full text-center">
                   {loading ? (
                     <div className="w-14 h-14 rounded-[100px] absolute bottom-[3px] left-[3px]  bg-green-700 animate-pulse flex justify-center items-center "></div>
-                  ) :!subscriptionpaid ?   <div className="text-[11px]">Subscribed</div> :  getSkill?.favorite_hobby2?.hobbie_name?.length > 7 ? (
+                  ) : !subscriptionpaid ? (
+                    <div className="text-[11px]">Subscribed</div>
+                  ) : getSkill?.favorite_hobby2?.hobbie_name?.length > 7 ? (
                     <div className="text-nowrap">
                       {getSkill?.favorite_hobby2?.hobbie_name?.substring(0, 7) +
                         "..."}
@@ -603,7 +539,9 @@ transition-all duration-300 ease-in-out z-30"
                     className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
       w-max max-w-[250px] text-center"
                   >
-                     {!subscriptionpaid ? "Subscribed" :getSkill?.favorite_hobby2?.hobbie_name || "Not Found"}
+                    {!subscriptionpaid
+                      ? "Subscribed"
+                      : getSkill?.favorite_hobby2?.hobbie_name || "Not Found"}
                   </div>
                   <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
                 </div>
@@ -628,7 +566,9 @@ transition-all duration-300 ease-in-out z-30"
                 <span className="w-full text-center">
                   {loading ? (
                     <div className="w-14 h-14 rounded-[100px] absolute bottom-[3px] left-[3px] bg-green-700 animate-pulse flex justify-center items-center"></div>
-                  ) : !subscriptionpaid ?   <div className="text-[11px]">Subscribed</div> : getSkill?.athlete?.sport_position?.position_name.length >
+                  ) : !subscriptionpaid ? (
+                    <div className="text-[11px]">Subscribed</div>
+                  ) : getSkill?.athlete?.sport_position?.position_name.length >
                     7 ? (
                     <div className="text-nowrap">
                       {getSkill?.athlete?.sport_position?.position_name?.substring(
@@ -651,8 +591,10 @@ transition-all duration-300 ease-in-out z-30"
                     className="bg-[#172E55] relative text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
       w-max max-w-[250px] text-center"
                   >
-                    {!subscriptionpaid ? "Subscribed" : getSkill?.athlete?.sport_position?.position_name ||
-                      "Not Found"}
+                    {!subscriptionpaid
+                      ? "Subscribed"
+                      : getSkill?.athlete?.sport_position?.position_name ||
+                        "Not Found"}
                   </div>
                   <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
                 </div>
@@ -677,17 +619,24 @@ transition-all duration-300 ease-in-out z-30"
               >
                 <span className=" w-full text-center">
                   {loading ? (
-                    <div className="w-14 h-14  rounded-[100px] absolute bottom-[3px] left-[3px]  bg-green-700 animate-pulse flex justify-center items-center "></div>
-                  ) : !subscriptionpaid ?  <div className="text-[11px]">Subscribed</div>: getSkill?.favorite_middle_school_subject?.subject_name
-                      .length > 7 ? (
+                    <div className="w-14 h-14 rounded-[100px] absolute bottom-[3px] left-[3px] bg-green-700 animate-pulse flex justify-center items-center" />
+                  ) : !subscriptionpaid ? (
+                    <div className="text-[11px]">Subscribed</div>
+                  ) : getSkill?.military?.rank?.rank_name ? (
                     <div className="text-nowrap">
-                      {getSkill?.favorite_middle_school_subject?.subject_name.substring(
-                        0,
-                        7
-                      ) + "..."}
+                      {getSkill?.military?.rank?.rank_name}
+                    </div>
+                  ) : getSkill?.favorite_middle_school_subject?.subject_name ? (
+                    <div className="text-nowrap">
+                      {getSkill.favorite_middle_school_subject.subject_name
+                        .length > 7
+                        ? getSkill.favorite_middle_school_subject.subject_name.substring(
+                            0,
+                            7
+                          ) + "..."
+                        : getSkill.favorite_middle_school_subject.subject_name}
                     </div>
                   ) : (
-                    getSkill?.favorite_middle_school_subject?.subject_name ||
                     "Null"
                   )}
                 </span>
@@ -700,8 +649,13 @@ transition-all duration-300 ease-in-out z-30"
                     className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
       w-max max-w-[250px] text-center"
                   >
-                    {!subscriptionpaid ? "Subscribed" : getSkill?.favorite_middle_school_subject?.subject_name ||
-                      "Not Found"}
+                    {!subscriptionpaid
+                      ? "Subscribed"
+                      : getSkill?.military?.rank?.rank_name
+                      ? getSkill.military.rank.rank_name
+                      : getSkill?.favorite_middle_school_subject?.subject_name
+                      ? getSkill.favorite_middle_school_subject.subject_name
+                      : "Not Found"}
                   </div>
                   <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
                 </div>
@@ -724,17 +678,17 @@ transition-all duration-300 ease-in-out z-30"
               >
                 <span className=" w-full   text-center">
                   {loading ? (
-  <div className="w-14 h-14 rounded-[100px] absolute bottom-[3px] left-[3px] bg-green-700 animate-pulse flex justify-center items-center"></div>
-) : !subscriptionpaid ? (
-  <div className="text-[11px]">Subscribed</div>
-) : getSkill?.favorite_hobby1?.hobbie_name?.length > 7 ? (
-  <div className="text-nowrap">
-    {getSkill?.favorite_hobby1?.hobbie_name?.substring(0, 7) + "..."}
-  </div>
-) : (
-  getSkill?.favorite_hobby1?.hobbie_name || "Null"
-)}
-
+                    <div className="w-14 h-14 rounded-[100px] absolute bottom-[3px] left-[3px] bg-green-700 animate-pulse flex justify-center items-center"></div>
+                  ) : !subscriptionpaid ? (
+                    <div className="text-[11px]">Subscribed</div>
+                  ) : getSkill?.favorite_hobby1?.hobbie_name?.length > 7 ? (
+                    <div className="text-nowrap">
+                      {getSkill?.favorite_hobby1?.hobbie_name?.substring(0, 7) +
+                        "..."}
+                    </div>
+                  ) : (
+                    getSkill?.favorite_hobby1?.hobbie_name || "Null"
+                  )}
                 </span>
                 <div
                   className="absolute bottom-full mb-2 hidden group-hover:flex flex-col items-center
@@ -745,7 +699,9 @@ transition-all duration-300 ease-in-out z-30"
                     className="bg-[#172E55] text-white text-md font-medium rounded-lg shadow-lg py-2 px-3
       w-max max-w-[250px] text-center"
                   >
-                    {!subscriptionpaid ? "Subscribed" : getSkill?.favorite_hobby1?.hobbie_name  }
+                    {!subscriptionpaid
+                      ? "Subscribed"
+                      : getSkill?.favorite_hobby1?.hobbie_name}
                   </div>
                   <div className="w-3 h-3 bg-[#172E55] relative -top-2 rotate-45 -mb-10"></div>
                 </div>
@@ -867,117 +823,116 @@ transition-all duration-300 ease-in-out z-30"
                 className="h-[425px] object-contain "
                 alt="Left Skill"
               />
-              {getSkill?.favorite_hobby1?.topics
-                ?.map((item, index) => {
-                  const positions = [
-                    {
-                      bottom: "63%",
-                      left: "25%",
-                      transform: "translate(-50%, -50%)",
-                      zIndex: 10,
-                    },
-                    {
-                      bottom: "4%",
-                      left: "49%",
-                      transform: "translate(50%, -50%)",
-                      zIndex: 2,
-                    },
-                    {
-                      bottom: "29%",
-                      left: "46%",
-                      transform: "translate(-50%, -50%)",
-                      zIndex: 10,
-                    },
-                    {
-                      bottom: "47%",
-                      left: "20%",
-                      transform: "translate(-50%, 50%)",
-                      zIndex: 2,
-                    },
-                    {
-                      bottom: "35%",
-                      right: "18%",
-                      transform: "translate(50%, 50%)",
-                      zIndex: 1,
-                    },
-                  ];
+              {getSkill?.favorite_hobby1?.topics?.map((item, index) => {
+                const positions = [
+                  {
+                    bottom: "63%",
+                    left: "25%",
+                    transform: "translate(-50%, -50%)",
+                    zIndex: 10,
+                  },
+                  {
+                    bottom: "4%",
+                    left: "49%",
+                    transform: "translate(50%, -50%)",
+                    zIndex: 2,
+                  },
+                  {
+                    bottom: "29%",
+                    left: "46%",
+                    transform: "translate(-50%, -50%)",
+                    zIndex: 10,
+                  },
+                  {
+                    bottom: "47%",
+                    left: "20%",
+                    transform: "translate(-50%, 50%)",
+                    zIndex: 2,
+                  },
+                  {
+                    bottom: "35%",
+                    right: "18%",
+                    transform: "translate(50%, 50%)",
+                    zIndex: 1,
+                  },
+                ];
 
-                  return (
-                    <button
-                      key={item._id}
-                      onBlur={() => setAppear(false)}
-                      className="group absolute  w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-white leading-[12.82px] text-[11.82px] font-[600] text-center"
-                      style={positions[index]}
-                      onClick={() => {
-                        setSelecetedIndex({ id: item?._id, name: item?.title });
-                        setIndexAppear(item._id);
-                        setAppear((prev) => (prev === index ? null : item._id));
-                        setNoteData({
-                          favorite_hobby1: {
-                            favorite_hobbyId: getSkill?.favorite_hobby1?._id,
-                            descriptionId: item._id,
-                          },
-                        });
+                return (
+                  <button
+                    key={item._id}
+                    onBlur={() => setAppear(false)}
+                    className="group absolute  w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-white leading-[12.82px] text-[11.82px] font-[600] text-center"
+                    style={positions[index]}
+                    onClick={() => {
+                      setSelecetedIndex({ id: item?._id, name: item?.title });
+                      setIndexAppear(item._id);
+                      setAppear((prev) => (prev === index ? null : item._id));
+                      setNoteData({
+                        favorite_hobby1: {
+                          favorite_hobbyId: getSkill?.favorite_hobby1?._id,
+                          descriptionId: item._id,
+                        },
+                      });
 
-                        setNoteDescription(item?.description);
-                      }}
-                    >
-                      <div className=" text-nowrap ">
-                        {item?.title.length > 10
-                          ? item?.title.substring(0, 10) + "..."
-                          : item?.title}
-                      </div>
-                      <div
-                        className="absolute -top-4 -right-18 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                      setNoteDescription(item?.description);
+                    }}
+                  >
+                    <div className=" text-nowrap ">
+                      {item?.title.length > 10
+                        ? item?.title.substring(0, 10) + "..."
+                        : item?.title}
+                    </div>
+                    <div
+                      className="absolute -top-4 -right-18 bottom-full mb-2 hidden group-hover:flex flex-col items-center
           opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100
           transition-all duration-300 ease-in-out z-30"
-                      >
-                        <div className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3 w-max max-w-[250px] text-center">
-                          {item?.title}
-                        </div>
-                        <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10" />
+                    >
+                      <div className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3 w-max max-w-[250px] text-center">
+                        {item?.title}
                       </div>
-                      <div
-                        className={`w-[388px] flex  p-3  transition-all duration-500 absolute top-12 right-0 left-0 z-10 rounded-2xl bg-[#D4FFC2] justify-between items-start ${
-                          appear &&
-                          selectedIndex?.id === item?._id &&
-                          selectedIndex?.name === item?.title
-                            ? "scale-100"
-                            : "scale-0"
-                        }`}
-                      >
-                        <span className="w-[20%] h-full flex  items-start">
-                          {loading ? (
-                            <span className="animate-pulse text-green-500">
-                              <BsFillBookmarkStarFill size={"27px"} />
-                            </span>
-                          ) : (
-                            <BsFillBookmarkStarFill
-                              size={"27px"}
-                              onClick={() =>
-                                handleLike(noteData, item?.is_favorite)
-                              }
-                              className={`transition duration-200 cursor-pointer ${
-                                item?.is_favorite
-                                  ? "text-green-500"
-                                  : "text-gray-500"
-                              }`}
-                              title={
-                                item?.is_favorite
-                                  ? "Remove from Favorites"
-                                  : "Add to Favorites"
-                              }
-                            />
-                          )}
-                        </span>
-                        <span className="text-start text-wrap text-[14px] leading-[20px] font-medium text-[#172E55]">
-                          {item?.description}
-                        </span>
-                        <div className="absolute -top-2 right-0 left-4 w-0 h-0 border-l-[6px] border-r-[6px] border-b-[8px] border-l-transparent border-r-transparent border-b-[#D4FFC2]" />
-                      </div>
-                    </button>
-                  );
-                })}
+                      <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10" />
+                    </div>
+                    <div
+                      className={`w-[388px] flex  p-3  transition-all duration-500 absolute top-12 right-0 left-0 z-10 rounded-2xl bg-[#D4FFC2] justify-between items-start ${
+                        appear &&
+                        selectedIndex?.id === item?._id &&
+                        selectedIndex?.name === item?.title
+                          ? "scale-100"
+                          : "scale-0"
+                      }`}
+                    >
+                      <span className="w-[20%] h-full flex  items-start">
+                        {loading ? (
+                          <span className="animate-pulse text-green-500">
+                            <BsFillBookmarkStarFill size={"27px"} />
+                          </span>
+                        ) : (
+                          <BsFillBookmarkStarFill
+                            size={"27px"}
+                            onClick={() =>
+                              handleLike(noteData, item?.is_favorite)
+                            }
+                            className={`transition duration-200 cursor-pointer ${
+                              item?.is_favorite
+                                ? "text-green-500"
+                                : "text-gray-500"
+                            }`}
+                            title={
+                              item?.is_favorite
+                                ? "Remove from Favorites"
+                                : "Add to Favorites"
+                            }
+                          />
+                        )}
+                      </span>
+                      <span className="text-start text-wrap text-[14px] leading-[20px] font-medium text-[#172E55]">
+                        {item?.description}
+                      </span>
+                      <div className="absolute -top-2 right-0 left-4 w-0 h-0 border-l-[6px] border-r-[6px] border-b-[8px] border-l-transparent border-r-transparent border-b-[#D4FFC2]" />
+                    </div>
+                  </button>
+                );
+              })}
             </div>
             {/* {'Bottom Left Skills End'} */}
           </div>
@@ -993,113 +948,234 @@ transition-all duration-300 ease-in-out z-30"
                 className="h-[425px] object-contain "
                 alt="Right Skill"
               />
-              {getSkill?.favorite_middle_school_subject?.topics?.map(
-                (item, index) => {
-                  const positions = [
-                    {
-                      top: "19%",
-                      right: "10%",
-                      transform: "translate(-50%, -50%)",
-                      zIndex: 50,
-                    },
-                    {
-                      bottom: "5%",
-                      left: "33%",
-                      transform: "translate(50%, -50%)",
-                    },
-                    {
-                      top: "52%",
-                      right: "30%",
-                      transform: "translate(-50%, -50%)",
-                    },
-                    {
-                      bottom: "39.5%",
-                      left: "22%",
-                      transform: "translate(-50%, 50%)",
-                    },
-                    {
-                      bottom: "47%",
-                      right: "14%",
-                      transform: "translate(50%, 50%)",
-                    },
-                  ];
+              {getSkill?.military?.rank?.rank_name ? (
+                getSkill?.military?.rank?.topics?.map(
+                  (item, index) => {
+                    const positions = [
+                      {
+                        top: "19%",
+                        right: "10%",
+                        transform: "translate(-50%, -50%)",
+                        zIndex: 50,
+                      },
+                      {
+                        bottom: "5%",
+                        left: "33%",
+                        transform: "translate(50%, -50%)",
+                      },
+                      {
+                        top: "52%",
+                        right: "30%",
+                        transform: "translate(-50%, -50%)",
+                      },
+                      {
+                        bottom: "39.5%",
+                        left: "22%",
+                        transform: "translate(-50%, 50%)",
+                      },
+                      {
+                        bottom: "47%",
+                        right: "14%",
+                        transform: "translate(50%, 50%)",
+                      },
+                    ];
 
-                  return (
-                    <button
-                      key={item._id}
-                      onBlur={() => setAppear(false)}
-                      className="group absolute  w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-white leading-[12.82px] text-[11.82px] font-[600] text-center"
-                      style={positions[index]}
-                      onClick={() => {
-                        setSelecetedIndex({ id: item?._id, name: item?.title });
-                        setRigtindexAppear(index);
-                        setAppear((prev) => (prev === index ? null : item._id));
-                        setNoteData({
-                          favorite_middle_school_subject: {
-                            favoriteSubjectId:
-                              getSkill?.favorite_middle_school_subject?._id,
-                            descriptionId: item._id,
-                          },
-                        });
-                        setNoteDescription(item?.description);
-                      }}
-                    >
-                      <div className="text-nowrap max-h-10 ">
-                        {item?.title.length > 10
-                          ? item?.title.substring(0, 10) + "..."
-                          : item?.title}
-                      </div>
-                      <div
-                        className="absolute -top-4 -right-18 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+                    return (
+                      <button
+                        key={item._id}
+                        onBlur={() => setAppear(false)}
+                        className="group absolute  w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-white leading-[12.82px] text-[11.82px] font-[600] text-center"
+                        style={positions[index]}
+                        onClick={() => {
+                          setSelecetedIndex({
+                            id: item?._id,
+                            name: item?.title,
+                          });
+                          setRigtindexAppear(index);
+                          setAppear((prev) =>
+                            prev === index ? null : item._id
+                          );
+                          setNoteData({
+                            favorite_middle_school_subject: {
+                              favoriteSubjectId:
+                                getSkill?.favorite_middle_school_subject?._id,
+                              descriptionId: item._id,
+                            },
+                          });
+                          setNoteDescription(item?.description);
+                        }}
+                      >
+                        <div className="text-nowrap max-h-10 ">
+                          {item?.title.length > 10
+                            ? item?.title.substring(0, 10) + "..."
+                            : item?.title}
+                        </div>
+                        <div
+                          className="absolute -top-4 -right-18 bottom-full mb-2 hidden group-hover:flex flex-col items-center
           opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100
           transition-all duration-300 ease-in-out z-30"
-                      >
-                        <div className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3 w-max max-w-[250px] text-center">
-                          {item?.title}
+                        >
+                          <div className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3 w-max max-w-[250px] text-center">
+                            {item?.title}
+                          </div>
+                          <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10" />
                         </div>
-                        <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10" />
-                      </div>
-                      <div
-                        className={`w-[348px] flex  p-3  transition-all duration-500 absolute top-12 right-0   overflow-auto z-10 rounded-2xl bg-[#D4FFC2] justify-between items-start ${
-                          appear &&
-                          selectedIndex?.id === item?._id &&
-                          selectedIndex?.name === item?.title
-                            ? "scale-100"
-                            : "scale-0"
-                        }`}
+                        <div
+                          className={`w-[348px] flex  p-3  transition-all duration-500 absolute top-12 right-0   overflow-auto z-10 rounded-2xl bg-[#D4FFC2] justify-between items-start ${
+                            appear &&
+                            selectedIndex?.id === item?._id &&
+                            selectedIndex?.name === item?.title
+                              ? "scale-100"
+                              : "scale-0"
+                          }`}
+                        >
+                          <span className="w-[20%] h-full flex  items-start">
+                            {loading ? (
+                              <span className="animate-pulse text-green-500">
+                                <BsFillBookmarkStarFill size={"27px"} />
+                              </span>
+                            ) : (
+                              <BsFillBookmarkStarFill
+                                size={"27px"}
+                                onClick={() =>
+                                  handleLike(noteData, item?.is_favorite)
+                                }
+                                className={`transition duration-200 cursor-pointer ${
+                                  item?.is_favorite
+                                    ? "text-green-500"
+                                    : "text-gray-500"
+                                }`}
+                                title={
+                                  item?.is_favorite
+                                    ? "Remove from Favorites"
+                                    : "Add to Favorites"
+                                }
+                              />
+                            )}
+                          </span>
+                          <span className="text-start text-wrap text-[14px] leading-[20px] font-medium text-[#172E55]">
+                            {item?.description}
+                          </span>
+                          <div className="absolute -top-2 right-0 left-4 w-0 h-0 border-l-[6px] border-r-[6px] border-b-[8px] border-l-transparent border-r-transparent border-b-[#D4FFC2]" />
+                        </div>
+                      </button>
+                    );
+                  }
+                )
+              ) : (
+                getSkill?.favorite_middle_school_subject?.topics?.map(
+                  (item, index) => {
+                    const positions = [
+                      {
+                        top: "19%",
+                        right: "10%",
+                        transform: "translate(-50%, -50%)",
+                        zIndex: 50,
+                      },
+                      {
+                        bottom: "5%",
+                        left: "33%",
+                        transform: "translate(50%, -50%)",
+                      },
+                      {
+                        top: "52%",
+                        right: "30%",
+                        transform: "translate(-50%, -50%)",
+                      },
+                      {
+                        bottom: "39.5%",
+                        left: "22%",
+                        transform: "translate(-50%, 50%)",
+                      },
+                      {
+                        bottom: "47%",
+                        right: "14%",
+                        transform: "translate(50%, 50%)",
+                      },
+                    ];
+
+                    return (
+                      <button
+                        key={item._id}
+                        onBlur={() => setAppear(false)}
+                        className="group absolute  w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-white leading-[12.82px] text-[11.82px] font-[600] text-center"
+                        style={positions[index]}
+                        onClick={() => {
+                          setSelecetedIndex({
+                            id: item?._id,
+                            name: item?.title,
+                          });
+                          setRigtindexAppear(index);
+                          setAppear((prev) =>
+                            prev === index ? null : item._id
+                          );
+                          setNoteData({
+                            favorite_middle_school_subject: {
+                              favoriteSubjectId:
+                                getSkill?.favorite_middle_school_subject?._id,
+                              descriptionId: item._id,
+                            },
+                          });
+                          setNoteDescription(item?.description);
+                        }}
                       >
-                        <span className="w-[20%] h-full flex  items-start">
-                          {loading ? (
-                            <span className="animate-pulse text-green-500">
-                              <BsFillBookmarkStarFill size={"27px"} />
-                            </span>
-                          ) : (
-                            <BsFillBookmarkStarFill
-                              size={"27px"}
-                              onClick={() =>
-                                handleLike(noteData, item?.is_favorite)
-                              }
-                              className={`transition duration-200 cursor-pointer ${
-                                item?.is_favorite
-                                  ? "text-green-500"
-                                  : "text-gray-500"
-                              }`}
-                              title={
-                                item?.is_favorite
-                                  ? "Remove from Favorites"
-                                  : "Add to Favorites"
-                              }
-                            />
-                          )}
-                        </span>
-                        <span className="text-start text-wrap text-[14px] leading-[20px] font-medium text-[#172E55]">
-                          {item?.description}
-                        </span>
-                        <div className="absolute -top-2 right-0 left-4 w-0 h-0 border-l-[6px] border-r-[6px] border-b-[8px] border-l-transparent border-r-transparent border-b-[#D4FFC2]" />
-                      </div>
-                    </button>
-                  );
-                }
+                        <div className="text-nowrap max-h-10 ">
+                          {item?.title.length > 10
+                            ? item?.title.substring(0, 10) + "..."
+                            : item?.title}
+                        </div>
+                        <div
+                          className="absolute -top-4 -right-18 bottom-full mb-2 hidden group-hover:flex flex-col items-center
+          opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100
+          transition-all duration-300 ease-in-out z-30"
+                        >
+                          <div className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3 w-max max-w-[250px] text-center">
+                            {item?.title}
+                          </div>
+                          <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10" />
+                        </div>
+                        <div
+                          className={`w-[348px] flex  p-3  transition-all duration-500 absolute top-12 right-0   overflow-auto z-10 rounded-2xl bg-[#D4FFC2] justify-between items-start ${
+                            appear &&
+                            selectedIndex?.id === item?._id &&
+                            selectedIndex?.name === item?.title
+                              ? "scale-100"
+                              : "scale-0"
+                          }`}
+                        >
+                          <span className="w-[20%] h-full flex  items-start">
+                            {loading ? (
+                              <span className="animate-pulse text-green-500">
+                                <BsFillBookmarkStarFill size={"27px"} />
+                              </span>
+                            ) : (
+                              <BsFillBookmarkStarFill
+                                size={"27px"}
+                                onClick={() =>
+                                  handleLike(noteData, item?.is_favorite)
+                                }
+                                className={`transition duration-200 cursor-pointer ${
+                                  item?.is_favorite
+                                    ? "text-green-500"
+                                    : "text-gray-500"
+                                }`}
+                                title={
+                                  item?.is_favorite
+                                    ? "Remove from Favorites"
+                                    : "Add to Favorites"
+                                }
+                              />
+                            )}
+                          </span>
+                          <span className="text-start text-wrap text-[14px] leading-[20px] font-medium text-[#172E55]">
+                            {item?.description}
+                          </span>
+                          <div className="absolute -top-2 right-0 left-4 w-0 h-0 border-l-[6px] border-r-[6px] border-b-[8px] border-l-transparent border-r-transparent border-b-[#D4FFC2]" />
+                        </div>
+                      </button>
+                    );
+                  }
+                )
               )}
               {/* {getSkill?.favorite_middle_school_subject?.topics?.map(
                 (item, index) => {
