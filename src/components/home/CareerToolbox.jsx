@@ -107,7 +107,7 @@ const CareerToolbox = () => {
       cardimage: Card6,
       btnBg: isFirst.mylibrary === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Mark and save your favorite skills and careers for quick reference.",
-      path: "/my-library",
+      path: "/idp-form",
       btn: !isFirst.mylibrary && subscriptionpaid ? "Launch" : "Unlock",
     },
     {
