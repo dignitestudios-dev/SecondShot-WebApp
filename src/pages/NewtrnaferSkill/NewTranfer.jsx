@@ -1071,7 +1071,9 @@ const NewTranfer = ({
           {/* {'Bottom Right Skills'} */}
           <div
             className={`col-span-6 z-1 flex justify-center  relative bottom-[204px] right-[61px]  ${
-              BottomRightSkill ? "flex" : "invisible"
+              getSkill?.athlete?.sport_position?.topics && BottomRightSkill
+                ? "flex"
+                : "invisible"
             }`}
           >
             <div className="relative ">
@@ -1117,7 +1119,7 @@ const NewTranfer = ({
                     onBlur={() => setAppear(false)}
                     className="group absolute  w-[60px] h-[60px] rounded-full bg-transparent flex items-center justify-center cursor-pointer text-white leading-[12.82px] text-[11.82px] font-[600] text-center"
                     style={positions[index]}
-                        onClick={() => {
+                    onClick={() => {
                       setSelecetedIndex({
                         id: item?._id,
                         name: item?.title,
