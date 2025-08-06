@@ -99,6 +99,16 @@ function MyProfile() {
       if (response.status === 200) {
         SuccessToast("Logout Successfully");
         Cookies.remove("token");
+        Cookies.remove("email");
+        Cookies.remove("name");
+        Cookies.remove("phone");
+        Cookies.remove("profileData");
+        Cookies.remove("regQuestion");
+        Cookies.remove("subscriptionpaid");
+        Cookies.cla;
+        localStorage.clear();
+        sessionStorage.clear();
+
         navigate("/sign-in");
       }
     } catch (err) {
@@ -122,8 +132,6 @@ function MyProfile() {
       setLoading(false);
     }
   };
- 
-
 
   const getnotifications = async () => {
     try {
@@ -248,8 +256,7 @@ function MyProfile() {
                           Phone Number
                         </p>
                         <p className="text-black text-base">
-                         +1 {phoneFormater(profileData?.phone || "")}
-
+                          +1 {phoneFormater(profileData?.phone || "")}
                         </p>
                         {profileData?.address ? (
                           <>
@@ -264,7 +271,9 @@ function MyProfile() {
                         ) : (
                           ""
                         )}
-                          <p className="text-black font-medium text-base  ">Address</p>
+                        <p className="text-black font-medium text-base  ">
+                          Address
+                        </p>
                         <p className="text-black text-base font-normal ">
                           {profileData?.state}, {profileData?.city}
                         </p>
@@ -273,7 +282,7 @@ function MyProfile() {
                     <hr />
                     <div className="flex items-center justify-between gap-3 mt-5">
                       <div className="flex gap-3">
-                        {[Playstore,AppleIcon,Globalweb]?.map(
+                        {[Playstore, AppleIcon, Globalweb]?.map(
                           (item, index) => (
                             <img
                               src={item}

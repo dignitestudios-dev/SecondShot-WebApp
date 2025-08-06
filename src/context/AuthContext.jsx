@@ -65,6 +65,8 @@ const AuthProvider = ({ children }) => {
 
   const logout = () => {
     Cookies.remove("token");
+    localStorage.clear();
+    sessionStorage.clear();
     setToken(null);
     navigate("/sign-in");
   };
@@ -83,7 +85,7 @@ const AuthProvider = ({ children }) => {
     registrationQuestion,
     getProfile,
     user,
-    profilename
+    profilename,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
