@@ -16,12 +16,12 @@ import { AuthContext } from "../../context/AuthContext";
 const stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_PUB_DEV_KEY);
 
 const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
+  const navigation = useNavigate();
   const location = useLocation();
   const { modal, product_id = null } = location?.state || {};
   const [showNew, setShowNew] = useState(false);
   const [showAdded, setShowAdded] = useState(false);
   const [activatModal, setActivatModal] = useState(modal);
-  const navigation = useNavigate();
   const coupenCode = localStorage.getItem("coupenCode");
   const { setSubscriptionpaid, profileCompleted, registrationQuestion } =
     useContext(AuthContext);
@@ -50,6 +50,7 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
         localStorage.setItem("paymentIntentId", data?.paymentIntentId);
         localStorage.setItem("coupenPrice", data?.amountToPay);
         setSubscriptionpaid(true);
+        
       }
     } catch (error) {
       ErrorToast(error?.response?.data?.message || "Something went wrong.");
@@ -139,7 +140,7 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
             <div className="mt-2">
               {clientSecret ? (
                 <Elements stripe={stripePromise} options={options}>
-                  <StripeForm />
+                  <StripeForm setActivatModal={setActivatModal} />
                 </Elements>
               ) : (
                 <div className="animate-pulse bg-gray-300 h-12 w-full rounded"></div>

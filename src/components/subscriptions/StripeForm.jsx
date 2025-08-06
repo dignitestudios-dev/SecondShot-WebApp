@@ -8,7 +8,7 @@ import {
 import { ErrorToast } from "../toaster/ToasterContainer";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
 
-const StripeForm = () => {
+const StripeForm = ({ setActivatModal }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);

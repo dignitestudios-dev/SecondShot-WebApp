@@ -28,7 +28,8 @@ const SubscriptionPlannew = () => {
   const cardShow = location?.state?.cardShow;
   const [coupenLoading, setCoupenLoading] = useState(false);
   const [coupen, setCoupen] = useState({});
-  const { profileCompleted, registrationQuestion } = useContext(AuthContext);
+  const { profileCompleted, registrationQuestion, login } =
+    useContext(AuthContext);
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
       initialValues: accessCode,
@@ -46,14 +47,18 @@ const SubscriptionPlannew = () => {
           );
 
           if (response.status === 200) {
-            if (!profileCompleted) {
+            login(response.data.data);
+            SuccessToast(response?.data?.message);
+            if (!response?.data?.data?.is_profile_completed) {
               navigation("/profiledetail");
-            } else if (!registrationQuestion) {
+            } else if (
+              !response?.data?.data?.is_registration_question_completed
+            ) {
               navigation("/registration-question");
             } else {
               navigation("/home");
             }
-            SuccessToast(response?.data?.message);
+
             // navigation("/profiledetail");
           }
         } catch (err) {

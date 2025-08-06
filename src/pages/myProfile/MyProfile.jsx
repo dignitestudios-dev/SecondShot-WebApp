@@ -105,7 +105,8 @@ function MyProfile() {
         Cookies.remove("profileData");
         Cookies.remove("regQuestion");
         Cookies.remove("subscriptionpaid");
-        Cookies.cla;
+        Cookies.remove("profileCompleted");
+        localStorage.removeItem("isFirst");
         localStorage.clear();
         sessionStorage.clear();
 
