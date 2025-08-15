@@ -216,7 +216,7 @@ const NewTranfer = ({
                         zIndex: indexAppear == 2 && -2,
                       },
                     ];
-
+                    console.log(item?.is_favorite, "item?.is_favorite");
                     return (
                       <button
                         key={item?._id}
@@ -843,7 +843,7 @@ const NewTranfer = ({
           {/* Center Section End */}
           <div
             className={`col-span-3 flex justify-center relative bottom-[142px] right-[52px] ${
-              getSkill?.athlete?.sport_position?.topics && RightSkill
+              getSkill?.athlete?.primary_sport?.topics && RightSkill
                 ? "flex"
                 : "invisible"
             }`}
@@ -854,7 +854,7 @@ const NewTranfer = ({
                 className="h-[725px]  object-contain"
                 alt="Right Skill"
               />
-              {getSkill?.athlete?.sport_position?.topics?.map((item, index) => (
+              {getSkill?.athlete?.primary_sport?.topics?.map((item, index) => (
                 <button
                   key={item._id}
                   onBlur={() => setAppear(false)}
@@ -865,9 +865,9 @@ const NewTranfer = ({
                     setIndexAppear(index);
                     setAppear((prev) => (prev === index ? null : item._id));
                     setNoteData({
-                      athlete: {
-                        athleteId: getSkill?.athlete?.sport_position?._id,
-                        descriptionId:item?._id,
+                      sport: {
+                        sportId: getSkill?.athlete?.primary_sport?._id,
+                        descriptionId: item?._id,
                       },
                     });
 
@@ -1071,7 +1071,7 @@ const NewTranfer = ({
           {/* {'Bottom Right Skills'} */}
           <div
             className={`col-span-6 z-1 flex justify-center  relative bottom-[204px] right-[61px]  ${
-              getSkill?.athlete?.primary_sport?.topics && BottomRightSkill
+              getSkill?.athlete?.sport_position?.topics && BottomRightSkill
                 ? "flex"
                 : "invisible"
             }`}
@@ -1083,7 +1083,7 @@ const NewTranfer = ({
                 alt="Right Skill"
               />
 
-              {getSkill?.athlete?.primary_sport?.topics?.map((item, index) => {
+              {getSkill?.athlete?.sport_position?.topics?.map((item, index) => {
                 const positions = [
                   {
                     top: "19%",
@@ -1127,8 +1127,8 @@ const NewTranfer = ({
                       setIndexAppear(index);
                       setAppear((prev) => (prev === index ? null : item._id));
                       setNoteData({
-                        sport: {
-                          sportId: getSkill?.athlete?.primary_sport?._id,
+                        athlete: {
+                          athleteId: getSkill?.athlete?.sport_position?._id,
                           descriptionId: item?._id,
                         },
                       });
