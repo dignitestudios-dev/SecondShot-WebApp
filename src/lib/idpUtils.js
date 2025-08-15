@@ -768,7 +768,7 @@ export function createPDFWithUserDataAndResume(
   if (resume[0]) {
     pdf.addPage();
   }
-  yPosition = 20;
+  yPosition = 120;
 
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(16);
@@ -1665,7 +1665,7 @@ export function downloadSendReportPDF(userData, resume, idpData, profilename) {
   if (resume[0]) {
     pdf.addPage();
   }
-  yPosition = 20;
+  yPosition = 120;
 
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(16);

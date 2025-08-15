@@ -169,7 +169,7 @@ const NewTranfer = ({
         <div className="grid grid-cols-12 justify-center items-center relative z-50">
           <div
             className={`col-span-12 flex justify-center relative top-[65px] left-[4px]  ${
-              getSkill?.military?.rank?.rank_name ||
+              getSkill?.military?.rank?.rank_name &&
               (getSkill?.favorite_middle_school_subject?.subject_name &&
                 topSkill)
                 ? "flex"
@@ -216,7 +216,7 @@ const NewTranfer = ({
                         zIndex: indexAppear == 2 && -2,
                       },
                     ];
-                    console.log(item?.is_favorite, "item?.is_favorite");
+                 
                     return (
                       <button
                         key={item?._id}
