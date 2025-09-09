@@ -29,10 +29,9 @@ const StepTwo = ({
   questionId,
   getMyIdp,
   cardData,
-  idpData
+  idpData,
 }) => {
   const { profilename } = useContext(AuthContext);
-  console.log(selectedCareer, "selectedCareer");
   const [errorSkills, setErroSkills] = useState("");
   const [showOtherInput, setShowOtherInput] = useState(false);
   const [otherSkill, setOtherSkill] = useState("");
@@ -116,7 +115,9 @@ const StepTwo = ({
           <img
             src={GameTime}
             className={`w-[90px] h-[85.63px] transition-opacity duration-500 ${
-              idpData?.data?.[1]?.answer?.length > 0 ? "opacity-100" : "opacity-20"
+              idpData?.data?.[1]?.answer?.length > 0
+                ? "opacity-100"
+                : "opacity-20"
             }`}
             alt=""
           />

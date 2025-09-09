@@ -10,9 +10,9 @@ const InviteFriendModal = ({ isOpen, onClose }) => {
     { label: "Website", link: "https://secondshot-app.vercel.app/" },
     {
       label: "Play Store",
-      link: "https://play.google.com/store/apps/details?id=example",
+      link: "https://play.google.com/store/apps/details?id=com.dignitestudios.secondshotapp",
     },
-    { label: "Appstore", link: "https://apps.apple.com/app/example" },
+    { label: "Appstore", link: "https://apps.apple.com/us/app/career-prep-toolbox/id6740980943" },
   ];
 
   const handleCopy = (link) => {

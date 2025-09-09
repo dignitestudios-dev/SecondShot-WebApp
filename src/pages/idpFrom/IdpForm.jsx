@@ -63,6 +63,8 @@ const IdpForm = () => {
     (item) => item?.question?.question
   );
 
+  console.log(cardDataQuestion, "cardDataQuestion");
+
   const handleViewChange = (newView) => {
     setView(newView);
     setSelected(newView);
@@ -222,7 +224,7 @@ const IdpForm = () => {
                           }`}
                         />
                       )}
-                       <h2
+                      <h2
                         className={`text-center text-[16px] font-[600] text-nowrap ${
                           idpData.length === 0 || answer === null
                             ? "text-gray-400"
@@ -234,7 +236,6 @@ const IdpForm = () => {
                     </div>
 
                     <div className="text-center text-[16px] font-[600] text-nowrap ">
-                     
                       {idpData.length === 0 || answer === null ? (
                         ""
                       ) : card.para.includes("null") ||

@@ -51,8 +51,16 @@ export function getMonth(dateString) {
 // lib/helper.js
 
 export const phoneFormater = (input) => {
-  const cleaned = input?.replace(/\D/g, ""); // Remove all non-numeric characters
-  
+  if (!input) return "";
+
+  // Remove all non-numeric characters
+  let cleaned = input.replace(/\D/g, "");
+
+  // Agar country code (1) laga hua hai aur length 11 hai, to usse hata do
+  if (cleaned.length === 11 && cleaned.startsWith("1")) {
+    cleaned = cleaned.slice(1);
+  }
+
   if (cleaned.length > 3 && cleaned.length <= 6) {
     return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
   } else if (cleaned.length > 6) {
@@ -60,8 +68,8 @@ export const phoneFormater = (input) => {
   } else if (cleaned.length > 0) {
     return `(${cleaned}`;
   }
-  
-  return cleaned; // Return cleaned number if less than 1 digit
+
+  return cleaned;
 };
 
 

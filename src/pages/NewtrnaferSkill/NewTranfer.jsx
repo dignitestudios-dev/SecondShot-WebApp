@@ -168,8 +168,8 @@ const NewTranfer = ({
       <div className="relative z-10">
         <div className="grid grid-cols-12 justify-center items-center relative z-50">
           <div
-            className={`col-span-12 flex justify-center relative top-[65px] left-[4px]  ${
-              getSkill?.military?.rank?.rank_name &&
+            className={`col-span-12 flex justify-center relative top-[65px] left-[4px] ${
+              (getSkill?.military?.rank?.rank_name && topSkill) ||
               (getSkill?.favorite_middle_school_subject?.subject_name &&
                 topSkill)
                 ? "flex"
@@ -216,7 +216,7 @@ const NewTranfer = ({
                         zIndex: indexAppear == 2 && -2,
                       },
                     ];
-                 
+
                     return (
                       <button
                         key={item?._id}
@@ -606,7 +606,12 @@ const NewTranfer = ({
                       getSkill.military.rank.rank_name
                     )
                   ) : getSkill?.favorite_middle_school_subject?.subject_name ? (
-                    getSkill.favorite_middle_school_subject.subject_name
+                    <div className="text-nowrap">
+                      {getSkill.favorite_middle_school_subject.subject_name.substring(
+                        0,
+                        7
+                      ) + "..."}
+                    </div>
                   ) : (
                     "Null"
                   )}
