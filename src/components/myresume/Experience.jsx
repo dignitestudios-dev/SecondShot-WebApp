@@ -91,22 +91,20 @@ const Experience = ({
     }
   };
   const handleJobTitle = (e, index) => {
-    let input = e.target.value;
+     let input = e.target.value;
 
-    input = input
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+  // Remove extra spaces
+  input = input.replace(/\s{2,}/g, " ");
+
 
     formik.setFieldValue(`experienceList[${index}].jobTitle`, input);
   };
   const handlecompany = (e, index) => {
-    let input = e.target.value;
+      let input = e.target.value;
 
-    input = input
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+  // Remove extra spaces
+  input = input.replace(/\s{2,}/g, " ");
+
 
     formik.setFieldValue(`experienceList[${index}].company`, input);
   };
@@ -191,7 +189,7 @@ const Experience = ({
                           onBlur={handleBlur}
                           placeholder={"Enter Job Title"}
                           text={"Job Title"}
-                          maxLength={50}
+                       
                         />
                         {errors.experienceList?.[index]?.jobTitle &&
                           touched.experienceList?.[index]?.jobTitle && (
@@ -209,7 +207,7 @@ const Experience = ({
                           onBlur={handleBlur}
                           placeholder={"Enter Company Name"}
                           text={"Company"}
-                          maxLength={50}
+                       
                         />
                         {errors.experienceList?.[index]?.company &&
                           touched.experienceList?.[index]?.company && (
@@ -391,7 +389,7 @@ const Experience = ({
                           value={values.experienceList[index].description}
                           onChange={(e) => handleInput(e, index)}
                           onBlur={handleBlur}
-                          maxLength={300}
+                       
                         />
                         {errors.experienceList?.[index]?.description &&
                           touched.experienceList?.[index]?.description && (

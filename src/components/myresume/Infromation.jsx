@@ -35,20 +35,22 @@ const Information = ({ nextStep, setFormData, formData }) => {
     }
   };
   const navigate = useNavigate();
-  const handleFullnameChange = (e) => {
-    let input = e.target.value;
+const handleFullnameChange = (e) => {
+  let input = e.target.value;
 
-    input = input.replace(/\s{2,}/g, " ");
-    input = input
-    .split(" ")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-    const regex = /^[A-Za-z\s-"']*$/;
-    if (input.length >= 0 && !input.startsWith(" ") && regex.test(input)) {
-      setFieldValue("fullname", input);
-    } else {
-    }
-  };
+  // Remove extra spaces
+  input = input.replace(/\s{2,}/g, " ");
+
+  // Regex for allowed characters (letters, spaces, - " ')
+  const regex = /^[A-Za-z\s-"']*$/;
+
+  if (input.length >= 0 && !input.startsWith(" ") && regex.test(input)) {
+    setFieldValue("fullname", input);
+  } else {
+    // Invalid input, do nothing
+  }
+};
+
   return (
     <div className="pt-6 px-3">
       <div>
@@ -68,7 +70,7 @@ const Information = ({ nextStep, setFormData, formData }) => {
             onChange={handleFullnameChange}
             placeholder={"Enter Your Name"}
             text={"Full Name"}
-            maxLength={30}
+            // maxLength={30}
           />
           {errors.fullname && touched.fullname ? (
             <span className="text-red-700 text-sm font-medium">
@@ -128,7 +130,7 @@ const Information = ({ nextStep, setFormData, formData }) => {
             value={values.address}
             onChange={handleChange}
             placeholder={"Enter Your Website"}
-            maxLength={50}
+           
           />
         </div>
         <div className="flex items-center mb-3 gap-1 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">

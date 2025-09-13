@@ -306,7 +306,7 @@ function MyProfile() {
 
                     <div className="flex justify-between items-center mb-8">
                       <h2 className="text-[24px] font-[500] text-[#000000]">
-                        Personal information
+                        Personal Information
                       </h2>
                       <button
                         onClick={handleEdit}
@@ -321,7 +321,7 @@ function MyProfile() {
                         <h3 className="text-[18px] font-[500] text-[#000000] leading-[21.09px] ">
                           Education
                         </h3>
-                        <p className="text-black text-[16px] mt-3">
+                        <p className="text-black text-[16px] mt-3 capitalize">
                           {registrationData?.current_grade_level}
                         </p>
 

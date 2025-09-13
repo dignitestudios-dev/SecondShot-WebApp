@@ -67,22 +67,19 @@ const Honors = ({
   }, [formData?.honorsList]);
 
   const handleAwardNameChange = (e, index) => {
-    let input = e.target.value;
+  let input = e.target.value;
 
-    input = input
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+  // Remove extra spaces
+  input = input.replace(/\s{2,}/g, " ");
+
 
     formik.setFieldValue(`honorsList[${index}].awardName`, input);
   };
   const handleawardingChange = (e, index) => {
-    let input = e.target.value;
+   let input = e.target.value;
 
-    input = input
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+  // Remove extra spaces
+  input = input.replace(/\s{2,}/g, " ");
 
     formik.setFieldValue(`honorsList[${index}].awardingOrganization`, input);
   };
@@ -127,7 +124,7 @@ const Honors = ({
                           placeholder={
                             "Enter Award Name (e.g., Employee of the Year, Academic Excellence Award)"
                           }
-                          maxLength={50}
+                        
                         />
                         {errors.honorsList?.[index]?.awardName &&
                           touched.honorsList?.[index]?.awardName && (
@@ -145,7 +142,7 @@ const Honors = ({
                           onChange={(e) => handleawardingChange(e, index)}
                           onBlur={handleBlur}
                           placeholder={"ABC Company"}
-                          maxLength={50}
+                       
                         />
                         {errors.honorsList?.[index]?.awardingOrganization &&
                           touched.honorsList?.[index]?.awardingOrganization && (

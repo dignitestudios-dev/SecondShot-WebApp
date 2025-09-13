@@ -109,10 +109,8 @@ const Skills = ({
 
   const handleTechChange = (input) => {
     
-    const formattedInput = input
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+
+    const formattedInput =  input.replace(/\s{2,}/g, " ");
     // setFieldValue("technicalSkills", formattedInput); 
     setSkillsValues(formattedInput)
     
@@ -179,7 +177,7 @@ const Skills = ({
               id="technicalSkills"
               name="technicalSkills"
               placeholder={"Enter Technical Skills, separated by Enter"}
-             maxLength={30}
+            
             />
           </div>
           <div className="flex items-center gap-1 mb-3 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">

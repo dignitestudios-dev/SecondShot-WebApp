@@ -1,11 +1,8 @@
 import * as Yup from "yup";
 
 export const informationSchema = Yup.object({
-  fullname: Yup.string()
-    .min(3, "Full name must be at least 3 characters.")
-    .max(30, "Full name can't exceed 30 characters.")
-    .required("Please enter your full name"),
- email: Yup.string()
+  fullname: Yup.string().required("Please enter your full name"),
+  email: Yup.string()
     .test(
       "email-at-symbol",
       "Email address must contain '@' symbol",
@@ -28,9 +25,7 @@ export const informationSchema = Yup.object({
 });
 
 export const objectiveSchema = Yup.object({
-  description: Yup.string()
-    .required("Please enter your resume objective")
-    .max(300, "Objective description cannot be longer than 300 characters"),
+  description: Yup.string().required("Please enter your resume objective"),
 });
 
 export const educationSchema = Yup.object().shape({
@@ -38,14 +33,12 @@ export const educationSchema = Yup.object().shape({
     .of(
       Yup.object().shape({
         education: Yup.string()
-          .required("Please enter your educational institution")
-          .max(50, "Educational institution cannot exceed 50 characters"),
+          .required("Please enter your educational institution"),
+         
         degree: Yup.string()
-          .required("Please enter your degree")
-          .max(50, "Degree cannot exceed 50 characters"),
+          .required("Please enter your degree"),
         fieldofStudy: Yup.string()
-          .required("Please enter your field of study")
-          .max(50, "Field of study cannot exceed 50 characters"),
+          .required("Please enter your field of study"),
         startYear: Yup.string().required("Please select a start year"),
         endYear: Yup.string().required("Please select an end year"),
       })
@@ -59,18 +52,18 @@ export const experienceSchema = Yup.object().shape({
     .of(
       Yup.object().shape({
         jobTitle: Yup.string()
-          .required("Please enter your jobtitle institution")
-          .max(50, "Jobtitle  cannot exceed 50 characters"),
+          .required("Please enter your jobtitle institution"),
+        
         company: Yup.string()
-          .required("Please enter your degree")
-          .max(50, "degree  cannot exceed 50 characters"),
+          .required("Please enter your degree"),
+        
         startmonth: Yup.string().required("Please select a start month"),
         startyear: Yup.string().required("Please select a start year"),
         endmonth: Yup.string(),
         endyear: Yup.string(),
         description: Yup.string()
           .required("Please enter description")
-          .max(300, "description  cannot exceed 300 characters"),
+         
       })
     )
     .required("Experience List required")
@@ -95,8 +88,6 @@ export const certificationSchema = Yup.object().shape({
     .required("Crtifications list is required")
     .min(1, "At least one education entry is required"),
 });
-
-
 
 export const honorsSchema = Yup.object().shape({
   honorsList: Yup.array()

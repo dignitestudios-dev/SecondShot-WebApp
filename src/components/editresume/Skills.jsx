@@ -57,7 +57,7 @@ const Skills = ({
   const [library, setLibrary] = useState([]);
   const [likedItems, setLikedItems] = useState({});
   const [loading, setLoading] = useState(true);
- const [skillsValues, setSkillsValues] = useState("")
+  const [skillsValues, setSkillsValues] = useState("");
   const getLibrary = async () => {
     setLoading(true);
     try {
@@ -84,11 +84,9 @@ const Skills = ({
       const value = e.target.value.trim();
       if (value && !skills.includes(value) && skills.length < 10) {
         setSkills((prevSkills) => [...prevSkills, value]);
-        setSkillsValues(""); 
-    setFieldValue("technicalSkills");
-
+        setSkillsValues("");
+        setFieldValue("technicalSkills");
       }
-     
     }
   };
 
@@ -112,17 +110,15 @@ const Skills = ({
       setSkills(values.technicalSkills);
     }
   }, [values.softskills]);
-  
+
   const handleTechChange = (input) => {
-    
-    const formattedInput = input
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-  
-      setSkillsValues(formattedInput)
+    const formattedInput =
+      // Remove extra spaces
+      (input = input.replace(/\s{2,}/g, " "));
+
+    setSkillsValues(formattedInput);
   };
-  
+
   return (
     <div className="pt-6 px-3">
       <div className="my-6">
@@ -169,12 +165,14 @@ const Skills = ({
               ))}
             </div>
             {skills.length >= 10 && (
-  <p className="text-red-500 text-sm">You can add  10 skills only.</p>
-)}
+              <p className="text-red-500 text-sm">
+                You can add 10 skills only.
+              </p>
+            )}
             {/* Input field for typing skills */}
             <AuthInput
               value={skillsValues} // This will show the current value in the input field
-              onChange={(e)=>handleTechChange(e.target.value)}
+              onChange={(e) => handleTechChange(e.target.value)}
               onBlur={handleBlur}
               onKeyDown={handletechSkill} // Capture key events (comma, space, Enter)
               id="technicalSkills"
@@ -186,7 +184,6 @@ const Skills = ({
                 {errors.technicalSkills}
               </span>
             )}
-           
           </div>
           <div className="flex items-center gap-1 mb-3 text-[12px] font-[600] leading-[19.32px] tracking-[11.5%] text-[#000000] cursor-pointer">
             <div>

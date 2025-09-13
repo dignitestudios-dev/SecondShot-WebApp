@@ -44,7 +44,7 @@ const PersonalizedCV = ({ resumeData, ref }) => {
         {/* Objective */}
         <section className="mt-6">
           <h2 className="text-[22px] font-[700] uppercase ">Objective</h2>
-          <p className="mt-2 text-[20px] font-[400] text-[#101010] ">
+          <p className="mt-2 text-[20px] font-[400] break-words text-[#101010] ">
             {resumeData?.objective?.description}
           </p>
         </section>

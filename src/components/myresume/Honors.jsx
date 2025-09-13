@@ -38,20 +38,18 @@ const Honors = ({
   const handleAwardNameChange = (e, index) => {
     let input = e.target.value;
 
-    input = input
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+  // Remove extra spaces
+  input = input.replace(/\s{2,}/g, " ");
+
 
     formik.setFieldValue(`honorsList[${index}].awardName`, input);
   };
   const handleawardingChange = (e, index) => {
     let input = e.target.value;
 
-    input = input
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+  // Remove extra spaces
+  input = input.replace(/\s{2,}/g, " ");
+
 
     formik.setFieldValue(`honorsList[${index}].awardingOrganization`, input);
   };

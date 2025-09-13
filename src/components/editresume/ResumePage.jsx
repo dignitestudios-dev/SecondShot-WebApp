@@ -171,7 +171,7 @@ const ResumePage = ({ formData }) => {
               </p>
               </div>
               <ul className="list-outside list-disc">
-                <li className="text-[#000000]  pl-1 leading-[10.59px] font-[400] text-[18px]  mt-5 mx-4">{vol?.description}</li>
+                <li className="text-[#000000]  pl-1 leading-[20.59px] font-[400] text-[18px]   mt-5 mx-4">{vol?.description}</li>
               </ul>
             </div>
           ))}

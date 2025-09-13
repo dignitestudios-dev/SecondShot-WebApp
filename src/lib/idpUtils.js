@@ -240,35 +240,6 @@ export function createPDFWithUserDataAndResume(
           imageSize,
           imageSize
         );
-        // Add image border
-        // pdf.setDrawColor(100, 100, 100); // Darker gray for border
-        // pdf.setLineWidth(0.5);
-        // pdf.rect(leftMargin, yPosition, imageSize, imageSize, 'S');
-
-        // // Add image icon (simple drawing in the center of placeholder)
-        // pdf.setDrawColor(80, 80, 80);
-        // pdf.setLineWidth(0.8);
-
-        // // Draw a simple icon inside the placeholder (e.g., document icon)
-        // const iconMargin = 5;
-        // pdf.line(
-        //   leftMargin + iconMargin,
-        //   yPosition + iconMargin,
-        //   leftMargin + imageSize - iconMargin,
-        //   yPosition + iconMargin
-        // );
-        // pdf.line(
-        //   leftMargin + iconMargin,
-        //   yPosition + imageSize/2,
-        //   leftMargin + imageSize - iconMargin,
-        //   yPosition + imageSize/2
-        // );
-        // pdf.line(
-        //   leftMargin + iconMargin,
-        //   yPosition + imageSize - iconMargin,
-        //   leftMargin + imageSize - iconMargin,
-        //   yPosition + imageSize - iconMargin
-        // );
 
         // Position text to the right of the image
         const textX = leftMargin + imageSize + 5;
@@ -296,7 +267,7 @@ export function createPDFWithUserDataAndResume(
         pdf.setFont("helvetica", "bold");
         pdf.setFontSize(10);
         pdf.text("Answer:", textX, yPosition);
-        yPosition += 6;
+        yPosition += 16;
 
         // Format the answer based on its type
         pdf.setFont("helvetica", "normal");
@@ -341,13 +312,13 @@ export function createPDFWithUserDataAndResume(
     yPosition += 10;
   }
   // Add PDF title
-
-  yPosition = startResumeSection(yPosition);
+  pdf.addPage();
+  
 
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(16);
-  pdf.text(`${resume[0] ? "Resume" : ""}`, leftMargin, yPosition);
-  yPosition += 10;
+  pdf.text(`${resume[0] ? "Resume" : ""}`, leftMargin, 10);
+  yPosition = 20;
   // PART 2: Add Resume data
   // Get the first resume from the array if resume is an array
   const resumeData = Array.isArray(resume) ? resume[0] : resume;
@@ -768,11 +739,11 @@ export function createPDFWithUserDataAndResume(
   if (resume[0]) {
     pdf.addPage();
   }
-  yPosition = 120;
+  yPosition = 20;
 
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(16);
-  pdf.text("User Skill", leftMargin, yPosition);
+  pdf.text("Transferable Skills", leftMargin, yPosition);
   yPosition += 10;
   if (
     userData?.is_athlete &&
@@ -1669,7 +1640,7 @@ export function downloadSendReportPDF(userData, resume, idpData, profilename) {
 
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(16);
-  pdf.text("User Skill", leftMargin, yPosition);
+  pdf.text("Transferable Skills", leftMargin, yPosition);
   yPosition += 10;
   if (
     userData?.is_athlete &&

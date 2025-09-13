@@ -80,21 +80,19 @@ const Volunteer = ({
 
   const handleOrganizationChange = (e, index) => {
     let input = e.target.value;
-  
-    input = input
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+
+  // Remove extra spaces
+  input = input.replace(/\s{2,}/g, " ");
+
   
     formik.setFieldValue(`volunteerList[${index}].organizationName`, input);
   };
   const handleVolunteerRulesChange = (e, index) => {
     let input = e.target.value;
-  
-    input = input
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
+
+  // Remove extra spaces
+  input = input.replace(/\s{2,}/g, " ");
+
   
     formik.setFieldValue(`volunteerList[${index}].volunteerRules`, input);
   };
@@ -136,7 +134,7 @@ const Volunteer = ({
                         onChange={(e) => handleOrganizationChange(e, index)}
                         onBlur={handleBlur}
                         text={"Organization Name"}
-                        maxLength={50}
+                       
                       />
                       {errors.volunteerList?.[index]?.organizationName &&
                         touched.volunteerList?.[index]?.organizationName && (
@@ -154,7 +152,7 @@ const Volunteer = ({
                         onBlur={handleBlur}
                         placeholder={"Enter Volunteer Role/Title"}
                         text={"Volunteer Role/Title"}
-                        maxLength={50}
+                      
                       />
                       {errors.volunteerList?.[index]?.volunteerRules &&
                         touched.volunteerList?.[index]?.volunteerRules && (
@@ -222,7 +220,7 @@ const Volunteer = ({
                         placeholder="Highlight relevant skills acquired or the impact you made during the experience."
                         onChange={handleChange}
                         value={values.volunteerList[index]?.description}
-                        maxLength={250}
+                       
                       />
                     </div>
                   </div>
