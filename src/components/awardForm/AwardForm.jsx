@@ -6,8 +6,16 @@ import StepFour from "./StepFour";
 import StepFive from "./StepFive";
 import { RxCross2 } from "react-icons/rx";
 import axios from "../../axios";
-const AwardForm = ({ showModal, setFormOpen, getMyIdp,step,setStep ,cardData,idpData,profilename}) => {
- 
+const AwardForm = ({
+  showModal,
+  setFormOpen,
+  getMyIdp,
+  step,
+  setStep,
+  cardData,
+  idpData,
+  profilename,
+}) => {
   const [formLoading, setFormLoading] = useState(false);
   const [imageFaded, setImageFaded] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -26,12 +34,9 @@ const AwardForm = ({ showModal, setFormOpen, getMyIdp,step,setStep ,cardData,idp
   const [gameTime, setGameTime] = useState("");
   const [linkdInprofile, setLinkdInprofile] = useState("");
   const [championAward, setChampionAward] = useState("");
-  
 
   const Questions = question?.map((item) => item?.question);
   const QuestionID = question?.map((item) => item?._id);
-
-
 
   const handleModalClose = () => {
     setImageFaded(true);
@@ -71,7 +76,6 @@ const AwardForm = ({ showModal, setFormOpen, getMyIdp,step,setStep ,cardData,idp
     }
   };
 
-
   const getSkills = async () => {
     setloadingSkills(true);
     try {
@@ -92,7 +96,7 @@ const AwardForm = ({ showModal, setFormOpen, getMyIdp,step,setStep ,cardData,idp
   const getfavcareer = async () => {
     setCareerloading(true);
     try {
-      const response = await axios.get("/api/user/my-favorite-careers");
+      const response = await axios.get("/api/user/my-favorite-careers-idp");
 
       setcarrerData(response?.data?.data);
       setFilteredcareer(response?.data?.data || []);
@@ -279,7 +283,6 @@ const AwardForm = ({ showModal, setFormOpen, getMyIdp,step,setStep ,cardData,idp
                       getMyIdp={getMyIdp}
                       cardData={cardData}
                       idpData={idpData}
-                 
                     />
                   </div>
                 )}
