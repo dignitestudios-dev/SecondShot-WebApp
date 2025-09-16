@@ -21,6 +21,21 @@ const EditProfileDetails = () => {
   const profileData = location.state || {};
   const [loading, setLoading] = useState(false);
   const { setProfilepic } = useContext(AuthContext);
+  const [schools, setSchools] = useState("");
+  const getSchools = async () => {
+    try {
+      const response = await axios.get("/api/admin/schools");
+      if (response?.status === 200) {
+        setSchools(response?.data?.data);
+      }
+    } catch (error) {
+      console.log(error?.response?.data?.message);
+    }
+  };
+
+  useEffect(() => {
+    getSchools();
+  }, []);
 
   const {
     values,
@@ -263,24 +278,38 @@ const EditProfileDetails = () => {
             ) : null}
           </div>
 
-          <div className="mt-3">
-            <AuthInput
-              id="address"
+          <div className="relative mt-3">
+            <SelectInput
               name="address"
+              id="address"
               value={values.address}
+              onChange={(e) => {
+                handleChange(e);
+              }}
               onBlur={handleBlur}
-              type={"text"}
-              placeholder={"School / Organization name"}
-              onChange={handleChange}
-              maxLength={250}
+              options={[
+                { value: "", label: "--Select School--" },
+                ...(Array.isArray(schools)
+                  ? schools.map((school) => ({
+                      value: school.name,
+                      label: school.name,
+                    }))
+                  : []),
+              ]}
             />
+
+            {errors.schools && touched.schools ? (
+              <span className="text-red-700 text-sm font-medium">
+                {errors.schools}
+              </span>
+            ) : null}
           </div>
         </div>
         <div className="col-span-12">
           <div className=" flex justify-center space-x-2 mb-6">
             <div className="w-[169px]">
               <button
-              type="button"
+                type="button"
                 className="bg-gray-300 w-[169px]  h-[49px] rounded-[12px]  font-[500] "
                 onClick={() => navigation(-1)}
               >

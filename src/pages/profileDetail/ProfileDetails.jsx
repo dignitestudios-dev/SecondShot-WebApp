@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BgAuth, Cameraicon, logo } from "../../assets/export";
 import AuthInput from "../../components/onboarding/AuthInput";
@@ -17,16 +17,27 @@ import {
 import { ModalContext } from "../../context/GlobalContext";
 import { AuthContext } from "../../context/AuthContext";
 import { data } from "../../components/dataStateCity/data";
+
 const ProfileDetails = () => {
   const navigation = useNavigate();
   const { setProfilepic, user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-  const fullname = sessionStorage.getItem("fullname");
-  const email = sessionStorage.getItem("email");
-  const phoneNumber = sessionStorage
-    .getItem("phoneNumber")
-    ?.replace(/^\+1/, "");
+  const [schools, setSchools] = useState("");
+  const getSchools =async () => {
+    try {
+      const response =await axios.get("/api/admin/schools");
+      if (response?.status === 200) {
+        setSchools(response?.data?.data);
+      }
+    } catch (error) {
+      console.log(error?.response?.data?.message);
+    }
+  };
 
+  useEffect(() => {
+    getSchools();
+  }, []);
+  
   const {
     values,
     handleBlur,
@@ -48,7 +59,7 @@ const ProfileDetails = () => {
 
         formData.append("state", values.state);
         formData.append("city", values.country);
-        formData.append("address", values.address || "");
+        formData.append("address", values.schools || "");
 
         if (values.profilePicture) {
           formData.append("profile_img", values.profilePicture);
@@ -251,23 +262,34 @@ const ProfileDetails = () => {
               </span>
             ) : null}
           </div>
-          <div className="mt-3">
-            <AuthInput
-              id="address"
-              name="address"
-              value={values.address}
-              onBlur={handleBlur}
-              type={"text"}
-              placeholder={"School / Organization name"}
-              onChange={handleChange}
-              maxLength={250}
-            />
-            {errors.address && touched.address ? (
-              <span className="text-red-700 text-sm font-medium">
-                {errors.address}
-              </span>
-            ) : null}
-          </div>
+         <div className="mt-3">
+  <SelectInput
+  name="schools"
+  id="schools"
+  value={values.schools}
+  onChange={(e) => {
+    handleChange(e);
+  }}
+  onBlur={handleBlur}
+  options={[
+    { value: "", label: "--Select School--" },
+    ...(Array.isArray(schools)
+      ? schools.map((school) => ({
+          value: school.name,   // ✅ name bhej rahe hain
+          label: school.name,   // dropdown me name dikhayega
+        }))
+      : []),
+  ]}
+/>
+
+{errors.schools && touched.schools ? (
+  <span className="text-red-700 text-sm font-medium">
+    {errors.schools}
+  </span>
+) : null}
+
+</div>
+
         </div>
         <div className="col-span-12">
           <div className=" flex justify-center space-x-2 mb-6">
