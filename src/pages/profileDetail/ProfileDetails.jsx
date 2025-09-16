@@ -262,7 +262,7 @@ const ProfileDetails = () => {
               </span>
             ) : null}
           </div>
-         <div className="mt-3">
+         <div className=" relative mt-3">
   <SelectInput
   name="schools"
   id="schools"

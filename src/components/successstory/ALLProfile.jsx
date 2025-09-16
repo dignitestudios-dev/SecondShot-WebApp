@@ -57,6 +57,9 @@ const ALLProfile = ({ loading, stories }) => {
                     <h3 className="text-[14px] mt-1 text-[#0081FF] font-[500] text-center">
                       Second Shot: {item?.profession}
                     </h3>
+                       <h3 className="text-[14px] mt-1 text-[#0081FF] font-[500] text-center">
+                      School: {item?.school || "N/A"}
+                    </h3>
                   </div>
 
                   <div className="flip-card-back bg-white rounded-[12px] p-4 flex flex-col justify-center items-center gap-2 text-center">
