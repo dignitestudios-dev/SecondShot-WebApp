@@ -144,14 +144,14 @@ const AssessmentFive = ({ nextStep, formData, setFormData, setStep }) => {
               <div className="w-[343px]">
                 <button
                   onClick={() => {
-                    console.log("Before Skip:", formData);
+                 
 
                     setFormData((prev) => ({
                       ...prev,
                       timeboundedit: "",
                     }));
 
-                    console.log("After Skip:", formData);
+                  
                     navigate("/create-goals", {
                       state: {
                         isSmart: true,

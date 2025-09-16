@@ -32,7 +32,7 @@ const AllIDPViewModal = ({
     answer: item?.answer,
     image: ImagesArray[index],
   }));
-  console.log(combinedData, "combinedData");
+  
   const handleDownload = () => {
     const doc = new jsPDF();
     const pageHeight = doc.internal.pageSize.height;

@@ -10,7 +10,7 @@ import TagsInputField from "../registrationquestion/TagsInputFeild";
 import axios from "../../axios";
 import { ErrorToast } from "../toaster/ToasterContainer";
 const StepFour = ({ nextStep, prevStep, formData, setFormData }) => {
-  console.log(formData.ageValue, "ageValue");
+
   const validationSchema = Yup.object({
     militaryService: Yup.string().required(
       "Please select an option to proceed."

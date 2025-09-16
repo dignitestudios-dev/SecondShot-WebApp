@@ -17,14 +17,14 @@ const AuthProvider = ({ children }) => {
   });
 
   const [token, setToken] = useState(Cookies.get("token"));
-  console.log(user, token, "AuthToken");
+ 
   const [regQuestion, setRegQuestion] = useState(Cookies.get("regQuestion"));
   const [subscriptionpaid, setSubscriptionpaid] = useState(false);
   const [registrationQuestion, setregistrationQuestion] = useState(false);
   const [profileCompleted, setprofileCompleted] = useState(false);
 
   const login = (userData) => {
-    console.log(userData, "userData==>in Login");
+   
     if (typeof userData === "object" && userData !== null) {
       if (userData.token) Cookies.set("token", userData.token);
       if (userData.name) Cookies.set("name", userData.name);
@@ -32,7 +32,7 @@ const AuthProvider = ({ children }) => {
       if (userData.phone) Cookies.set("phone", userData.phone);
 
       if ("is_subscription_paid" in userData) {
-        console.log("issubs-->", userData);
+     
         Cookies.set("subscriptionpaid", userData.is_subscription_paid);
         setSubscriptionpaid(userData.is_subscription_paid);
       }

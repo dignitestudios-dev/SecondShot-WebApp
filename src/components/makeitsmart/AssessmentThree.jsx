@@ -134,14 +134,14 @@ const AssessmentThree = ({ nextStep, formData, setFormData, setStep }) => {
               <button
               
               onClick={() => {
-                console.log("Before Skip:", formData);
+            
               
                 setFormData((prev) => ({
                   ...prev,
                   achievableedit: "", 
                 }));
               
-                console.log("After Skip:", formData); 
+             
                 nextStep();
               }}
               

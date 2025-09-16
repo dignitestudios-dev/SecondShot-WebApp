@@ -89,7 +89,7 @@ const SocialLogin = () => {
               login(response?.data);
 
               sessionStorage.setItem("email", email);
-              console.log(response.data, "");
+             
 
               const {
                 is_profile_completed,

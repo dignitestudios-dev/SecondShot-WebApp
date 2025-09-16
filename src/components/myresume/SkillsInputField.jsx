@@ -10,7 +10,7 @@ const SkillsInputField = ({
 }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedSkills, setSelectedSkills] = useState([]);
-  console.log("selectedSkills--> ", selectedSkills);
+
 
   const [customSkill, setCustomSkill] = useState("");
   const [customSkillArr, setCustomSkillArr] = useState([]);

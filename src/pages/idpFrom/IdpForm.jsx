@@ -63,7 +63,7 @@ const IdpForm = () => {
     (item) => item?.question?.question
   );
 
-  console.log(cardDataQuestion, "cardDataQuestion");
+ 
 
   const handleViewChange = (newView) => {
     setView(newView);

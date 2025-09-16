@@ -7,7 +7,7 @@ import Backbutton from "../Global/Backbutton";
 import { IoIosArrowBack } from "react-icons/io";
 
 const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
-  console.log(formData, "formData");
+
 
   const validationSchema = Yup.object({
     measure: Yup.string().required(
@@ -18,7 +18,7 @@ const AssessmentTwo = ({ nextStep, formData, setFormData, setStep }) => {
     ),
   
   });
-console.log(formData)
+
   return (
     <div>
       <Formik
@@ -127,14 +127,14 @@ console.log(formData)
               <button
               
               onClick={() => {
-                console.log("Before Skip:", formData);
+           
               
                 setFormData((prev) => ({
                   ...prev,
                   measureedit: "", 
                 }));
               
-                console.log("After Skip:", formData); 
+              
                 nextStep();
               }}
               

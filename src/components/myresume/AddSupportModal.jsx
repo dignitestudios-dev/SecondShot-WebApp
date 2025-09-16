@@ -188,7 +188,7 @@ const AddSupportModal = ({
         setLoading(false);
         return;
       }
-      console.log("✅ Element found. Generating PDF...");
+ 
       const excludeElements = document.querySelectorAll(".pdf-exclude");
       excludeElements.forEach((el) => (el.style.display = "none"));
 

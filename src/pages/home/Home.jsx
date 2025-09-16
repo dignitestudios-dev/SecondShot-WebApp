@@ -10,7 +10,7 @@ const Home = () => {
   const { showModal, updateDeviceId, isFirst, setIsFirst } =
     useContext(ModalContext);
   const { regQuestion, token, getProfile } = useContext(AuthContext);
-console.log(token,"token==>")
+
   useEffect(() => {
     if (!token) {
       navigate("/sign-in");

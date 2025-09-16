@@ -75,7 +75,7 @@ const OtpEmail = () => {
         } else {
           const token = response?.data?.token;
           Cookies.set("token", token);
-          console.log(response?.data,"response?.data")
+      
           SuccessToast(response?.data?.message);
           setIsVerified(true);
           login(response?.data);

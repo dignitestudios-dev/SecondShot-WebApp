@@ -33,7 +33,7 @@ const CareerToolbox = () => {
   const navigate = useNavigate();
   const { showModal, closeModal, isFirst, setIsFirst } =
     useContext(ModalContext);
-  console.log(isFirst, "isFirstisFirst");
+
   const [lock, setLock] = useState(false);
   const [commingSoon, setCommingSoon] = useState(false);
 

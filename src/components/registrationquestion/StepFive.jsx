@@ -103,7 +103,7 @@ const StepFive = ({ nextStep, prevStep, formData, setFormData }) => {
     //   setFormData({ ...formData, sportsOption: "" });
     // }
   }, [tags]);
-  console.log(formData?.ageValue, "formData?.ageValue");
+
   return (
     <Formik
       initialValues={formData}

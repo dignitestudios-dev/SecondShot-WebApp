@@ -77,7 +77,7 @@ const StepSix = ({
       });
     }
   }, [hobbie, formData?.hobbieOptions]);
-console.log(hobbie,"hobbi====>")
+
   return (
     <Formik
       initialValues={{}}

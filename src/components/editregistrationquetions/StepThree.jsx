@@ -8,7 +8,7 @@ const StepThree = ({ nextStep, prevStep, formData, setFormData }) => {
   const validationSchema = Yup.object({
     ageValue: Yup.string().required("Please select an option to proceed."),
   });
-  console.log(formData, "formData");
+
 
   const [ageValue, SetageValue] = useState("");
   const handleAgeValue = (value, setFieldValue, setFieldTouched) => {

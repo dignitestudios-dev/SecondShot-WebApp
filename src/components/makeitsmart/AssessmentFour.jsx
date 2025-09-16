@@ -14,7 +14,7 @@ const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
       "Please respond before moving forward to proceed with the next step."
     ),
   });
-  console.log(formData, "FourtStep");
+ 
   return (
     <div>
       <Formik
@@ -135,14 +135,14 @@ const AssessmentFour = ({ nextStep, formData, setFormData, setStep }) => {
               <div className="w-[343px]">
                 <button
                   onClick={() => {
-                    console.log("Before Skip:", formData);
+                  
 
                     setFormData((prev) => ({
                       ...prev,
                       relevantedit: "",
                     }));
 
-                    console.log("After Skip:", formData);
+                  
                     nextStep();
                   }}
                   className="w-full text-[#012C57] h-[49px] bg-gray-300  p-3 text-center rounded-[12px] font-[500] leading-[21.6px] text-[16px]"

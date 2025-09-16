@@ -10,7 +10,7 @@ const AddGoals = () => {
   const location = useLocation();
 
   const { isSmart, lastStep, modalback } = location.state || {};
-  console.log(modalback, "modalback");
+ 
 
   const [showModal, setShowModal] = useState(isSmart ? isSmart :modalback);
 

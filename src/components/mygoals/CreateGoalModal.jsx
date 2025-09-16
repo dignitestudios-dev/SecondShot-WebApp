@@ -19,7 +19,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
   const [isSmart, setIsSmart] = useState(location.state?.isSmart || false);
   const { lastStep } = location.state || {};
   const [threeMonthsAgo, setThreeMonthsAgo] = useState(new Date());
-  console.log(lastStep, "lastStep");
+
   useEffect(() => {
     const date = new Date();
     date.setMonth(date.getMonth() + 3);
@@ -41,7 +41,7 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
     validateOnBlur: true,
     context: { showSubGoal },
     onSubmit: (values) => {
-      console.log(values, "Ss");
+     
       setFormData(values);
 
       navigate("/review-goals", {
