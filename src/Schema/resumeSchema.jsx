@@ -52,10 +52,10 @@ export const experienceSchema = Yup.object().shape({
     .of(
       Yup.object().shape({
         jobTitle: Yup.string()
-          .required("Please enter your jobtitle institution"),
+          .required("Please enter your job title institution"),
         
         company: Yup.string()
-          .required("Please enter your degree"),
+          .required("Please enter your company"),
         
         startmonth: Yup.string().required("Please select a start month"),
         startyear: Yup.string().required("Please select a start year"),

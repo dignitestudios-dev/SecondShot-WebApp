@@ -23,9 +23,11 @@ const ProfileDetails = () => {
   const { setProfilepic, user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [schools, setSchools] = useState("");
-  const getSchools =async () => {
+  const [customSchool, setCustomSchool] = useState("");
+
+  const getSchools = async () => {
     try {
-      const response =await axios.get("/api/admin/schools");
+      const response = await axios.get("/api/admin/schools");
       if (response?.status === 200) {
         setSchools(response?.data?.data);
       }
@@ -37,7 +39,7 @@ const ProfileDetails = () => {
   useEffect(() => {
     getSchools();
   }, []);
-  
+
   const {
     values,
     handleBlur,
@@ -59,7 +61,8 @@ const ProfileDetails = () => {
 
         formData.append("state", values.state);
         formData.append("city", values.country);
-        formData.append("address", values.schools || "");
+      formData.append("address", values.schools === "Other" ? customSchool : values.schools || "");
+
 
         if (values.profilePicture) {
           formData.append("profile_img", values.profilePicture);
@@ -262,34 +265,45 @@ const ProfileDetails = () => {
               </span>
             ) : null}
           </div>
-         <div className=" relative mt-3">
-  <SelectInput
-  name="schools"
-  id="schools"
-  value={values.schools}
-  onChange={(e) => {
-    handleChange(e);
-  }}
-  onBlur={handleBlur}
-  options={[
-    { value: "", label: "--Select School--" },
-    ...(Array.isArray(schools)
-      ? schools.map((school) => ({
-          value: school.name,   // ✅ name bhej rahe hain
-          label: school.name,   // dropdown me name dikhayega
-        }))
-      : []),
-  ]}
-/>
-
-{errors.schools && touched.schools ? (
-  <span className="text-red-700 text-sm font-medium">
-    {errors.schools}
-  </span>
-) : null}
-
-</div>
-
+          <div className=" relative mt-3">
+            <SelectInput
+              name="schools"
+              id="schools"
+              value={values.schools}
+              onChange={(e) => {
+                handleChange(e);
+                if (e.target.value !== "Other") {
+                  setCustomSchool(""); // reset jab normal school select ho
+                }
+              }}
+              onBlur={handleBlur}
+              options={[
+                { value: "", label: "--Select School--" },
+                ...(Array.isArray(schools)
+                  ? schools.map((school) => ({
+                      value: school.name,
+                      label: school.name,
+                    }))
+                  : []),
+                { value: "Other", label: "Other" }, // ✅ Extra option
+              ]}
+            />
+            {values.schools === "Other" && (
+              <div className="mt-3">
+                <AuthInput
+                  type="text"
+                  placeholder="Enter your school name"
+                  value={customSchool}
+                  onChange={(e) => setCustomSchool(e.target.value)}
+                />
+              </div>
+            )}
+            {errors.schools && touched.schools ? (
+              <span className="text-red-700 text-sm font-medium">
+                {errors.schools}
+              </span>
+            ) : null}
+          </div>
         </div>
         <div className="col-span-12">
           <div className=" flex justify-center space-x-2 mb-6">

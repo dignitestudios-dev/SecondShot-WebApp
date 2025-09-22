@@ -303,7 +303,7 @@ const NewTrasnferSkill = ({ id }) => {
           </h2>
         </div>
         <div className="flex gap-2 justify-end items-center max-w-screen-xl mx-auto mt-11 px-11 pe-11    ">
-          <div
+          {/* <div
             onClick={(e) =>
               subscriptionpaid
                 ? handleDownloadCombined(
@@ -321,7 +321,7 @@ const NewTrasnferSkill = ({ id }) => {
               src={Printimg}
               title="Print "
             />
-          </div>
+          </div> */}
           <div
             onClick={() =>
               subscriptionpaid

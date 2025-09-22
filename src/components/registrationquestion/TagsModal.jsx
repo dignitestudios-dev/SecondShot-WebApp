@@ -38,7 +38,7 @@ const TagsModal = ({
           placeholder="Search"
           className="w-full text-sm border border-gray-400 px-4 py-2 mb-4 rounded-xl outline-none placeholder-gray-900"
         />
-        <div className="flex-grow   overflow-auto scrollbar-custom mb-4">
+        <div className="flex-grow   overflow-auto scrollbar-custom mb-20">
           <div className="flex flex-wrap">
             {filteredTags.length > 0 ? (
               filteredTags.map((tag) => (

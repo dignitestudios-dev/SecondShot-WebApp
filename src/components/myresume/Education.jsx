@@ -108,7 +108,7 @@ const Education = ({
                         onChange={(e) => handleDegreeChange(e, index)}
                         onBlur={handleBlur}
                         placeholder="Enter your degree"
-                        maxLength={50}
+                     
                       />
 
                       {errors.educationList?.[index]?.degree &&
@@ -127,7 +127,7 @@ const Education = ({
                         onChange={(e) => handleStudyChange(e, index)}
                         onBlur={handleBlur}
                         placeholder="Enter your Field of Study"
-                        maxLength={50}
+                    
                       />
                       {errors.educationList?.[index]?.fieldofStudy &&
                         touched.educationList?.[index]?.fieldofStudy && (

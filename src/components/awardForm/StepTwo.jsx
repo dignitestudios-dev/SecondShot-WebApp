@@ -240,7 +240,7 @@ const StepTwo = ({
         img={GameTime}
         showModal={modalOpen}
         heading={"Congratulations!"}
-        para={`Second Shot has awarded ${profilename} the Playbook Pro Award for identifying her top Career Choice:${selectedCareer.join(
+        para={`Second Shot has awarded ${profilename} the Playbook Pro Award for identifying her top Career Choice: ${selectedCareer.join(
           ", "
         )}. Congratulations!`}
         handleClick={handleModalClose}

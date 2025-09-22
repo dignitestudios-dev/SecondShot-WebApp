@@ -93,7 +93,7 @@ const Honors = ({
                         placeholder={
                           "Enter Award Name (e.g., Employee of the Year, Academic Excellence Award)"
                         }
-                        maxLength={50}
+                         
                       />
                       {errors.honorsList?.[index]?.awardName &&
                         touched.honorsList?.[index]?.awardName && (
@@ -111,7 +111,7 @@ const Honors = ({
                         onChange={(e) => handleawardingChange(e, index)}
                         onBlur={handleBlur}
                         placeholder={"ABC Company"}
-                        maxLength={50}
+                       
                       />
                       {errors.honorsList?.[index]?.awardingOrganization &&
                         touched.honorsList?.[index]?.awardingOrganization && (

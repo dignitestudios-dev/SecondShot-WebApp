@@ -35,7 +35,7 @@ const StepFive = ({
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
       initialValues: {
-        ChampionAward: cardData[4] || "",
+        ChampionAward: cardData?.[4] || "",
       },
       validationSchema: stepFiveAward,
       validateOnChange: true,

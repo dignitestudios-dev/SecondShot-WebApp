@@ -21,27 +21,25 @@ const StepFour = ({
   questionId,
   getMyIdp,
   cardData,
-  idpData
+  idpData,
 }) => {
-
-  
-    const [loading, setLoading] = useState(false);
+  console.log(cardData,"cardData")
+  const [loading, setLoading] = useState(false);
   const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
     useFormik({
-    
       initialValues: {
-        linkdInprofile:cardData[3] || '',
+        linkdInprofile: cardData?.[3] || "",
       },
       validationSchema: stepFourAward,
       validateOnChange: true,
       validateOnBlur: true,
       onSubmit: async (values, action) => {
         setLinkdInprofile(values.linkdInprofile);
-        setLoading(true)
+        setLoading(true);
         try {
           const response = await axios.post("/api/user/update-idp-form", {
             questionId: questionId,
-            answer:values.linkdInprofile,
+            answer: values.linkdInprofile,
           });
           if (response.status === 200) {
             SuccessToast(response?.data?.message);
@@ -53,10 +51,9 @@ const StepFour = ({
         } finally {
           setLoading(false);
         }
-      
       },
     });
-    const{ profilename} =useContext(AuthContext)
+  const { profilename } = useContext(AuthContext);
 
   return (
     <div>
@@ -65,7 +62,9 @@ const StepFour = ({
           <img
             src={ChampionAward}
             className={`w-[90px] h-[85.63px] transition-opacity duration-500 ${
-              idpData?.data?.[3]?.answer?.length > 0 ? "opacity-100" : "opacity-20"
+              idpData?.data?.[3]?.answer?.length > 0
+                ? "opacity-100"
+                : "opacity-20"
             }`}
             alt=""
           />
@@ -80,7 +79,7 @@ const StepFour = ({
           htmlFor=""
           className="text-[14px] text-start font-[500] text-[#181818] mb-3 mt-3"
         >
-         {question}
+          {question}
         </label>
         <form action="" onSubmit={handleSubmit}>
           <div>
@@ -89,7 +88,7 @@ const StepFour = ({
               name="linkdInprofile"
               onChange={handleChange}
               onBlur={handleBlur}
-              value={values.linkdInprofile}
+              value={values?.linkdInprofile}
               type="text"
               className="w-full border rounded-[12px] p-2 h-[49px]  mb-2  mt-2 text-sm"
               placeholder="Lorem ipsum dolor sit amet consectetur."
@@ -102,7 +101,7 @@ const StepFour = ({
             )}
           </div>
           <div>
-            <AuthSubmitBtn text={"Submit"} type={"submit"}  loading={loading}/>
+            <AuthSubmitBtn text={"Submit"} type={"submit"} loading={loading} />
           </div>
         </form>
         <button
@@ -125,9 +124,7 @@ const StepFour = ({
         img={ChampionAward}
         showModal={modalOpen}
         heading={"Congratulations!"}
-        para={
-          `Second Shot has awarded  ${profilename} the Career Champion Award for completing her LinkedIn Profile. `
-        }
+        para={`Second Shot has awarded  ${profilename} the Career Champion Award for completing her LinkedIn Profile. `}
         handleClick={handleModalClose}
         onclick={() => setModalOpen(false)}
       />

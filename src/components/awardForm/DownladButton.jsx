@@ -120,7 +120,7 @@ const DownladButton = ({ idpData, getMyIdp }) => {
           title="Share"
         />
       </div>
-      <div
+      {/* <div
         onClick={() => handlePdf()}
         className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer"
       >
@@ -129,7 +129,7 @@ const DownladButton = ({ idpData, getMyIdp }) => {
           src={Printimg}
           title="Print"
         />
-      </div>
+      </div> */}
       <div
         onClick={() => handlePdf()}
         className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer"

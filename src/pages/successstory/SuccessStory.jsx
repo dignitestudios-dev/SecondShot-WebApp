@@ -12,7 +12,7 @@ function SuccessStory() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchallQuery, setSearchallQuery] = useState("");
   const [filteredMatchedPro, setfilteredMatchedPro] = useState([]);
-  const [selected, setSelected] = useState(1);
+  const [selected, setSelected] = useState(2);
   const [loading, setLoading] = useState(false);
   const [matchedLoading, setmatchedLoading] = useState(false);
   const [stories, setStories] = useState([]);
