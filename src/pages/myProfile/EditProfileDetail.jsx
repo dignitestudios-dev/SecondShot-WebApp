@@ -66,6 +66,7 @@ const EditProfileDetails = () => {
         formData.append("state", values.state);
         formData.append("city", values.city);
         formData.append("address", values.address || "");
+        formData.append("phone", values.phoneNumber || "");
 
         if (values.profilePicture) {
           formData.append("profile_img", values.profilePicture);
@@ -219,7 +220,8 @@ const EditProfileDetails = () => {
               name="phoneNumber"
               value={phoneFormater(values?.phoneNumber)}
               onChange={handleChange}
-              isDisabled
+              id={"phoneNumber"}
+              onBlur={handleBlur}
             />
           </div>
           <div className="relative w-full mt-3 ">

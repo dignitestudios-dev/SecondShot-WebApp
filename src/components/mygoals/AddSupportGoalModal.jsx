@@ -18,6 +18,7 @@ const AddSupportGoalModal = ({
   isUpdate,
   getGoalDetail,
   setSupportPeopleAdded,
+  
 }) => {
   const [loading, setLoading] = useState(false);
 

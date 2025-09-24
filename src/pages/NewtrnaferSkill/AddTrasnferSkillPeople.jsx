@@ -226,7 +226,7 @@ const AddTrasnferSkillPeople = ({
       );
 
       if (response.status === 200) {
-        SuccessToast(response?.data?.message);
+        SuccessToast('Email has been sent to support people successfully');
         setShowPeopleModal(false);
         gettransferableskill();
       }

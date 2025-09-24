@@ -1,24 +1,44 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Assesmentmodal, SubmitGoalimg } from "../../assets/export";
+import { SubmitGoalimg } from "../../assets/export";
 import AuthSubmitBtn from "../onboarding/AuthBtn";
-import AddSupportModal from "../myresume/AddSupportModal";
-import GoalCreatedModal from "./GoalCreatedModal";
 import { FiLoader } from "react-icons/fi";
+import { ErrorToast } from "../toaster/ToasterContainer";
 
 const GoalCompletedModal = ({
   showModal,
   onclick,
-  onClose,
-  handleClick,
   handlecreategoal,
-  loader,
-  setShowModalsupport,
+  supportPeopleAdded,
 }) => {
   const navigate = useNavigate();
 
-  const [showModalsupport, setShowModalSupport] = useState(false);
-  const [goalDetailModal, setGoalDetailModal] = useState(false);
+  // 🔹 Separate loader states
+  const [loaderNo, setLoaderNo] = useState(false);
+  const [loaderYes, setLoaderYes] = useState(false);
+
+  const handleNoClick = async () => {
+    try {
+      setLoaderNo(true);
+      await handlecreategoal();
+    } finally {
+      setLoaderNo(false);
+    }
+  };
+
+  const handleYesClick = async () => {
+    if (!supportPeopleAdded) {
+      ErrorToast("Please add at least one support person.");
+      return;
+    }
+    try {
+      setLoaderYes(true);
+      await handlecreategoal();
+    } finally {
+      setLoaderYes(false);
+    }
+  };
+
   return (
     <>
       {showModal && (
@@ -42,26 +62,25 @@ const GoalCompletedModal = ({
                 Would you like to share your goal with your support network?
               </h2>
               <div className="flex justify-between">
+                {/* NO button */}
                 <button
-                  className=" w-[207px] h-[49px] bg-[#E5EAED] rounded-[8px] text-[#000000] font-[500] "
-                  onClick={() => {
-                    handlecreategoal();
-                 
-                  }}
+                  className="w-[207px] h-[49px] bg-[#E5EAED] rounded-[8px] text-[#000000] font-[500]"
+                  onClick={handleNoClick}
+                  disabled={loaderNo || loaderYes}
                 >
                   <div className="flex items-center justify-center">
                     <span className="mr-1">No</span>
-                    {loader && <FiLoader className="animate-spin text-lg" />}
-                  </div>{" "}
+                    {loaderNo && <FiLoader className="animate-spin text-lg" />}
+                  </div>
                 </button>
-                <div className="w-[207px] ">
+
+                {/* YES button */}
+                <div className="w-[207px]">
                   <AuthSubmitBtn
                     text={"Yes"}
-                    handleSubmit={() => {
-                      handleClick();
-                      setGoalDetailModal(true);
-                      setShowModalsupport(true);
-                    }}
+                    handleSubmit={handleYesClick}
+                    loading={loaderYes}
+                    disabled={loaderNo || loaderYes}
                   />
                 </div>
               </div>
@@ -69,8 +88,6 @@ const GoalCompletedModal = ({
           </div>
         </div>
       )}
-
-      
     </>
   );
 };

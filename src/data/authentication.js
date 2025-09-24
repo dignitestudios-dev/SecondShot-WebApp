@@ -14,7 +14,8 @@ export const signInValues = {
 export const profileValues = {
   country: "",
   state: "",
-  schools:"",
+  schools: "",
+  phone: "",
   profilePicture: null,
 };
 

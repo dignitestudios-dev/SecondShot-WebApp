@@ -7,10 +7,10 @@ const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
-  const { profilepic } = useContext(AuthContext);
+  const { profilepic, user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const chatbotref = useRef(null);
-
+  console.log(profilepic, "profilepic");
   const toggleChat = () => setIsOpen(!isOpen);
 
   const handleSend = async () => {
@@ -65,6 +65,7 @@ const Chatbot = () => {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
+  console.log(messages, "messages");
   return (
     <div className="fixed bottom-1 right-4 z-50">
       <div onClick={toggleChat} className="cursor-pointer">
@@ -106,19 +107,21 @@ const Chatbot = () => {
                   msg?.sender === "user" ? "end" : "start"
                 }`}
               >
+                {console.log(msg.sender, "msg.sender")}
                 <div
-                  className={`max-w-[75%] flex items-start p-2 break-all overflow-x-hidden rounded-lg`}
+                  className={`max-w-[85%] flex items-start p-2 break-all overflow-x-hidden rounded-lg`}
                 >
                   <div>
-                    <div
-                      className={`max-w-[100%] p-2 pe-4 px-4 break-all overflow-x-hidden rounded-lg ${
-                        msg.sender === "user"
-                          ? "bg-[#012C57] text-white ml-auto rounded-l-[20px] rounded-tr-[20px]"
-                          : "bg-gray-200 text-black mr-auto rounded-r-[20px] rounded-tl-[20px]"
-                      }`}
-                    >
-                      {msg?.text}
-                    </div>
+                   <div
+  className={`max-w-[100%] p-2 pe-4 px-4 whitespace-normal break-keep overflow-x-hidden rounded-lg ${
+    msg.sender === "user"
+      ? "bg-[#012C57] text-white ml-auto rounded-l-[20px] rounded-tr-[20px]"
+      : "bg-gray-200 text-black mr-auto rounded-r-[20px] rounded-tl-[20px]"
+  }`}
+>
+  {msg?.text}
+</div>
+
                     <div
                       className={`text-[12px] font-[500] text-black mt-1 ${
                         msg?.sender === "user" ? "text-end" : "text-start"
@@ -127,13 +130,23 @@ const Chatbot = () => {
                       {msg?.time}
                     </div>
                   </div>
-                  {msg?.sender === "user" && (
-                    <img
-                      src={profilepic}
-                      alt="User Avatar"
-                      className="w-[42px] h-[42px] ml-2 rounded-full"
-                    />
-                  )}
+                  {msg?.sender === "user" &&
+                    (profilepic ? (
+                      <img
+                        src={profilepic}
+                        alt="User Avatar"
+                        className="w-[42px] h-[42px] ml-2 rounded-full"
+                      />
+                    ) : (
+                      <div className="w-[42px] h-[42px] ml-2 rounded-full bg-[#012C57] flex items-center justify-center text-white font-bold">
+                        {user?.name
+                          ?.split(" ")
+                          .map((word) => word[0])
+                          .join("")
+                          .slice(0, 2)
+                          .toUpperCase()}
+                      </div>
+                    ))}
                 </div>
               </div>
             ))}

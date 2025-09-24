@@ -336,6 +336,7 @@ function ReviewYourGoalOld() {
         handlecreategoal={handlecreategoal}
         setShowModalsupport={setShowModalsupport}
         onclick={() => setShareModal(false)}
+        supportPeopleAdded={supportPeopleAdded}
         handleClick={() => {
           setShareModal(false); // Close the current modal
           setShowModalsupport(true); // Open the Add Support Modal

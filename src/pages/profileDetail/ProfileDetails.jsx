@@ -61,8 +61,11 @@ const ProfileDetails = () => {
 
         formData.append("state", values.state);
         formData.append("city", values.country);
-      formData.append("address", values.schools === "Other" ? customSchool : values.schools || "");
-
+        formData.append(
+          "address",
+          values.schools === "Other" ? customSchool : values.schools || ""
+        );
+        formData.append("phone", values.phone || "");
 
         if (values.profilePicture) {
           formData.append("profile_img", values.profilePicture);
@@ -212,7 +215,13 @@ const ProfileDetails = () => {
         <div className="hidden md:block w-[1px] h-[70%] bg-gray-200 -ml-4 mt-10"></div>
         <div className="col-span-12 md:col-span-5 gap-y-4 px-12 md:px-36 md:-ml-52 lg:px-28 lg:-ml-48">
           <div className=" mt-5">
-            <PhoneInputs value={phoneFormater(user?.phone)} isDisabled />
+            <PhoneInputs
+              value={phoneFormater(values?.phone)}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              name="phone"
+              id="phone"
+            />
           </div>
           <div className="relative w-full mt-3 ">
             <SelectInput
