@@ -28,7 +28,7 @@ import { ModalContext } from "../../context/GlobalContext";
 import { AuthContext } from "../../context/AuthContext";
 import LockModal from "./LockModal";
 import CommingSoonModal from "./CommingSoonModal";
-
+import axios from '../../axios'
 const CareerToolbox = () => {
   const navigate = useNavigate();
   const { showModal, closeModal, isFirst, setIsFirst } =
@@ -48,6 +48,7 @@ const CareerToolbox = () => {
       btnBg: isFirst.transferable === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Discover the valuable skills you've acquired. Explore how to use them to shape your future and apply them across different areas of your life.",
       path: "/transferablekills",
+      keyName: "transferableSkills",
       btn:
         subscriptionpaid === true && isFirst.transferable === true
           ? "Unlock"
@@ -64,6 +65,8 @@ const CareerToolbox = () => {
       bgcolors: "bg-gradient-to-b from-[#FF6CAC] to-[#ED3283]",
       title: "Career Recommendations",
       cardimage: Card2,
+      keyName: "careerRecommendation", // 🔑
+
       btnBg: isFirst.recommendation === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Take a short assessment to receive recommended careers, sample job descriptions, and recommended pathways to success. You will receive 5 career matches.",
       path: "/careerrecommendation",
@@ -73,6 +76,8 @@ const CareerToolbox = () => {
       cardicons: Carriericon3,
       bgcolors: "bg-gradient-to-t from-[#9156A2] to-[#DE6CFF]",
       title: "Resume Builder",
+      keyName: "resumeBuilder", // 🔑
+
       cardimage: Card3,
       btnBg: isFirst.myresume === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Use this template to build your resume and stand out from your competition.",
@@ -84,6 +89,8 @@ const CareerToolbox = () => {
       bgcolors: "bg-gradient-to-t from-[#00303A] to-[#3893A7]",
       title: "Goal Setting",
       cardimage: Card4,
+      keyName: "goals", // 🔑
+
       btnBg: isFirst.mygoals === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Establish a clear action plan to turn your goals into reality. This goal setting provides focus, drives motivation, keeps you accountable and offers a roadmap for success.",
       path: "/mygoals",
@@ -94,6 +101,8 @@ const CareerToolbox = () => {
       cardicons: Carriericon5,
       bgcolors: "bg-gradient-to-t from-[#5A8D15] to-[#A8EA51]",
       title: "Success Stories",
+      keyName: "successStory", // 🔑
+
       cardimage: Card5,
       btnBg: isFirst.successstory === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Explore success stories from individuals who have similar experiences and share your interests.",
@@ -104,6 +113,8 @@ const CareerToolbox = () => {
       cardicons: Carriericon6,
       bgcolors: "bg-gradient-to-t from-[#D39100] to-[#FFDF9B]",
       title: "Personal Plan",
+      keyName: "personalPlan", // 🔑
+
       cardimage: Card6,
       btnBg: isFirst.mylibrary === true ? "bg-gray-400" : "bg-[#FFFFFF1A]",
       para: "Mark and save your favorite skills and careers for quick reference.",
@@ -138,7 +149,7 @@ const CareerToolbox = () => {
       btn: "Coming Soon",
     },
   ];
-  const handleNavigation = (item) => {
+  const handleNavigation = async (item) => {
     if (
       !subscriptionpaid &&
       item.title !== "Transferable Skills" &&
@@ -154,6 +165,15 @@ const CareerToolbox = () => {
 
     if (item.btn === "Coming Soon") {
       setCommingSoon(true);
+    }
+    if (item.keyName) {
+      try {
+        await axios.post("/api/user/update-card-usage", {
+          cardKey: item.keyName,
+        });
+      } catch (error) {
+        console.error("Error updating card usage:", error);
+      }
     }
     navigate(item.path);
   };
