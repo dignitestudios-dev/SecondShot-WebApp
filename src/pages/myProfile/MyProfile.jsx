@@ -259,14 +259,14 @@ function MyProfile() {
                         <p className="text-black text-base">
                           +1 {phoneFormater(profileData?.phone || "")}
                         </p>
-                        {profileData?.address ? (
+                        {profileData?.school ? (
                           <>
                             {" "}
                             <p className="text-black font-medium text-base  ">
                               School / Organization name
                             </p>
                             <p className="text-black font-normal text-base  ">
-                              {profileData?.address || ""}
+                              {profileData?.school || ""}
                             </p>
                           </>
                         ) : (

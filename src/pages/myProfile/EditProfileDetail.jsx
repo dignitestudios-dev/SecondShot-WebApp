@@ -53,7 +53,7 @@ const EditProfileDetails = () => {
       phoneNumber: profileData?.phone?.replace(/^\+1/, "") || "",
       state: profileData?.state || "",
       city: profileData?.city || "",
-      address: profileData?.address || "",
+      school: profileData?.school || "",
       profilePicture: null,
     },
     validationSchema: EditProfileSchema,
@@ -65,7 +65,7 @@ const EditProfileDetails = () => {
         formData.append("name", values.fullname);
         formData.append("state", values.state);
         formData.append("city", values.city);
-        formData.append("address", values.address || "");
+        formData.append("school", values.school || "");
         formData.append("phone", values.phoneNumber || "");
 
         if (values.profilePicture) {
@@ -282,9 +282,9 @@ const EditProfileDetails = () => {
 
           <div className="relative mt-3">
             <SelectInput
-              name="address"
-              id="address"
-              value={values.address}
+              name="school"
+              id="school"
+              value={values.school}
               onChange={(e) => {
                 handleChange(e);
               }}
@@ -300,9 +300,9 @@ const EditProfileDetails = () => {
               ]}
             />
 
-            {errors.schools && touched.schools ? (
+            {errors.school && touched.school ? (
               <span className="text-red-700 text-sm font-medium">
-                {errors.schools}
+                {errors.school}
               </span>
             ) : null}
           </div>

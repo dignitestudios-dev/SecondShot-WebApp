@@ -24,7 +24,7 @@ const ProfileDetails = () => {
   const [loading, setLoading] = useState(false);
   const [schools, setSchools] = useState("");
   const [customSchool, setCustomSchool] = useState("");
-
+  console.log(user, "user");
   const getSchools = async () => {
     try {
       const response = await axios.get("/api/admin/schools");
@@ -49,7 +49,10 @@ const ProfileDetails = () => {
     errors,
     touched,
   } = useFormik({
-    initialValues: profileValues,
+    initialValues: {
+      ...profileValues,
+      phone: user?.phone || "", // prefill Formik state
+    },
     validationSchema: profileSchema,
     validateOnChange: true,
     validateOnBlur: true,
@@ -62,7 +65,7 @@ const ProfileDetails = () => {
         formData.append("state", values.state);
         formData.append("city", values.country);
         formData.append(
-          "address",
+          "school",
           values.schools === "Other" ? customSchool : values.schools || ""
         );
         formData.append("phone", values.phone || "");
