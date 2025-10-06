@@ -352,13 +352,13 @@ export const generateCombinedPDF = async (
   userData,
   elementId,
   filename = "profile-report.pdf",
-  subscriptionpaid,
-  profilename,
+  subscriptionPaid,
+  profileName,
   setIsSnapshot
 ) => {
-  setIsSnapshot(true);
   try {
-    // Validate inputs (existing code)
+    setIsSnapshot(true); // Start snapshot
+
     if (!userData) {
       console.error("Cannot generate PDF: User data is missing");
       return;
@@ -370,127 +370,112 @@ export const generateCombinedPDF = async (
       return;
     }
 
-    // Hide pdf-exclude elements (existing code)
+    // Hide pdf-exclude elements
     const excludeElements = document.querySelectorAll(".pdf-exclude");
     excludeElements.forEach((el) => (el.style.display = "none"));
 
-    try {
-      // Set padding to prevent left/right cutting
-      const padding = 50;
+    // Wait for all images to load before canvas capture
+    const images = element.querySelectorAll("img");
+    await Promise.all(
+      Array.from(images).map((img) => {
+        if (!img.complete) {
+          return new Promise((resolve) => (img.onload = img.onerror = resolve));
+        }
+      })
+    );
 
-      // Capture element with higher scale for better quality
-      const canvas = await html2canvas(element, {
-        scale: 2,
-        backgroundColor: "#ffffff",
-      });
+    const padding = 50;
 
-      // Create a new padded canvas (existing code)
-      const paddedCanvas = document.createElement("canvas");
-      const ctx = paddedCanvas.getContext("2d");
-      paddedCanvas.width = canvas.width + 2 * padding;
-      paddedCanvas.height = canvas.height + 2 * padding;
-      ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, paddedCanvas.width, paddedCanvas.height);
-      ctx.drawImage(canvas, padding, padding);
+    // Capture element with html2canvas
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      backgroundColor: "#ffffff",
+      useCORS: true, // Handle cross-origin images
+    });
 
-      // Create PDF document (existing code)
-      const pdfWidth = 210; // A4 width in mm
-      const pdfHeight = 297; // A4 height in mm
-      const pdf = new jsPDF({
-        orientation: "portrait",
-        unit: "mm",
-        format: [pdfWidth, pdfHeight],
-      });
+    // Create padded canvas
+    const paddedCanvas = document.createElement("canvas");
+    const ctx = paddedCanvas.getContext("2d");
+    paddedCanvas.width = canvas.width + 2 * padding;
+    paddedCanvas.height = canvas.height + 2 * padding;
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, paddedCanvas.width, paddedCanvas.height);
+    ctx.drawImage(canvas, padding, padding);
 
-      // STEP 3: Add logo, heading, and subheading to the first page
-      // Calculate content width to match snapshot width
-      const contentWidth = pdfWidth - 20; // Keep some margin
-      const leftMargin = 20; // Left margin for alignment
+    // Initialize jsPDF
+    const pdfWidth = 210; // mm
+    const pdfHeight = 297; // mm
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+      format: [pdfWidth, pdfHeight],
+    });
 
-      // Add logo (you'll need to have the logo available)
-      const logoWidth = 60; // adjust as needed, in mm
-      const logoHeight = 50; // adjust as needed, in mm
-      const logoX = (pdfWidth - logoWidth) / 2; // Center horizontally
-      const logoY = 15; // Position from top
+    // Add logo and header
+    const logoWidth = 60;
+    const logoHeight = 50;
+    const logoX = (pdfWidth - logoWidth) / 2;
+    const logoY = 15;
+    pdf.addImage(
+      "https://secondshot-app.vercel.app/assets/newLogo-BTPOwHSu.png",
+      "PNG",
+      logoX,
+      logoY,
+      logoWidth,
+      logoHeight
+    );
 
-      // Add your logo - use a base64 string or a URL (commented out as before)
-      pdf.addImage(
-        "https://secondshot-app.vercel.app/assets/newLogo-BTPOwHSu.png",
-        "PNG",
-        logoX,
-        logoY,
-        logoWidth,
-        logoHeight
-      );
+    // Add report title
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(10);
+    pdf.text(
+      "Second Shot Career Prep Toolbox Report",
+      pdfWidth / 2,
+      logoY + logoHeight + 1,
+      { align: "center" }
+    );
 
-      // Center the main title
-      // Set up coordinates
-      const titleY = logoY + logoHeight + 1;
-      const preparedForY = titleY + 6;
-      const transferableY = preparedForY + 5; // Give some space below "Prepared For"
+    // Add "Prepared For"
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(10);
+    pdf.text(
+      `Prepared For: ${profileName}`,
+      pdfWidth / 2,
+      logoY + logoHeight + 7,
+      { align: "center" }
+    );
 
-      // Title
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(10);
-      pdf.text("Second Shot Career Prep Toolbox Report", pdfWidth / 2, titleY, {
-        align: "center",
-      });
+    // Add snapshot image
+    const contentWidth = pdfWidth - 20; // margin
+    const contentHeight =
+      (paddedCanvas.height * contentWidth) / paddedCanvas.width;
+    const snapshotY = logoY + logoHeight + 20; // space after header
+    pdf.addImage(
+      paddedCanvas.toDataURL("image/jpeg", 0.7),
+      "JPEG",
+      10,
+      snapshotY,
+      contentWidth,
+      contentHeight
+    );
 
-      // Prepared For
-      pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(10);
-      pdf.text(`Prepared For : ${profilename}`, pdfWidth / 2, preparedForY, {
-        align: "center",
-      });
+    // Add structured data
+    pdf.addPage();
+    addStructuredContent(pdf, userData, subscriptionPaid);
 
-      // ✅ Transferable Skills Report (LEFT aligned)
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(12);
-      pdf.text("Transferable Skills Report", leftMargin, transferableY);
-
-      // Add subheading also aligned to the left, positioned below the heading
-      pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(12);
-
-      // Reset font
-      pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(10);
-
-      // Position of snapshot image - adjusted to be below the header content
-      const snapshotY = logoY + logoHeight + 25; // Adjust this value as needed
-
-      // Calculate content height maintaining aspect ratio
-      const contentHeight =
-        (paddedCanvas.height * contentWidth) / paddedCanvas.width;
-
-      // Add snapshot image to first page - adjust Y position
-      pdf.addImage(
-        paddedCanvas.toDataURL("image/jpeg", 0.7),
-        "JPEG",
-        10, // x position
-        snapshotY, // y position - adjusted
-        contentWidth,
-        contentHeight
-      );
-
-      // STEP 4: Generate and add structured data on subsequent pages (existing code)
-      pdf.addPage();
-      addStructuredContent(pdf, userData, subscriptionpaid);
-
-      // STEP 5: Save the PDF (existing code)
-      pdf.save(filename);
-    } finally {
-      // Restore visibility of hidden elements (existing code)
-      document
-        .querySelectorAll(".pdf-exclude")
-        .forEach((el) => (el.style.display = ""));
-      setIsSnapshot(false);
-      // Reset the snapshot state
-    }
+    // Save PDF (blocking until complete)
+    pdf.save(filename);
   } catch (error) {
     console.error("Error generating combined PDF:", error);
+  } finally {
+    // Restore hidden elements
+    document
+      .querySelectorAll(".pdf-exclude")
+      .forEach((el) => (el.style.display = ""));
+    setIsSnapshot(false);
   }
 };
+
 /**
  * Adds structured content to the PDF (adapted from your existing generateProfilePDF function)
  *
@@ -611,8 +596,6 @@ function addStructuredContent(doc, userData, subscriptionpaid) {
       userData.athlete &&
       userData.athlete.primary_sport
     ) {
-     
-
       // Extract topics from the hobby data
       const hobbyTopics = userData.athlete.primary_sport.topics || [];
       if (Array.isArray(hobbyTopics)) {
@@ -654,8 +637,6 @@ function addStructuredContent(doc, userData, subscriptionpaid) {
       userData.athlete &&
       userData.athlete.sport_position
     ) {
-    
-
       // Extract topics from the hobby data
       const hobbyTopics = userData.athlete.sport_position.topics || [];
       if (Array.isArray(hobbyTopics)) {
@@ -832,14 +813,15 @@ export const downloadCombinedPDF = async (
   setIsSnapshot,
   loaders
 ) => {
-  if (loaders === true) {
-    setDownloading(true);
-  } else {
-    setDownloading(false);
-  }
+  // if (loaders === true) {
+  //   setDownloading(true);
+  // } else {
+  //   setDownloading(false);
+  // }
 
-  setIsSnapshot(true); // Set the snapshot state to true
   try {
+    if (loaders) setDownloading(true);
+    setIsSnapshot(true); // Set the snapshot state to true
     const userData = normalizeUserData(data);
     if (!userData) {
       console.error("No valid user data available for PDF generation");
