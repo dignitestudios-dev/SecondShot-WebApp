@@ -42,8 +42,8 @@ export function createPDFWithUserDataAndResume(
   const contentWidth = pdfWidth - 20; // Keep some margin
 
   // Add logo (you'll need to have the logo available)
-  const logoWidth = 40; // adjust as needed, in mm
-  const logoHeight = 40; // adjust as needed, in mm
+  const logoWidth = 70; // adjust as needed, in mm
+  const logoHeight = 60; // adjust as needed, in mm
   const logoX = (pdfWidth - logoWidth) / 2; // Center horizontally
   const logoY = 15; // Position from top
   pdf.addImage(
@@ -313,7 +313,6 @@ export function createPDFWithUserDataAndResume(
   }
   // Add PDF title
   pdf.addPage();
-  
 
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(16);

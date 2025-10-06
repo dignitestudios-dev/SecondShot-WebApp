@@ -171,10 +171,10 @@ const GoalDetail = () => {
     <div>
       <div className="flex items-center gap-1 mb-3 mt-3 text-[12px] font-[600]">
         <IoIosArrowBack
-          className="font-[600]"
+          className="font-[600] cursor-pointer"
           onClick={() => navigate("/mygoals")}
         />
-        <span onClick={() => navigate("/mygoals")}>BACK</span>
+        <span className="cursor-pointer" onClick={() => navigate("/mygoals")}>BACK</span>
       </div>
       {loader ? (
         <div className="animate-pulse p-6 space-y-4 mt-4 bg-white rounded-lg shadow-md">

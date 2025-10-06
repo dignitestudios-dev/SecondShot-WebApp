@@ -4,6 +4,7 @@ import Backbutton from "../../components/Global/Backbutton";
 import { Creategoalimg } from "../../assets/export";
 import AuthSubmitBtn from "../../components/onboarding/AuthBtn";
 import CreateGoalModal from "../../components/mygoals/CreateGoalModal";
+import { IoIosArrowBack } from "react-icons/io";
 
 const AddGoals = () => {
   const navigate = useNavigate();
@@ -22,7 +23,13 @@ const AddGoals = () => {
 
   return (
     <div className="max-w-screen-xl min-h-screen mx-auto p-8">
-      <Backbutton />
+      <div className="flex items-center gap-1 mb-3 mt-3 text-[12px] font-[600]">
+            <IoIosArrowBack
+              className="font-[600] cursor-pointer"
+              onClick={() => navigate("/mygoals")}
+            />
+            <span className="cursor-pointer" onClick={() => navigate("/mygoals")}>BACK</span>
+          </div>
       <CreateGoalModal
         showModal={showModal}
         handleClick={handleModal}
