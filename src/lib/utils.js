@@ -840,7 +840,7 @@ export const downloadCombinedPDF = async (
     console.error("Error generating combined PDF:", error);
   } finally {
     setDownloading(false);
-    setIsSnapshot(false); // Reset the snapshot state
+    setIsSnapshot(false); 
   }
 };
 

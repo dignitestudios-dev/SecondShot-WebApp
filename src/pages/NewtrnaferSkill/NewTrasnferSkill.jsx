@@ -412,7 +412,10 @@ const NewTrasnferSkill = ({ id }) => {
           setShowPeopleModal={setShowPeopleModal}
           profilename={profilename}
         />
-{/*  */}
+{/*  */}{loading ? (
+  <></>
+):(
+
         <div id="download-skills" className={"absolute  -z-50 bottom-0"}>
           <div
             className={`  ${
@@ -2391,6 +2394,7 @@ const NewTrasnferSkill = ({ id }) => {
             </div>
           </div>
         </div>
+)}
 
         <TransferableSkillsModal
           isOpen={isFirst.transferable}
