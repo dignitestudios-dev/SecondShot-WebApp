@@ -352,13 +352,12 @@ export const generateCombinedPDF = async (
   userData,
   elementId,
   filename = "profile-report.pdf",
-  subscriptionPaid,
-  profileName,
+  subscriptionpaid,
+  profilename,
   setIsSnapshot
 ) => {
+  setIsSnapshot(true);
   try {
-    setIsSnapshot(true); // Start snapshot
-
     if (!userData) {
       console.error("Cannot generate PDF: User data is missing");
       return;
@@ -370,11 +369,11 @@ export const generateCombinedPDF = async (
       return;
     }
 
-    // Hide pdf-exclude elements
+    // 🔹 Hide elements not for PDF
     const excludeElements = document.querySelectorAll(".pdf-exclude");
     excludeElements.forEach((el) => (el.style.display = "none"));
 
-    // Wait for all images to load before canvas capture
+    // 🔹 Wait for all images to load
     const images = element.querySelectorAll("img");
     await Promise.all(
       Array.from(images).map((img) => {
@@ -384,16 +383,47 @@ export const generateCombinedPDF = async (
       })
     );
 
-    const padding = 50;
+    // 🔹 Temporarily disable transitions and animations
+    const style = document.createElement("style");
+    style.innerHTML = `
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+    `;
+    document.head.appendChild(style);
 
-    // Capture element with html2canvas
+    // 🔹 Temporarily bring hidden element to front
+    const prevZIndex = element.style.zIndex;
+    const prevOpacity = element.style.opacity;
+    const prevVisibility = element.style.visibility;
+    const prevPosition = element.style.position;
+
+    element.style.zIndex = "9999";
+    element.style.opacity = "1";
+    element.style.visibility = "visible";
+    element.style.position = "relative";
+
+    // Wait a bit for layout to stabilize
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    // 🔹 Capture element
+    const padding = 50;
     const canvas = await html2canvas(element, {
       scale: 2,
       backgroundColor: "#ffffff",
-      useCORS: true, // Handle cross-origin images
+      useCORS: true,
+      logging: false,
     });
 
-    // Create padded canvas
+    // 🔹 Restore original styles
+    element.style.zIndex = prevZIndex;
+    element.style.opacity = prevOpacity;
+    element.style.visibility = prevVisibility;
+    element.style.position = prevPosition;
+    document.head.removeChild(style);
+
+    // 🔹 Add padding around canvas
     const paddedCanvas = document.createElement("canvas");
     const ctx = paddedCanvas.getContext("2d");
     paddedCanvas.width = canvas.width + 2 * padding;
@@ -402,16 +432,16 @@ export const generateCombinedPDF = async (
     ctx.fillRect(0, 0, paddedCanvas.width, paddedCanvas.height);
     ctx.drawImage(canvas, padding, padding);
 
-    // Initialize jsPDF
-    const pdfWidth = 210; // mm
-    const pdfHeight = 297; // mm
+    // 🔹 Create PDF
+    const pdfWidth = 210; // A4 width (mm)
+    const pdfHeight = 297; // A4 height (mm)
     const pdf = new jsPDF({
       orientation: "portrait",
       unit: "mm",
       format: [pdfWidth, pdfHeight],
     });
 
-    // Add logo and header
+    // Add logo + header
     const logoWidth = 60;
     const logoHeight = 50;
     const logoX = (pdfWidth - logoWidth) / 2;
@@ -425,33 +455,35 @@ export const generateCombinedPDF = async (
       logoHeight
     );
 
-    // Add report title
     pdf.setFont("helvetica", "bold");
     pdf.setFontSize(10);
     pdf.text(
       "Second Shot Career Prep Toolbox Report",
       pdfWidth / 2,
-      logoY + logoHeight + 1,
-      { align: "center" }
+      logoY + logoHeight + 2,
+      {
+        align: "center",
+      }
     );
 
-    // Add "Prepared For"
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(10);
     pdf.text(
-      `Prepared For: ${profileName}`,
+      `Prepared For: ${profilename}`,
       pdfWidth / 2,
-      logoY + logoHeight + 7,
-      { align: "center" }
+      logoY + logoHeight + 8,
+      {
+        align: "center",
+      }
     );
 
-    // Add snapshot image
-    const contentWidth = pdfWidth - 20; // margin
+    // Add snapshot to first page
+    const contentWidth = pdfWidth - 20;
     const contentHeight =
       (paddedCanvas.height * contentWidth) / paddedCanvas.width;
-    const snapshotY = logoY + logoHeight + 20; // space after header
+    const snapshotY = logoY + logoHeight + 20;
     pdf.addImage(
-      paddedCanvas.toDataURL("image/jpeg", 0.7),
+      paddedCanvas.toDataURL("image/jpeg", 0.8),
       "JPEG",
       10,
       snapshotY,
@@ -459,16 +491,16 @@ export const generateCombinedPDF = async (
       contentHeight
     );
 
-    // Add structured data
+    // Add structured content to second page
     pdf.addPage();
-    addStructuredContent(pdf, userData, subscriptionPaid);
+    addStructuredContent(pdf, userData, subscriptionpaid);
 
-    // Save PDF (blocking until complete)
+    // Save file
     pdf.save(filename);
   } catch (error) {
     console.error("Error generating combined PDF:", error);
   } finally {
-    // Restore hidden elements
+    // Always restore everything
     document
       .querySelectorAll(".pdf-exclude")
       .forEach((el) => (el.style.display = ""));
@@ -840,7 +872,7 @@ export const downloadCombinedPDF = async (
     console.error("Error generating combined PDF:", error);
   } finally {
     setDownloading(false);
-    setIsSnapshot(false); 
+    setIsSnapshot(false);
   }
 };
 
