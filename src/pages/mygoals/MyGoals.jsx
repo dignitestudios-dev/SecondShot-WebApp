@@ -11,7 +11,7 @@ import StartGoal from "./StartGoal";
 function MyGoals() {
   const navigate = useNavigate();
   const [selectedButton, setSelectedButton] = useState("All");
-  const buttons = ["All", "Not Started yet", "In Progress", "Completed"];
+  const buttons = ["All", "In Progress", "Completed"];
   const [searchQuery, setSearchQuery] = useState("");
 
   const { isFirst, setIsFirst } = useContext(ModalContext);
