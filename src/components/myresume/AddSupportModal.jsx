@@ -219,7 +219,7 @@ const AddSupportModal = ({
 
       const formData = new FormData();
       formData.append("resumeId", resumeData?._id);
-      formData.append("resume", pdfBlob, "resume.pdf");
+      formData.append("resume", pdfBlob, "Resume.pdf");
       formData.append("supportPeople", JSON.stringify(supportPeople));
       const response = await axios.post(
         "/api/user/add-support-people",

@@ -383,7 +383,7 @@ export const generateCombinedPDF = async (
       })
     );
 
-    // 🔹 Temporarily disable transitions and animations
+    // 🔹 Temporarily disable transitions globally
     const style = document.createElement("style");
     style.innerHTML = `
       * {
@@ -404,8 +404,24 @@ export const generateCombinedPDF = async (
     element.style.visibility = "visible";
     element.style.position = "relative";
 
-    // Wait a bit for layout to stabilize
+    // Wait for layout to stabilize
     await new Promise((resolve) => setTimeout(resolve, 500));
+
+    // ✅ Disable transitions/effects specifically on this element (fixes faded snapshot)
+    const downloadEl = document.getElementById(elementId);
+    if (downloadEl) {
+      downloadEl.classList.add("pdf-capture-mode");
+      downloadEl.style.transition = "none";
+      downloadEl.style.opacity = "1";
+      downloadEl.style.filter = "none";
+      downloadEl.style.background = "#ffffff";
+      downloadEl.querySelectorAll("*").forEach((el) => {
+        el.style.transition = "none";
+        el.style.filter = "none";
+        el.style.opacity = "1";
+        el.style.backdropFilter = "none";
+      });
+    }
 
     // 🔹 Capture element
     const padding = 50;
@@ -415,6 +431,15 @@ export const generateCombinedPDF = async (
       useCORS: true,
       logging: false,
     });
+
+    // ✅ Restore styles after snapshot
+    if (downloadEl) {
+      downloadEl.classList.remove("pdf-capture-mode");
+      downloadEl.removeAttribute("style");
+      downloadEl.querySelectorAll("*").forEach((el) =>
+        el.removeAttribute("style")
+      );
+    }
 
     // 🔹 Restore original styles
     element.style.zIndex = prevZIndex;
@@ -507,6 +532,7 @@ export const generateCombinedPDF = async (
     setIsSnapshot(false);
   }
 };
+
 
 /**
  * Adds structured content to the PDF (adapted from your existing generateProfilePDF function)

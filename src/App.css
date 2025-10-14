@@ -42,6 +42,13 @@
   }
 }
 
+.pdf-capture-mode * {
+  transition: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+  backdrop-filter: none !important;
+}
+
 .bg-grad-button {
   background: rgb(1, 44, 87);
   background: linear-gradient(230.2deg, #012c57 17.65%, #061523 129%);
@@ -233,7 +240,7 @@ input[type=number] {
   100% {
     opacity: 1;
     transform: translateY(0);
-    
+
   }
 }
 
