@@ -158,9 +158,7 @@ const ViewResume = () => {
 
       formData.append("resume", pdfBlob, filename);
 
-      await axios.post("/api/user/send-to-email", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      await axios.post("/api/user/send-to-email", formData, );
 
       SuccessToast("Resume emailed successfully!");
     } catch (error) {

@@ -17,7 +17,7 @@ const GoalCreatedModal = ({
 }) => {
   const navigate = useNavigate();
   const handleNavigation = () => {
-    navigate("/careerdetails");
+    navigate("/goal-detail");
   };
 
   const [showModalsupport, setShowModalSupport] = useState(false);

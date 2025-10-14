@@ -105,23 +105,26 @@ const ProfileDetails = () => {
     }
   };
   const phoneFormater = (input) => {
-    if (!input) return ""; // Return an empty string if input is undefined, null, or an empty string
+  if (!input) return "";
 
-    const cleaned = input.replace(/\D/g, ""); // Remove all non-numeric characters
+  let cleaned = input.replace(/\D/g, ""); // remove all non-digits
 
-    if (cleaned.length > 3 && cleaned.length <= 6) {
-      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
-    } else if (cleaned.length > 6) {
-      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(
-        6,
-        10
-      )}`;
-    } else if (cleaned.length > 0) {
-      return `(${cleaned}`;
-    }
+  // Remove leading "1" if it's the country code (US)
+  if (cleaned.startsWith("1") && cleaned.length === 11) {
+    cleaned = cleaned.slice(1);
+  }
 
-    return cleaned; // Return cleaned number if less than 1 digit
-  };
+  if (cleaned.length > 3 && cleaned.length <= 6) {
+    return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
+  } else if (cleaned.length > 6) {
+    return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+  } else if (cleaned.length > 0) {
+    return `(${cleaned}`;
+  }
+
+  return cleaned;
+};
+
 
   return (
     <div className=" bg-transparent lg:h-screen h-full px-6 py-4">

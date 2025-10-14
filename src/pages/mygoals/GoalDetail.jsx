@@ -427,7 +427,7 @@ checked:before:justify-center checked:before:items-center"
         handleClick={() => setGoalDetailModal(false)}
         heading={"Congratulations"}
         para={"Goal Successfully Completed."}
-        onclick={() => setGoalDetailModal(false)}
+        onClick={() => setGoalDetailModal(false)}
       />
       <AddSupportGoalModal
         showModal={showModalsupport}
