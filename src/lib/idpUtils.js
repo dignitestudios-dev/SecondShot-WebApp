@@ -909,14 +909,7 @@ export function downloadSendReportPDF(userData, resume, idpData, profilename) {
   const logoHeight = 40; // adjust as needed, in mm
   const logoX = (pdfWidth - logoWidth) / 2; // Center horizontally
   const logoY = 15; // Position from top
-  pdf.addImage(
-   logo,
-    "PNG",
-    logoX,
-    logoY,
-    logoWidth,
-    logoHeight
-  );
+  pdf.addImage(logo, "PNG", logoX, logoY, logoWidth, logoHeight);
 
   // Center the main title
   // Set up coordinates
@@ -1204,11 +1197,11 @@ export function downloadSendReportPDF(userData, resume, idpData, profilename) {
   // Add PDF title
 
   yPosition = startResumeSection(yPosition);
-
+  pdf.addPage();
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(16);
   pdf.text(`${resume[0] ? "Resume" : ""}`, leftMargin, yPosition);
-  yPosition += 10;
+  yPosition = 20;
   // PART 2: Add Resume data
   // Get the first resume from the array if resume is an array
   const resumeData = Array.isArray(resume) ? resume[0] : resume;
@@ -1629,7 +1622,8 @@ export function downloadSendReportPDF(userData, resume, idpData, profilename) {
   if (resume[0]) {
     pdf.addPage();
   }
-  yPosition = 120;
+  yPosition = 20;
+
 
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(16);
