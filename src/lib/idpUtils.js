@@ -910,7 +910,7 @@ export function downloadSendReportPDF(userData, resume, idpData, profilename) {
   const logoX = (pdfWidth - logoWidth) / 2; // Center horizontally
   const logoY = 15; // Position from top
   pdf.addImage(
-    "https://secondshot-app.vercel.app/assets/newLogo-BTPOwHSu.png",
+   logo,
     "PNG",
     logoX,
     logoY,

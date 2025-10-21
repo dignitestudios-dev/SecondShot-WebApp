@@ -44,7 +44,7 @@ const GoalCreatedModal = ({
               <div className="flex justify-between mt-4">
                 <button
                   className=" w-[210px] h-[49px] bg-[#E5EAED] rounded-[8px] text-[#000000] font-[500] "
-                  onClick={onClick}
+                  onClick={()=>navigate("/mygoals")}
                 >
                   <div className="flex items-center justify-center">
                     <span className="mr-1">Done With Setting Goals</span>

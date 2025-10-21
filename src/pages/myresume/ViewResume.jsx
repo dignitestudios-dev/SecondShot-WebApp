@@ -151,12 +151,15 @@ const ViewResume = () => {
         heightLeft -= pdfHeight;
       }
 
-      const pdfBlob = pdf.output("blob");
+        const pdfBlob = pdf.output("blob");
+    const pdfFile = new File([pdfBlob], filename || "resume.pdf", {
+      type: "application/pdf",
+    });
      
 
       const formData = new FormData();
 
-      formData.append("resume", pdfBlob, filename);
+    formData.append("resume", pdfFile); // ✅ file name will now go correctly
 
       await axios.post("/api/user/send-to-email", formData, );
 
@@ -206,10 +209,10 @@ const ViewResume = () => {
         </div>
         <div className="flex items-center">
           <div
+            onClick={handleShowPeopleModal}
             className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer"
-            onClick={() => handlePrint()}
           >
-            <img className="w-[27.61px] h-[23px] " src={Printimg} title="Print " />
+            <img className="w-[21px] h-[17px] " src={Shareimg} title="Share" />
           </div>
           <div
             onClick={handleDownloadModal}
@@ -217,11 +220,12 @@ const ViewResume = () => {
           >
             <img className="w-[12px] h-[18.38px] " src={Downloadimg} title="Download" />
           </div>
-          <div
-            onClick={handleShowPeopleModal}
+         
+           <div
             className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer"
+            onClick={() => handlePrint()}
           >
-            <img className="w-[21px] h-[17px] " src={Shareimg} title="Share" />
+            <img className="w-[27.61px] h-[23px] " src={Printimg} title="Print " />
           </div>
           <div className="w-[189px]">
             <AuthSubmitBtn

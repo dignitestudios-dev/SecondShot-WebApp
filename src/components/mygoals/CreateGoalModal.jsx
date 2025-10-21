@@ -22,7 +22,8 @@ const CreateGoalModal = ({ showModal, handleClick, handleClose }) => {
 
   useEffect(() => {
     const date = new Date();
-    date.setMonth(date.getMonth() + 3);
+    // date.setMonth(date.getMonth() + 3);
+    date.setMonth(date.getMonth() );
     setThreeMonthsAgo(date);
   }, []);
 

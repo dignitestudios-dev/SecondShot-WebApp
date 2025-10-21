@@ -113,7 +113,11 @@ function ReviewYourGoalOld() {
       });
 
       if (response.status === 201) {
-        SuccessToast("Goal Created Successfully");
+        if (supportPeopleAdded && formattedSupportPeople.length > 0) {
+        SuccessToast("Email has been sent to support people successfully!");
+      } else {
+        SuccessToast("Goal Created Successfully!");
+      }
 
         const goalid = response?.data?.data?._id;
 

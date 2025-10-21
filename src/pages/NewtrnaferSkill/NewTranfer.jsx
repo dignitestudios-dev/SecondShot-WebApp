@@ -332,9 +332,10 @@ const NewTranfer = ({
                           bottom: "43%",
                           right: "14%",
                           transform: "translate(50%, 50%)",
-                          zIndex: indexAppear == 2 && -2,
+                          zIndex: 2 ,
                         },
                       ];
+                      
                       return (
                         <button
                           key={item?._id}
@@ -371,7 +372,7 @@ const NewTranfer = ({
                           <div
                             className="absolute -top-4 -right-18 bottom-full mb-2 hidden group-hover:flex flex-col items-center
   opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100
-  transition-all duration-300 ease-in-out z-30"
+  transition-all duration-300 ease-in-out z-"
                           >
                             <div className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3 w-max max-w-[250px] text-center">
                               {item?.title}
