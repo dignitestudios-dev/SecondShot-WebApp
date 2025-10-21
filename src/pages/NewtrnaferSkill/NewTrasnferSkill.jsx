@@ -280,71 +280,88 @@ const NewTrasnferSkill = ({ id }) => {
 
   const transferpdfElement = document.getElementById("download-skills");
 
-  const handlePrint = async () => {
-    const element = document.getElementById("download-skills");
-    if (!element) return alert("Skills section not found!");
 
-    // Wait for all images to load
-    const images = element.querySelectorAll("img");
-    await Promise.all(
-      Array.from(images).map((img) => {
-        if (!img.complete) {
-          return new Promise((resolve) => (img.onload = img.onerror = resolve));
-        }
-      })
-    );
 
-    // Temporarily make sure it's visible
-    const prevZ = element.style.zIndex;
-    element.style.zIndex = "9999";
-    element.style.opacity = "1";
-    element.style.visibility = "visible";
-    element.style.position = "relative";
-    element.style.backgroundColor = "#ffffff";
+ const handlePrint = async () => {
+  const element = document.getElementById("download-skills");
+  if (!element) return alert("Skills section not found!");
 
-    // Capture the section as an image (high quality)
-    const canvas = await html2canvas(element, {
-      scale: 3, // higher scale = sharper print
-      backgroundColor: "#ffffff",
-      useCORS: true,
-      onclone: (clonedDoc) => {
-        // Slightly boost contrast/brightness for vivid print colors
-        clonedDoc.querySelectorAll("*").forEach((el) => {
-          el.style.filter = "contrast(1.2) brightness(1.1)";
-        });
-      },
-    });
+  // ✅ Wait for layout stabilization
+  await new Promise((resolve) => requestAnimationFrame(resolve));
 
-    // Convert to image
-    const imgData = canvas.toDataURL("image/png");
+  // ✅ Wait for all images to fully load
+  const images = element.querySelectorAll("img");
+  await Promise.all(
+    Array.from(images).map(
+      (img) =>
+        img.complete ||
+        new Promise((resolve) => (img.onload = img.onerror = resolve))
+    )
+  );
 
-    // Open print window
-    const printWindow = window.open("", "_blank");
-    printWindow.document.write(`
+  // ✅ Temporarily disable transitions/filters
+  const style = document.createElement("style");
+  style.innerHTML = `
+    * {
+      transition: none !important;
+      animation: none !important;
+      filter: none !important;
+      opacity: 1 !important;
+      backdrop-filter: none !important;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // ✅ Backup + force visibility
+  const prevStyles = {
+    zIndex: element.style.zIndex,
+    opacity: element.style.opacity,
+    visibility: element.style.visibility,
+    position: element.style.position,
+    backgroundColor: element.style.backgroundColor,
+  };
+  Object.assign(element.style, {
+    zIndex: "9999",
+    opacity: "1",
+    visibility: "visible",
+    position: "relative",
+    backgroundColor: "#fff",
+  });
+
+  // ✅ Wait a short time to ensure styles applied
+  await new Promise((resolve) => setTimeout(resolve, 300));
+
+  // ✅ Capture high quality snapshot
+  const canvas = await html2canvas(element, {
+    scale: 3,
+    useCORS: true,
+    backgroundColor: "#ffffff",
+    logging: false,
+  });
+
+  // ✅ Restore everything
+  Object.assign(element.style, prevStyles);
+  document.head.removeChild(style);
+
+  // ✅ Open print window
+  const imgData = canvas.toDataURL("image/png");
+  const printWindow = window.open("", "_blank");
+  printWindow.document.write(`
     <html>
       <head>
         <title>Second Shot Career Prep Toolbox Map</title>
         <style>
-          @page { size: A4; margin: 20mm; }
+          @page { size: A4; margin: 10mm; }
           body {
-            font-family: Arial, sans-serif;
+            background: #fff;
             text-align: center;
             margin: 0;
-            background: #fff;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
           img {
             max-width: 100%;
             height: auto;
-            filter: contrast(1.1) brightness(1.1);
-          }
-          @media print {
-            body, * {
-              -webkit-print-color-adjust: exact !important;
-              print-color-adjust: exact !important;
-              background-color: #fff !important;
-            }
           }
         </style>
       </head>
@@ -352,18 +369,46 @@ const NewTrasnferSkill = ({ id }) => {
         <img src="${imgData}" />
         <script>
           window.onload = () => {
-            window.print();
-            window.onafterprint = () => window.close();
+            setTimeout(() => {
+              window.print();
+              window.onafterprint = () => window.close();
+            }, 300);
           };
         </script>
       </body>
     </html>
   `);
-    printWindow.document.close();
+  printWindow.document.close();
+};
+const [imagesLoaded, setImagesLoaded] = useState(false);
+const checkImagesLoaded = async (elementId) => {
+  const element = document.getElementById(elementId);
+  if (!element) return false;
 
-    // Restore styles
-    element.style.zIndex = prevZ;
-  };
+  const images = element.querySelectorAll("img");
+  if (images.length === 0) return true;
+
+  await Promise.all(
+    Array.from(images).map(
+      (img) =>
+        img.complete ||
+        new Promise((resolve) => (img.onload = img.onerror = resolve))
+    )
+  );
+  return true;
+};
+
+useEffect(() => {
+  const interval = setInterval(async () => {
+    const loaded = await checkImagesLoaded("download-skills");
+    if (loaded) {
+      setImagesLoaded(true);
+      clearInterval(interval);
+    }
+  }, 3000); // har second check karega
+  return () => clearInterval(interval);
+}, []);
+
 
   return (
     <div>
@@ -452,16 +497,25 @@ const NewTrasnferSkill = ({ id }) => {
               )}
             </div>
           )}
-          <div
-            className="p-2 mx-1 w-[47px] h-[49px] items-center  flex justify-center bg-white shadow-lg rounded-lg cursor-pointer"
-            onClick={() => handlePrint()}
-          >
-            <img
-              className="w-[27.61px] h-[23px] "
-              src={Printimg}
-              title="Print "
-            />
-          </div>
+        <div
+  className={`p-2 mx-1 w-[47px] h-[49px] flex justify-center items-center rounded-lg shadow-lg 
+    ${
+      imagesLoaded
+        ? "bg-white cursor-pointer hover:scale-105 transition-all"
+        : "bg-gray-200 cursor-not-allowed opacity-50"
+    }`}
+  onClick={() => {
+    if (imagesLoaded) handlePrint(); // ✅ disable click if not ready
+  }}
+  title={imagesLoaded ? "Print" : "Loading images..."}
+>
+  <img
+    src={Printimg}
+    alt="Print"
+    className="w-[27.61px] h-[23px]"
+  />
+</div>
+
           <div className="w-[189px] shadow-lg rounded-full">
             <AuthSubmitBtn
               text={"Email It To Yourself"}

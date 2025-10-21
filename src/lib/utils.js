@@ -1,6 +1,7 @@
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import html2canvas from "html2canvas";
+import { logo } from "../assets/export";
 
 /**
  * Generates a PDF from user profile data that includes hobbies, subjects, and sports
@@ -348,6 +349,22 @@ export const downloadProfilePDF = (userData) => {
  * @param {string} elementId - The ID of the HTML element to capture
  * @param {string} filename - The name for the downloaded PDF file
  */
+// 🧠 Helper: Convert image URL → Base64 (so jsPDF won’t throw CORS error)
+async function loadImageAsBase64(url) {
+  try {
+    const res = await fetch(logo, { mode: "cors" });
+    const blob = await res.blob();
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(blob);
+    });
+  } catch (err) {
+    console.error("Logo fetch failed:", err);
+    return null;
+  }
+}
+
 export const generateCombinedPDF = async (
   userData,
   elementId,
@@ -386,10 +403,7 @@ export const generateCombinedPDF = async (
     // 🔹 Temporarily disable transitions globally
     const style = document.createElement("style");
     style.innerHTML = `
-      * {
-        transition: none !important;
-        animation: none !important;
-      }
+      * { transition: none !important; animation: none !important; }
     `;
     document.head.appendChild(style);
 
@@ -404,27 +418,22 @@ export const generateCombinedPDF = async (
     element.style.visibility = "visible";
     element.style.position = "relative";
 
-    // Wait for layout to stabilize
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 400));
 
-    // ✅ Disable transitions/effects specifically on this element (fixes faded snapshot)
+    // ✅ Disable transitions/effects on this element
     const downloadEl = document.getElementById(elementId);
     if (downloadEl) {
-      downloadEl.classList.add("pdf-capture-mode");
       downloadEl.style.transition = "none";
       downloadEl.style.opacity = "1";
-      downloadEl.style.filter = "none";
       downloadEl.style.background = "#ffffff";
       downloadEl.querySelectorAll("*").forEach((el) => {
         el.style.transition = "none";
-        el.style.filter = "none";
         el.style.opacity = "1";
-        el.style.backdropFilter = "none";
+        el.style.filter = "none";
       });
     }
 
     // 🔹 Capture element
-    const padding = 50;
     const canvas = await html2canvas(element, {
       scale: 2,
       backgroundColor: "#ffffff",
@@ -432,23 +441,15 @@ export const generateCombinedPDF = async (
       logging: false,
     });
 
-    // ✅ Restore styles after snapshot
-    if (downloadEl) {
-      downloadEl.classList.remove("pdf-capture-mode");
-      downloadEl.removeAttribute("style");
-      downloadEl.querySelectorAll("*").forEach((el) =>
-        el.removeAttribute("style")
-      );
-    }
-
-    // 🔹 Restore original styles
+    // Restore styles
+    document.head.removeChild(style);
     element.style.zIndex = prevZIndex;
     element.style.opacity = prevOpacity;
     element.style.visibility = prevVisibility;
     element.style.position = prevPosition;
-    document.head.removeChild(style);
 
     // 🔹 Add padding around canvas
+    const padding = 50;
     const paddedCanvas = document.createElement("canvas");
     const ctx = paddedCanvas.getContext("2d");
     paddedCanvas.width = canvas.width + 2 * padding;
@@ -458,27 +459,29 @@ export const generateCombinedPDF = async (
     ctx.drawImage(canvas, padding, padding);
 
     // 🔹 Create PDF
-    const pdfWidth = 210; // A4 width (mm)
-    const pdfHeight = 297; // A4 height (mm)
+    const pdfWidth = 210;
+    const pdfHeight = 297;
     const pdf = new jsPDF({
       orientation: "portrait",
       unit: "mm",
       format: [pdfWidth, pdfHeight],
     });
 
-    // Add logo + header
+    // ✅ Load logo safely
+    const logoBase64 = await loadImageAsBase64(
+      "https://secondshot-app.vercel.app/assets/newLogo-BTPOwHSu.png"
+    );
+
     const logoWidth = 60;
     const logoHeight = 50;
     const logoX = (pdfWidth - logoWidth) / 2;
     const logoY = 15;
-    pdf.addImage(
-      "https://secondshot-app.vercel.app/assets/newLogo-BTPOwHSu.png",
-      "PNG",
-      logoX,
-      logoY,
-      logoWidth,
-      logoHeight
-    );
+
+    if (logoBase64) {
+      pdf.addImage(logoBase64, "PNG", logoX, logoY, logoWidth, logoHeight);
+    } else {
+      console.warn("Logo skipped due to fetch error.");
+    }
 
     pdf.setFont("helvetica", "bold");
     pdf.setFontSize(10);
@@ -486,9 +489,7 @@ export const generateCombinedPDF = async (
       "Second Shot Career Prep Toolbox Report",
       pdfWidth / 2,
       logoY + logoHeight + 2,
-      {
-        align: "center",
-      }
+      { align: "center" }
     );
 
     pdf.setFont("helvetica", "normal");
@@ -497,42 +498,37 @@ export const generateCombinedPDF = async (
       `Prepared For: ${profilename}`,
       pdfWidth / 2,
       logoY + logoHeight + 8,
-      {
-        align: "center",
-      }
+      { align: "center" }
     );
 
-    // Add snapshot to first page
+    // ✅ Add captured image to PDF
+    const imgData = paddedCanvas.toDataURL("image/jpeg", 0.8);
+    if (!imgData.startsWith("data:image")) {
+      throw new Error("Snapshot image invalid or empty");
+    }
+
     const contentWidth = pdfWidth - 20;
     const contentHeight =
       (paddedCanvas.height * contentWidth) / paddedCanvas.width;
     const snapshotY = logoY + logoHeight + 20;
-    pdf.addImage(
-      paddedCanvas.toDataURL("image/jpeg", 0.8),
-      "JPEG",
-      10,
-      snapshotY,
-      contentWidth,
-      contentHeight
-    );
+
+    pdf.addImage(imgData, "JPEG", 10, snapshotY, contentWidth, contentHeight);
 
     // Add structured content to second page
     pdf.addPage();
     addStructuredContent(pdf, userData, subscriptionpaid);
 
-    // Save file
+    // ✅ Save file
     pdf.save(filename);
   } catch (error) {
     console.error("Error generating combined PDF:", error);
   } finally {
-    // Always restore everything
     document
       .querySelectorAll(".pdf-exclude")
       .forEach((el) => (el.style.display = ""));
     setIsSnapshot(false);
   }
 };
-
 
 /**
  * Adds structured content to the PDF (adapted from your existing generateProfilePDF function)
@@ -967,7 +963,7 @@ export const sendCombinedPDF = async (
 
       // Add your logo - use a base64 string or a URL (commented out as before)
       pdf.addImage(
-        "https://secondshot-app.vercel.app/assets/newLogo-BTPOwHSu.png",
+        logo,
         "PNG",
         logoX,
         logoY,

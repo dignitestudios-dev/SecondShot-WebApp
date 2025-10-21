@@ -5,6 +5,7 @@ import PlaybookAward from "../assets/playbookAward.png";
 import GameTime from "../assets/gameTime.png";
 import ChampionAward from "../assets/championAward.png";
 import FameAward from "../assets/fameAward.png";
+import { logo } from "../assets/export";
 
 /**
  * Creates a PDF document with transferable skills and resume data
@@ -46,14 +47,7 @@ export function createPDFWithUserDataAndResume(
   const logoHeight = 60; // adjust as needed, in mm
   const logoX = (pdfWidth - logoWidth) / 2; // Center horizontally
   const logoY = 15; // Position from top
-  pdf.addImage(
-    "https://secondshot-app.vercel.app/assets/newLogo-BTPOwHSu.png",
-    "PNG",
-    logoX,
-    logoY,
-    logoWidth,
-    logoHeight
-  );
+  pdf.addImage(logo, "PNG", logoX, logoY, logoWidth, logoHeight);
 
   // Center the main title
   // Set up coordinates
