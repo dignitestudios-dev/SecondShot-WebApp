@@ -320,22 +320,22 @@ const NewTranfer = ({
                           top: "39%",
                           left: "50%",
                           transform: "translate(-50%, -50%)",
-                          zIndex: appear == index - 10,
+                          zIndex: appear === item._id ? 999 : 7, // 👈 fix here
                         },
                         {
                           bottom: "41%",
                           left: "14%",
                           transform: "translate(-50%, 50%)",
-                          zIndex: 7,
+                          zIndex: appear === item._id ? 999 : 7, // 👈 fix here
                         },
                         {
                           bottom: "43%",
                           right: "14%",
                           transform: "translate(50%, 50%)",
-                          zIndex: 2 ,
+                          zIndex: appear === item._id ? 999 : 7, // 👈 fix here
                         },
                       ];
-                      
+
                       return (
                         <button
                           key={item?._id}
@@ -372,7 +372,7 @@ const NewTranfer = ({
                           <div
                             className="absolute -top-4 -right-18 bottom-full mb-2 hidden group-hover:flex flex-col items-center
   opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100
-  transition-all duration-300 ease-in-out z-"
+  transition-all duration-300 ease-in-out z-30"
                           >
                             <div className="bg-[#56EC17] text-[#172E55] text-md font-medium rounded-lg shadow-lg py-2 px-3 w-max max-w-[250px] text-center">
                               {item?.title}
@@ -380,7 +380,7 @@ const NewTranfer = ({
                             <div className="w-3 h-3 bg-[#56EC17] relative -top-2 rotate-45 -mb-10" />
                           </div>
                           <div
-                            className={`w-[388px] flex  z-50    p-3  transition-all duration-500 absolute  top-12 right-0 left-0  rounded-2xl bg-[#D4FFC2] justify-between items-start ${
+                            className={`w-[388px]  flex  z-50    p-3  transition-all duration-500 absolute  top-12 right-0 left-0  rounded-2xl bg-[#D4FFC2] justify-between items-start ${
                               appear &&
                               selectedIndex?.id === item?._id &&
                               selectedIndex?.name === item?.title
@@ -1090,34 +1090,39 @@ const NewTranfer = ({
               />
 
               {getSkill?.athlete?.sport_position?.topics?.map((item, index) => {
-                const positions = [
-                  {
-                    top: "19%",
-                    right: "10%",
-                    transform: "translate(-50%, -50%)",
-                    zIndex: 50,
-                  },
-                  {
-                    bottom: "5%",
-                    left: "33%",
-                    transform: "translate(50%, -50%)",
-                  },
-                  {
-                    top: "52%",
-                    right: "30%",
-                    transform: "translate(-50%, -50%)",
-                  },
-                  {
-                    bottom: "39.5%",
-                    left: "22%",
-                    transform: "translate(-50%, 50%)",
-                  },
-                  {
-                    bottom: "47%",
-                    right: "14%",
-                    transform: "translate(50%, 50%)",
-                  },
-                ];
+               const positions = [
+  {
+    top: "19%",
+    right: "10%",
+    transform: "translate(-50%, -50%)",
+    zIndex: appear === item._id ? 999 : 50,
+  },
+  {
+    bottom: "5%",
+    left: "33%",
+    transform: "translate(50%, -50%)",
+    zIndex: appear === item._id ? 999 : 50,
+  },
+  {
+    top: "52%",
+    right: "30%",
+    transform: "translate(-50%, -50%)",
+    zIndex: appear === item._id ? 999 : 50,
+  },
+  {
+    bottom: "39.5%",
+    left: "22%",
+    transform: "translate(-50%, 50%)",
+    zIndex: appear === item._id ? 999 : 50,
+  },
+  {
+    bottom: "47%",
+    right: "14%",
+    transform: "translate(50%, 50%)",
+    zIndex: appear === item._id ? 999 : 50,
+  },
+];
+
 
                 return (
                   <button
