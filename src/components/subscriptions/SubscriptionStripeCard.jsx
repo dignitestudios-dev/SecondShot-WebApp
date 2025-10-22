@@ -102,12 +102,16 @@ const SubscriptionStripeCard = ({ selected, handleModal, cardsubdata }) => {
         <div className="bg-gradient-to-l from-[#012C57] to-[#061523] text-white py-2 px-4 rounded-lg flex justify-between items-center">
           <div>
             <p className="font-[600] text-[18px] leading-[24.3px] ">
-              {cardData?.subscription_duration === "monthly"
+
+Discounted Price
+
+
+              {/* {cardData?.subscription_duration === "monthly"
                 ? "Monthly"
                 : cardData?.subscription_duration ||
                   cardData?.subscription_duration === "yearly"
                 ? "Yearly"
-                : cardData?.subscription_duration}
+                : cardData?.subscription_duration} */}
             </p>
           </div>
           <div className="text-right flex items-center h-12">
