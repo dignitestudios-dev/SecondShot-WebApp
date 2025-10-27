@@ -19,6 +19,15 @@ import {
   SuccessToast,
 } from "../../components/toaster/ToasterContainer";
 import axios from "../../axios";
+import {
+  Document,
+  Packer,
+  Paragraph,
+  TextRun,
+  HeadingLevel,
+  AlignmentType,
+} from "docx";
+import { saveAs } from "file-saver";
 
 const ViewResume = () => {
   const location = useLocation();
@@ -151,17 +160,16 @@ const ViewResume = () => {
         heightLeft -= pdfHeight;
       }
 
-        const pdfBlob = pdf.output("blob");
-    const pdfFile = new File([pdfBlob], filename || "resume.pdf", {
-      type: "application/pdf",
-    });
-     
+      const pdfBlob = pdf.output("blob");
+      const pdfFile = new File([pdfBlob], filename || "resume.pdf", {
+        type: "application/pdf",
+      });
 
       const formData = new FormData();
 
-    formData.append("resume", pdfFile); // ✅ file name will now go correctly
+      formData.append("resume", pdfFile); // ✅ file name will now go correctly
 
-      await axios.post("/api/user/send-to-email", formData, );
+      await axios.post("/api/user/send-to-email", formData);
 
       SuccessToast("Resume emailed successfully!");
     } catch (error) {
@@ -176,6 +184,278 @@ const ViewResume = () => {
       // onclick();
     }
   };
+  const handleDownloadWord = async () => {
+    try {
+      const doc = new Document({
+        sections: [
+          {
+            properties: {},
+            children: [
+              // ===== HEADER =====
+              new Paragraph({
+                alignment: AlignmentType.CENTER,
+                spacing: { after: 100 },
+                children: [
+                  new TextRun({
+                    text: resumeData?.full_name || "Your Name",
+                    bold: true,
+                    size: 36,
+                  }),
+                ],
+              }),
+              new Paragraph({
+                alignment: AlignmentType.CENTER,
+                spacing: { after: 200 },
+                children: [
+                  new TextRun({
+                    text: `${resumeData?.email || ""}  |  ${
+                      resumeData?.phone || ""
+                    }  |  ${resumeData?.address || ""}`,
+                    size: 22,
+                  }),
+                ],
+              }),
+
+              // ===== OBJECTIVE =====
+              new Paragraph({
+                text: "OBJECTIVE",
+                heading: HeadingLevel.HEADING_2,
+                spacing: { before: 200, after: 100 },
+                bold: true,
+              }),
+              new Paragraph({
+                text: resumeData?.objective?.description || "",
+                spacing: { after: 200 },
+              }),
+
+              // ===== EDUCATION =====
+              ...(resumeData?.education?.length
+                ? [
+                    new Paragraph({
+                      text: "EDUCATION",
+                      heading: HeadingLevel.HEADING_2,
+                      spacing: { before: 200, after: 100 },
+                      bold: true,
+                    }),
+                    ...resumeData.education.map(
+                      (edu) =>
+                        new Paragraph({
+                          spacing: { after: 150 },
+                          children: [
+                            new TextRun({
+                              text: `${edu.institution}`,
+                              bold: true,
+                              size: 26,
+                            }),
+                            new TextRun({
+                              text: ` (${edu.start_year} - ${
+                                edu.end_year || "Present"
+                              })`,
+                              italics: true,
+                              size: 22,
+                            }),
+                            new TextRun({
+                              text: `\n${edu.degree}`,
+                              size: 22,
+                            }),
+                          ],
+                        })
+                    ),
+                  ]
+                : []),
+
+              // ===== CERTIFICATIONS =====
+              ...(resumeData?.licenses_and_certifications?.length
+                ? [
+                    new Paragraph({
+                      text: "CERTIFICATIONS",
+                      heading: HeadingLevel.HEADING_2,
+                      spacing: { before: 200, after: 100 },
+                      bold: true,
+                    }),
+                    ...resumeData.licenses_and_certifications.map(
+                      (ctr) =>
+                        new Paragraph({
+                          spacing: { after: 100 },
+                          children: [
+                            new TextRun({
+                              text: `• ${ctr.certification_name} `,
+                              bold: true,
+                            }),
+                            new TextRun({
+                              text: `(${
+                                ctr.issue_date?.split("T")[0].split("-")[0]
+                              }${
+                                ctr.expiration_date
+                                  ? " - " +
+                                    ctr.expiration_date
+                                      ?.split("T")[0]
+                                      .split("-")[0]
+                                  : ""
+                              })`,
+                              italics: true,
+                            }),
+                          ],
+                        })
+                    ),
+                  ]
+                : []),
+
+              // ===== SKILLS =====
+              ...(resumeData?.soft_skills?.length ||
+              resumeData?.technical_skills?.length
+                ? [
+                    new Paragraph({
+                      text: "SKILLS",
+                      heading: HeadingLevel.HEADING_2,
+                      spacing: { before: 200, after: 100 },
+                      bold: true,
+                    }),
+                    ...(resumeData?.soft_skills?.length
+                      ? [
+                          new Paragraph({
+                            text: "Soft Skills:",
+                            bold: true,
+                            spacing: { after: 100 },
+                          }),
+                          new Paragraph({
+                            text: resumeData.soft_skills.join("  •  "),
+                            spacing: { after: 200 },
+                          }),
+                        ]
+                      : []),
+                    ...(resumeData?.technical_skills?.length
+                      ? [
+                          new Paragraph({
+                            text: "Technical Skills:",
+                            bold: true,
+                            spacing: { after: 100 },
+                          }),
+                          new Paragraph({
+                            text: resumeData.technical_skills.join("  •  "),
+                            spacing: { after: 200 },
+                          }),
+                        ]
+                      : []),
+                  ]
+                : []),
+
+              // ===== WORK EXPERIENCE =====
+              ...(resumeData?.experience?.length
+                ? [
+                    new Paragraph({
+                      text: "WORK EXPERIENCE",
+                      heading: HeadingLevel.HEADING_2,
+                      spacing: { before: 200, after: 100 },
+                      bold: true,
+                    }),
+                    ...resumeData.experience.map(
+                      (exp) =>
+                        new Paragraph({
+                          spacing: { after: 200 },
+                          children: [
+                            new TextRun({
+                              text: `${exp.company} `,
+                              bold: true,
+                              size: 26,
+                            }),
+                            new TextRun({
+                              text: `(${
+                                exp.start_date?.split("T")[0].split("-")[0]
+                              } - ${
+                                exp.end_date
+                                  ? exp.end_date?.split("T")[0].split("-")[0]
+                                  : "Present"
+                              })`,
+                              italics: true,
+                              size: 22,
+                            }),
+                            new TextRun({
+                              text: `\n${exp.job_title}`,
+                              bold: true,
+                              size: 24,
+                            }),
+                            new TextRun({
+                              text: `\n${exp.description}`,
+                              size: 22,
+                            }),
+                          ],
+                        })
+                    ),
+                  ]
+                : []),
+
+              // ===== VOLUNTEER EXPERIENCE =====
+              ...(resumeData?.volunteer_experience?.length
+                ? [
+                    new Paragraph({
+                      text: "VOLUNTEER SERVICE",
+                      heading: HeadingLevel.HEADING_2,
+                      spacing: { before: 200, after: 100 },
+                      bold: true,
+                    }),
+                    ...resumeData.volunteer_experience.map(
+                      (vol) =>
+                        new Paragraph({
+                          spacing: { after: 200 },
+                          children: [
+                            new TextRun({
+                              text: `${vol.organization_name} (${
+                                vol.start_year
+                              } - ${vol.end_year || "Present"})`,
+                              bold: true,
+                              size: 24,
+                            }),
+                            new TextRun({
+                              text: `\n${vol.description}`,
+                              size: 22,
+                            }),
+                          ],
+                        })
+                    ),
+                  ]
+                : []),
+
+              // ===== HONORS =====
+              ...(resumeData?.honors_and_awards?.length
+                ? [
+                    new Paragraph({
+                      text: "HONORS & AWARDS",
+                      heading: HeadingLevel.HEADING_2,
+                      spacing: { before: 200, after: 100 },
+                      bold: true,
+                    }),
+                    ...resumeData.honors_and_awards.map(
+                      (honor) =>
+                        new Paragraph({
+                          spacing: { after: 100 },
+                          children: [
+                            new TextRun({
+                              text: `• ${honor.award_name} `,
+                              bold: true,
+                            }),
+                            new TextRun({
+                              text: `(${
+                                honor.date_Received?.split("T")[0].split("-")[0]
+                              })`,
+                              italics: true,
+                            }),
+                          ],
+                        })
+                    ),
+                  ]
+                : []),
+            ],
+          },
+        ],
+      });
+
+      const blob = await Packer.toBlob(doc);
+      saveAs(blob, `${resumeData?.full_name || "resume"}.docx`);
+    } catch (error) {
+      console.error("Error generating Word file:", error);
+    }
+  };
 
   return (
     <div className="">
@@ -184,6 +464,7 @@ const ViewResume = () => {
         <ResumeDownloadModal
           showModal={showModalDownload}
           onclick={handleDownloadModal}
+          resumeData={resumeData}
         />
         <AddSupportModal
           showModal={showPeopleModal}
@@ -218,14 +499,22 @@ const ViewResume = () => {
             onClick={handleDownloadModal}
             className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer"
           >
-            <img className="w-[12px] h-[18.38px] " src={Downloadimg} title="Download" />
+            <img
+              className="w-[12px] h-[18.38px] "
+              src={Downloadimg}
+              title="Download"
+            />
           </div>
-         
-           <div
+
+          <div
             className="p-2 mx-1 w-[47px] h-[49px] items-center flex justify-center bg-white shadow-sm rounded-lg cursor-pointer"
             onClick={() => handlePrint()}
           >
-            <img className="w-[27.61px] h-[23px] " src={Printimg} title="Print " />
+            <img
+              className="w-[27.61px] h-[23px] "
+              src={Printimg}
+              title="Print "
+            />
           </div>
           <div className="w-[189px]">
             <AuthSubmitBtn
@@ -234,6 +523,8 @@ const ViewResume = () => {
               loading={loading}
             />
           </div>
+        
+
           <div className="relative inline-block text-left" ref={dropdownRef}>
             <img
               src={Dottedvertical}
