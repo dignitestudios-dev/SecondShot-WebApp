@@ -808,28 +808,56 @@ export function createPDFWithUserDataAndResume(
   }
 
   // Add Favorite Subject section
-  if (userData.favorite_middle_school_subject) {
+  // Add Favorite Subject section
+  if (
+    userData?.military &&
+    userData?.military?.branch_of_service &&
+    userData?.military?.rank
+  ) {
+    // Military Section
+    const subjectName = userData.military.rank?.rank_name || "Unnamed Subject";
+
+    yPosition = addSectionTitle(`Military: ${subjectName}`, yPosition);
+
+    const subjectTopics = userData?.military?.rank?.topics || [];
+    subjectTopics.forEach((topic, index) => {
+      if (topic) {
+        yPosition = addListItem(index + 1, topic.title, yPosition, [
+          { description: topic.description || "No description available" },
+        ]);
+
+        if (yPosition > 250) {
+          doc.addPage();
+          yPosition = 20;
+        }
+      }
+    });
+
+    yPosition += 10;
+  } else if (userData.favorite_middle_school_subject) {
+    // Favorite Subject Section
     const subjectName =
       userData.favorite_middle_school_subject.subject_name || "Unnamed Subject";
+
     yPosition = addSectionTitle(`Favorite Subject: ${subjectName}`, yPosition);
 
-    // Extract topics from the subject data
-    const subjectTopics = userData.favorite_middle_school_subject.topics || [];
-    if (Array.isArray(subjectTopics) && subjectTopics.length > 0) {
-      subjectTopics.forEach((topic, index) => {
-        if (topic) {
-          yPosition = addListItem(
-            index + 1,
-            topic.title || "Untitled",
-            yPosition,
-            [{ description: topic.description || "No description available" }]
-          );
-          yPosition += 3;
-          yPosition = checkPageBreak(yPosition);
+    const subjectTopics =
+      userData?.favorite_middle_school_subject?.topics || [];
+
+    subjectTopics.forEach((topic, index) => {
+      if (topic) {
+        yPosition = addListItem(index + 1, topic.title, yPosition, [
+          { description: topic.description || "No description available" },
+        ]);
+
+        if (yPosition > 250) {
+          doc.addPage();
+          yPosition = 20;
         }
-      });
-    }
-    yPosition += 5;
+      }
+    });
+
+    yPosition += 10;
   }
 
   // Add Hobby 1 section
@@ -1624,7 +1652,6 @@ export function downloadSendReportPDF(userData, resume, idpData, profilename) {
   }
   yPosition = 20;
 
-
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(16);
   pdf.text("Transferable Skills", leftMargin, yPosition);
@@ -1713,28 +1740,55 @@ export function downloadSendReportPDF(userData, resume, idpData, profilename) {
   }
 
   // Add Favorite Subject section
-  if (userData.favorite_middle_school_subject) {
+  if (
+    userData?.military &&
+    userData?.military?.branch_of_service &&
+    userData?.military?.rank
+  ) {
+    // Military Section
+    const subjectName = userData.military.rank?.rank_name || "Unnamed Subject";
+
+    yPosition = addSectionTitle(`Military: ${subjectName}`, yPosition);
+
+    const subjectTopics = userData?.military?.rank?.topics || [];
+    subjectTopics.forEach((topic, index) => {
+      if (topic) {
+        yPosition = addListItem(index + 1, topic.title, yPosition, [
+          { description: topic.description || "No description available" },
+        ]);
+
+        if (yPosition > 250) {
+          doc.addPage();
+          yPosition = 20;
+        }
+      }
+    });
+
+    yPosition += 10;
+  } else if (userData.favorite_middle_school_subject) {
+    // Favorite Subject Section
     const subjectName =
       userData.favorite_middle_school_subject.subject_name || "Unnamed Subject";
+
     yPosition = addSectionTitle(`Favorite Subject: ${subjectName}`, yPosition);
 
-    // Extract topics from the subject data
-    const subjectTopics = userData.favorite_middle_school_subject.topics || [];
-    if (Array.isArray(subjectTopics) && subjectTopics.length > 0) {
-      subjectTopics.forEach((topic, index) => {
-        if (topic) {
-          yPosition = addListItem(
-            index + 1,
-            topic.title || "Untitled",
-            yPosition,
-            [{ description: topic.description || "No description available" }]
-          );
-          yPosition += 3;
-          yPosition = checkPageBreak(yPosition);
+    const subjectTopics =
+      userData?.favorite_middle_school_subject?.topics || [];
+
+    subjectTopics.forEach((topic, index) => {
+      if (topic) {
+        yPosition = addListItem(index + 1, topic.title, yPosition, [
+          { description: topic.description || "No description available" },
+        ]);
+
+        if (yPosition > 250) {
+          doc.addPage();
+          yPosition = 20;
         }
-      });
-    }
-    yPosition += 5;
+      }
+    });
+
+    yPosition += 10;
   }
 
   // Add Hobby 1 section

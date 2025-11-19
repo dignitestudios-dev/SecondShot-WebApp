@@ -722,32 +722,64 @@ function addStructuredContent(doc, userData, subscriptionpaid) {
   }
 
   // Add Favorite Subject section
-  if (subscriptionpaid && userData.favorite_middle_school_subject) {
-    const subjectName =
-      userData.favorite_middle_school_subject.subject_name || "Unnamed Subject";
-    yPosition = addSectionTitle(`Favorite Subject: ${subjectName}`, yPosition);
+ if (
+  subscriptionpaid &&
+  userData?.military &&
+  userData?.military?.branch_of_service &&
+  userData?.military?.rank
+) {
+  // Military Section
+  const subjectName =
+    userData.military.rank?.rank_name || "Unnamed Subject";
 
-    // Extract topics from the subject data
-    const subjectTopics = userData.favorite_middle_school_subject.topics || [];
-    if (Array.isArray(subjectTopics)) {
-      subjectTopics.forEach((topic, index) => {
-        if (topic) {
-          const prevPosition = yPosition;
-          yPosition = addListItem(index + 1, topic.title, yPosition, [
-            { description: topic.description || "No description available" },
-          ]);
+  yPosition = addSectionTitle(`Military: ${subjectName}`, yPosition);
 
-          // Check if we need a new page after adding this item
-          if (yPosition > 250) {
-            doc.addPage();
-            yPosition = 20;
-          }
-        }
-      });
+  const subjectTopics = userData?.military?.rank?.topics || [];
+  subjectTopics.forEach((topic, index) => {
+    if (topic) {
+      yPosition = addListItem(index + 1, topic.title, yPosition, [
+        { description: topic.description || "No description available" },
+      ]);
+
+      if (yPosition > 250) {
+        doc.addPage();
+        yPosition = 20;
+      }
     }
+  });
 
-    yPosition += 10;
-  }
+  yPosition += 10;
+}
+else if (subscriptionpaid && userData.favorite_middle_school_subject) {
+  // Favorite Subject Section
+  const subjectName =
+    userData.favorite_middle_school_subject.subject_name ||
+    "Unnamed Subject";
+
+  yPosition = addSectionTitle(`Favorite Subject: ${subjectName}`, yPosition);
+
+  const subjectTopics =
+    userData?.favorite_middle_school_subject?.topics || [];
+
+  subjectTopics.forEach((topic, index) => {
+    if (topic) {
+      yPosition = addListItem(index + 1, topic.title, yPosition, [
+        { description: topic.description || "No description available" },
+      ]);
+
+      if (yPosition > 250) {
+        doc.addPage();
+        yPosition = 20;
+      }
+    }
+  });
+
+  yPosition += 10;
+}
+
+
+
+  // Check if we need to start a new page
 
   // Check if we need to start a new page
   if (yPosition > 250) {

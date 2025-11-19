@@ -23,7 +23,7 @@ const CongratsModal = ({
             </div>
             <div className="px-4 pt-2 pb-2 mt-4">
               <h2 className="text-[32px] font-[600] text-center">{heading}</h2>
-              <p className="text-center text-[#9A9A9A] text-[16px] font-[500]">
+              <p className="text-center break-words  text-[#9A9A9A] text-[16px] font-[500]">
                 {para}
               </p>
               <div className="mt-5">

@@ -21,45 +21,68 @@ const StepThree = ({
   questionId,
   getMyIdp,
   cardData,
-  idpData
-
+  idpData,
 }) => {
-
   const [loading, setLoading] = useState(false);
-  const{ profilename} =useContext(AuthContext)
+  const { profilename } = useContext(AuthContext);
+  const [tags, setTags] = useState([]);
 
-  
-  
-  const { values, handleBlur, handleChange, handleSubmit, errors, touched } =
-    useFormik({
-      initialValues: {
-        gameTime: cardData?.[2] || '', // use cardData[2] directly
-      },
-      enableReinitialize: true,
-      validationSchema: stepThreeAward,
-      validateOnChange: true,
-      validateOnBlur: true,
-      onSubmit: async (values, action) => {
-        setGameTime(values.gameTime);
-        setLoading(true)
-        try {
-          const response = await axios.post("/api/user/update-idp-form", {
-            questionId: questionId,
-            answer:values.gameTime,
-          });
-          if (response.status === 200) {
-            SuccessToast(response?.data?.message);
-            setModalOpen(true);
-            getMyIdp();
-          }
-        } catch (error) {
-          ErrorToast(error?.response?.data?.message);
-        } finally {
-          setLoading(false);
-        }
-        
-      },
-    });
+  const handleTagInput = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const newTag = e.target.value.trim();
+
+      if (!newTag) return;
+
+      if (tags.length >= 3) {
+        ErrorToast("You can only add 3 items!");
+        return;
+      }
+
+      setTags([...tags, newTag]);
+      e.target.value = "";
+    }
+  };
+
+  useEffect(() => {
+    console.log("Tags array:", tags);
+  }, [tags]);
+
+ const { values, handleSubmit } = useFormik({
+  initialValues: {
+    gameTime: cardData?.[2] || "",
+  },
+  enableReinitialize: true,
+  onSubmit: async () => {
+    if (tags.length !== 3) {
+      ErrorToast("Please enter exactly 3 items!");
+      return;
+    }
+
+    console.log("Final Tags Submitted:", tags);
+
+    setGameTime(tags);
+    setLoading(true);
+
+    try {
+      const response = await axios.post("/api/user/update-idp-form", {
+        questionId,
+        answer: tags,
+      });
+
+      if (response.status === 200) {
+        SuccessToast(response?.data?.message);
+        setModalOpen(true);
+        getMyIdp();
+      }
+    } catch (error) {
+      ErrorToast(error?.response?.data?.message);
+    } finally {
+      setLoading(false);
+    }
+  },
+});
+
   return (
     <div>
       <div className="mt-10  px-4">
@@ -67,7 +90,9 @@ const StepThree = ({
           <img
             src={PlaybookAward}
             className={`w-[90px] h-[85.63px] transition-opacity duration-500 ${
-              idpData?.data?.[2]?.answer?.length > 0 ? "opacity-100" : "opacity-20"
+              idpData?.data?.[2]?.answer?.length > 0
+                ? "opacity-100"
+                : "opacity-20"
             }`}
             alt=""
           />
@@ -86,24 +111,39 @@ const StepThree = ({
         </label>
         <form action="" onSubmit={handleSubmit}>
           <div>
-            <input
-              id="gameTime"
-              name="gameTime"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.gameTime}
-              type="text"
-              className="w-full border rounded-[12px] p-2 h-[49px]  mb-2  mt-2 text-sm"
-              placeholder="Enter your answer here"
-              maxLength={50}
-            />
-            {errors.gameTime && touched.gameTime && (
-              <p className="text-red-500 text-sm mb-2">{errors.gameTime}</p>
-            )}
+            <div className="border rounded-[12px] p-2 min-h-[49px] flex flex-wrap gap-2">
+              {tags.map((tag, i) => (
+                <span
+                  key={i}
+                  className="px-2 py-1 bg-[#012C57] text-white rounded-full text-xs flex items-center gap-1"
+                >
+                  {tag}
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setTags(tags.filter((_, index) => index !== i))
+                    }
+                    className="font-bold ml-1"
+                  >
+                    ×
+                  </button>
+                </span>
+              ))}
+
+              {tags.length < 3 && (
+                <input
+                  type="text"
+                  placeholder="Type & Press Enter"
+                  onKeyDown={handleTagInput}
+                  className="outline-none text-sm flex-1 min-w-[120px]"
+                  maxLength={50}
+                />
+              )}
+            </div>
           </div>
 
-          <div>
-            <AuthSubmitBtn text={"Submit"} loading={loading} type={'submit'} />
+          <div className="mt-3">
+            <AuthSubmitBtn text={"Submit"} loading={loading} type={"submit"} />
           </div>
         </form>
         <button
@@ -126,9 +166,7 @@ const StepThree = ({
         img={PlaybookAward}
         showModal={modalOpen}
         heading={"Congratulations!"}
-        para={
-          `Second Shot has awarded ${profilename} the Game Time Award for selecting the ${values.gameTime} to further research and apply. Congratulations!`
-        }
+        para={`Second Shot has awarded ${profilename} the Game Time Award for selecting the ${values.gameTime} to further research and apply. Congratulations!`}
         handleClick={handleModalClose}
         onclick={() => setModalOpen(false)}
       />

@@ -209,6 +209,7 @@ const NewTrasnferSkill = ({ id }) => {
     }
   };
 
+
   const handleDownloadCombined = (e, data, filename, loaders) => {
     if (
       !isTopSkillActive ||
