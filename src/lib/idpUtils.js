@@ -1669,12 +1669,7 @@ export function downloadSendReportPDF(userData, resume, idpData, profilename) {
 
     // Add Position section if athlete data exists
     if (userData.athlete && userData.athlete.primary_sport) {
-      yPosition = addSectionTitle(
-        `Position: ${
-          userData.athlete.primary_sport.sport_name || "Not specified"
-        }`,
-        yPosition
-      );
+    
 
       // Extract topics from the position data
       const positionTopics = userData.athlete.primary_sport.topics || [];
@@ -1711,12 +1706,7 @@ export function downloadSendReportPDF(userData, resume, idpData, profilename) {
 
     // Add Position section if athlete data exists
     if (userData.athlete && userData.athlete.sport_position) {
-      yPosition = addSectionTitle(
-        `Position: ${
-          userData.athlete.sport_position.position_name || "Not specified"
-        }`,
-        yPosition
-      );
+     
 
       // Extract topics from the position data
       const positionTopics = userData.athlete.sport_position.topics || [];
