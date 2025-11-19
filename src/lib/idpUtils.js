@@ -808,34 +808,33 @@ export function createPDFWithUserDataAndResume(
   }
 
   // Add Favorite Subject section
-  // Add Favorite Subject section
   if (
     userData?.military &&
     userData?.military?.branch_of_service &&
     userData?.military?.rank
   ) {
-    // Military Section
     const subjectName = userData.military.rank?.rank_name || "Unnamed Subject";
 
     yPosition = addSectionTitle(`Military: ${subjectName}`, yPosition);
 
+    // Extract topics from the subject data
     const subjectTopics = userData?.military?.rank?.topics || [];
-    subjectTopics.forEach((topic, index) => {
-      if (topic) {
-        yPosition = addListItem(index + 1, topic.title, yPosition, [
-          { description: topic.description || "No description available" },
-        ]);
-
-        if (yPosition > 250) {
-          doc.addPage();
-          yPosition = 20;
+    if (Array.isArray(subjectTopics) && subjectTopics.length > 0) {
+      subjectTopics.forEach((topic, index) => {
+        if (topic) {
+          yPosition = addListItem(
+            index + 1,
+            topic.title || "Untitled",
+            yPosition,
+            [{ description: topic.description || "No description available" }]
+          );
+          yPosition += 3;
+          yPosition = checkPageBreak(yPosition);
         }
-      }
-    });
-
-    yPosition += 10;
+      });
+    }
+    yPosition += 5;
   } else if (userData.favorite_middle_school_subject) {
-    // Favorite Subject Section
     const subjectName =
       userData.favorite_middle_school_subject.subject_name || "Unnamed Subject";
 
@@ -851,7 +850,7 @@ export function createPDFWithUserDataAndResume(
         ]);
 
         if (yPosition > 250) {
-          doc.addPage();
+          pdf.addPage();
           yPosition = 20;
         }
       }
@@ -1745,28 +1744,27 @@ export function downloadSendReportPDF(userData, resume, idpData, profilename) {
     userData?.military?.branch_of_service &&
     userData?.military?.rank
   ) {
-    // Military Section
     const subjectName = userData.military.rank?.rank_name || "Unnamed Subject";
-
     yPosition = addSectionTitle(`Military: ${subjectName}`, yPosition);
 
+    // Extract topics from the subject data
     const subjectTopics = userData?.military?.rank?.topics || [];
-    subjectTopics.forEach((topic, index) => {
-      if (topic) {
-        yPosition = addListItem(index + 1, topic.title, yPosition, [
-          { description: topic.description || "No description available" },
-        ]);
-
-        if (yPosition > 250) {
-          doc.addPage();
-          yPosition = 20;
+    if (Array.isArray(subjectTopics) && subjectTopics.length > 0) {
+      subjectTopics.forEach((topic, index) => {
+        if (topic) {
+          yPosition = addListItem(
+            index + 1,
+            topic.title || "Untitled",
+            yPosition,
+            [{ description: topic.description || "No description available" }]
+          );
+          yPosition += 3;
+          yPosition = checkPageBreak(yPosition);
         }
-      }
-    });
-
-    yPosition += 10;
+      });
+    }
+    yPosition += 5;
   } else if (userData.favorite_middle_school_subject) {
-    // Favorite Subject Section
     const subjectName =
       userData.favorite_middle_school_subject.subject_name || "Unnamed Subject";
 

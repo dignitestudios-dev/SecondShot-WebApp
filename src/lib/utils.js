@@ -722,62 +722,57 @@ function addStructuredContent(doc, userData, subscriptionpaid) {
   }
 
   // Add Favorite Subject section
- if (
-  subscriptionpaid &&
-  userData?.military &&
-  userData?.military?.branch_of_service &&
-  userData?.military?.rank
-) {
-  // Military Section
-  const subjectName =
-    userData.military.rank?.rank_name || "Unnamed Subject";
+  if (
+    subscriptionpaid &&
+    userData?.military &&
+    userData?.military?.branch_of_service &&
+    userData?.military?.rank
+  ) {
+    // Military Section
+    const subjectName = userData.military.rank?.rank_name || "Unnamed Subject";
 
-  yPosition = addSectionTitle(`Military: ${subjectName}`, yPosition);
+    yPosition = addSectionTitle(`Military: ${subjectName}`, yPosition);
 
-  const subjectTopics = userData?.military?.rank?.topics || [];
-  subjectTopics.forEach((topic, index) => {
-    if (topic) {
-      yPosition = addListItem(index + 1, topic.title, yPosition, [
-        { description: topic.description || "No description available" },
-      ]);
+    const subjectTopics = userData?.military?.rank?.topics || [];
+    subjectTopics.forEach((topic, index) => {
+      if (topic) {
+        yPosition = addListItem(index + 1, topic.title, yPosition, [
+          { description: topic.description || "No description available" },
+        ]);
 
-      if (yPosition > 250) {
-        doc.addPage();
-        yPosition = 20;
+        if (yPosition > 250) {
+          doc.addPage();
+          yPosition = 20;
+        }
       }
-    }
-  });
+    });
 
-  yPosition += 10;
-}
-else if (subscriptionpaid && userData.favorite_middle_school_subject) {
-  // Favorite Subject Section
-  const subjectName =
-    userData.favorite_middle_school_subject.subject_name ||
-    "Unnamed Subject";
+    yPosition += 10;
+  } else if (subscriptionpaid && userData.favorite_middle_school_subject) {
+    // Favorite Subject Section
+    const subjectName =
+      userData.favorite_middle_school_subject.subject_name || "Unnamed Subject";
 
-  yPosition = addSectionTitle(`Favorite Subject: ${subjectName}`, yPosition);
+    yPosition = addSectionTitle(`Favorite Subject: ${subjectName}`, yPosition);
 
-  const subjectTopics =
-    userData?.favorite_middle_school_subject?.topics || [];
+    const subjectTopics =
+      userData?.favorite_middle_school_subject?.topics || [];
 
-  subjectTopics.forEach((topic, index) => {
-    if (topic) {
-      yPosition = addListItem(index + 1, topic.title, yPosition, [
-        { description: topic.description || "No description available" },
-      ]);
+    subjectTopics.forEach((topic, index) => {
+      if (topic) {
+        yPosition = addListItem(index + 1, topic.title, yPosition, [
+          { description: topic.description || "No description available" },
+        ]);
 
-      if (yPosition > 250) {
-        doc.addPage();
-        yPosition = 20;
+        if (yPosition > 250) {
+          doc.addPage();
+          yPosition = 20;
+        }
       }
-    }
-  });
+    });
 
-  yPosition += 10;
-}
-
-
+    yPosition += 10;
+  }
 
   // Check if we need to start a new page
 
@@ -994,14 +989,7 @@ export const sendCombinedPDF = async (
       const logoY = 15; // Position from top
 
       // Add your logo - use a base64 string or a URL (commented out as before)
-      pdf.addImage(
-        logo,
-        "PNG",
-        logoX,
-        logoY,
-        logoWidth,
-        logoHeight
-      );
+      pdf.addImage(logo, "PNG", logoX, logoY, logoWidth, logoHeight);
 
       // Center the main title
       // Set up coordinates
