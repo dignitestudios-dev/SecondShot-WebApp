@@ -91,7 +91,7 @@ const StepFour = ({
               value={values?.linkdInprofile}
               type="text"
               className="w-full border rounded-[12px] p-2 h-[49px]  mb-2  mt-2 text-sm"
-              placeholder="Lorem ipsum dolor sit amet consectetur."
+              placeholder="Enter LinkedIn Profile."
               maxLength={50}
             />
             {errors.linkdInprofile && touched.linkdInprofile && (
